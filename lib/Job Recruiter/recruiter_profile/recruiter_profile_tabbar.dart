@@ -159,27 +159,33 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                       ],
                     ),
                   ),
-                  TabBar(
-                    indicatorPadding:
-                        EdgeInsets.symmetric(horizontal: Get.width * .02),
-                    //labelPadding: EdgeInsets.only(right: 72),
-                    isScrollable: true,
-                    indicator: const UnderlineTabIndicator(
-                      borderSide:
-                          BorderSide(width: 2.0, color: Color(0xff56B8F6)),
-                      //insets: EdgeInsets.symmetric(horizontal: width*.14),
-                    ),
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    unselectedLabelColor: const Color(0xffCFCFCF),
-                    labelColor: const Color(0xff56B8F6),
-                    labelStyle: Theme.of(context).textTheme.bodyMedium,
-                    tabs: const [
-                      Tab(text: "HOME"),
-                      Tab(
-                        text: "ABOUT",
-                      ),
-                      Tab(
-                        text: "JOBS",
+                  SizedBox(height: Get.height*.018,) ,
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      TabBar(
+                        indicatorPadding:
+                            EdgeInsets.symmetric(horizontal: Get.width * .02),
+                        //labelPadding: EdgeInsets.only(right: 72),
+                        isScrollable: true,
+                        indicator: const UnderlineTabIndicator(
+                          borderSide:
+                              BorderSide(width: 2.0, color: Color(0xff56B8F6)),
+                          //insets: EdgeInsets.symmetric(horizontal: width*.14),
+                        ),
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        unselectedLabelColor: const Color(0xffCFCFCF),
+                        labelColor: const Color(0xff56B8F6),
+                        labelStyle: Theme.of(context).textTheme.bodyMedium,
+                        tabs: const [
+                          Tab(text: "HOME"),
+                          Tab(
+                            text: "ABOUT",
+                          ),
+                          Tab(
+                            text: "JOBS",
+                          ),
+                        ],
                       ),
                     ],
                   ),

@@ -44,12 +44,13 @@ class _LoginState extends State<Login> {
                 height: Get.height,
                 width: Get.width,
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                    colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  // gradient: LinearGradient(
+                  //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
+                  //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
+                  //   begin: Alignment.topLeft,
+                  //   end: Alignment.bottomRight,
+                  // ),
+               color: Color(0xff285bf5) ,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
@@ -73,8 +74,9 @@ class _LoginState extends State<Login> {
               DraggableScrollableSheet(
                 initialChildSize: 0.72, // half screen
                 minChildSize: 0.72, // half screen
-                maxChildSize: 1, // full screen
-                builder: (BuildContext context, ScrollController scrollController) {
+                maxChildSize: 0.72, // full screen
+                builder: (BuildContext context,
+                    ScrollController scrollController) {
                   return Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.only(
@@ -82,8 +84,8 @@ class _LoginState extends State<Login> {
                           topLeft:Radius.circular(30) , ),
                         color: Colors.black),
                     // color: Colors.black,
-                    child:   SingleChildScrollView(
-                      controller:scrollController ,
+                    child: SingleChildScrollView(
+                     physics: NeverScrollableScrollPhysics(),
                       child: Container(
                         height: Get.height,
                         width: Get.width,
@@ -95,7 +97,7 @@ class _LoginState extends State<Login> {
                           ),
                         ),
                         child: Padding(
-                          padding:  EdgeInsets.symmetric(horizontal: Get.width*.06),
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.06),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

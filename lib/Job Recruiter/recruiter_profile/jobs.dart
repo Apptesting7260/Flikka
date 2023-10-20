@@ -65,38 +65,40 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                       minVerticalPadding: 13,
                       leading: CircleAvatar(
                         radius: Get.width*.10,
-                          backgroundImage: NetworkImage("${data?.featureImg}",)),
+                          backgroundImage: NetworkImage("${data?.featureImg}",)
+                      ),
                       title: Text(data?.jobPositions ?? "No Data",overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFFFFFF),fontWeight: FontWeight.w700),),
-                      subtitle:  Column(
+                      subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: Get.height*.007,),
+                          SizedBox(height: Get.height*.001,),
                           Text(widget.company ?? "No Data",overflow: TextOverflow.ellipsis,
                               style: Theme.of(context)
                                   .textTheme
                                   .labelLarge?.copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)
                           ),
-                          SizedBox(height: Get.height*.007,),
+                          SizedBox(height: Get.height*.001,),
                           Text(data?.jobLocation ?? "No Data",overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                          SizedBox(height: Get.height*.007,),
+                          SizedBox(height: Get.height*.001,),
                           Text(uploadingTime,
                               style: Theme.of(context)
                                   .textTheme
                                   .labelSmall?.copyWith(color: const Color(0xff9D9D9D),fontWeight: FontWeight.w400)
                           ),
-
                         ],
                       ),
                       trailing: const Icon(Icons.more_vert,color: Colors.white,size: 25,),
                     ),
                   ),
                 );
-              },)
+              },
+              )
             ],
           ),
         ),
-    ));
+    )
+    );
   }
 }

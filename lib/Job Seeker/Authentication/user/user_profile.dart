@@ -1546,17 +1546,11 @@ class _UserProfileState extends State<UserProfile> {
                                                         'assets/images/skillsvg.svg')),
                                                 SizedBox(
                                                   width: Get.width * 0.02,),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 4.0),
-                                                  child:
-                                                  Text('Skill',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors
-                                                            .white),),
-                                                ),
+                                                Text('Skill',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
                                               ],
                                             ),
                                             InkWell(
@@ -1572,6 +1566,16 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
+                                        SizedBox(
+                                          height: Get.height * 0.01,),
+                                        Text('Soft Skill',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+
                                         // SizedBox(height: Get.height * 0.02,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.skillName ==
@@ -1617,7 +1621,326 @@ class _UserProfileState extends State<UserProfile> {
                                                           .w400),),
                                               );
                                             }),
-                                        SizedBox(height: Get.height * 0.04,),
+                                        ///////////passion////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('Passion',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.passionName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.passionName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.passionName
+                                                ?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = seekerProfileController
+                                                  .viewSeekerData.value
+                                                  .seekerDetails
+                                                  ?.passionName?[index];
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
+                                                  color: AppColors.blackdown,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    8),
+                                                child: Text('${data?.passion}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!.copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight: FontWeight
+                                                          .w400),),
+                                              );
+                                            }),
+                                        //////////passion////////////
+
+                                        ////////industry preference////////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('industry preference',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.industryPreferenceName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.industryPreferenceName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.industryPreferenceName
+                                                ?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = seekerProfileController
+                                                  .viewSeekerData.value
+                                                  .seekerDetails
+                                                  ?.industryPreferenceName?[index];
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
+                                                  color: AppColors.blackdown,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    8),
+                                                child: Text('${data?.industryPreferences}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!.copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight: FontWeight
+                                                          .w400),),
+                                              );
+                                            }),
+                                        ////////industry preference////////////
+
+                                        //////////////Strengths////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('Strengths',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.strengthsName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.strengthsName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.strengthsName
+                                                ?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = seekerProfileController
+                                                  .viewSeekerData.value
+                                                  .seekerDetails
+                                                  ?.strengthsName?[index];
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
+                                                  color: AppColors.blackdown,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    8),
+                                                child: Text('${data?.strengths}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!.copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight: FontWeight
+                                                          .w400),),
+                                              );
+                                            }),
+                                        //////////////Strengths////////
+
+                                        //////////////Salary expectation////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('Salary expectation',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.salaryExpectationName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.salaryExpectationName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius
+                                                .circular(12),
+                                            color: AppColors.blackdown,
+                                          ),
+                                          padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
+                                          child: Text('${seekerProfileController.viewSeekerData.value
+                                              .seekerDetails?.salaryExpectationName}',
+                                            overflow: TextOverflow
+                                                .ellipsis,
+                                            style: Get.theme.textTheme
+                                                .bodySmall!.copyWith(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight
+                                                    .w400),),
+                                        ),
+                                        //////////////Salary expectation////////
+
+                                        //////////////When can i start working?////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('When can i start working?',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.startWorkName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.startWorkName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.startWorkName
+                                                ?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = seekerProfileController
+                                                  .viewSeekerData.value
+                                                  .seekerDetails
+                                                  ?.startWorkName?[index];
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
+                                                  color: AppColors.blackdown,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    8),
+                                                child: Text('${data?.startWork}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!.copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight: FontWeight
+                                                          .w400),),
+                                              );
+                                            }),
+                                        //////////////When can i start working?////////
+
+
+                                        //////////////Availability?////////
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        Text('Availability?',
+                                          style: Get.theme.textTheme
+                                              .labelMedium!.copyWith(
+                                              color: AppColors
+                                                  .white),),
+                                        SizedBox(
+                                          height: Get.height * 0.02,),
+                                        seekerProfileController.viewSeekerData
+                                            .value.seekerDetails?.availabityName ==
+                                            null ||
+                                            seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.availabityName
+                                                ?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: seekerProfileController
+                                                .viewSeekerData.value
+                                                .seekerDetails?.availabityName
+                                                ?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = seekerProfileController
+                                                  .viewSeekerData.value
+                                                  .seekerDetails
+                                                  ?.availabityName?[index];
+                                              return Container(
+                                                alignment: Alignment.center,
+                                                decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius
+                                                      .circular(12),
+                                                  color: AppColors.blackdown,
+                                                ),
+                                                padding: const EdgeInsets.all(
+                                                    8),
+                                                child: Text('${data?.availabity}',
+                                                  overflow: TextOverflow
+                                                      .ellipsis,
+                                                  style: Get.theme.textTheme
+                                                      .bodySmall!.copyWith(
+                                                      color: AppColors.white,
+                                                      fontWeight: FontWeight
+                                                          .w400),),
+                                              );
+                                            }),
+                                        //////////////Availability?////////
+
+
+                                        SizedBox(height: Get.height * 0.045,),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
