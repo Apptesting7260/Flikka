@@ -1,0 +1,67 @@
+
+import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
+import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+class RecruiterAbout extends StatefulWidget {
+ final RecruiterProfileDetails? recruiterProfileDetails ;
+  const RecruiterAbout({super.key, this.recruiterProfileDetails});
+
+  @override
+  State<RecruiterAbout> createState() => _RecruiterAboutState();
+}
+
+class _RecruiterAboutState extends State<RecruiterAbout> {
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(child: Scaffold(
+      backgroundColor: const Color(0xff000),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: Get.height*.045,),
+              Text("About",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.005,),
+              Text(widget.recruiterProfileDetails?.aboutDescription ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
+              SizedBox(height: Get.height*.03,),
+              Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: Color(0xff56B8F6)),),
+              SizedBox(height: Get.height*.02,),
+              Text("Industry",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text(widget.recruiterProfileDetails?.industry ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffCFCFCF)),),
+              SizedBox(height: Get.height*.02,),
+              Text("Company Size",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text( widget.recruiterProfileDetails?.companySize == null ? "No Data" :
+                "${widget.recruiterProfileDetails?.companySize} employees"  ,style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffCFCFCF)),),
+              SizedBox(height: Get.height*.02,),
+              Text("Type",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text("Self Owned",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffCFCFCF)),),
+              SizedBox(height: Get.height*.02,),
+              Text("Founded",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text("${widget.recruiterProfileDetails?.founded}",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+
+              // Text("${widget.recruiterProfileDetails?.founded?.day}-${widget.recruiterProfileDetails?.founded?.month}-${widget.recruiterProfileDetails?.founded?.year}",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+              SizedBox(height: Get.height*.02,),
+              Text("Specialties",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
+              SizedBox(height: Get.height*.003,),
+              Text(widget.recruiterProfileDetails?.specialties ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+
+              SizedBox(height: Get.height*.1,),
+
+            ],
+          ),
+        ),
+      ),
+    ));
+  }
+}
