@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/app_url.dart';
+import '../../utils/utils.dart';
 import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
 
 class EditSeekerProfileController extends GetxController {
@@ -66,14 +67,7 @@ class EditSeekerProfileController extends GetxController {
         loadingImage(false);
         seekerProfileController.viewSeekerProfileApi();
         Get.back();
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              width: 130,
-              shape: StadiumBorder(),
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
-              content: Text('Profile updated'),
-            ));
+        Utils.toastMessage('Profile updated') ;
         if (kDebugMode) {
           print(responseData['message']);
         }

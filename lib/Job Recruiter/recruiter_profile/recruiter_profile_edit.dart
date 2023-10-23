@@ -57,49 +57,21 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
             ),
           ),
           content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.camera_alt_outlined,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImage(ImageSource.camera);
-                  //   },
-                  // ),
-                  MyButton(
-                    width: Get.width*.25,
-                    height: Get.height*.05,
-                    title: "Camera", onTap1: () {
-                    _pickImage(ImageSource.camera);
-                  },),
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.photo_library,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImage(ImageSource.gallery);
-                  //   },
-                  // ),
-                  MyButton(
-                    width: Get.width*.25,
-                    height: Get.height*.05,
-                    title: "Galery", onTap1: () {
-                    _pickImage(ImageSource.gallery);
-                  },),
-                  // Text('Galery',style: TextStyle(color: Colors.white),)
-                ],
-              ),
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Camera", onTap1: () {
+                _pickImage(ImageSource.camera);
+              },),
+              const SizedBox(width: 10,) ,
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Galery", onTap1: () {
+                _pickImage(ImageSource.gallery);
+              },),
             ],
           ),
         );
@@ -145,48 +117,21 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
             ),
           ),
           content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.camera_alt_outlined,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImagee(ImageSource.camera);
-                  //   },
-                  // ),
-                  MyButton(
-                    width: Get.width*.25,
-                    height: Get.height*.05,
-                    title: "Camera", onTap1: () {
-                    _pickImagee(ImageSource.camera);
-                  },)
-                ],
-              ),
-              Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.photo_library,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImagee(ImageSource.gallery);
-                  //   },
-                  // ),
-                  MyButton(
-                    width: Get.width*.25,
-                    height: Get.height*.05,
-                    title: "Gallery", onTap1: () {
-                    _pickImagee(ImageSource.gallery);
-                  },)
-                ],
-              ),
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Camera", onTap1: () {
+                _pickImagee(ImageSource.camera);
+              },),
+              const SizedBox(width: 10,),
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Gallery", onTap1: () {
+                _pickImagee(ImageSource.gallery);
+              },),
             ],
           ),
         );

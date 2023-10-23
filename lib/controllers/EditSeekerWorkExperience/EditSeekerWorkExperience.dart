@@ -4,6 +4,7 @@ import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../utils/utils.dart';
 import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
 
 class EditSeekerExperienceController extends GetxController {
@@ -36,14 +37,7 @@ class EditSeekerExperienceController extends GetxController {
         success(true) ;
         Get.back(result: true) ;
         seekerProfileController.viewSeekerProfileApi() ;
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              width: 130,
-              shape: StadiumBorder(),
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
-              content: Text('Profile updated'),
-            ) );
+        Utils.toastMessage('Profile updated') ;
       }
       else{
         errorMessage.value =  value.message.toString();
@@ -61,14 +55,7 @@ class EditSeekerExperienceController extends GetxController {
         success(true) ;
         Get.back(result: true) ;
         seekerProfileController.viewSeekerProfileApi() ;
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              width: 130,
-              shape: StadiumBorder(),
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
-              content: Text('Profile updated'),
-            ) );
+        Utils.toastMessage('Profile updated') ;
       }
       else{
         errorMessage.value =  value.message.toString();

@@ -50,7 +50,7 @@ class _LoginState extends State<Login> {
                   //   begin: Alignment.topLeft,
                   //   end: Alignment.bottomRight,
                   // ),
-               color: Color(0xff285bf5) ,
+               color: Color(0xff2D8CFF) ,
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

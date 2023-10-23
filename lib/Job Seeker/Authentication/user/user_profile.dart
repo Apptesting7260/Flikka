@@ -567,71 +567,73 @@ class _UserProfileState extends State<UserProfile> {
                         }, title: 'Cancel',
                       ),
                       const SizedBox(width: 20,) ,
-                      MyButton(
-                        width: 100,
-                        height: 40,
-                        loading: editSeekerExperienceController.loading.value,
-                        onTap1: () {
-                          List list = [] ;
-                          if(key.currentState!.validate()) {
-                            if (experience == true) {
-                              WorkExpJob experienceData = WorkExpJob() ;
-                              if (add == true) {
-                                experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
-                                experienceData.companyName = companyOrInstituteController.text ;
-                                experienceData.jobStartDate = _startDateController.text ;
-                                experienceData.jobEndDate = _endDateController.text ;
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
-                                editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                      Obx( () =>
+                       MyButton(
+                          width: 100,
+                          height: 40,
+                          loading: editSeekerExperienceController.loading.value,
+                          onTap1: () {
+                            List list = [] ;
+                            if(key.currentState!.validate()) {
+                              if (experience == true) {
+                                WorkExpJob experienceData = WorkExpJob() ;
+                                if (add == true) {
+                                  experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
+                                  experienceData.companyName = companyOrInstituteController.text ;
+                                  experienceData.jobStartDate = _startDateController.text ;
+                                  experienceData.jobEndDate = _endDateController.text ;
+                                  seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
+                                  editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                } else {
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .workExpJob = jobTitleOrEducationLevelController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .companyName = companyOrInstituteController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .jobStartDate = _startDateController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .jobEndDate = _endDateController.text;
+                                  editSeekerExperienceController.workApi(true,
+                                      seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                }
                               } else {
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .workExpJob = jobTitleOrEducationLevelController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .companyName = companyOrInstituteController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .jobStartDate = _startDateController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .jobEndDate = _endDateController.text;
-                                editSeekerExperienceController.workApi(true,
-                                    seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
-                              }
-                            } else {
-                              EducationLevel educationData = EducationLevel() ;
-                              if (add == true) {
-                                educationData.educationLevel = jobTitleOrEducationLevelController.text ;
-                                educationData.institutionName = companyOrInstituteController.text ;
-                                educationData.educationStartDate = _startDateController.text ;
-                                educationData.educationEndDate = _endDateController.text ;
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
-                                editSeekerExperienceController.workApi(
-                                    false, seekerProfileController.viewSeekerData.value
-                                        .seekerDetails?.educationLevel, context);
-                              } else {
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationLevel = jobTitleOrEducationLevelController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .institutionName = companyOrInstituteController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationStartDate = _startDateController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationEndDate = _endDateController.text;
-                                editSeekerExperienceController.workApi(
-                                    false,
-                                    seekerProfileController.viewSeekerData.value
-                                        .seekerDetails?.educationLevel,
-                                    context);
+                                EducationLevel educationData = EducationLevel() ;
+                                if (add == true) {
+                                  educationData.educationLevel = jobTitleOrEducationLevelController.text ;
+                                  educationData.institutionName = companyOrInstituteController.text ;
+                                  educationData.educationStartDate = _startDateController.text ;
+                                  educationData.educationEndDate = _endDateController.text ;
+                                  seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
+                                  editSeekerExperienceController.workApi(
+                                      false, seekerProfileController.viewSeekerData.value
+                                          .seekerDetails?.educationLevel, context);
+                                } else {
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationLevel = jobTitleOrEducationLevelController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .institutionName = companyOrInstituteController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationStartDate = _startDateController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationEndDate = _endDateController.text;
+                                  editSeekerExperienceController.workApi(
+                                      false,
+                                      seekerProfileController.viewSeekerData.value
+                                          .seekerDetails?.educationLevel,
+                                      context);
+                                }
                               }
                             }
-                          }
-                        }, title: 'Submit',
+                          }, title: 'Submit',
+                        ),
                       ),
                     ],
                   ),
@@ -792,14 +794,14 @@ class _UserProfileState extends State<UserProfile> {
   //********************* for appreciation *************
   TextEditingController appreciationController = TextEditingController();
 
-   appreciation(
-       int index ,
-       String? award ,
-       String? achievement ,
-  {
-    bool? add
-  }
-       ) {
+  appreciation(
+      int index ,
+      String? award ,
+      String? achievement ,
+      {
+        bool? add
+      }
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -820,9 +822,7 @@ class _UserProfileState extends State<UserProfile> {
                 children: [
                   TextFormField(
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                    onChanged: (String value) {
-
-                    },
+                    onChanged: (String value) {},
                     controller: awardController,
                     decoration: InputDecoration(
                       hintText: "Enter award name",
@@ -840,9 +840,7 @@ class _UserProfileState extends State<UserProfile> {
                   SizedBox(height: Get.height* 0.02,) ,
                   TextFormField(
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                    onChanged: (String value) {
-
-                    },
+                    onChanged: (String value) {},
                     controller: achievementController,
                     decoration: InputDecoration(
                       hintText: 'Enter achievement',
@@ -869,33 +867,37 @@ class _UserProfileState extends State<UserProfile> {
                         }, title: 'Cancel',
                       ),
                       const SizedBox(width: 20,) ,
-                      MyButton(
-                        width: 100,
-                        height: 40,
-                        loading: editSeekerAppreciationController.loading.value,
-                        onTap1: () {
-                          if(key.currentState!.validate()) {
-                            Appreciation appreciationData = Appreciation() ;
-                            if (add == true) {
-                              appreciationData.achievement = achievementController.text ;
-                              appreciationData.awardName = awardController.text ;
-                              seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.add(appreciationData) ;
-                              editSeekerAppreciationController.appreciationApi(
+                      Obx( () =>
+                          MyButton(
+                            width: 100,
+                            height: 40,
+                            loading: editSeekerAppreciationController.loading.value,
+                            onTap1: () {
+                              if(key.currentState!.validate()) {
+                                // List? list = [] ;
+                                Appreciation appreciationData = Appreciation() ;
+                                if (add == true) {
+                                  appreciationData.achievement = achievementController.text ;
+                                  appreciationData.awardName = awardController.text ;
+                                  seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.add(appreciationData) ;
+                                  // list = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation ;
+                                  // list?.add(appreciationData) ;
+                                  // print("this ======================= $list") ;
+                                  editSeekerAppreciationController.appreciationApi(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation, context);
+                                } else {
                                   seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.appreciation, context);
-                            } else {
-                              seekerProfileController.viewSeekerData.value
-                                  .seekerDetails?.appreciation?[index]
-                                  .awardName = awardController.text;
-                              seekerProfileController.viewSeekerData.value
-                                  .seekerDetails?.appreciation?[index]
-                                  .achievement = achievementController.text;
-                              editSeekerAppreciationController.appreciationApi(
+                                      .seekerDetails?.appreciation?[index]
+                                      .awardName = awardController.text;
                                   seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.appreciation, context);
-                            }
-                          }
-                        }, title: 'Submit',
+                                      .seekerDetails?.appreciation?[index]
+                                      .achievement = achievementController.text;
+                                  editSeekerAppreciationController.appreciationApi(
+                                      seekerProfileController.viewSeekerData.value
+                                          .seekerDetails?.appreciation, context);
+                                }
+                              }
+                            }, title: 'Submit',
+                          ),
                       ),
                     ],
                   ),
