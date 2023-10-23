@@ -567,71 +567,73 @@ class _UserProfileState extends State<UserProfile> {
                         }, title: 'Cancel',
                       ),
                       const SizedBox(width: 20,) ,
-                      MyButton(
-                        width: 100,
-                        height: 40,
-                        loading: editSeekerExperienceController.loading.value,
-                        onTap1: () {
-                          List list = [] ;
-                          if(key.currentState!.validate()) {
-                            if (experience == true) {
-                              WorkExpJob experienceData = WorkExpJob() ;
-                              if (add == true) {
-                                experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
-                                experienceData.companyName = companyOrInstituteController.text ;
-                                experienceData.jobStartDate = _startDateController.text ;
-                                experienceData.jobEndDate = _endDateController.text ;
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
-                                editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                      Obx( () =>
+                       MyButton(
+                          width: 100,
+                          height: 40,
+                          loading: editSeekerExperienceController.loading.value,
+                          onTap1: () {
+                            List list = [] ;
+                            if(key.currentState!.validate()) {
+                              if (experience == true) {
+                                WorkExpJob experienceData = WorkExpJob() ;
+                                if (add == true) {
+                                  experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
+                                  experienceData.companyName = companyOrInstituteController.text ;
+                                  experienceData.jobStartDate = _startDateController.text ;
+                                  experienceData.jobEndDate = _endDateController.text ;
+                                  seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
+                                  editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                } else {
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .workExpJob = jobTitleOrEducationLevelController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .companyName = companyOrInstituteController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .jobStartDate = _startDateController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.workExpJob?[index]
+                                      .jobEndDate = _endDateController.text;
+                                  editSeekerExperienceController.workApi(true,
+                                      seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                }
                               } else {
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .workExpJob = jobTitleOrEducationLevelController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .companyName = companyOrInstituteController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .jobStartDate = _startDateController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
-                                    .jobEndDate = _endDateController.text;
-                                editSeekerExperienceController.workApi(true,
-                                    seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
-                              }
-                            } else {
-                              EducationLevel educationData = EducationLevel() ;
-                              if (add == true) {
-                                educationData.educationLevel = jobTitleOrEducationLevelController.text ;
-                                educationData.institutionName = companyOrInstituteController.text ;
-                                educationData.educationStartDate = _startDateController.text ;
-                                educationData.educationEndDate = _endDateController.text ;
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
-                                editSeekerExperienceController.workApi(
-                                    false, seekerProfileController.viewSeekerData.value
-                                        .seekerDetails?.educationLevel, context);
-                              } else {
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationLevel = jobTitleOrEducationLevelController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .institutionName = companyOrInstituteController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationStartDate = _startDateController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.educationLevel?[index]
-                                    .educationEndDate = _endDateController.text;
-                                editSeekerExperienceController.workApi(
-                                    false,
-                                    seekerProfileController.viewSeekerData.value
-                                        .seekerDetails?.educationLevel,
-                                    context);
+                                EducationLevel educationData = EducationLevel() ;
+                                if (add == true) {
+                                  educationData.educationLevel = jobTitleOrEducationLevelController.text ;
+                                  educationData.institutionName = companyOrInstituteController.text ;
+                                  educationData.educationStartDate = _startDateController.text ;
+                                  educationData.educationEndDate = _endDateController.text ;
+                                  seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
+                                  editSeekerExperienceController.workApi(
+                                      false, seekerProfileController.viewSeekerData.value
+                                          .seekerDetails?.educationLevel, context);
+                                } else {
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationLevel = jobTitleOrEducationLevelController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .institutionName = companyOrInstituteController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationStartDate = _startDateController.text;
+                                  seekerProfileController.viewSeekerData.value
+                                      .seekerDetails?.educationLevel?[index]
+                                      .educationEndDate = _endDateController.text;
+                                  editSeekerExperienceController.workApi(
+                                      false,
+                                      seekerProfileController.viewSeekerData.value
+                                          .seekerDetails?.educationLevel,
+                                      context);
+                                }
                               }
                             }
-                          }
-                        }, title: 'Submit',
+                          }, title: 'Submit',
+                        ),
                       ),
                     ],
                   ),

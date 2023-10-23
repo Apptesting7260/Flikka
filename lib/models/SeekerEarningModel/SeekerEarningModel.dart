@@ -80,7 +80,7 @@ class Recruiter {
     resetPassOtp: json["reset_pass_otp"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    recruiterdetails: Recruiterdetails.fromJson(json["recruiterdetails"]),
+    recruiterdetails: json["recruiterdetails"] == null ? json["recruiterdetails"] : Recruiterdetails.fromJson(json["recruiterdetails"]),
   );
 
   Map<String, dynamic> toJson() => {

@@ -1,14 +1,9 @@
 
-import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../Job Seeker/Authentication/sign_up.dart';
 import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
 
 class EditAboutController extends GetxController {
@@ -37,14 +32,7 @@ class EditAboutController extends GetxController {
       success(true) ;
         Get.back(result: true) ;
         seekerProfileController.viewSeekerProfileApi() ;
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              width: 130,
-              shape: StadiumBorder(),
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
-              content: Text('Profile updated'),
-            ) );
+      Utils.toastMessage('Profile updated') ;
       }
       else{
         errorMessage.value =  value.message.toString();
