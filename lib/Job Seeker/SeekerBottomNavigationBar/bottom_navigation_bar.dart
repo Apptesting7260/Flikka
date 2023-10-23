@@ -24,8 +24,11 @@ class _BottomState extends State<Bottom> {
 
      BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_filter.svg",height: Get.height*.024)),
+        icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.024) ,
+        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.024) ,
+        // icon: SvgPicture.asset("assets/images/icon_unselect_location.svg",height: Get.height*.024),
+        // activeIcon: SvgPicture.asset("assets/images/icon_select_location.svg",height: Get.height*.024)
+     ),
 
 
      BottomNavigationBarItem(
@@ -37,7 +40,7 @@ class _BottomState extends State<Bottom> {
      BottomNavigationBarItem(
         label: "",
         icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024)
+        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024),
         ),
 
      BottomNavigationBarItem(
@@ -56,7 +59,7 @@ class _BottomState extends State<Bottom> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25), // Adjust the radius as needed
         topRight: Radius.circular(24), // Adjust the radius as needed
       ),

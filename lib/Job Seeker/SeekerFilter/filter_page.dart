@@ -57,14 +57,21 @@ class _FilterPageState extends State<FilterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(onPressed: (){
+          Get.back() ;
+        }, icon: Image.asset("assets/images/icon_back_blue.png",)),
+        title: Text("Filter",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+        toolbarHeight: 90,
+      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 18.0,right: 15),
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: Get.height*0.05,),
-              Text("Filter",style: Get.theme.textTheme.displayLarge),
+              // SizedBox(height: Get.height*0.05,),
+              // Text("Filter",style: Get.theme.textTheme.displayLarge),
               SizedBox(height: Get.height*0.03,),
               //*************** category *************
               Text('Job Position',style: Get.theme.textTheme.titleSmall),
