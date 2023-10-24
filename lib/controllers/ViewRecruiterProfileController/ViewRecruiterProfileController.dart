@@ -1,8 +1,8 @@
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/response/status.dart';
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
 

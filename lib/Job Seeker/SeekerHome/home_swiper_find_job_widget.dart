@@ -213,7 +213,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      data?.jobTitle ?? "No Data",
+                      data?.jobTitle ?? "Test Data",
                       style: Theme.of(context).textTheme.displayLarge,
                       softWrap: true,
                     ),
@@ -221,7 +221,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       height: Get.height * .003,
                     ),
                     Text(
-                      data?.recruiterDetails?.companyName ?? "No Data",
+                      data?.recruiterDetails?.companyName ?? "Test Data",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!
@@ -239,7 +239,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     SizedBox(
                       height: Get.height * .008,
                     ),
-                    Text(data?.description ?? "No Data",
+                    Text(data?.description ?? "Test Data",
                       // overflow: TextOverflow.ellipsis,
                       // softWrap: true,
                       style: Theme.of(context)
@@ -260,7 +260,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       height: Get.height * .007,
                     ),
                     Text(
-                      data?.requirements ?? "No Data",
+                      data?.requirements ?? "Test Data",
                       style: Theme.of(context)
                           .textTheme
                           .bodySmall!

@@ -3,11 +3,10 @@ import 'package:flikka/Job%20Recruiter/recruiter_profile/about.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/home.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/jobs.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flikka/controllers/SeekerProfile/SeekerCreateProfileController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flikka/utils/MultiSelectField.dart';
@@ -11,9 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:open_file/open_file.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
-import '../../../data/response/status.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
 

@@ -92,7 +92,7 @@ class AuthRepository {
     return SeekerChoosePositionGetModel.fromJson(response);
   }
 
-  Future<SeekerGetAllSkillsModel> seekerGetAllSkillsApi() async{
+  Future<SeekerGetAllSkillsModel?> seekerGetAllSkillsApi() async{
     dynamic response = await _apiService.getApi2(AppUrl.seekerGetAllSkills);
     return SeekerGetAllSkillsModel.fromJson(response);
   }

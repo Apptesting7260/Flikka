@@ -1,12 +1,12 @@
 
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/res/components/request_timeout_widget.dart';
 import 'package:flikka/res/components/server_error_widget.dart';
 import 'package:flikka/res/components/unauthorised_request_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
-import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import 'home_swiper_find_job_widget.dart';

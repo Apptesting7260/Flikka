@@ -916,7 +916,6 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-
   bool isWork = false;
   bool isEducation = false;
   bool isAppreciation = false;
@@ -1029,6 +1028,7 @@ class _UserProfileState extends State<UserProfile> {
                           SizedBox(
                             height: Get.height * .25,
                           ),
+
                           Row(
                             children: [
                               GestureDetector(
@@ -1047,14 +1047,9 @@ class _UserProfileState extends State<UserProfile> {
                                             Color(0xff4D6FED)
                                           ],
                                         )),
-                                    child: Image.asset(
-                                      "assets/images/wallet_icon.png",
-                                      height: 18,
-                                    ),
+                                    child: Image.asset("assets/images/wallet_icon.png", height: 18,),
                                   )),
-                              SizedBox(
-                                width: Get.width * .04,
-                              ),
+                              SizedBox(width: Get.width * .04,),
                               GestureDetector(
                                 onTap: () {
                                   _openImagePickerDialog();
@@ -1093,13 +1088,11 @@ class _UserProfileState extends State<UserProfile> {
                       builder: (BuildContext context,
                           ScrollController scrollController) {
                         return
-                          Container(
-                            decoration: const BoxDecoration(
+                          Container(decoration: const BoxDecoration(
                               borderRadius: BorderRadius.only(
                                 topRight: Radius.circular(35),
                                 topLeft: Radius.circular(35),
                               ),
-
                             ),
                             child: ListView(
                               controller: scrollController,
@@ -1291,49 +1284,23 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
-                                        seekerProfileController.viewSeekerData
-                                            .value.seekerDetails?.workExpJob ==
-                                            null ||
-                                            seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.workExpJob
-                                                ?.length == 0 ?
-
-
-                                            const Text('Fresher')
-
+                                        seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob == null ||
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.length == 0 ?
+                                        const Text('Fresher')
                                             : ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.workExpJob
-                                                ?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.length,
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails
-                                                  ?.workExpJob?[index];
-                                              return Column(
-                                                crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
+                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?[index];
+                                              return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                    height: Get.height * 0.02,),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
+                                                  SizedBox(height: Get.height * 0.02,),
+                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        '${data?.workExpJob}',
-                                                        style: Get.theme
-                                                            .textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .white,
-                                                            fontWeight: FontWeight
-                                                                .w700),),
+                                                      Text('${data?.workExpJob}',
+                                                        style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                            color: AppColors.white, fontWeight: FontWeight.w700),),
                                                       Row(
                                                         children: [
                                                           InkWell(
@@ -1346,51 +1313,24 @@ class _UserProfileState extends State<UserProfile> {
                                                               onTap: () {
                                                                 _openDeleteDialog(index , true) ;
                                                               },
-                                                              child: Image.asset(
-                                                                  'assets/images/deleteicon.png')),
+                                                              child: Image.asset('assets/images/deleteicon.png')),
                                                         ],
                                                       )
-
                                                     ],
                                                   ),
-                                                  SizedBox(
-                                                    height: Get.height * 0.01,),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
+                                                  SizedBox(height: Get.height * 0.01,),
+                                                  Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "${data?.companyName}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight: FontWeight
-                                                                .w400),
-                                                      ),
-                                                      data?.jobEndDate ==
-                                                          'null' ||
-                                                          data?.jobStartDate ==
-                                                              'null'
+                                                      Text("${data?.companyName}",
+                                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                            color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                      data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
                                                           ? const SizedBox()
-                                                          : Text(
-                                                        '${data?.jobStartDate} - ${data
-                                                            ?.jobEndDate}',
+                                                          : Text('${data?.jobStartDate} - ${data?.jobEndDate}',
                                                         // "${data?.jobStartDate?.month}/${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}/${data?.jobEndDate?.year}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight: FontWeight
-                                                                .w400),
+                                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                            color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
                                                       ),
-
                                                     ],
                                                   )
                                                 ],
@@ -1399,96 +1339,67 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
 
                                         // ********************* for Education ***************************
+
                                         SizedBox(height: Get.height * 0.045,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
+
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .start,
+                                            Row(mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 InkWell(
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/Educationsvg.svg')),
+                                                    child: SvgPicture.asset('assets/images/Educationsvg.svg')),
                                                 SizedBox(
                                                   width: Get.width * 0.02,),
+
                                                 Text('Education',
                                                   style: Get.theme.textTheme
                                                       .labelMedium!.copyWith(
                                                       color: AppColors
                                                           .white),),
+
                                               ],
                                             ),
                                             InkWell(
                                                 onTap: () {
                                                   workExperienceSection(false,"","","","",0,add: true);
                                                 },
-                                                child: Image.asset(
-                                                    'assets/images/addicononjobre.png'))
+                                                child: Image.asset('assets/images/addicononjobre.png'))
                                           ],
                                         ),
                                         SizedBox(height: Get.height * 0.02,),
-                                        const Divider(
-                                          thickness: 0.2,
-                                          color: AppColors.white,
-                                        ),
-                                        seekerProfileController.viewSeekerData
-                                            .value.seekerDetails
-                                            ?.educationLevel == null ||
-                                            seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.educationLevel
-                                                ?.length == 0 ?
+                                        const Divider(thickness: 0.2, color: AppColors.white,),
+                                        seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel == null ||
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.length == 0 ?
                                         const Text("No Data") :
                                         ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.educationLevel
-                                                ?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.length,
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails
-                                                  ?.educationLevel?[index];
-                                              return Column(
-                                                crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
+                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?[index];
+                                              return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                    height: Get.height * 0.02,),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
+                                                  SizedBox(height: Get.height * 0.02,),
+                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text('${data
-                                                          ?.educationLevel}',
-                                                        style: Get.theme
-                                                            .textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .white,
-                                                            fontWeight: FontWeight
-                                                                .w700),),
+                                                      Text('${data?.educationLevel}',
+                                                        style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                            color: AppColors.white, fontWeight: FontWeight.w700),),
                                                       Row(
                                                         children: [
                                                           InkWell(
                                                               onTap: () {
                                                                 workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate, data?.educationEndDate, index);
                                                               },
-                                                              child: Image.asset(
-                                                                  'assets/images/editicon2.png')),
+                                                              child: Image.asset('assets/images/editicon2.png')),
 
                                                           const SizedBox(width: 16,),
                                                           InkWell(
                                                               onTap: () {
                                                                 _openDeleteDialog(index , false) ;
                                                               },
-                                                              child: Image.asset(
-                                                                  'assets/images/deleteicon.png')),
+                                                              child: Image.asset('assets/images/deleteicon.png')),
                                                         ],
                                                       )
 
@@ -1496,45 +1407,17 @@ class _UserProfileState extends State<UserProfile> {
                                                   ),
                                                   SizedBox(
                                                     height: Get.height * 0.01,),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
+                                                  Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "${data
-                                                            ?.institutionName}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight: FontWeight
-                                                                .w400),
-                                                      ),
-                                                      data
-                                                          ?.educationStartDate ==
-                                                          'null' || data
-                                                          ?.educationEndDate ==
-                                                          'null'
+                                                      Text("${data?.institutionName}",
+                                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                            color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                      data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
                                                           ? const SizedBox()
-                                                          : Text(
-                                                        '${data
-                                                            ?.educationStartDate} - ${data
-                                                            ?.educationEndDate}',
+                                                          : Text('${data?.educationStartDate} - ${data?.educationEndDate}',
                                                         // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight: FontWeight
-                                                                .w400),
-                                                      ),
-
+                                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                            color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                     ],
                                                   )
                                                 ],
@@ -1543,33 +1426,25 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
 
                                         // ********************* for Skill ***************************
+
                                         SizedBox(height: Get.height * 0.045,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
+
+                                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .start,
+                                            Row(mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 InkWell(
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/skillsvg.svg')),
-                                                SizedBox(
-                                                  width: Get.width * 0.02,),
+                                                    child: SvgPicture.asset('assets/images/skillsvg.svg')),
+                                                SizedBox(width: Get.width * 0.02,),
                                                 Text('Skill',
-                                                  style: Get.theme.textTheme
-                                                      .labelMedium!.copyWith(
-                                                      color: AppColors
-                                                          .white),),
+                                                  style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                               ],
                                             ),
                                             InkWell(
                                                 onTap: () {
                                                   skill();
                                                 },
-                                                child: Image.asset(
-                                                    'assets/images/editicon2.png'))
+                                                child: Image.asset('assets/images/editicon2.png'))
                                           ],
                                         ),
                                         SizedBox(height: Get.height * 0.02,),
@@ -1595,6 +1470,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 .viewSeekerData.value
                                                 .seekerDetails?.skillName
                                                 ?.length == 0 ?
+
                                         const Text("No Data") :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1633,6 +1509,7 @@ class _UserProfileState extends State<UserProfile> {
                                               );
                                             }),
                                         ///////////passion////////
+
                                         SizedBox(
                                           height: Get.height * 0.025,),
                                         Text('Passion',
@@ -1649,6 +1526,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 .viewSeekerData.value
                                                 .seekerDetails?.passionName
                                                 ?.length == 0 ?
+
                                         const Text("No Data") :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1656,34 +1534,21 @@ class _UserProfileState extends State<UserProfile> {
                                             maxCrossAxisExtent: Get.width * 0.4,
                                             mainAxisSpacing: 8,
                                             crossAxisSpacing: 8),
-                                            itemCount: seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.passionName
-                                                ?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails
-                                                  ?.passionName?[index];
+                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(12),
-                                                  color: AppColors.blackdown,
-                                                ),
-                                                padding: const EdgeInsets.all(
-                                                    8),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                  color: AppColors.blackdown,),
+                                                padding: const EdgeInsets.all(8),
                                                 child: Text('${data?.passion}',
-                                                  overflow: TextOverflow
-                                                      .ellipsis,
-                                                  style: Get.theme.textTheme
-                                                      .bodySmall!.copyWith(
-                                                      color: AppColors.white,
-                                                      fontWeight: FontWeight
-                                                          .w400),),
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                      color: AppColors.white, fontWeight: FontWeight.w400),),
                                               );
                                             }),
                                         //////////passion////////////
@@ -1696,6 +1561,7 @@ class _UserProfileState extends State<UserProfile> {
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
+
                                         SizedBox(
                                           height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
@@ -1705,6 +1571,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 .viewSeekerData.value
                                                 .seekerDetails?.industryPreferenceName
                                                 ?.length == 0 ?
+
                                         const Text("No Data") :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1712,34 +1579,21 @@ class _UserProfileState extends State<UserProfile> {
                                             maxCrossAxisExtent: Get.width * 0.4,
                                             mainAxisSpacing: 8,
                                             crossAxisSpacing: 8),
-                                            itemCount: seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.industryPreferenceName
-                                                ?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails
-                                                  ?.industryPreferenceName?[index];
+                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(12),
-                                                  color: AppColors.blackdown,
-                                                ),
-                                                padding: const EdgeInsets.all(
-                                                    8),
+                                                  borderRadius: BorderRadius.circular(12),
+                                                  color: AppColors.blackdown,),
+                                                padding: const EdgeInsets.all(8),
                                                 child: Text('${data?.industryPreferences}',
-                                                  overflow: TextOverflow
-                                                      .ellipsis,
-                                                  style: Get.theme.textTheme
-                                                      .bodySmall!.copyWith(
-                                                      color: AppColors.white,
-                                                      fontWeight: FontWeight
-                                                          .w400),),
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                      color: AppColors.white, fontWeight: FontWeight.w400),),
                                               );
                                             }),
                                         ////////industry preference////////////
@@ -2017,47 +1871,28 @@ class _UserProfileState extends State<UserProfile> {
                                                   .viewSeekerData.value
                                                   .seekerDetails
                                                   ?.language?[index];
-                                              return Container(
-                                                alignment: Alignment.center,
-                                                decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(12),
-                                                  color: AppColors.blackdown,
-                                                ),
-                                                padding: const EdgeInsets.all(
-                                                    8),
-                                                child: Text('$data',
-                                                  style: Get.theme.textTheme
-                                                      .bodySmall!.copyWith(
-                                                      color: AppColors.white,
-                                                      fontWeight: FontWeight
-                                                          .w400),),
+                                              return Container( alignment: Alignment.center,
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
+                                                  color: AppColors.blackdown,),
+                                                padding: const EdgeInsets.all(8),
+                                                child: Text('${data?.languages}',
+                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                      color: AppColors.white, fontWeight: FontWeight.w400),),
                                               );
                                             }),
                                         //********************* for appreciation ***************************
                                         SizedBox(height: Get.height * 0.04,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
+                                        Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              mainAxisAlignment: MainAxisAlignment
-                                                  .start,
+                                            Row( mainAxisAlignment: MainAxisAlignment.start,
                                               children: [
                                                 InkWell(
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/Educationsvg.svg')),
-                                                SizedBox(
-                                                  width: Get.width * 0.02,),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 6.0),
+                                                    child: SvgPicture.asset( 'assets/images/Educationsvg.svg')),
+                                                SizedBox(width: Get.width * 0.02,),
+                                                Padding(padding: const EdgeInsets.only(top: 6.0),
                                                   child: Text('appreciation',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors
-                                                            .white),),
+                                                    style: Get.theme.textTheme.labelMedium!.copyWith(
+                                                        color: AppColors.white),),
                                                 ),
                                               ],
                                             ),
@@ -2106,21 +1941,11 @@ class _UserProfileState extends State<UserProfile> {
                                                     ],
                                                   ),
                                                   SizedBox(height: Get.height * 0.01,),
-                                                  Column(
-                                                    crossAxisAlignment: CrossAxisAlignment
-                                                        .start,
+                                                  Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
-                                                      Text(
-                                                        "${data?.achievement}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight: FontWeight
-                                                                .w400),
+                                                      Text( "${data?.achievement}",
+                                                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                            color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
                                                       ),
                                                     ],
                                                   )
@@ -2138,15 +1963,9 @@ class _UserProfileState extends State<UserProfile> {
                                               mainAxisAlignment: MainAxisAlignment
                                                   .start,
                                               children: [
-                                                InkWell(
-                                                    child: SvgPicture.asset(
-                                                        'assets/images/resumesvg.svg')),
-                                                SizedBox(
-                                                  width: Get.width * 0.02,),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 6.0),
+                                                InkWell(child: SvgPicture.asset('assets/images/resumesvg.svg')),
+                                                SizedBox(width: Get.width * 0.02,),
+                                                Padding(padding: const EdgeInsets.only(top: 6.0),
                                                   child: Text('Resume',
                                                     style: Get.theme.textTheme
                                                         .labelMedium!.copyWith(
@@ -2323,7 +2142,6 @@ class _UserProfileState extends State<UserProfile> {
       initialDate: DateTime.now(),
     );
     if (picked != null ) {
-      // Update the selected date in the controller
       setState(() {
      start ?   _startDateController.text = DateFormat('yyyy-MM-dd').format(picked) :
         _endDateController.text = DateFormat('yyyy-MM-dd').format(picked);
@@ -2342,8 +2160,7 @@ class _UserProfileState extends State<UserProfile> {
           shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),
               borderSide: BorderSide.none),
           title: Center(
-            child: Text(
-              'Are you sure you want to delete',
+            child: Text('Are you sure you want to delete',
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 13),
             ),
           ),

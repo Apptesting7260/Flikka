@@ -1,11 +1,7 @@
-
-
-import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SelectIndustryModel/SelectIndustryModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
-import '../../../data/response/status.dart';
-import '../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 
 class SelectIndustryController extends GetxController {
 

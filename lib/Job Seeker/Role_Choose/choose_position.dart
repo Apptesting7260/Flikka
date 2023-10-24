@@ -2,13 +2,13 @@
 import 'package:flikka/controllers/ChoosePositionController/SeekerChoosePositionController.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 
@@ -38,7 +38,7 @@ RxBool goToNext = false.obs;
 
 int? _selectedPositionIndex;
 
-  List<Data>? filteredPositionNames = [];
+  List<SeekerPositionData>? filteredPositionNames = [];
   var id ;
 
   TextEditingController searchController = TextEditingController() ;
@@ -148,7 +148,7 @@ void showSkipDialog(BuildContext context) {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: Get.height * .020,
+                              height: Get.height * .010,
                             ),
                             Obx(() =>
                             seekerChoosePositionGetControllerInstanse.loading.value ?
@@ -158,7 +158,7 @@ void showSkipDialog(BuildContext context) {
                                 : const SizedBox()
                             ),
                             SizedBox(
-                              height: Get.height * .020,
+                              height: Get.height * .010,
                             ),
                             Row(crossAxisAlignment: CrossAxisAlignment.end,
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

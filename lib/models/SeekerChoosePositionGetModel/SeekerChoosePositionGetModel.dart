@@ -5,12 +5,12 @@ class SeekerChoosePositionGetModel {
      this.message,
   });
   bool ?status;
-  List<Data>? data;
+  List<SeekerPositionData>? data;
   String ?message;
 
   SeekerChoosePositionGetModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
-    data = List.from(json['data']).map((e)=>Data.fromJson(e)).toList();
+    data = json['data'] == null ? json['data'] : List.from(json['data']).map((e)=>SeekerPositionData.fromJson(e)).toList();
     message = json['message'];
   }
 
@@ -23,19 +23,19 @@ class SeekerChoosePositionGetModel {
   }
 }
 
-class Data {
-  Data({
+class SeekerPositionData {
+  SeekerPositionData({
      this.id,
      this.positions,
      this.createdAt,
      this.updatedAt,
   });
-   int ?id;
+  dynamic id;
   String ?positions;
   String ?createdAt;
   String ?updatedAt;
 
-  Data.fromJson(Map<String, dynamic> json){
+  SeekerPositionData.fromJson(Map<String, dynamic> json){
     id = json['id'];
     positions = json['positions'];
     createdAt = json['created_at'];
