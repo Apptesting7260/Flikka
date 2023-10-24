@@ -17,6 +17,7 @@ class _SearchJobState extends State<SearchJob> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
+          toolbarHeight: 80,
           leading: IconButton(onPressed: (){
             Get.offAll(TabScreen(index: 0)) ;
           }, icon: Image.asset("assets/images/icon_back_blue.png",)),

@@ -23,7 +23,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
           child: Column(
             children: [
-              SizedBox(height: Get.height*.02,),
+              SizedBox(height: Get.height*.01,),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -33,7 +33,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                           onTap: () {
                             Get.offAll(const TabScreen(index: 0)) ;
                           },
-                          child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)),
+                          child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)),
                       SizedBox(width: Get.width*.04,),
                       Text("Forum", style: Get.theme.textTheme.displayLarge),
                     ],

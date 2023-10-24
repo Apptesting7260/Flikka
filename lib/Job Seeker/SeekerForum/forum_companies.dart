@@ -28,7 +28,7 @@ class _ForunCompaniesState extends State<ForunCompanies> {
                       onTap: () {
                         Get.back();
                       },
-                      child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)),
+                      child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)),
                   SizedBox(width: Get.width*.04,),
                   Text("Companies", style: Get.theme.textTheme.displayLarge),
                 ],

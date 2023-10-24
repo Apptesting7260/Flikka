@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Payment_Methods/wallet.dart';
 import 'package:flikka/controllers/EditAboutController/EditAboutController.dart';
 import 'package:flikka/controllers/EditSeekerAppreciationController/EditSeekerAppreciationController.dart';
@@ -973,50 +974,58 @@ class _UserProfileState extends State<UserProfile> {
                           SizedBox(
                             height: Get.height * .02,
                           ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: SizedBox(
-                              height: 50,
-                              width: 50,
-                              child: CircularPercentIndicator(
-                                percent: seekerProfileController
-                                    .viewSeekerData.value.completeProfile /
-                                    100,
-                                lineWidth: 3,
-                                center: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      "${seekerProfileController.viewSeekerData
-                                          .value.completeProfile}%",
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                          color: AppColors.white,
-                                          fontWeight: FontWeight.w700),
-                                    ),
-                                    Text(
-                                      "Profile",
-                                      style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                          color: AppColors.white,
-                                          fontSize: 8,
-                                          fontWeight: FontWeight.w400),
-                                    ),
-                                  ],
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              GestureDetector(
+                                onTap: () {
+                                  Get.offAll(TabScreen(index: 0)) ;
+                                },
+                                  child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)) ,
+                              SizedBox(
+                                height: 50,
+                                width: 50,
+                                child: CircularPercentIndicator(
+                                  percent: seekerProfileController
+                                      .viewSeekerData.value.completeProfile /
+                                      100,
+                                  lineWidth: 3,
+                                  center: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        "${seekerProfileController.viewSeekerData
+                                            .value.completeProfile}%",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors.white,
+                                            fontWeight: FontWeight.w700),
+                                      ),
+                                      Text(
+                                        "Profile",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors.white,
+                                            fontSize: 8,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ],
+                                  ),
+                                  progressColor: const Color(0xff56B8F6),
+                                  backgroundColor: AppColors
+                                      .ratingcommentfillcolor,
+                                  radius: 25, // Background color
                                 ),
-                                progressColor: const Color(0xff56B8F6),
-                                backgroundColor: AppColors
-                                    .ratingcommentfillcolor,
-                                radius: 25, // Background color
                               ),
-                            ),
-                          ),
+                            ],
+                          ) ,
+
                           SizedBox(
                             height: Get.height * .25,
                           ),
@@ -1222,11 +1231,12 @@ class _UserProfileState extends State<UserProfile> {
                                                   height: 18,))
                                           ],
                                         ),
-                                        SizedBox(height: Get.height * 0.02,),
+                                        SizedBox(height: Get.height * 0.01,),
                                         const Divider(
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
+                                        SizedBox(height: Get.height * 0.01,),
                                         Text(
                                           seekerProfileController.viewSeekerData
                                               .value.seekerInfo?.aboutMe ??
@@ -1242,7 +1252,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
 
                                         //********************* for work ex ***************************
-                                        SizedBox(height: Get.height * 0.04,),
+                                        SizedBox(height: Get.height * 0.045,),
                                         Row(mainAxisAlignment: MainAxisAlignment
                                             .spaceBetween,
                                           children: [
@@ -1389,7 +1399,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
 
                                         // ********************* for Education ***************************
-                                        SizedBox(height: Get.height * 0.04,),
+                                        SizedBox(height: Get.height * 0.045,),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
@@ -1403,16 +1413,11 @@ class _UserProfileState extends State<UserProfile> {
                                                         'assets/images/Educationsvg.svg')),
                                                 SizedBox(
                                                   width: Get.width * 0.02,),
-                                                Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      top: 6.0),
-                                                  child: Text('Education',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors
-                                                            .white),),
-                                                ),
+                                                Text('Education',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
                                               ],
                                             ),
                                             InkWell(
@@ -1538,7 +1543,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
 
                                         // ********************* for Skill ***************************
-                                        SizedBox(height: Get.height * 0.04,),
+                                        SizedBox(height: Get.height * 0.045,),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
@@ -1573,14 +1578,14 @@ class _UserProfileState extends State<UserProfile> {
                                           color: AppColors.white,
                                         ),
                                         SizedBox(
-                                          height: Get.height * 0.01,),
+                                          height: Get.height * 0.015,),
                                         Text('Soft Skill',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
 
                                         // SizedBox(height: Get.height * 0.02,),
                                         seekerProfileController.viewSeekerData
@@ -1629,14 +1634,14 @@ class _UserProfileState extends State<UserProfile> {
                                             }),
                                         ///////////passion////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('Passion',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.passionName ==
                                             null ||
@@ -1685,14 +1690,14 @@ class _UserProfileState extends State<UserProfile> {
 
                                         ////////industry preference////////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('industry preference',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.industryPreferenceName ==
                                             null ||
@@ -1741,14 +1746,14 @@ class _UserProfileState extends State<UserProfile> {
 
                                         //////////////Strengths////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('Strengths',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.strengthsName ==
                                             null ||
@@ -1797,14 +1802,14 @@ class _UserProfileState extends State<UserProfile> {
 
                                         //////////////Salary expectation////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('Salary expectation',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.salaryExpectationName ==
                                             null ||
@@ -1834,14 +1839,14 @@ class _UserProfileState extends State<UserProfile> {
 
                                         //////////////When can i start working?////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('When can i start working?',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.startWorkName ==
                                             null ||
@@ -1891,14 +1896,14 @@ class _UserProfileState extends State<UserProfile> {
 
                                         //////////////Availability?////////
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.025,),
                                         Text('Availability?',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
                                               color: AppColors
                                                   .white),),
                                         SizedBox(
-                                          height: Get.height * 0.02,),
+                                          height: Get.height * 0.015,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.availabityName ==
                                             null ||
@@ -1986,7 +1991,7 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
-                                        // SizedBox(height: Get.height * 0.02,),
+                                        SizedBox(height: Get.height * 0.02,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerDetails?.language ==
                                             null ||
@@ -2167,6 +2172,7 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
+                                        SizedBox(height: Get.height * 0.02,),
                                         seekerProfileController.viewSeekerData
                                             .value.seekerInfo?.resume == null ||
                                             seekerProfileController
@@ -2181,23 +2187,24 @@ class _UserProfileState extends State<UserProfile> {
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
                                                 color: AppColors.white, fontWeight: FontWeight.w500),),
                                         ),
-                                        SizedBox(height: Get.height * .02,),
-                                        Text('Document',
-                                          style: Get.theme.textTheme
-                                              .labelMedium!.copyWith(
-                                              color: AppColors.white),),
-                                        const Divider(thickness: 0.2, color: AppColors.white,),
-                                        ListTile(title:
-                                        Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                            style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                color: AppColors.white, fontWeight: FontWeight.w500),),
-                                          // CircleAvatar(
-                                          //   radius: 20,
-                                          //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
-                                          // ) ,
-                                          trailing: SvgPicture.asset('assets/images/deletsvg.svg'),
-                                        ),
-                                        SizedBox(height: Get.height * 0.02,),
+                                        SizedBox(height: Get.height * .03,),
+                                        // Text('Document',
+                                        //   style: Get.theme.textTheme
+                                        //       .labelMedium!.copyWith(
+                                        //       color: AppColors.white),),
+                                        // SizedBox(height: Get.height*.015,) ,
+                                        // const Divider(thickness: 0.2, color: AppColors.white,),
+                                        // ListTile(title:
+                                        // Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                        //     style: Get.theme.textTheme.bodySmall!.copyWith(
+                                        //         color: AppColors.white, fontWeight: FontWeight.w500),),
+                                        //   // CircleAvatar(
+                                        //   //   radius: 20,
+                                        //   //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
+                                        //   // ) ,
+                                        //   trailing: SvgPicture.asset('assets/images/deletsvg.svg'),
+                                        // ),
+                                        // SizedBox(height: Get.height * 0.02,),
                                         Center(
                                           child: MyButton(
                                             title: "Boost Your Profile",
@@ -2278,6 +2285,7 @@ class _UserProfileState extends State<UserProfile> {
                                               );
                                             },),
                                         ),
+                                        SizedBox(height: Get.height * .02,),
                                       ],
                                     )
                                 ),

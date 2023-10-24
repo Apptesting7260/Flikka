@@ -33,75 +33,74 @@ class _AddNewForumState extends State<AddNewForum> {
                   Text("Add New Forum",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
                 ],
               ),
-              SizedBox(height: Get.height*.02,),
+              SizedBox(height: Get.height*.01,),
               Container(
-                height: Get.height*.74,
+                padding: EdgeInsets.symmetric(vertical: Get.height*.04,horizontal: Get.width*.05),
+                // height: Get.height*.6,
                 width: Get.width,
                 decoration: BoxDecoration(
                   color: Color(0xff353535),
                   borderRadius: BorderRadius.circular(17),
                 ),
-                child: Padding(
-                  padding:  EdgeInsets.symmetric(horizontal: Get.width*.05),
-                  child: Column(
-                    children: [
-                     SizedBox(height: Get.height*.07,),
-                      Text("Add New Forum",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
-                      SizedBox(height: Get.height*.04,),
-                      TextFormField(
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xff454545),
-                            hintText: "Add tittle",
-                            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                            contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.06),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:BorderSide(
-                                  color: Colors.blueAccent),
-                              borderRadius: BorderRadius.circular(35),
-                            ),
-                            enabledBorder:  OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(color: Color(0xff454545)),
-                            ),
+                child: Column(
+                  children: [
+                    Text("Add New Forum",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                    SizedBox(height: Get.height*.04,),
+                    TextFormField(
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xff454545),
+                          hintText: "Add tittle",
+                          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                          contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.06),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:BorderSide(
+                                color: Colors.blueAccent),
+                            borderRadius: BorderRadius.circular(35),
+                          ),
+                          enabledBorder:  OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            borderSide: BorderSide(color: Color(0xff454545)),
+                          ),
 
-                          )
-                      ),
-                      SizedBox(height: Get.height*.04,),
-                      TextFormField(
-                          maxLines: 5,
-                          style: Theme.of(context).textTheme.bodyMedium,
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: Color(0xff454545),
-                            hintText: "Add description...",
-                            hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                            contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.07),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide:BorderSide(
-                                  color: Colors.blueAccent),
-                              borderRadius: BorderRadius.circular(15),
-                            ),
-                            enabledBorder:  OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(15),
-                              borderSide: BorderSide(color: Color(0xff454545)),
-                            ),
+                        )
+                    ),
+                    SizedBox(height: Get.height*.04,),
+                    TextFormField(
+                        maxLines: 5,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xff454545),
+                          hintText: "Add description...",
+                          hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                          contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.07),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide:BorderSide(
+                                color: Colors.blueAccent),
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          enabledBorder:  OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(15),
+                            borderSide: BorderSide(color: Color(0xff454545)),
+                          ),
 
-                          )
-                      ),
-                      SizedBox(height: Get.height*.06,),
-                      MyButton(title: "SUBMIT", onTap1: () {
+                        )
+                    ),
+                    SizedBox(height: Get.height*.06,),
+                    MyButton(
+                      width: Get.width*.72,
+                      title: "SUBMIT", onTap1: () {
 
-                      },)
-                    ],
-                  ),
+                    },)
+                  ],
                 ),
               )
             ],

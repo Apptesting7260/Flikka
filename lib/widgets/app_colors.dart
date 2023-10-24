@@ -14,6 +14,7 @@ class AppColors {
   static const ratingcodeColor=Color(0xFFF4F4F4);
   static const ratingcommentfillcolor=Color(0xFFEFEFF2);
   static const ratingcommenttextcolor=Color(0xffC8C7CC);
+  static const blueThemeColor=Color(0xff0D5AFE);
 // static const azure=Color(0xff007AFF);
 // static const oldSilver=Color(0xff848282);
 // static const graniteGray=Color(0xff636363);

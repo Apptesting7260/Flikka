@@ -1,4 +1,6 @@
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class MyButton extends StatelessWidget {
@@ -33,17 +35,18 @@ class MyButton extends StatelessWidget {
       child: Container(
         alignment: Alignment.center,
         width: width ?? 295,
-        height: height ?? 56,
+        height: height ?? Get.height*.075,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(60.0),
-          gradient: const LinearGradient(
-            colors: [
-              Color(0xFF56B8F6),
-              Color(0xFF4D6FED),
-            ],
-            begin: Alignment.topCenter, // Start from the top center
-            end: Alignment.bottomCenter, // End at the bottom center
-          ),
+          // gradient: const LinearGradient(
+          //   colors: [
+          //     Color(0xFF56B8F6),
+          //     Color(0xFF4D6FED),
+          //   ],
+          //   begin: Alignment.topCenter, // Start from the top center
+          //   end: Alignment.bottomCenter, // End at the bottom center
+          // ),
+          color: AppColors.blueThemeColor
         ),
         child: Center(
           child: loading == false

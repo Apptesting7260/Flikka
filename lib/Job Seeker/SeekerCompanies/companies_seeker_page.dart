@@ -69,7 +69,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: Get.height * .035,),
+                      SizedBox(height: Get.height * .02,),
                       Row(
                         children: [
                           GestureDetector(
@@ -147,7 +147,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                       //     ],
                       //   ),
                       // ),
-
+                      SizedBox(height: Get.height*.015,) ,
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
                         itemCount: companiesListController.companies?.length,
