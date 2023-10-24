@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 
 import '../SeekerFilter/filter_page.dart';
 import '../SeekerHome/find_job_home_page.dart';
+import '../location.dart';
 import '../saved_post_widget.dart';
 import '../search_job.dart';
 
@@ -52,7 +53,7 @@ class _TabScreenState extends State<TabScreen> {
             onPageChanged: (index) => pageChanged(index),
             children: const [
               FindJobHomeScreen(),
-              FilterPage(),
+              Location(),
               SearchJob(),
               MessagePage(),
               UserProfile(),

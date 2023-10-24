@@ -1,4 +1,7 @@
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flikka/Job%20Seeker/SeekerFilter/filter_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 class SearchJob extends StatefulWidget {
@@ -13,24 +16,27 @@ class _SearchJobState extends State<SearchJob> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(onPressed: (){
+            Get.offAll(TabScreen(index: 0)) ;
+          }, icon: Image.asset("assets/images/icon_back_blue.png",)),
+          title: Text("Search",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 25.0),
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => FilterPage()) ;
+                },
+                  child: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: 24,)),
+            )
+          ],
+        ),
         body: Padding(
           padding:  EdgeInsets.symmetric(horizontal: Get.width*.05),
           child: Column(
              children: [
-               Row(
-                 children: [
-                   SizedBox(height: Get.height*.12,),
-                   // Align(
-                   //     alignment: Alignment.topLeft,
-                   //     child: InkWell(
-                   //         onTap: () {
-                   //           Get.back();
-                   //         },
-                   //         child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,))),
-                   SizedBox(width: Get.width*.04,),
-                   Text("Search",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
-                 ],
-               ),
+               SizedBox(height: Get.height*.03,) ,
                Container(
                  padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.008),
                  decoration: BoxDecoration(
