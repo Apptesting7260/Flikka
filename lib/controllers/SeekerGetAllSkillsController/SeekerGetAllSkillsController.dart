@@ -1,10 +1,8 @@
 
-
-import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
+import 'package:flikka/data/response/status.dart';
+import 'package:flikka/models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
-import '../../../data/response/status.dart';
-import '../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 
 class SeekerGetAllSkillsController extends GetxController {
 
@@ -12,7 +10,7 @@ class SeekerGetAllSkillsController extends GetxController {
 
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final seekerGetAllSkillsData =SeekerGetAllSkillsModel().obs ;
+  final seekerGetAllSkillsData =  SeekerGetAllSkillsModel().obs ;
   RxString error = ''.obs;
   var refreshLoading = false.obs ;
 
@@ -43,7 +41,7 @@ class SeekerGetAllSkillsController extends GetxController {
     refreshLoading(true) ;
     _api.seekerGetAllSkillsApi().then((value){
       // setRxRequestStatus(Status.COMPLETED);
-      seekerGetAllSkillsData(value);
+      seekerGetAllSkillsData( value);
       refreshLoading(false) ;
       print(value);
 

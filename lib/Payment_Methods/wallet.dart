@@ -2,12 +2,11 @@
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/SeekerEarningController/SeekerEarningController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
-import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
 import '../res/components/request_timeout_widget.dart';

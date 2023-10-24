@@ -1,9 +1,8 @@
 import 'package:flikka/controllers/CompaniesListController/CompaniesListController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';

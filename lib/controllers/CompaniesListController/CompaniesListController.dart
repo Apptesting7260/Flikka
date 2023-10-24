@@ -1,8 +1,8 @@
 
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/JobsRepository.dart';
 import 'package:get/get.dart';
-import '../../../data/response/status.dart';
 
 
 class CompaniesListController extends GetxController {

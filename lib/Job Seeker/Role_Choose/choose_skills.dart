@@ -1,5 +1,6 @@
 import 'package:flikka/controllers/SeekerChooseSkillsController/SeekerChooseSkillsController.dart';
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,6 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
-import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 

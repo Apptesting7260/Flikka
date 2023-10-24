@@ -44,7 +44,7 @@ class SeekerDetails {
   dynamic position ;
   List<WorkExpJob>? workExpJob;
   List<EducationLevel>? educationLevel;
-  List<String>? language;
+  List<SeekerLanguages>? language;
   List<Appreciation>? appreciation;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -83,7 +83,7 @@ class SeekerDetails {
     position: json["position"],
     workExpJob: json["work_exp_job"] == null ? json["work_exp_job"] : List<WorkExpJob>.from(json["work_exp_job"].map((x) => WorkExpJob.fromJson(x))),
     educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
-    language:  json["language_name"] == null ? json["language_name"] : List<String>.from(json["language_name"].map((x) => x)),
+    language:  json["language_name"] == null ? json["language_name"] : List<SeekerLanguages>.from(json["language_name"].map((x) => x)),
     appreciation: json["appreciation"] == null ? json["appreciation"] : List<Appreciation>.from(json["appreciation"].map((x) => Appreciation.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
@@ -121,39 +121,39 @@ class SeekerDetails {
 class Appreciation {
   var awardName;
   var achievement;
-  // DateTime? awardEndDate;
 
   Appreciation({
     this.awardName,
     this.achievement,
-    // this.awardEndDate,
   });
 
   factory Appreciation.fromJson(Map<String, dynamic> json) => Appreciation(
     awardName: json["award_name"],
     achievement: json["achievement"],
-    // awardEndDate: DateTime.parse(json["award_end_date"]),
   );
 
   Map<String, dynamic> toJson() => {
     "award_name": awardName,
     "achievement": achievement,
-    // "award_end_date": "${awardEndDate?.year.toString().padLeft(4, '0')}-${awardEndDate?.month.toString().padLeft(2, '0')}-${awardEndDate?.day.toString().padLeft(2, '0')}",
   };
 }
 
 class AvailabityName {
-  var availabity;
+  dynamic id ;
+  String? availabity;
 
   AvailabityName({
+    this.id ,
     this.availabity,
   });
 
   factory AvailabityName.fromJson(Map<String, dynamic> json) => AvailabityName(
+    id: json["id"],
     availabity: json["availabity"],
   );
 
   Map<String, dynamic> toJson() => {
+    "id" : id ,
     "availabity": availabity,
   };
 }
@@ -194,83 +194,121 @@ class EducationLevel {
   };
 }
 
+class SeekerLanguages {
+  dynamic id ;
+  String? languages ;
+
+  SeekerLanguages({
+   this.id ,
+   this.languages
+});
+  factory SeekerLanguages.fromJson(Map<String , dynamic> json) => SeekerLanguages(
+    id: json["id"] ,
+    languages: json["languages"]
+  );
+  Map<String , dynamic> toJson() => {
+    "id" : id ,
+    "languages" : languages
+  } ;
+}
+
 class IndustryPreferenceName {
-  var industryPreferences;
+  dynamic id ;
+  String? industryPreferences;
 
   IndustryPreferenceName({
+    this.id ,
     this.industryPreferences,
   });
 
   factory IndustryPreferenceName.fromJson(Map<String, dynamic> json) => IndustryPreferenceName(
+    id: json["id"],
     industryPreferences: json["industry_preferences"],
   );
 
   Map<String, dynamic> toJson() => {
+    "id" : id ,
     "industry_preferences": industryPreferences,
   };
 }
 
 class PassionName {
-  var passion;
+  dynamic id ;
+  String? passion;
 
   PassionName({
+    this.id ,
     this.passion,
   });
 
   factory PassionName.fromJson(Map<String, dynamic> json) => PassionName(
     passion: json["passion"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
     "passion": passion,
+    "id" : id
   };
 }
 
 class SkillName {
-  var skills;
+  dynamic id ;
+  String? skills;
 
   SkillName({
+    this.id ,
     this.skills,
   });
 
   factory SkillName.fromJson(Map<String, dynamic> json) => SkillName(
     skills: json["skills"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
+    "id" : id ,
     "skills": skills,
   };
 }
 
 class StartWorkName {
-  var startWork;
+  String? startWork;
+  dynamic id ;
 
   StartWorkName({
     this.startWork,
+    this.id
   });
 
   factory StartWorkName.fromJson(Map<String, dynamic> json) => StartWorkName(
     startWork: json["start_work"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
+    "id" : id ,
     "start_work": startWork,
   };
 }
 
 class StrengthsName {
-  var strengths;
+  String? strengths;
+  dynamic id ;
 
   StrengthsName({
     this.strengths,
+    this.id
   });
 
   factory StrengthsName.fromJson(Map<String, dynamic> json) => StrengthsName(
     strengths: json["strengths"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
     "strengths": strengths,
+    "id" : id
   };
 }
 

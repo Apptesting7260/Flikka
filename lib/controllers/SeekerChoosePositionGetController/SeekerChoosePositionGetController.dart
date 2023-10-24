@@ -1,9 +1,9 @@
 
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import '../../../data/response/status.dart';
 
 
 class SeekerChoosePositionGetController extends GetxController {
@@ -13,7 +13,7 @@ class SeekerChoosePositionGetController extends GetxController {
 
   final rxRequestStatus = Status.LOADING.obs ;
   final seekerChoosePositionGetList =SeekerChoosePositionGetModel().obs ;
-  RxList<Data>? positionsList = <Data>[].obs  ;
+  RxList<SeekerPositionData>? positionsList = <SeekerPositionData>[].obs  ;
   RxString error = ''.obs;
   var loading = false.obs ;
 
