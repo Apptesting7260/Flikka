@@ -1,8 +1,7 @@
-
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
-import '../../../data/response/status.dart';
 
 
 class ViewSeekerProfileController extends GetxController {
