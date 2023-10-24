@@ -43,7 +43,7 @@ class _LoginState extends State<Login> {
               Container(
                 height: Get.height,
                 width: Get.width,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   // gradient: LinearGradient(
                   //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
                   //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],

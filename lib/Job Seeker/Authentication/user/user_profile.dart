@@ -9,6 +9,7 @@ import 'package:flikka/controllers/EditSeekerResumeController/EditSeekerResumeCo
 import 'package:flikka/controllers/EditSeekerWorkExperience/EditSeekerWorkExperience.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -19,7 +20,6 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
-import '../../../data/response/status.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../utils/CommonWidgets.dart';
@@ -350,6 +350,8 @@ class _UserProfileState extends State<UserProfile> {
       context: context,
       builder: (BuildContext context) {
         final key = GlobalKey<FormState>() ;
+        final startDateKey = GlobalKey<FormState>() ;
+        final endDateKey = GlobalKey<FormState>() ;
         TextEditingController jobTitleOrEducationLevelController = TextEditingController();
         TextEditingController companyOrInstituteController = TextEditingController();
         _startDateController.text = startDate ?? "" ;
@@ -361,70 +363,77 @@ class _UserProfileState extends State<UserProfile> {
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Form(
-              key: key,
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  TextFormField(
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                    onChanged: (String value) {
-
-                    },
-                    controller: jobTitleOrEducationLevelController,
-                    decoration: InputDecoration(
-                      hintText: experience ?  'Enter job title' : "Enter education level",
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.white, fontSize: 12),
-                    ),
-                    validator: (value) {
-                      if(value == null || value.isEmpty) {
-                        return 'Please fill this field' ;
-                      }
-                    },
-                  ),
-                  SizedBox(height: Get.height* 0.02,) ,
-                  TextFormField(
-                    style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                    onChanged: (String value) {
-
-                    },
-                    controller: companyOrInstituteController,
-                    decoration: InputDecoration(
-                      hintText: experience ? 'Enter company name' : 'Enter institute name',
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.white, fontSize: 12),
-                    ),
-                    validator: (value) {
-                      if(value == null || value.isEmpty) {
-                        return 'Please fill this field' ;
-                      }
-                    },
-                  ),
-                  SizedBox(height: Get.height* 0.02,) ,
-                  Row(
-                    mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment
-                        .start,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Form(
+                  key: key,
+                  child: Column(
                     children: [
-                      Expanded(
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: CommonWidgets
-                                    .textFieldHeading(
-                                    context, "Start date"),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              TextFormField(
+                      TextFormField(
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                        onChanged: (String value) {
+
+                        },
+                        controller: jobTitleOrEducationLevelController,
+                        decoration: InputDecoration(
+                          hintText: experience ?  'Enter job title' : "Enter education level",
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: AppColors.white, fontSize: 12),
+                        ),
+                        validator: (value) {
+                          if(value == null || value.isEmpty) {
+                            return 'Please fill this field' ;
+                          }
+                        },
+                      ),
+                      SizedBox(height: Get.height* 0.02,) ,
+                      TextFormField(
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                        onChanged: (String value) {
+
+                        },
+                        controller: companyOrInstituteController,
+                        decoration: InputDecoration(
+                          hintText: experience ? 'Enter company name' : 'Enter institute name',
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .bodySmall!
+                              .copyWith(color: AppColors.white, fontSize: 12),
+                        ),
+                        validator: (value) {
+                          if(value == null || value.isEmpty) {
+                            return 'Please fill this field' ;
+                          }
+                        },
+                      ),
+                      SizedBox(height: Get.height* 0.02,),
+                    ],
+                  ),
+                ) ,
+                Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment
+                      .start,
+                  children: [
+                    Expanded(
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: CommonWidgets
+                                  .textFieldHeading(
+                                  context, "Start date"),
+                            ),
+                            SizedBox(
+                              height: Get.height * .01,
+                            ),
+                            Form(
+                              key: startDateKey,
+                              child: TextFormField(
                                 controller: _startDateController,
                                 style: Theme
                                     .of(context)
@@ -435,7 +444,7 @@ class _UserProfileState extends State<UserProfile> {
                                     fontSize: 12,
                                     fontWeight: FontWeight
                                         .w400),
-                                onTap: () => _selectDate(true,context) ,
+                                onTap: () => _selectDate(true,context,"") ,
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   errorStyle: const TextStyle(
@@ -483,40 +492,37 @@ class _UserProfileState extends State<UserProfile> {
                                   return null;
                                 },
                               ),
-                            ],
-                          )),
-                      SizedBox(
-                        width: Get.width * .04,
-                      ),
-                      Expanded(
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: CommonWidgets
-                                    .textFieldHeading(
-                                    context, "End date"),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              TextFormField(
+                            ),
+                          ],
+                        )),
+                    SizedBox(
+                      width: Get.width * .04,
+                    ),
+                    Expanded(
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.topLeft,
+                              child: CommonWidgets
+                                  .textFieldHeading(
+                                  context, "End date"),
+                            ),
+                            SizedBox(
+                              height: Get.height * .01,
+                            ),
+                            Form(key : endDateKey,
+                              child: TextFormField(
                                 controller: _endDateController,
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                    color: Color(0xffCFCFCF),
-                                    fontSize: 12,
-                                    fontWeight: FontWeight
-                                        .w400),
-                                onTap: () => _selectDate(false,context),
+                                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                    color: const Color(0xffCFCFCF), fontSize: 12,
+                                    fontWeight: FontWeight.w400),
+                                onTap: () {
+                                  if(startDateKey.currentState!.validate()) {
+                                    _selectDate(false,context,_startDateController.text) ;
+                                  }
+                                },
                                 readOnly: true,
                                 decoration: InputDecoration(
-                                  constraints: const BoxConstraints(
-                                    //maxWidth: Get.width * 0.41,
-                                  ),
                                   filled: true,
                                   fillColor: const Color(
                                       0xff373737),
@@ -527,9 +533,7 @@ class _UserProfileState extends State<UserProfile> {
                                           .027,
                                       horizontal: Get.width *
                                           .06),
-                                  hintStyle: Theme
-                                      .of(context)
-                                      .textTheme
+                                  hintStyle: Theme.of(context).textTheme
                                       .bodyLarge
                                       ?.copyWith(
                                       color:
@@ -550,96 +554,96 @@ class _UserProfileState extends State<UserProfile> {
                                 ),
 
                               ),
+                            ),
 
-                            ],
-                          )),
-                    ],
-                  ),
-                  SizedBox(height: Get.height*.02,) ,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      MyButton(
+                          ],
+                        )),
+                  ],
+                ),
+                SizedBox(height: Get.height*.02,) ,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyButton(
+                      width: 100,
+                      height: 40,
+                      onTap1: () {
+                        Navigator.of(context).pop();
+                      }, title: 'Cancel',
+                    ),
+                    const SizedBox(width: 20,) ,
+                    Obx( () =>
+                     MyButton(
                         width: 100,
                         height: 40,
+                        loading: editSeekerExperienceController.loading.value,
                         onTap1: () {
-                          Navigator.of(context).pop();
-                        }, title: 'Cancel',
-                      ),
-                      const SizedBox(width: 20,) ,
-                      Obx( () =>
-                       MyButton(
-                          width: 100,
-                          height: 40,
-                          loading: editSeekerExperienceController.loading.value,
-                          onTap1: () {
-                            List list = [] ;
-                            if(key.currentState!.validate()) {
-                              if (experience == true) {
-                                WorkExpJob experienceData = WorkExpJob() ;
-                                if (add == true) {
-                                  experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
-                                  experienceData.companyName = companyOrInstituteController.text ;
-                                  experienceData.jobStartDate = _startDateController.text ;
-                                  experienceData.jobEndDate = _endDateController.text ;
-                                  seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
-                                  editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
-                                } else {
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.workExpJob?[index]
-                                      .workExpJob = jobTitleOrEducationLevelController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.workExpJob?[index]
-                                      .companyName = companyOrInstituteController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.workExpJob?[index]
-                                      .jobStartDate = _startDateController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.workExpJob?[index]
-                                      .jobEndDate = _endDateController.text;
-                                  editSeekerExperienceController.workApi(true,
-                                      seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
-                                }
+                          List list = [] ;
+                          if(key.currentState!.validate()) {
+                            if (experience == true) {
+                              WorkExpJob experienceData = WorkExpJob() ;
+                              if (add == true) {
+                                experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
+                                experienceData.companyName = companyOrInstituteController.text ;
+                                experienceData.jobStartDate = _startDateController.text ;
+                                experienceData.jobEndDate = _endDateController.text ;
+                                seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
+                                editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
                               } else {
-                                EducationLevel educationData = EducationLevel() ;
-                                if (add == true) {
-                                  educationData.educationLevel = jobTitleOrEducationLevelController.text ;
-                                  educationData.institutionName = companyOrInstituteController.text ;
-                                  educationData.educationStartDate = _startDateController.text ;
-                                  educationData.educationEndDate = _endDateController.text ;
-                                  seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
-                                  editSeekerExperienceController.workApi(
-                                      false, seekerProfileController.viewSeekerData.value
-                                          .seekerDetails?.educationLevel, context);
-                                } else {
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.educationLevel?[index]
-                                      .educationLevel = jobTitleOrEducationLevelController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.educationLevel?[index]
-                                      .institutionName = companyOrInstituteController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.educationLevel?[index]
-                                      .educationStartDate = _startDateController.text;
-                                  seekerProfileController.viewSeekerData.value
-                                      .seekerDetails?.educationLevel?[index]
-                                      .educationEndDate = _endDateController.text;
-                                  editSeekerExperienceController.workApi(
-                                      false,
-                                      seekerProfileController.viewSeekerData.value
-                                          .seekerDetails?.educationLevel,
-                                      context);
-                                }
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.workExpJob?[index]
+                                    .workExpJob = jobTitleOrEducationLevelController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.workExpJob?[index]
+                                    .companyName = companyOrInstituteController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.workExpJob?[index]
+                                    .jobStartDate = _startDateController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.workExpJob?[index]
+                                    .jobEndDate = _endDateController.text;
+                                editSeekerExperienceController.workApi(true,
+                                    seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                              }
+                            } else {
+                              EducationLevel educationData = EducationLevel() ;
+                              if (add == true) {
+                                educationData.educationLevel = jobTitleOrEducationLevelController.text ;
+                                educationData.institutionName = companyOrInstituteController.text ;
+                                educationData.educationStartDate = _startDateController.text ;
+                                educationData.educationEndDate = _endDateController.text ;
+                                seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
+                                editSeekerExperienceController.workApi(
+                                    false, seekerProfileController.viewSeekerData.value
+                                        .seekerDetails?.educationLevel, context);
+                              } else {
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.educationLevel?[index]
+                                    .educationLevel = jobTitleOrEducationLevelController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.educationLevel?[index]
+                                    .institutionName = companyOrInstituteController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.educationLevel?[index]
+                                    .educationStartDate = _startDateController.text;
+                                seekerProfileController.viewSeekerData.value
+                                    .seekerDetails?.educationLevel?[index]
+                                    .educationEndDate = _endDateController.text;
+                                editSeekerExperienceController.workApi(
+                                    false,
+                                    seekerProfileController.viewSeekerData.value
+                                        .seekerDetails?.educationLevel,
+                                    context);
                               }
                             }
-                          }, title: 'Submit',
-                        ),
+                          }
+                        }, title: 'Submit',
                       ),
-                    ],
-                  ),
-                  SizedBox(height: Get.height* 0.02,) ,
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Get.height* 0.02,) ,
+              ],
             ),
           ),
         );
@@ -2054,15 +2058,9 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                             InkWell(
                                                 onTap: () {
-                                                  appreciation(
-                                                      0 ,
-                                                      "",
-                                                     "",
-                                                    add: true
-                                                  );
+                                                  appreciation(0 , "", "", add: true);
                                                 },
-                                                child: Image.asset(
-                                                    'assets/images/addicononjobre.png'))
+                                                child: Image.asset('assets/images/addicononjobre.png'))
                                           ],
                                         ),
                                         SizedBox(height: Get.height * 0.02,),
@@ -2070,72 +2068,39 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
-                                        seekerProfileController.viewSeekerData
-                                            .value.seekerDetails
-                                            ?.appreciation == null ||
-                                            seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.appreciation
-                                                ?.length == 0 ?
+                                        seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
                                         const Text("No Data")
                                             : ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: seekerProfileController
-                                                .viewSeekerData.value
-                                                .seekerDetails?.appreciation
-                                                ?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length,
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails
-                                                  ?.appreciation?[index];
-                                              return Column(
-                                                crossAxisAlignment: CrossAxisAlignment
-                                                    .start,
+                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?[index];
+                                              return Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
-                                                  SizedBox(
-                                                    height: Get.height * 0.02,),
-                                                  Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
+                                                  SizedBox(height: Get.height * 0.02,),
+                                                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                        '${data?.awardName}',
-                                                        style: Get.theme
-                                                            .textTheme
-                                                            .bodyMedium!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .white,
-                                                            fontWeight: FontWeight
-                                                                .w700),),
+                                                      Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                            color: AppColors.white, fontWeight: FontWeight.w700),),
                                                       Row(
                                                         children: [
                                                           InkWell(
                                                               onTap: () {
-                                                                appreciation(
-                                                                  index ,
-                                                                  data?.awardName ,
-                                                                  data?.achievement
-                                                                );
-                                                              },
-                                                              child: Image.asset(
-                                                                  'assets/images/editicon2.png')),
+                                                                appreciation(index , data?.awardName , data?.achievement);},
+                                                              child: Image.asset('assets/images/editicon2.png')),
                                                           const SizedBox(width: 16,),
                                                           InkWell(
                                                               onTap: () {
                                                                 _openAppreciationDeleteDialog(index) ;
                                                               },
-                                                              child: Image.asset(
-                                                                  'assets/images/deleteicon.png')),
+                                                              child: Image.asset('assets/images/deleteicon.png')),
                                                         ],
                                                       )
-
                                                     ],
                                                   ),
-                                                  SizedBox(
-                                                    height: Get.height * 0.01,),
+                                                  SizedBox(height: Get.height * 0.01,),
                                                   Column(
                                                     crossAxisAlignment: CrossAxisAlignment
                                                         .start,
@@ -2209,43 +2174,28 @@ class _UserProfileState extends State<UserProfile> {
                                                 ?.resume.length == 0 ?
                                         const Text("No Data")
                                             : ListTile(
-                                          leading: SvgPicture.asset(
-                                              'assets/images/PDF.svg'),
+                                          leading: SvgPicture.asset('assets/images/PDF.svg'),
                                           title: Text(
-                                            '${seekerProfileController
-                                                .viewSeekerData.value.seekerInfo
-                                                ?.resume}',
+                                            '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}',
                                             overflow: TextOverflow.ellipsis,
-                                            style: Get.theme.textTheme
-                                                .bodySmall!.copyWith(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight
-                                                    .w500),),
+                                            style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                color: AppColors.white, fontWeight: FontWeight.w500),),
                                         ),
                                         SizedBox(height: Get.height * .02,),
                                         Text('Document',
                                           style: Get.theme.textTheme
                                               .labelMedium!.copyWith(
-                                              color: AppColors
-                                                  .white),),
-                                        const Divider(
-                                          thickness: 0.2,
-                                          color: AppColors.white,
-                                        ),
-                                        ListTile(
-                                          title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                            style: Get.theme.textTheme
-                                                .bodySmall!.copyWith(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight
-                                                    .w500),),
+                                              color: AppColors.white),),
+                                        const Divider(thickness: 0.2, color: AppColors.white,),
+                                        ListTile(title:
+                                        Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                            style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                color: AppColors.white, fontWeight: FontWeight.w500),),
                                           // CircleAvatar(
                                           //   radius: 20,
                                           //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
                                           // ) ,
-                                          trailing: SvgPicture.asset(
-                                              'assets/images/deletsvg.svg'),
-                                          //SvgPicture.asset('assets/images/deletsvg.svg'),
+                                          trailing: SvgPicture.asset('assets/images/deletsvg.svg'),
                                         ),
                                         SizedBox(height: Get.height * 0.02,),
                                         Center(
@@ -2258,186 +2208,63 @@ class _UserProfileState extends State<UserProfile> {
                                                 builder: (
                                                     BuildContext context) {
                                                   return AlertDialog(
-                                                    //*********** you can't definle any value because this is auto value padding adde **********
-                                                    insetPadding: const EdgeInsets
-                                                        .symmetric(
-                                                        horizontal: 0),
                                                     content: SingleChildScrollView(
                                                       child: Column(
                                                         children: [
-                                                          Align(
-                                                              alignment: Alignment
-                                                                  .topRight,
+                                                          Align(alignment: Alignment.topRight,
                                                               child: GestureDetector(
-                                                                  onTap: () {
-                                                                    Get.back();
-                                                                  },
-                                                                  child: Image
-                                                                      .asset(
-                                                                    "assets/images/closeiconondrawer.png",
-                                                                    height: Get
-                                                                        .height *
-                                                                        .027,))),
-                                                          SizedBox(
-                                                              height: Get
-                                                                  .height *
-                                                                  0.035),
-                                                          Container(
-                                                            padding: const EdgeInsets
-                                                                .all(17),
+                                                                  onTap: () { Get.back();},
+                                                                  child: Image.asset("assets/images/closeiconondrawer.png",
+                                                                    height: Get.height * .027,))),
+                                                          SizedBox( height: Get.height * 0.035 ),
+                                                          Container(padding: const EdgeInsets.all(17),
                                                             decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(
-                                                                  60.0),
+                                                              borderRadius: BorderRadius.circular( 60.0),
                                                               gradient: const LinearGradient(
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFF56B8F6),
-                                                                  Color(
-                                                                      0xFF4D6FED),
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topCenter,
-                                                                // Start from the top center
-                                                                end: Alignment
-                                                                    .bottomCenter, // End at the bottom center
-                                                              ),
-                                                            ),
-                                                            child: Image.asset(
-                                                              'assets/images/boost.png',
-                                                              scale: 3.4,),
+                                                                colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
+                                                                begin: Alignment.topCenter,
+                                                                end: Alignment.bottomCenter,),),
+                                                            child: Image.asset('assets/images/boost.png', scale: 3.4,),
                                                           ),
-                                                          SizedBox(
-                                                              height: Get
-                                                                  .height *
-                                                                  0.02),
-                                                          Text(
-                                                              "Boost your profile",
-                                                              style: Get.theme
-                                                                  .textTheme
-                                                                  .labelMedium
-                                                          ),
-                                                          SizedBox(
-                                                              height: Get
-                                                                  .height *
-                                                                  0.01),
-                                                          Text(
-                                                              "Lorem Ipsum is simply dummy text",
-                                                              style: Get.theme
-                                                                  .textTheme
-                                                                  .bodySmall!
-                                                                  .copyWith(
-                                                                  fontWeight: FontWeight
-                                                                      .w400,
-                                                                  color: AppColors
-                                                                      .white)
-                                                          ),
-                                                          SizedBox(
-                                                              height: Get
-                                                                  .height *
-                                                                  0.05),
-                                                          Container(
-                                                            decoration: BoxDecoration(
-                                                              borderRadius: BorderRadius
-                                                                  .circular(
-                                                                  10.0),
+                                                          SizedBox(height: Get.height * 0.02),
+                                                          Text("Boost your profile", style: Get.theme.textTheme.labelMedium),
+                                                          SizedBox(height: Get.height * 0.01),
+                                                          Text("Lorem Ipsum is simply dummy text",
+                                                              style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                                  fontWeight: FontWeight.w400, color: AppColors.white)),
+                                                          SizedBox(height: Get.height * 0.05),
+                                                          Container( decoration: BoxDecoration(
+                                                              borderRadius: BorderRadius.circular(10.0),
                                                               gradient: const LinearGradient(
-                                                                colors: [
-                                                                  Color(
-                                                                      0xFF56B8F6),
-                                                                  Color(
-                                                                      0xFF4D6FED),
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topCenter,
-                                                                // Start from the top center
-                                                                end: Alignment
-                                                                    .bottomCenter, // End at the bottom center
-                                                              ),
-                                                            ),
-                                                            height: Get.height *
-                                                                0.21,
-                                                            width: Get.width *
-                                                                0.32,
+                                                                colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
+                                                                begin: Alignment.topCenter,
+                                                                end: Alignment.bottomCenter,),),
+                                                            height: Get.height * 0.21,
+                                                            width: Get.width * 0.32,
                                                             child: Center(
                                                               child: Column(
                                                                 children: [
-                                                                  SizedBox(
-                                                                      height: Get
-                                                                          .height *
-                                                                          0.035),
-                                                                  Text("1",
-                                                                      style: Get
-                                                                          .theme
-                                                                          .textTheme
-                                                                          .displaySmall!
-                                                                          .copyWith(
-                                                                          fontSize: 25,
-                                                                          color: AppColors
-                                                                              .white)
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: Get
-                                                                          .height *
-                                                                          0.014),
-                                                                  Text(
-                                                                      "month",
-                                                                      style: Get
-                                                                          .theme
-                                                                          .textTheme
-                                                                          .titleSmall!
-                                                                          .copyWith(
-                                                                          fontSize: 15,
-                                                                          color: AppColors
-                                                                              .white)
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: Get
-                                                                          .height *
-                                                                          0.01),
-                                                                  Text(
-                                                                      "\$100",
-                                                                      style: Get
-                                                                          .theme
-                                                                          .textTheme
-                                                                          .bodyMedium!
-                                                                          .copyWith(
-                                                                          fontSize: 13,
-                                                                          color: AppColors
-                                                                              .white)
-                                                                  ),
-                                                                  SizedBox(
-                                                                      height: Get
-                                                                          .height *
-                                                                          0.01),
-                                                                  Text(
-                                                                      "Save 36%",
-                                                                      style: Get
-                                                                          .theme
-                                                                          .textTheme
-                                                                          .titleSmall!
-                                                                          .copyWith(
-                                                                          fontSize: 11,
-                                                                          color: AppColors
-                                                                              .white)
-                                                                  ),
-
+                                                                  SizedBox(height: Get.height * 0.035),
+                                                                  Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
+                                                                          fontSize: 25, color: AppColors.white)),
+                                                                  SizedBox(height: Get.height * 0.014),
+                                                                  Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                                                          fontSize: 15, color: AppColors.white)),
+                                                                  SizedBox(height: Get.height * 0.01),
+                                                                  Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                                          fontSize: 13, color: AppColors.white)),
+                                                                  SizedBox(height: Get.height * 0.01),
+                                                                  Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                                                          fontSize: 11, color: AppColors.white)),
                                                                 ],
                                                               ),
                                                             ),
                                                           ),
-                                                          SizedBox(
-                                                              height: Get
-                                                                  .height *
-                                                                  0.035),
+                                                          SizedBox(height: Get.height * 0.035),
                                                           Center(
-                                                            child: MyButton(
-                                                              width: Get.width *
-                                                                  .7,
+                                                            child: MyButton(width: Get.width * .7,
                                                               title: "BOOST ME",
-                                                              onTap1: () {
-
-                                                              },),
+                                                              onTap1: () {},),
                                                           )
                                                         ],
                                                       ),
@@ -2475,6 +2302,7 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> _selectDate(
       bool start ,
       BuildContext context,
+      String firstDate
       // DateTime? firstDate,
       // DateTime? selectedDate ,
       // int step
@@ -2482,11 +2310,11 @@ class _UserProfileState extends State<UserProfile> {
       ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
-      firstDate: DateTime(2000),
+      firstDate: start ? DateTime(1990) : DateTime.parse(firstDate),
       lastDate: DateTime.now(),
       initialDate: DateTime.now(),
     );
-    if (picked != null && picked != _startDateController.text) {
+    if (picked != null ) {
       // Update the selected date in the controller
       setState(() {
      start ?   _startDateController.text = DateFormat('yyyy-MM-dd').format(picked) :
