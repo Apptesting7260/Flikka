@@ -39,8 +39,10 @@ class _BottomState extends State<Bottom> {
 
      BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024),
+        icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.024),
+        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.024)
+        // icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: Get.height*.024),
+        // activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024),
         ),
 
      BottomNavigationBarItem(

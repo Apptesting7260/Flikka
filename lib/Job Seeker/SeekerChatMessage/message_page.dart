@@ -17,14 +17,14 @@ class _MessagePageState extends State<MessagePage> {
     return Scaffold(
         appBar: AppBar(
           title: Text("Message",style: Get.theme.textTheme.displayLarge),
-          // leading: Padding(
-          //   padding: const EdgeInsets.only(left: 15.0),
-          //   child: InkWell(
-          //       onTap: (){
-          //         Get.back();
-          //       },
-          //       child: Image.asset('assets/images/backicon.png')),
-          // ),
+          leading: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: InkWell(
+                onTap: (){
+                  Get.back();
+                },
+                child: Image.asset('assets/images/backicon.png')),
+          ),
           elevation: 0,
           backgroundColor: Colors.black,
 

@@ -1,4 +1,5 @@
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
+import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
@@ -37,6 +38,7 @@ class _DrawerClassState extends State<DrawerClass> {
   String aboutIcon = 'assets/images/aboutdrawericon.png' ;
   String settingIcon = 'assets/images/settingdrawericon.png' ;
   String logoutIcon = 'assets/images/logoutdrawericon.png' ;
+  String messageIcon = 'assets/images/icon_message.png' ;
 
   @override
   Widget build(BuildContext context) {
@@ -70,17 +72,6 @@ class _DrawerClassState extends State<DrawerClass> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: Get.height*.02,),
-                          // InkWell(
-                          //   onTap: () => Get.back(),
-                          //   child: Align(
-                          //       alignment: Alignment.topRight,
-                          //       child: Padding(
-                          //         padding:
-                          //          EdgeInsets.only(top: 17.0, right: 10),
-                          //         child: Image.asset('assets/images/closeiconondrawer.png',scale: 2.8,),
-                          //       )),
-                          // ),
-
                           Padding(
                             padding: const EdgeInsets.only(left: 18.0),
                             child: Column(
@@ -89,7 +80,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                 const CircleAvatar(
                                   radius:42,
                                   backgroundImage: AssetImage("assets/images/icon_drawer_profile.png"),
-                                  //backgroundImage: NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80'),
+
                                 ),
                                 const SizedBox(
                                   height: 9,
@@ -209,12 +200,12 @@ class _DrawerClassState extends State<DrawerClass> {
                           ListTile(
                             horizontalTitleGap:0,
                             onTap: (){
-                              Get.to(() =>const ForumFirstPage());
+                              Get.to(() =>const MessagePage());
                             } ,
                             dense: true,
-                            leading: drawerIcon(forumIcon) ,
+                            leading: drawerIcon(messageIcon) ,
                             title: Text(
-                              "Forum",
+                              "Message",
                               style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                             ),
                           ),

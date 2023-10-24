@@ -1,3 +1,4 @@
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_companies.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -18,19 +19,6 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        // appBar: AppBar(
-        //   leading: Padding(
-        //     padding: const EdgeInsets.only(left: 25.0),
-        //     child: GestureDetector(
-        //         onTap: () {
-        //          Get.back();
-        //         },
-        //         child: Image.asset('assets/images/backicon.png')),
-        //   ),
-        //   elevation: 0,
-        //   backgroundColor: Colors.black,
-        //   title: Text("Forum", style: Get.theme.textTheme.displayLarge),
-        // ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 10),
           child: Column(
@@ -43,7 +31,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                     children: [
                       GestureDetector(
                           onTap: () {
-                            Get.back();
+                            Get.offAll(const TabScreen(index: 0)) ;
                           },
                           child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)),
                       SizedBox(width: Get.width*.04,),
