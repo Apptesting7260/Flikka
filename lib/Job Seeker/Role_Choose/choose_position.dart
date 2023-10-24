@@ -1,10 +1,8 @@
-
 import 'package:flikka/controllers/ChoosePositionController/SeekerChoosePositionController.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
-import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
