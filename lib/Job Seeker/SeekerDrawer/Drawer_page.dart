@@ -5,6 +5,7 @@ import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../widgets/app_colors.dart';
 import '../SeekerNotification/notification.dart';
 import '../SeekerNotification/setting_page.dart';
 import '../saved_post_widget.dart';

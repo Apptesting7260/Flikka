@@ -169,7 +169,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                         fillColor: Color(0xff373737),
                         filled: true,
-                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                         enabledBorder:  OutlineInputBorder(
                           borderRadius: BorderRadius.circular(35),
                           //borderSide: BorderSide(color: Colors.white),
@@ -200,8 +200,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     SizedBox(height: Get.height*0.01,),
                     Container(
                       alignment: Alignment.center,
-                      // margin: const EdgeInsets.only(bottom: 12),
-                      padding:  EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.0065),
+                      padding:  EdgeInsets.only(left: Get.width *0.04,right: Get.width *0.05 ,top: Get.height*.0065,bottom: Get.height*.0065),
                       decoration: BoxDecoration(
                         color: const Color(0xff373737),
                         borderRadius: BorderRadius.circular(35),
@@ -209,8 +208,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       child: Center(
                         child:
                         DropdownButtonHideUnderline(
-                          child:
-                          DropdownButton(
+                          child: DropdownButton(
+                            alignment: Alignment.centerLeft,
+                            borderRadius: BorderRadius.circular(20),
                             isExpanded: true,
                             value: jobTitleName,
                             hint:  Text(
@@ -226,15 +226,13 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   jobTypeTitle = item.id ;
                                   jobTitleName = item.positions ;
                                 });
-
-                              },
+                                },
                               child: Text(
                                 "${ item.positions}",
                                 style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                            ))
-                                .toList(),
+                            )).toList(),
                             elevation: 2,
                             onChanged: (String? value) {  },
                           ),
@@ -261,7 +259,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                         fillColor: Color(0xff373737),
                         filled: true,
-                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                         enabledBorder:  OutlineInputBorder(
                           borderRadius: BorderRadius.circular(35),
                           //borderSide: BorderSide(color: Colors.white),
@@ -302,7 +300,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           ),
                           fillColor: Color(0xff373737),
                           filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             //borderSide: BorderSide(color: Colors.white),
@@ -342,7 +340,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           fillColor: Color(0xff373737),
                           hintText: "Add description",
                             hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(22),
                               borderSide: BorderSide(color: Color(0xff373737))),
 
@@ -383,7 +381,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           fillColor: Color(0xff373737),
                           hintText: "Add requirements",
                             hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(22),
                               borderSide: BorderSide(color: Color(0xff373737))),
                           enabledBorder:  OutlineInputBorder(
@@ -566,7 +564,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           ),
                           fillColor: Color(0xff373737),
                           filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             //borderSide: BorderSide(color: Colors.white),
@@ -607,7 +605,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           ),
                           fillColor: const Color(0xff373737),
                           filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             //borderSide: BorderSide(color: Colors.white),
@@ -648,7 +646,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           ),
                           fillColor: const Color(0xff373737),
                           filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             //borderSide: BorderSide(color: Colors.white),
@@ -689,7 +687,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           ),
                           fillColor: const Color(0xff373737),
                           filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
+                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             //borderSide: BorderSide(color: Colors.white),

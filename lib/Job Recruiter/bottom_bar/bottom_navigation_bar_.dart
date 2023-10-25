@@ -18,46 +18,39 @@ class _BottomEmployerState extends State<BottomEmployer> {
   List<BottomNavigationBarItem> buildBottomNavBarItems = [
     BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.044,),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_home.svg",height: Get.height*.044)),
-
+        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: 25,),
+        activeIcon: Image.asset("assets/images/icon_select_home.png",height: 25)),
 
     BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_applicant.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_applicant.svg",height: Get.height*.024)
+        icon: SvgPicture.asset("assets/images/icon_unselect_applicant.svg",height: 25),
+        activeIcon: SvgPicture.asset("assets/images/icon_select_applicant.svg",height: 25)
     ),
 
 
     BottomNavigationBarItem(
       label: "",
-      icon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: Get.height*.055),
-      activeIcon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: Get.height*.055),
+      icon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: 25),
+      activeIcon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: 25),
     ),
 
     BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024)
+        icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: 25),
+        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: 25)
     ),
 
     BottomNavigationBarItem(
       label: "",
-      icon: SvgPicture.asset("assets/images/icon_unselect_person.svg",height: Get.height*.024),
-      activeIcon: SvgPicture.asset("assets/images/icon_select_person.svg",height: Get.height*.024),
+      icon: SvgPicture.asset("assets/images/icon_unselect_person.svg",height:25),
+      activeIcon: Image.asset("assets/images/icon_select_person.png",height: 25),
     ),
   ];
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.only(
+      borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25), // Adjust the radius as needed
         topRight: Radius.circular(24), // Adjust the radius as needed
       ),
@@ -65,20 +58,20 @@ class _BottomEmployerState extends State<BottomEmployer> {
         type: BottomNavigationBarType.fixed,
         items: buildBottomNavBarItems,
         selectedItemColor: const Color(0xff56B8F6),
-        unselectedItemColor: Color(0xffC4C4C4),
+        unselectedItemColor: const Color(0xffC4C4C4),
         selectedIconTheme: const IconThemeData(
-          color: const Color(0xff56B8F6),
+          color: Color(0xff56B8F6),
         ),
         unselectedIconTheme: const IconThemeData(
-          color: const Color(0xffC4C4C4),
+          color: Color(0xffC4C4C4),
         ),
 
         elevation: 8,
-        backgroundColor: Color(0xff353535),
+        backgroundColor: const Color(0xff353535),
         currentIndex: widget.bottomSelectedIndex,
         onTap: (index) => widget.bottomTapped(index),
-        selectedFontSize: 12,
-        unselectedFontSize: 10,
+        selectedFontSize: 1,
+        unselectedFontSize: 1,
       ),
     );
   }
