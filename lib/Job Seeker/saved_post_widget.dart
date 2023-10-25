@@ -81,7 +81,7 @@ class _SavedPostState extends State<SavedPost> {
             onTap: () {
               Get.back();
             },
-              child: Image.asset('assets/images/backicon.png')),
+              child: Image.asset('assets/images/icon_back_blue.png')),
         ),
         elevation: 0,
         backgroundColor: Colors.black,
@@ -139,16 +139,17 @@ class _SavedPostState extends State<SavedPost> {
                             child: Container(
                                 decoration: BoxDecoration(
                                   shape: BoxShape.circle,
-                                  gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xFF56B8F6),
-                                      Color(0xFF4D6FED),
-                                    ],
-                                    begin: Alignment
-                                        .topCenter, // Start from the top center
-                                    end: Alignment
-                                        .bottomCenter, // End at the bottom center
-                                  ),
+                                  // gradient: LinearGradient(
+                                  //   colors: [
+                                  //     Color(0xFF56B8F6),
+                                  //     Color(0xFF4D6FED),
+                                  //   ],
+                                  //   begin: Alignment
+                                  //       .topCenter, // Start from the top center
+                                  //   end: Alignment
+                                  //       .bottomCenter, // End at the bottom center
+                                  // ),
+                                  color: AppColors.blueThemeColor
                                 ),
                                 child: CircleAvatar(
                                     radius: 30,

@@ -1,4 +1,5 @@
 
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -50,12 +51,12 @@ class _ChooseRoleState extends State<ChooseRole> {
                 height: Get.height,
                 width: Get.width,
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                    colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  // gradient: LinearGradient(
+                  //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
+                  //   begin: Alignment.topLeft,
+                  //   end: Alignment.bottomRight,
+                  // ),
+                  color: AppColors.blueThemeColor
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

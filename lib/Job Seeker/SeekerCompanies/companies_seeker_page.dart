@@ -121,31 +121,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                           ],
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.only(left: 10),
-                      //   decoration: BoxDecoration(
-                      //     shape: BoxShape.circle,
-                      //     color: Colors.black, // Customize the background color
-                      //   ),
-                      //   //padding: EdgeInsets.all(8), // Adjust the padding as needed
-                      //   child: Row(
-                      //     mainAxisAlignment: MainAxisAlignment.start,
-                      //     children: [
-                      //       IconButton(
-                      //         constraints: BoxConstraints(),
-                      //         onPressed: () {},
-                      //         icon: Image.asset('assets/images/addfileoncompany.png'),
-                      //       ),
-                      //       SizedBox(width: 8), // Add spacing between the icon and text
-                      //       Flexible( // Allow the text to wrap if necessary
-                      //         child: Text(
-                      //           "Add new company",
-                      //           style: Get.theme.textTheme.bodySmall!.copyWith(color: Colors.white),
-                      //         ),
-                      //       ),
-                      //     ],
-                      //   ),
-                      // ),
+
                       SizedBox(height: Get.height*.015,) ,
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),

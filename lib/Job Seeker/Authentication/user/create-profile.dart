@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
+import '../../../widgets/app_colors.dart';
 
 class ExperienceData {
   TextEditingController textController1 = TextEditingController();
@@ -271,14 +272,15 @@ class _CreateProfileState extends State<CreateProfile> {
                                         width: 37,
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
-                                          gradient: LinearGradient(
-                                            colors: [
-                                              Color(0xff56B8F6),
-                                              Color(0xff4D6FED)
-                                            ],
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                          ),
+                                          // gradient: LinearGradient(
+                                          //   colors: [
+                                          //     Color(0xff56B8F6),
+                                          //     Color(0xff4D6FED)
+                                          //   ],
+                                          //   begin: Alignment.topLeft,
+                                          //   end: Alignment.bottomRight,
+                                          // ),
+                                            color: AppColors.blueThemeColor
                                         ),
                                         child: imgFile != null &&
                                             imgFile?.path.length != 0 ?

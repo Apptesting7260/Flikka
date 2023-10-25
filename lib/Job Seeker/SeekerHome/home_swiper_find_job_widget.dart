@@ -149,16 +149,17 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF56B8F6),
-                              Color(0xFF4D6FED),
-                            ],
-                            begin: Alignment
-                                .topCenter, // Start from the top center
-                            end: Alignment
-                                .bottomCenter, // End at the bottom center
-                          ),
+                          // gradient: LinearGradient(
+                          //   colors: [
+                          //     Color(0xFF56B8F6),
+                          //     Color(0xFF4D6FED),
+                          //   ],
+                          //   begin: Alignment
+                          //       .topCenter, // Start from the top center
+                          //   end: Alignment
+                          //       .bottomCenter, // End at the bottom center
+                          // ),
+                          color: AppColors.blueThemeColor
                         ),
                         child: CircleAvatar(
                             radius: 30,
@@ -199,75 +200,80 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             bottom: Get.height * 0.05,
             left: 0,
             right: 0,
-            child: Container(
-              height: Get.height * 0.35,
-              padding: const EdgeInsets.all(20),
-              decoration: const BoxDecoration(
-                color: AppColors.blackdown,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(22),
-                    topRight: Radius.circular(22)),
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      data?.jobTitle ?? "Test Data",
-                      style: Theme.of(context).textTheme.displayLarge,
-                      softWrap: true,
-                    ),
-                    SizedBox(
-                      height: Get.height * .003,
-                    ),
-                    Text(
-                      data?.recruiterDetails?.companyName ?? "Test Data",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.ratingcommenttextcolor),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.03,
-                    ),
-                    Text(
-                      "Job Description",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: Get.height * .008,
-                    ),
-                    Text(data?.description ?? "Test Data",
-                      // overflow: TextOverflow.ellipsis,
-                      // softWrap: true,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.ratingcommenttextcolor),
-                    ),
-                    SizedBox(
-                      height: Get.height * 0.03,
-                    ),
-                    Text(
-                      "Requirements",
-                      style: Theme.of(context)
-                          .textTheme
-                          .titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(
-                      height: Get.height * .007,
-                    ),
-                    Text(
-                      data?.requirements ?? "Test Data",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(color: AppColors.ratingcommenttextcolor),
-                    ),
-                    SizedBox(height: Get.height*.02,),
-                  ],
+            child: GestureDetector(
+              onTap: () {
+                Get.to(() =>  MarketingIntern( jobData: widget.jobData, ));
+              },
+              child: Container(
+                height: Get.height * 0.35,
+                padding: const EdgeInsets.all(20),
+                decoration: const BoxDecoration(
+                  color: AppColors.blackdown,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(22),
+                      topRight: Radius.circular(22)),
+                ),
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        data?.jobTitle ?? "Test Data",
+                        style: Theme.of(context).textTheme.displayLarge,
+                        softWrap: true,
+                      ),
+                      SizedBox(
+                        height: Get.height * .003,
+                      ),
+                      Text(
+                        data?.recruiterDetails?.companyName ?? "Test Data",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                      ),
+                      SizedBox(
+                        height: Get.height * 0.03,
+                      ),
+                      Text(
+                        "Job Description",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: Get.height * .008,
+                      ),
+                      Text(data?.description ?? "Test Data",
+                        // overflow: TextOverflow.ellipsis,
+                        // softWrap: true,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                      ),
+                      SizedBox(
+                        height: Get.height * 0.03,
+                      ),
+                      Text(
+                        "Requirements",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: Get.height * .007,
+                      ),
+                      Text(
+                        data?.requirements ?? "Test Data",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                      ),
+                      SizedBox(height: Get.height*.02,),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -579,14 +585,15 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                             },
                             child: Stack(
                               children: [
-                                CircleAvatar(
-                                  backgroundColor: Color(0xff56B8F6),
-                                  radius: 17,
-                                  child: Image.asset(
-                                      'assets/images/personicons.png'),
-                                ),
-                                // SvgPicture.asset(
-                                //     'assets/images/personsvg22.svg'),
+                              Image.asset(
+                                   'assets/images/personicons.png',height: Get.height*.05,),
+                                // CircleAvatar(
+                                //   backgroundColor: AppColors.blueThemeColor,
+                                //   radius: 17,
+                                //   child: Image.asset(
+                                //       'assets/images/personicons.png'),
+                                // ),
+
                               ],
                             ),
                           ),
