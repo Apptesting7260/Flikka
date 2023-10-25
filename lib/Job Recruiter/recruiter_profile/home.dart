@@ -30,7 +30,6 @@ class _RecruiterHomeState extends State<RecruiterHome> {
               Text(widget.recruiterProfileDetails?.homeDescription ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                SizedBox(height: Get.height*.03,),
               Container(
-                height: Get.height*.12,
                 width: Get.width,
                 decoration: BoxDecoration(
                   color: const Color(0xff353535),
@@ -43,7 +42,8 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                     children: [
                       Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                       SizedBox(height: Get.height*.002,),
-                      Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xff56B8F6)),),
+                      Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xff56B8F6)),),
 
                     ],
                   ),

@@ -176,13 +176,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
             getJobsListingController.getJobsListing.value.jobs?[currentIndex]
                 .id);
         print("this is approved list $approved");
-      } else if (direction.name == "up") {
+      } else if (direction.name == "top") {
         saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
         print("this is saved list $saved");
       }
       debugPrint(
-        'The card $previousIndex was swiped to the ${direction
-            .name}. Now the card $currentIndex is on top',
+        'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
       );
     }
       return true;

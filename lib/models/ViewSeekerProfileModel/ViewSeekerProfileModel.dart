@@ -11,6 +11,7 @@ class ViewSeekerProfileModel {
   var completeProfile;
   SeekerInfo? seekerInfo;
   SeekerDetails? seekerDetails;
+  List<WorkExpJob>? workExpJob;
   var message;
 
   ViewSeekerProfileModel({
@@ -18,20 +19,23 @@ class ViewSeekerProfileModel {
     this.completeProfile,
     this.seekerInfo,
     this.seekerDetails,
+    this.workExpJob ,
     this.message,
   });
 
   factory ViewSeekerProfileModel.fromJson(Map<String, dynamic> json) => ViewSeekerProfileModel(
     status: json["status"],
     completeProfile: json["Complite-Profile"],
-    seekerInfo: SeekerInfo.fromJson(json["Seeker_info"]),
-    seekerDetails: SeekerDetails.fromJson(json["seeker_dtls"]),
+    workExpJob: json["work_exp_job"] == null ? json["work_exp_job"] : List<WorkExpJob>.from(json["work_exp_job"].map((x) => WorkExpJob.fromJson(x))),
+    seekerInfo: json["Seeker_info"] == null ? json["Seeker_info"] : SeekerInfo.fromJson(json["Seeker_info"]),
+    seekerDetails: json["seeker_dtls"] == null ? json["seeker_dtls"] :  SeekerDetails.fromJson(json["seeker_dtls"]),
     message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "Complite-Profile": completeProfile,
+    "work_exp_job": List<dynamic>.from(workExpJob!.map((x) => x.toJson())),
     "Seeker_info": seekerInfo?.toJson(),
     "seeker_dtls": seekerDetails?.toJson(),
     "message": message,
@@ -42,7 +46,6 @@ class SeekerDetails {
   var id;
   var seekerId;
   dynamic position ;
-  List<WorkExpJob>? workExpJob;
   List<EducationLevel>? educationLevel;
   List<SeekerLanguages>? language;
   List<Appreciation>? appreciation;
@@ -61,7 +64,6 @@ class SeekerDetails {
     this.id,
     this.seekerId,
     this.position ,
-    this.workExpJob,
     this.educationLevel,
     this.language,
     this.appreciation,
@@ -81,7 +83,6 @@ class SeekerDetails {
     id: json["id"],
     seekerId: json["seeker_id"],
     position: json["position"],
-    workExpJob: json["work_exp_job"] == null ? json["work_exp_job"] : List<WorkExpJob>.from(json["work_exp_job"].map((x) => WorkExpJob.fromJson(x))),
     educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
     language:  json["language_name"] == null ? json["language_name"] : List<SeekerLanguages>.from(json["language_name"].map((x) => SeekerLanguages.fromJson(x))),
     appreciation: json["appreciation"] == null ? json["appreciation"] : List<Appreciation>.from(json["appreciation"].map((x) => Appreciation.fromJson(x))),
@@ -101,7 +102,6 @@ class SeekerDetails {
     "id": id,
     "seeker_id": seekerId,
     "position" : position ,
-    "work_exp_job": List<dynamic>.from(workExpJob!.map((x) => x.toJson())),
     "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
     "language_name": List<dynamic>.from(language!.map((x) => x.toJson())),
     "appreciation": List<dynamic>.from(appreciation!.map((x) => x.toJson())),
@@ -313,25 +313,26 @@ class StrengthsName {
 }
 
 class WorkExpJob {
-  var workExpJob;
-  var companyName;
-  var jobStartDate;
-  var jobEndDate;
+  String? workExpJob;
+  String? companyName;
+  dynamic jobStartDate;
+  dynamic jobEndDate;
+  bool? present ;
 
   WorkExpJob({
     this.workExpJob,
     this.companyName,
     this.jobStartDate,
     this.jobEndDate,
+    this.present
   });
 
   factory WorkExpJob.fromJson(Map<String, dynamic> json) => WorkExpJob(
     workExpJob: json["work_exp_job"],
     companyName: json["company_name"],
-    jobStartDate: json["job_start_date"] ,
-        // == null ? json["job_start_date"] : DateTime.parse(json["job_start_date"]),
-    jobEndDate: json["job_end_date"]
-        // == null ? json["job_end_date"] : DateTime.parse(json["job_end_date"]),
+    jobStartDate: json["job_start_date"] == null ? json["job_start_date"] : DateTime.parse(json["job_start_date"]),
+    jobEndDate: json["job_end_date"] == null || json["present"] ? json["job_end_date"] : DateTime.parse(json["job_end_date"]),
+    present: json["present"]
   );
 
   Map<String, dynamic> toJson() => {

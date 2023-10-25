@@ -525,35 +525,24 @@ class _UserProfileState extends State<UserProfile> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: const Color(
-                                      0xff373737),
+                                  fillColor: const Color(0xff373737),
                                   hintText: "Select date",
-                                  contentPadding: EdgeInsets
-                                      .symmetric(
-                                      vertical: Get.height *
-                                          .027,
-                                      horizontal: Get.width *
-                                          .06),
-                                  hintStyle: Theme.of(context).textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      color:
-                                      const Color(0xffCFCFCF),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: Get.height * .027,
+                                      horizontal: Get.width * .06),
+                                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: const Color(0xffCFCFCF),
                                       fontSize: 12,
-                                      fontWeight: FontWeight
-                                          .w400),
+                                      fontWeight: FontWeight.w400),
                                   border: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(35),
-                                      borderSide: BorderSide
-                                          .none
+                                      borderRadius: BorderRadius.circular(35),
+                                      borderSide: BorderSide.none
                                   ),
                                   suffixIcon: const Icon(
                                     Icons.calendar_month,
                                     size: 13,
                                   ),
                                 ),
-
                               ),
                             ),
 
@@ -579,7 +568,6 @@ class _UserProfileState extends State<UserProfile> {
                         height: 40,
                         loading: editSeekerExperienceController.loading.value,
                         onTap1: () {
-                          List list = [] ;
                           if(key.currentState!.validate()) {
                             if (experience == true) {
                               WorkExpJob experienceData = WorkExpJob() ;
@@ -588,23 +576,21 @@ class _UserProfileState extends State<UserProfile> {
                                 experienceData.companyName = companyOrInstituteController.text ;
                                 experienceData.jobStartDate = _startDateController.text ;
                                 experienceData.jobEndDate = _endDateController.text ;
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
-                                editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                debugPrint("this is experience ${experienceData.companyName}") ;
+                                seekerProfileController.viewSeekerData.value.workExpJob?.add(experienceData);
+                                debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.workExpJob}") ;
+                                editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
                               } else {
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
+                                seekerProfileController.viewSeekerData.value.workExpJob?[index]
                                     .workExpJob = jobTitleOrEducationLevelController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
+                                seekerProfileController.viewSeekerData.value.workExpJob?[index]
                                     .companyName = companyOrInstituteController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
+                                seekerProfileController.viewSeekerData.value.workExpJob?[index]
                                     .jobStartDate = _startDateController.text;
-                                seekerProfileController.viewSeekerData.value
-                                    .seekerDetails?.workExpJob?[index]
+                                seekerProfileController.viewSeekerData.value.workExpJob?[index]
                                     .jobEndDate = _endDateController.text;
                                 editSeekerExperienceController.workApi(true,
-                                    seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
+                                    seekerProfileController.viewSeekerData.value.workExpJob, context);
                               }
                             } else {
                               EducationLevel educationData = EducationLevel() ;
@@ -614,8 +600,7 @@ class _UserProfileState extends State<UserProfile> {
                                 educationData.educationStartDate = _startDateController.text ;
                                 educationData.educationEndDate = _endDateController.text ;
                                 seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
-                                editSeekerExperienceController.workApi(
-                                    false, seekerProfileController.viewSeekerData.value
+                                editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value
                                         .seekerDetails?.educationLevel, context);
                               } else {
                                 seekerProfileController.viewSeekerData.value
@@ -1287,15 +1272,15 @@ class _UserProfileState extends State<UserProfile> {
                                           thickness: 0.2,
                                           color: AppColors.white,
                                         ),
-                                        seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob == null ||
-                                            seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.length == 0 ?
+                                        seekerProfileController.viewSeekerData.value.workExpJob == null ||
+                                            seekerProfileController.viewSeekerData.value.workExpJob?.length == 0 ?
                                         const Text('Fresher')
                                             : ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
-                                            itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.length,
+                                            itemCount: seekerProfileController.viewSeekerData.value.workExpJob?.length,
                                             itemBuilder: (context, index) {
-                                              var data = seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?[index];
+                                              var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
                                               return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(height: Get.height * 0.02,),
@@ -2190,12 +2175,10 @@ class _UserProfileState extends State<UserProfile> {
                               .seekerDetails?.educationLevel, context);
                         }else {
                           seekerProfileController
-                              .viewSeekerData.value
-                              .seekerDetails?.workExpJob?.removeAt(index);
+                              .viewSeekerData.value.workExpJob?.removeAt(index);
                           editSeekerExperienceController.workApi(
                               true,
-                              seekerProfileController.viewSeekerData.value
-                                  .seekerDetails?.workExpJob, context);
+                              seekerProfileController.viewSeekerData.value.workExpJob, context);
                         }
 
                     },),
@@ -2246,12 +2229,9 @@ class _UserProfileState extends State<UserProfile> {
                         loading: editSeekerAppreciationController.loading.value,
                         title: "Yes",
                         onTap1: () {
-                            seekerProfileController
-                                .viewSeekerData.value
-                                .seekerDetails?.appreciation?.removeAt(index);
+                            seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.removeAt(index);
                             editSeekerAppreciationController.appreciationApi(
                               seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation ,context);
-
                         },),
                   )
                 ],

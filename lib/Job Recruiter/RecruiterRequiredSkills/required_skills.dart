@@ -1,5 +1,6 @@
 import 'package:flikka/controllers/RequiredSkillsController/RequiredSkillsController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -90,15 +91,15 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                               ?.copyWith(fontWeight: FontWeight.w700),),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text("Post", style: Theme
-                              .of(context)
-                              .textTheme
-                              .labelMedium
-                              ?.copyWith(color: Color(0xff56B8F6)),)
-                        ],
-                      )
+                      // Row(
+                      //   children: [
+                      //     Text("Post", style: Theme
+                      //         .of(context)
+                      //         .textTheme
+                      //         .labelMedium
+                      //         ?.copyWith(color: Color(0xff56B8F6)),)
+                      //   ],
+                      // )
                     ],
                   ),
                 ),
@@ -139,8 +140,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 .displaySmall,),
                             SizedBox(height: Get.height * .01,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount: seekerGetAllSkillsController
                                   .seekerGetAllSkillsData.value.softSkill
@@ -178,7 +179,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelected ? const Color(0xff56B6F6) : const Color(0xffFFFFFF))
+                                              color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -194,22 +195,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                 color: AppColors.blueThemeColor
                                                 ),
-                                                child: Icon(Icons.check,
-                                                  color: Color(
-                                                      0xffFFFFFF),
-                                                  size: 15,),
-                                              ),
+                                                child: const Icon(Icons.check,
+                                                  color: Color(0xffFFFFFF), size: 15,),),
                                               if (!_selectedChooseSkillsIndices
                                                   .contains("${data?.id.toString()}"))
                                                 Center(
@@ -230,16 +219,13 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           ),
                                           SizedBox(
                                             width: Get.width * .02,),
-                                          Expanded(child: Text("${data
-                                              ?.skills}", style: Theme
+                                          Expanded(child: Text("${data?.skills}", style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
                                               ?.copyWith(
                                               fontWeight: FontWeight.w500,
-                                              color: isSelected ? Color(
-                                                  0xff56B6F6) : Color(
-                                                  0xffFFFFFF)),))
+                                              color: isSelected ? const Color(0xff56B6F6) : const Color(0xffFFFFFF)),))
                                         ],
                                       ),
                                     ),
@@ -247,14 +233,11 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("Passion", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("Passion", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount:  seekerGetAllSkillsController
                                   .seekerGetAllSkillsData.value.passion
@@ -296,9 +279,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedPassion
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedPassion ? AppColors.blueThemeColor : Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -314,21 +295,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color : AppColors.blueThemeColor,
                                                 ),
-                                                child: Icon(Icons.check,
-                                                  color: Color(
-                                                      0xffFFFFFF),
-                                                  size: 15,),
+                                                child: const Icon(Icons.check,
+                                                  color: Color(0xffFFFFFF), size: 15,),
                                               ),
                                               if (!_selectedChoosePassionSkills
                                                   .contains("${data?.id.toString()}"))
@@ -367,14 +337,11 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("Industry Preference", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("Industry Preference", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount:  seekerGetAllSkillsController
                                   .seekerGetAllSkillsData.value.industry
@@ -414,9 +381,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedpreference
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedpreference ? AppColors.blueThemeColor : Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -432,21 +397,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color: AppColors.blueThemeColor,
                                                 ),
-                                                child: Icon(Icons.check,
-                                                  color: Color(
-                                                      0xffFFFFFF),
-                                                  size: 15,),
+                                                child: const Icon(Icons.check,
+                                                  color: Color(0xffFFFFFF), size: 15,),
                                               ),
                                               if (!_selectedChoosepreferenceSkills
                                                   .contains("${data?.id.toString()}"))
@@ -485,14 +439,11 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("Strengths", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("Strengths", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount:  seekerGetAllSkillsController
                                   .seekerGetAllSkillsData.value.strengths
@@ -532,9 +483,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedstrengths
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedstrengths ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -550,16 +499,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color: AppColors.blueThemeColor,
                                                 ),
                                                 child: const Icon(Icons.check,
                                                   color: Color(
@@ -603,10 +543,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("Salary Expectation", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("Salary Expectation", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
@@ -649,9 +586,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedSalary
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedSalary ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -667,16 +602,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color: AppColors.blueThemeColor,
                                                 ),
                                                 child: const Icon(Icons.check,
                                                   color: Color(
@@ -721,21 +647,17 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("When Can I Start Working?", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("When Can I Start Working?", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                              physics: const NeverScrollableScrollPhysics(),
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount:  seekerGetAllSkillsController
                                   .seekerGetAllSkillsData.value.startWork
                                   ?.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
-
                                 var data =  seekerGetAllSkillsController
                                     .seekerGetAllSkillsData.value.startWork?[index] ;
                                 final isSelectedWorking = _selectedChooseworkingSkills
@@ -770,9 +692,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedWorking
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedWorking ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -788,16 +708,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color: AppColors.blueThemeColor,
                                                 ),
                                                 child: const Icon(Icons.check,
                                                   color: Color(
@@ -841,13 +752,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 );
                               },),
                             SizedBox(height: Get.height * .02,),
-                            Text("Availability", style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall),
+                            Text("Availability", style: Theme.of(context).textTheme.displaySmall),
                             SizedBox(height: Get.height * .02,),
                             GridView.builder(
-                              physics: NeverScrollableScrollPhysics(),
+                              physics: const NeverScrollableScrollPhysics(),
                               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: 2, mainAxisExtent: 65),
                               itemCount:  seekerGetAllSkillsController
@@ -887,9 +795,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           borderRadius: BorderRadius
                                               .circular(35),
                                           border: Border.all(
-                                              color: isSelectedAvailability
-                                                  ? Color(0xff56B6F6)
-                                                  : Color(0xffFFFFFF))
+                                              color: isSelectedAvailability ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                       ),
                                       child: Row(
                                         mainAxisAlignment: MainAxisAlignment
@@ -905,16 +811,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                 height: Get.height * .05,
                                                 decoration: const BoxDecoration(
                                                   shape: BoxShape.circle,
-                                                  gradient: LinearGradient(
-                                                    colors: [
-                                                      Color(0xff56B6F6),
-                                                      Color(0xff4D6FED)
-                                                    ],
-                                                    begin: Alignment
-                                                        .topLeft,
-                                                    end: Alignment
-                                                        .bottomRight,
-                                                  ),
+                                                  color: AppColors.blueThemeColor,
                                                 ),
                                                 child: const Icon(
                                                   Icons.check,

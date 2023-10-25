@@ -191,7 +191,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        selectedDateString = DateFormat('dd/MM/yyyy').format(selectedDate);
+        selectedDateString = "${picked.day}-${picked.month}-${picked.year}";
         founded = picked;
       });
     }
@@ -212,6 +212,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
       return 'Please enter valid url';
     }
   }
+
   nameInitialize () async {
     SharedPreferences sp = await SharedPreferences.getInstance() ;
     contactPersonNameController.text = sp.getString("name")! ;
@@ -219,6 +220,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   SelectIndustryController selectIndustryController = Get.put(SelectIndustryController()) ;
   final ScrollController scrollController = ScrollController() ;
+
 @override
   void initState() {
   nameInitialize() ;
@@ -392,10 +394,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 child: GestureDetector(
                                   onTap: () {
                                     _openProfileImagePickerDialog();
-
-                                    print(
-                                        "This is profile ImgFile ${profileImage
-                                            ?.path}");
+                                    print("This is profile ImgFile ${profileImage?.path}");
                                   },
                                   child: Container(
                                     padding: const EdgeInsets.all(8),
@@ -614,28 +613,26 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                     .headlineSmall
                                     ?.copyWith(fontWeight: FontWeight.w700),
                               ),
-                              SizedBox(
-                                height: Get.height * .028,
-                              ),
-                              Text(
-                                "Title name",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textField(
-                                context, titleNameController,
-                                "Enter award name", onFieldSubmitted: (value) {
-
-                              },),
-                              SizedBox(
-                                height: Get.height * .04,
-                              ),
+                              // SizedBox(
+                              //   height: Get.height * .028,
+                              // ),
+                              // Text(
+                              //   "Title name",
+                              //   style: Theme
+                              //       .of(context)
+                              //       .textTheme
+                              //       .titleSmall
+                              //       ?.copyWith(fontWeight: FontWeight.w700),
+                              // ),
+                              // SizedBox(
+                              //   height: Get.height * .01,
+                              // ),
+                              // CommonWidgets.textField(
+                              //   context, titleNameController,
+                              //   "Enter award name", onFieldSubmitted: (value) {
+                              //
+                              // },),
+                              SizedBox(height: Get.height * .02,),
 
                               Text(
                                 "Description",
@@ -932,7 +929,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 height: Get.height * .04,
                               ),
                               Text(
-                                "Specialties",
+                                "Specialization",
                                 style: Theme
                                     .of(context)
                                     .textTheme
@@ -945,7 +942,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               CommonWidgets.textFieldMaxLines(
                                 context,
                                 aboutySpecialtiesController,
-                                "Enter specialties",
+                                "Enter Specialization",
                                 onFieldSubmitted: (value) {},
 
                               ),
@@ -1031,10 +1028,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                                     companySize: companySize
                                                         ?.replaceAll(
                                                         "employees", ""),
-                                                    founded: selectedDate,
-                                                    specialties:
-                                                    aboutySpecialtiesController
-                                                        .text,
+                                                    founded: selectedDateString,
+                                                    specialties: aboutySpecialtiesController.text,
                                                     contactPerson: contactPersonNameController
                                                         .text
                                                 );
