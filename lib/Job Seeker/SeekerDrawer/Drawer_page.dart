@@ -1,14 +1,10 @@
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
-import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
-import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-
 import '../SeekerNotification/notification.dart';
 import '../SeekerNotification/setting_page.dart';
 import '../saved_post_widget.dart';
@@ -87,8 +83,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                 const SizedBox(
                                   height: 9,
                                 ),
-                                Text(
-                                  "${widget.name}",
+                                Text("${widget.name}",
                                   style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
                                 ),
                                 SizedBox(
