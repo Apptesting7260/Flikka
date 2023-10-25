@@ -18,7 +18,8 @@ class DrawerClass extends StatefulWidget {
   final String? name ;
   final String? location ;
   final String? jobTitle ;
-  const DrawerClass({super.key, required this.name, required this.location, required this.jobTitle});
+  final String? profileImage ;
+  const DrawerClass({super.key, required this.name, required this.location, required this.jobTitle, this.profileImage});
 
   @override
   State<DrawerClass> createState() => _DrawerClassState();
@@ -59,14 +60,15 @@ class _DrawerClassState extends State<DrawerClass> {
                       height: Get.height*.28,
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            colors: [
-                              Color(0xFF4D6FED),//
-                              Color(0xff00008b),
-                            ],
-                            begin: Alignment.bottomCenter,
-                            end: Alignment.topCenter,
-                          )
+                          // gradient: LinearGradient(
+                          //   colors: [
+                          //     Color(0xFF4D6FED),//
+                          //     Color(0xff00008b),
+                          //   ],
+                          //   begin: Alignment.bottomCenter,
+                          //   end: Alignment.topCenter,
+                          // )
+                          color: AppColors.blueThemeColor
                       ),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,9 +79,9 @@ class _DrawerClassState extends State<DrawerClass> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const CircleAvatar(
+                                CircleAvatar(
                                   radius:42,
-                                  backgroundImage: AssetImage("assets/images/icon_drawer_profile.png"),
+                                  backgroundImage: NetworkImage("${widget.profileImage}"),
 
                                 ),
                                 const SizedBox(

@@ -1041,12 +1041,14 @@ class _UserProfileState extends State<UserProfile> {
                                     width: 42,
                                     decoration: const BoxDecoration(
                                         shape: BoxShape.circle,
-                                        gradient: LinearGradient(
-                                          colors: [
-                                            Color(0xff56B8F6),
-                                            Color(0xff4D6FED)
-                                          ],
-                                        )),
+                                        // gradient: LinearGradient(
+                                        //   colors: [
+                                        //     Color(0xff56B8F6),
+                                        //     Color(0xff4D6FED)
+                                        //   ],
+                                        // )
+                                        color: AppColors.blueThemeColor
+                                    ),
                                     child: Image.asset("assets/images/wallet_icon.png", height: 18,),
                                   )),
                               SizedBox(width: Get.width * .04,),
@@ -1060,14 +1062,15 @@ class _UserProfileState extends State<UserProfile> {
                                   width: 42,
                                   decoration: const BoxDecoration(
                                     shape: BoxShape.circle,
-                                    gradient: LinearGradient(
-                                      colors: [
-                                        Color(0xff56B8F6),
-                                        Color(0xff4D6FED)
-                                      ],
-                                      begin: Alignment.topLeft,
-                                      end: Alignment.bottomRight,
-                                    ),
+                                    // gradient: LinearGradient(
+                                    //   colors: [
+                                    //     Color(0xff56B8F6),
+                                    //     Color(0xff4D6FED)
+                                    //   ],
+                                    //   begin: Alignment.topLeft,
+                                    //   end: Alignment.bottomRight,
+                                    // ),
+                                      color: AppColors.blueThemeColor
                                   ),
                                   child: Image.asset(
                                     "assets/images/camera.png",

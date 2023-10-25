@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../../widgets/app_colors.dart';
 
 class ChooseSkills extends StatefulWidget {
   const ChooseSkills({Key? key}) : super(key: key);
@@ -116,12 +117,13 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                         width: Get.width,
                         // margin: seekerGetAllSkillsController.refreshLoading.value ? const EdgeInsets.only(top : 100) : EdgeInsets.zero,
                         decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                            colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
+                          // gradient: LinearGradient(
+                          //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
+                          //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
+                          //   begin: Alignment.topLeft,
+                          //   end: Alignment.bottomRight,
+                          // ),
+                            color: AppColors.blueThemeColor
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -274,7 +276,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelected ? const Color(0xff56B6F6) : const Color(0xffFFFFFF))
+                                                          color: isSelected ?  AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -290,16 +292,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: Icon(Icons.check,
                                                               color: Color(
@@ -333,9 +336,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w500,
-                                                          color: isSelected ? Color(
-                                                              0xff56B6F6) : Color(
-                                                              0xffFFFFFF)),))
+                                                          color: isSelected ? Color(0xff56B6F6) : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -394,9 +395,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedPassion
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedPassion ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -412,16 +411,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                               color: AppColors.blueThemeColor
                                                             ),
                                                             child: Icon(Icons.check,
                                                               color: Color(
@@ -487,8 +487,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                             final isSelectedpreference = _selectedChoosepreferenceSkills
                                                 .contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedpreference
-                                                ? Color(0xff56B6F6)
+                                            final borderColor = isSelectedpreference ? Color(0xff56B6F6)
                                                 : Color(0xffFFFFFF);
 
                                             return Padding(
@@ -514,9 +513,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedpreference
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedpreference ?  AppColors.blueThemeColor : Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -532,16 +529,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
                                                               color: Color(
@@ -634,9 +632,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedstrengths
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedstrengths ?  AppColors.blueThemeColor : const Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -652,16 +648,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
                                                               color: Color(
@@ -753,9 +750,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedSalary
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedSalary ?  AppColors.blueThemeColor : Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -771,16 +766,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
                                                               color: Color(
@@ -876,9 +872,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedWorking
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedWorking ? AppColors.blueThemeColor : Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -894,16 +888,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
                                                               color: Color(
@@ -995,9 +990,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       borderRadius: BorderRadius
                                                           .circular(35),
                                                       border: Border.all(
-                                                          color: isSelectedAvailability
-                                                              ? Color(0xff56B6F6)
-                                                              : Color(0xffFFFFFF))
+                                                          color: isSelectedAvailability ?  AppColors.blueThemeColor : Color(0xffFFFFFF))
                                                   ),
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment
@@ -1013,16 +1006,17 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin: Alignment
-                                                                    .topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin: Alignment
+                                                              //       .topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(
                                                               Icons.check,

@@ -23,7 +23,7 @@ class _MessagePageState extends State<MessagePage> {
                 onTap: (){
                   Get.back();
                 },
-                child: Image.asset('assets/images/backicon.png')),
+                child: Image.asset('assets/images/icon_back_blue.png')),
           ),
           elevation: 0,
           backgroundColor: Colors.black,

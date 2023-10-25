@@ -2,6 +2,7 @@
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/bottom_navigation_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
+import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,7 +56,7 @@ class _TabScreenState extends State<TabScreen> {
             children: const [
               FindJobHomeScreen(),
               Location(),
-              SearchJob(),
+              CompanySeekerPage(),
               ForumFirstPage(),
               UserProfile(),
             ],

@@ -1,5 +1,6 @@
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -26,7 +27,7 @@ class _NotificationsState extends State<Notifications> {
               onTap: () {
                 Get.back();
               },
-              child: Image.asset('assets/images/backicon.png')),
+              child: Image.asset('assets/images/icon_back_blue.png')),
         ),
         elevation: 0,
         backgroundColor: Colors.black,
@@ -264,43 +265,14 @@ class _NotificationsState extends State<Notifications> {
                           height: Get.height * 0.055,
                         ),
                         Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            SizedBox(
+                            MyButton(
                               height: Get.height * 0.062,
                               width: Get.width * 0.35,
-                              child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                                  padding: const EdgeInsets.all(0), // Set padding to 0 to allow gradient to cover the entire button
-                                ),
-                                onPressed: () {
-                                  Get.to(() =>VideoAudioCallingPage(onSubmit: (String ) {  },));
-                                },
-                                child: Ink(
-                                  decoration: BoxDecoration(
-                                    gradient: const LinearGradient(
-                                      colors: [
-                                        Color(0xFF4D6FED),//
-                                        Color(0xFF56B8F6),
-                                      ],
-                                      begin: Alignment.bottomCenter, // Start point of gradient
-                                      end: Alignment.topCenter, // End point of gradient
-                                    ),
-                                    borderRadius: BorderRadius.circular(30),
-                                  ),
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                        "LET'S CHAT",
-                                        style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.bold)
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: Get.width * 0.035,
-                            ),
+                              title: "LET'S CHAT", onTap1: () {
+                              Get.to(() =>VideoAudioCallingPage(onSubmit: (String ) {  },));
+                            },),
                             SizedBox(
                               height: Get.height * 0.062,
                               width: Get.width * 0.35,
@@ -320,14 +292,11 @@ class _NotificationsState extends State<Notifications> {
                           ],
                         ),
                         SizedBox(
-                          height: Get.height * 0.045,
+                          height: Get.height * 0.035,
                         ),
-                        const Divider(
-                          color: Colors.grey,
-                          thickness: 0.2,
-                        ),
+                        Divider() ,
                         SizedBox(
-                          height: Get.height * 0.045,
+                          height: Get.height * 0.035,
                         ),
                       ],
                     );

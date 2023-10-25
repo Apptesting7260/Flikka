@@ -1,3 +1,4 @@
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -19,36 +20,31 @@ class _BottomState extends State<Bottom> {
      BottomNavigationBarItem(
         label: "",
         icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.024,),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_home.svg",height: Get.height*.024)),
+        activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.024)),
 
 
      BottomNavigationBarItem(
         label: "",
         icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.024) ,
-        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.024) ,
-        // icon: SvgPicture.asset("assets/images/icon_unselect_location.svg",height: Get.height*.024),
-        // activeIcon: SvgPicture.asset("assets/images/icon_select_location.svg",height: Get.height*.024)
+        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.024,) ,
      ),
 
 
      BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_search.svg",height: Get.height*.04),
-        activeIcon: SvgPicture.asset("assets/images/icon_search.svg",height: Get.height*.04),
+        icon: Image.asset("assets/images/icon_search.png",height: Get.height*.04),
         ),
 
      BottomNavigationBarItem(
         label: "",
         icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.024),
-        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.024)
-        // icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: Get.height*.024),
-        // activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: Get.height*.024),
+        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.024,)
         ),
 
      BottomNavigationBarItem(
         label: "",
         icon: SvgPicture.asset("assets/images/icon_unselect_person.svg",height: Get.height*.024),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_person.svg",height: Get.height*.024),
+        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.024),
         ),
   ];
 

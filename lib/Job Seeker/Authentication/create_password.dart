@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../widgets/app_colors.dart';
 import 'login.dart';
 import 'successfully.dart';
 
@@ -57,12 +58,13 @@ class _CreatePasswordState extends State<CreatePassword> {
                 height: Get.height,
                 width: Get.width,
                 decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                    colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  // gradient: LinearGradient(
+                  //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
+                  //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
+                  //   begin: Alignment.topLeft,
+                  //   end: Alignment.bottomRight,
+                  // ),
+                    color: AppColors.blueThemeColor
                 ),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

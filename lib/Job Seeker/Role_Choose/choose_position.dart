@@ -9,6 +9,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../../widgets/app_colors.dart';
 
 class ChoosePosition extends StatefulWidget {
   const ChoosePosition({Key? key}) : super(key: key);
@@ -135,12 +136,13 @@ void showSkipDialog(BuildContext context) {
                         height: Get.height,
                         width: Get.width,
                         decoration: const BoxDecoration(
-                          gradient: LinearGradient(
-                            // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                            colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                          ),
+                          // gradient: LinearGradient(
+                          //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
+                          //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
+                          //   begin: Alignment.topLeft,
+                          //   end: Alignment.bottomRight,
+                          // ),
+                            color: AppColors.blueThemeColor
                         ),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
@@ -381,16 +383,17 @@ void showSkipDialog(BuildContext context) {
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape
                                                                   .circle,
-                                                              gradient: LinearGradient(
-                                                                colors: [
-                                                                  Color(0xff56B6F6),
-                                                                  Color(0xff4D6FED)
-                                                                ],
-                                                                begin:
-                                                                Alignment.topLeft,
-                                                                end: Alignment
-                                                                    .bottomRight,
-                                                              ),
+                                                              // gradient: LinearGradient(
+                                                              //   colors: [
+                                                              //     Color(0xff56B6F6),
+                                                              //     Color(0xff4D6FED)
+                                                              //   ],
+                                                              //   begin:
+                                                              //   Alignment.topLeft,
+                                                              //   end: Alignment
+                                                              //       .bottomRight,
+                                                              // ),
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(
                                                               Icons.check,

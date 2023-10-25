@@ -30,7 +30,7 @@ class _MarketingInternState extends State<MarketingIntern> {
               onTap: () {
                 Get.back();
               },
-              child: Image.asset('assets/images/backicon.png')),
+              child: Image.asset('assets/images/icon_back_blue.png',scale: 4,)),
           elevation: 0,
           title: Text("${widget.jobData?.jobPositions ?? "Title"}",style: Get.theme.textTheme.displayLarge),
 
