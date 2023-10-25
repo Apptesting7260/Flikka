@@ -46,6 +46,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   List? rejected = [];
   List? approved = [];
+  List? saved = [];
 
   var last = false ;
   @override
@@ -136,14 +137,10 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       last = true ;
                     });
                     },
-                    allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true),
+                    allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
                     onSwipe: _onSwipe,
-                    cardBuilder: (
-                        context,
-                        index,
-                        horizontalThresholdPercentage,
-                        verticalThresholdPercentage,
-                        ) {
+                    cardBuilder: (context, index,
+                        horizontalThresholdPercentage, verticalThresholdPercentage,) {
                       debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
                       return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
                     },
@@ -163,22 +160,32 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
       int previousIndex,
       int? currentIndex,
       CardSwiperDirection direction,
-      ) {
-    if(direction.name == "left") {
-      print("swiped left") ;
-      // setState(() {
-        rejected?.add(currentIndex) ;
-        print("this is rejected list $rejected") ;
-      // });
 
-    } else if (direction.name == "right") {
-      approved?.add(currentIndex) ;
-      print("this is approved list $approved") ;
+      ) {
+    if(currentIndex != null ) {
+      if (direction.name == "left") {
+        print("swiped left");
+        // setState(() {
+        rejected?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
+        print("this is rejected list $rejected");
+        // });
+
+      } else if (direction.name == "right") {
+        approved?.add(
+            getJobsListingController.getJobsListing.value.jobs?[currentIndex]
+                .id);
+        print("this is approved list $approved");
+      } else if (direction.name == "up") {
+        saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
+        print("this is saved list $saved");
+      }
+      debugPrint(
+        'The card $previousIndex was swiped to the ${direction
+            .name}. Now the card $currentIndex is on top',
+      );
     }
-    debugPrint(
-      'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
-    );
-    return true;
+      return true;
+
   }
 
 
