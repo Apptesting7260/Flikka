@@ -33,7 +33,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                           onTap: () {
                             Get.offAll(const TabScreen(index: 0)) ;
                           },
-                          child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)),
+                          child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)),
                       SizedBox(width: Get.width*.04,),
                       Text("Forum", style: Get.theme.textTheme.displayLarge),
                     ],

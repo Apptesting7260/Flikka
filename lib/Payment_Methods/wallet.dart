@@ -97,7 +97,7 @@ class _WalletState extends State<Wallet> {
                         Get.back();
                       }, // Image tapped
                       child: Image.asset(
-                        'assets/images/backicon.png',
+                        'assets/images/icon_back_blue.png',
                         // fit: BoxFit.cover, // Fixes border issues
                         width: Get.width * 0.1,
                         height: Get.height * 0.1,

@@ -1,5 +1,6 @@
 import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/Payment_Methods/bank_account_details_edit.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +29,7 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
               GestureDetector(
                 onTap: () {Get.back();}, // Image tapped
                 child: Image.asset(
-                  'assets/images/backicon.png',
+                  'assets/images/icon_back_blue.png',
                   // fit: BoxFit.cover, // Fixes border issues
                   width: Get.width*0.1,
                   height: Get.height*0.1,
@@ -88,14 +89,15 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
                 height: Get.height,
                 alignment: Alignment.center,
                 decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(0xff56B8F6),
-                          Color(0xff4D6FED)
-                        ],begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter
-
-                    ),
+                    // gradient: LinearGradient(
+                    //     colors: [
+                    //       Color(0xff56B8F6),
+                    //       Color(0xff4D6FED)
+                    //     ],begin: Alignment.topCenter,
+                    //     end: Alignment.bottomCenter
+                    //
+                    // ),
+                  color: AppColors.blueThemeColor,
                     borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60),topLeft: Radius.circular(60))),
                 child:Text("£",style: Theme.of(context).textTheme.displayLarge?.copyWith(fontWeight: FontWeight.w500,fontSize: 26),),
               ),

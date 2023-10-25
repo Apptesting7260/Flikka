@@ -95,7 +95,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(top: 25.0),
-                      child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.05, fit: BoxFit.contain),
+                      child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.04, fit: BoxFit.contain),
                     ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

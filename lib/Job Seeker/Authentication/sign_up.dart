@@ -185,7 +185,7 @@ class _SignUpState extends State<SignUp> {
                 Center(
                   child: SizedBox(
                     width:   295,
-                    height:   56,
+                    height:   Get.height*.075,
                     child: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(

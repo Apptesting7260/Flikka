@@ -980,7 +980,7 @@ class _UserProfileState extends State<UserProfile> {
                                 onTap: () {
                                   Get.offAll(TabScreen(index: 0)) ;
                                 },
-                                  child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)) ,
+                                  child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
                               SizedBox(
                                 height: 50,
                                 width: 50,

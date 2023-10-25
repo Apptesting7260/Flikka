@@ -19,32 +19,32 @@ class _BottomState extends State<Bottom> {
   List<BottomNavigationBarItem> buildBottomNavBarItems = [
      BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.024,),
-        activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.024)),
+        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.035,),
+        activeIcon: Image.asset("assets/images/icon_select_home.png",height: Get.height*.035)),
 
 
      BottomNavigationBarItem(
         label: "",
-        icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.024) ,
-        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.024,) ,
+        icon: Image.asset("assets/images/icon_unselect_location.png",height: Get.height*.035) ,
+        activeIcon: Image.asset("assets/images/icon_Select_location.png",height: Get.height*.035,) ,
      ),
 
 
      BottomNavigationBarItem(
         label: "",
-        icon: Image.asset("assets/images/icon_search.png",height: Get.height*.04),
+        icon: Image.asset("assets/images/icon_search.png",height: Get.height*.045),
         ),
 
      BottomNavigationBarItem(
         label: "",
-        icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.024),
-        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.024,)
+        icon: Image.asset("assets/images/icon_forum_unselect.png",height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_forum_select.png",height: Get.height*.035,)
         ),
 
      BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_person.svg",height: Get.height*.024),
-        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.024),
+        icon: SvgPicture.asset("assets/images/icon_unselect_person.svg",height: Get.height*.035),
+        activeIcon: Image.asset("assets/images/icon_select_person.png",height: Get.height*.035),
         ),
   ];
 
@@ -77,8 +77,8 @@ class _BottomState extends State<Bottom> {
         backgroundColor: Color(0xff353535),
         currentIndex: widget.bottomSelectedIndex,
         onTap: (index) => widget.bottomTapped(index),
-        selectedFontSize: 12,
-        unselectedFontSize: 10,
+        selectedFontSize: 1,
+        unselectedFontSize: 1,
       ),
     );
   }

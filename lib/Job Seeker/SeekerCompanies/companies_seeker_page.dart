@@ -2,12 +2,14 @@ import 'package:flikka/controllers/CompaniesListController/CompaniesListControll
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../res/components/unauthorised_request_widget.dart';
+import '../SeekerFilter/filter_page.dart';
 import 'rating_page_seeker.dart';
 
 class CompanySeekerPage extends StatefulWidget {
@@ -60,29 +62,46 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
         case Status.COMPLETED:
           return SafeArea(
             child: Scaffold(
-
+              appBar: AppBar(
+                toolbarHeight: 60,
+                leading: IconButton(onPressed: () {
+                }, icon: Image.asset(
+                "assets/images/icon_back_blue.png",
+                height: Get.height * .06,)) ,
+                title:Text("Companies", style: Get.theme.textTheme
+              .displayLarge),
+                actions: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 25.0),
+                    child: GestureDetector(
+                        onTap: () {
+                          Get.to(() => FilterPage()) ;
+                        },
+                        child: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: 24,)),
+                  )
+                ],
+              ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(
-                    horizontal: 15.0, vertical: 10),
+                    horizontal: 15.0,),
                 child: SingleChildScrollView(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: Get.height * .02,),
-                      Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Image.asset(
-                                "assets/images/icon_back_blue.png",
-                                height: Get.height * .05,)),
-                          SizedBox(width: Get.width * .04,),
-                          Text("Companies", style: Get.theme.textTheme
-                              .displayLarge),
-                        ],
-                      ),
+                      // Row(
+                      //   children: [
+                      //     GestureDetector(
+                      //         onTap: () {
+                      //           Get.back();
+                      //         },
+                      //         child: Image.asset(
+                      //           "assets/images/icon_back_blue.png",
+                      //           height: Get.height * .055,)),
+                      //     SizedBox(width: Get.width * .04,),
+                      //     Text("Companies", style: Get.theme.textTheme
+                      //         .displayLarge),
+                      //   ],
+                      // ),
                       SizedBox(height: Get.height * .03,),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: Get.width *
