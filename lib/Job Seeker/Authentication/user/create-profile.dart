@@ -393,7 +393,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               ),
                               const SizedBox(width: 3),
                               Checkbox(
-                                activeColor: const Color(0xff56B8F6),
+                                activeColor: AppColors.blueThemeColor,
                                 // fillColor:
                                 //     MaterialStateProperty.all(const Color(0xff56B8F6)),
                                 checkColor: Colors.white,
@@ -575,38 +575,83 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 SizedBox(
                                                   height: Get.height * .01,
                                                 ),
-                                                index == experienceData.length - 1
-                                                    ? addMoreField(onTap: () {
-                                                  seekerCreateProfileController
-                                                      .selectStartDateExperienceErrorMessage
-                                                      .value = "";
-                                                  if (!fresher) {
-                                                    if (experienceForm
-                                                        .currentState!
-                                                        .validate()) {
-                                                      _addExperience();
+                                               Row(
+                                                 children: [
+                                                   index == experienceData.length - 1
+                                                       ? addMoreField(onTap: () {
+                                                     seekerCreateProfileController
+                                                         .selectStartDateExperienceErrorMessage
+                                                         .value = "";
+                                                     if (!fresher) {
+                                                       if (experienceForm
+                                                           .currentState!
+                                                           .validate()) {
+                                                         _addExperience();
 
-                                                      if (workExperienceList
-                                                          .length <
-                                                          index + 1) {
-                                                        workExperienceList.add({
-                                                          "work_exp_job": column.textController1.text,
-                                                          "company_name": column.textController2.text,
-                                                          "job_start_date": column.startDateController.text,
-                                                          "job_end_date": column.endDateController.text,
-                                                        });
-                                                      }
-                                                      setState(() {
-                                                        startDateExperience =
-                                                        null;
-                                                        endDateExperience = null;
-                                                      });
-                                                      print(workExperienceList);
-                                                    }
-                                                  }
-                                                  return null;
-                                                })
-                                                    : const SizedBox(),
+                                                         if (workExperienceList
+                                                             .length <
+                                                             index + 1) {
+                                                           workExperienceList.add({
+                                                             "work_exp_job": column.textController1.text,
+                                                             "company_name": column.textController2.text,
+                                                             "job_start_date": column.startDateController.text,
+                                                             "job_end_date": column.endDateController.text,
+                                                           });
+                                                         }
+                                                         setState(() {
+                                                           startDateExperience =
+                                                           null;
+                                                           endDateExperience = null;
+                                                         });
+                                                         print(workExperienceList);
+                                                       }
+                                                     }
+                                                     return null;
+                                                   })
+                                                       : const SizedBox(),
+                                                   GestureDetector(
+                                                     onTap: () {
+                                                       setState(() {
+                                                         experiencePresent = !experiencePresent;
+                                                       });
+                                                     },
+                                                     child: Container(
+                                                       alignment: Alignment.topLeft,
+                                                       child: Checkbox(
+                                                         fillColor:
+                                                         MaterialStateProperty.all(const Color(0xff56B8F6)),
+                                                         checkColor: Colors.white,
+                                                         shape: RoundedRectangleBorder(
+                                                             borderRadius: BorderRadius.circular(5)),
+                                                         value: experiencePresent,
+                                                         onChanged: (val) {
+                                                           setState(() {
+                                                             experiencePresent = val!;
+                                                           });
+                                                         },
+                                                       ),
+                                                     )
+                                                   ),
+                                                   SizedBox(width: Get.width*.02),
+                                                   Align(
+                                                     alignment: Alignment.topLeft,
+                                                     child: GestureDetector(
+                                                       onTap: () {
+                                                         setState(() {
+                                                           experiencePresent = !experiencePresent;
+                                                         });
+                                                       },
+                                                       child: Text(
+                                                         "Present",
+                                                         style: Theme.of(context)
+                                                             .textTheme
+                                                             .labelMedium
+                                                             ?.copyWith(fontSize: 15),
+                                                       ),
+                                                     ),
+                                                   ),
+                                                 ],
+                                               )
                                               ],
                                             )),
                                         SizedBox(
