@@ -18,8 +18,8 @@ class _BottomEmployerState extends State<BottomEmployer> {
   List<BottomNavigationBarItem> buildBottomNavBarItems = [
     BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.024,),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_home.svg",height: Get.height*.024)),
+        icon: SvgPicture.asset("assets/images/icon_unselect_home.svg",height: Get.height*.044,),
+        activeIcon: SvgPicture.asset("assets/images/icon_select_home.svg",height: Get.height*.044)),
 
 
     BottomNavigationBarItem(

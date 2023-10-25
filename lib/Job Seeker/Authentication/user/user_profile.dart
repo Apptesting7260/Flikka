@@ -525,35 +525,24 @@ class _UserProfileState extends State<UserProfile> {
                                 readOnly: true,
                                 decoration: InputDecoration(
                                   filled: true,
-                                  fillColor: const Color(
-                                      0xff373737),
+                                  fillColor: const Color(0xff373737),
                                   hintText: "Select date",
-                                  contentPadding: EdgeInsets
-                                      .symmetric(
-                                      vertical: Get.height *
-                                          .027,
-                                      horizontal: Get.width *
-                                          .06),
-                                  hintStyle: Theme.of(context).textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      color:
-                                      const Color(0xffCFCFCF),
+                                  contentPadding: EdgeInsets.symmetric(
+                                      vertical: Get.height * .027,
+                                      horizontal: Get.width * .06),
+                                  hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      color: const Color(0xffCFCFCF),
                                       fontSize: 12,
-                                      fontWeight: FontWeight
-                                          .w400),
+                                      fontWeight: FontWeight.w400),
                                   border: OutlineInputBorder(
-                                      borderRadius:
-                                      BorderRadius.circular(35),
-                                      borderSide: BorderSide
-                                          .none
+                                      borderRadius: BorderRadius.circular(35),
+                                      borderSide: BorderSide.none
                                   ),
                                   suffixIcon: const Icon(
                                     Icons.calendar_month,
                                     size: 13,
                                   ),
                                 ),
-
                               ),
                             ),
 
@@ -588,7 +577,9 @@ class _UserProfileState extends State<UserProfile> {
                                 experienceData.companyName = companyOrInstituteController.text ;
                                 experienceData.jobStartDate = _startDateController.text ;
                                 experienceData.jobEndDate = _endDateController.text ;
+                                debugPrint("this is experience ${experienceData.companyName}") ;
                                 seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob?.add(experienceData);
+                                debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob}") ;
                                 editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.seekerDetails?.workExpJob, context);
                               } else {
                                 seekerProfileController.viewSeekerData.value
@@ -614,8 +605,7 @@ class _UserProfileState extends State<UserProfile> {
                                 educationData.educationStartDate = _startDateController.text ;
                                 educationData.educationEndDate = _endDateController.text ;
                                 seekerProfileController.viewSeekerData.value.seekerDetails?.educationLevel?.add(educationData) ;
-                                editSeekerExperienceController.workApi(
-                                    false, seekerProfileController.viewSeekerData.value
+                                editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value
                                         .seekerDetails?.educationLevel, context);
                               } else {
                                 seekerProfileController.viewSeekerData.value

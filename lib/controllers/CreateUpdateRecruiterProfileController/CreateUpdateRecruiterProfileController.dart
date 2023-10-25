@@ -51,7 +51,7 @@ class CreateUpdateRecruiterProfileController extends GetxController {
         "about_description": aboutDescription,
         "industry": industry.toString(),
         "company_size": companySize.toString(),
-        "founded": jsonEncode(founded.toString()),
+        "founded": jsonEncode(founded),
         "specialties": specialties,
         "contact_person" : contactPerson
       }) ;

@@ -96,7 +96,7 @@ class CommonWidgets {
           decoration: InputDecoration(
             filled: true,
             fillColor: const Color(0xff373737),
-            hintText: "Enter description",
+            hintText: "$hint",
             hintStyle: Theme
                 .of(context)
                 .textTheme
