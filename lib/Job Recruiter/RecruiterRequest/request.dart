@@ -1,4 +1,5 @@
 import 'package:flikka/Job%20Recruiter/profile/candidate_profile_sehedule_interview_meeting.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -31,13 +32,15 @@ class _RequestState extends State<Request> {
               decoration: InputDecoration(
                   border:OutlineInputBorder(
                       borderRadius: BorderRadius.circular(18),
-                      borderSide: BorderSide(color: Color(0xff1A1A1A))
+                      borderSide: BorderSide.none
+                      // borderSide: BorderSide(color: Color(0xff1A1A1A))
                   ),
                   filled: true,
                   fillColor: Color(0xff1A1A1A),
                   hintText: "Enter Name",
                   enabledBorder:  OutlineInputBorder(
                     borderRadius: BorderRadius.circular(18),
+                    borderSide: BorderSide.none
                     //borderSide: BorderSide(color: Colors.white),
                   ),
                   errorBorder: OutlineInputBorder(
@@ -46,7 +49,7 @@ class _RequestState extends State<Request> {
                   ),
                   disabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(18.0)),
-                    borderSide: BorderSide(color: Color(0xff1A1A1A)),
+                      borderSide: BorderSide.none
                   ),
                   hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF)),
                   //contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.038)
@@ -61,7 +64,6 @@ class _RequestState extends State<Request> {
                 return null;
               },
             ),
-
           ],
         );
       },
@@ -129,7 +131,7 @@ class _RequestState extends State<Request> {
                             SizedBox(height: Get.height*.03,),
                             Row(
                               children: [
-                                Image.asset("assets/images/icon work experience.png",height: Get.height*.03,),
+                                Image.asset("assets/images/icon work experience.png",height: Get.height*.03,color: AppColors.blueThemeColor,),
                                 SizedBox(width: Get.width*.03,),
                                 Text("Work experience",style: Theme.of(context).textTheme.titleSmall,),
 
@@ -142,7 +144,7 @@ class _RequestState extends State<Request> {
                             SizedBox(height: Get.height*.03,),
                             Row(
                               children: [
-                                Image.asset("assets/images/icon education.png",height: Get.height*.04,),
+                                Image.asset("assets/images/icon education.png",height: Get.height*.04,color: AppColors.blueThemeColor),
                                 SizedBox(width: Get.width*.03,),
                                 Text("Education",style: Theme.of(context).textTheme.titleSmall,),
                               ],

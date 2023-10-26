@@ -779,31 +779,51 @@ class _AddAJobPageState extends State<AddAJobPage> {
         return AlertDialog(
           backgroundColor: const Color(0xff373737),
           shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
-          title: Text(
-            'Pick Image',
-            style: Theme.of(context).textTheme.bodyMedium,
+          title:Center(
+            child: Text(
+              'Please choose image',
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 18),
+            ),
           ),
+          // content: Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //   children: [
+          //     GestureDetector(
+          //       child: const Icon(
+          //         Icons.camera_alt_outlined,
+          //         color: Colors.white,
+          //       ),
+          //       onTap: () {
+          //         _pickImage(ImageSource.camera);
+          //       },
+          //     ),
+          //     GestureDetector(
+          //       child: const Icon(
+          //         Icons.photo_library,
+          //         color: Colors.white,
+          //       ),
+          //       onTap: () {
+          //         _pickImage(ImageSource.gallery);
+          //       },
+          //     ),
+          //   ],
+          // ),
           content: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              GestureDetector(
-                child: const Icon(
-                  Icons.camera_alt_outlined,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  _pickImage(ImageSource.camera);
-                },
-              ),
-              GestureDetector(
-                child: const Icon(
-                  Icons.photo_library,
-                  color: Colors.white,
-                ),
-                onTap: () {
-                  _pickImage(ImageSource.gallery);
-                },
-              ),
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Camera", onTap1: () {
+                _pickImage(ImageSource.camera);
+              },),
+              SizedBox(width: 10,) ,
+              MyButton(
+                width: Get.width*.25,
+                height: Get.height*.05,
+                title: "Gallery", onTap1: () {
+                _pickImage(ImageSource.gallery);
+              },),
             ],
           ),
         );
