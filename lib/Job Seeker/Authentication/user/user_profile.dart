@@ -130,7 +130,11 @@ class _UserProfileState extends State<UserProfile> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                SizedBox(height: Get.height * 0.02,),
+                CommonWidgets.textFieldHeading(context, "About Me"),
+                SizedBox(height: Get.height * 0.01,),
                 TextField(
                   style: Theme
                       .of(context)
@@ -217,7 +221,11 @@ class _UserProfileState extends State<UserProfile> {
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          SizedBox(height: Get.height * 0.02,),
+                          CommonWidgets.textFieldHeading(context, "Full Name"),
+                          SizedBox(height: Get.height * 0.01,),
                           TextField(
                             style: Theme
                                 .of(context)
@@ -245,6 +253,8 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           SizedBox(height: Get.height * 0.02,),
+                          CommonWidgets.textFieldHeading(context, "Location"),
+                          SizedBox(height: Get.height * 0.01,),
                           TextField(
                             style: Theme
                                 .of(context)
@@ -272,6 +282,8 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           SizedBox(height: Get.height * 0.02,),
+                          CommonWidgets.textFieldHeading(context, "Position"),
+                          SizedBox(height: Get.height * 0.01,),
                           Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(33),
@@ -393,11 +405,16 @@ class _UserProfileState extends State<UserProfile> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
+
               children: [
                 Form(
                   key: key,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: Get.height* 0.02,) ,
+                      CommonWidgets.textFieldHeading(context,experience ? "Work Experience" : "Level of education"),
+                      SizedBox(height: Get.height* 0.01,) ,
                       TextFormField(
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                         onChanged: (String value) {
@@ -405,6 +422,12 @@ class _UserProfileState extends State<UserProfile> {
                         },
                         controller: jobTitleOrEducationLevelController,
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xff373737),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(33),
+                              borderSide: BorderSide.none
+                          ),
                           hintText: experience ?  'Enter job title' : "Enter education level",
                           hintStyle: Theme.of(context)
                               .textTheme
@@ -418,6 +441,8 @@ class _UserProfileState extends State<UserProfile> {
                         },
                       ),
                       SizedBox(height: Get.height* 0.02,) ,
+                      CommonWidgets.textFieldHeading(context,experience ? "Company Name" : "Institution name"),
+                      SizedBox(height: Get.height* 0.01,) ,
                       TextFormField(
                         style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                         onChanged: (String value) {
@@ -425,6 +450,12 @@ class _UserProfileState extends State<UserProfile> {
                         },
                         controller: companyOrInstituteController,
                         decoration: InputDecoration(
+                          filled: true,
+                          fillColor: Color(0xff373737),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(33),
+                              borderSide: BorderSide.none
+                          ),
                           hintText: experience ? 'Enter company name' : 'Enter institute name',
                           hintStyle: Theme.of(context)
                               .textTheme

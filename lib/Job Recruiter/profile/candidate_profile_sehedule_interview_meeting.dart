@@ -381,13 +381,14 @@ class _CandidateProfileseheduleMettingState extends State<CandidateProfilesehedu
             children:[
               Container(
                 decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    colors: [
-                      Color(0xff2386C7), Color(0xff4D6FED)
-                    ],
-                    begin: Alignment.topCenter, // Start from the top center
-                    end: Alignment.bottomCenter, // End at the bottom center
-                  ),
+                  // gradient: LinearGradient(
+                  //   colors: [
+                  //     Color(0xff2386C7), Color(0xff4D6FED)
+                  //   ],
+                  //   begin: Alignment.topCenter, // Start from the top center
+                  //   end: Alignment.bottomCenter, // End at the bottom center
+                  // ),
+                  color: AppColors.blueThemeColor
                 ),
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 14.0,vertical: 15),
@@ -430,16 +431,17 @@ class _CandidateProfileseheduleMettingState extends State<CandidateProfilesehedu
                                           child: Container(
                                               decoration: BoxDecoration(
                                                 shape: BoxShape.circle,
-                                                gradient: LinearGradient(
-                                                  colors: [
-                                                    Color(0xFF56B8F6),
-                                                    Color(0xFF4D6FED),
-                                                  ],
-                                                  begin: Alignment
-                                                      .topCenter, // Start from the top center
-                                                  end: Alignment
-                                                      .bottomCenter, // End at the bottom center
-                                                ),
+                                                // gradient: LinearGradient(
+                                                //   colors: [
+                                                //     Color(0xFF56B8F6),
+                                                //     Color(0xFF4D6FED),
+                                                //   ],
+                                                //   begin: Alignment
+                                                //       .topCenter, // Start from the top center
+                                                //   end: Alignment
+                                                //       .bottomCenter, // End at the bottom center
+                                                // ),
+                                                color: AppColors.blueThemeColor
                                               ),
                                               child: CircleAvatar(
                                                   radius: 17,
@@ -621,7 +623,7 @@ class _CandidateProfileseheduleMettingState extends State<CandidateProfilesehedu
                                     children: [
                                       InkWell(
 
-                                          child: SvgPicture.asset('assets/images/experisvg.svg')),
+                                          child: Image.asset('assets/images/icon work experience.png',color: AppColors.blueThemeColor,height: Get.height*.03,)),
                                       SizedBox(width: Get.width*0.02,),
                                       Padding(
                                         padding: const EdgeInsets.only(top: 4.0),
