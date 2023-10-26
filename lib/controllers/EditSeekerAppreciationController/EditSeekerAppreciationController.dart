@@ -31,14 +31,6 @@ class EditSeekerAppreciationController extends GetxController {
         Get.back(result: true) ;
         seekerProfileController.viewSeekerProfileApi() ;
         Utils.toastMessage('Profile updated') ;
-        // ScaffoldMessenger.of(context).showSnackBar(
-        //     const SnackBar(
-        //       width: 130,
-        //       shape: StadiumBorder(),
-        //       behavior: SnackBarBehavior.floating,
-        //       elevation: 10,
-        //       content: Text('Profile updated'),
-        //     ) );
       }
       else{
         errorMessage.value =  value.message.toString();

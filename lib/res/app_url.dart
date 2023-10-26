@@ -37,5 +37,6 @@ class AppUrl {
   static const String editSeekerEducation = '$baseUrl/seeker-profile-education-edit' ;
   static const String editSeekerAppreciation = '$baseUrl/seeker-profile-appreciation-edit' ;
   static const String editSeekerResume = '$baseUrl/seeker-profile-resume-edit' ;
+  static const String seekerSaveJob = '$baseUrl/save-job' ;
 
 }

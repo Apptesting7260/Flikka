@@ -1,9 +1,11 @@
 
+import 'package:flikka/controllers/SeekerSavePostController/SeekerSavePostController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/res/components/request_timeout_widget.dart';
 import 'package:flikka/res/components/server_error_widget.dart';
 import 'package:flikka/res/components/unauthorised_request_widget.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
@@ -36,6 +38,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   GetJobsListingController getJobsListingController = GetJobsListingController() ;
   ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
+  SeekerSavePostController savePostController = Get.put(SeekerSavePostController()) ;
 
   @override
   void initState() {
@@ -178,6 +181,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         print("this is approved list $approved");
       } else if (direction.name == "top") {
         saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
+        CommonFunctions.showLoadingDialog(context, "Saving") ;
+        savePostController.savePostApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id , 1) ;
         print("this is saved list $saved");
       }
       debugPrint(
