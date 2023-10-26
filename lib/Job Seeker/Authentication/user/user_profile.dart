@@ -1281,6 +1281,11 @@ class _UserProfileState extends State<UserProfile> {
                                             itemCount: seekerProfileController.viewSeekerData.value.workExpJob?.length,
                                             itemBuilder: (context, index) {
                                               var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
+                                              // if(data?.present == false) {
+                                              //  DateTime.parse(data!.jobStartDate.toString()) ;
+                                              //  print(data?.jobStartDate) ;
+                                              //  print(data?.jobEndDate) ;
+                                              // }
                                               return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                 children: [
                                                   SizedBox(height: Get.height * 0.02,),
@@ -2131,8 +2136,8 @@ class _UserProfileState extends State<UserProfile> {
     );
     if (picked != null ) {
       setState(() {
-     start ?   _startDateController.text = DateFormat('yyyy-MM-dd').format(picked) :
-        _endDateController.text = DateFormat('yyyy-MM-dd').format(picked);
+     start ?   _startDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}" :
+        _endDateController.text = "${picked.year.toString().padLeft(4,"0")}-${picked.month.toString().padLeft(2,"0")}-${picked.day.toString().padLeft(2,"0")}";
      print(_startDateController.text) ;
       });
     }

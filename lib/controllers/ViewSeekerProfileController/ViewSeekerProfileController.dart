@@ -27,6 +27,7 @@ class ViewSeekerProfileController extends GetxController {
       viewSeekerData(value);
       loading(false) ;
       print(value);
+      print("this is experience data =========== ${value.workExpJob?[0].jobStartDate }") ;
 
     }).onError((error, stackTrace){
       setError(error.toString());

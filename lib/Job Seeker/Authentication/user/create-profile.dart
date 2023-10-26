@@ -44,6 +44,7 @@ class EducationData {
   DateTime? endDate;
   var startDateForm = GlobalKey<FormState>();
   var endDateForm = GlobalKey<FormState>();
+  bool present = false ;
 }
 
 class CreateProfile extends StatefulWidget {
@@ -59,6 +60,7 @@ class _CreateProfileState extends State<CreateProfile> {
 
   bool fresher = false;
   bool experiencePresent = false;
+  bool educationPresent = false;
 
   bool startExperienceDate = true;
   List<ExperienceData> experienceData = [];
@@ -1079,7 +1081,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                             "institution_name": education.textController2.text,
                                             // "field_of_study": education.textController3.text,
                                             "education_start_date": education.startDateController.text,
-                                            "education_end_date": education.endDateController.text
+                                            "education_end_date": education.present ? "present" : education.endDateController.text
                                           });
                                         }
                                         setState(() {
@@ -1511,18 +1513,12 @@ class _CreateProfileState extends State<CreateProfile> {
                             height: Get.height * .01,
                           ),
                           Obx(() =>
-                          seekerCreateProfileController.cvErrorMessage.value
-                              .isEmpty
-                              ? const SizedBox()
+                          seekerCreateProfileController.cvErrorMessage.value.isEmpty ? const SizedBox()
                               : Center(
-                              child: Text(
-                                seekerCreateProfileController.cvErrorMessage
-                                    .value,
+                              child: Text(seekerCreateProfileController.cvErrorMessage.value,
                                 style: const TextStyle(color: Colors.red),
                               ))),
-                          SizedBox(
-                            height: Get.height * .07,
-                          ),
+                          SizedBox( height: Get.height * .07,),
                           Obx(
                                 () =>
                                 Center(
@@ -1531,27 +1527,21 @@ class _CreateProfileState extends State<CreateProfile> {
                                       loading: seekerCreateProfileController
                                           .loading.value,
                                       onTap1: () {
-                                        if (educationLevelController.text
-                                            .isNotEmpty &&
-                                            institutionNameController.text
-                                                .isNotEmpty) {
+                                        if (educationLevelController.text.isNotEmpty &&
+                                            institutionNameController.text.isNotEmpty) {
                                           educationList.add({
                                             "education_level": educationLevelController.text,
                                             "institution_name": institutionNameController.text,
                                             // "field_of_study": education.textController3.text,
                                             "education_start_date": "${startDateEducation?.year.toString().padLeft(4, '0')}-${startDateEducation?.month.toString().padLeft(2, '0')}-${startDateEducation?.day.toString().padLeft(2, '0')}",
-                                            "education_end_date":"${endDateEducation?.year.toString().padLeft(4, '0')}-${endDateEducation?.month.toString().padLeft(2, '0')}-${endDateEducation?.day.toString().padLeft(2, '0')}",
+                                            "education_end_date": educationPresent ? "present" : "${endDateEducation?.year.toString().padLeft(4, '0')}-${endDateEducation?.month.toString().padLeft(2, '0')}-${endDateEducation?.day.toString().padLeft(2, '0')}",
                                           });
                                         }
-                                          if (awardNameController.text
-                                              .isNotEmpty &&
-                                              achievementController.text
-                                                  .isNotEmpty) {
+                                          if (awardNameController.text.isNotEmpty &&
+                                              achievementController.text.isNotEmpty) {
                                             appreciationList.add({
-                                              "award_name": awardNameController
-                                                  .text,
-                                              "achievement": achievementController
-                                                  .text
+                                              "award_name": awardNameController.text,
+                                              "achievement": achievementController.text
                                             });
                                             print(appreciationList);
                                           }
@@ -1566,20 +1556,10 @@ class _CreateProfileState extends State<CreateProfile> {
 
                                           if (introFormKey.currentState!
                                               .validate()) {
-                                            seekerCreateProfileController
-                                                .createProfileApi(
-                                                imgFile?.path,
-                                                _filePath,
-                                                _documentTypeFilePath,
-                                                nameController.text,
-                                                locationController.text,
-                                                aboutMeController.text,
-                                                workExperienceList,
-                                                educationList,
-                                                LanguageSelectorState.languages,
-                                                appreciationList,
-                                                DocumentType,
-                                                fresher ? 1 : null);
+                                            seekerCreateProfileController.createProfileApi(imgFile?.path, _filePath,
+                                                _documentTypeFilePath, nameController.text, locationController.text,
+                                                aboutMeController.text, workExperienceList, educationList, LanguageSelectorState.languages,
+                                                appreciationList, DocumentType, fresher ? 1 : null);
                                           } else {
                                             scrollController.animateTo(0,
                                                 duration: const Duration(
@@ -1790,15 +1770,6 @@ class _CreateProfileState extends State<CreateProfile> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.camera_alt_outlined,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImage(ImageSource.camera);
-                  //   },
-                  // ),
                   MyButton(
                     width: Get.width*.25,
                     height: Get.height*.05,
@@ -1810,15 +1781,6 @@ class _CreateProfileState extends State<CreateProfile> {
               Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  // GestureDetector(
-                  //   child: const Icon(
-                  //     Icons.photo_library,
-                  //     color: Colors.white,
-                  //   ),
-                  //   onTap: () {
-                  //     _pickImage(ImageSource.gallery);
-                  //   },
-                  // ),
                   MyButton(
                     width: Get.width*.25,
                     height: Get.height*.05,
