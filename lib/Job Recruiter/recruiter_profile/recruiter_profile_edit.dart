@@ -404,14 +404,15 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                     // width: Get.height * .05,
                                     decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      gradient: LinearGradient(
-                                        colors: [
-                                          Color(0xff56B8F6),
-                                          Color(0xff4D6FED)
-                                        ],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      ),
+                                      // gradient: LinearGradient(
+                                      //   colors: [
+                                      //     Color(0xff56B8F6),
+                                      //     Color(0xff4D6FED)
+                                      //   ],
+                                      //   begin: Alignment.topLeft,
+                                      //   end: Alignment.bottomRight,
+                                      // ),
+                                      color: AppColors.blueThemeColor
                                     ),
                                     child: profileImage !=null && profileImage?.path.length !=0 ?
                                         const Icon(Icons.edit,color: Colors.white,
@@ -905,7 +906,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                         GestureDetector(
                                           onTap: () => _selectDate(context),
                                           child: Image.asset(
-                                            "assets/images/icon_calendar_blue.png",
+                                            "assets/images/icon_calendar_blue.png",color: AppColors.blueThemeColor,
                                             height: Get.height * 0.030,
                                           ),
                                         ),

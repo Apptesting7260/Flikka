@@ -151,11 +151,11 @@ class _ChooseRoleState extends State<ChooseRole> {
                                           checkColor: Colors.white,
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10),
-                                              side: const BorderSide(color: Color(0xff56B6F6))),
-                                          activeColor: const Color(0xff56B8F6),
+                                              side: const BorderSide(color: AppColors.blueThemeColor)),
+                                          activeColor: AppColors.blueThemeColor,
                                           side: const BorderSide(
                                               width: 2 ,
-                                              color: Color(0xff56B8F6)
+                                              color: AppColors.blueThemeColor
                                           ),
                                         ),
                                         const SizedBox(width: 16.0),
@@ -199,11 +199,11 @@ class _ChooseRoleState extends State<ChooseRole> {
                                           checkColor: Colors.white,
                                           shape: RoundedRectangleBorder(
                                               borderRadius: BorderRadius.circular(10),
-                                              side: const BorderSide(color: Color(0xff56B6F6))),
-                                          activeColor: const Color(0xff56B8F6),
+                                              side: const BorderSide(color: AppColors.blueThemeColor)),
+                                          activeColor: AppColors.blueThemeColor,
                                           side: const BorderSide(
                                             width: 2 ,
-                                            color: Color(0xff56B8F6)
+                                            color: AppColors.blueThemeColor,
                                           ),
                                         ),
 
