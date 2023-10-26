@@ -141,6 +141,12 @@ class _UserProfileState extends State<UserProfile> {
                   },
                   controller: aboutSectionController,
                   decoration: InputDecoration(
+                    filled: true,
+                    fillColor: Color(0xff373737),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(33),
+                        borderSide: BorderSide.none
+                    ),
                     hintText: 'Enter about',
                     hintStyle: Theme
                         .of(context)
@@ -223,6 +229,12 @@ class _UserProfileState extends State<UserProfile> {
                             },
                             controller: nameController,
                             decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xff373737),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(33),
+                                borderSide: BorderSide.none
+                              ),
                               hintText: 'Enter name',
                               hintStyle: Theme
                                   .of(context)
@@ -244,6 +256,12 @@ class _UserProfileState extends State<UserProfile> {
                             },
                             controller: locationController,
                             decoration: InputDecoration(
+                              filled: true,
+                              fillColor: Color(0xff373737),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(33),
+                                  borderSide: BorderSide.none
+                              ),
                               hintText: 'Enter location',
                               hintStyle: Theme
                                   .of(context)
@@ -254,42 +272,51 @@ class _UserProfileState extends State<UserProfile> {
                             ),
                           ),
                           SizedBox(height: Get.height * 0.02,),
-                          DropdownButton(
-                            isExpanded: true,
-                            value: selectedPosition,
-                            hint: Text(
-                              positions ?? "Select Position",
-                              style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                  color: const Color(0xffCFCFCF)),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(33),
+                              color: Color(0xff373737),
                             ),
-                            items: seekerChoosePositionGetController
-                                .seekerChoosePositionGetList.value.data?.map((
-                                document) {
-                              return DropdownMenuItem(
-                                value: document.positions,
-                                child: Text("${document.positions}",
-                                    style: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .bodyMedium),
-                                onTap: () {
-                                  setState(() {
-                                    positionId = document.id;
-                                    print(positionId);
-                                    selectedPosition = document.positions!;
-                                  });
+                            child: DropdownButtonHideUnderline(
+                              child: DropdownButton(
+                                padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.01),
+                                isExpanded: true,
+                                value: selectedPosition,
+                                hint: Text(
+                                  positions ?? "Select Position",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .labelLarge
+                                      ?.copyWith(
+                                      color: const Color(0xffCFCFCF)),
+                                ),
+                                items: seekerChoosePositionGetController
+                                    .seekerChoosePositionGetList.value.data?.map((
+                                    document) {
+                                  return DropdownMenuItem(
+                                    value: document.positions,
+                                    child: Text("${document.positions}",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodyMedium),
+                                    onTap: () {
+                                      setState(() {
+                                        positionId = document.id;
+                                        print(positionId);
+                                        selectedPosition = document.positions!;
+                                      });
+                                    },
+                                  );
+                                }).toList(),
+                                onChanged: (value) {
+                                  // setState(() {
+                                  //   selectedPosition = value.toString();
+                                  // });
                                 },
-                              );
-                            }).toList(),
-                            onChanged: (value) {
-                              // setState(() {
-                              //   selectedPosition = value.toString();
-                              // });
-                            },
+                              ),
+                            ),
                           ),
                           SizedBox(height: Get.height * .02,),
                           Row(
