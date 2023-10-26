@@ -1,17 +1,15 @@
 
-import 'package:flikka/repository/SeekerDetailsRepository/JobsRepository.dart';
+import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SeekerSavePostController extends GetxController {
+class SeekerSaveJobController extends GetxController {
 
   final _api = SeekerRepository();
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
 
-  savePostApi(
+  saveJobApi(
       dynamic id ,
       dynamic type ,
       ) async{

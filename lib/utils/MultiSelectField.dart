@@ -6,8 +6,9 @@ import '../models/ViewLanguageModel/VIewLanguageModel.dart';
 
 class LanguageSelector extends StatefulWidget {
      List? selectedLanguageList  ;
+     List? selectedLanguageId  ;
      List<LanguageModel>? languageList ;
-   LanguageSelector({super.key, required this.selectedLanguageList , required this.languageList});
+   LanguageSelector({super.key, this.selectedLanguageList,this.selectedLanguageId , required this.languageList});
 
   @override
   LanguageSelectorState createState() => LanguageSelectorState();
@@ -15,20 +16,17 @@ class LanguageSelector extends StatefulWidget {
 
 class LanguageSelectorState extends State<LanguageSelector> {
 
- static List languages=[];
-  final List  supportedLanguages = [
-    'Hindi',
-    'Portuguese',
-    'English',
-    'Spanish',
-    'French',
-    // Add more languages here
-  ];
-  List selectedLanguages = [] ;
+ static List languages = [];
+  List? selectedLanguages = [] ;
 
  @override
   void initState() {
     super.initState();
+    widget.selectedLanguageList?.length != 0 && widget.selectedLanguageList != null ?
+        selectedLanguages = widget.selectedLanguageList : [] ;
+    widget.selectedLanguageId?.length != 0 && widget.selectedLanguageId != null ?
+        languages = widget.selectedLanguageId! : [] ;
+    print(languages) ;
   }
 
   @override
@@ -62,7 +60,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
                         if(languages.contains(language.id.toString())) {
                         }else {
                           languages.add(language.id.toString());
-                          selectedLanguages.add(language.languages) ;
+                          selectedLanguages?.add(language.languages) ;
                           widget.selectedLanguageList = languages ;
                           debugPrint(languages.toString());
                         }
@@ -83,7 +81,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
               crossAxisSpacing: 8 ,
               mainAxisSpacing: 8,
             ),
-            itemCount: selectedLanguages.length,
+            itemCount: selectedLanguages?.length,
             itemBuilder: (context , index){
               return Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8),
@@ -94,11 +92,11 @@ class LanguageSelectorState extends State<LanguageSelector> {
                 height: Get.height * 0.6,
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Text(selectedLanguages[index]) ,
+                  Text(selectedLanguages?[index]) ,
                   IconButton(onPressed: (){
                     setState(() {
                       languages.removeAt(index) ;
-                      selectedLanguages.removeAt(index) ;
+                      selectedLanguages?.removeAt(index) ;
                       widget.selectedLanguageList = languages ;
                     });
 

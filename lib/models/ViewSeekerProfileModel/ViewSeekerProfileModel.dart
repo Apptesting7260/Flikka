@@ -11,6 +11,7 @@ class ViewSeekerProfileModel {
   SeekerInfo? seekerInfo;
   SeekerDetails? seekerDetails;
   List<WorkExpJob>? workExpJob;
+  List<EducationLevel>? educationLevel;
   var message;
 
   ViewSeekerProfileModel({
@@ -19,12 +20,14 @@ class ViewSeekerProfileModel {
     this.seekerInfo,
     this.seekerDetails,
     this.workExpJob ,
+    this.educationLevel,
     this.message,
   });
 
   factory ViewSeekerProfileModel.fromJson(Map<String, dynamic> json) => ViewSeekerProfileModel(
     status: json["status"],
     completeProfile: json["Complite-Profile"],
+    educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
     workExpJob: json["work_exp_job"] == null ? json["work_exp_job"] : List<WorkExpJob>.from(json["work_exp_job"].map((x) => WorkExpJob.fromJson(x))),
     seekerInfo: json["Seeker_info"] == null ? json["Seeker_info"] : SeekerInfo.fromJson(json["Seeker_info"]),
     seekerDetails: json["seeker_dtls"] == null ? json["seeker_dtls"] :  SeekerDetails.fromJson(json["seeker_dtls"]),
@@ -35,6 +38,7 @@ class ViewSeekerProfileModel {
     "status": status,
     "Complite-Profile": completeProfile,
     "work_exp_job": List<dynamic>.from(workExpJob!.map((x) => x.toJson())),
+    "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
     "Seeker_info": seekerInfo?.toJson(),
     "seeker_dtls": seekerDetails?.toJson(),
     "message": message,
@@ -45,7 +49,6 @@ class SeekerDetails {
   var id;
   var seekerId;
   dynamic position ;
-  List<EducationLevel>? educationLevel;
   List<SeekerLanguages>? language;
   List<Appreciation>? appreciation;
   DateTime? createdAt;
@@ -63,7 +66,6 @@ class SeekerDetails {
     this.id,
     this.seekerId,
     this.position ,
-    this.educationLevel,
     this.language,
     this.appreciation,
     this.createdAt,
@@ -82,7 +84,6 @@ class SeekerDetails {
     id: json["id"],
     seekerId: json["seeker_id"],
     position: json["position"],
-    educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
     language:  json["language_name"] == null ? json["language_name"] : List<SeekerLanguages>.from(json["language_name"].map((x) => SeekerLanguages.fromJson(x))),
     appreciation: json["appreciation"] == null ? json["appreciation"] : List<Appreciation>.from(json["appreciation"].map((x) => Appreciation.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
@@ -101,7 +102,6 @@ class SeekerDetails {
     "id": id,
     "seeker_id": seekerId,
     "position" : position ,
-    "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
     "language_name": List<dynamic>.from(language!.map((x) => x.toJson())),
     "appreciation": List<dynamic>.from(appreciation!.map((x) => x.toJson())),
     "created_at": createdAt?.toIso8601String(),

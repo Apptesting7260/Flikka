@@ -1,7 +1,7 @@
 
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
-import 'package:flikka/repository/SeekerDetailsRepository/JobsRepository.dart';
+import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:get/get.dart';
 
 
