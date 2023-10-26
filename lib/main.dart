@@ -30,7 +30,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flikka',
       theme: MyTheme.dark,
-      home:   SplashScreen()
+      home: const SplashScreen()
     );
   }
 }
