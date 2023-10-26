@@ -41,14 +41,15 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                     height: Get.height*.24,
                     width: double.infinity,
                     decoration: BoxDecoration(
-                        gradient: LinearGradient(
-                          colors: [
-                            Color(0xFF4D6FED),
-                            Color(0xff00008b),
-                          ],
-                          begin: Alignment.bottomCenter,
-                          end: Alignment.topCenter,
-                        )
+                        // gradient: LinearGradient(
+                        //   colors: [
+                        //     Color(0xFF4D6FED),
+                        //     Color(0xff00008b),
+                        //   ],
+                        //   begin: Alignment.bottomCenter,
+                        //   end: Alignment.topCenter,
+                        // )
+                      color: AppColors.blueThemeColor
                     ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -241,7 +242,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                 onPressed: () {
 
                                 },
-                                icon: Image.asset('assets/images/icon_save_post_drawer.png',scale: 2.8,fit: BoxFit.cover,)),
+                                icon: Image.asset('assets/images/icon_saved_post_drawer.png',scale: 2.8,fit: BoxFit.cover,)),
                             title: InkWell(
                                 onTap: (){
                                   Get.to((SavedPostRecuiter()));

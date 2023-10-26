@@ -1,3 +1,4 @@
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/CompaniesListController/CompaniesListController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -64,7 +65,9 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
             child: Scaffold(
               appBar: AppBar(
                 toolbarHeight: 60,
-                leading: IconButton(onPressed: () {
+                leading: IconButton(
+                    onPressed: () {
+                      Get.offAll(TabScreen(index: 0)) ;
                 }, icon: Image.asset(
                 "assets/images/icon_back_blue.png",
                 height: Get.height * .06,)) ,

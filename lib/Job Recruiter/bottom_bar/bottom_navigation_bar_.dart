@@ -24,20 +24,20 @@ class _BottomEmployerState extends State<BottomEmployer> {
     BottomNavigationBarItem(
         label: "",
         icon: SvgPicture.asset("assets/images/icon_unselect_applicant.svg",height: 25),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_applicant.svg",height: 25)
+        activeIcon: Image.asset("assets/images/icon_select_applicant.png",height: 25)
     ),
 
 
     BottomNavigationBarItem(
       label: "",
-      icon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: 25),
-      activeIcon: SvgPicture.asset("assets/images/icon_Add_job.svg",height: 25),
+      icon: Image.asset("assets/images/icon_Add_job.png",height: 25),
+      activeIcon: Image.asset("assets/images/icon_Add_job.png",height: 25),
     ),
 
     BottomNavigationBarItem(
         label: "",
-        icon: SvgPicture.asset("assets/images/icon_unselect_msg.svg",height: 25),
-        activeIcon: SvgPicture.asset("assets/images/icon_select_msg.svg",height: 25)
+        icon: Image.asset("assets/images/icon_unselect_msg.png",height: 25),
+        activeIcon: Image.asset("assets/images/icon_select_msg.png",height: 25)
     ),
 
     BottomNavigationBarItem(

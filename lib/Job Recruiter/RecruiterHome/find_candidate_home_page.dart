@@ -36,7 +36,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               children: [
                 Padding(
                   padding: EdgeInsets.only(top: Get.height*.035),
-                  child: Image.asset('assets/images/icon_flikka.png',height: Get.height*.03,),
+                  child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.032,),
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
