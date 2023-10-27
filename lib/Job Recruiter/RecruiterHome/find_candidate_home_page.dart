@@ -59,7 +59,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                           onTap: ()=> Scaffold.of(context).openEndDrawer(),
                           child: Padding(
                             padding:  EdgeInsets.only(top: Get.height*.032),
-                            child: Image.asset('assets/images/inactive.png'),
+                            child: Image.asset('assets/images/inactive.png',height: Get.height*.05,),
                           ));
                     }
                 ),

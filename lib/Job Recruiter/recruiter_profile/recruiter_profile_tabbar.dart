@@ -5,6 +5,7 @@ import 'package:flikka/Job%20Recruiter/recruiter_profile/jobs.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../res/components/general_expection.dart';
@@ -58,7 +59,6 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
           return Scaffold(
               endDrawer: DrawerRecruiter(),
               appBar: AppBar(
-                toolbarHeight: Get.height*.09,
                 title: Text(
                   'Example Company Inc.',
                   style: Theme.of(context)
@@ -67,14 +67,20 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                       ?.copyWith(fontWeight: FontWeight.w700),
                 ),
                 actions: [
-                  Builder(builder: (context) {
-                    return InkWell(
-                        onTap: () => Scaffold.of(context).openEndDrawer(),
-                        child: Image.asset(
-                          'assets/images/inactive.png',
-                          height: Get.height * .055,
-                        ));
-                  }),
+                   Builder(
+                     builder: (context) {
+                       return InkWell(
+                            onTap: () => Scaffold.of(context).openEndDrawer(),
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 14.0,bottom: 10),
+                              child: Image.asset(
+                                'assets/images/inactive.png',
+                                height: Get.height * .03,
+                              ),
+                            ));
+                     }
+                   )
+
                 ],
               ),
               body: DefaultTabController(
@@ -169,12 +175,12 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                         isScrollable: true,
                         indicator: const UnderlineTabIndicator(
                           borderSide:
-                              BorderSide(width: 2.0, color: Color(0xff56B8F6)),
+                              BorderSide(width: 2.0, color: AppColors.blueThemeColor),
                           //insets: EdgeInsets.symmetric(horizontal: width*.14),
                         ),
                         physics: const AlwaysScrollableScrollPhysics(),
                         unselectedLabelColor: const Color(0xffCFCFCF),
-                        labelColor: const Color(0xff56B8F6),
+                        labelColor: AppColors.blueThemeColor,
                         labelStyle: Theme.of(context).textTheme.bodyMedium,
                         tabs: const [
                           Tab(text: "HOME"),

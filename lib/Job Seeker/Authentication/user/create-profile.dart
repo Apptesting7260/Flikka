@@ -369,24 +369,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                   .textTheme
                                   .labelMedium),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            // mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    fresher = !fresher;
-                                  });
-                                },
-                                child: Text(
-                                  "I am a fresher",
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .labelMedium
-                                      ?.copyWith(fontSize: 15),
-                                ),
-                              ),
-                              const SizedBox(width: 3),
                               Checkbox(
                                 activeColor: AppColors.blueThemeColor,
                                 // fillColor:
@@ -404,7 +388,23 @@ class _CreateProfileState extends State<CreateProfile> {
                                     width: 2,
                                     color: AppColors.blueThemeColor
                                 ),
-                              )
+                              ) ,
+                              SizedBox(width: Get.width*.03,) ,
+                              GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    fresher = !fresher;
+                                  });
+                                },
+                                child: Text(
+                                  "Fresher",
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .labelMedium
+                                      ?.copyWith(fontSize: 15),
+                                ),
+                              ),
                             ],
                           ),
 
@@ -713,7 +713,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w300),)
                                                 ) : const SizedBox(),
-                                                Row(
+                                                index == experienceData.length - 1 ?  Row(
                                                   children: [
                                                     Checkbox(
                                                       checkColor: Colors.white,
@@ -726,6 +726,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                           experiencePresent = column.present ;
                                                         });
                                                       },
+                                                      side: BorderSide(color: AppColors.blueThemeColor),
                                                       activeColor: AppColors.blueThemeColor,
                                                     ),
                                                     Text( "Present",
@@ -734,7 +735,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                         color: const Color(0xffFFFFFF),
                                                       )),
                                                   ],
-                                                ),
+                                                ) : const SizedBox(),
                                               ],
                                             )),
                                       ],
@@ -1054,7 +1055,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w300),)
                                                 ) : const SizedBox(),
-                                                Row(
+                                                index == educationData.length - 1 ?    Row(
                                                   children: [
                                                     Checkbox(
                                                       checkColor: Colors.white,
@@ -1067,6 +1068,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                           educationPresent = education.present ;
                                                         });
                                                       },
+                                                      side: BorderSide(color: AppColors.blueThemeColor),
                                                       activeColor: AppColors.blueThemeColor,
                                                     ),
                                                     Text( "Present",
@@ -1075,7 +1077,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                           color: const Color(0xffFFFFFF),
                                                         )),
                                                   ],
-                                                ),
+                                                ) : const SizedBox(),
                                               ],
                                             )),
                                       ],

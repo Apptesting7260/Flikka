@@ -919,10 +919,12 @@ class _UserProfileState extends State<UserProfile> {
                                 if (add == true) {
                                   appreciationData.achievement = achievementController.text ;
                                   appreciationData.awardName = awardController.text ;
+                                  print(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation) ;
                                   seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.add(appreciationData) ;
                                   // list = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation ;
                                   // list?.add(appreciationData) ;
                                   // print("this ======================= $list") ;
+                                  print(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation) ;
                                   editSeekerAppreciationController.appreciationApi(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation, context);
                                 } else {
                                   seekerProfileController.viewSeekerData.value
@@ -1051,7 +1053,7 @@ class _UserProfileState extends State<UserProfile> {
                                         ),
                                       ],
                                     ),
-                                    progressColor: const Color(0xff56B8F6),
+                                    progressColor: AppColors.blueThemeColor,
                                     backgroundColor: AppColors
                                         .ratingcommentfillcolor,
                                     radius: 25, // Background color
@@ -1226,8 +1228,8 @@ class _UserProfileState extends State<UserProfile> {
                                                 children: [
                                                   InkWell(
 
-                                                      child: SvgPicture.asset(
-                                                          'assets/images/aboutsvg.svg')),
+                                                      child: Image.asset(
+                                                          'assets/images/about.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Text('About me',
@@ -1279,8 +1281,8 @@ class _UserProfileState extends State<UserProfile> {
                                                 children: [
                                                   InkWell(
 
-                                                      child: SvgPicture.asset(
-                                                          'assets/images/experisvg.svg')),
+                                                      child: Image.asset(
+                                                          'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Padding(
@@ -1300,7 +1302,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     workExperienceSection(true,"","","","",0,add: true);
                                                   },
                                                   child: Image.asset(
-                                                      'assets/images/addicononjobre.png'))
+                                                      'assets/images/icon_add_more.png',height: Get.height*.04,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1342,7 +1344,7 @@ class _UserProfileState extends State<UserProfile> {
                                                                 onTap: () {
                                                                   _openDeleteDialog(index , true) ;
                                                                 },
-                                                                child: Image.asset('assets/images/deleteicon.png')),
+                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027,)),
                                                           ],
                                                         )
                                                       ],
@@ -1377,7 +1379,7 @@ class _UserProfileState extends State<UserProfile> {
                                               Row(mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: SvgPicture.asset('assets/images/Educationsvg.svg')),
+                                                      child: Image.asset('assets/images/Educationsvg.png',height: Get.height*.04,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
 
@@ -1393,7 +1395,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   onTap: () {
                                                     workExperienceSection(false,"","","","",0,add: true);
                                                   },
-                                                  child: Image.asset('assets/images/addicononjobre.png'))
+                                                  child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1421,14 +1423,14 @@ class _UserProfileState extends State<UserProfile> {
                                                                 onTap: () {
                                                                   workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate, data?.educationEndDate, index);
                                                                 },
-                                                                child: Image.asset('assets/images/editicon2.png')),
+                                                                child: Image.asset("assets/images/icon_edit.png",height: 18)),
 
                                                             const SizedBox(width: 16,),
                                                             InkWell(
                                                                 onTap: () {
                                                                   _openDeleteDialog(index , false) ;
                                                                 },
-                                                                child: Image.asset('assets/images/deleteicon.png')),
+                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027)),
                                                           ],
                                                         )
 
@@ -1463,7 +1465,7 @@ class _UserProfileState extends State<UserProfile> {
                                               Row(mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: SvgPicture.asset('assets/images/skillsvg.svg')),
+                                                      child: Image.asset('assets/images/skillsvg.png',height: Get.height*.03,)),
                                                   SizedBox(width: Get.width * 0.02,),
                                                   Text('Skill',
                                                     style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
@@ -1473,7 +1475,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   onTap: () {
                                                     skill();
                                                   },
-                                                  child: Image.asset('assets/images/editicon2.png'))
+                                                  child: Image.asset("assets/images/icon_edit.png",height: 18))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1844,8 +1846,8 @@ class _UserProfileState extends State<UserProfile> {
                                                     .start,
                                                 children: [
                                                   InkWell(
-                                                      child: SvgPicture.asset(
-                                                          'assets/images/languagesvg.svg')),
+                                                      child: Image.asset(
+                                                          'assets/images/languagesvg.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Padding(
@@ -1866,7 +1868,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     language(seekerProfileController.viewSeekerData.value.seekerDetails?.language );
                                                   },
                                                   child: Image.asset(
-                                                      'assets/images/editicon2.png'))
+                                                      'assets/images/icon_edit.png',height: 18,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1922,7 +1924,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   onTap: () {
                                                     appreciation(0 , "", "", add: true);
                                                   },
-                                                  child: Image.asset('assets/images/addicononjobre.png'))
+                                                  child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1951,13 +1953,13 @@ class _UserProfileState extends State<UserProfile> {
                                                             InkWell(
                                                                 onTap: () {
                                                                   appreciation(index , data?.awardName , data?.achievement);},
-                                                                child: Image.asset('assets/images/editicon2.png')),
+                                                                child: Image.asset('assets/images/icon_edit.png',height: 18,)),
                                                             const SizedBox(width: 16,),
                                                             InkWell(
                                                                 onTap: () {
                                                                   _openAppreciationDeleteDialog(index) ;
                                                                 },
-                                                                child: Image.asset('assets/images/deleteicon.png')),
+                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.03,)),
                                                           ],
                                                         )
                                                       ],
@@ -1985,15 +1987,13 @@ class _UserProfileState extends State<UserProfile> {
                                                 mainAxisAlignment: MainAxisAlignment
                                                     .start,
                                                 children: [
-                                                  InkWell(child: SvgPicture.asset('assets/images/resumesvg.svg')),
+                                                  InkWell(child: Image.asset('assets/images/resumesvg.png',height: Get.height*.03,)),
                                                   SizedBox(width: Get.width * 0.02,),
-                                                  Padding(padding: const EdgeInsets.only(top: 6.0),
-                                                    child: Text('Resume',
-                                                      style: Get.theme.textTheme
-                                                          .labelMedium!.copyWith(
-                                                          color: AppColors
-                                                              .white),),
-                                                  ),
+                                                  Text('Resume',
+                                                    style: Get.theme.textTheme
+                                                        .labelMedium!.copyWith(
+                                                        color: AppColors
+                                                            .white),),
                                                 ],
                                               ),
                                               InkWell(
@@ -2003,8 +2003,8 @@ class _UserProfileState extends State<UserProfile> {
                                                   child: seekerProfileController.viewSeekerData
                                                       .value.seekerInfo?.resume == null || seekerProfileController
                                                           .viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                                  Image.asset('assets/images/addicononjobre.png'):
-                                                  Image.asset('assets/images/editicon2.png')
+                                                  Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
+                                                  Image.asset('assets/images/icon_edit.png',height: 18,)
                                               )
                                             ],
                                           ),
@@ -2029,23 +2029,30 @@ class _UserProfileState extends State<UserProfile> {
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
                                           ),
                                           SizedBox(height: Get.height * .03,),
-                                          // Text('Document',
-                                          //   style: Get.theme.textTheme
-                                          //       .labelMedium!.copyWith(
-                                          //       color: AppColors.white),),
-                                          // SizedBox(height: Get.height*.015,) ,
-                                          // const Divider(thickness: 0.2, color: AppColors.white,),
-                                          // ListTile(title:
-                                          // Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                          //     style: Get.theme.textTheme.bodySmall!.copyWith(
-                                          //         color: AppColors.white, fontWeight: FontWeight.w500),),
-                                          //   // CircleAvatar(
-                                          //   //   radius: 20,
-                                          //   //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
-                                          //   // ) ,
-                                          //   trailing: SvgPicture.asset('assets/images/deletsvg.svg'),
-                                          // ),
-                                          // SizedBox(height: Get.height * 0.02,),
+                                          Row(
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
+                                              SizedBox(width: Get.width*.02,) ,
+                                              Text('Document',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors.white),),
+                                            ],
+                                          ),
+                                          SizedBox(height: Get.height*.015,) ,
+                                          const Divider(thickness: 0.2, color: AppColors.white,),
+                                          ListTile(title:
+                                          Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                              style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
+                                            // CircleAvatar(
+                                            //   radius: 20,
+                                            //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
+                                            // ) ,
+                                            trailing: Image.asset('assets/images/icon_edit.png',height: Get.height*.027,),
+                                          ),
+                                          SizedBox(height: Get.height * 0.02,),
                                           Center(
                                             child: MyButton(
                                               title: "Boost Your Profile",
@@ -2068,10 +2075,12 @@ class _UserProfileState extends State<UserProfile> {
                                                             Container(padding: const EdgeInsets.all(17),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular( 60.0),
-                                                                gradient: const LinearGradient(
-                                                                  colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
-                                                                  begin: Alignment.topCenter,
-                                                                  end: Alignment.bottomCenter,),),
+                                                                // gradient: const LinearGradient(
+                                                                //   colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
+                                                                //   begin: Alignment.topCenter,
+                                                                //   end: Alignment.bottomCenter,),
+                                                                color: AppColors.blueThemeColor
+                                                              ),
                                                               child: Image.asset('assets/images/boost.png', scale: 3.4,),
                                                             ),
                                                             SizedBox(height: Get.height * 0.02),
@@ -2083,10 +2092,12 @@ class _UserProfileState extends State<UserProfile> {
                                                             SizedBox(height: Get.height * 0.05),
                                                             Container( decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(10.0),
-                                                                gradient: const LinearGradient(
-                                                                  colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
-                                                                  begin: Alignment.topCenter,
-                                                                  end: Alignment.bottomCenter,),),
+                                                                // gradient: const LinearGradient(
+                                                                //   colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
+                                                                //   begin: Alignment.topCenter,
+                                                                //   end: Alignment.bottomCenter,),
+                                                              color: AppColors.blueThemeColor
+                                                            ),
                                                               height: Get.height * 0.21,
                                                               width: Get.width * 0.32,
                                                               child: Center(

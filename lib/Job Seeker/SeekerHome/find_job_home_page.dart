@@ -120,7 +120,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               onTap: ()=> Scaffold.of(context).openEndDrawer(),
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 25.0),
-                                child: Image.asset('assets/images/inactive.png'),
+                                child: Image.asset('assets/images/inactive.png',height: Get.height*.05,),
                               ));
                         }
                     ),

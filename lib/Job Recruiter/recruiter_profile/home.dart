@@ -1,5 +1,6 @@
 
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -43,7 +44,7 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                       Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                       SizedBox(height: Get.height*.002,),
                       Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xff56B8F6)),),
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: AppColors.blueThemeColor),),
 
                     ],
                   ),

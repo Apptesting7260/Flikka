@@ -121,7 +121,7 @@ class _NotificationsState extends State<Notifications> {
                                                       ),
                                                       Row(
                                                         children: [
-                                                          Image.asset('assets/images/deleteicon.png'),
+                                                          Image.asset('assets/images/icon_delete.png'),
                                                           SizedBox(
                                                             width: Get.width * 0.045,
                                                           ),
