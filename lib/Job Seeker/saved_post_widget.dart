@@ -90,15 +90,10 @@ class _SavedPostState extends State<SavedPost> {
       switch (jobsListController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Scaffold(
-            body: Center(
-                child: CircularProgressIndicator()),
-          );
-
+            body: Center(child: CircularProgressIndicator()),);
         case Status.ERROR:
           if (jobsListController.error.value == 'No internet') {
-            return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
-            ),);
+            return Scaffold(body: InterNetExceptionWidget(onPress: () {},),);
           } else if (jobsListController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
           } else
@@ -122,8 +117,7 @@ class _SavedPostState extends State<SavedPost> {
               ),
               elevation: 0,
               backgroundColor: Colors.black,
-              title: Text(
-                  "Saved Post", style: Get.theme.textTheme.displayLarge),
+              title: Text("Saved Post", style: Get.theme.textTheme.displayLarge),
               actions: [
                 Padding(
                   padding: const EdgeInsets.only(right: 15, top: 20),
@@ -135,25 +129,22 @@ class _SavedPostState extends State<SavedPost> {
             ),
             body: ListView.builder(
                 itemCount: jobsListController.savedPosts.value.data?.length,
-                itemBuilder: (context, index) {
-                  return
-                    Padding(
-                        padding: const EdgeInsets.all(18.0),
+                shrinkWrap: true,
+                itemBuilder: (context, index){
+                  var data = jobsListController.savedPosts.value.data?[index] ;
+                  return Padding( padding: const EdgeInsets.all(18.0),
                         child:
                         Container(
                           decoration: BoxDecoration(
                               color: AppColors.blackdown,
-                              borderRadius: BorderRadius.circular(34)
-                          ),
+                              borderRadius: BorderRadius.circular(34)),
                           height: Get.height,
                           width: Get.width,
                           child: Stack(
                             children: [
                               //*************** for swiper image **************
                               Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(26)
-                                ),
+                                decoration: BoxDecoration( borderRadius: BorderRadius.circular(26)),
                                 width: Get.width,
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(20),
@@ -171,55 +162,27 @@ class _SavedPostState extends State<SavedPost> {
                                   children: [
                                     Container(
                                       decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(
-                                              50),
-                                          border: Border.all(
-                                              color: AppColors.white,
-                                              width: 2)),
+                                          borderRadius: BorderRadius.circular(50),
+                                          border: Border.all(color: AppColors.white, width: 2)),
                                       child: Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: Container(
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                // gradient: LinearGradient(
-                                                //   colors: [
-                                                //     Color(0xFF56B8F6),
-                                                //     Color(0xFF4D6FED),
-                                                //   ],
-                                                //   begin: Alignment
-                                                //       .topCenter, // Start from the top center
-                                                //   end: Alignment
-                                                //       .bottomCenter, // End at the bottom center
-                                                // ),
-                                                color: AppColors.blueThemeColor
-                                            ),
+                                            decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
                                             child: CircleAvatar(
                                                 radius: 30,
+                                                backgroundColor: Colors.transparent,
                                                 child: Center(
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                  child: Column( mainAxisAlignment: MainAxisAlignment.center,
                                                     children: [
                                                       Text('50%',
-                                                          style: Get.theme
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                              color:
-                                                              AppColors.white)),
+                                                          style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                              color: AppColors.white)),
                                                       Text('match',
-                                                          style: Get.theme
-                                                              .textTheme
-                                                              .bodySmall!
-                                                              .copyWith(
-                                                              color:
-                                                              AppColors.white,
-                                                              fontSize: 7)),
+                                                          style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                              color: AppColors.white, fontSize: 7)),
                                                     ],
                                                   ),
-                                                ),
-                                                backgroundColor: Colors
-                                                    .transparent)),
+                                                ))),
                                       ),
                                     )
                                   ],
@@ -231,9 +194,7 @@ class _SavedPostState extends State<SavedPost> {
                                 top: 15,
                                 child: Stack(
                                   children: [
-                                    Image.asset(
-                                      "assets/images/icon_Save_post.png",
-                                      height: Get.height * .043,),
+                                    Image.asset("assets/images/icon_Save_post.png", height: Get.height * .043,),
                                   ],
                                 ),
                               ),
@@ -244,8 +205,8 @@ class _SavedPostState extends State<SavedPost> {
                                 left: 0,
                                 right: 0,
                                 child: Container(
-                                  padding: EdgeInsets.all(20),
-                                  decoration: BoxDecoration(
+                                  padding: const EdgeInsets.all(20),
+                                  decoration: const BoxDecoration(
                                     color: AppColors.blackdown,
                                     borderRadius: BorderRadius.only(
                                         topLeft: Radius.circular(22),
@@ -255,77 +216,31 @@ class _SavedPostState extends State<SavedPost> {
                                     crossAxisAlignment:
                                     CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                        "Marketing Intern",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .displayLarge,
-                                        softWrap: true,
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * .005,
-                                      ),
-                                      Text(
-                                        "Example Company Pvt. Ltd",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor),
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * 0.03,
-                                      ),
-                                      Text(
-                                        "Job Description",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(color: AppColors.white),
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * .005,
-                                      ),
-                                      Text(
-                                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                                      Text(data?.jobData?.jobPositions ?? "Test Data",
+                                        style: Theme.of(context).textTheme.displayLarge,
+                                        softWrap: true,),
+                                      SizedBox( height: Get.height * .005,),
+                                      Text("Example Company Pvt. Ltd",
+                                        style: Theme.of(context).textTheme.bodySmall!
+                                            .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                      SizedBox( height: Get.height * 0.03,),
+                                      Text( "Job Description",
+                                        style: Theme.of(context).textTheme.titleSmall!
+                                            .copyWith(color: AppColors.white),),
+                                      SizedBox( height: Get.height * .005,),
+                                      Text( data?.jobData?.description ?? "Test Data" ,
                                         overflow: TextOverflow.ellipsis,
                                         softWrap: true,
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor),
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * 0.03,
-                                      ),
-                                      Text(
-                                        "Requirements",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .titleSmall!
-                                            .copyWith(color: AppColors.white),
-                                      ),
-                                      SizedBox(
-                                        height: Get.height * 0.015,
-                                      ),
-                                      Text(
-                                        "• Sed ut perspiciatis unde omnis iste natus error sit.",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor),
-                                      )
+                                        style: Theme.of(context).textTheme.bodySmall!
+                                            .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                      SizedBox( height: Get.height * 0.03,),
+                                      Text( "Requirements",
+                                        style: Theme.of(context).textTheme.titleSmall!
+                                            .copyWith(color: AppColors.white),),
+                                      SizedBox( height: Get.height * 0.015,),
+                                      Text( data?.jobData?.requirements ?? "Test Data",
+                                        style: Theme.of(context).textTheme.bodySmall!
+                                            .copyWith(color: AppColors.ratingcommenttextcolor),)
                                     ],
                                   ),
                                 ),

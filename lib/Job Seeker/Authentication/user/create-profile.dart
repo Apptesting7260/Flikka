@@ -275,14 +275,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                         width: 37,
                                         decoration: const BoxDecoration(
                                           shape: BoxShape.circle,
-                                          // gradient: LinearGradient(
-                                          //   colors: [
-                                          //     Color(0xff56B8F6),
-                                          //     Color(0xff4D6FED)
-                                          //   ],
-                                          //   begin: Alignment.topLeft,
-                                          //   end: Alignment.bottomRight,
-                                          // ),
                                             color: AppColors.blueThemeColor
                                         ),
                                         child: imgFile != null &&
@@ -423,8 +415,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           SizedBox(
                             height: Get.height * .001,
                           ),
-                          !fresher
-                              ? Form(
+                          !fresher ? Form(
                                 key: experienceForm,
                             child: ListView.builder(
                             shrinkWrap: true,
@@ -506,18 +497,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: " Enter start date", firstDate: DateTime(1990),),
-                                                TextFormField(
-                                                  controller: column
-                                                      .startDateController,
-                                                  style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      color: Color(0xffCFCFCF),
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .w400),
+                                                TextFormField(controller: column.startDateController,
+                                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                      color: const Color(0xffCFCFCF), fontSize: 12, fontWeight: FontWeight.w400),
                                                   onTap: () {
                                                     seekerCreateProfileController
                                                         .selectStartDateExperienceErrorMessage
@@ -581,9 +563,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       .selectStartDateExperienceErrorMessage
                                                       .value = "";
                                                   if (!fresher) {
-                                                    if (experienceForm
-                                                        .currentState!
-                                                        .validate()) {
+                                                    if (experienceForm.currentState!.validate()) {
                                                       _addExperience();
 
                                                       if (workExperienceList
@@ -690,16 +670,10 @@ class _CreateProfileState extends State<CreateProfile> {
                                                             .027,
                                                         horizontal: Get.width *
                                                             .06),
-                                                    hintStyle: Theme
-                                                        .of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.copyWith(
-                                                        color:
-                                                        const Color(0xffCFCFCF),
+                                                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                        color: const Color(0xffCFCFCF),
                                                         fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w400),
+                                                        fontWeight: FontWeight.w400),
                                                     border: OutlineInputBorder(
                                                         borderRadius:
                                                         BorderRadius.circular(35),
@@ -754,8 +728,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       },
                                                       activeColor: AppColors.blueThemeColor,
                                                     ),
-                                                    Text(
-                                                      "Present",
+                                                    Text( "Present",
                                                       style:  Theme.of(context).textTheme.labelLarge?.copyWith(
                                                         fontWeight: FontWeight.w700,
                                                         color: const Color(0xffFFFFFF),
@@ -930,6 +903,33 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 SizedBox(
                                                   height: Get.height * .01,
                                                 ),
+                                                SizedBox(height: Get.height * 0.001,),
+                                                index == educationData.length - 1
+                                                    ? addMoreField(onTap: () {
+                                                  seekerCreateProfileController
+                                                      .selectStartDateEducationErrorMessage
+                                                      .value = "";
+                                                  if (educationForm.currentState!
+                                                      .validate()) {
+                                                    _addEducation();
+
+                                                    if (educationList.length < index + 1) {
+                                                      educationList.add({
+                                                        "education_level": education.textController1.text,
+                                                        "institution_name": education.textController2.text,
+                                                        // "field_of_study": education.textController3.text,
+                                                        "education_start_date": education.startDateController.text,
+                                                        "education_end_date": education.present ? "present" : education.endDateController.text
+                                                      });
+                                                    }
+                                                    setState(() {
+                                                      startDateEducation = null;
+                                                      endDateEducation = null;
+                                                    });
+                                                    print(educationList);
+                                                  }
+                                                })
+                                                    : const SizedBox(),
 
                                               ],
                                             )),
@@ -1043,14 +1043,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     return null;
                                                   },
                                                 ),
-                                                SizedBox(
-                                                  height: Get.height * .01,
-                                                ),
                                                 index == educationData.length - 1
                                                     ? Obx(() =>
-                                                seekerCreateProfileController
-                                                    .selectStartDateEducationErrorMessage
-                                                    .value.isEmpty ?
+                                                seekerCreateProfileController.selectStartDateEducationErrorMessage.value.isEmpty ?
                                                 const SizedBox() :
                                                 Text(seekerCreateProfileController
                                                     .selectStartDateEducationErrorMessage
@@ -1059,39 +1054,32 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w300),)
                                                 ) : const SizedBox(),
+                                                Row(
+                                                  children: [
+                                                    Checkbox(
+                                                      checkColor: Colors.white,
+                                                      shape: RoundedRectangleBorder(
+                                                          borderRadius: BorderRadius.circular(5)),
+                                                      value: education.present,
+                                                      onChanged: (val) {
+                                                        setState(() {
+                                                          education.present = val!;
+                                                          educationPresent = education.present ;
+                                                        });
+                                                      },
+                                                      activeColor: AppColors.blueThemeColor,
+                                                    ),
+                                                    Text( "Present",
+                                                        style:  Theme.of(context).textTheme.labelLarge?.copyWith(
+                                                          fontWeight: FontWeight.w700,
+                                                          color: const Color(0xffFFFFFF),
+                                                        )),
+                                                  ],
+                                                ),
                                               ],
                                             )),
                                       ],
                                     ),
-                                    SizedBox(
-                                      height: Get.height * 0.001,
-                                    ),
-                                    index == educationData.length - 1
-                                        ? addMoreField(onTap: () {
-                                      seekerCreateProfileController
-                                          .selectStartDateEducationErrorMessage
-                                          .value = "";
-                                      if (educationForm.currentState!
-                                          .validate()) {
-                                        _addEducation();
-
-                                        if (educationList.length < index + 1) {
-                                          educationList.add({
-                                            "education_level": education.textController1.text,
-                                            "institution_name": education.textController2.text,
-                                            // "field_of_study": education.textController3.text,
-                                            "education_start_date": education.startDateController.text,
-                                            "education_end_date": education.present ? "present" : education.endDateController.text
-                                          });
-                                        }
-                                        setState(() {
-                                          startDateEducation = null;
-                                          endDateEducation = null;
-                                        });
-                                        print(educationList);
-                                      }
-                                    })
-                                        : const SizedBox(),
                                   ],
                                 );
                               },
