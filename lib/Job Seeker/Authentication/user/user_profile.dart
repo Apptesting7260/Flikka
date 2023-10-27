@@ -841,12 +841,22 @@ class _UserProfileState extends State<UserProfile> {
               key: key,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  SizedBox(height: Get.height* 0.02,) ,
+                  CommonWidgets.textFieldHeading(context, "Award name"),
+                  SizedBox(height: Get.height* 0.01,) ,
                   TextFormField(
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                     onChanged: (String value) {},
                     controller: awardController,
                     decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xff373737),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(33),
+                          borderSide: BorderSide.none
+                      ),
                       hintText: "Enter award name",
                       hintStyle: Theme.of(context)
                           .textTheme
@@ -860,11 +870,19 @@ class _UserProfileState extends State<UserProfile> {
                     },
                   ),
                   SizedBox(height: Get.height* 0.02,) ,
+                  CommonWidgets.textFieldHeading(context, "Achievement"),
+                  SizedBox(height: Get.height* 0.01,) ,
                   TextFormField(
                     style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                     onChanged: (String value) {},
                     controller: achievementController,
                     decoration: InputDecoration(
+                      filled: true,
+                      fillColor: Color(0xff373737),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(33),
+                          borderSide: BorderSide.none
+                      ),
                       hintText: 'Enter achievement',
                       hintStyle: Theme.of(context)
                           .textTheme

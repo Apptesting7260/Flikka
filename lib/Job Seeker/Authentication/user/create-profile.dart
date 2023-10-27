@@ -410,7 +410,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 },
                                 side: const BorderSide(
                                     width: 2,
-                                    color: Color(0xff56B8F6)
+                                    color: AppColors.blueThemeColor
                                 ),
                               )
                             ],
