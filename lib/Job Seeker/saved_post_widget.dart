@@ -1,13 +1,18 @@
+import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsListController.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
-
+import '../data/response/status.dart';
+import '../res/components/general_expection.dart';
+import '../res/components/internet_exception_widget.dart';
+import '../res/components/request_timeout_widget.dart';
+import '../res/components/server_error_widget.dart';
+import '../res/components/unauthorised_request_widget.dart';
 import '../widgets/app_colors.dart';
-import 'SeekerHome/home_swiper_find_job_widget.dart';
 
 class SavedPost extends StatefulWidget {
+
   const SavedPost({super.key});
 
   @override
@@ -20,6 +25,8 @@ class _SavedPostState extends State<SavedPost> {
   String uri = '';
   List<String> imageNames = [];
   List<String> imagePaths = [];
+
+  SeekerSavedJobsListController jobsListController = Get.put(SeekerSavedJobsListController()) ;
 
   void showCommentDialog() {
     showDialog(
@@ -70,313 +77,377 @@ class _SavedPostState extends State<SavedPost> {
     });
   }
 
+  @override
+  void initState() {
+   jobsListController.savePostApi("1") ;
+    super.initState();
+  }
+
   TextEditingController commentController = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        leading: Padding(
-          padding: const EdgeInsets.only(left: 15.0),
-          child: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-              child: Image.asset('assets/images/icon_back_blue.png')),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.black,
-        title: Text("Saved Post",style: Get.theme.textTheme.displayLarge),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 15,top: 20),
-            child: Text("Delete All",style: Get.theme.textTheme.bodyLarge!.copyWith(color: Colors.blue)),
-          )
-        ],
-      ),
-      body: ListView.builder(
-          itemCount: 5,
-          itemBuilder: (context,index){
-        return
-          Padding(
-            padding: const EdgeInsets.all(18.0),
-            child:
-            Container(
-              decoration: BoxDecoration(
-                  color: AppColors.blackdown,
-                  borderRadius: BorderRadius.circular(34)
-              ),
-              height: Get.height,
-              width: Get.width,
-              child: Stack(
-                children: [
-                  //*************** for swiper image **************
-                  Container(
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(26)
-                    ),
-                    width: Get.width,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
-                      child: Image.asset(
-                        'assets/images/swiperbg.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  ),
-                  //*************** for 50% match **************
-                  Positioned(
-                    right: 20,
-                    top: 10,
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(50),
-                              border: Border.all(
-                                  color: AppColors.white, width: 2)),
-                          child: Padding(
-                            padding: const EdgeInsets.all(3.0),
-                            child: Container(
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  // gradient: LinearGradient(
-                                  //   colors: [
-                                  //     Color(0xFF56B8F6),
-                                  //     Color(0xFF4D6FED),
-                                  //   ],
-                                  //   begin: Alignment
-                                  //       .topCenter, // Start from the top center
-                                  //   end: Alignment
-                                  //       .bottomCenter, // End at the bottom center
-                                  // ),
-                                  color: AppColors.blueThemeColor
-                                ),
-                                child: CircleAvatar(
-                                    radius: 30,
-                                    child: Center(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.center,
-                                        children: [
-                                          Text('50%',
-                                              style: Get.theme.textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                  color:
-                                                  AppColors.white)),
-                                          Text('match',
-                                              style: Get.theme.textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                  color:
-                                                  AppColors.white,
-                                                  fontSize: 7)),
-                                        ],
-                                      ),
-                                    ),
-                                    backgroundColor: Colors.transparent)),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                  //*************** for bookmarks **************
-                  Positioned(
-                    left: 12,
-                    top: 15,
-                    child: Stack(
-                      children: [
-                        Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
-                      ],
-                    ),
-                  ),
-                  //*************** for marketing intern text  **************
-                  Positioned(
-                    //height: Get.height / 2.5-Get.height*0.12 ,
-                    bottom: Get.height*0.09,
-                    left: 0,
-                    right: 0,
-                    child: Container(
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: AppColors.blackdown,
-                        borderRadius: BorderRadius.only(topLeft: Radius.circular(22),topRight: Radius.circular(22)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment:
-                        CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Marketing Intern",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayLarge,
-                            softWrap: true,
-                          ),
-                          SizedBox(
-                            height: Get.height * .005,
-                          ),
-                          Text(
-                            "Example Company Pvt. Ltd",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                color: AppColors
-                                    .ratingcommenttextcolor),
-                          ),
-                          SizedBox(
-                            height: Get.height * 0.03,
-                          ),
-                          Text(
-                            "Job Description",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: AppColors.white),
-                          ),
-                          SizedBox(
-                            height: Get.height * .005,
-                          ),
-                          Text(
-                            "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
-                            overflow: TextOverflow.ellipsis,
-                            softWrap: true,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                color: AppColors
-                                    .ratingcommenttextcolor),
-                          ),
-                          SizedBox(
-                            height: Get.height * 0.03,
-                          ),
-                          Text(
-                            "Requirements",
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleSmall!
-                                .copyWith(color: AppColors.white),
-                          ),
-                          SizedBox(
-                            height: Get.height * 0.015,
-                          ),
-                          Text(
-                            "• Sed ut perspiciatis unde omnis iste natus error sit.",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                color: AppColors
-                                    .ratingcommenttextcolor),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: Align(
-                      alignment: AlignmentDirectional.bottomCenter,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.grey[900],
-                          borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(20),
-                              bottomRight: Radius.circular(22)),
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
-                              children: [
-                                IconButton(
-                                    onPressed: () => toggleFavorite(),
-                                    icon: selectedFav == false
-                                        ? SvgPicture.asset(
-                                      'assets/images/likesvg.svg',width: Get.width*0.027,height: Get.height*0.027,
-                                      color: buttonColor,
-                                    )
-                                        : Icon(
-                                      Icons.favorite_rounded,
-                                      color: AppColors.red,
-                                    )),
-                                Text("12",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                        color: AppColors.white, fontSize: 14)),
-                                SizedBox(
-                                  width: Get.width * 0.04,
-                                ),
-
-                                //*************************
-
-                                IconButton(
-                                  onPressed: () {
-                                    showCommentDialog();
-                                  },
-                                  icon: SvgPicture.asset('assets/images/commentsvg.svg'),
-                                ),
-                                Text("10",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall!
-                                        .copyWith(
-                                        color: AppColors.white, fontSize: 14)),
-                              ],
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(right: 14.0),
-                              child: Row(
-                                children: [
-                                  Stack(
-                                      children: [
-                                        CircleAvatar(
-                                          backgroundColor: Color(0xff56B8F6),
-                                          radius: 17,
-                                          child: Image.asset(
-                                            'assets/images/personicons.png',
-                                          ),
-                                          // Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor,)
-                                        ),
-                                        SvgPicture.asset('assets/images/personsvg22.svg')
-                                      ]
-                                  ),
-                                  IconButton(
-                                    onPressed: text.isEmpty &&
-                                        imagePaths.isEmpty &&
-                                        uri.isEmpty
-                                        ? null
-                                        : () => _onShare(context),
-                                    icon: SvgPicture.asset(
-                                      'assets/images/sharesvg.svg',
-                                    ),
-                                  ),
-                                  Text("2",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodySmall!
-                                          .copyWith(
-                                          color: AppColors.white, fontSize: 14)),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            )
+    return Obx(() {
+      switch (jobsListController.rxRequestStatus.value) {
+        case Status.LOADING:
+          return const Scaffold(
+            body: Center(
+                child: CircularProgressIndicator()),
           );
 
-          }),
+        case Status.ERROR:
+          if (jobsListController.error.value == 'No internet') {
+            return Scaffold(body: InterNetExceptionWidget(
+              onPress: () {},
+            ),);
+          } else if (jobsListController.error.value == 'Request Time out') {
+            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
+          } else
+          if (jobsListController.error.value == "Internal server error") {
+            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
+          } else if (jobsListController.error.value == "Unauthorised Request") {
+            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
+          } else {
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+          }
+        case Status.COMPLETED:
+          return Scaffold(
+            appBar: AppBar(
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Image.asset('assets/images/icon_back_blue.png')),
+              ),
+              elevation: 0,
+              backgroundColor: Colors.black,
+              title: Text(
+                  "Saved Post", style: Get.theme.textTheme.displayLarge),
+              actions: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 15, top: 20),
+                  child: Text("Delete All",
+                      style: Get.theme.textTheme.bodyLarge!.copyWith(
+                          color: Colors.blue)),
+                )
+              ],
+            ),
+            body: ListView.builder(
+                itemCount: jobsListController.savedPosts.value.data?.length,
+                itemBuilder: (context, index) {
+                  return
+                    Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child:
+                        Container(
+                          decoration: BoxDecoration(
+                              color: AppColors.blackdown,
+                              borderRadius: BorderRadius.circular(34)
+                          ),
+                          height: Get.height,
+                          width: Get.width,
+                          child: Stack(
+                            children: [
+                              //*************** for swiper image **************
+                              Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(26)
+                                ),
+                                width: Get.width,
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(20),
+                                  child: Image.asset(
+                                    'assets/images/swiperbg.png',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              //*************** for 50% match **************
+                              Positioned(
+                                right: 20,
+                                top: 10,
+                                child: Stack(
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              50),
+                                          border: Border.all(
+                                              color: AppColors.white,
+                                              width: 2)),
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(3.0),
+                                        child: Container(
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                // gradient: LinearGradient(
+                                                //   colors: [
+                                                //     Color(0xFF56B8F6),
+                                                //     Color(0xFF4D6FED),
+                                                //   ],
+                                                //   begin: Alignment
+                                                //       .topCenter, // Start from the top center
+                                                //   end: Alignment
+                                                //       .bottomCenter, // End at the bottom center
+                                                // ),
+                                                color: AppColors.blueThemeColor
+                                            ),
+                                            child: CircleAvatar(
+                                                radius: 30,
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                    children: [
+                                                      Text('50%',
+                                                          style: Get.theme
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                              color:
+                                                              AppColors.white)),
+                                                      Text('match',
+                                                          style: Get.theme
+                                                              .textTheme
+                                                              .bodySmall!
+                                                              .copyWith(
+                                                              color:
+                                                              AppColors.white,
+                                                              fontSize: 7)),
+                                                    ],
+                                                  ),
+                                                ),
+                                                backgroundColor: Colors
+                                                    .transparent)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ),
+                              //*************** for bookmarks **************
+                              Positioned(
+                                left: 12,
+                                top: 15,
+                                child: Stack(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/icon_Save_post.png",
+                                      height: Get.height * .043,),
+                                  ],
+                                ),
+                              ),
+                              //*************** for marketing intern text  **************
+                              Positioned(
+                                //height: Get.height / 2.5-Get.height*0.12 ,
+                                bottom: Get.height * 0.09,
+                                left: 0,
+                                right: 0,
+                                child: Container(
+                                  padding: EdgeInsets.all(20),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.blackdown,
+                                    borderRadius: BorderRadius.only(
+                                        topLeft: Radius.circular(22),
+                                        topRight: Radius.circular(22)),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                    CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Marketing Intern",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .displayLarge,
+                                        softWrap: true,
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * .005,
+                                      ),
+                                      Text(
+                                        "Example Company Pvt. Ltd",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors
+                                                .ratingcommenttextcolor),
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * 0.03,
+                                      ),
+                                      Text(
+                                        "Job Description",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(color: AppColors.white),
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * .005,
+                                      ),
+                                      Text(
+                                        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: true,
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors
+                                                .ratingcommenttextcolor),
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * 0.03,
+                                      ),
+                                      Text(
+                                        "Requirements",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .titleSmall!
+                                            .copyWith(color: AppColors.white),
+                                      ),
+                                      SizedBox(
+                                        height: Get.height * 0.015,
+                                      ),
+                                      Text(
+                                        "• Sed ut perspiciatis unde omnis iste natus error sit.",
+                                        style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors
+                                                .ratingcommenttextcolor),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              Positioned(
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                child: Align(
+                                  alignment: AlignmentDirectional.bottomCenter,
+                                  child: Container(
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey[900],
+                                      borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(20),
+                                          bottomRight: Radius.circular(22)),
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment
+                                          .spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            IconButton(
+                                                onPressed: () =>
+                                                    toggleFavorite(),
+                                                icon: selectedFav == false
+                                                    ? SvgPicture.asset(
+                                                  'assets/images/likesvg.svg',
+                                                  width: Get.width * 0.027,
+                                                  height: Get.height * 0.027,
+                                                  color: buttonColor,
+                                                )
+                                                    : Icon(
+                                                  Icons.favorite_rounded,
+                                                  color: AppColors.red,
+                                                )),
+                                            Text("12",
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                    color: AppColors.white,
+                                                    fontSize: 14)),
+                                            SizedBox(
+                                              width: Get.width * 0.04,
+                                            ),
+
+                                            //*************************
+
+                                            IconButton(
+                                              onPressed: () {
+                                                showCommentDialog();
+                                              },
+                                              icon: SvgPicture.asset(
+                                                  'assets/images/commentsvg.svg'),
+                                            ),
+                                            Text("10",
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .bodySmall!
+                                                    .copyWith(
+                                                    color: AppColors.white,
+                                                    fontSize: 14)),
+                                          ],
+                                        ),
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              right: 14.0),
+                                          child: Row(
+                                            children: [
+                                              Stack(
+                                                  children: [
+                                                    CircleAvatar(
+                                                      backgroundColor: Color(
+                                                          0xff56B8F6),
+                                                      radius: 17,
+                                                      child: Image.asset(
+                                                        'assets/images/personicons.png',
+                                                      ),
+                                                      // Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor,)
+                                                    ),
+                                                    SvgPicture.asset(
+                                                        'assets/images/personsvg22.svg')
+                                                  ]
+                                              ),
+                                              IconButton(
+                                                onPressed: text.isEmpty &&
+                                                    imagePaths.isEmpty &&
+                                                    uri.isEmpty
+                                                    ? null
+                                                    : () => _onShare(context),
+                                                icon: SvgPicture.asset(
+                                                  'assets/images/sharesvg.svg',
+                                                ),
+                                              ),
+                                              Text("2",
+                                                  style: Theme
+                                                      .of(context)
+                                                      .textTheme
+                                                      .bodySmall!
+                                                      .copyWith(
+                                                      color: AppColors.white,
+                                                      fontSize: 14)),
+                                            ],
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        )
+                    );
+                }),
+          );
+      }
+    }
     );
   }
   void _onShare(BuildContext context) async {

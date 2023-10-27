@@ -120,6 +120,11 @@ class AuthRepository {
     return EditAboutModel.fromJson(response);
   }
 
+  Future<EditAboutModel> editSeekerLanguageApi(var data) async {
+    dynamic response = await _apiService.postApi2(data, AppUrl.editSeekerLanguage);
+    return EditAboutModel.fromJson(response);
+  }
+
   Future<EditAboutModel> editSeekerExperienceApi(var data) async {
     dynamic response = await _apiService.postApi2(
         data, AppUrl.editSeekerExperience);

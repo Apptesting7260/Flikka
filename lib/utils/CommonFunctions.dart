@@ -1,4 +1,5 @@
 
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,7 +22,7 @@ class CommonFunctions {
                     const SizedBox(
                         height: 30,
                         width: 30,
-                        child: CircularProgressIndicator(backgroundColor: Color(0xff353535),)) ,
+                        child: CircularProgressIndicator( color: AppColors.blueThemeColor,)) ,
                     SizedBox(width: Get.width*.1,),
                     Text("$message...",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12),) ,
                   ],

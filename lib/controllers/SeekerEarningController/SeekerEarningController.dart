@@ -2,7 +2,7 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:get/get.dart';
-import '../../repository/SeekerDetailsRepository/JobsRepository.dart';
+import '../../repository/SeekerDetailsRepository/SeekerRepository.dart';
 
 class SeekerEarningController extends GetxController {
 
