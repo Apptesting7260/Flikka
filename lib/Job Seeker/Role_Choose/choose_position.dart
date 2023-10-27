@@ -286,7 +286,7 @@ void showSkipDialog(BuildContext context) {
                                         children: [
                                           const Icon(
                                             Icons.search,
-                                            color: Color(0xff56B8F6),
+                                            color: AppColors.blueThemeColor,
                                             size: 30,
                                           ),
                                           SizedBox(width: Get.width * .03),

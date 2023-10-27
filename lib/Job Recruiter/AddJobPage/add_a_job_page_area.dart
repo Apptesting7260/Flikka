@@ -120,7 +120,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   color: const Color(0xff353535),
                                   borderRadius: BorderRadius.circular(22)
                               ),
-                              //padding of outer Container
                               child:imgFile?.path == null ?
                                 Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
@@ -128,7 +127,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               InkWell(
                                 onTap: () async {
                                   _openImagePickerDialog();
-
                                   print("This is imgfile ${imgFile?.path}");
                                 },
                                 child: Stack(
@@ -147,6 +145,15 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   ],
                                 ) :
                                   Image.file(imgFile! , fit: BoxFit.cover,),
+                            ),
+                            Positioned(
+                              top: 8,
+                              right: 8,
+                              child: imgFile == null ?
+                                  SizedBox() :
+                              IconButton(onPressed: () {
+                                _openImagePickerDialog();
+                              }, icon: Icon(Icons.edit,color: Colors.white,size: 28,)),
                             ),
                           ]
                       ),),

@@ -1,6 +1,7 @@
 
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/controllers/SignUPController/SignUpController.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -215,7 +216,7 @@ class _SignUpState extends State<SignUp> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>const Login()),
                           text: "Sign in",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xff56B8F6),decoration: TextDecoration.underline),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                         ),
                       ],
                     ),

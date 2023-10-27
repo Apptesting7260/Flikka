@@ -52,7 +52,7 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
 
               // Text("${widget.recruiterProfileDetails?.founded?.day}-${widget.recruiterProfileDetails?.founded?.month}-${widget.recruiterProfileDetails?.founded?.year}",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
               SizedBox(height: Get.height*.02,),
-              Text("Specialties",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
+              Text("Specialization",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
               Text(widget.recruiterProfileDetails?.specialties ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
 

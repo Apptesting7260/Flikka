@@ -336,7 +336,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w500,
-                                                          color: isSelected ? Color(0xff56B6F6) : Color(0xffFFFFFF)),))
+                                                          color: isSelected ?AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -455,9 +455,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w700,
-                                                          color: isSelectedPassion
-                                                              ? Color(0xff56B8F6)
-                                                              : Color(0xffFFFFFF)),))
+                                                          color: isSelectedPassion ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -573,9 +571,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w700,
-                                                          color: isSelectedpreference
-                                                              ? Color(0xff56B8F6)
-                                                              : Color(0xffFFFFFF)),))
+                                                          color: isSelectedpreference ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -692,9 +688,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w700,
-                                                          color: isSelectedstrengths
-                                                              ? Color(0xff56B8F6)
-                                                              : Color(0xffFFFFFF)),))
+                                                          color: isSelectedstrengths ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -810,10 +804,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             ?.copyWith(
                                                             fontWeight: FontWeight
                                                                 .w700,
-                                                            color: isSelectedSalary
-                                                                ? Color(0xff56B8F6)
-                                                                : Color(
-                                                                0xffFFFFFF)),))
+                                                            color: isSelectedSalary ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -932,9 +923,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                           .labelLarge
                                                           ?.copyWith(
                                                           fontWeight: FontWeight.w700,
-                                                          color: isSelectedWorking
-                                                              ? Color(0xff56B8F6)
-                                                              : Color(0xffFFFFFF)),))
+                                                          color: isSelectedWorking ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),
@@ -1052,10 +1041,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             ?.copyWith(
                                                             fontWeight: FontWeight
                                                                 .w700,
-                                                            color: isSelectedAvailability
-                                                                ? Color(0xff56B8F6)
-                                                                : Color(
-                                                                0xffFFFFFF)),))
+                                                            color: isSelectedAvailability ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                                     ],
                                                   ),
                                                 ),

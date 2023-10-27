@@ -2,6 +2,7 @@
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/LoginController/LoginController.dart';
 import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -128,7 +129,7 @@ class _LoginState extends State<Login> {
                       onTap: () {
                         Get.to(() =>const ForgotPassword());
                       },
-                      child: Text("Forgot Password ?",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xff56B8F6)),)),
+                      child: Text("Forgot Password ?",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor),)),
                 ),
                 SizedBox(height: Get.height*.02,),
                 Obx(() =>  Center(
@@ -180,7 +181,7 @@ class _LoginState extends State<Login> {
                         TextSpan(
                           recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUp()),
                           text: "Sign up",
-                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: Color(0xff56B8F6),decoration: TextDecoration.underline),
+                          style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                         ),
                       ],
                     ),

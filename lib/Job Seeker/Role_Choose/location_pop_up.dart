@@ -1,4 +1,5 @@
 
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,7 +32,7 @@ class _LocationPopUpState extends State<LocationPopUp> {
                 child: Column(
                   children: [
                     SizedBox(height: Get.height*.06,),
-                    Image.asset("assets/images/location_icon.png",height: Get.height*.09,),
+                    Image.asset("assets/images/location_icon.png",height: Get.height*.09,color: AppColors.blueThemeColor,),
                     SizedBox(height: Get.height*.01,),
                     Text("Welcome!",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
                     SizedBox(height: Get.height*.01,),

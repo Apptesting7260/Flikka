@@ -35,7 +35,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Padding(
-                  padding: EdgeInsets.only(top: Get.height*.035),
+                  padding: EdgeInsets.only(top: Get.height*.032),
                   child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.032,),
                 ),
                 Column(
@@ -58,7 +58,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                       return InkWell(
                           onTap: ()=> Scaffold.of(context).openEndDrawer(),
                           child: Padding(
-                            padding:  EdgeInsets.only(top: Get.height*.035),
+                            padding:  EdgeInsets.only(top: Get.height*.032),
                             child: Image.asset('assets/images/inactive.png'),
                           ));
                     }

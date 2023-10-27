@@ -134,7 +134,7 @@ class _ChooseRoleState extends State<ChooseRole> {
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineSmall
-                                                  ?.copyWith(color: choose ==1?Color(0xff56B8F6):Color(0xffFFFFFF)),
+                                                  ?.copyWith(color: choose ==1?AppColors.blueThemeColor:Color(0xffFFFFFF)),
                                             ),
                                           ),
                                         ),
@@ -184,7 +184,7 @@ class _ChooseRoleState extends State<ChooseRole> {
                                             padding: EdgeInsets.symmetric(horizontal: Get.width*.06),
                                             child: Text(
                                               'I am a Employer',
-                                              style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500,color: choose==2?const Color(0xff56B8F6):Colors.white),
+                                              style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500,color: choose==2? AppColors.blueThemeColor:Colors.white),
                                             ),
                                           ),
                                         ),

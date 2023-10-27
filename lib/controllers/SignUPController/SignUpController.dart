@@ -167,14 +167,15 @@ class SignUpController extends GetxController {
                     onTap: () => Get.back(),
                     child: Container(
                       decoration: BoxDecoration(
-                        gradient: const LinearGradient(
-                            colors: [
-                              Color(0xff56B8F6),
-                              Color(0xff4D6FED)
-                            ],begin: Alignment.topCenter,
-                            end: Alignment.bottomCenter
-
-                        ),
+                        // gradient: const LinearGradient(
+                        //     colors: [
+                        //       Color(0xff56B8F6),
+                        //       Color(0xff4D6FED)
+                        //     ],begin: Alignment.topCenter,
+                        //     end: Alignment.bottomCenter
+                        //
+                        // ),
+                        color: AppColors.blueThemeColor,
                         borderRadius: BorderRadius.circular(12),),
                       child: const Icon(
                         Icons.close,
