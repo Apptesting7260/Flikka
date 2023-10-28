@@ -49,8 +49,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
     // );
     return SafeArea(
       child: Scaffold(
-        // backgroundColor: Colors.blueAccent,
-        resizeToAvoidBottomInset: false,
         body: Form(
           key: _formKey,
           child: Stack(
@@ -91,7 +89,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
               DraggableScrollableSheet(
                 initialChildSize: 0.72, // half screen
                 minChildSize: 0.72, // half screen
-                maxChildSize: 1, // full screen
+                maxChildSize: 0.72, // full screen
                 builder: (BuildContext context, ScrollController scrollController) {
                   return Container(
                     decoration: const BoxDecoration(
@@ -101,6 +99,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: Colors.black),
                     // color: Colors.black,
                     child:   SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
                       controller:scrollController ,
                       child: Container(
                         height: Get.height,
