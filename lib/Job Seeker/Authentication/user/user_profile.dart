@@ -23,7 +23,9 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import '../../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../utils/CommonWidgets.dart';
@@ -120,6 +122,127 @@ class _UserProfileState extends State<UserProfile> {
   EditSeekerResumeController editSeekerResumeController = Get.put(EditSeekerResumeController()) ;
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
+
+  SeekerGetAllSkillsController seekerGetAllSkillsController = Get.put(SeekerGetAllSkillsController()) ;
+  final seekerGetAllSkillsData =  SeekerGetAllSkillsModel().obs ;
+  List _selectedChooseSkillsIndices = [];
+  softSkillSection() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        // editAboutController.loading.value = false;
+        // TextEditingController aboutSectionController = TextEditingController();
+        // aboutSectionController.text = about ?? "";
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GridView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 2, mainAxisExtent: 65),
+                  itemCount: seekerGetAllSkillsController
+                      .seekerGetAllSkillsData.value.softSkill
+                      ?.length,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    var data = seekerGetAllSkillsController
+                        .seekerGetAllSkillsData.value
+                        .softSkill?[index];
+                    final isSelected = _selectedChooseSkillsIndices
+                        .contains("${data?.id.toString()}");
+                    final borderColor = isSelected ? Color(
+                        0xff56B6F6) : Color(0xffFFFFFF);
+
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: Get.width * .02,
+                          vertical: Get.height * .01),
+                      child: GestureDetector(
+                        onTap: () {
+                          setState(() {
+                            if (_selectedChooseSkillsIndices
+                                .contains("${data?.id.toString()}")) {
+                              _selectedChooseSkillsIndices
+                                  .remove("${data?.id.toString()}");
+                            } else {
+                              _selectedChooseSkillsIndices
+                                  .add("${data?.id.toString()}");
+                            }
+                            print(index);
+                          });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius
+                                  .circular(35),
+                              border: Border.all(
+                                  color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment
+                                .spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: Get.width * .02,),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  Container(
+                                    width: Get.width * .06,
+                                    height: Get.height * .05,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: AppColors.blueThemeColor
+                                    ),
+                                    child: const Icon(Icons.check,
+                                      color: Color(0xffFFFFFF), size: 15,),),
+                                  if (!_selectedChooseSkillsIndices
+                                      .contains("${data?.id.toString()}"))
+                                    Center(
+                                      child: Container(
+                                        width: Get.width *
+                                            .05,
+                                        height: Get.width *
+                                            .05,
+                                        decoration: const BoxDecoration(
+                                          color: Color(
+                                              0xff000000),
+                                          shape: BoxShape
+                                              .circle,
+                                        ),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                              SizedBox(
+                                width: Get.width * .02,),
+                              Expanded(child: Text("${data?.skills}", style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(
+                                  fontWeight: FontWeight.w500,
+                                  color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  },),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   aboutSection(String? about) {
     showDialog(
@@ -1488,11 +1611,25 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          Text('Soft Skill',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Soft Skill',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  softSkillSection() ;
+                                                  print("object") ;
+                                                },
+                                                child: Image.asset(
+                                                  "assets/images/icon_edit.png",
+                                                  height: 18,),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
 
@@ -1914,7 +2051,7 @@ class _UserProfileState extends State<UserProfile> {
                                               Row( mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: SvgPicture.asset( 'assets/images/Educationsvg.svg')),
+                                                      child: Image.asset( 'assets/images/Educationsvg.png',height: Get.height*.04,)),
                                                   SizedBox(width: Get.width * 0.02,),
                                                   Padding(padding: const EdgeInsets.only(top: 6.0),
                                                     child: Text('appreciation',
