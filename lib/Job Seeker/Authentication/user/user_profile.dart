@@ -10,6 +10,7 @@ import 'package:flikka/controllers/EditSeekerPofileController/EditSeekerProfileC
 import 'package:flikka/controllers/EditSeekerResumeController/EditSeekerResumeController.dart';
 import 'package:flikka/controllers/EditSeekerWorkExperience/EditSeekerWorkExperience.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
+import 'package:flikka/controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
@@ -118,6 +119,7 @@ class _UserProfileState extends State<UserProfile> {
   EditSeekerAppreciationController editSeekerAppreciationController = Get.put(EditSeekerAppreciationController()) ;
   EditSeekerResumeController editSeekerResumeController = Get.put(EditSeekerResumeController()) ;
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
+  SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
 
   aboutSection(String? about) {
     showDialog(
@@ -687,7 +689,7 @@ class _UserProfileState extends State<UserProfile> {
   //********************* for skill *************
   TextEditingController skillController = TextEditingController();
 
-  void skill() {
+   skill() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -964,6 +966,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     seekerProfileController.viewSeekerProfileApi();
     viewLanguageController.viewLanguageApi() ;
+    skillsController.seekerGetAllSkillsApi() ;
     super.initState();
   }
 
