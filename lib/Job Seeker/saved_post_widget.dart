@@ -143,18 +143,6 @@ class _SavedPostState extends State<SavedPost> {
                           width: Get.width,
                           child: Stack(
                             children: [
-                              //*************** for swiper image **************
-                              // Container(
-                              //   decoration: BoxDecoration( borderRadius: BorderRadius.circular(26)),
-                              //   width: Get.width,
-                              //   child: ClipRRect(
-                              //     borderRadius: BorderRadius.circular(20),
-                              //     child: Image.network(,
-                              //       fit: BoxFit.cover,
-                              //     ),
-                              //   ),
-                              // ),
-                              //*************** for 50% match **************
                               CachedNetworkImage(
                                 fit: BoxFit.cover,
                                 width: Get.width,
