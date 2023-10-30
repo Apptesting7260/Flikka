@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flikka/utils/utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -14,19 +15,27 @@ class EditSeekerResumeController extends GetxController {
   ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
 
   RxBool loading = false.obs;
-  var errorMessage = "".obs ;
+  RxString errorMessage = "".obs ;
 
-  resumeApi(
-      String resume ,
-      BuildContext context
+  fileApi(
+      String file ,
+      bool resume,
+    String? documentType
       ) async {
     try {
+      debugPrint("hitting API") ;
       loading.value = true;
       var sp = await SharedPreferences.getInstance();
-      var url = Uri.parse(AppUrl.editSeekerResume);
+      var url = Uri.parse( resume ? AppUrl.editSeekerResume : AppUrl.editSeekerDocument);
       var request = http.MultipartRequest('POST', url);
-
-        request.files.add(await http.MultipartFile.fromPath("resume", resume));
+      if(resume) {
+        request.files.add(await http.MultipartFile.fromPath("resume", file));
+      }else if (!resume){
+        request.fields["document_type"] = documentType ?? "" ;
+        request.files.add(await http.MultipartFile.fromPath("document_img", file));
+        debugPrint(request.fields.toString()) ;
+        debugPrint(request.files.toString()) ;
+      }
 
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}";
       var response = await request.send();
@@ -36,14 +45,7 @@ class EditSeekerResumeController extends GetxController {
         loading(false);
         seekerProfileController.viewSeekerProfileApi();
         Get.back();
-        ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              width: 130,
-              shape: StadiumBorder(),
-              behavior: SnackBarBehavior.floating,
-              elevation: 10,
-              content: Text('Profile updated'),
-            ));
+        Utils.toastMessage("Profile Updated") ;
         if (kDebugMode) {
           print(responseData['message']);
         }

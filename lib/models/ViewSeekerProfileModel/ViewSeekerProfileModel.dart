@@ -58,7 +58,7 @@ class SeekerDetails {
   List<PassionName>? passionName;
   List<IndustryPreferenceName>? industryPreferenceName;
   List<StrengthsName>? strengthsName;
-  var salaryExpectationName;
+  SeekerSalaryExpectation? salaryExpectationName;
   List<StartWorkName>? startWorkName;
   List<AvailabityName>? availabityName;
 
@@ -93,7 +93,7 @@ class SeekerDetails {
     passionName: json["passion_name"] == null ? json["passion_name"] : List<PassionName>.from(json["passion_name"].map((x) => PassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<IndustryPreferenceName>.from(json["industry_preference_name"].map((x) => IndustryPreferenceName.fromJson(x))),
     strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<StrengthsName>.from(json["strengths_name"].map((x) => StrengthsName.fromJson(x))),
-    salaryExpectationName: json["salary_expectation_name"],
+    salaryExpectationName: json["salary_expectation_name"] == null ? json["salary_expectation_name"] : SeekerSalaryExpectation.fromJson(json["salary_expectation_name"]),
     startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<StartWorkName>.from(json["start_work_name"].map((x) => StartWorkName.fromJson(x))),
     availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<AvailabityName>.from(json["availabity_name"].map((x) => AvailabityName.fromJson(x))),
   );
@@ -114,6 +114,25 @@ class SeekerDetails {
     "salary_expectation_name": salaryExpectationName,
     "start_work_name": List<dynamic>.from(startWorkName!.map((x) => x.toJson())),
     "availabity_name": List<dynamic>.from(availabityName!.map((x) => x.toJson())),
+  };
+}
+
+class SeekerSalaryExpectation {
+  dynamic id ;
+  String? salary ;
+
+  SeekerSalaryExpectation({
+    this.id ,
+    this.salary
+}) ;
+
+  factory SeekerSalaryExpectation.fromJson(Map<String, dynamic> json) => SeekerSalaryExpectation(
+    id: json["id"] ,
+    salary: json["salary_expectation"]
+  );
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "salary_expectation": salary,
   };
 }
 
