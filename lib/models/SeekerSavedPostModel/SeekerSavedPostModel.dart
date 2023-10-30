@@ -85,7 +85,7 @@ class SeekerSavedJobsRecruiterDetails {
   String? aboutDescription;
   String? industry;
   String? companySize;
-  dynamic founded;
+  // dynamic founded;
   String? specialties;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -107,7 +107,7 @@ class SeekerSavedJobsRecruiterDetails {
     this.aboutDescription,
     this.industry,
     this.companySize,
-    this.founded,
+    // this.founded,
     this.specialties,
     this.createdAt,
     this.updatedAt,
@@ -130,7 +130,7 @@ class SeekerSavedJobsRecruiterDetails {
     aboutDescription: json["about_description"],
     industry: json["industry"],
     companySize: json["company_size"],
-    founded: json["founded"] == null ? json["founded"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["founded"])),
+    // founded: json["founded"] == null ? json["founded"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["founded"])),
     specialties: json["specialties"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
@@ -153,7 +153,7 @@ class SeekerSavedJobsRecruiterDetails {
     "about_description": aboutDescription,
     "industry": industry,
     "company_size": companySize,
-    "founded": "${founded?.year.toString().padLeft(4, '0')}-${founded?.month.toString().padLeft(2, '0')}-${founded?.day.toString().padLeft(2, '0')}",
+    // "founded": "${founded?.year.toString().padLeft(4, '0')}-${founded?.month.toString().padLeft(2, '0')}-${founded?.day.toString().padLeft(2, '0')}",
     "specialties": specialties,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
