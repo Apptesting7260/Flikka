@@ -23,6 +23,7 @@ import 'package:flikka/res/app_url.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
+import '../models/ShowBankDetailsModel/ShowBankDetailsModel.dart';
 import '../models/SignUpModel/SignUpModel.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
@@ -184,8 +185,14 @@ class AuthRepository {
 
   Future<SaveBankDetailsModel> SaveBankDetailsApi(var data) async {
     dynamic response = await _apiService.postApi2(
-        data, AppUrl.SaveBankDetailsUrl);
+        data, AppUrl.saveBankDetailsUrl);
     return SaveBankDetailsModel.fromJson(response);
+  }
+
+  Future<ShowBankDetailsModel> showBankDetails() async{
+    dynamic response = await _apiService.getApi2(AppUrl.showBankDetailsUrl);
+    return ShowBankDetailsModel.fromJson(response);
+
   }
 
 }

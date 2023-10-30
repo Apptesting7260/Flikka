@@ -1,5 +1,6 @@
 
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:get/get.dart';
 
 class ApplyJobController extends GetxController {
@@ -23,9 +24,11 @@ class ApplyJobController extends GetxController {
       print(value);
       if(value.status!){
         // Get.to(() => const ChooseRole()) ;
+        Utils.toastMessage( "Successfully Applied") ;
       }
       else{
         errorMessage.value =  value.message.toString();
+        Utils.toastMessage( "${value.message}") ;
       }
     }).onError((error, stackTrace){
       print(error);
