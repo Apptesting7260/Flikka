@@ -1,15 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
-import 'package:flikka/res/app_url.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-
 import 'package:share_plus/share_plus.dart';
-import 'package:url_launcher/url_launcher.dart';
-
 import '../../widgets/my_button.dart';
 
 class HomeSwiperWidget extends StatefulWidget {

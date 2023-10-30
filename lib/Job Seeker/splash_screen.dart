@@ -1,10 +1,7 @@
 import 'dart:async';
 import 'package:flikka/Job%20Seeker/Authentication/login.dart';
-import 'package:flikka/Job%20Seeker/Authentication/sign_up.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
-
-import 'welcome.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);

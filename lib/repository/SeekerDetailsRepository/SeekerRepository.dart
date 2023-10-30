@@ -52,4 +52,9 @@ class SeekerRepository {
     return EditAboutModel.fromJson(response);
   }
 
+  Future<SeekerSavedJobsListModel> appliedJobsApi() async{
+    dynamic response = await apiServices.getApi2(AppUrl.seekerAppliedJobs);
+    return SeekerSavedJobsListModel.fromJson(response);
+  }
+
 }
