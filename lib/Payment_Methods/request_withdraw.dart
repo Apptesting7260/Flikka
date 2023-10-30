@@ -23,6 +23,7 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
 
   SeekerEarningController seekerEarningController = Get.put(SeekerEarningController()) ;
   var formKey = GlobalKey<FormState>() ;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -36,7 +37,6 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
           title: Text("Request Withdraw", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
           toolbarHeight: 45,
         ),
-        backgroundColor: Colors.black,
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
           child: Form(
@@ -137,7 +137,7 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
                   width: Get.width*.66,
                   title: "CONTINUE", onTap1: () {
                      if(formKey.currentState!.validate()) {
-                       paymentRequestController.paymentRequestApiHit(amountController.text) ;
+                       paymentRequestController.paymentRequestApiHit(amountController.text,context) ;
                      }
                   // Get.to(() =>AddBankAccountDetails());
                 },),
