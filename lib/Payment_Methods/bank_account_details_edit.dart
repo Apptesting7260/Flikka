@@ -1,3 +1,5 @@
+import 'package:flikka/utils/CommonWidgets.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -18,183 +20,147 @@ class _EditBankAccountDetailState extends State<EditBankAccountDetail> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () {
+              Get.back() ;
+            },
+              child: Image.asset("assets/images/icon_back_blue.png")),
+          toolbarHeight: 45,
+        ),
         backgroundColor: Colors.black,
         body: SingleChildScrollView(
-          child: Column(children: [
-            Row(children: [
-              SizedBox(width: Get.width*0.05,),
+          padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: Get.height*.04,) ,
+              Text("Bank account details",style: Theme.of(context).textTheme.displaySmall,),
+              SizedBox(height: Get.height*.03,) ,
+              CommonWidgets.textFieldHeading(context, 'Bank'),
+              SizedBox(height: Get.height*.01,) ,
+                TextFormField(
+                      controller: bankController,
+                      readOnly: true,
+                      style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+                      decoration: InputDecoration(
+                        filled: true,
+                        hintText: 'Bank.',
+                        hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
+                        contentPadding: EdgeInsets.symmetric(vertical: 17,horizontal: 15),
+                        fillColor: Color(0xff373737),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(33),
+                          borderSide: BorderSide.none
+                        ),
 
-              GestureDetector(
-                onTap: () {Get.back();}, // Image tapped
-                child: Image.asset(
-                  'assets/images/icon_back_blue.png',
-                  // fit: BoxFit.cover, // Fixes border issues
-                  width: Get.width*0.1,
-                  height: Get.height*0.1,
+                      ),
+               ),
+              SizedBox(height: Get.height*.04,) ,
+              CommonWidgets.textFieldHeading(context, 'Account Holder Name'),
+              SizedBox(height: Get.height*.01,) ,
+              TextFormField(
+                controller: bankController,
+                readOnly: true,
+                style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: 'John Due',
+                  hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
+                  contentPadding: EdgeInsets.symmetric(vertical: 17,horizontal: 15),
+                  fillColor: Color(0xff373737),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none
+                  ),
+
                 ),
-              )
-            ],),
+              ),
+              SizedBox(height: Get.height*.04,) ,
+              CommonWidgets.textFieldHeading(context, 'Branch Code'),
+              SizedBox(height: Get.height*.01,) ,
+              TextFormField(
+                controller: bankController,
+                readOnly: true,
+                style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: 'LOYDGB2LXXX',
+                  hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
+                  contentPadding: EdgeInsets.symmetric(vertical: 17,horizontal: 15),
+                  fillColor: Color(0xff373737),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none
+                  ),
 
-            Row(
-              children: [
-                SizedBox(width: Get.width*0.08,),
-                Text("Bank account details ", style: TextStyle(fontSize: 20,fontWeight:   FontWeight.w700,color: Colors.white )),
-              ],
-            ),
-            SizedBox(height: Get.height*0.025,),
-            Row(children: [
-              SizedBox(width: Get.width*0.08,),
-              Text('Bank',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),
-            ],),
-            SizedBox(height: Get.height*0.01,),
-            Row(
-              children: [
-                SizedBox(width: Get.width*0.08,),
-                Container(
-                  width: Get.width*0.83,
-                  height: Get.height*0.075,
-                  decoration: BoxDecoration(color: Color.fromRGBO(55, 55, 55, 1), borderRadius: BorderRadius.circular(60)),
-                  child:
-                  TextFormField(
-                    controller: bankController,
-                    readOnly: true,
-                    style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
-                    decoration: InputDecoration(
-                      hintText: 'Enter name',
-                      hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
-                      contentPadding: EdgeInsets.all(16.0),
-                      fillColor: Colors.white,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
+                ),
+              ),
+              SizedBox(height: Get.height*.04,) ,
+              CommonWidgets.textFieldHeading(context, 'Account Number'),
+              SizedBox(height: Get.height*.01,) ,
+              TextFormField(
+                controller: bankController,
+                readOnly: true,
+                style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: 'KKNH123456789',
+                  hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
+                  contentPadding: EdgeInsets.symmetric(vertical: 17,horizontal: 15),
+                  fillColor: Color(0xff373737),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none
+                  ),
 
-                    ),
+                ),
+              ),
+              SizedBox(height: Get.height*.04,) ,
+              CommonWidgets.textFieldHeading(context, 'IFSC Code'),
+              TextFormField(
+                controller: bankController,
+                readOnly: true,
+                style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
+                decoration: InputDecoration(
+                  filled: true,
+                  hintText: '1234',
+                  hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
+                  contentPadding: EdgeInsets.symmetric(vertical: 17,horizontal: 15),
+                  fillColor: Color(0xff373737),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(33),
+                      borderSide: BorderSide.none
+                  ),
+
+                ),
+              ),
+              SizedBox(height: Get.height*.04,) ,
+              Center(
+                child: MyButton(
+                  height: Get.height*.08,
+                  width: Get.width*.75,
+                  title: "EDIT", onTap1: () {
+
+                },),
+              ) ,
+              SizedBox(height: Get.height*.02,) ,
+              Center(
+                child: Container(
+                  height: Get.height*.08,
+                  width: Get.width*.75,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(33),
+                    color: AppColors.white,
+                  ),
+                  child: Center(
+                    child: Text("ADD NEW BANK",style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.black),),
                   ),
                 ),
-              ],),
-
-            SizedBox(height: Get.height*0.03,),
-            Row(children: [
-              SizedBox(width: Get.width*0.08,),
-              Text('Account Holder Name',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),
-            ],),
-            SizedBox(height: Get.height*0.01,),
-
-            Row(
-              children: [
-                SizedBox(width: Get.width*0.08,),
-                Container(
-                  width: Get.width*0.83,
-                  height: Get.height*0.075,
-                  decoration: BoxDecoration(color: Color.fromRGBO(55, 55, 55, 1), borderRadius: BorderRadius.circular(60)),
-                  child:  TextFormField(
-                    readOnly: true,
-                    controller: nameController,
-                    style: TextStyle(color: Colors.white,fontSize: 16,fontWeight: FontWeight.w500),
-                    decoration: InputDecoration(
-                      hintText: 'Enter name',
-                      hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
-                      contentPadding: EdgeInsets.all(16.0),
-                      fillColor: Colors.white,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-
-                    ),
-                  ),
-                ),
-
-              ],),
-
-            SizedBox(height: Get.height*0.03,),
-            Row(children: [
-              SizedBox(width: Get.width*0.08,),
-              Text('Branch Code',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),
-            ],),
-            SizedBox(height: Get.height*0.01,),
-
-            Row(
-              children: [
-                SizedBox(width: Get.width*0.08,),
-                Container(
-                  width: Get.width*0.83,
-                  height: Get.height*0.075,
-                  decoration: BoxDecoration(color: Color.fromRGBO(55, 55, 55, 1), borderRadius: BorderRadius.circular(60)),
-                  child:  TextFormField(
-                    readOnly: true,
-                    controller: branchController,
-                    style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),
-                    decoration: InputDecoration(
-                      hintText: 'Enter code',
-                      hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
-                      contentPadding: EdgeInsets.all(17.0),
-                      fillColor: Colors.white,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-
-                    ),
-                  ),
-                ),
-
-              ],),
-
-            SizedBox(height: Get.height*0.03,),
-            Row(children: [
-              SizedBox(width: Get.width*0.08,),
-              Text('Account Number',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),
-            ],),
-            SizedBox(height: Get.height*0.01,),
-
-            Row(
-              children: [
-                SizedBox(width: Get.width*0.08,),
-                Container(
-                  width: Get.width*0.83,
-                  height: Get.height*0.075,
-                  decoration: BoxDecoration(color: Color.fromRGBO(55, 55, 55, 1), borderRadius: BorderRadius.circular(60)),
-                  child:  TextFormField(   readOnly: true,
-                    controller: acNumberController,
-                    style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),
-                    decoration: InputDecoration(
-                      hintText: 'Enter account number',
-                      hintStyle: TextStyle(fontSize: 14.0, color: Color.fromRGBO(255, 255, 255, 1)),
-                      contentPadding: EdgeInsets.all(17.0),
-                      fillColor: Colors.white,
-                      border: UnderlineInputBorder(borderSide: BorderSide.none),
-
-                    ),
-                  ),
-                ),
-
-              ],),
-
-            SizedBox(height: Get.height*0.05,),
-            // Row(mainAxisAlignment: MainAxisAlignment.center,
-            //   children: [GestureDetector(
-            //     onTap: () {
-            //
-            //     },
-            //     child: Container(
-            //       height: Get.height*0.05,
-            //       width: Get.width*0.6,
-            //       decoration: BoxDecoration(
-            //           gradient: LinearGradient(
-            //               colors: [
-            //                 Color(0xff56B8F6),
-            //                 Color(0xff4D6FED)
-            //               ],begin: Alignment.topCenter,
-            //               end: Alignment.bottomCenter
-            //
-            //           ),
-            //           borderRadius: BorderRadius.circular(60)
-            //       ),
-            //       child:  Center(
-            //         child: Text('Edit',style: TextStyle(fontSize: 17,fontWeight:   FontWeight.w700,color: Colors.white )),
-            //
-            //       ),),
-            //   )],),
-            MyButton(
-              width: Get.width*.7,
-              title: "EDIT", onTap1: () {
-
-            },)
-
-          ],),
+              ),
+              SizedBox(height: Get.height*.1,) ,
+            ],
+          ),
         ),
       ),
     );

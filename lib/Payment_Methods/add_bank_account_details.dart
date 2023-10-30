@@ -1,4 +1,6 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/controllers/SaveBankDetailsController/SaveBankDetailsController.dart';
+
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,28 +16,40 @@ class AddBankAccountDetails extends StatefulWidget {
 }
 
 class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
+
+  SaveBankDetailsController SaveBankDetailsControllerInstanse = Get.put(SaveBankDetailsController()) ;
+
+  var bankName ;
+  final accountHolderController = TextEditingController() ;
+  final branchCodeController = TextEditingController() ;
+  final accountNumberController = TextEditingController() ;
+
   final List<String> bankItems = [
     'State Bank of India','Bank of Baroda','ICICI Bank Ltd','Union Bank of India'
   ];
   String? bankValues;
 
+
   @override
   Widget build(BuildContext context) {
-    return SafeArea(child: Scaffold(
+    return SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            leading: GestureDetector(
+              onTap: () {
+                Get.back() ;
+              },
+                child: Image.asset("assets/images/icon_back_blue.png")),
+            toolbarHeight: 40,
+          ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: Get.height*.02,),
-              GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.05,)),
-              SizedBox(height: Get.height*.025,),
-              Text("Add Bank account details",style: Theme.of(context).textTheme.displaySmall,),
+              SizedBox(height: Get.height*.015,),
+              Text("Add Bank account",style: Theme.of(context).textTheme.displaySmall,),
               SizedBox(height: Get.height*.04,),
               Text("Bank",style: Theme.of(context).textTheme.titleSmall,),
               SizedBox(height: Get.height*.004,),
@@ -72,6 +86,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                     onChanged: (String? value) {
                       setState(() {
                         bankValues = value;
+                        bankName = value ;
                       });
                     },
                     buttonStyleData: ButtonStyleData(
@@ -116,6 +131,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
               Text("Account Holder Name",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               SizedBox(height: Get.height*.004,),
               TextFormField(
+                controller: accountHolderController,
                 style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                     border:OutlineInputBorder(
@@ -154,6 +170,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
               Text("Branch Code",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               SizedBox(height: Get.height*.004,),
               TextFormField(
+                controller: branchCodeController,
                 style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                     border:OutlineInputBorder(
@@ -192,6 +209,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
               Text("Account Number",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
               SizedBox(height: Get.height*.004,),
               TextFormField(
+                controller: accountNumberController,
                 style: Theme.of(context).textTheme.bodyMedium,
                 decoration: InputDecoration(
                     border:OutlineInputBorder(
@@ -228,9 +246,17 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
               ),
               SizedBox(height: Get.height*.04,),
              Center(
-               child: MyButton(title: "SUBMIT", onTap1: () {
-
-               },),
+               child: Obx( () =>
+                  MyButton(
+                    loading: SaveBankDetailsControllerInstanse.loading.value,
+                   title: "SUBMIT", onTap1: () {
+                  SaveBankDetailsControllerInstanse.SaveBankDetailsApiHit(
+                      bankName.toString(),
+                      accountHolderController.text,
+                      branchCodeController.text,
+                      accountNumberController.text) ;
+                 },),
+               ),
              )
             ],
           ),

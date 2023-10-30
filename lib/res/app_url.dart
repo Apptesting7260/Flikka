@@ -40,5 +40,8 @@ class AppUrl {
   static const String editSeekerLanguage = '$baseUrl/seeker-profile-language-edit' ;
   static const String seekerSaveJob = '$baseUrl/save-job' ;
   static const String seekerSavedJobsList = '$baseUrl/get-save-job' ;
+  static const String paymentRequestUrl = '$baseUrl/withdraw-request-by-seeker' ;
+  static const String SaveBankDetailsUrl = '$baseUrl/save-bank-details' ;
+
 
 }
