@@ -23,6 +23,7 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
   final accountHolderController = TextEditingController() ;
   final branchCodeController = TextEditingController() ;
   final accountNumberController = TextEditingController() ;
+  final ifscCodeController = TextEditingController() ;
 
   final List<String> bankItems = [
     'State Bank of India','Bank of Baroda','ICICI Bank Ltd','Union Bank of India'
@@ -245,6 +246,45 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                 },
               ),
               SizedBox(height: Get.height*.04,),
+              Text("IFSC Code",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
+              SizedBox(height: Get.height*.004,),
+              TextFormField(
+                controller: ifscCodeController,
+                style: Theme.of(context).textTheme.bodyMedium,
+                decoration: InputDecoration(
+                    border:OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(35),
+                        borderSide: BorderSide(color: Color(0xff373737))
+                    ),
+                    filled: true,
+                    fillColor: Color(0xff373737),
+                    hintText: "Enter account number",
+                    enabledBorder:  OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(35),
+                      // borderSide: BorderSide(color: Colors.white),
+                    ),
+                    errorBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                      borderSide: BorderSide(color: Colors.red),
+                    ),
+                    disabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                      borderSide: BorderSide(color: Color(0xff373737)),
+                    ),
+                    hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                    contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                ),
+                onFieldSubmitted: (value) {
+
+                },
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return 'Please enter your name';
+                  }
+                  return null;
+                },
+              ),
+              SizedBox(height: Get.height*.04,),
              Center(
                child: Obx( () =>
                   MyButton(
@@ -254,10 +294,12 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                       bankName.toString(),
                       accountHolderController.text,
                       branchCodeController.text,
-                      accountNumberController.text) ;
+                      accountNumberController.text,
+                  ifscCodeController.text) ;
                  },),
                ),
-             )
+             ) ,
+              SizedBox(height: Get.height*.04,),
             ],
           ),
         ),

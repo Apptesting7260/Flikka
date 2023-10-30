@@ -24,7 +24,8 @@ class SaveBankDetailsController extends GetxController {
       var bankName,
       var accountHolder,
       var branchCode,
-      var accountNumber
+      var accountNumber,
+      var ifscCode,
       ) async {
 
     loading.value = true ;
@@ -33,6 +34,7 @@ class SaveBankDetailsController extends GetxController {
       'account_holder' : accountHolder,
       'branch_code' : branchCode,
       'account_number' : accountNumber,
+      'IFSC_code' : ifscCode,
 
     };
     print(data);
