@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsListController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -143,18 +144,22 @@ class _SavedPostState extends State<SavedPost> {
                           child: Stack(
                             children: [
                               //*************** for swiper image **************
-                              Container(
-                                decoration: BoxDecoration( borderRadius: BorderRadius.circular(26)),
-                                width: Get.width,
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Image.asset(
-                                    'assets/images/swiperbg.png',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              ),
+                              // Container(
+                              //   decoration: BoxDecoration( borderRadius: BorderRadius.circular(26)),
+                              //   width: Get.width,
+                              //   child: ClipRRect(
+                              //     borderRadius: BorderRadius.circular(20),
+                              //     child: Image.network(,
+                              //       fit: BoxFit.cover,
+                              //     ),
+                              //   ),
+                              // ),
                               //*************** for 50% match **************
+                              CachedNetworkImage(
+                                fit: BoxFit.cover,
+                                width: Get.width,
+                                placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                                imageUrl:  "${data?.jobData?.featureImg}" ,),
                               Positioned(
                                 right: 20,
                                 top: 10,
@@ -212,15 +217,13 @@ class _SavedPostState extends State<SavedPost> {
                                         topLeft: Radius.circular(22),
                                         topRight: Radius.circular(22)),
                                   ),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                  child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(data?.jobData?.jobPositions ?? "Test Data",
                                         style: Theme.of(context).textTheme.displayLarge,
                                         softWrap: true,),
                                       SizedBox( height: Get.height * .005,),
-                                      Text("Example Company Pvt. Ltd",
+                                      Text(data?.jobData?.recruiterDetails?.companyName ?? "Test Data",
                                         style: Theme.of(context).textTheme.bodySmall!
                                             .copyWith( color: AppColors.ratingcommenttextcolor),),
                                       SizedBox( height: Get.height * 0.03,),
@@ -254,13 +257,12 @@ class _SavedPostState extends State<SavedPost> {
                                   child: Container(
                                     decoration: BoxDecoration(
                                       color: Colors.grey[900],
-                                      borderRadius: BorderRadius.only(
+                                      borderRadius: const BorderRadius.only(
                                           bottomLeft: Radius.circular(20),
                                           bottomRight: Radius.circular(22)),
                                     ),
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         Row(
                                           children: [
@@ -274,7 +276,7 @@ class _SavedPostState extends State<SavedPost> {
                                                   height: Get.height * 0.027,
                                                   color: buttonColor,
                                                 )
-                                                    : Icon(
+                                                    : const Icon(
                                                   Icons.favorite_rounded,
                                                   color: AppColors.red,
                                                 )),
@@ -317,8 +319,7 @@ class _SavedPostState extends State<SavedPost> {
                                               Stack(
                                                   children: [
                                                     CircleAvatar(
-                                                      backgroundColor: Color(
-                                                          0xff56B8F6),
+                                                      backgroundColor: Color(0xff56B8F6),
                                                       radius: 17,
                                                       child: Image.asset(
                                                         'assets/images/personicons.png',

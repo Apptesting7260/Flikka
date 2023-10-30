@@ -1,16 +1,18 @@
 // To parse this JSON data, do
 //
-//     final seekerSavedPostModel = seekerSavedPostModelFromJson(jsonString);
+//     final seekerSavedJobsListModel = seekerSavedJobsListModelFromJson(jsonString);
 
 import 'dart:convert';
 
-SeekerSavedJobsListModel seekerSavedPostModelFromJson(String str) => SeekerSavedJobsListModel.fromJson(json.decode(str));
+import 'package:intl/intl.dart';
 
-String seekerSavedPostModelToJson(SeekerSavedJobsListModel data) => json.encode(data.toJson());
+SeekerSavedJobsListModel seekerSavedJobsListModelFromJson(String str) => SeekerSavedJobsListModel.fromJson(json.decode(str));
+
+String seekerSavedJobsListModelToJson(SeekerSavedJobsListModel data) => json.encode(data.toJson());
 
 class SeekerSavedJobsListModel {
   bool? status;
-  List<SeekerSavedPostDatum>? data;
+  List<SeekerSavedJobsDatum>? data;
 
   SeekerSavedJobsListModel({
     this.status,
@@ -19,7 +21,7 @@ class SeekerSavedJobsListModel {
 
   factory SeekerSavedJobsListModel.fromJson(Map<String, dynamic> json) => SeekerSavedJobsListModel(
     status: json["status"],
-    data: json["data"] == null ? json["data"] : List<SeekerSavedPostDatum>.from(json["data"].map((x) => SeekerSavedPostDatum.fromJson(x))),
+    data: json["data"] == null ? json["data"] : List<SeekerSavedJobsDatum>.from(json["data"].map((x) => SeekerSavedJobsDatum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -28,16 +30,16 @@ class SeekerSavedJobsListModel {
   };
 }
 
-class SeekerSavedPostDatum {
+class SeekerSavedJobsDatum {
   dynamic id;
-  dynamic seekerId;
-  dynamic jobId;
+  String? seekerId;
+  String? jobId;
   String? type;
   DateTime? createdAt;
   DateTime? updatedAt;
-  SeekerSavedJobData? jobData;
+  SeekerSavedJobsData? jobData;
 
-  SeekerSavedPostDatum({
+  SeekerSavedJobsDatum({
     this.id,
     this.seekerId,
     this.jobId,
@@ -47,14 +49,14 @@ class SeekerSavedPostDatum {
     this.jobData,
   });
 
-  factory SeekerSavedPostDatum.fromJson(Map<String, dynamic> json) => SeekerSavedPostDatum(
+  factory SeekerSavedJobsDatum.fromJson(Map<String, dynamic> json) => SeekerSavedJobsDatum(
     id: json["id"],
     seekerId: json["seeker_id"],
     jobId: json["job_id"],
     type: json["type"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    jobData: json["job_data"] == null ? json["job_data"] : SeekerSavedJobData.fromJson(json["job_data"]),
+    jobData: json["job_data"] == null ? json["job_data"] : SeekerSavedJobsData.fromJson(json["job_data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -68,7 +70,99 @@ class SeekerSavedPostDatum {
   };
 }
 
-class SeekerSavedJobData {
+class SeekerSavedJobsRecruiterDetails {
+  dynamic id;
+  dynamic recruiterId;
+  String? profileImg;
+  String? coverImg;
+  String? companyName;
+  String? companyLocation;
+  String? addBio;
+  dynamic homeTitle;
+  dynamic homeDescription;
+  String? websiteLink;
+  dynamic aboutTitle;
+  String? aboutDescription;
+  String? industry;
+  String? companySize;
+  dynamic founded;
+  String? specialties;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  String? industris;
+  List<SeekerSavedJobsData>? recDetails;
+
+  SeekerSavedJobsRecruiterDetails({
+    this.id,
+    this.recruiterId,
+    this.profileImg,
+    this.coverImg,
+    this.companyName,
+    this.companyLocation,
+    this.addBio,
+    this.homeTitle,
+    this.homeDescription,
+    this.websiteLink,
+    this.aboutTitle,
+    this.aboutDescription,
+    this.industry,
+    this.companySize,
+    this.founded,
+    this.specialties,
+    this.createdAt,
+    this.updatedAt,
+    this.industris,
+    this.recDetails,
+  });
+
+  factory SeekerSavedJobsRecruiterDetails.fromJson(Map<String, dynamic> json) => SeekerSavedJobsRecruiterDetails(
+    id: json["id"],
+    recruiterId: json["recruiter_id"],
+    profileImg: json["profile_img"],
+    coverImg: json["cover_img"],
+    companyName: json["company_name"],
+    companyLocation: json["company_location"],
+    addBio: json["add_bio"],
+    homeTitle: json["home_title"],
+    homeDescription: json["home_description"],
+    websiteLink: json["website_link"],
+    aboutTitle: json["about_title"],
+    aboutDescription: json["about_description"],
+    industry: json["industry"],
+    companySize: json["company_size"],
+    founded: json["founded"] == null ? json["founded"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["founded"])),
+    specialties: json["specialties"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    industris: json["industris"],
+    recDetails: json["rec_details"] == null ? json["rec_details"] : List<SeekerSavedJobsData>.from(json["rec_details"].map((x) => SeekerSavedJobsData.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "recruiter_id": recruiterId,
+    "profile_img": profileImg,
+    "cover_img": coverImg,
+    "company_name": companyName,
+    "company_location": companyLocation,
+    "add_bio": addBio,
+    "home_title": homeTitle,
+    "home_description": homeDescription,
+    "website_link": websiteLink,
+    "about_title": aboutTitle,
+    "about_description": aboutDescription,
+    "industry": industry,
+    "company_size": companySize,
+    "founded": "${founded?.year.toString().padLeft(4, '0')}-${founded?.month.toString().padLeft(2, '0')}-${founded?.day.toString().padLeft(2, '0')}",
+    "specialties": specialties,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "industris": industris,
+    "rec_details": List<dynamic>.from(recDetails!.map((x) => x.toJson())),
+  };
+}
+
+class SeekerSavedJobsData {
   dynamic id;
   dynamic recruiterId;
   String? featureImg;
@@ -87,9 +181,11 @@ class SeekerSavedJobData {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
+  List<SeekerSavedJobsLanguageName>? languageName;
   SeekerSavedJobsDetail? jobsDetail;
+  SeekerSavedJobsRecruiterDetails? recruiterDetails;
 
-  SeekerSavedJobData({
+  SeekerSavedJobsData({
     this.id,
     this.recruiterId,
     this.featureImg,
@@ -108,10 +204,12 @@ class SeekerSavedJobData {
     this.createdAt,
     this.updatedAt,
     this.jobPositions,
+    this.languageName,
     this.jobsDetail,
+    this.recruiterDetails,
   });
 
-  factory SeekerSavedJobData.fromJson(Map<String, dynamic> json) => SeekerSavedJobData(
+  factory SeekerSavedJobsData.fromJson(Map<String, dynamic> json) => SeekerSavedJobsData(
     id: json["id"],
     recruiterId: json["recruiter_id"],
     featureImg: json["feature_img"],
@@ -130,7 +228,9 @@ class SeekerSavedJobData {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
+    languageName: json["language_name"] == null ? json["language_name"] : List<SeekerSavedJobsLanguageName>.from(json["language_name"].map((x) => SeekerSavedJobsLanguageName.fromJson(x))),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : SeekerSavedJobsDetail.fromJson(json["jobs_detail"]),
+    recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : SeekerSavedJobsRecruiterDetails.fromJson(json["recruiter_details"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -152,7 +252,9 @@ class SeekerSavedJobData {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "job_positions": jobPositions,
+    "language_name": List<dynamic>.from(languageName!.map((x) => x.toJson())),
     "jobs_detail": jobsDetail?.toJson(),
+    "recruiter_details": recruiterDetails?.toJson(),
   };
 }
 
@@ -161,13 +263,13 @@ class SeekerSavedJobsDetail {
   dynamic jobId;
   DateTime? createdAt;
   DateTime? updatedAt;
-  List<SeekerSavedPostSkillName>? skillName;
-  List<SeekerSavedPostPassionName>? passionName;
-  List<SeekerSavedPostIndustryPreferenceName>? industryPreferenceName;
-  List<SeekerSavedPostStrengthsName>? strengthsName;
+  List<SeekerSavedJobsSkillName>? skillName;
+  List<SeekerSavedJobsPassionName>? passionName;
+  List<SeekerSavedJobsIndustryPreferenceName>? industryPreferenceName;
+  List<SeekerSavedJobsStrengthsName>? strengthsName;
   String? salaryExpectationName;
-  List<SeekerSavedPostStartWorkName>? startWorkName;
-  List<SeekerSavedPostAvailabityName>? availabityName;
+  List<SeekerSavedJobsStartWorkName>? startWorkName;
+  List<SeekerSavedJobsAvailabityName>? availabityName;
 
   SeekerSavedJobsDetail({
     this.id,
@@ -188,13 +290,13 @@ class SeekerSavedJobsDetail {
     jobId: json["job_id"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
-    skillName: json["skill_name"] == null ? json["skill_name"] : List<SeekerSavedPostSkillName>.from(json["skill_name"].map((x) => SeekerSavedPostSkillName.fromJson(x))),
-    passionName: json["passion_name"] == null ? json["passion_name"] : List<SeekerSavedPostPassionName>.from(json["passion_name"].map((x) => SeekerSavedPostPassionName.fromJson(x))),
-    industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<SeekerSavedPostIndustryPreferenceName>.from(json["industry_preference_name"].map((x) => SeekerSavedPostIndustryPreferenceName.fromJson(x))),
-    strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<SeekerSavedPostStrengthsName>.from(json["strengths_name"].map((x) => SeekerSavedPostStrengthsName.fromJson(x))),
+    skillName: json["skill_name"] == null ? json["skill_name"] : List<SeekerSavedJobsSkillName>.from(json["skill_name"].map((x) => SeekerSavedJobsSkillName.fromJson(x))),
+    passionName: json["passion_name"] == null ? json["passion_name"] : List<SeekerSavedJobsPassionName>.from(json["passion_name"].map((x) => SeekerSavedJobsPassionName.fromJson(x))),
+    industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<SeekerSavedJobsIndustryPreferenceName>.from(json["industry_preference_name"].map((x) => SeekerSavedJobsIndustryPreferenceName.fromJson(x))),
+    strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<SeekerSavedJobsStrengthsName>.from(json["strengths_name"].map((x) => SeekerSavedJobsStrengthsName.fromJson(x))),
     salaryExpectationName: json["salary_expectation_name"],
-    startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<SeekerSavedPostStartWorkName>.from(json["start_work_name"].map((x) => SeekerSavedPostStartWorkName.fromJson(x))),
-    availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<SeekerSavedPostAvailabityName>.from(json["availabity_name"].map((x) => SeekerSavedPostAvailabityName.fromJson(x))),
+    startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<SeekerSavedJobsStartWorkName>.from(json["start_work_name"].map((x) => SeekerSavedJobsStartWorkName.fromJson(x))),
+    availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<SeekerSavedJobsAvailabityName>.from(json["availabity_name"].map((x) => SeekerSavedJobsAvailabityName.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -212,14 +314,14 @@ class SeekerSavedJobsDetail {
   };
 }
 
-class SeekerSavedPostAvailabityName {
+class SeekerSavedJobsAvailabityName {
   String? availabity;
 
-  SeekerSavedPostAvailabityName({
+  SeekerSavedJobsAvailabityName({
     this.availabity,
   });
 
-  factory SeekerSavedPostAvailabityName.fromJson(Map<String, dynamic> json) => SeekerSavedPostAvailabityName(
+  factory SeekerSavedJobsAvailabityName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsAvailabityName(
     availabity: json["availabity"],
   );
 
@@ -228,14 +330,14 @@ class SeekerSavedPostAvailabityName {
   };
 }
 
-class SeekerSavedPostIndustryPreferenceName {
+class SeekerSavedJobsIndustryPreferenceName {
   String? industryPreferences;
 
-  SeekerSavedPostIndustryPreferenceName({
+  SeekerSavedJobsIndustryPreferenceName({
     this.industryPreferences,
   });
 
-  factory SeekerSavedPostIndustryPreferenceName.fromJson(Map<String, dynamic> json) => SeekerSavedPostIndustryPreferenceName(
+  factory SeekerSavedJobsIndustryPreferenceName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsIndustryPreferenceName(
     industryPreferences: json["industry_preferences"],
   );
 
@@ -244,14 +346,14 @@ class SeekerSavedPostIndustryPreferenceName {
   };
 }
 
-class SeekerSavedPostPassionName {
+class SeekerSavedJobsPassionName {
   String? passion;
 
-  SeekerSavedPostPassionName({
+  SeekerSavedJobsPassionName({
     this.passion,
   });
 
-  factory SeekerSavedPostPassionName.fromJson(Map<String, dynamic> json) => SeekerSavedPostPassionName(
+  factory SeekerSavedJobsPassionName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsPassionName(
     passion: json["passion"],
   );
 
@@ -260,14 +362,14 @@ class SeekerSavedPostPassionName {
   };
 }
 
-class SeekerSavedPostSkillName {
+class SeekerSavedJobsSkillName {
   String? skills;
 
-  SeekerSavedPostSkillName({
+  SeekerSavedJobsSkillName({
     this.skills,
   });
 
-  factory SeekerSavedPostSkillName.fromJson(Map<String, dynamic> json) => SeekerSavedPostSkillName(
+  factory SeekerSavedJobsSkillName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsSkillName(
     skills: json["skills"],
   );
 
@@ -276,14 +378,14 @@ class SeekerSavedPostSkillName {
   };
 }
 
-class SeekerSavedPostStartWorkName {
+class SeekerSavedJobsStartWorkName {
   String? startWork;
 
-  SeekerSavedPostStartWorkName({
+  SeekerSavedJobsStartWorkName({
     this.startWork,
   });
 
-  factory SeekerSavedPostStartWorkName.fromJson(Map<String, dynamic> json) => SeekerSavedPostStartWorkName(
+  factory SeekerSavedJobsStartWorkName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsStartWorkName(
     startWork: json["start_work"],
   );
 
@@ -292,18 +394,38 @@ class SeekerSavedPostStartWorkName {
   };
 }
 
-class SeekerSavedPostStrengthsName {
+class SeekerSavedJobsStrengthsName {
   String? strengths;
 
-  SeekerSavedPostStrengthsName({
+  SeekerSavedJobsStrengthsName({
     this.strengths,
   });
 
-  factory SeekerSavedPostStrengthsName.fromJson(Map<String, dynamic> json) => SeekerSavedPostStrengthsName(
+  factory SeekerSavedJobsStrengthsName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsStrengthsName(
     strengths: json["strengths"],
   );
 
   Map<String, dynamic> toJson() => {
     "strengths": strengths,
+  };
+}
+
+class SeekerSavedJobsLanguageName {
+  dynamic id;
+  String? languages;
+
+  SeekerSavedJobsLanguageName({
+    this.id,
+    this.languages,
+  });
+
+  factory SeekerSavedJobsLanguageName.fromJson(Map<String, dynamic> json) => SeekerSavedJobsLanguageName(
+    id: json["id"],
+    languages: json["languages"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "languages": languages,
   };
 }

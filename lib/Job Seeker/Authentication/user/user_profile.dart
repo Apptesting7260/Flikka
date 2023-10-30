@@ -1029,6 +1029,7 @@ class _UserProfileState extends State<UserProfile> {
       //barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
+        dynamic documentType ;
         return Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(22)),
@@ -1060,7 +1061,7 @@ class _UserProfileState extends State<UserProfile> {
                           padding: EdgeInsets.symmetric(
                               horizontal: Get.width * 0.06),
                           isExpanded: true,
-                          value: DocumentType,
+                          value: documentType,
                           hint: Text(
                             "Select Type",
                             style: Theme
@@ -1081,10 +1082,10 @@ class _UserProfileState extends State<UserProfile> {
                             );
                           }).toList(),
                           onChanged: (value) {
-                            if (value != DocumentType) {
+                            if (value != documentType) {
                               setState(() {
-                                DocumentType = value.toString();
-                                debugPrint(DocumentType) ;
+                                documentType = value.toString();
+                                debugPrint(documentType) ;
                                 editSeekerResumeController.errorMessage.value = "";
                               });
                             }
@@ -1099,115 +1100,120 @@ class _UserProfileState extends State<UserProfile> {
                       dashPattern: [5, 5],
                       color: const Color(0xffCFCFCF),
                       strokeWidth: 0.7,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              if (DocumentType == null) {
-                                editSeekerResumeController.errorMessage.value = "Please select document type first";
-                              } else {
-                                if (_documentTypeFilePath.isNotEmpty) {
-                                  // _openDocumentTypeFilePicker();
-                                  OpenFile.open(_documentTypeFilePath);
+                      child: Obx( () =>
+                         Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                if (documentType == null) {
+                                  editSeekerResumeController.errorMessage.value = "Please select document type first";
                                 } else {
-                                  _openFilePicker(false, DocumentType);
+                                  if (editSeekerResumeController.documentPath.value.isNotEmpty) {
+                                    // _openDocumentTypeFilePicker();
+                                    OpenFile.open(_documentTypeFilePath);
+                                  } else {
+                                    setState((){
+                                      _openFilePicker(false, documentType);
+                                      debugPrint(documentType) ;
+                                    }) ;
+
+                                  }
                                 }
-                              }
-                            },
-                            child: Container(
-                              height: Get.height * .15,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                              ),
-                              child: Center(
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment
-                                      .center,
-                                  mainAxisAlignment: MainAxisAlignment
-                                      .center,
-                                  children: [
-                                    _documentTypeFilePath == ''
-                                        ? Image.asset(
-                                      "assets/images/icon_upload_cv.png",
-                                      width: Get.width * .07,
-                                      height: Get.height * .06,
-                                    )
-                                        :
-                                    SizedBox(width: Get.width * .0),
-                                    if (_documentTypeFilePath.isNotEmpty)
-                                      SizedBox(
-                                        width: Get.width * .6,
-                                        child: Row(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            SizedBox(
-                                                width: Get.width * .02),
-                                            Flexible(
-                                              child: Text(
-                                                "File uploaded: ${_documentTypeFilePath
-                                                    .split('/')
-                                                    .last}",
-                                                overflow: TextOverflow
-                                                    .ellipsis,
-                                                style: Theme
-                                                    .of(context)
-                                                    .textTheme
-                                                    .labelLarge
-                                                    ?.copyWith(
-                                                    fontWeight: FontWeight
-                                                        .w400),
-                                              ),
+                              },
+                              child: Container(
+                                height: Get.height * .15,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(22),
+                                ),
+                                child: Center(
+                                  child: Obx( () => Row(
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        editSeekerResumeController.documentPath.value == ''
+                                            ? Image.asset(
+                                          "assets/images/icon_upload_cv.png",
+                                          width: Get.width * .07,
+                                          height: Get.height * .06,
+                                        )
+                                            :
+                                        SizedBox(width: Get.width * .0),
+                                        if (editSeekerResumeController.documentPath.value.isNotEmpty)
+                                          SizedBox(
+                                            width: Get.width * .6,
+                                            child: Row(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SizedBox(
+                                                    width: Get.width * .02),
+                                                Flexible(
+                                                  child: Obx( () =>
+                                                     Text(
+                                                      "File uploaded: ${editSeekerResumeController.documentPath.value
+                                                          .split('/')
+                                                          .last}",
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: Theme
+                                                          .of(context)
+                                                          .textTheme
+                                                          .labelLarge
+                                                          ?.copyWith(
+                                                          fontWeight: FontWeight
+                                                              .w400),
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                          ],
-                                        ),
-                                      )
-                                    else
-                                      Padding(
-                                        padding:
-                                        const EdgeInsets.only(
-                                            left: 8.0, top: 4),
-                                        child: Text(
-                                          "Upload File",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .labelLarge
-                                              ?.copyWith(
-                                              fontWeight: FontWeight
-                                                  .w400),
-                                        ),
-                                      ),
-                                  ],
+                                          )
+                                        else
+                                          Padding(
+                                            padding:
+                                            const EdgeInsets.only(
+                                                left: 8.0, top: 4),
+                                            child: Text(
+                                              "Upload File",
+                                              style: Theme
+                                                  .of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                  fontWeight: FontWeight
+                                                      .w400),
+                                            ),
+                                          ),
+                                      ],
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Positioned(
-                              right: 5,
-                              top: 1,
-                              child: _documentTypeFilePath.isEmpty ?
-                              const SizedBox() :
-                              IconButton(
-                                  onPressed: () {
-                                    if (DocumentType == null) {
-                                      editSeekerResumeController.errorMessage.value =
-                                      "Please select document type first";
-                                    } else {
-                                      _openFilePicker(false,"");
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                  ))),
-                        ],
+                            Positioned(
+                                right: 5,
+                                top: 1,
+                                child: editSeekerResumeController.documentPath.value.isEmpty ?
+                                const SizedBox() :
+                                IconButton(
+                                    onPressed: () {
+                                      if (documentType == null) {
+                                        editSeekerResumeController.errorMessage.value =
+                                        "Please select document type first";
+                                      } else {
+                                        _openFilePicker(false,documentType);
+                                      }
+                                    },
+                                    icon: const Icon(
+                                      Icons.edit,
+                                      color: Colors.white,
+                                    ))),
+                          ],
+                        ),
                       ),
                     ),
-                    SizedBox(
-                      height: Get.height * .02,
-                    ),
+                    SizedBox(height: Get.height * .02,),
                     Obx(() =>
                     editSeekerResumeController.errorMessage.value.isEmpty
                         ? const SizedBox()
@@ -1215,6 +1221,31 @@ class _UserProfileState extends State<UserProfile> {
                         child: Text(editSeekerResumeController.errorMessage.value,
                           style: const TextStyle(color: Colors.red),
                         ))),
+                    SizedBox(height: Get.height*.02,) ,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MyButton(
+                          width: 100,
+                          height: 40,
+                          onTap1: () {
+                            Navigator.of(context).pop();
+                          }, title: 'Cancel',
+                        ),
+                        const SizedBox(width: 20,) ,
+                        Obx( () =>
+                            MyButton(
+                              width: 100,
+                              height: 40,
+                              loading: editSeekerResumeController.loading.value,
+                              onTap1: () {
+                                editSeekerResumeController.fileApi(_documentTypeFilePath, false, documentType);
+                              }, title: 'Submit',
+                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Get.height* 0.02,) ,
                   ],
                 );
               }
@@ -2477,6 +2508,7 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               InkWell(
                                                   onTap: () {
+                                                    editSeekerResumeController.documentPath.value = "" ;
                                                     document() ;
                                                   },
                                                   child: seekerProfileController.viewSeekerData
@@ -2517,10 +2549,6 @@ class _UserProfileState extends State<UserProfile> {
                                                             Container(padding: const EdgeInsets.all(17),
                                                               decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular( 60.0),
-                                                                // gradient: const LinearGradient(
-                                                                //   colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
-                                                                //   begin: Alignment.topCenter,
-                                                                //   end: Alignment.bottomCenter,),
                                                                 color: AppColors.blueThemeColor
                                                               ),
                                                               child: Image.asset('assets/images/boost.png', scale: 3.4,),
@@ -2534,10 +2562,6 @@ class _UserProfileState extends State<UserProfile> {
                                                             SizedBox(height: Get.height * 0.05),
                                                             Container( decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(10.0),
-                                                                // gradient: const LinearGradient(
-                                                                //   colors: [Color(0xFF56B8F6), Color(0xFF4D6FED),],
-                                                                //   begin: Alignment.topCenter,
-                                                                //   end: Alignment.bottomCenter,),
                                                               color: AppColors.blueThemeColor
                                                             ),
                                                               height: Get.height * 0.21,
@@ -2740,8 +2764,7 @@ class _UserProfileState extends State<UserProfile> {
 
     if(result != null) {
       if (resume) {
-        if (result.files.single.path!.toLowerCase().endsWith('.pdf') ||
-            result.files.single.path!.toLowerCase().endsWith('.docx')) {
+        if (result.files.single.path!.toLowerCase().endsWith('.pdf') ) {
           setState(() {
             resumePath = result.files.single.path!;
             editSeekerResumeController.fileApi(resumePath, true,"");
@@ -2750,21 +2773,20 @@ class _UserProfileState extends State<UserProfile> {
         } else {
           if (resumePath.isEmpty) {
             // editSeekerResumeController.errorMessage.value =
-            Utils.toastMessage('Please pick a pdf or docx file') ;
+            Utils.toastMessage('Please pick a pdf file') ;
             // 'Please pick a pdf or docx file';
           } else {
             // editSeekerResumeController.errorMessage.value =
-            Utils.toastMessage('Only pdf and docx file is allowed') ;
+            Utils.toastMessage('Only pdf file is allowed') ;
             // 'Only pdf and docx file is allowed';
           }
         }
       }
       else {
         setState(() {
-          debugPrint("==============$documentType==========") ;
-          documentPath = result.files.single.path!;
+          debugPrint("this is document==============$documentType==========") ;
+          editSeekerResumeController.documentPath.value = result.files.single.path!;
           _documentTypeFilePath = result.files.single.path!;
-          editSeekerResumeController.fileApi(documentPath, false, documentType);
         });
       }
     }
