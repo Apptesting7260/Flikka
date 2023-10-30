@@ -10,6 +10,7 @@ import 'package:flikka/models/ForgotPasswordModel/Otp/OtpVerificationModel.dart'
 import 'package:flikka/models/LoginModel/LoginModel.dart';
 import 'package:flikka/models/RequiredSkillsModel/RequiredSkillsModel.dart';
 import 'package:flikka/models/ResetPasswordModel/ResetPasswordModel.dart';
+import 'package:flikka/models/SaveBankDetailsModel/SaveBankDetailsModel.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
 import 'package:flikka/models/SeekerChoosePositionModel/SeekerChoosePositionModel.dart';
 import 'package:flikka/models/SeekerReferalModel/SeekerReferalModel.dart';
@@ -19,6 +20,7 @@ import 'package:flikka/models/SkipStepModel/SkipStepModel.dart';
 import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
+import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
 import '../models/SignUpModel/SignUpModel.dart';
@@ -172,8 +174,18 @@ class AuthRepository {
   Future<ViewLanguageModel> viewLanguageApi() async{
     dynamic response = await _apiService.getApi2(AppUrl.viewLanguage);
     return ViewLanguageModel.fromJson(response);
-
   }
 
+  Future<PaymentRequestModel> paymentRequestApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.paymentRequestUrl);
+    return PaymentRequestModel.fromJson(response);
+  }
+
+  Future<SaveBankDetailsModel> SaveBankDetailsApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.SaveBankDetailsUrl);
+    return SaveBankDetailsModel.fromJson(response);
+  }
 
 }

@@ -3,6 +3,7 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/SeekerEarningController/SeekerEarningController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -84,48 +85,56 @@ class _WalletState extends State<Wallet> {
         case Status.COMPLETED:
           return SafeArea(
             child: Scaffold(
+              appBar: AppBar(
+                 toolbarHeight: 45,
+                leading: GestureDetector(
+                    onTap: () {
+                      Get.back() ;
+                    },
+                    child: Image.asset("assets/images/icon_back_blue.png")),
+                title: Text("Wallet",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+              ),
               backgroundColor: Colors.black,
               body: Padding(
                 padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
                 child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  // SizedBox(height: Get.width*0.1,),
-
-                  Row(children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      }, // Image tapped
-                      child: Image.asset(
-                        'assets/images/icon_back_blue.png',
-                        // fit: BoxFit.cover, // Fixes border issues
-                        width: Get.width * 0.1,
-                        height: Get.height * 0.1,
-                      ),
-                    ),
-                    SizedBox(width: Get.width * 0.04,),
-                    const Text("Wallet",
-                        style: TextStyle(fontSize: 20, fontWeight: FontWeight
-                            .w700, color: Colors.white))
-                  ],),
+                  // Row(children: [
+                  //   GestureDetector(
+                  //     onTap: () {
+                  //       Get.back();
+                  //     }, // Image tapped
+                  //     child: Image.asset(
+                  //       'assets/images/icon_back_blue.png',
+                  //       // fit: BoxFit.cover, // Fixes border issues
+                  //       width: Get.width * 0.1,
+                  //       height: Get.height * 0.1,
+                  //     ),
+                  //   ),
+                  //   SizedBox(width: Get.width * 0.04,),
+                  //   const Text("Wallet",
+                  //       style: TextStyle(fontSize: 20, fontWeight: FontWeight
+                  //           .w700, color: Colors.white))
+                  // ],),
                   SizedBox(height: Get.height * 0.01,),
                   const Text("Earnings",
                       style: TextStyle(fontSize: 24, fontWeight: FontWeight
                           .w700, color: Colors.white)),
-                  const Text("How do I earn",
-                      style: TextStyle(decoration: TextDecoration.underline,
-                          decorationColor: Color(0xff56B8F6),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.blue)),
+                   Text("How do I earn",
+                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
+                  ),
                   SizedBox(height: Get.height * 0.02,),
-                   Center(child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ", style: const TextStyle(fontSize: 30,
-                      fontWeight: FontWeight.w700,
-                      color: Color(0xff56B8F6)))),
+                   Center(
+                       child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
+                           style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
+                       )
+                   ),
 
                   SizedBox(height: Get.height * 0.035,),
                   Center(
-                    child: MyButton(title: "Request Withdraw", onTap1: () {
+                    child: MyButton(
+
+                        title: "Request Withdraw", onTap1: () {
                       Get.to(() => const RequestWithdraw());
                     }),
                   ),
@@ -136,7 +145,7 @@ class _WalletState extends State<Wallet> {
                       _dialogBuilder(context);
                     },
                     child: Container(
-                      height: 56,
+                      height: Get.height*.075,
                       width: 295,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -274,19 +283,20 @@ class _WalletState extends State<Wallet> {
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(60.0),
-                              // color: const Color(0xff353535),
-                              gradient:  LinearGradient(
-                                colors:
-                                employee ? [
-                                  const Color(0xFF56B8F6),
-                                  const Color(0xFF4D6FED),
-                                ] : [
-                                  const Color(0xff353535),
-                                  const Color(0xff353535),
-                                ],
-                                begin: Alignment.topCenter, // Start from the top center
-                                end: Alignment.bottomCenter, // End at the bottom center
-                              ),
+                               color: employee ? AppColors.blueThemeColor : Color(0xff353535),
+                              // gradient:  LinearGradient(
+                              //   colors:
+                              //   employee ? [
+                              //     const Color(0xFF56B8F6),
+                              //     const Color(0xFF4D6FED),
+                              //   ] : [
+                              //     const Color(0xff353535),
+                              //     const Color(0xff353535),
+                              //   ],
+                              //   begin: Alignment.topCenter, // Start from the top center
+                              //   end: Alignment.bottomCenter, // End at the bottom center
+                              // ),
+
                             ),
                             child :  Text(
                               "Employee",
@@ -311,19 +321,19 @@ class _WalletState extends State<Wallet> {
                           alignment: Alignment.center,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(60.0),
-                             // color: const Color(0xff353535),
-                              gradient:  LinearGradient(
-                                colors:
-                                employer ? [
-                                  const Color(0xFF56B8F6),
-                                  const Color(0xFF4D6FED),
-                                ] : [
-                                  const Color(0xff353535),
-                                  const Color(0xff353535),
-                                ],
-                                begin: Alignment.topCenter, // Start from the top center
-                                end: Alignment.bottomCenter, // End at the bottom center
-                              ),
+                              color: employer ? AppColors.blueThemeColor : Color(0xff353535),
+                             //  gradient:  LinearGradient(
+                             //    colors:
+                             //    employer ? [
+                             //      const Color(0xFF56B8F6),
+                             //      const Color(0xFF4D6FED),
+                             //    ] : [
+                             //      const Color(0xff353535),
+                             //      const Color(0xff353535),
+                             //    ],
+                             //    begin: Alignment.topCenter, // Start from the top center
+                             //    end: Alignment.bottomCenter, // End at the bottom center
+                             //  ),
                             ),
                           child :  Text(
                             "Employer",
@@ -431,9 +441,6 @@ class _WalletState extends State<Wallet> {
       }
     }
     );
-
-
-
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -461,14 +468,15 @@ class _WalletState extends State<Wallet> {
                       onTap: () => Get.back(),
                       child: Container(
                         decoration: BoxDecoration(
-                          gradient: const LinearGradient(
-                              colors: [
-                                Color(0xff56B8F6),
-                                Color(0xff4D6FED)
-                              ],begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter
-
-                          ),
+                          // gradient: const LinearGradient(
+                          //     colors: [
+                          //       Color(0xff56B8F6),
+                          //       Color(0xff4D6FED)
+                          //     ],begin: Alignment.topCenter,
+                          //     end: Alignment.bottomCenter
+                          //
+                          // ),
+                          color: AppColors.blueThemeColor,
                           borderRadius: BorderRadius.circular(12),),
                         child: const Icon(
                           Icons.close,
@@ -505,14 +513,15 @@ class _WalletState extends State<Wallet> {
                           width: Get.width*0.6,
                           alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              gradient: const LinearGradient(
-                                  colors: [
-                                    Color(0xff56B8F6),
-                                    Color(0xff4D6FED)
-                                  ],begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter
-
-                              ),
+                              // gradient: const LinearGradient(
+                              //     colors: [
+                              //       Color(0xff56B8F6),
+                              //       Color(0xff4D6FED)
+                              //     ],begin: Alignment.topCenter,
+                              //     end: Alignment.bottomCenter
+                              //
+                              // ),
+                            color: AppColors.blueThemeColor,
                               borderRadius: BorderRadius.circular(60)
                           ),
                           child:  const Text('Copy',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),),
