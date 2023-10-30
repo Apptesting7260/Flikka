@@ -106,7 +106,7 @@ class _CreateProfileState extends State<CreateProfile> {
   Future<void> _openDocumentTypeFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'svg'],
+      allowedExtensions: ['pdf', 'jpg', 'jpeg', 'png', 'svg'],
     );
 
     if (result != null) {
