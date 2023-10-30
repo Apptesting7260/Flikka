@@ -11,13 +11,13 @@ String seekerGetAllSkillsModelToJson(SeekerGetAllSkillsModel data) => json.encod
 
 class SeekerGetAllSkillsModel {
   bool? status;
-  List<Availabity>? softSkill;
-  List<Availabity>? passion;
-  List<Availabity>? industry;
-  List<Availabity>? strengths;
-  List<Availabity>? salaryExpectation;
-  List<Availabity>? startWork;
-  List<Availabity>? availabity;
+  List<SeekerSkillsAvailability>? softSkill;
+  List<SeekerSkillsAvailability>? passion;
+  List<SeekerSkillsAvailability>? industry;
+  List<SeekerSkillsAvailability>? strengths;
+  List<SeekerSkillsAvailability>? salaryExpectation;
+  List<SeekerSkillsAvailability>? startWork;
+  List<SeekerSkillsAvailability>? availabity;
   String? message;
 
   SeekerGetAllSkillsModel({
@@ -34,13 +34,13 @@ class SeekerGetAllSkillsModel {
 
   factory SeekerGetAllSkillsModel.fromJson(Map<String, dynamic> json) => SeekerGetAllSkillsModel(
     status: json["status"],
-    softSkill: List<Availabity>.from(json["soft_skill"].map((x) => Availabity.fromJson(x))),
-    passion: List<Availabity>.from(json["passion"].map((x) => Availabity.fromJson(x))),
-    industry: List<Availabity>.from(json["industry"].map((x) => Availabity.fromJson(x))),
-    strengths: List<Availabity>.from(json["strengths"].map((x) => Availabity.fromJson(x))),
-    salaryExpectation: List<Availabity>.from(json["salary_expectation"].map((x) => Availabity.fromJson(x))),
-    startWork: List<Availabity>.from(json["start_work"].map((x) => Availabity.fromJson(x))),
-    availabity: List<Availabity>.from(json["availabity"].map((x) => Availabity.fromJson(x))),
+    softSkill: json["soft_skill"] == null ? json["soft_skill"] : List<SeekerSkillsAvailability>.from(json["soft_skill"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    passion: json["passion"] == null ? json["passion"] : List<SeekerSkillsAvailability>.from(json["passion"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    industry: json["industry"] == null ? json["industry"] : List<SeekerSkillsAvailability>.from(json["industry"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    strengths: json["strengths"] == null ? json["strengths"] : List<SeekerSkillsAvailability>.from(json["strengths"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    salaryExpectation: json["salary_expectation"] == null ? json["salary_expectation"] : List<SeekerSkillsAvailability>.from(json["salary_expectation"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    startWork: json["start_work"] == null ? json["start_work"] : List<SeekerSkillsAvailability>.from(json["start_work"].map((x) => SeekerSkillsAvailability.fromJson(x))),
+    availabity: json["availabity"] == null ? json["availabity"] : List<SeekerSkillsAvailability>.from(json["availabity"].map((x) => SeekerSkillsAvailability.fromJson(x))),
     message: json["message"],
   );
 
@@ -57,7 +57,7 @@ class SeekerGetAllSkillsModel {
   };
 }
 
-class Availabity {
+class SeekerSkillsAvailability {
   var id;
   String? availabity;
   DateTime? createdAt;
@@ -69,7 +69,7 @@ class Availabity {
   String? startWork;
   String? strengths;
 
-  Availabity({
+  SeekerSkillsAvailability({
     this.id,
     this.availabity,
     this.createdAt,
@@ -82,7 +82,7 @@ class Availabity {
     this.strengths,
   });
 
-  factory Availabity.fromJson(Map<String, dynamic> json) => Availabity(
+  factory SeekerSkillsAvailability.fromJson(Map<String, dynamic> json) => SeekerSkillsAvailability(
     id: json["id"],
     availabity: json["availabity"],
     createdAt: DateTime.parse(json["created_at"]),

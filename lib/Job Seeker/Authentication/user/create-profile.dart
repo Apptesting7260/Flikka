@@ -1161,12 +1161,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                     _addAppreciation();
                                     if (appreciationList.length < index + 1) {
                                       appreciationList.add({
-                                        "award_name":
-                                        appreciation.textController1.text,
-                                        "achievement":
-                                        appreciation.textController2.text,
-                                        "award_end_date":
-                                        appreciation.endDate.toString()
+                                        "award_name": appreciation.textController1.text,
+                                        "achievement": appreciation.textController2.text,
                                       });
                                     }
                                     print(appreciationList);
@@ -1190,9 +1186,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                 .textTheme
                                 .titleSmall,
                           ),
-                          SizedBox(
-                            height: Get.height * .01,
-                          ),
+                          SizedBox(height: Get.height * .01,),
                           Container(
                             height: Get.height * 0.076,
                             decoration: BoxDecoration(
@@ -1214,10 +1208,10 @@ class _CreateProfileState extends State<CreateProfile> {
                                       ?.copyWith(
                                       color: const Color(0xffCFCFCF)),
                                 ),
-                                items: selectDocumentType.map((Document) {
+                                items: selectDocumentType.map((document) {
                                   return DropdownMenuItem(
-                                    value: Document,
-                                    child: Text(Document,
+                                    value: document,
+                                    child: Text(document,
                                         style: Theme
                                             .of(context)
                                             .textTheme
@@ -1236,9 +1230,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: Get.height * .033,
-                          ),
+                          SizedBox(height: Get.height * .033,),
                           DottedBorder(
                             borderType: BorderType.RRect,
                             radius: const Radius.circular(20),
@@ -1369,9 +1361,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               .documentErrorMessage.value.isEmpty
                               ? const SizedBox()
                               : Center(
-                              child: Text(
-                                seekerCreateProfileController
-                                    .documentErrorMessage.value,
+                              child: Text(seekerCreateProfileController.documentErrorMessage.value,
                                 style: const TextStyle(color: Colors.red),
                               ))),
                           SizedBox(

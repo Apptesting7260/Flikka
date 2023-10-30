@@ -725,17 +725,6 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                 onTap: () {
                                                   setState(() {
                                                     selectedSalary = data?.id.toString() ;
-                                                    //  if (_selectedChoosesalarySkills
-                                                    //      .contains(data?.id.toString())) {
-                                                    //    _selectedChoosesalarySkills
-                                                    //        .remove(data?.id.toString());
-                                                    //  } else if (_selectedChoosesalarySkills.isEmpty) {
-                                                    //    _selectedChoosesalarySkills.add(data?.id.toString()) ;
-                                                    //  }
-                                                    // else   {
-                                                    //      _selectedChoosesalarySkills[0] = data?.id.toString() ;
-                                                    //    }
-
                                                     print(data?.id);
                                                   });
                                                 },
@@ -760,16 +749,6 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,

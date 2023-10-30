@@ -35,4 +35,21 @@ class SeekerRepository {
     dynamic response = await apiServices.postApi2(data, AppUrl.seekerSaveJob);
     return EditAboutModel.fromJson(response);
   }
+
+  Future<EditAboutModel> editSeekerSalaryExpectation(var data) async {
+    dynamic response = await apiServices.postApi2(data, AppUrl.editSeekerSalary);
+    return EditAboutModel.fromJson(response);
+  }
+
+  Future<EditAboutModel> editSeekerSoftSkill(var data , int number) async {
+    dynamic response = await apiServices.postApi2(data,
+      number == 1 ?  AppUrl.editSeekerSoftSkills :
+          number == 2 ? AppUrl.editSeekerPassion :
+              number == 3 ? AppUrl.editSeekerIndustryPreference :
+                  number == 4 ? AppUrl.editSeekerStrength :
+                      number == 5 ? AppUrl.editSeekerStartWork :
+                          AppUrl.editSeekerAvailability );
+    return EditAboutModel.fromJson(response);
+  }
+
 }

@@ -22,31 +22,15 @@ class _ForgotPasswordState extends State<ForgotPassword> {
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
-  void _submit() {
-    final isValid = _formKey.currentState!.validate();
-    if (!isValid) {
-      return;
-    }
-    _formKey.currentState!.save();
-  }
-  test(){
-    print("gtettetetetete");
-  }
 
   bool _isValidEmail(String email) {
     final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
     return emailRegex.hasMatch(email);
   }
 
-
-  bool _isPasswordVisible = false;
-  bool _isRememberMe = false;
   @override
   Widget build(BuildContext context) {
 
-    // SystemChrome.setSystemUIOverlayStyle(
-    //   SystemUiOverlayStyle(statusBarColor: Colors.white),
-    // );
     return SafeArea(
       child: Scaffold(
         body: Form(
@@ -57,12 +41,6 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 height: Get.height,
                 width: Get.width,
                 decoration: const BoxDecoration(
-                  // gradient: LinearGradient(
-                  //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                  //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  // ),
                     color: AppColors.blueThemeColor
                 ),
                 child: Column(
@@ -99,11 +77,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                         color: Colors.black),
                     // color: Colors.black,
                     child:   SingleChildScrollView(
-                      physics: NeverScrollableScrollPhysics(),
-                      controller:scrollController ,
+                      physics: const NeverScrollableScrollPhysics(),
                       child: Container(
-                        height: Get.height,
-                        width: Get.width,
                         decoration: const BoxDecoration(
                           color: Color(0xff000000),
                           borderRadius: BorderRadius.only(
@@ -130,14 +105,16 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(35),
                                   ),
+
                                   filled: true,
                                   fillColor: Color(0xffFFFFFF),
                                   hintText: "Enter your email",
                                   hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000000),fontWeight: FontWeight.w500),
                                 ),
-                                onFieldSubmitted: (value) {
-
+                                onChanged: (value) {
+                                  ForgotPasswordControllerInstanse.forgotPasswordErrorMessage.value = "" ;
                                 },
+                                onFieldSubmitted: (value) {},
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter an email address';
@@ -184,8 +161,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   ),
                                 ),
                               ),
-                              SizedBox(height: Get.height*.2,),
-                          
+
                             ],
                           ),
                         ),

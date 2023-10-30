@@ -23,7 +23,7 @@ class EditSeekerAppreciationController extends GetxController {
     Map data =  {
       'appreciation' : jsonEncode(appreciation)
     };
-    print(data);
+    print(appreciation);
 
     _api.editSeekerAppreciationApi(data).then((value){
       loading.value = false ;

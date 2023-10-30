@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Payment_Methods/wallet.dart';
@@ -8,11 +9,14 @@ import 'package:flikka/controllers/EditSeekerAppreciationController/EditSeekerAp
 import 'package:flikka/controllers/EditSeekerLanguageController/EditSeekerLanguageController.dart';
 import 'package:flikka/controllers/EditSeekerPofileController/EditSeekerProfileController.dart';
 import 'package:flikka/controllers/EditSeekerResumeController/EditSeekerResumeController.dart';
+import 'package:flikka/controllers/EditSeekerSoftSkillsController/EditSeekerSoftSkillsController.dart';
 import 'package:flikka/controllers/EditSeekerWorkExperience/EditSeekerWorkExperience.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
+import 'package:flikka/controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +25,7 @@ import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:open_file/open_file.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
@@ -85,6 +90,7 @@ class _UserProfileState extends State<UserProfile> {
 
   File? imageFile;
   String resumePath = '';
+  String documentPath = '';
   final imgPicker = ImagePicker();
   final imageCropper = ImageCropper();
 
@@ -119,122 +125,161 @@ class _UserProfileState extends State<UserProfile> {
   EditSeekerExperienceController editSeekerExperienceController = Get.put(EditSeekerExperienceController()) ;
   EditSeekerAppreciationController editSeekerAppreciationController = Get.put(EditSeekerAppreciationController()) ;
   EditSeekerResumeController editSeekerResumeController = Get.put(EditSeekerResumeController()) ;
+  EditSeekerSoftSkillsController editSeekerSoftSkillsController = Get.put(EditSeekerSoftSkillsController()) ;
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
-
+  SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
   SeekerGetAllSkillsController seekerGetAllSkillsController = Get.put(SeekerGetAllSkillsController()) ;
+
   final seekerGetAllSkillsData =  SeekerGetAllSkillsModel().obs ;
-  List _selectedChooseSkillsIndices = [];
-  softSkillSection() {
+  String _documentTypeFilePath = '';
+  var DocumentType;
+  final List selectDocumentType = [
+    'Aadhar Card',
+    'Voter Card',
+    'Pan Card',
+  ];
+  skillSection(
+      List? list ,
+      int number
+      ) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        // editAboutController.loading.value = false;
-        // TextEditingController aboutSectionController = TextEditingController();
-        // aboutSectionController.text = about ?? "";
+        List selectedChooseSkillsIndices = [];
+        selectedChooseSkillsIndices = list ?? [] ;
+        print(list) ;
         return Dialog(
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(22)),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                GridView.builder(
-                  physics: const NeverScrollableScrollPhysics(),
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, mainAxisExtent: 65),
-                  itemCount: seekerGetAllSkillsController
-                      .seekerGetAllSkillsData.value.softSkill
-                      ?.length,
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) {
-                    var data = seekerGetAllSkillsController
-                        .seekerGetAllSkillsData.value
-                        .softSkill?[index];
-                    final isSelected = _selectedChooseSkillsIndices
-                        .contains("${data?.id.toString()}");
-                    final borderColor = isSelected ? Color(
-                        0xff56B6F6) : Color(0xffFFFFFF);
+            child: StatefulBuilder(
+              builder: (context , setState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(number == 1 ? "Soft Skills" :
+                    number == 2 ? "Passion" :
+                    number == 3 ? "Industry Preference" :
+                    number == 4 ? "Strengths" :
+                    number == 5 ? "When can i start working?" : "Availability", style: Theme.of(context).textTheme.displaySmall,),
+                    SizedBox(
+                      height: Get.height * 0.4,
+                      child: GridView.builder(
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2, mainAxisExtent: 65),
+                        itemCount: number == 1 ? skillsController.seekerGetAllSkillsData.value.softSkill?.length :
+                        number == 2 ? skillsController.seekerGetAllSkillsData.value.passion?.length :
+                        number == 3 ? skillsController.seekerGetAllSkillsData.value.industry?.length :
+                        number == 4 ? skillsController.seekerGetAllSkillsData.value.strengths?.length :
+                        number == 5 ? skillsController.seekerGetAllSkillsData.value.startWork?.length :
+                            skillsController.seekerGetAllSkillsData.value.availabity?.length ,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          var data = skillsController.seekerGetAllSkillsData.value.softSkill?[index] ;
+                          if(number == 2) {
+                            data = skillsController.seekerGetAllSkillsData.value.passion?[index] ;
+                          } else if (number == 3) {
+                            data = skillsController.seekerGetAllSkillsData.value.industry?[index] ;
+                          } else if (number == 4) {
+                            data = skillsController.seekerGetAllSkillsData.value.strengths?[index] ;
+                          } else if (number == 5) {
+                            data = skillsController.seekerGetAllSkillsData.value.startWork?[index] ;
+                          } else if (number == 6) {
+                            data = skillsController.seekerGetAllSkillsData.value.availabity?[index] ;
+                          }
+                          final isSelected = selectedChooseSkillsIndices
+                              .contains("${data?.id.toString()}");
 
-                    return Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Get.width * .02,
-                          vertical: Get.height * .01),
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (_selectedChooseSkillsIndices
-                                .contains("${data?.id.toString()}")) {
-                              _selectedChooseSkillsIndices
-                                  .remove("${data?.id.toString()}");
-                            } else {
-                              _selectedChooseSkillsIndices
-                                  .add("${data?.id.toString()}");
-                            }
-                            print(index);
-                          });
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius
-                                  .circular(35),
-                              border: Border.all(
-                                  color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment
-                                .spaceBetween,
-                            children: [
-                              SizedBox(
-                                width: Get.width * .02,),
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  Container(
-                                    width: Get.width * .06,
-                                    height: Get.height * .05,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors.blueThemeColor
+                          return Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: Get.width * .02,
+                                vertical: Get.height * .01),
+                            child: GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  if (selectedChooseSkillsIndices.contains("${data?.id.toString()}")) {
+                                    selectedChooseSkillsIndices.remove("${data?.id.toString()}");
+                                  } else {
+                                    selectedChooseSkillsIndices.add("${data?.id.toString()}");
+                                  }
+                                  print(index);
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(35),
+                                    border: Border.all(color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
+                                ),
+                                child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SizedBox(width: Get.width * .02,),
+                                    Stack(alignment: Alignment.center,
+                                      children: [
+                                        Container(
+                                          width: Get.width * .06,
+                                          height: Get.height * .05,
+                                          decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: AppColors.blueThemeColor
+                                          ),
+                                          child: const Icon(Icons.check,
+                                            color: Color(0xffFFFFFF), size: 15,),),
+                                        if (!selectedChooseSkillsIndices.contains("${data?.id.toString()}"))
+                                          Center(
+                                            child: Container(width: Get.width * .05,
+                                              height: Get.width * .05,
+                                              decoration: const BoxDecoration(
+                                                color: Color(0xff000000),
+                                                shape: BoxShape.circle,),
+                                            ),
+                                          ),
+                                      ],
                                     ),
-                                    child: const Icon(Icons.check,
-                                      color: Color(0xffFFFFFF), size: 15,),),
-                                  if (!_selectedChooseSkillsIndices
-                                      .contains("${data?.id.toString()}"))
-                                    Center(
-                                      child: Container(
-                                        width: Get.width *
-                                            .05,
-                                        height: Get.width *
-                                            .05,
-                                        decoration: const BoxDecoration(
-                                          color: Color(
-                                              0xff000000),
-                                          shape: BoxShape
-                                              .circle,
-                                        ),
-                                      ),
-                                    ),
-                                ],
+                                    SizedBox(width: Get.width * .02,),
+                                    Expanded(child: Text( number == 1 ? "${data?.skills}" :
+                                        number == 2 ? "${data?.passion}" :
+                                        number == 3 ? "${data?.industryPreferences}" :
+                                        number == 4 ? "${data?.strengths}" :
+                                        number == 5 ? "${data?.startWork}" : "${data?.availabity}",
+                                      style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,
+                                        color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
+                                  ],
+                                ),
                               ),
-                              SizedBox(
-                                width: Get.width * .02,),
-                              Expanded(child: Text("${data?.skills}", style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .labelLarge
-                                  ?.copyWith(
-                                  fontWeight: FontWeight.w500,
-                                  color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
-                            ],
-                          ),
+                            ),
+                          );
+                        },),
+                    ),
+                    SizedBox(height: Get.height *0.02,) ,
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        MyButton(
+                          width: 100,
+                          height: 40,
+                          onTap1: () {
+                            Navigator.of(context).pop();
+                          }, title: 'Cancel',
                         ),
-                      ),
-                    );
-                  },),
-              ],
+                        const SizedBox(width: 20,),
+                        Obx(() =>
+                            MyButton(
+                              width: 100,
+                              height: 40,
+                              loading: editSeekerSoftSkillsController.loading.value,
+                              onTap1: () {
+                                editSeekerSoftSkillsController.skillsApi(selectedChooseSkillsIndices , number) ;
+                              },
+                              title: 'Submit',
+                            ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Get.height * 0.02,),
+                  ],
+                );
+              }
             ),
           ),
         );
@@ -263,17 +308,12 @@ class _UserProfileState extends State<UserProfile> {
                 CommonWidgets.textFieldHeading(context, "About Me"),
                 SizedBox(height: Get.height * 0.01,),
                 TextField(
-                  style: Theme
-                      .of(context)
-                      .textTheme
-                      .titleSmall
-                      ?.copyWith(fontSize: 13),
-                  onChanged: (String value) {
-                  },
+                  style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                  onChanged: (String value) {},
                   controller: aboutSectionController,
                   decoration: InputDecoration(
                     filled: true,
-                    fillColor: Color(0xff373737),
+                    fillColor: const Color(0xff373737),
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(33),
                         borderSide: BorderSide.none
@@ -422,7 +462,7 @@ class _UserProfileState extends State<UserProfile> {
                                 isExpanded: true,
                                 value: selectedPosition,
                                 hint: Text(
-                                  positions ?? "Select Position",
+                                  positions == null || positions.length == 0 ? "Select Position" : positions,
                                   style: Theme
                                       .of(context)
                                       .textTheme
@@ -810,68 +850,116 @@ class _UserProfileState extends State<UserProfile> {
   //********************* for skill *************
   TextEditingController skillController = TextEditingController();
 
-  void skill() {
+  salarySection(dynamic selected) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15)),
-          title: Text(
-            "Add skill",
-            style: Theme
-                .of(context)
-                .textTheme
-                .displayLarge,
-          ),
-          content: TextField(
-            style: Theme
-                .of(context)
-                .textTheme
-                .titleSmall
-                ?.copyWith(fontSize: 15),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: skillController,
-            decoration: InputDecoration(
-              hintText: 'Write your skill',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
+        var selectedSalary = selected ;
+        return Dialog(
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StatefulBuilder(
+                builder: (context , setState) {
+                  return Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Salary expectation", style: Theme.of(context).textTheme.displaySmall,),
+                      SizedBox(
+                        height: Get.height * 0.3,
+                        child: GridView.builder(
+                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2, mainAxisExtent: 65),
+                          itemCount: skillsController.seekerGetAllSkillsData.value.salaryExpectation?.length ,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            var data = skillsController.seekerGetAllSkillsData.value.salaryExpectation?[index] ;
+
+                            final isSelected = selectedSalary == data?.id.toString();
+
+                            return Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * .02,
+                                  vertical: Get.height * .01),
+                              child: GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    selectedSalary = data?.id.toString() ;
+                                  });
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(35),
+                                      border: Border.all(color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
+                                  ),
+                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      SizedBox(width: Get.width * .02,),
+                                      Stack(alignment: Alignment.center,
+                                        children: [
+                                          Container(
+                                            width: Get.width * .06,
+                                            height: Get.height * .05,
+                                            decoration: const BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: AppColors.blueThemeColor
+                                            ),
+                                            child: const Icon(Icons.check,
+                                              color: Color(0xffFFFFFF), size: 15,),),
+                                          if (isSelected != data?.id.toString())
+                                            Center(
+                                              child: Container(width: Get.width * .05,
+                                                height: Get.width * .05,
+                                                decoration: const BoxDecoration(
+                                                  color: Color(0xff000000),
+                                                  shape: BoxShape.circle,),
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                      SizedBox(width: Get.width * .02,),
+                                      Expanded(child: Text("${data?.salaryExpectation}",
+                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,
+                                            color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },),
+                      ),
+                      SizedBox(height: Get.height *0.02,) ,
+                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyButton(
+                            width: 100,
+                            height: 40,
+                            onTap1: () {
+                              Navigator.of(context).pop();
+                            }, title: 'Cancel',
+                          ),
+                          const SizedBox(width: 20,),
+                          Obx(() =>
+                              MyButton(
+                                width: 100,
+                                height: 40,
+                                loading: editSeekerSoftSkillsController.salaryLoading.value,
+                                onTap1: () {
+                                  editSeekerSoftSkillsController.salaryApi(selectedSalary) ;
+                                },
+                                title: 'Submit',
+                              ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: Get.height * 0.02,),
+                    ],
+                  );
+                }
             ),
           ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme
-                    .of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
         );
       },
     );
@@ -929,6 +1017,207 @@ class _UserProfileState extends State<UserProfile> {
                 ),
                 SizedBox(height: Get.height * 0.02,),
               ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+   document () {
+    showDialog(
+      //barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StatefulBuilder(
+              builder: (context , setState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Document Type",
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .titleSmall,
+                    ),
+                    SizedBox(height: Get.height * .01,),
+                    Container(
+                      height: Get.height * 0.076,
+                      decoration: BoxDecoration(
+                        color: Color(0xff373737),
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Get.width * 0.06),
+                          isExpanded: true,
+                          value: DocumentType,
+                          hint: Text(
+                            "Select Type",
+                            style: Theme
+                                .of(context)
+                                .textTheme
+                                .labelLarge
+                                ?.copyWith(
+                                color: const Color(0xffCFCFCF)),
+                          ),
+                          items: selectDocumentType.map((document) {
+                            return DropdownMenuItem(
+                              value: document,
+                              child: Text(document,
+                                  style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodyMedium),
+                            );
+                          }).toList(),
+                          onChanged: (value) {
+                            if (value != DocumentType) {
+                              setState(() {
+                                DocumentType = value.toString();
+                                debugPrint(DocumentType) ;
+                                editSeekerResumeController.errorMessage.value = "";
+                              });
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: Get.height * .033,),
+                    DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: const Radius.circular(20),
+                      dashPattern: [5, 5],
+                      color: const Color(0xffCFCFCF),
+                      strokeWidth: 0.7,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              if (DocumentType == null) {
+                                editSeekerResumeController.errorMessage.value = "Please select document type first";
+                              } else {
+                                if (_documentTypeFilePath.isNotEmpty) {
+                                  // _openDocumentTypeFilePicker();
+                                  OpenFile.open(_documentTypeFilePath);
+                                } else {
+                                  _openFilePicker(false, DocumentType);
+                                }
+                              }
+                            },
+                            child: Container(
+                              height: Get.height * .15,
+                              width: Get.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(22),
+                              ),
+                              child: Center(
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment
+                                      .center,
+                                  mainAxisAlignment: MainAxisAlignment
+                                      .center,
+                                  children: [
+                                    _documentTypeFilePath == ''
+                                        ? Image.asset(
+                                      "assets/images/icon_upload_cv.png",
+                                      width: Get.width * .07,
+                                      height: Get.height * .06,
+                                    )
+                                        :
+                                    SizedBox(width: Get.width * .0),
+                                    if (_documentTypeFilePath.isNotEmpty)
+                                      SizedBox(
+                                        width: Get.width * .6,
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            SizedBox(
+                                                width: Get.width * .02),
+                                            Flexible(
+                                              child: Text(
+                                                "File uploaded: ${_documentTypeFilePath
+                                                    .split('/')
+                                                    .last}",
+                                                overflow: TextOverflow
+                                                    .ellipsis,
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .labelLarge
+                                                    ?.copyWith(
+                                                    fontWeight: FontWeight
+                                                        .w400),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    else
+                                      Padding(
+                                        padding:
+                                        const EdgeInsets.only(
+                                            left: 8.0, top: 4),
+                                        child: Text(
+                                          "Upload File",
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                              fontWeight: FontWeight
+                                                  .w400),
+                                        ),
+                                      ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              right: 5,
+                              top: 1,
+                              child: _documentTypeFilePath.isEmpty ?
+                              const SizedBox() :
+                              IconButton(
+                                  onPressed: () {
+                                    if (DocumentType == null) {
+                                      editSeekerResumeController.errorMessage.value =
+                                      "Please select document type first";
+                                    } else {
+                                      _openFilePicker(false,"");
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                  ))),
+                        ],
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    Obx(() =>
+                    editSeekerResumeController.errorMessage.value.isEmpty
+                        ? const SizedBox()
+                        : Center(
+                        child: Text(editSeekerResumeController.errorMessage.value,
+                          style: const TextStyle(color: Colors.red),
+                        ))),
+                  ],
+                );
+              }
             ),
           ),
         );
@@ -1037,18 +1326,17 @@ class _UserProfileState extends State<UserProfile> {
                             loading: editSeekerAppreciationController.loading.value,
                             onTap1: () {
                               if(key.currentState!.validate()) {
-                                // List? list = [] ;
+                                List list = [] ;
                                 Appreciation appreciationData = Appreciation() ;
                                 if (add == true) {
                                   appreciationData.achievement = achievementController.text ;
                                   appreciationData.awardName = awardController.text ;
-                                  print(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation) ;
-                                  seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.add(appreciationData) ;
-                                  // list = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation ;
-                                  // list?.add(appreciationData) ;
-                                  // print("this ======================= $list") ;
-                                  print(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation) ;
-                                  editSeekerAppreciationController.appreciationApi(seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation, context);
+                                  print(appreciationData) ;
+                                  // seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.add(appreciationData) ;
+                                  list = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation ?? [] ;
+                                  list.add(appreciationData) ;
+                                  debugPrint("this is ,,,,,======================= $list") ;
+                                  editSeekerAppreciationController.appreciationApi(list, context);
                                 } else {
                                   seekerProfileController.viewSeekerData.value
                                       .seekerDetails?.appreciation?[index]
@@ -1087,6 +1375,7 @@ class _UserProfileState extends State<UserProfile> {
   void initState() {
     seekerProfileController.viewSeekerProfileApi();
     viewLanguageController.viewLanguageApi() ;
+    skillsController.seekerGetAllSkillsApi() ;
     super.initState();
   }
 
@@ -1141,10 +1430,13 @@ class _UserProfileState extends State<UserProfile> {
                                     Get.offAll(const TabScreen(index: 0)) ;
                                   },
                                     child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
-                                SizedBox(
-                                  height: 50,
-                                  width: 50,
+                                Container(
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.black,
+                                    shape: BoxShape.circle
+                                  ),
                                   child: CircularPercentIndicator(
+
                                     percent: seekerProfileController
                                         .viewSeekerData.value.completeProfile /
                                         100,
@@ -1316,20 +1608,10 @@ class _UserProfileState extends State<UserProfile> {
                                               InkWell(
                                                   onTap: () {
                                                     introSection(
-                                                        seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerInfo?.fullname,
-                                                        seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerInfo?.location,
-                                                        seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerDetails
-                                                            ?.positions,
-                                                        seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerDetails
-                                                            ?.position
+                                                        seekerProfileController.viewSeekerData.value.seekerInfo?.fullname,
+                                                        seekerProfileController.viewSeekerData.value.seekerInfo?.location,
+                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.positions,
+                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.position
                                                     );
                                                     seekerChoosePositionGetController
                                                         .seekerGetPositionApi(
@@ -1350,9 +1632,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     .start,
                                                 children: [
                                                   InkWell(
-
-                                                      child: Image.asset(
-                                                          'assets/images/about.png',height: Get.height*.03,)),
+                                                      child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Text('About me',
@@ -1594,11 +1874,6 @@ class _UserProfileState extends State<UserProfile> {
                                                     style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                                 ],
                                               ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    skill();
-                                                  },
-                                                  child: Image.asset("assets/images/icon_edit.png",height: 18))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -1618,26 +1893,17 @@ class _UserProfileState extends State<UserProfile> {
                                                         .white),),
                                               GestureDetector(
                                                 onTap: () {
-                                                  softSkillSection() ;
-                                                  print("object") ;
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.map((e) => e.id.toString()).toList() , 1) ;
                                                 },
-                                                child: Image.asset(
-                                                  "assets/images/icon_edit.png",
-                                                  height: 18,),
+                                                child: Image.asset( "assets/images/icon_edit.png", height: 18,),
                                               )
                                             ],
                                           ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
+                                          SizedBox( height: Get.height * 0.015,),
 
                                           // SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.skillName ==
-                                              null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.skillName
-                                                  ?.length == 0 ?
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
@@ -1646,17 +1912,11 @@ class _UserProfileState extends State<UserProfile> {
                                               maxCrossAxisExtent: Get.width * 0.4,
                                               mainAxisSpacing: 8,
                                               crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.skillName
-                                                  ?.length,
+                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length,
                                               shrinkWrap: true,
                                               physics: const NeverScrollableScrollPhysics(),
                                               itemBuilder: (context, index) {
-                                                var data = seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails
-                                                    ?.skillName?[index];
+                                                var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                                 return Container(
                                                   alignment: Alignment.center,
                                                   decoration: BoxDecoration(
@@ -1678,22 +1938,29 @@ class _UserProfileState extends State<UserProfile> {
                                               }),
                                           ///////////passion////////
 
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('Passion',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          SizedBox(height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Passion',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.map((e) => e.id.toString()).toList() , 2) ;
+                                                },
+                                                child: Image.asset(
+                                                  "assets/images/icon_edit.png",
+                                                  height: 18,),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.passionName ==
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.passionName ==
                                               null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.passionName
-                                                  ?.length == 0 ?
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
@@ -1722,23 +1989,28 @@ class _UserProfileState extends State<UserProfile> {
                                           //////////passion////////////
 
                                           ////////industry preference////////////
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('industry preference',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          SizedBox(height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Industry Preference',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.map((e) => e.id.toString()).toList() , 3) ;
+                                                },
+                                                child: Image.asset( "assets/images/icon_edit.png", height: 18,),
+                                              )
+                                            ],
+                                          ),
 
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.industryPreferenceName ==
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName ==
                                               null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.industryPreferenceName
-                                                  ?.length == 0 ?
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
 
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
@@ -1767,17 +2039,25 @@ class _UserProfileState extends State<UserProfile> {
                                           ////////industry preference////////////
 
                                           //////////////Strengths////////
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('Strengths',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          SizedBox( height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Strengths',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName?.map((e) => e.id.toString()).toList() , 4) ;
+                                                },
+                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.strengthsName ==
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName ==
                                               null ||
                                               seekerProfileController
                                                   .viewSeekerData.value
@@ -1823,21 +2103,29 @@ class _UserProfileState extends State<UserProfile> {
                                           //////////////Strengths////////
 
                                           //////////////Salary expectation////////
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('Salary expectation',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          SizedBox(height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Salary expectation',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                 salarySection( seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName?.id.toString()) ;
+                                                },
+                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.salaryExpectationName ==
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName ==
                                               null ||
                                               seekerProfileController
                                                   .viewSeekerData.value
-                                                  .seekerDetails?.salaryExpectationName
+                                                  .seekerDetails?.salaryExpectationName?.salary
                                                   ?.length == 0 ?
                                           const Text("No Data") :
                                           Container(
@@ -1848,7 +2136,7 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                             padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
                                             child: Text('${seekerProfileController.viewSeekerData.value
-                                                .seekerDetails?.salaryExpectationName}',
+                                                .seekerDetails?.salaryExpectationName?.salary}',
                                               overflow: TextOverflow
                                                   .ellipsis,
                                               style: Get.theme.textTheme
@@ -1860,22 +2148,28 @@ class _UserProfileState extends State<UserProfile> {
                                           //////////////Salary expectation////////
 
                                           //////////////When can i start working?////////
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('When can i start working?',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
+                                          SizedBox( height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('When can i start working?',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.map((e) => e.id.toString()).toList() , 5) ;
+                                                },
+                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                              )
+                                            ],
+                                          ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.startWorkName ==
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName ==
                                               null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.startWorkName
-                                                  ?.length == 0 ?
+                                              seekerProfileController.viewSeekerData.value
+                                                  .seekerDetails?.startWorkName?.length == 0 ?
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
                                           SliverGridDelegateWithMaxCrossAxisExtent(
@@ -1917,21 +2211,28 @@ class _UserProfileState extends State<UserProfile> {
 
 
                                           //////////////Availability?////////
-                                          SizedBox(
-                                            height: Get.height * 0.025,),
-                                          Text('Availability?',
-                                            style: Get.theme.textTheme
-                                                .labelMedium!.copyWith(
-                                                color: AppColors
-                                                    .white),),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerDetails?.availabityName ==
+                                          SizedBox(height: Get.height * 0.025,),
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text('Availability?',
+                                                style: Get.theme.textTheme
+                                                    .labelMedium!.copyWith(
+                                                    color: AppColors
+                                                        .white),),
+                                              GestureDetector(
+                                                onTap: () {
+                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?.map((e) => e.id.toString()).toList() , 6) ;
+                                                },
+                                                child: Image.asset(
+                                                  "assets/images/icon_edit.png",
+                                                  height: 18,),
+                                              )
+                                            ],
+                                          ),
+                                          SizedBox(height: Get.height * 0.015,),
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName ==
                                               null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.availabityName
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
                                                   ?.length == 0 ?
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
@@ -1974,17 +2275,12 @@ class _UserProfileState extends State<UserProfile> {
 
 
                                           SizedBox(height: Get.height * 0.045,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .start,
+                                              Row(mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: Image.asset(
-                                                          'assets/images/languagesvg.png',height: Get.height*.03,)),
+                                                      child: Image.asset('assets/images/languagesvg.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Padding(
@@ -2135,7 +2431,7 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               InkWell(
                                                   onTap: () {
-                                                    _openFilePicker() ;
+                                                    _openFilePicker(true,"") ;
                                                   },
                                                   child: seekerProfileController.viewSeekerData
                                                       .value.seekerInfo?.resume == null || seekerProfileController
@@ -2166,15 +2462,29 @@ class _UserProfileState extends State<UserProfile> {
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
                                           ),
                                           SizedBox(height: Get.height * .03,),
-                                          Row(
+                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                           crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
-                                              Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
-                                              SizedBox(width: Get.width*.02,) ,
-                                              Text('Document',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors.white),),
+                                              Row(
+                                                children: [
+                                                  Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
+                                                  SizedBox(width: Get.width*.02,) ,
+                                                  Text('Document',
+                                                    style: Get.theme.textTheme
+                                                        .labelMedium!.copyWith(
+                                                        color: AppColors.white),),
+                                                ],
+                                              ),
+                                              InkWell(
+                                                  onTap: () {
+                                                    document() ;
+                                                  },
+                                                  child: seekerProfileController.viewSeekerData
+                                                      .value.seekerInfo?.documentImg == null || seekerProfileController
+                                                      .viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
+                                                  Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
+                                                  Image.asset('assets/images/icon_edit.png',height: 18,)
+                                              )
                                             ],
                                           ),
                                           SizedBox(height: Get.height*.015,) ,
@@ -2183,11 +2493,6 @@ class _UserProfileState extends State<UserProfile> {
                                           Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
-                                            // CircleAvatar(
-                                            //   radius: 20,
-                                            //   backgroundImage: NetworkImage("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}"),
-                                            // ) ,
-                                            trailing: Image.asset('assets/images/icon_edit.png',height: Get.height*.027,),
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
                                           Center(
@@ -2301,10 +2606,6 @@ class _UserProfileState extends State<UserProfile> {
       bool start ,
       BuildContext context,
       String firstDate
-      // DateTime? firstDate,
-      // DateTime? selectedDate ,
-      // int step
-      // TextEditingController controller
       ) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -2430,27 +2731,41 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-  Future<void> _openFilePicker() async {
+  Future<void> _openFilePicker(bool resume , String? documentType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      type: FileType.any,
+      // allowedExtensions: ,
       allowMultiple: false,
     );
 
     if(result != null) {
-      if (result.files.single.path!.toLowerCase().endsWith('.pdf')) {
-        setState(() {
-          resumePath = result.files.single.path!;
-          editSeekerResumeController.resumeApi(resumePath, context) ;
-          editSeekerResumeController.errorMessage.value = '' ;
-        });
-        print(resumePath);
-      } else {
-        if(resumePath.isEmpty) {
-          editSeekerResumeController.errorMessage.value = 'Please pick a pdf file';
-        }else {
-          editSeekerResumeController.errorMessage.value = 'Only pdf file is allowed';
+      if (resume) {
+        if (result.files.single.path!.toLowerCase().endsWith('.pdf') ||
+            result.files.single.path!.toLowerCase().endsWith('.docx')) {
+          setState(() {
+            resumePath = result.files.single.path!;
+            editSeekerResumeController.fileApi(resumePath, true,"");
+          });
+          print(resumePath);
+        } else {
+          if (resumePath.isEmpty) {
+            // editSeekerResumeController.errorMessage.value =
+            Utils.toastMessage('Please pick a pdf or docx file') ;
+            // 'Please pick a pdf or docx file';
+          } else {
+            // editSeekerResumeController.errorMessage.value =
+            Utils.toastMessage('Only pdf and docx file is allowed') ;
+            // 'Only pdf and docx file is allowed';
+          }
         }
+      }
+      else {
+        setState(() {
+          debugPrint("==============$documentType==========") ;
+          documentPath = result.files.single.path!;
+          _documentTypeFilePath = result.files.single.path!;
+          editSeekerResumeController.fileApi(documentPath, false, documentType);
+        });
       }
     }
     else {

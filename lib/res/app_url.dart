@@ -37,7 +37,15 @@ class AppUrl {
   static const String editSeekerEducation = '$baseUrl/seeker-profile-education-edit' ;
   static const String editSeekerAppreciation = '$baseUrl/seeker-profile-appreciation-edit' ;
   static const String editSeekerResume = '$baseUrl/seeker-profile-resume-edit' ;
+  static const String editSeekerDocument = '$baseUrl/seeker-ducument-edit' ;
   static const String editSeekerLanguage = '$baseUrl/seeker-profile-language-edit' ;
+  static const String editSeekerSoftSkills = '$baseUrl/seeker-skill-edit' ;
+  static const String editSeekerPassion = '$baseUrl/seeker-passion-edit' ;
+  static const String editSeekerIndustryPreference = '$baseUrl/seeker-industry-preference-edit' ;
+  static const String editSeekerStrength = '$baseUrl/seeker-strenght-edit' ;
+  static const String editSeekerSalary = '$baseUrl/seeker-salary-exp-edit' ;
+  static const String editSeekerStartWork = '$baseUrl/seeker-start-work-edit' ;
+  static const String editSeekerAvailability = '$baseUrl/seeker-availability-edit' ;
   static const String seekerSaveJob = '$baseUrl/save-job' ;
   static const String seekerSavedJobsList = '$baseUrl/get-save-job' ;
   static const String paymentRequestUrl = '$baseUrl/withdraw-request-by-seeker' ;
