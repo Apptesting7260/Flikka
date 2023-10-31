@@ -24,7 +24,6 @@ class _MarketingInternState extends State<MarketingIntern> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
       child: Scaffold(
-        backgroundColor: Colors.black,
         appBar: AppBar(
           leading: GestureDetector(
               onTap: () {

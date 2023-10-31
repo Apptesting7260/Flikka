@@ -53,47 +53,9 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
               Get.to(()=>EditBankAccountDetail());
               },
               child: Text("See Account Details",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor))),
-              // Container(
-              //   height: Get.height*0.07,
-              //   width: Get.width*0.8,
-              //   decoration: BoxDecoration(
-              //       color: Color.fromRGBO(69, 69, 69, 1),
-              //       borderRadius: BorderRadius.circular(60)
-              //   ),
-              //   child: Row(children: [
-              //     Container(
-              //       width: Get.width*0.15,
-              //       height: Get.height,
-              //       alignment: Alignment.center,
-              //       decoration: const BoxDecoration(
-              //         color: AppColors.blueThemeColor,
-              //           borderRadius: BorderRadius.only(bottomLeft: Radius.circular(60),topLeft: Radius.circular(60))),
-              //       child:Text("£",style: Theme.of(context).textTheme.displayLarge?.copyWith(fontWeight: FontWeight.w500,fontSize: 26),),
-              //     ),
-              //     Padding(
-              //       padding: const EdgeInsets.only(left:16.0),
-              //       child: Container(
-              //         width: Get.width*0.5,
-              //         child: TextFormField(
-              //           controller: amountController,
-              //           style: TextStyle(color: Colors.white,fontSize: 18,fontWeight: FontWeight.w500),
-              //           decoration: InputDecoration(
-              //             fillColor: Color(0xff454545),
-              //             border: UnderlineInputBorder(borderSide: BorderSide.none),
-              //           ),
-              //           validator: (value) {
-              //             if(value == null || value.isEmpty) {
-              //               return "This field is required" ;
-              //             }
-              //           },
-              //         ),
-              //       ),
-              //     ),
-              //   ],),
-              //
-              // ),
                 SizedBox(height: Get.height*0.05,),
                 TextFormField(
+                  // keyboardType: TextInputType.number,
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500),
                   controller: amountController,
                   decoration: InputDecoration(

@@ -290,12 +290,12 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
                   MyButton(
                     loading: SaveBankDetailsControllerInstanse.loading.value,
                    title: "SUBMIT", onTap1: () {
-                  SaveBankDetailsControllerInstanse.SaveBankDetailsApiHit(
+                  SaveBankDetailsControllerInstanse.saveBankDetailsApiHit(
                       bankName.toString(),
                       accountHolderController.text,
                       branchCodeController.text,
                       accountNumberController.text,
-                  ifscCodeController.text) ;
+                  ifscCodeController.text,context) ;
                  },),
                ),
              ) ,

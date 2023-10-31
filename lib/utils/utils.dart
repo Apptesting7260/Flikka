@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
 
+import '../Payment_Methods/request_withdraw.dart';
 import '../widgets/app_colors.dart';
+import '../widgets/my_button.dart';
 
 class Utils {
 
@@ -45,6 +47,37 @@ class Utils {
         backgroundColor: Colors.blueAccent
     );
     }
+ static showMessageDialog(BuildContext context , String message) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(22)),
+        insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+        child:  Padding(
+          padding: const EdgeInsets.all(28.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+                Center(child: Text(message)) ,
+              const SizedBox(height: 15,) ,
+              Center(
+                child: MyButton(
+                  width: Get.width*.3,
+                  height: Get.height*.055,
+                  title: "Ok", onTap1: () {
+                  Get.off(RequestWithdraw()) ;
+                },),
+              )
+            ],
+          ),
+        ),
+      );
+    },
+  );
+}
 }
 
 

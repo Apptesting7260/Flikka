@@ -1,31 +1,21 @@
 
-import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../Job Seeker/Authentication/create_password.dart';
-import '../../models/SeekerEarningModel/SeekerEarningModel.dart';
-
 
 class SaveBankDetailsController extends GetxController {
   final _api = AuthRepository();
 
   RxBool loading = false.obs;
 
-  var bankName ;
-  // final accountHolderController = TextEditingController().obs;
-  // final branchCodeController = TextEditingController().obs;
-  // final accountNumberController = TextEditingController().obs;
-
-  Future<void> SaveBankDetailsApiHit(
+  Future<void> saveBankDetailsApiHit(
       var bankName,
       var accountHolder,
       var branchCode,
       var accountNumber,
       var ifscCode,
+      BuildContext context
       ) async {
 
     loading.value = true ;
@@ -35,7 +25,6 @@ class SaveBankDetailsController extends GetxController {
       'branch_code' : branchCode,
       'account_number' : accountNumber,
       'IFSC_code' : ifscCode,
-
     };
     print(data);
 
@@ -43,6 +32,9 @@ class SaveBankDetailsController extends GetxController {
       loading.value = false ;
       print(value);
 
+      if(value.status!) {
+       Utils.showMessageDialog(context, "Bank Details save successfully") ;
+      }
       // Get.to(AddBankAccountDetails()) ;
 
     }).onError((error, stackTrace){

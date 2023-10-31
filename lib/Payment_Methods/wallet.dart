@@ -94,88 +94,70 @@ class _WalletState extends State<Wallet> {
                     child: Image.asset("assets/images/icon_back_blue.png")),
                 title: Text("Wallet",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
               ),
-              backgroundColor: Colors.black,
-              body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
-                child: Column( crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                  // Row(children: [
-                  //   GestureDetector(
-                  //     onTap: () {
-                  //       Get.back();
-                  //     }, // Image tapped
-                  //     child: Image.asset(
-                  //       'assets/images/icon_back_blue.png',
-                  //       // fit: BoxFit.cover, // Fixes border issues
-                  //       width: Get.width * 0.1,
-                  //       height: Get.height * 0.1,
-                  //     ),
-                  //   ),
-                  //   SizedBox(width: Get.width * 0.04,),
-                  //   const Text("Wallet",
-                  //       style: TextStyle(fontSize: 20, fontWeight: FontWeight
-                  //           .w700, color: Colors.white))
-                  // ],),
-                  SizedBox(height: Get.height * 0.01,),
-                  const Text("Earnings",
-                      style: TextStyle(fontSize: 24, fontWeight: FontWeight
-                          .w700, color: Colors.white)),
-                   Text("How do I earn",
-                     style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
-                  ),
-                  SizedBox(height: Get.height * 0.02,),
-                   Center(
-                       child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
-                           style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
-                       )
-                   ),
-
-                  SizedBox(height: Get.height * 0.035,),
-                  Center(
-                    child: MyButton(
-
-                        title: "Request Withdraw", onTap1: () {
-                      Get.to(() => const RequestWithdraw());
-                    }),
-                  ),
-                  SizedBox(height: Get.height * 0.025,),
-                  Center(
-                    child: GestureDetector(
-                    onTap: () {
-                      _dialogBuilder(context);
-                    },
-                    child: Container(
-                      height: Get.height*.075,
-                      width: 295,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(60)
-                      ),
-                      child: Text('See referral code', style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyMedium
-                          ?.copyWith(fontWeight: FontWeight.w700,
-                          fontSize: 16,
-                          color: Colors.black)),),
-                      ),
-                  ),
-                  SizedBox(height: Get.height * 0.02,),
-                  Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              body: SingleChildScrollView(
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
+                  child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    const Text('All Referral', style: TextStyle(fontSize: 18,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white)),
-                    SizedBox(width: Get.width * 0.18,),
-                    const Text('Sort by', style: TextStyle(fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white)),
-                    SizedBox(width: Get.width * 0.02,),
-                    Flexible(
+                    SizedBox(height: Get.height * 0.01,),
+                    const Text("Earnings",
+                        style: TextStyle(fontSize: 24, fontWeight: FontWeight
+                            .w700, color: Colors.white)),
+                     Text("How do I earn",
+                       style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
+                    ),
+                    SizedBox(height: Get.height * 0.02,),
+                     Center(
+                         child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
+                             style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
+                         )
+                     ),
+
+                    SizedBox(height: Get.height * 0.035,),
+                    Center(
+                      child: MyButton(
+
+                          title: "Request Withdraw", onTap1: () {
+                        Get.to(() => const RequestWithdraw());
+                      }),
+                    ),
+                    SizedBox(height: Get.height * 0.025,),
+                    Center(
+                      child: GestureDetector(
+                      onTap: () {
+                        _dialogBuilder(context);
+                      },
                       child: Container(
+                        height: Get.height*.075,
+                        width: 295,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(60)
+                        ),
+                        child: Text('See referral code', style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyMedium
+                            ?.copyWith(fontWeight: FontWeight.w700,
+                            fontSize: 16,
+                            color: Colors.black)),),
+                        ),
+                    ),
+                    SizedBox(height: Get.height * 0.02,),
+                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                      const Text('All Referral', style: TextStyle(fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white)),
+                      SizedBox(width: Get.width * 0.18,),
+                      const Text('Sort by', style: TextStyle(fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white)),
+                      SizedBox(width: Get.width * 0.02,),
+                      Container(
                         height: Get.height * 0.045,
-                        width: Get.width * 0.26,
+                        width: Get.width * 0.27,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
                               Radius.circular(60)),
@@ -184,21 +166,14 @@ class _WalletState extends State<Wallet> {
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
                             isExpanded: true,
-                            hint: const Row(
-                              children: [
-
-                                Expanded(
-                                  child: Text(
-                                    'Select Item',
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                              ],
+                            hint: Text(
+                              'Select Item',
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.white,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
                             items: items
                                 .map((String item) =>
@@ -221,20 +196,7 @@ class _WalletState extends State<Wallet> {
                                 selectedValue = value;
                               });
                             },
-                            buttonStyleData: ButtonStyleData(
-                              height: 50,
-                              width: 160,
-                              padding: const EdgeInsets.only(
-                                  left: 14, right: 14),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                border: Border.all(
-                                  color: Colors.black26,
-                                ),
-                                color: Colors.transparent,
-                              ),
-                              elevation: 2,
-                            ),
+
                             iconStyleData: const IconStyleData(
                               icon: Icon(
                                 Icons.arrow_forward_ios_outlined,
@@ -243,113 +205,71 @@ class _WalletState extends State<Wallet> {
                               iconEnabledColor: Colors.white,
                               iconDisabledColor: Colors.grey,
                             ),
-                            dropdownStyleData: DropdownStyleData(
-                              maxHeight: Get.height * 0.4,
-                              width: Get.width * 0.4,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: Color.fromRGBO(53, 53, 53, 1),
-                              ),
-                              offset: const Offset(-70, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius: const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<
-                                    double>(6),
-                                thumbVisibility: MaterialStateProperty.all<
-                                    bool>(true),
-                              ),
-                            ),
+
                             menuItemStyleData: const MenuItemStyleData(
                               height: 40,
                               padding: EdgeInsets.only(left: 14, right: 14),
                             ),
                           ),
-                        ),),
-                    )
-                  ],),
-                  const SizedBox(height: 20,),
-                  Row(mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            employee = true ;
-                            employer = false ;
-                          });
-                        },
-                        child: Container(
+                        ),)
+                    ],),
+                    const SizedBox(height: 20,),
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              employee = true ;
+                              employer = false ;
+                            });
+                          },
+                          child: Container(
+                              height: 40,
+                              width: 120,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60.0),
+                                 color: employee ? AppColors.blueThemeColor : Color(0xff353535),
+                              ),
+                              child :  Text(
+                                "Employee",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xffFFFFFF),
+                                ),
+                              )
+                          ),
+                        ) ,
+                        const SizedBox(width:20,),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              employer = true ;
+                              employee = false ;
+                            });
+                          },
+                          child: Container(
                             height: 40,
                             width: 120,
                             alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(60.0),
-                               color: employee ? AppColors.blueThemeColor : Color(0xff353535),
-                              // gradient:  LinearGradient(
-                              //   colors:
-                              //   employee ? [
-                              //     const Color(0xFF56B8F6),
-                              //     const Color(0xFF4D6FED),
-                              //   ] : [
-                              //     const Color(0xff353535),
-                              //     const Color(0xff353535),
-                              //   ],
-                              //   begin: Alignment.topCenter, // Start from the top center
-                              //   end: Alignment.bottomCenter, // End at the bottom center
-                              // ),
-
-                            ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(60.0),
+                                color: employer ? AppColors.blueThemeColor : Color(0xff353535),
+                              ),
                             child :  Text(
-                              "Employee",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xffFFFFFF),
-                              ),
-                            )
-                        ),
-                      ) ,
-                      const SizedBox(width:20,),
-                      GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            employer = true ;
-                            employee = false ;
-                          });
-                        },
-                        child: Container(
-                          height: 40,
-                          width: 120,
-                          alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(60.0),
-                              color: employer ? AppColors.blueThemeColor : Color(0xff353535),
-                             //  gradient:  LinearGradient(
-                             //    colors:
-                             //    employer ? [
-                             //      const Color(0xFF56B8F6),
-                             //      const Color(0xFF4D6FED),
-                             //    ] : [
-                             //      const Color(0xff353535),
-                             //      const Color(0xff353535),
-                             //    ],
-                             //    begin: Alignment.topCenter, // Start from the top center
-                             //    end: Alignment.bottomCenter, // End at the bottom center
-                             //  ),
-                            ),
-                          child :  Text(
-                            "Employer",
-                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xffFFFFFF),
-                              ),
-                            )
-                        ),
-                      ) ,
-                    ],
-                  ) ,
-                    const SizedBox(height: 20,),
+                              "Employer",
+                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xffFFFFFF),
+                                ),
+                              )
+                          ),
+                        ) ,
+                      ],
+                    ) ,
+                      const SizedBox(height: 20,),
 
-                 Expanded(
-                   child: Container(
+                   Container(
                    child: employee ?   ListView.builder(
                      shrinkWrap: true,
                      physics: const BouncingScrollPhysics(),
@@ -431,10 +351,9 @@ class _WalletState extends State<Wallet> {
                             }
                         ),
                    ),
-                 ),
 
-
-                ],),
+                  ],),
+                ),
               ),
             ),
           );
