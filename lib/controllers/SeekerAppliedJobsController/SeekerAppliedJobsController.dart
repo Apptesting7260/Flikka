@@ -1,6 +1,7 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:get/get.dart';
+import '../../models/SeekerAppliedJobsModel/SeekerAppliedJobsModel.dart';
 import '../../models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
 
 
@@ -10,7 +11,7 @@ class SeekerAppliedJobsController extends GetxController {
 
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final jobsList = SeekerSavedJobsListModel().obs ;
+  final jobsList = SeekerAppliedJobsModel().obs ;
   RxString error = ''.obs;
   var loading = false.obs ;
 

@@ -31,27 +31,19 @@ class ViewLanguageModel {
 class LanguageModel {
   dynamic id;
   String? languages;
-  DateTime? createdAt;
-  DateTime? updatedAt;
 
   LanguageModel({
     this.id,
     this.languages,
-    this.createdAt,
-    this.updatedAt,
   });
 
   factory LanguageModel.fromJson(Map<String, dynamic> json) => LanguageModel(
     id: json["id"],
     languages: json["languages"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {
     "id": id,
     "languages": languages,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
   };
 }

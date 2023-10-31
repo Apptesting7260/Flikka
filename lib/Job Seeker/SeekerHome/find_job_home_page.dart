@@ -129,7 +129,9 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                 Flexible(
                   child:
                   last ? const SeekerNoJobAvailable() :
-                  CardSwiper(
+                  getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
+                      getJobsListingController.getJobsListing.value.jobs == null ?
+                  const SeekerNoJobAvailable() :  CardSwiper(
                     controller: controller,
                     cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
                     numberOfCardsDisplayed: 2,
@@ -163,7 +165,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
       int previousIndex,
       int? currentIndex,
       CardSwiperDirection direction,
-
       ) {
     if(currentIndex != null ) {
       if (direction.name == "left") {
@@ -180,8 +181,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         print("this is approved list $approved");
       } else if (direction.name == "top") {
         saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
-        CommonFunctions.showLoadingDialog(context, "Saving") ;
-        seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id , 1) ;
+        CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
+          Get.back() ;
+          CommonFunctions.showLoadingDialog(context, "Saving") ;
+          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id , 1) ;
+        }) ;
+
         print("this is saved list $saved");
       }
       debugPrint(

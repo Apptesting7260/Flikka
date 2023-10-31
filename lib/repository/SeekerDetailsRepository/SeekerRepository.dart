@@ -1,5 +1,6 @@
 
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
+import 'package:flikka/models/SeekerAppliedJobsModel/SeekerAppliedJobsModel.dart';
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:flikka/models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
 
@@ -52,9 +53,9 @@ class SeekerRepository {
     return EditAboutModel.fromJson(response);
   }
 
-  Future<SeekerSavedJobsListModel> appliedJobsApi() async{
+  Future<SeekerAppliedJobsModel> appliedJobsApi() async{
     dynamic response = await apiServices.getApi2(AppUrl.seekerAppliedJobs);
-    return SeekerSavedJobsListModel.fromJson(response);
+    return SeekerAppliedJobsModel.fromJson(response);
   }
 
 }
