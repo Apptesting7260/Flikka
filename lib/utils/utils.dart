@@ -49,6 +49,7 @@ class Utils {
     }
  static showMessageDialog(BuildContext context , String message) {
   showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return Dialog(
@@ -61,12 +62,12 @@ class Utils {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-                Center(child: Text(message)) ,
+                Center(child: Text(message,style: Theme.of(context).textTheme.titleSmall,)) ,
               const SizedBox(height: 15,) ,
               Center(
                 child: MyButton(
                   width: Get.width*.3,
-                  height: Get.height*.055,
+                  height: Get.height*.05,
                   title: "Ok", onTap1: () {
                   Get.off(RequestWithdraw()) ;
                 },),

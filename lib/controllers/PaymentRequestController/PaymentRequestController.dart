@@ -2,6 +2,7 @@
 
 import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,11 +52,13 @@ class PaymentRequestController extends GetxController {
   }
   paymentDialog(BuildContext context) {
     showDialog(
+      barrierDismissible: false,
       context: context,
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(22)),
+              borderRadius: BorderRadius.circular(22),
+          ),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child:  Padding(
             padding: EdgeInsets.all(28.0),
@@ -63,7 +66,7 @@ class PaymentRequestController extends GetxController {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Text("Please fill a valid amount")) ,
+                Center(child: Text("Please fill a valid amount",style: Theme.of(context).textTheme.titleSmall,)) ,
               SizedBox(height: 15,) ,
                 Center(
                   child: MyButton(
