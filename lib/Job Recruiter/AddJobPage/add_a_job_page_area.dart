@@ -279,7 +279,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           borderRadius: BorderRadius.all(Radius.circular(35.0)),
                           borderSide: BorderSide(color: Color(0xff373737)),
                         ),
-                        hintText: 'Add job position',
+                        hintText: 'Add Specialization',
                         hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
                       ),
                       onFieldSubmitted: (value) {

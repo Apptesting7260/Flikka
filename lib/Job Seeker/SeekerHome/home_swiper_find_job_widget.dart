@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Seeker/SeekerFilter/filter_page.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -181,15 +182,23 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             ),
           ),
           //************* for bookmarks ************
+
           Positioned(
             left: 12,
             top: 15,
-            child: Stack(
+            child: Column(
               children: [
                 Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
+                SizedBox(height: Get.height*.01,) ,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(() => FilterPage()) ;
+                  },
+                    child: Image.asset("assets/images/icon_filter_seeker_home.png",height: Get.height*.043,))
               ],
             ),
           ),
+
           //************* for marketing intern text  ************
           Positioned(
             //height: Get.height / 2.5-Get.height*0.12 ,
@@ -617,6 +626,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
               ),
             ),
           ),
+
         ],
       ),
     );
