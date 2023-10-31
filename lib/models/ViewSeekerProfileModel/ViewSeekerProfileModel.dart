@@ -385,6 +385,8 @@ class SeekerInfo {
   dynamic otpTime;
   DateTime? createdAt;
   DateTime? updatedAt;
+  String? documentLink ;
+  String? resumeLink ;
 
   SeekerInfo({
     this.id,
@@ -407,6 +409,8 @@ class SeekerInfo {
     this.otpTime,
     this.createdAt,
     this.updatedAt,
+    this.documentLink ,
+    this.resumeLink
   });
 
   factory SeekerInfo.fromJson(Map<String, dynamic> json) => SeekerInfo(
@@ -430,6 +434,8 @@ class SeekerInfo {
     updatedAt: DateTime.parse(json["updated_at"]),
     documentType: json["document_type"] ,
     documentImg: json["document_img"] ,
+    documentLink: json["document_link"] ,
+    resumeLink: json["resume_link"] ,
   );
 
   Map<String, dynamic> toJson() => {
@@ -451,5 +457,7 @@ class SeekerInfo {
     "otp_time": otpTime,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
+    "resume_link": resumeLink ,
+    "document_link" : documentLink
   };
 }

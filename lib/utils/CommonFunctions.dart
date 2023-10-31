@@ -3,6 +3,8 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../widgets/my_button.dart';
+
 class CommonFunctions {
 
   static showLoadingDialog(BuildContext context , String message) {
@@ -32,6 +34,50 @@ class CommonFunctions {
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),
+          ),
+        );
+      },
+    );
+  }
+
+  static confirmationDialog (BuildContext context , { required String message , required  Function() onTap } ) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide.none),
+          title: Center(
+            child: Text(message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 13),
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                      MyButton(
+                        width: Get.width*.25,
+                        height: Get.height*.05,
+                        // loading: loading,
+                        title: "Yes",
+                        onTap1: onTap ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width*.25,
+                    height: Get.height*.05,
+                    title: "No",
+                    onTap1: () { Get.back() ;},)
+                ],
+              ),
+            ],
           ),
         );
       },

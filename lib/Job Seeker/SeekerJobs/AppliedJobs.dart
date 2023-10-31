@@ -66,10 +66,10 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                 children: [
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: jobsController.jobsList.value.data?.length,
+                    itemCount: jobsController.jobsList.value.job?.length,
                     shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      var data = jobsController.jobsList.value.data?[index] ;
+                      var data = jobsController.jobsList.value.job?[index] ;
                       return Column(
                         children: [
                           GestureDetector(
@@ -77,16 +77,16 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                             child: ListTile(
                               leading:  CircleAvatar(
                                   radius: 26,
-                                  backgroundImage: NetworkImage("${data?.jobData?.featureImg}")),
-                              title: Text("${data?.jobData?.jobPositions}",
+                                  backgroundImage: NetworkImage("${data?.featureImg}")),
+                              title: Text("${data?.jobPositions}",
                                   style: Get.theme.textTheme.labelMedium!
                                       .copyWith(color: AppColors.white)),
                               subtitle: Column(
                                 children: [
-                                  Text("${data?.jobData?.recruiterDetails?.companyName}",
+                                  Text("${data?.recruiterDetails?.companyName}",
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(color: Color(0xffCFCFCF))),
-                                  Text("${data?.jobData?.recruiterDetails?.companyLocation}",
+                                  Text("${data?.recruiterDetails?.companyLocation}",
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(color: Color(0xffCFCFCF))),
                                 ],
