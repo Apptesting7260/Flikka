@@ -2,6 +2,7 @@ import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
+import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -57,14 +58,6 @@ class _DrawerClassState extends State<DrawerClass> {
                       height: Get.height*.28,
                       width: double.infinity,
                       decoration: const BoxDecoration(
-                          // gradient: LinearGradient(
-                          //   colors: [
-                          //     Color(0xFF4D6FED),//
-                          //     Color(0xff00008b),
-                          //   ],
-                          //   begin: Alignment.bottomCenter,
-                          //   end: Alignment.topCenter,
-                          // )
                           color: AppColors.blueThemeColor
                       ),
                       child: Column(
@@ -79,7 +72,6 @@ class _DrawerClassState extends State<DrawerClass> {
                                 CircleAvatar(
                                   radius:42,
                                   backgroundImage: NetworkImage("${widget.profileImage}"),
-
                                 ),
                                 const SizedBox(
                                   height: 9,
@@ -238,6 +230,18 @@ class _DrawerClassState extends State<DrawerClass> {
                             leading: drawerIcon(logoutIcon) ,
                             title: Text(
                               "Logout",
+                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                            ),
+                          ),
+                          ListTile(
+                            horizontalTitleGap:0,
+                            dense: true,
+                            onTap: () {
+                             Get.to( () => const SeekerAppliedJobs()) ;
+                            },
+                            leading: drawerIcon(logoutIcon) ,
+                            title: Text(
+                              "Applied jobs",
                               style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                             ),
                           ),

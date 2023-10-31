@@ -51,6 +51,7 @@ class AppUrl {
   static const String paymentRequestUrl = '$baseUrl/withdraw-request-by-seeker' ;
   static const String saveBankDetailsUrl = '$baseUrl/save-bank-details' ;
   static const String showBankDetailsUrl = '$baseUrl/show-bank-details' ;
+  static const String seekerAppliedJobs = '$baseUrl/applicant-jobs-view' ;
 
 
 }
