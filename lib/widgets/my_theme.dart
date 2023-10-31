@@ -10,7 +10,7 @@ class MyTheme {
   static final dark = ThemeData(
     brightness: Brightness.dark,
     fontFamily: GoogleFonts.outfit().fontFamily,
-    primaryColor: Color(0xff0D0140),
+    primaryColor: const Color(0xff0D0140),
     scaffoldBackgroundColor:Colors.black,
     appBarTheme: const AppBarTheme(
         backgroundColor:Colors.black,
