@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 class RangePicker extends StatefulWidget {
   const RangePicker({super.key});
-
+  static  double startValue = 25;
+  static double endValue = 75;
   @override
   RangePickerState createState() => RangePickerState();
 }
 
 class RangePickerState extends State<RangePicker> {
-  double _startValue = 25.0;
-  double _endValue = 75.0;
+
 
   @override
   Widget build(BuildContext context) {
@@ -21,20 +21,20 @@ class RangePickerState extends State<RangePicker> {
         children: [ Flexible(
           child: RangeSlider(
               activeColor: AppColors.blueThemeColor,
-              values: RangeValues(_startValue, _endValue),
+              values: RangeValues(RangePicker.startValue, RangePicker.endValue),
               onChanged: (RangeValues values) {
                 setState(() {
-                  _startValue = values.start;
-                  _endValue = values.end;
+                  RangePicker.startValue = values.start;
+                  RangePicker.endValue = values.end;
                 });
               },
               min: 0.0,
               max: 100.0,
               divisions: 100,
-              labels: RangeLabels('$_startValue', '$_endValue'),
+              labels: RangeLabels('${RangePicker.startValue}', '${ RangePicker.endValue}'),
             ),
         ),
-          Text('Selected Range: ${_startValue.toInt()} - ${_endValue.toInt()}'),
+          Text('Selected Range: ${RangePicker.startValue.toInt()} - ${RangePicker.endValue.toInt()}'),
         ],
       ),
     );

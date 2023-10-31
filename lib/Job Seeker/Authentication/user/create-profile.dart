@@ -629,7 +629,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: column.startDate,),
-                                                column.present ? const SizedBox() :
                                                 TextFormField(
                                                   controller: column.endDateController,
                                                   style: Theme
@@ -642,21 +641,14 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       fontWeight: FontWeight
                                                           .w400),
                                                   onTap: () {
-                                                    if (column.startDateController
-                                                        .text
-                                                        .isEmpty) {
-                                                      seekerCreateProfileController
-                                                          .selectStartDateExperienceErrorMessage
-                                                          .value =
-                                                      "Select start date";
-                                                    } else {
-                                                      _selectDate(
-                                                          context,
-                                                          startDateExperience,
-                                                          2,
-                                                          column.endDateController);
-                                                    }
-                                                  },
+                                                    if(column.present){}
+                                                  else {
+                                                  if (column.startDateController.text.isEmpty) {
+                                                    seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select start date";
+                                                  } else {_selectDate(context, startDateExperience, 2, column.endDateController);
+                                                  }
+                                                }
+                                              },
                                                   readOnly: true,
                                                   decoration: InputDecoration(
                                                     constraints: const BoxConstraints(
@@ -801,11 +793,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                         });
                                       },
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                    Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -841,8 +830,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //   },
                                                 //   hint: " Enter start date", firstDate: DateTime(1990),),
                                                 TextFormField(
-                                                  controller: education
-                                                      .startDateController,
+                                                  controller: education.startDateController,
                                                   style: Theme
                                                       .of(context)
                                                       .textTheme
@@ -999,20 +987,13 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       fontWeight: FontWeight
                                                           .w400),
                                                   onTap: () {
-                                                    if (education
-                                                        .startDateController.text
-                                                        .isEmpty) {
-                                                      seekerCreateProfileController
-                                                          .selectStartDateEducationErrorMessage
-                                                          .value =
-                                                      "Select start date";
-                                                    } else {
-                                                      _selectDate(context,
-                                                          startDateEducation,
-                                                          4, education
-                                                              .endDateController);
-                                                      print(
-                                                          "this is after selection $startDateEducation");
+                                                    if(education.present){}
+                                                   else {
+                                                      if (education.startDateController.text.isEmpty) {
+                                                        seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "Select start date";
+                                                      } else {_selectDate(context, startDateEducation, 4, education.endDateController);
+                                                        print("this is after selection $startDateEducation");
+                                                      }
                                                     }
                                                   },
                                                   readOnly: true,

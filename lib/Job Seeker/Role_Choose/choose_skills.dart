@@ -919,17 +919,12 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                       SizedBox(height: Get.height * .02,),
                                       Obx( () =>
                                          GridView.builder(
-                                          physics: NeverScrollableScrollPhysics(),
-                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2, mainAxisExtent: 65),
-                                          itemCount:  seekerGetAllSkillsController
-                                              .seekerGetAllSkillsData.value.availabity
-                                              ?.length,
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: 65),
+                                          itemCount:  seekerGetAllSkillsController.seekerGetAllSkillsData.value.availabity?.length,
                                           shrinkWrap: true,
                                           itemBuilder: (context, index) {
-
-                                            var data =  seekerGetAllSkillsController
-                                                .seekerGetAllSkillsData.value.availabity?[index] ;
+                                            var data =  seekerGetAllSkillsController.seekerGetAllSkillsData.value.availabity?[index] ;
                                             final isSelectedAvailability = _selectedChooseAvailabilitySkills
                                                 .contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
@@ -1035,6 +1030,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           title: "CONTINUE",
                                           loading: seekerChooseSkillsController.loading.value,
                                           onTap1: () {
+                                            selectedSalary = "\$${RangePicker.startValue.toInt()} - \$${RangePicker.endValue.toInt()}" ;
+                                            debugPrint("this is =========== $selectedSalary") ;
                                             seekerChooseSkillsController.errorMessage.value = "" ;
                                             if(_selectedChooseSkillsIndices.isEmpty ||
                                                 _selectedChoosestrengthsSkills.isEmpty ||
@@ -1044,7 +1041,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                 _selectedChooseworkingSkills.isEmpty ||
                                                 _selectedChooseAvailabilitySkills.isEmpty
                                             ) {
-                                              seekerChooseSkillsController.errorMessage.value = "Please select atleast 1 field from each section" ;
+                                              seekerChooseSkillsController.errorMessage.value = "Please select at least 1 field from each section" ;
                                             } else {
                                               seekerChooseSkillsController
                                                   .seekerSkillsApi(
