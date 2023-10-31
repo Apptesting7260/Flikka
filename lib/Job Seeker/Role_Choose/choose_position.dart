@@ -3,6 +3,7 @@ import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoos
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/SeekerChoosePositionGetModel/SeekerChoosePositionGetModel.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -177,7 +178,7 @@ void showSkipDialog(BuildContext context) {
                                     )),
                                 TextButton(onPressed: (){
                                   skipStepController.skipStepApi(1) ;
-                                  showSkipDialog(context) ;
+                                  CommonFunctions.showLoadingDialog(context, "Skipping") ;
                                 },
                                     child: const Text("Skip",
                                     style: TextStyle(color: Colors.white ,

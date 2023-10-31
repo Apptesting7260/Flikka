@@ -389,7 +389,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                     color: AppColors.blueThemeColor
                                 ),
                               ) ,
-                              SizedBox(width: Get.width*.03,) ,
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
@@ -566,15 +565,21 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     if (experienceForm.currentState!.validate()) {
                                                       _addExperience();
 
-                                                      if (workExperienceList
-                                                          .length <
-                                                          index + 1) {
+                                                      if (workExperienceList.length < index + 1) {
                                                         workExperienceList.add({
                                                           "work_exp_job": column.textController1.text,
                                                           "company_name": column.textController2.text,
                                                           "job_start_date": column.startDateController.text,
                                                           "job_end_date": column.present ? "present" : column.endDateController.text,
                                                         });
+                                                        print(workExperienceList) ;
+                                                      } else if (workExperienceList.length == index + 1) {
+                                                        workExperienceList[index] = {
+                                                          "work_exp_job": column.textController1.text,
+                                                          "company_name": column.textController2.text,
+                                                          "job_start_date": column.startDateController.text,
+                                                          "job_end_date": column.present ? "present" : column.endDateController.text,
+                                                        };
                                                       }
                                                       setState(() {
                                                         startDateExperience =
@@ -589,9 +594,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     : const SizedBox(),
                                               ],
                                             )),
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        ),
+                                        SizedBox(width: Get.width * .04,),
                                         Expanded(
                                             child: Column(
                                               children: [
@@ -626,9 +629,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: column.startDate,),
+                                                column.present ? const SizedBox() :
                                                 TextFormField(
-                                                  controller: column
-                                                      .endDateController,
+                                                  controller: column.endDateController,
                                                   style: Theme
                                                       .of(context)
                                                       .textTheme
@@ -651,8 +654,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                           context,
                                                           startDateExperience,
                                                           2,
-                                                          column
-                                                              .endDateController);
+                                                          column.endDateController);
                                                     }
                                                   },
                                                   readOnly: true,
@@ -724,9 +726,14 @@ class _CreateProfileState extends State<CreateProfile> {
                                                         setState(() {
                                                           column.present = val!;
                                                           experiencePresent = column.present ;
+                                                          if(!column.present) {
+                                                            column.endDateController.text = "" ;
+                                                          } else if (column.present) {
+                                                            column.endDateController.text = "present" ;
+                                                          }
                                                         });
                                                       },
-                                                      side: BorderSide(color: AppColors.blueThemeColor),
+                                                      side: const BorderSide(color: AppColors.blueThemeColor),
                                                       activeColor: AppColors.blueThemeColor,
                                                     ),
                                                     Text( "Present",
@@ -918,10 +925,16 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       educationList.add({
                                                         "education_level": education.textController1.text,
                                                         "institution_name": education.textController2.text,
-                                                        // "field_of_study": education.textController3.text,
                                                         "education_start_date": education.startDateController.text,
                                                         "education_end_date": education.present ? "present" : education.endDateController.text
                                                       });
+                                                    } else if (educationList.length == index + 1) {
+                                                     educationList[index] = {
+                                                       "education_level": education.textController1.text,
+                                                       "institution_name": education.textController2.text,
+                                                       "education_start_date": education.startDateController.text,
+                                                       "education_end_date": education.present ? "present" : education.endDateController.text
+                                                     } ;
                                                     }
                                                     setState(() {
                                                       startDateEducation = null;
@@ -1066,9 +1079,14 @@ class _CreateProfileState extends State<CreateProfile> {
                                                         setState(() {
                                                           education.present = val!;
                                                           educationPresent = education.present ;
+                                                          if(!education.present) {
+                                                            education.endDateController.text = "" ;
+                                                          } else if (education.present) {
+                                                            education.endDateController.text = "present" ;
+                                                          }
                                                         });
                                                       },
-                                                      side: BorderSide(color: AppColors.blueThemeColor),
+                                                      side: const BorderSide(color: AppColors.blueThemeColor),
                                                       activeColor: AppColors.blueThemeColor,
                                                     ),
                                                     Text( "Present",
@@ -1164,6 +1182,11 @@ class _CreateProfileState extends State<CreateProfile> {
                                         "award_name": appreciation.textController1.text,
                                         "achievement": appreciation.textController2.text,
                                       });
+                                    } else if (appreciationList.length == index + 1) {
+                                      appreciationList[index] = {
+                                        "award_name": appreciation.textController1.text,
+                                        "achievement": appreciation.textController2.text,
+                                      } ;
                                     }
                                     print(appreciationList);
                                   })

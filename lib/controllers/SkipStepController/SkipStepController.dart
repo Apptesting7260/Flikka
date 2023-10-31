@@ -33,6 +33,7 @@ class SkipStepController extends GetxController {
       print(value);
       print("dataaaaa");
       if(value.status!) {
+        Get.back() ;
        step == 1 ? Get.to(() => const ChooseSkills())
        : Get.to( () => const CreateProfile()) ;
       }

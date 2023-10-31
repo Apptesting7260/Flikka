@@ -1,6 +1,8 @@
 import 'package:flikka/controllers/SeekerChooseSkillsController/SeekerChooseSkillsController.dart';
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/utils/RangeSlider.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -152,7 +154,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                 ),
                                 TextButton(onPressed: (){
                                   skipStepController.skipStepApi(2) ;
-                                 showSkipDialog(context) ;
+                                 CommonFunctions.showLoadingDialog(context, "Skipping") ;
                                 },
                                     child: const Text("Skip",
                                       style: TextStyle(color: Colors.white ,
@@ -702,95 +704,94 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           .textTheme
                                           .displaySmall),
                                       SizedBox(height: Get.height * .02,),
-                                      Obx( () =>
-                                        GridView.builder(
-                                          physics: const NeverScrollableScrollPhysics(),
-                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                              crossAxisCount: 2, mainAxisExtent: 65),
-                                          itemCount:  seekerGetAllSkillsController
-                                              .seekerGetAllSkillsData.value.salaryExpectation
-                                              ?.length,
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            var data =  seekerGetAllSkillsController
-                                                .seekerGetAllSkillsData.value.salaryExpectation?[index] ;
-                                            final isSelectedSalary = selectedSalary == data?.id.toString();
-                                            // _selectedChoosesalarySkills
-                                            //     .contains(data?.id.toString());
-                                            return Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: Get.width * .02,
-                                                  vertical: Get.height * .01),
-                                              child: GestureDetector(
-                                                onTap: () {
-                                                  setState(() {
-                                                    selectedSalary = data?.id.toString() ;
-                                                    print(data?.id);
-                                                  });
-                                                },
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                      borderRadius: BorderRadius
-                                                          .circular(35),
-                                                      border: Border.all(
-                                                          color: isSelectedSalary ?  AppColors.blueThemeColor : Color(0xffFFFFFF))
-                                                  ),
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment
-                                                        .spaceBetween,
-                                                    children: [
-                                                      SizedBox(
-                                                        width: Get.width * .02,),
-                                                      Stack(
-                                                        alignment: Alignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: Get.width * .06,
-                                                            height: Get.height * .05,
-                                                            decoration: const BoxDecoration(
-                                                              shape: BoxShape.circle,
-                                                                color: AppColors.blueThemeColor
-                                                            ),
-                                                            child: const Icon(Icons.check,
-                                                              color: Color(
-                                                                  0xffFFFFFF),
-                                                              size: 15,),
-                                                          ),
-                                                          if (selectedSalary != data?.id.toString())
-                                                            Center(
-                                                              child: Container(
-                                                                width: Get.width *
-                                                                    .05,
-                                                                height: Get.width *
-                                                                    .05,
-                                                                decoration: const BoxDecoration(
-                                                                  color: Color(
-                                                                      0xff000000),
-                                                                  shape: BoxShape
-                                                                      .circle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                      SizedBox(
-                                                        width: Get.width * .02,),
-                                                      Expanded(child: Text("${data?.salaryExpectation}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .labelLarge
-                                                            ?.copyWith(
-                                                            fontWeight: FontWeight
-                                                                .w700,
-                                                            color: isSelectedSalary ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            );
-                                          },),
-                                      ),
+                                      SizedBox( height: Get.height * 0.1 ,child: const RangePicker()) ,
+                                      // Obx( () =>
+                                      //   GridView.builder(
+                                      //     physics: const NeverScrollableScrollPhysics(),
+                                      //     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                      //         crossAxisCount: 2, mainAxisExtent: 65),
+                                      //     itemCount:  seekerGetAllSkillsController
+                                      //         .seekerGetAllSkillsData.value.salaryExpectation
+                                      //         ?.length,
+                                      //     shrinkWrap: true,
+                                      //     itemBuilder: (context, index) {
+                                      //       var data =  seekerGetAllSkillsController
+                                      //           .seekerGetAllSkillsData.value.salaryExpectation?[index] ;
+                                      //       final isSelectedSalary = selectedSalary == data?.id.toString();
+                                      //       return Padding(
+                                      //         padding: EdgeInsets.symmetric(
+                                      //             horizontal: Get.width * .02,
+                                      //             vertical: Get.height * .01),
+                                      //         child: GestureDetector(
+                                      //           onTap: () {
+                                      //             setState(() {
+                                      //               selectedSalary = data?.id.toString() ;
+                                      //               print(data?.id);
+                                      //             });
+                                      //           },
+                                      //           child: Container(
+                                      //             decoration: BoxDecoration(
+                                      //                 borderRadius: BorderRadius
+                                      //                     .circular(35),
+                                      //                 border: Border.all(
+                                      //                     color: isSelectedSalary ?  AppColors.blueThemeColor : Color(0xffFFFFFF))
+                                      //             ),
+                                      //             child: Row(
+                                      //               mainAxisAlignment: MainAxisAlignment
+                                      //                   .spaceBetween,
+                                      //               children: [
+                                      //                 SizedBox(
+                                      //                   width: Get.width * .02,),
+                                      //                 Stack(
+                                      //                   alignment: Alignment.center,
+                                      //                   children: [
+                                      //                     Container(
+                                      //                       width: Get.width * .06,
+                                      //                       height: Get.height * .05,
+                                      //                       decoration: const BoxDecoration(
+                                      //                         shape: BoxShape.circle,
+                                      //                           color: AppColors.blueThemeColor
+                                      //                       ),
+                                      //                       child: const Icon(Icons.check,
+                                      //                         color: Color(
+                                      //                             0xffFFFFFF),
+                                      //                         size: 15,),
+                                      //                     ),
+                                      //                     if (selectedSalary != data?.id.toString())
+                                      //                       Center(
+                                      //                         child: Container(
+                                      //                           width: Get.width *
+                                      //                               .05,
+                                      //                           height: Get.width *
+                                      //                               .05,
+                                      //                           decoration: const BoxDecoration(
+                                      //                             color: Color(
+                                      //                                 0xff000000),
+                                      //                             shape: BoxShape
+                                      //                                 .circle,
+                                      //                           ),
+                                      //                         ),
+                                      //                       ),
+                                      //                   ],
+                                      //                 ),
+                                      //                 SizedBox(
+                                      //                   width: Get.width * .02,),
+                                      //                 Expanded(child: Text("${data?.salaryExpectation}",
+                                      //                   style: Theme
+                                      //                       .of(context)
+                                      //                       .textTheme
+                                      //                       .labelLarge
+                                      //                       ?.copyWith(
+                                      //                       fontWeight: FontWeight
+                                      //                           .w700,
+                                      //                       color: isSelectedSalary ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
+                                      //               ],
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //       );
+                                      //     },),
+                                      // ),
                                       SizedBox(height: Get.height * .02,),
                                       Text("When Can I Start Working?", style: Theme
                                           .of(context)
