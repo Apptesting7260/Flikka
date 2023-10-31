@@ -30,6 +30,8 @@ class NetworkApiServices extends BaseApiServices {
       throw InternetException('');
     } on RequestTimeOut {
       throw RequestTimeOut('');
+    } on TimeoutException {
+      throw RequestTimeOut('');
     }
     print(responseJson);
     return responseJson;
@@ -60,7 +62,7 @@ SharedPreferences sp=await SharedPreferences.getInstance();
       throw RequestTimeOut('');
 
     }on TimeoutException {
-
+      throw RequestTimeOut('');
 }
     print(responseJson);
     return responseJson ;
@@ -90,6 +92,8 @@ print(response.body);
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {
+      throw RequestTimeOut('');
+    } on TimeoutException {
       throw RequestTimeOut('');
     }
     if (kDebugMode) {
@@ -124,7 +128,8 @@ print(response.body);
       throw InternetException('');
     }on RequestTimeOut {
       throw RequestTimeOut('');
-
+    }on TimeoutException {
+      throw RequestTimeOut('');
     }
     if (kDebugMode) {
       print(responseJson);

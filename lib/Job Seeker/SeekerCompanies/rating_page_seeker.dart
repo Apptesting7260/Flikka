@@ -1,4 +1,5 @@
 
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -89,7 +90,7 @@ class _RattingPageState extends State<RattingPage> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         IconButton(
-                          icon: Icon(Icons.remove,color: Color(0xff56B8F6),),
+                          icon: Icon(Icons.remove,color: AppColors.blueThemeColor,),
                           onPressed: decrement,
                         ),
                         SizedBox(width: Get.width*.01),
@@ -97,7 +98,7 @@ class _RattingPageState extends State<RattingPage> {
                           children: [
                             Text(
                               value.toString(),
-                              style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Color(0xff56B8F6)),
+                              style: Theme.of(context).textTheme.displaySmall?.copyWith(color: AppColors.blueThemeColor),
                             ),
                             Text(
                              '/10',
@@ -107,7 +108,7 @@ class _RattingPageState extends State<RattingPage> {
                         ),
                         SizedBox(width: Get.width*.01),
                         IconButton(
-                          icon: Icon(Icons.add,color: Color(0xff56B8F6),),
+                          icon: Icon(Icons.add,color: AppColors.blueThemeColor,),
                           onPressed: increment,
                         ),
                       ],

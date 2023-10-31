@@ -39,14 +39,14 @@ class _CompanyRattingState extends State<CompanyRatting> {
                 ),
                 SizedBox(height: Get.height*.03,),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.008),
+                  padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.007),
                   decoration: BoxDecoration(
                     color: Color(0xff373737),
                     borderRadius: BorderRadius.circular(33.0),
                   ),
                   child: Row(
                     children: [
-                      Icon(Icons.search, color: Color(0xff56B8F6),size: 30,),
+                      Icon(Icons.search, color: AppColors.blueThemeColor,size: 30,),
                       SizedBox(width: Get.width*.03),
                       Expanded(
                         child: TextFormField(
@@ -55,7 +55,7 @@ class _CompanyRattingState extends State<CompanyRatting> {
                             // filterPositionNames(query);
                           },
                           decoration: InputDecoration(
-                            hintText: 'Example Company',
+                            hintText: 'Search Company',
                             hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),
                             border: InputBorder.none,
                           ),
@@ -64,31 +64,31 @@ class _CompanyRattingState extends State<CompanyRatting> {
                     ],
                   ),
                 ),
-                Container(
-                  margin: EdgeInsets.only(left: 10),
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: Colors.black, // Customize the background color
-                  ),
-                  //padding: EdgeInsets.all(8), // Adjust the padding as needed
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      IconButton(
-                        constraints: BoxConstraints(),
-                        onPressed: () {},
-                        icon: Image.asset('assets/images/addfileoncompany.png'),
-                      ),
-                      SizedBox(width: 8), // Add spacing between the icon and text
-                      Flexible( // Allow the text to wrap if necessary
-                        child: Text(
-                          "Add new company",
-                          style: Get.theme.textTheme.bodySmall!.copyWith(color: Colors.white),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   margin: EdgeInsets.only(left: 10),
+                //   decoration: BoxDecoration(
+                //     shape: BoxShape.circle,
+                //     color: Colors.black, // Customize the background color
+                //   ),
+                //   //padding: EdgeInsets.all(8), // Adjust the padding as needed
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [
+                //       IconButton(
+                //         constraints: BoxConstraints(),
+                //         onPressed: () {},
+                //         icon: Image.asset('assets/images/addfileoncompany.png'),
+                //       ),
+                //       SizedBox(width: 8), // Add spacing between the icon and text
+                //       Flexible( // Allow the text to wrap if necessary
+                //         child: Text(
+                //           "Add new company",
+                //           style: Get.theme.textTheme.bodySmall!.copyWith(color: Colors.white),
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
                 SizedBox(height: Get.height*0.01,),
 
                 ListView.builder(
@@ -105,10 +105,9 @@ class _CompanyRattingState extends State<CompanyRatting> {
                         title: Text("Example Company",style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white)),
                         subtitle:  Text("California, USA",style:Get.theme.textTheme.bodySmall!.copyWith(color: Color(0xffCFCFCF))),
                         trailing: RichText(text: TextSpan(children: [
-                          TextSpan(text: widget.rating.toString(),style:Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700,color: Colors.blueAccent) ),
+                          TextSpan(text: widget.rating.toString(),style:Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor) ),
                           TextSpan(text: "/10",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700))
                         ]),)
-                        // Text(  value.toString() + "/10"  ,style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
                       ),
                       Divider(
                         height: 40,

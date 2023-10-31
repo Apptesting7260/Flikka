@@ -91,31 +91,17 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Row(
-                      //   children: [
-                      //     GestureDetector(
-                      //         onTap: () {
-                      //           Get.back();
-                      //         },
-                      //         child: Image.asset(
-                      //           "assets/images/icon_back_blue.png",
-                      //           height: Get.height * .055,)),
-                      //     SizedBox(width: Get.width * .04,),
-                      //     Text("Companies", style: Get.theme.textTheme
-                      //         .displayLarge),
-                      //   ],
-                      // ),
                       SizedBox(height: Get.height * .03,),
                       Container(
                         padding: EdgeInsets.symmetric(horizontal: Get.width *
-                            .05, vertical: Get.height * .008),
+                            .05, vertical: Get.height * .007),
                         decoration: BoxDecoration(
                           color: const Color(0xff373737),
                           borderRadius: BorderRadius.circular(33.0),
                         ),
                         child: Row(
                           children: [
-                            const Icon(Icons.search, color: Color(0xff56B8F6),
+                            const Icon(Icons.search, color: AppColors.blueThemeColor,
                               size: 30,),
                             SizedBox(width: Get.width * .03),
                             Expanded(
@@ -130,7 +116,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                   companiesListController.filterList(query) ;
                                 },
                                 decoration: InputDecoration(
-                                  hintText: 'Example Company',
+                                  hintText: 'Search Company',
                                   hintStyle: Theme
                                       .of(context)
                                       .textTheme
