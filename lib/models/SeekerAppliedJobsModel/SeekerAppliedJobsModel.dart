@@ -49,7 +49,7 @@ class AppliedJobsList {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
-  List<LanguageModel>? languageName;
+  // List<LanguageModel>? languageName;
   AppliedJobsDetail? jobsDetail;
   RecruiterDetails? recruiterDetails;
 
@@ -72,7 +72,7 @@ class AppliedJobsList {
     this.createdAt,
     this.updatedAt,
     this.jobPositions,
-    this.languageName,
+    // this.languageName,
     this.jobsDetail,
     this.recruiterDetails,
   });
@@ -96,7 +96,7 @@ class AppliedJobsList {
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
-    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
+    // languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : AppliedJobsDetail.fromJson(json["jobs_detail"]),
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
   );
@@ -120,7 +120,7 @@ class AppliedJobsList {
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "job_positions": jobPositions,
-    "language_name": List<LanguageModel>.from(languageName!.map((x) => x)),
+    // "language_name": List<LanguageModel>.from(languageName!.map((x) => x)),
     "jobs_detail": jobsDetail?.toJson(),
     "recruiter_details": recruiterDetails?.toJson(),
   };

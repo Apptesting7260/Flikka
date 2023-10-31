@@ -60,9 +60,10 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
               toolbarHeight: 45,
             ),
             body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(
-                  horizontal: Get.width * .04, vertical: Get.height * .02),
-              child: Column(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),
+              child: jobsController.jobsList.value.job?.length == 0 || jobsController.jobsList.value.job == null ?
+                 const Center(child: Text("You have not Applied to any jobs")) :
+              Column(
                 children: [
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
@@ -81,7 +82,7 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                               title: Text("${data?.jobPositions}",
                                   style: Get.theme.textTheme.labelMedium!
                                       .copyWith(color: AppColors.white)),
-                              subtitle: Column(
+                              subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text("${data?.recruiterDetails?.companyName}",
                                       style: Get.theme.textTheme.bodySmall!

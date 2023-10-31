@@ -558,35 +558,61 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 SizedBox(height: Get.height *0.01,),
                                                 index == experienceData.length - 1
                                                     ? addMoreField(onTap: () {
-                                                  seekerCreateProfileController
-                                                      .selectStartDateExperienceErrorMessage
-                                                      .value = "";
+                                                  seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "";
                                                   if (!fresher) {
                                                     if (experienceForm.currentState!.validate()) {
-                                                      _addExperience();
-
-                                                      if (workExperienceList.length < index + 1) {
-                                                        workExperienceList.add({
-                                                          "work_exp_job": column.textController1.text,
-                                                          "company_name": column.textController2.text,
-                                                          "job_start_date": column.startDateController.text,
-                                                          "job_end_date": column.present ? "present" : column.endDateController.text,
+                                                      if (column.endDateController.text.isEmpty) {
+                                                        seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select date";
+                                                      } else {_addExperience();
+                                                        if (workExperienceList.length < index + 1) {
+                                                          workExperienceList
+                                                              .add({
+                                                            "work_exp_job": column
+                                                                .textController1
+                                                                .text,
+                                                            "company_name": column
+                                                                .textController2
+                                                                .text,
+                                                            "job_start_date": column
+                                                                .startDateController
+                                                                .text,
+                                                            "job_end_date": column
+                                                                .present
+                                                                ? "present"
+                                                                : column
+                                                                .endDateController
+                                                                .text,
+                                                          });
+                                                          print(
+                                                              workExperienceList);
+                                                        } else
+                                                        if (workExperienceList.length == index + 1) {
+                                                          workExperienceList[index] =
+                                                          {
+                                                            "work_exp_job": column
+                                                                .textController1
+                                                                .text,
+                                                            "company_name": column
+                                                                .textController2
+                                                                .text,
+                                                            "job_start_date": column
+                                                                .startDateController
+                                                                .text,
+                                                            "job_end_date": column
+                                                                .present
+                                                                ? "present"
+                                                                : column
+                                                                .endDateController
+                                                                .text,
+                                                          };
+                                                        }
+                                                        setState(() {
+                                                          // startDateExperience = null;
+                                                          // endDateExperience = null;
                                                         });
-                                                        print(workExperienceList) ;
-                                                      } else if (workExperienceList.length == index + 1) {
-                                                        workExperienceList[index] = {
-                                                          "work_exp_job": column.textController1.text,
-                                                          "company_name": column.textController2.text,
-                                                          "job_start_date": column.startDateController.text,
-                                                          "job_end_date": column.present ? "present" : column.endDateController.text,
-                                                        };
+                                                        print(
+                                                            workExperienceList);
                                                       }
-                                                      setState(() {
-                                                        startDateExperience =
-                                                        null;
-                                                        endDateExperience = null;
-                                                      });
-                                                      print(workExperienceList);
                                                     }
                                                   }
                                                   return null;
@@ -629,7 +655,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: column.startDate,),
-                                                column.present ? const SizedBox() :
                                                 TextFormField(
                                                   controller: column.endDateController,
                                                   style: Theme
@@ -642,21 +667,15 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       fontWeight: FontWeight
                                                           .w400),
                                                   onTap: () {
-                                                    if (column.startDateController
-                                                        .text
-                                                        .isEmpty) {
-                                                      seekerCreateProfileController
-                                                          .selectStartDateExperienceErrorMessage
-                                                          .value =
-                                                      "Select start date";
-                                                    } else {
-                                                      _selectDate(
-                                                          context,
-                                                          startDateExperience,
-                                                          2,
-                                                          column.endDateController);
-                                                    }
-                                                  },
+                                                    if(column.present){}
+                                                  else {
+                                                  if (column.startDateController.text.isEmpty) {
+                                                    seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select start date";
+                                                  } else {seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "";
+                                                    _selectDate(context, startDateExperience, 2, column.endDateController);
+                                                  }
+                                                }
+                                              },
                                                   readOnly: true,
                                                   decoration: InputDecoration(
                                                     constraints: const BoxConstraints(
@@ -688,14 +707,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     ),
                                                   ),
                                                   validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      // return seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = 'Select end date';
-                                                    } else
-                                                    if (column.startDateController
-                                                        .text.isEmpty) {
-                                                      // return seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = 'Select start date';
-                                                    }
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = 'Select date';
+                                                    // }
                                                     return null;
                                                   },
                                                 ),
@@ -704,9 +718,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 // ),
                                                 index == experienceData.length - 1
                                                     ? Obx(() =>
-                                                seekerCreateProfileController
-                                                    .selectStartDateExperienceErrorMessage
-                                                    .value.isEmpty ?
+                                                seekerCreateProfileController.selectStartDateExperienceErrorMessage.value.isEmpty ?
                                                 const SizedBox() :
                                                 Text(seekerCreateProfileController
                                                     .selectStartDateExperienceErrorMessage
@@ -801,11 +813,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                         });
                                       },
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                    Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Expanded(
                                             child: Column(
@@ -841,8 +850,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //   },
                                                 //   hint: " Enter start date", firstDate: DateTime(1990),),
                                                 TextFormField(
-                                                  controller: education
-                                                      .startDateController,
+                                                  controller: education.startDateController,
                                                   style: Theme
                                                       .of(context)
                                                       .textTheme
@@ -914,13 +922,12 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 SizedBox(height: Get.height * 0.001,),
                                                 index == educationData.length - 1
                                                     ? addMoreField(onTap: () {
-                                                  seekerCreateProfileController
-                                                      .selectStartDateEducationErrorMessage
-                                                      .value = "";
-                                                  if (educationForm.currentState!
-                                                      .validate()) {
+                                                  seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "";
+                                                  if (educationForm.currentState!.validate()) {
+                                                    if(education.endDateController.text.isEmpty){
+                                                      seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "Select date";
+                                                    } else {
                                                     _addEducation();
-
                                                     if (educationList.length < index + 1) {
                                                       educationList.add({
                                                         "education_level": education.textController1.text,
@@ -937,10 +944,11 @@ class _CreateProfileState extends State<CreateProfile> {
                                                      } ;
                                                     }
                                                     setState(() {
-                                                      startDateEducation = null;
-                                                      endDateEducation = null;
+                                                      // startDateEducation = null;
+                                                      // endDateEducation = null;
                                                     });
                                                     print(educationList);
+                                                  }
                                                   }
                                                 })
                                                     : const SizedBox(),
@@ -987,8 +995,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: DateTime(2000),),
                                                 TextFormField(
-                                                  controller: education
-                                                      .endDateController,
+                                                  controller: education.endDateController,
+                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
                                                   style: Theme
                                                       .of(context)
                                                       .textTheme
@@ -996,23 +1004,16 @@ class _CreateProfileState extends State<CreateProfile> {
                                                       ?.copyWith(
                                                       color: Color(0xffCFCFCF),
                                                       fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .w400),
+                                                      fontWeight: FontWeight.w400),
                                                   onTap: () {
-                                                    if (education
-                                                        .startDateController.text
-                                                        .isEmpty) {
-                                                      seekerCreateProfileController
-                                                          .selectStartDateEducationErrorMessage
-                                                          .value =
-                                                      "Select start date";
-                                                    } else {
-                                                      _selectDate(context,
-                                                          startDateEducation,
-                                                          4, education
-                                                              .endDateController);
-                                                      print(
-                                                          "this is after selection $startDateEducation");
+                                                    if(education.present){}
+                                                   else {
+                                                      if (education.startDateController.text.isEmpty) {
+                                                        seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "Select start date";
+                                                      } else {   seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "" ;
+                                                        _selectDate(context, startDateEducation, 4, education.endDateController);
+                                                        print("this is after selection $startDateEducation");
+                                                      }
                                                     }
                                                   },
                                                   readOnly: true,
@@ -1030,15 +1031,10 @@ class _CreateProfileState extends State<CreateProfile> {
                                                             .027,
                                                         horizontal: Get.width *
                                                             .06),
-                                                    hintStyle: Theme
-                                                        .of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.copyWith(
-                                                        color: Color(0xffCFCFCF),
+                                                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                        color: const Color(0xffCFCFCF),
                                                         fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w400),
+                                                        fontWeight: FontWeight.w400),
                                                     border: OutlineInputBorder(
                                                         borderRadius: BorderRadius
                                                             .circular(35),
@@ -1050,21 +1046,20 @@ class _CreateProfileState extends State<CreateProfile> {
                                                     ),
                                                   ),
                                                   validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      //return 'Select start date';
-                                                    }
-                                                    return null;
+                                          //           if(seekerCreateProfileController.selectStartDateEducationErrorMessage.value.isEmpty) {
+                                          //   if (value == null || value.isEmpty) {
+                                          //     return 'Select date';
+                                          //   }
+                                          // }
+                                          // return null;
                                                   },
                                                 ),
                                                 index == educationData.length - 1
                                                     ? Obx(() =>
                                                 seekerCreateProfileController.selectStartDateEducationErrorMessage.value.isEmpty ?
                                                 const SizedBox() :
-                                                Text(seekerCreateProfileController
-                                                    .selectStartDateEducationErrorMessage
-                                                    .value, style: TextStyle(
-                                                    color: Colors.red.shade600,
+                                                Text(seekerCreateProfileController.selectStartDateEducationErrorMessage.value,
+                                                  style: TextStyle(color: Colors.red.shade600,
                                                     fontSize: 12,
                                                     fontWeight: FontWeight.w300),)
                                                 ) : const SizedBox(),
@@ -1535,7 +1530,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                           educationList.add({
                                             "education_level": educationLevelController.text,
                                             "institution_name": institutionNameController.text,
-                                            // "field_of_study": education.textController3.text,
                                             "education_start_date": "${startDateEducation?.year.toString().padLeft(4, '0')}-${startDateEducation?.month.toString().padLeft(2, '0')}-${startDateEducation?.day.toString().padLeft(2, '0')}",
                                             "education_end_date": educationPresent ? "present" : "${endDateEducation?.year.toString().padLeft(4, '0')}-${endDateEducation?.month.toString().padLeft(2, '0')}-${endDateEducation?.day.toString().padLeft(2, '0')}",
                                           });
@@ -1556,9 +1550,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                               "job_end_date": experiencePresent ? "present" : "${endDateExperience?.year.toString().padLeft(4, '0')}-${endDateExperience?.month.toString().padLeft(2, '0')}-${endDateExperience?.day.toString().padLeft(2, '0')}",
                                             });
                                           }
-
-                                          if (introFormKey.currentState!
-                                              .validate()) {
+                                          debugPrint(workExperienceList.toString()) ;
+                                          debugPrint(educationList.toString()) ;
+                                          if (introFormKey.currentState!.validate()) {
                                             seekerCreateProfileController.createProfileApi(imgFile?.path, _filePath,
                                                 _documentTypeFilePath, nameController.text, locationController.text,
                                                 aboutMeController.text, workExperienceList, educationList, LanguageSelectorState.languages,
