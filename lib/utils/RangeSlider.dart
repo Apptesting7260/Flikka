@@ -29,7 +29,7 @@ class RangePickerState extends State<RangePicker> {
                 });
               },
               min: 0.0,
-              max: 100.0,
+              max: 10000.0,
               divisions: 100,
               labels: RangeLabels('${RangePicker.startValue}', '${ RangePicker.endValue}'),
             ),

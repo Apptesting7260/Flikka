@@ -232,7 +232,7 @@ class _SavedPostState extends State<SavedPost> {
                                 SizedBox( height: Get.height * .005,),
                                 SizedBox(
                                   height: Get.height*.1,
-                                  child: Text( "${data?.jobData?.description}djsbdjbcdsjbdjsfbdjsfdsjfhbjdfbdjhfbdjhfbdjfbdjfdjsdhbjbdjbfdsjfbdjfbdjhfdjfbdjhfbjhbkgfjhkfgnhfknfkkjnfkjnbvcnbjfkgbnvfcv cjngvbcfnm vjgb mcn bbjkf bvmc jfgb cvm mcf " ?? "Test Data" ,
+                                  child: Text( "${data?.jobData?.description} " ?? "Test Data" ,
                                     style: Theme.of(context).textTheme.bodySmall!
                                         .copyWith( color: AppColors.ratingcommenttextcolor),),
                                 ),

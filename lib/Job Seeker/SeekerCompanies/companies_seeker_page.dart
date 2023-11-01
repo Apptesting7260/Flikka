@@ -73,16 +73,16 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                 height: Get.height * .06,)) ,
                 title:Text("Companies", style: Get.theme.textTheme
               .displayLarge),
-                actions: [
-                  Padding(
-                    padding: EdgeInsets.only(right: 25.0),
-                    child: GestureDetector(
-                        onTap: () {
-                          Get.to(() => FilterPage()) ;
-                        },
-                        child: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: 24,)),
-                  )
-                ],
+                // actions: [
+                //   Padding(
+                //     padding: EdgeInsets.only(right: 25.0),
+                //     child: GestureDetector(
+                //         onTap: () {
+                //           Get.to(() => FilterPage()) ;
+                //         },
+                //         child: SvgPicture.asset("assets/images/icon_unselect_filter.svg",height: 24,)),
+                //   )
+                // ],
               ),
               body: Padding(
                 padding: const EdgeInsets.symmetric(
