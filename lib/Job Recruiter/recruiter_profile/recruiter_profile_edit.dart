@@ -85,9 +85,9 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     if(imgCamera != null) {
       final croppedImage = await coverImageCropper.cropImage(
         sourcePath: imgCamera.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2),
+        aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
         // Adjust aspect ratio as needed
-        compressQuality: 70,);
+        compressQuality: 40,);
 
       setState(() {
         coverImage = File(croppedImage!.path);

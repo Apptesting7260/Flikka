@@ -146,21 +146,21 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                 ?.copyWith(fontWeight: FontWeight.w700),
                           ),
                         ),
-                        SizedBox(
-                          height: Get.height * .002,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "Web And App Development Company",
-                            style: Theme.of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: Color(0xffCFCFCF)),
-                          ),
-                        ),
+                        // SizedBox(
+                        //   height: Get.height * .002,
+                        // ),
+                        // Align(
+                        //   alignment: Alignment.topLeft,
+                        //   child: Text(
+                        //     "Web And App Development Company",
+                        //     style: Theme.of(context)
+                        //         .textTheme
+                        //         .labelLarge
+                        //         ?.copyWith(
+                        //             fontWeight: FontWeight.w400,
+                        //             color: Color(0xffCFCFCF)),
+                        //   ),
+                        // ),
                       ],
                     ),
                   ),
