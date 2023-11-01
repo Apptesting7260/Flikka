@@ -1,16 +1,14 @@
-
-import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_edit.dart';
-import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
-import 'package:flikka/Job%20Seeker/Authentication/user/create-profile.dart';
 import 'package:flikka/Job%20Seeker/splash_screen.dart';
 import 'package:flikka/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 
-import 'Job Recruiter/AddJobPage/add_a_job_page_area.dart';
 
-void main() {
+ void main() async {
+  WidgetsFlutterBinding.ensureInitialized() ;
+ await FlutterDownloader.initialize();
   runApp(const MyApp());
 }
 

@@ -21,7 +21,8 @@ dependencies:
   dotted_border: ^2.0.0+3
   file_picker: ^5.5.0
   open_file: ^3.0.1
-  flutter_pdfview: ^1.0.1
+  webview_flutter: ^4.4.1
+  flutter_downloader: ^1.11.4
   date_time_picker: ^2.1.0
   intl: ^0.17.0
 #=======

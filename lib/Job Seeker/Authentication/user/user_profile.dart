@@ -16,6 +16,7 @@ import 'package:flikka/controllers/SeekerGetAllSkillsController/SeekerGetAllSkil
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/PdfViewer.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -27,6 +28,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import '../../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
@@ -1630,9 +1632,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       .start,
                                                   children: [
                                                     Text(
-                                                      "${seekerProfileController
-                                                          .viewSeekerData.value
-                                                          .seekerInfo?.fullname}",
+                                                      "${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}",
                                                       overflow: TextOverflow
                                                           .ellipsis,
                                                       style: Theme
@@ -1642,10 +1642,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       softWrap: true,
                                                     ),
                                                     Text(
-                                                        "${seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerDetails
-                                                            ?.positions}",
+                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "" ,
                                                         style: Theme
                                                             .of(context)
                                                             .textTheme
@@ -1656,12 +1653,9 @@ class _UserProfileState extends State<UserProfile> {
                                                             fontWeight: FontWeight
                                                                 .w600)
                                                     ),
-                                                    SizedBox(
-                                                      height: Get.height * .003,),
+                                                    SizedBox(height: Get.height * .003,),
                                                     Text(
-                                                      "${seekerProfileController
-                                                          .viewSeekerData.value
-                                                          .seekerInfo?.location}",
+                                                      "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",
                                                       style: Theme
                                                           .of(context)
                                                           .textTheme
@@ -1691,30 +1685,19 @@ class _UserProfileState extends State<UserProfile> {
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.04,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .start,
+                                              Row(mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
                                                       child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
-                                                  SizedBox(
-                                                    width: Get.width * 0.02,),
-                                                  Text('About me',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors.white),),
+                                                  SizedBox(width: Get.width * 0.02,),
+                                                  Text('About me', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                                 ],
                                               ),
                                               InkWell(
                                                   onTap: () {
-                                                    aboutSection(
-                                                        seekerProfileController
-                                                            .viewSeekerData.value
-                                                            .seekerInfo?.aboutMe);
+                                                    aboutSection(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe);
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/icon_edit.png",
@@ -2528,7 +2511,14 @@ class _UserProfileState extends State<UserProfile> {
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
                                             onTap: () {
-                                              Get.to( () => PDFViewer(url: "${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}",)) ;
+                                              CommonFunctions.confirmationDialog(context, message: "Do you want to download this file",
+                                              onTap: () async {
+                                                String? directory = await getLocalDownloadDir() ;
+                                                CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                                    '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                                Get.back() ;
+                                              },) ;
+
                                             },
                                           ),
                                           SizedBox(height: Get.height * .03,),
@@ -2718,8 +2708,7 @@ class _UserProfileState extends State<UserProfile> {
                       editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
                         }else {
                           seekerProfileController.viewSeekerData.value.workExpJob?.removeAt(index);
-                          editSeekerExperienceController.workApi(
-                              true, seekerProfileController.viewSeekerData.value.workExpJob, context);
+                          editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
                         }
 
                     },),
@@ -2834,4 +2823,8 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
+  Future<String?> getLocalDownloadDir() async {
+    final directory = await getExternalStorageDirectory();
+    return directory?.path;
+  }
 }

@@ -1,8 +1,9 @@
 
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
-
+import 'package:path_provider/path_provider.dart';
 import '../widgets/my_button.dart';
 
 class CommonFunctions {
@@ -84,4 +85,14 @@ class CommonFunctions {
     );
   }
 
+  static downloadFile(String fileUrl, String fileName, String savedDir) async {
+    final taskId = await FlutterDownloader.enqueue(
+      url: fileUrl,
+      savedDir: savedDir,
+      fileName: fileName,
+      showNotification: true,
+      openFileFromNotification: true,
+    );
   }
+
+}
