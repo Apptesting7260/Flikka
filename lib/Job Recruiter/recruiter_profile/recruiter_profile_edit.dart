@@ -180,7 +180,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? sizeValues;
 
   ////date///
-  String selectedDateString = 'yyyy/MM/dd';
+  String selectedDateString = 'yyyy-MM-dd';
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
