@@ -15,6 +15,10 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
+import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../res/components/general_expection.dart';
+import '../../res/components/internet_exception_widget.dart';
+import '../../utils/MultiSelectField.dart';
 
 
 class AddAJobPage extends StatefulWidget {
@@ -29,34 +33,34 @@ class _AddAJobPageState extends State<AddAJobPage> {
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
+  var qualification ;
+
   final List<String> itemsEmp = [
-    'Full-Time','Part-Time','Freelancing','Other'
+    'Full-Time','Part-Time','Contract','Temporary', 'Internship', 'Fresher' ,
   ];
   String? employmentType;
 
-  final List<String> jobTitle = [
-    'Marketing Intern','Software Engineer','Freelancing',
-  ];
+
   var jobTypeTitle;
   String? jobTitleName ;
 
   final List<String> itemsExp = [
-    'On-site','Wfh','Other'
+    'On-site','Remote','Hybrid'
   ];
   String? workplaceType;
+
+  final List<String> itemQualificaton = [
+    'Bachelor degree','Master degree','12th pass', 'Diploma', 'Doctoral degree', '10th pass', 'M.phil'
+  ];
+  String? qualificatonType;
+
+  List languageList = [];
 
  AddJobController addJobController = Get.put(AddJobController()) ;
   SeekerChoosePositionGetController seekerChoosePositionGetController =
   Get.put(SeekerChoosePositionGetController());
 
-  List<PlatformFile> selectedFiles = [];
-  String selectedEmplo = 'On-site';
-  String selectedItmeS = 'Content Manager';
-  String selectedItmeL = 'California';
-
-  List<String> dropdownOptionE = ['On-site','Work Form Home','Walking','Other'];
-  List<String> dropdownOptionS = ['Elearnign','Programming','Services','Content Manager'];
-  List<String> dropdownOptionL = ['India','Pakistan','California','Kajira'];
+  ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
 
   TextEditingController jobTitleController = TextEditingController() ;
   TextEditingController jobPositionController = TextEditingController() ;
@@ -72,14 +76,34 @@ class _AddAJobPageState extends State<AddAJobPage> {
   @override
   void initState() {
     seekerChoosePositionGetController.seekerGetPositionApi(false) ;
+    viewLanguageController.viewLanguageApi() ;
     super.initState();
   }
 
   final ScrollController scrollController =ScrollController() ;
 
+
   @override
   Widget build(BuildContext context) {
-    return Obx( () => seekerChoosePositionGetController.rxRequestStatus.value == Status.LOADING ?
+    return Obx(() {
+      switch (viewLanguageController.rxRequestStatus.value) {
+        case Status.LOADING:
+          return const
+          Scaffold(body: Center(child: CircularProgressIndicator()),);
+
+        case Status.ERROR:
+          if (viewLanguageController.error.value ==
+              'No internet') {
+            return InterNetExceptionWidget(
+              onPress: () {},
+            );
+          } else {
+            return Scaffold(body: GeneralExceptionWidget(
+                onPress: () {}));
+          }
+        case Status.COMPLETED:
+      return
+      Obx( () => seekerChoosePositionGetController.rxRequestStatus.value == Status.LOADING ?
     const Center(child: CircularProgressIndicator(),) :
        Padding(
         padding: const EdgeInsets.symmetric(horizontal: 2.0,vertical: 10),
@@ -94,7 +118,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                   child: Image.asset('assets/images/icon_back_blue.png')),
             ),
             elevation: 0,
-            backgroundColor: Colors.black,
             title: Text("Add A Job",style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
             // actions: [
             //   TextButton(onPressed: (){}, child: Text('Post',style: Get.theme.textTheme.labelMedium!.copyWith(color: Color(0xff56B8F6)),))
@@ -132,7 +155,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                 child: Stack(
                                   clipBehavior: Clip.none,
                                     children:[
-                                      Image.asset('assets/images/icon_gallery.png',height: Get.height*.052,),
+                                      Image.asset('assets/images/icon_gallery.png',height: Get.height*.052,color: AppColors.blueThemeColor,),
                                       Positioned(
                                           bottom: -2,
                                           right: -2,
@@ -643,83 +666,149 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     SizedBox(height: Get.height*0.042,),
                     Text('Qualification',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
-                    TextFormField(
-                      controller: educationController,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      decoration: InputDecoration(
-                          border:OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(color: Color(0xff373737))
+                    Center(
+                      child:
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2<String>(
+                          isExpanded: true,
+                          hint:  Text(
+                            'Select qualification',
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          fillColor: const Color(0xff373737),
-                          filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
-                          enabledBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                            //borderSide: BorderSide(color: Colors.white),
+                          items: itemQualificaton
+                              .map((String item) => DropdownMenuItem<String>(
+                            value: item,
+                            child: Text(
+                              item,
+                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ))
+                              .toList(),
+                          value: qualificatonType,
+                          onChanged: (String? value) {
+                            setState(() {
+                              qualificatonType = value;
+                              qualification = value;
+                            });
+                          },
+                          buttonStyleData: ButtonStyleData(
+                            height: Get.height*0.08,
+                            width: double.infinity,
+                            padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+
+                              color: const Color(0xff353535),
+                            ),
+                            elevation: 2,
                           ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.red),
+                          iconStyleData:  IconStyleData(
+                            icon: Image.asset('assets/images/arrowdown.png'),
+                            iconSize: 14,
+                            iconEnabledColor: Colors.yellow,
+                            iconDisabledColor: Colors.grey,
                           ),
-                          disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff373737)),
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: Get.height*0.35,
+                            width: Get.width*0.902,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: const Color(0xff353535),
+                            ),
+                            offset: const Offset(5, 0),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius:  const Radius.circular(40),
+                              thickness: MaterialStateProperty.all<double>(6),
+                              thumbVisibility: MaterialStateProperty.all<bool>(true),
+                            ),
                           ),
-                          hintText: 'Add qualification',
-                          hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
+                          menuItemStyleData: const MenuItemStyleData(
+                            height: 40,
+                            padding: EdgeInsets.only(left: 14, right: 14),
+                          ),
+                        ),
                       ),
-
-                      onFieldSubmitted: (value) {
-
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
                     ),
+                    // TextFormField(
+                    //   controller: educationController,
+                    //   style: Theme.of(context).textTheme.bodyMedium,
+                    //   decoration: InputDecoration(
+                    //       border:OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(35),
+                    //           borderSide: BorderSide(color: Color(0xff373737))
+                    //       ),
+                    //       fillColor: const Color(0xff373737),
+                    //       filled: true,
+                    //       contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
+                    //       enabledBorder:  OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(35),
+                    //         //borderSide: BorderSide(color: Colors.white),
+                    //       ),
+                    //       errorBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    //         borderSide: BorderSide(color: Colors.red),
+                    //       ),
+                    //       disabledBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    //         borderSide: BorderSide(color: Color(0xff373737)),
+                    //       ),
+                    //       hintText: 'Add qualification',
+                    //       hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
+                    //   ),
+                    //
+                    //   onFieldSubmitted: (value) {
+                    //
+                    //   },
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'This field is empty';
+                    //     }
+                    //     return null;
+                    //   },
+                    // ),
 
                     SizedBox(height: Get.height*0.042,),
                     Text('Language',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
-                    TextFormField(
-                      controller: languageController,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      decoration: InputDecoration(
-                          border:OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: const BorderSide(color: Color(0xff373737))
-                          ),
-                          fillColor: const Color(0xff373737),
-                          filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
-                          enabledBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                            //borderSide: BorderSide(color: Colors.white),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.red),
-                          ),
-                          disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff373737)),
-                          ),
-                          hintText: 'Add language',
-                          hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
-                      ),
-                      onFieldSubmitted: (value) {
-
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
-                      ),
+                    LanguageSelector(selectedLanguageList: languageList,languageList: viewLanguageController.viewLanguageData.value.languages,),
+                    // TextFormField(
+                    //   controller: languageController,
+                    //   style: Theme.of(context).textTheme.bodyMedium,
+                    //   decoration: InputDecoration(
+                    //       border:OutlineInputBorder(
+                    //           borderRadius: BorderRadius.circular(35),
+                    //           borderSide: const BorderSide(color: Color(0xff373737))
+                    //       ),
+                    //       fillColor: const Color(0xff373737),
+                    //       filled: true,
+                    //       contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
+                    //       enabledBorder:  OutlineInputBorder(
+                    //         borderRadius: BorderRadius.circular(35),
+                    //         //borderSide: BorderSide(color: Colors.white),
+                    //       ),
+                    //       errorBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    //         borderSide: BorderSide(color: Colors.red),
+                    //       ),
+                    //       disabledBorder: const OutlineInputBorder(
+                    //         borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                    //         borderSide: BorderSide(color: Color(0xff373737)),
+                    //       ),
+                    //       hintText: 'Add language',
+                    //       hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
+                    //   ),
+                    //   onFieldSubmitted: (value) {
+                    //
+                    //   },
+                    //   validator: (value) {
+                    //     if (value == null || value.isEmpty) {
+                    //       return 'This field is empty';
+                    //     }
+                    //     return null;
+                    //   },
+                    //   ),
 
                     SizedBox(height: Get.height*0.065,),
 
@@ -755,13 +844,14 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                 specializationController.text,
                                 jobLocationController.text,
                                 jobDescriptionController.text,
-                                employmentType,
-                                workplaceType,
+                                employmentType.toString(),
+                                workplaceType.toString(),
                                 jobRequirementController.text,
                                 experienceController.text,
                                 preferredExperienceController.text,
-                                educationController.text,
-                                languageController.text,);
+                                  qualification.toString(),
+                                  LanguageSelectorState.languages
+                              );
                             }
                           }
                                 // Get.to(()=> const RequiredSkills());
@@ -774,8 +864,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
               ),
             ),
           ),
-        ),
-      ),
+        )
+                )
+      );
+      }
+    }
     );
   }
 

@@ -180,7 +180,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? sizeValues;
 
   ////date///
-  String selectedDateString = 'dd/MM/yyyy';
+  String selectedDateString = 'yyyy/MM/dd';
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -188,10 +188,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
     );
-    if (picked != null && picked != selectedDate) {
+    if (picked != null) {
       setState(() {
         selectedDate = picked;
-        selectedDateString = "${picked.day}-${picked.month}-${picked.year}";
+        selectedDateString = "${picked.year.toString().padLeft(4,'0')}-${picked.month.toString().padLeft(2,'0')}-${picked.day.toString().padLeft(2,'0')}";
         founded = picked;
       });
     }
@@ -553,6 +553,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 height: Get.height * .01,
                               ),
                               TextFormField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: websiteLinkController,
                                 style: Theme
                                     .of(context)
