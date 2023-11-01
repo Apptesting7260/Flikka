@@ -184,7 +184,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
           Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Saving") ;
-          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id , 1) ;
+          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex - 1].id , 1) ;
         }) ;
 
         print("this is saved list $saved");

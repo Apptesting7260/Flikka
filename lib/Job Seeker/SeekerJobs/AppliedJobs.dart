@@ -62,7 +62,8 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),
               child: jobsController.jobsList.value.job?.length == 0 || jobsController.jobsList.value.job == null ?
-                 const Center(child: Text("You have not Applied to any jobs")) :
+                  Center(child: Text("You have not Applied to any jobs", style: Get.theme.textTheme.labelMedium!
+                     .copyWith(color: AppColors.white))) :
               Column(
                 children: [
                   ListView.builder(
