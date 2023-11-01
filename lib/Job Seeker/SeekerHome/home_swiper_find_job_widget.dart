@@ -214,7 +214,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data?.jobTitle ?? "Test Data",
+                        data?.jobPositions ?? "Test Data",
                         style: Theme.of(context).textTheme.displayLarge,
                         softWrap: true,
                       ),

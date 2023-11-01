@@ -53,7 +53,7 @@ class AddJobController extends GetxController {
         'work_experience': experience,
         'preferred_work_experience': preferredExperience,
         'education': qualification,
-        'language': language,
+        'language': jsonEncode(["3"]),
       };
       formData.forEach((key, value) {
         request.fields[key] = value.toString();

@@ -17,6 +17,7 @@ import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfile
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/utils/utils.dart';
+import 'package:flikka/widgets/PdfViewer.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -450,7 +451,7 @@ class _UserProfileState extends State<UserProfile> {
                                   color: AppColors.white, fontSize: 12),
                             ),
                           ),
-                          SizedBox(height: Get.height * 0.02,),
+                          Flexible(child: SizedBox(height: Get.height * 0.02,)),
                           CommonWidgets.textFieldHeading(context, "Position"),
                           SizedBox(height: Get.height * 0.01,),
                           Container(
@@ -499,7 +500,7 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(height: Get.height * .02,),
+                          Flexible(child: SizedBox(height: Get.height * .02,)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -529,7 +530,7 @@ class _UserProfileState extends State<UserProfile> {
                               ),
                             ],
                           ),
-                          SizedBox(height: Get.height * 0.02,),
+                          Flexible(child: SizedBox(height: Get.height * 0.02,)),
                         ],
                       ),
                     ),
@@ -576,127 +577,97 @@ class _UserProfileState extends State<UserProfile> {
             child: StatefulBuilder(
               builder: (context , setState) {
 
-                return Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Form(
-                      key: key,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                return SingleChildScrollView(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Form(
+                        key: key,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            SizedBox(height: Get.height* 0.02,) ,
+                            CommonWidgets.textFieldHeading(context,experience ? "Work Experience" : "Level of education"),
+                            SizedBox(height: Get.height* 0.01,) ,
+                            TextFormField(
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                              onChanged: (String value) {
+
+                              },
+                              controller: jobTitleOrEducationLevelController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xff373737),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(33),
+                                    borderSide: BorderSide.none
+                                ),
+                                hintText: experience ?  'Enter job title' : "Enter education level",
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: AppColors.white, fontSize: 12),
+                              ),
+                              validator: (value) {
+                                if(value == null || value.isEmpty) {
+                                  return 'Please fill this field' ;
+                                }
+                              },
+                            ),
+                            SizedBox(height: Get.height* 0.02,) ,
+                            CommonWidgets.textFieldHeading(context,experience ? "Company Name" : "Institution name"),
+                            SizedBox(height: Get.height* 0.01,) ,
+                            TextFormField(
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                              onChanged: (String value) {},
+                              controller: companyOrInstituteController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xff373737),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(33),
+                                    borderSide: BorderSide.none
+                                ),
+                                hintText: experience ? 'Enter company name' : 'Enter institute name',
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(color: AppColors.white, fontSize: 12),
+                              ),
+                              validator: (value) {
+                                if(value == null || value.isEmpty) {
+                                  return 'Please fill this field' ;
+                                }
+                              },
+                            ),
+                            SizedBox(height: Get.height* 0.02,),
+                          ],
+                        ),
+                      ) ,
+                      Row(
+                        mainAxisAlignment:
+                        MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment
+                            .start,
                         children: [
-                          SizedBox(height: Get.height* 0.02,) ,
-                          CommonWidgets.textFieldHeading(context,experience ? "Work Experience" : "Level of education"),
-                          SizedBox(height: Get.height* 0.01,) ,
-                          TextFormField(
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                            onChanged: (String value) {
-
-                            },
-                            controller: jobTitleOrEducationLevelController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xff373737),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(33),
-                                  borderSide: BorderSide.none
-                              ),
-                              hintText: experience ?  'Enter job title' : "Enter education level",
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: AppColors.white, fontSize: 12),
-                            ),
-                            validator: (value) {
-                              if(value == null || value.isEmpty) {
-                                return 'Please fill this field' ;
-                              }
-                            },
-                          ),
-                          SizedBox(height: Get.height* 0.02,) ,
-                          CommonWidgets.textFieldHeading(context,experience ? "Company Name" : "Institution name"),
-                          SizedBox(height: Get.height* 0.01,) ,
-                          TextFormField(
-                            style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                            onChanged: (String value) {
-
-                            },
-                            controller: companyOrInstituteController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xff373737),
-                              border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(33),
-                                  borderSide: BorderSide.none
-                              ),
-                              hintText: experience ? 'Enter company name' : 'Enter institute name',
-                              hintStyle: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(color: AppColors.white, fontSize: 12),
-                            ),
-                            validator: (value) {
-                              if(value == null || value.isEmpty) {
-                                return 'Please fill this field' ;
-                              }
-                            },
-                          ),
-                          SizedBox(height: Get.height* 0.02,),
-                        ],
-                      ),
-                    ) ,
-                    Row(
-                      mainAxisAlignment:
-                      MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment
-                          .start,
-                      children: [
-                        Expanded(
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: CommonWidgets
-                                      .textFieldHeading(
-                                      context, "Start date"),
-                                ),
-                                SizedBox(
-                                  height: Get.height * .01,
-                                ),
-                                Form(
-                                  key: startDateKey,
-                                  child: TextFormField(
-                                    controller: _startDateController,
-                                    style: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .bodyLarge
-                                        ?.copyWith(
-                                        color: Color(0xffCFCFCF),
-                                        fontSize: 12,
-                                        fontWeight: FontWeight
-                                            .w400),
-                                    onTap: () => _selectDate(true,context,"") ,
-                                    readOnly: true,
-                                    decoration: InputDecoration(
-                                      errorStyle: const TextStyle(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight
-                                              .w300,
-                                          fontSize: 12),
-                                      constraints: const BoxConstraints(
-                                        //maxWidth: Get.width * 0.41,
-                                      ),
-                                      filled: true,
-                                      fillColor: const Color(
-                                          0xff373737),
-                                      hintText: "Select date",
-                                      contentPadding: EdgeInsets
-                                          .symmetric(
-                                          vertical: Get.height *
-                                              .027,
-                                          horizontal: Get.width *
-                                              .06),
-                                      hintStyle: Theme
+                          Expanded(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: CommonWidgets
+                                        .textFieldHeading(
+                                        context, "Start date"),
+                                  ),
+                                  SizedBox(
+                                    height: Get.height * .01,
+                                  ),
+                                  Form(
+                                    key: startDateKey,
+                                    child: TextFormField(
+                                      controller: _startDateController,
+                                      style: Theme
                                           .of(context)
                                           .textTheme
                                           .bodyLarge
@@ -705,164 +676,202 @@ class _UserProfileState extends State<UserProfile> {
                                           fontSize: 12,
                                           fontWeight: FontWeight
                                               .w400),
-                                      border: OutlineInputBorder(
-                                          borderRadius:
-                                          BorderRadius.circular(35),
-                                          borderSide: BorderSide
-                                              .none),
-                                      suffixIcon: const Icon(
-                                        Icons.calendar_month,
-                                        size: 13,
+                                      onTap: () => _selectDate(true,context,"") ,
+                                      readOnly: true,
+                                      decoration: InputDecoration(
+                                        errorStyle: const TextStyle(
+                                            color: Colors.red,
+                                            fontWeight: FontWeight
+                                                .w300,
+                                            fontSize: 12),
+                                        constraints: const BoxConstraints(
+                                          //maxWidth: Get.width * 0.41,
+                                        ),
+                                        filled: true,
+                                        fillColor: const Color(
+                                            0xff373737),
+                                        hintText: "Select date",
+                                        contentPadding: EdgeInsets
+                                            .symmetric(
+                                            vertical: Get.height *
+                                                .027,
+                                            horizontal: Get.width *
+                                                .06),
+                                        hintStyle: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                            color: Color(0xffCFCFCF),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight
+                                                .w400),
+                                        border: OutlineInputBorder(
+                                            borderRadius:
+                                            BorderRadius.circular(35),
+                                            borderSide: BorderSide
+                                                .none),
+                                        suffixIcon: const Icon(
+                                          Icons.calendar_month,
+                                          size: 13,
+                                        ),
                                       ),
-                                    ),
-                                    validator: (value) {
-                                      if (value == null ||
-                                          value.isEmpty) {
-                                        return 'Select start date';
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          width: Get.width * .04,
-                        ),
-                        Expanded(
-                            child: Column(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: CommonWidgets
-                                      .textFieldHeading(
-                                      context, "End date"),
-                                ),
-                                SizedBox(
-                                  height: Get.height * .01,
-                                ),
-                                Form(key : endDateKey,
-                                  child: TextFormField(
-                                    controller: _endDateController,
-                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                        color: const Color(0xffCFCFCF), fontSize: 12,
-                                        fontWeight: FontWeight.w400),
-                                    onTap: () {
-                                      if(startDateKey.currentState!.validate()) {
-                                        _selectDate(false,context,_startDateController.text) ;
-                                      }
-                                    },
-                                    readOnly: true,
-                                    decoration: InputDecoration(
-                                      filled: true,
-                                      fillColor: const Color(0xff373737),
-                                      hintText: "Select date",
-                                      contentPadding: EdgeInsets.symmetric(
-                                          vertical: Get.height * .027,
-                                          horizontal: Get.width * .06),
-                                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                          color: const Color(0xffCFCFCF),
-                                          fontSize: 12,
-                                          fontWeight: FontWeight.w400),
-                                      border: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(35),
-                                          borderSide: BorderSide.none
-                                      ),
-                                      suffixIcon: const Icon(
-                                        Icons.calendar_month,
-                                        size: 13,
-                                      ),
+                                      validator: (value) {
+                                        if (value == null ||
+                                            value.isEmpty) {
+                                          return 'Select start date';
+                                        }
+                                        return null;
+                                      },
                                     ),
                                   ),
-                                ),
-                              Row(
-                                children: [
-                                  Checkbox(
-                                    checkColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(5)),
-                                    value: present,
-                                    onChanged: (val) {
-                                      setState(() {
-                                        present = val!;
-                                      });
-                                    },
-                                    side: BorderSide(color: AppColors.blueThemeColor),
-                                    activeColor: AppColors.blueThemeColor,
-                                  ),
-                                  Text( "Present",
-                                      style:  Theme.of(context).textTheme.labelLarge?.copyWith(
-                                        fontWeight: FontWeight.w700,
-                                        color: const Color(0xffFFFFFF),
-                                      )),
                                 ],
-                              )
-                              ],
-                            )),
-                      ],
-                    ),
-                    SizedBox(height: Get.height*.02,) ,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        MyButton(
-                          width: 100,
-                          height: 40,
-                          onTap1: () {
-                            Navigator.of(context).pop();
-                          }, title: 'Cancel',
-                        ),
-                        const SizedBox(width: 20,) ,
-                        Obx( () =>
-                         MyButton(
+                              )),
+                          SizedBox(
+                            width: Get.width * .04,
+                          ),
+                          Expanded(
+                              child: Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.topLeft,
+                                    child: CommonWidgets
+                                        .textFieldHeading(
+                                        context, "End date"),
+                                  ),
+                                  SizedBox(
+                                    height: Get.height * .01,
+                                  ),
+                                  Form(key : endDateKey,
+                                    child: TextFormField(
+                                      controller: _endDateController,
+                                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                          color: const Color(0xffCFCFCF), fontSize: 12,
+                                          fontWeight: FontWeight.w400),
+                                      onTap: () {
+                                        if(!present) {
+                                          if (startDateKey.currentState!.validate()) {
+                                            _selectDate(false, context, _startDateController.text);
+                                          }
+                                        }
+                                      },
+                                      readOnly: true,
+                                      decoration: InputDecoration(
+                                        filled: true,
+                                        fillColor: const Color(0xff373737),
+                                        hintText: "Select date",
+                                        contentPadding: EdgeInsets.symmetric(
+                                            vertical: Get.height * .027,
+                                            horizontal: Get.width * .06),
+                                        hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                            color: const Color(0xffCFCFCF),
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.w400),
+                                        border: OutlineInputBorder(
+                                            borderRadius: BorderRadius.circular(35),
+                                            borderSide: BorderSide.none
+                                        ),
+                                        suffixIcon: const Icon(
+                                          Icons.calendar_month,
+                                          size: 13,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                Row(
+                                  children: [
+                                    Checkbox(
+                                      checkColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(5)),
+                                      value: present,
+                                      onChanged: (val) {
+                                        setState(() {
+                                          present = val!;
+                                          if(present){
+                                            _endDateController.text = "present" ;
+                                          }else {
+                                            _endDateController.text = "" ;
+                                          }
+                                        });
+                                      },
+                                      side: BorderSide(color: AppColors.blueThemeColor),
+                                      activeColor: AppColors.blueThemeColor,
+                                    ),
+                                    Text( "Present",
+                                        style:  Theme.of(context).textTheme.labelLarge?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          color: const Color(0xffFFFFFF),
+                                        )),
+                                  ],
+                                )
+                                ],
+                              )),
+                        ],
+                      ),
+                      SizedBox(height: Get.height*.02,) ,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MyButton(
                             width: 100,
                             height: 40,
-                            loading: editSeekerExperienceController.loading.value,
                             onTap1: () {
-                              if(key.currentState!.validate()) {
-                                if (experience == true) {
-                                  WorkExpJob experienceData = WorkExpJob() ;
-                                  if (add == true) {
-                                    experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
-                                    experienceData.companyName = companyOrInstituteController.text ;
-                                    experienceData.jobStartDate = _startDateController.text ;
-                                    experienceData.jobEndDate = present ? "present" : _endDateController.text ;
-                                    debugPrint("this is experience ${experienceData.companyName}") ;
-                                    seekerProfileController.viewSeekerData.value.workExpJob?.add(experienceData);
-                                    debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.workExpJob}") ;
-                                    editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
+                              Navigator.of(context).pop();
+                            }, title: 'Cancel',
+                          ),
+                          const SizedBox(width: 20,) ,
+                          Obx( () =>
+                           MyButton(
+                              width: 100,
+                              height: 40,
+                              loading: editSeekerExperienceController.loading.value,
+                              onTap1: () {
+                                if(key.currentState!.validate()) {
+                                  if (experience == true) {
+                                    WorkExpJob experienceData = WorkExpJob() ;
+                                    if (add == true) {
+                                      experienceData.workExpJob = jobTitleOrEducationLevelController.text ;
+                                      experienceData.companyName = companyOrInstituteController.text ;
+                                      experienceData.jobStartDate = _startDateController.text ;
+                                      experienceData.jobEndDate = present ? "present" : _endDateController.text ;
+                                      debugPrint("this is experience ${experienceData.companyName}") ;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?.add(experienceData);
+                                      debugPrint("this is experience list ${seekerProfileController.viewSeekerData.value.workExpJob}") ;
+                                      editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
+                                    } else {
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].workExpJob = jobTitleOrEducationLevelController.text;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].companyName = companyOrInstituteController.text;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = _startDateController.text;
+                                      seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : _endDateController.text;
+                                      editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
+                                    }
                                   } else {
-                                    seekerProfileController.viewSeekerData.value.workExpJob?[index].workExpJob = jobTitleOrEducationLevelController.text;
-                                    seekerProfileController.viewSeekerData.value.workExpJob?[index].companyName = companyOrInstituteController.text;
-                                    seekerProfileController.viewSeekerData.value.workExpJob?[index].jobStartDate = _startDateController.text;
-                                    seekerProfileController.viewSeekerData.value.workExpJob?[index].jobEndDate =  present ? "present" : _endDateController.text;
-                                    editSeekerExperienceController.workApi(true, seekerProfileController.viewSeekerData.value.workExpJob, context);
-                                  }
-                                } else {
-                                  EducationLevel educationData = EducationLevel() ;
-                                  if (add == true) {
-                                    educationData.educationLevel = jobTitleOrEducationLevelController.text ;
-                                    educationData.institutionName = companyOrInstituteController.text ;
-                                    educationData.educationStartDate = _startDateController.text ;
-                                    educationData.educationEndDate =  present ? "present" : _endDateController.text ;
-                                    seekerProfileController.viewSeekerData.value.educationLevel?.add(educationData) ;
-                                    editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
-                                  } else {
-                                    seekerProfileController.viewSeekerData.value.educationLevel?[index].educationLevel = jobTitleOrEducationLevelController.text;
-                                    seekerProfileController.viewSeekerData.value.educationLevel?[index].institutionName = companyOrInstituteController.text;
-                                    seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = _startDateController.text;
-                                    seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : _endDateController.text;
-                                    editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
+                                    EducationLevel educationData = EducationLevel() ;
+                                    if (add == true) {
+                                      educationData.educationLevel = jobTitleOrEducationLevelController.text ;
+                                      educationData.institutionName = companyOrInstituteController.text ;
+                                      educationData.educationStartDate = _startDateController.text ;
+                                      educationData.educationEndDate =  present ? "present" : _endDateController.text ;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?.add(educationData) ;
+                                      editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
+                                    } else {
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationLevel = jobTitleOrEducationLevelController.text;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].institutionName = companyOrInstituteController.text;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationStartDate = _startDateController.text;
+                                      seekerProfileController.viewSeekerData.value.educationLevel?[index].educationEndDate =  present ? "present" : _endDateController.text;
+                                      editSeekerExperienceController.workApi(false, seekerProfileController.viewSeekerData.value.educationLevel, context);
+                                    }
                                   }
                                 }
-                              }
-                            }, title: 'Submit',
+                              }, title: 'Submit',
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: Get.height* 0.02,) ,
-                  ],
+                        ],
+                      ),
+                      SizedBox(height: Get.height* 0.02,) ,
+                    ],
+                  ),
                 );
               }
             ),
@@ -2472,8 +2481,7 @@ class _UserProfileState extends State<UserProfile> {
 
                                           SizedBox(height: Get.height * 0.04,),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(
                                                 mainAxisAlignment: MainAxisAlignment
@@ -2519,6 +2527,9 @@ class _UserProfileState extends State<UserProfile> {
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
+                                            onTap: () {
+                                              Get.to( () => PDFViewer(url: "${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}",)) ;
+                                            },
                                           ),
                                           SizedBox(height: Get.height * .03,),
                                           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
