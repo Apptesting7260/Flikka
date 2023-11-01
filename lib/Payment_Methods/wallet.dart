@@ -135,7 +135,7 @@ class _WalletState extends State<Wallet> {
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(60)
                         ),
-                        child: Text('See referral code', style: Theme
+                        child: Text('See Referral Code', style: Theme
                             .of(context)
                             .textTheme
                             .bodyMedium
