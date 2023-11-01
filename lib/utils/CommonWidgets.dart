@@ -12,6 +12,7 @@ class CommonWidgets {
         return Focus(
           onFocusChange: onFieldSubmitted ,
           child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: controller,
             style: Theme.of(context).textTheme.bodyMedium,
             decoration: InputDecoration(
@@ -83,6 +84,7 @@ class CommonWidgets {
     return Focus(
       onFocusChange: onFieldSubmitted,
       child: TextFormField(
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         controller:controller ,
           maxLength: maxCharacter ?? 500,
           inputFormatters: [

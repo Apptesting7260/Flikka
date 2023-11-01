@@ -1745,7 +1745,6 @@ class _CreateProfileState extends State<CreateProfile> {
                 ));
       }}
     ) ;
-
   }
 
   Future<void> _openImagePickerDialog() {

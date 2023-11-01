@@ -72,10 +72,10 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                        return InkWell(
                             onTap: () => Scaffold.of(context).openEndDrawer(),
                             child: Padding(
-                              padding: const EdgeInsets.only(right: 14.0,bottom: 10),
+                              padding:  EdgeInsets.only(top: 15,bottom: 10,right: 10),
                               child: Image.asset(
                                 'assets/images/inactive.png',
-                                height: Get.height * .03,
+                                height: Get.height * .05,
                               ),
                             ));
                      }

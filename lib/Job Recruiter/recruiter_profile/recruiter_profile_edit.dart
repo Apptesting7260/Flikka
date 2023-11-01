@@ -553,6 +553,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 height: Get.height * .01,
                               ),
                               TextFormField(
+                                autovalidateMode: AutovalidateMode.onUserInteraction,
                                 controller: websiteLinkController,
                                 style: Theme
                                     .of(context)

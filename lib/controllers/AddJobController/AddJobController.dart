@@ -53,7 +53,7 @@ class AddJobController extends GetxController {
         'work_experience': experience,
         'preferred_work_experience': preferredExperience,
         'education': qualification,
-        'language': jsonEncode(["3"]),
+        'language': jsonEncode(language),
       };
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
@@ -73,7 +73,7 @@ class AddJobController extends GetxController {
        // Utils.snackBar("Success", responseData["message"]) ;
         Get.to( () => const RequiredSkills());
       } else {
-        featureImageError.value = responseData["message"] ;
+        // featureImageError.value = responseData["message"] ;
       }
       loading(false) ;
     } catch ( e, stackTrace) {

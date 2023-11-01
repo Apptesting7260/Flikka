@@ -41,7 +41,7 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               Text("Company Size",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
               Text( widget.recruiterProfileDetails?.companySize == null ? "No Data" :
-                "${widget.recruiterProfileDetails?.companySize} employees"  ,style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffCFCFCF)),),
+                "${widget.recruiterProfileDetails?.companySize}"  ,style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffCFCFCF)),),
               SizedBox(height: Get.height*.02,),
               Text("Type",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
