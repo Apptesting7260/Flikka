@@ -182,7 +182,7 @@ class RecruiterProfileDetails {
     aboutDescription: json["about_description"],
     industry: json["industris"],
     companySize: json["company_size"],
-    founded: json["founded"].toString().substring(1,11),
+    founded: json["founded"],
 
     // founded: json["founded"].toString() == 'null' ? json["founded"] : (DateTime.parse(json["founded"].substring(0,20).toString())),
     specialties: json["specialties"],

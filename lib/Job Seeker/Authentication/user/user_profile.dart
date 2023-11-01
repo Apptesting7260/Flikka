@@ -2172,7 +2172,7 @@ class _UserProfileState extends State<UserProfile> {
                                                         .white),),
                                               GestureDetector(
                                                 onTap: () {
-                                                 salarySection( seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName?.id.toString()) ;
+                                                 salarySection( seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName.toString()) ;
                                                 },
                                                 child: Image.asset("assets/images/icon_edit.png", height: 18,),
                                               )
@@ -2184,8 +2184,7 @@ class _UserProfileState extends State<UserProfile> {
                                               null ||
                                               seekerProfileController
                                                   .viewSeekerData.value
-                                                  .seekerDetails?.salaryExpectationName?.salary
-                                                  ?.length == 0 ?
+                                                  .seekerDetails?.salaryExpectationName?.length == 0 ?
                                           const Text("No Data") :
                                           Container(
                                             decoration: BoxDecoration(
@@ -2195,7 +2194,7 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                             padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
                                             child: Text('${seekerProfileController.viewSeekerData.value
-                                                .seekerDetails?.salaryExpectationName?.salary}',
+                                                .seekerDetails?.salaryExpectationName}',
                                               overflow: TextOverflow
                                                   .ellipsis,
                                               style: Get.theme.textTheme
