@@ -38,6 +38,7 @@ class _DrawerClassState extends State<DrawerClass> {
   String settingIcon = 'assets/images/settingdrawericon.png' ;
   String logoutIcon = 'assets/images/logoutdrawericon.png' ;
   String messageIcon = 'assets/images/icon_message.png' ;
+  String appliedJobsIcon = 'assets/images/icon_applied_jobs.png' ;
 
   @override
   Widget build(BuildContext context) {
@@ -177,6 +178,18 @@ class _DrawerClassState extends State<DrawerClass> {
                           ),
                           ListTile(
                             horizontalTitleGap:0,
+                            dense: true,
+                            onTap: () {
+                              Get.to( () => const SeekerAppliedJobs()) ;
+                            },
+                            leading: drawerIcon(appliedJobsIcon) ,
+                            title: Text(
+                              "Applied jobs",
+                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                            ),
+                          ),
+                          ListTile(
+                            horizontalTitleGap:0,
                             onTap: (){
                               Get.to(() =>const CompanySeekerPage());
                             } ,
@@ -233,18 +246,7 @@ class _DrawerClassState extends State<DrawerClass> {
                               style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                             ),
                           ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            dense: true,
-                            onTap: () {
-                             Get.to( () => const SeekerAppliedJobs()) ;
-                            },
-                            leading: drawerIcon(logoutIcon) ,
-                            title: Text(
-                              "Applied jobs",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
+
                           SizedBox(height: Get.height*.2,),
                         ],
                       ),

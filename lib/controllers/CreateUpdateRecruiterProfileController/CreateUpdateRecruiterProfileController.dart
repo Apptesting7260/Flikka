@@ -7,9 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/app_url.dart';
 import 'package:http/http.dart' as http;
 
-
 class CreateUpdateRecruiterProfileController extends GetxController {
-
 
   RxBool loading = false.obs;
   var errorMessage = ''.obs ;
@@ -44,10 +42,8 @@ class CreateUpdateRecruiterProfileController extends GetxController {
         "company_name":companyName ,
         "company_location":companyLocation ,
         "add_bio": addBio ,
-        // "home_title": homeTitleName,
         "home_description": homeDescription,
         "website_link": websiteLink,
-        // "about_title": aboutTitleName,
         "about_description": aboutDescription,
         "industry": industry.toString(),
         "company_size": companySize.toString(),

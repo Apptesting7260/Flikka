@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -42,7 +43,9 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
     return SafeArea(child: Scaffold(
       backgroundColor: const Color(0x000ff000),
         body: SingleChildScrollView(
-          child: Column(
+          child: widget.recruiterJobsData?.length == 0 || widget.recruiterJobsData == null ?
+          Center(child: Text("No jobs available",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),) :
+          Column(
             children: [
               SizedBox(height: Get.height*.06,),
               ListView.builder(

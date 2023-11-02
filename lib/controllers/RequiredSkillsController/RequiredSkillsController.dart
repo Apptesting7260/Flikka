@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 
+import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Recruiter/company_shared_job.dart';
 import 'package:get/get.dart';
 import '../../Job Seeker/Authentication/user/create-profile.dart';
@@ -42,7 +43,8 @@ class RequiredSkillsController extends GetxController {
     _api.requiredSkillsApi(data).then((value){
       loading(false) ;
       // print(value);
-  Get.to(()=>const CompanyRecruiter());
+      Get.offAll(TabScreenEmployer(index: 4, profileTabIndex: 2,));
+  // Get.to(()=>const CompanyRecruiter());
       // Utils.snackBar( "Message",value.message);
       setRxRequestStatus(Status.COMPLETED);
     }).onError((error, stackTrace){

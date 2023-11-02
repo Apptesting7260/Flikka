@@ -12,6 +12,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
@@ -72,6 +73,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
   TextEditingController educationController = TextEditingController() ;
   TextEditingController experienceController = TextEditingController() ;
   TextEditingController preferredExperienceController = TextEditingController() ;
+
+  FocusNode jobTypeFocus = FocusNode() ;
+  FocusNode typeOfWorkPlaceFocus = FocusNode() ;
 
   @override
   void initState() {
@@ -136,38 +140,43 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Center(
                       child: Stack(
                           children:[
-                            Container(
-                              height: Get.height*0.20,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  color: const Color(0xff353535),
-                                  borderRadius: BorderRadius.circular(22)
+                            GestureDetector(
+                              onTap: () {
+                                _openImagePickerDialog();
+                              },
+                              child: Container(
+                                height: Get.height*0.20,
+                                width: Get.width,
+                                decoration: BoxDecoration(
+                                    color: const Color(0xff353535),
+                                    borderRadius: BorderRadius.circular(22)
+                                ),
+                                child:imgFile?.path == null ?
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                InkWell(
+                                  onTap: () async {
+                                    _openImagePickerDialog();
+                                    print("This is imgfile ${imgFile?.path}");
+                                  },
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                      children:[
+                                        Image.asset('assets/images/icon_gallery.png',height: Get.height*.052,color: AppColors.blueThemeColor,),
+                                        Positioned(
+                                            bottom: -2,
+                                            right: -2,
+                                            child: Image.asset('assets/images/icon_Add_photo.png',height: Get.height*.021,)
+                                        ),
+                                      ] ),
+                                ),
+                                SizedBox(height: Get.height*0.02,),
+                                Text("Select feature image",style: Get.theme.textTheme.bodySmall!.copyWith(color: Color(0xffCFCFCF)),),
+                                    ],
+                                  ) :
+                                    Image.file(imgFile! , fit: BoxFit.cover,),
                               ),
-                              child:imgFile?.path == null ?
-                                Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                              InkWell(
-                                onTap: () async {
-                                  _openImagePickerDialog();
-                                  print("This is imgfile ${imgFile?.path}");
-                                },
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                    children:[
-                                      Image.asset('assets/images/icon_gallery.png',height: Get.height*.052,color: AppColors.blueThemeColor,),
-                                      Positioned(
-                                          bottom: -2,
-                                          right: -2,
-                                          child: Image.asset('assets/images/icon_Add_photo.png',height: Get.height*.021,)
-                                      ),
-                                    ] ),
-                              ),
-                              SizedBox(height: Get.height*0.02,),
-                              Text("Select feature image",style: Get.theme.textTheme.bodySmall!.copyWith(color: Color(0xffCFCFCF)),),
-                                  ],
-                                ) :
-                                  Image.file(imgFile! , fit: BoxFit.cover,),
                             ),
                             Positioned(
                               top: 8,
@@ -190,6 +199,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Job Title',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: jobPositionController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
@@ -280,6 +290,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Specialization',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: specializationController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
@@ -321,6 +332,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Job location',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: jobLocationController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
@@ -362,6 +374,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Description',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: jobDescriptionController,
                         maxLines: 5,
                         style: Theme.of(context).textTheme.bodyMedium,
@@ -403,6 +416,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Requirements',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: jobRequirementController,
                         maxLines: 5,
                         style: Theme.of(context).textTheme.bodyMedium,
@@ -446,6 +460,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       child:
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
+                          focusNode: jobTypeFocus ,
                           isExpanded: true,
                           hint:  Text(
                             'Select job type',
@@ -517,6 +532,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       child:
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
+                          focusNode: typeOfWorkPlaceFocus,
                           isExpanded: true,
                           hint:  Text(
                             'Select workplace',
@@ -585,6 +601,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: experienceController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
@@ -626,6 +643,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Preferred work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
                       controller: preferredExperienceController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
@@ -731,6 +749,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
+                    Obx(() => addJobController.qualificationErrorMessage.value.isEmpty ?
+                    const SizedBox():
+                        Text(addJobController.qualificationErrorMessage.value,style: TextStyle(color: Colors.red),) ,
+                    ),
                     // TextFormField(
                     //   controller: educationController,
                     //   style: Theme.of(context).textTheme.bodyMedium,
@@ -773,6 +795,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     Text('Language',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     LanguageSelector(selectedLanguageList: languageList,languageList: viewLanguageController.viewLanguageData.value.languages,),
+                   Obx(() => addJobController.languageErrorMessage.value.isEmpty ?
+                   const SizedBox():
+                       Text(addJobController.languageErrorMessage.value,style: TextStyle(color: Colors.red),),
+                   ),
                     // TextFormField(
                     //   controller: languageController,
                     //   style: Theme.of(context).textTheme.bodyMedium,
@@ -821,6 +847,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           addJobController.jobTypeErrorMessage.value = "" ;
                           addJobController.typeOfWorkPlaceErrorMessage.value = "" ;
                           addJobController.jobPositionErrorMessage.value = "" ;
+                          addJobController.qualificationErrorMessage.value = "" ;
+                          addJobController.languageErrorMessage.value = "" ;
                           if(imgFile == null) {
                             addJobController.featureImageError.value = "Please select image" ;
                             scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
@@ -830,25 +858,33 @@ class _AddAJobPageState extends State<AddAJobPage> {
                             if (jobTitleName == null) {
                               addJobController.jobPositionErrorMessage.value =
                               "Please select job position";
+                              scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                             } else if (employmentType == null) {
                               addJobController.jobTypeErrorMessage.value =
                               "Please select job type";
+                              scrollController.animateTo(jobTypeFocus.context!.size!.height  + Get.height*.65, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
                             } else if (workplaceType == null) {
                               addJobController.typeOfWorkPlaceErrorMessage.value =
                               "Please select type of workplace";
-                            } else {
+                              scrollController.animateTo(typeOfWorkPlaceFocus.context!.size!.height  + Get.height*.75, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
+                            } else if (qualification == null) {
+                              addJobController.qualificationErrorMessage.value =  "Please select qualification" ;
+                            } else if(LanguageSelectorState.languages.isEmpty  ) {
+                              addJobController.languageErrorMessage.value = "Please select language" ;
+                            }
+                            else {
                               addJobController.addJobApi(
-                                imgFile?.path,
-                                jobTypeTitle,
-                                jobPositionController.text,
-                                specializationController.text,
-                                jobLocationController.text,
-                                jobDescriptionController.text,
+                                  imgFile?.path,
+                                  jobTypeTitle,
+                                  jobPositionController.text,
+                                  specializationController.text,
+                                  jobLocationController.text,
+                                  jobDescriptionController.text,
                                   jobRequirementController.text,
-                                employmentType.toString(),
-                                workplaceType.toString(),
-                                experienceController.text,
-                                preferredExperienceController.text,
+                                  employmentType.toString(),
+                                  workplaceType.toString(),
+                                  experienceController.text,
+                                  preferredExperienceController.text,
                                   qualification.toString(),
                                   LanguageSelectorState.languages
                               );
@@ -885,29 +921,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
               style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 18),
             ),
           ),
-          // content: Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     GestureDetector(
-          //       child: const Icon(
-          //         Icons.camera_alt_outlined,
-          //         color: Colors.white,
-          //       ),
-          //       onTap: () {
-          //         _pickImage(ImageSource.camera);
-          //       },
-          //     ),
-          //     GestureDetector(
-          //       child: const Icon(
-          //         Icons.photo_library,
-          //         color: Colors.white,
-          //       ),
-          //       onTap: () {
-          //         _pickImage(ImageSource.gallery);
-          //       },
-          //     ),
-          //   ],
-          // ),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -917,12 +930,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
                 title: "Camera", onTap1: () {
                 _pickImage(ImageSource.camera);
               },),
-              SizedBox(width: 10,) ,
+              const SizedBox(width: 10,) ,
               MyButton(
                 width: Get.width*.25,
                 height: Get.height*.05,
-                title: "Gallery", onTap1: () {
-                _pickImage(ImageSource.gallery);
+                title: "Gallery", onTap1: () {_pickImage(ImageSource.gallery);
               },),
             ],
           ),
@@ -932,14 +944,26 @@ class _AddAJobPageState extends State<AddAJobPage> {
   }
 
   final imgPicker = ImagePicker();
+  final featureImageCropper = ImageCropper() ;
   File? imgFile;
   Future<void> _pickImage(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
-    setState(() {
-      imgFile = File(imgCamera!.path);
-      print(imgFile);
-    });
-    Get.back();
+    if(imgCamera != null) {
+      final croppedImage = await featureImageCropper.cropImage(
+          sourcePath: imgCamera.path,
+        aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
+        compressQuality: 40,);
+      setState(() {
+        imgFile = File(croppedImage!.path) ;
+        print(imgFile) ;
+      });
+      Get.back();
+    }
+    // setState(() {
+    //   imgFile = File(imgCamera!.path);
+    //   print(imgFile);
+    // });
+    // Get.back();
   }
 
 }
