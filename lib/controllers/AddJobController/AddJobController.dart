@@ -17,6 +17,8 @@ class AddJobController extends GetxController {
   var jobPositionErrorMessage = ''.obs ;
   var jobTypeErrorMessage = ''.obs ;
   var typeOfWorkPlaceErrorMessage = ''.obs ;
+  var qualificationErrorMessage = '' .obs ;
+  var languageErrorMessage = '' .obs ;
 
   addJobApi (
       String? profilePath ,

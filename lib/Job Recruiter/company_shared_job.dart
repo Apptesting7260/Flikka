@@ -846,7 +846,7 @@ class _CompanyRecruiterState extends State<CompanyRecruiter> {
                                                     .ratingcommenttextcolor,fontWeight: FontWeight.w700, ),
                                               onTap1:(){
                                             print("called") ;
-                                                  Get.offAll(TabScreenEmployer(index: 4, profileTabIndex: 2,));
+                                                  //Get.offAll(TabScreenEmployer(index: 4, profileTabIndex: 2,));
                                               }
                                           ),
                                         )
