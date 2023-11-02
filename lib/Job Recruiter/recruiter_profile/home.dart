@@ -3,6 +3,7 @@ import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterP
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
 class RecruiterHome extends StatefulWidget {
@@ -43,9 +44,15 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                     children: [
                       Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                       SizedBox(height: Get.height*.002,),
-                      Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: AppColors.blueThemeColor),),
-
+                      GestureDetector(
+                        onTap: () {
+                          if(widget.recruiterProfileDetails?.websiteLink != null) {
+                            launchUrl(Uri.parse(widget.recruiterProfileDetails!.websiteLink!));
+                          }
+                        },
+                        child: Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,
+                          style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: AppColors.blueThemeColor),),
+                      ),
                     ],
                   ),
                 ),

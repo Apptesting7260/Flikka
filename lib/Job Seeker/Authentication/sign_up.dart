@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   CheckEmailSignUpController checkEmailSignUpControllerInstanse=Get.put(CheckEmailSignUpController()) ;
   SignUpController signUpController = Get.put(SignUpController()) ;
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
   bool _isValidEmail(String email) {
@@ -34,9 +34,8 @@ class _SignUpState extends State<SignUp> {
     return emailRegex.hasMatch(email);
   }
 
-
   bool _isPasswordVisible = false;
-  bool _isRememberMe = false;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -65,7 +64,7 @@ class _SignUpState extends State<SignUp> {
                         borderRadius: BorderRadius.circular(35),
                       ),
                       filled: true,
-                      fillColor: Color(0xffFFFFFF),
+                      fillColor: const Color(0xffFFFFFF),
                       hintText: "Enter your name",
                       hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000000),fontWeight: FontWeight.w500),
                       contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
@@ -93,7 +92,7 @@ class _SignUpState extends State<SignUp> {
                       borderRadius: BorderRadius.circular(35),
                     ),
                     filled: true,
-                    fillColor: Color(0xffFFFFFF),
+                    fillColor: const Color(0xffFFFFFF),
                     hintText: "Enter your email",
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000000),fontWeight: FontWeight.w500),
                   ),

@@ -1,4 +1,5 @@
 
+import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,9 +19,7 @@ class VerifyOtpController extends GetxController {
   var verifyOtpErrorMessage = ''.obs ;
 
 
-  Future<void> verifyOtpApiHit(
-      var email
-      ) async {
+  Future<void> verifyOtpApiHit(var email , bool register) async {
 
     SharedPreferences sp = await SharedPreferences.getInstance();
     loading.value = true ;
@@ -30,12 +29,12 @@ class VerifyOtpController extends GetxController {
       'otp' :otpController.value.text
     };
     print(data);
-    _api.otpVerification(data).then((value){
+    _api.otpVerification(data , register).then((value){
       loading.value = false ;
       print(value);
       // BarrierToken=value.token;
       if(value.status) {
-        Get.to( CreatePassword(email: email,));
+       register ? Get.to( () => const ChooseRole()) :  Get.to( CreatePassword(email: email));
         sp.setString("BarrierToken", "${value.token}") ;
       }
       else {

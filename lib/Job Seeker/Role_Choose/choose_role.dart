@@ -17,10 +17,7 @@ class _ChooseRoleState extends State<ChooseRole> {
 
   SignUpController signUpController = Get.put(SignUpController()) ;
 
-  int _value = 1;
-
   var choose = 1;
-  // int selectedIndex =0;
   bool _jobSeekerCheckBoxValue = true;
   bool _recruiterCheckBoxValue = false;
 

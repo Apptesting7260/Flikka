@@ -10,6 +10,7 @@ class AppUrl {
   static const String ForgotPasswordUrl = '$baseUrl/request_otp' ;
   static const String logout = '$baseUrl/logout' ;
   static const String VerifyOtpUrl = '$baseUrl/verify_otp' ;
+  static const String verifyRegistrationOtpUrl = '$baseUrl/verify_register_otp' ;
   static const String ResetPasswordUrl = '$baseUrl/reset_password' ;
   static const String SeekerChoosePositionUrl = '$baseUrl/seeker_position' ;
   static const String seekerSkills = '$baseUrl/seeker_skills' ;

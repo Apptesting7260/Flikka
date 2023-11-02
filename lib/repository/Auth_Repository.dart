@@ -54,8 +54,8 @@ class AuthRepository {
     return ForgotPasswordModel.fromJson(response);
   }
 
-  Future<OtpVerificationModel> otpVerification(var data) async{
-    dynamic response = await _apiService.postApi(data, AppUrl.VerifyOtpUrl);
+  Future<OtpVerificationModel> otpVerification(var data , bool register) async{
+    dynamic response = await _apiService.postApi(data, register ? AppUrl.verifyRegistrationOtpUrl : AppUrl.VerifyOtpUrl);
     return OtpVerificationModel.fromJson(response);
   }
 
@@ -64,7 +64,7 @@ class AuthRepository {
     return SeekerReferralModel.fromJson(response);
   }
 
-  Future<ResetPasswordModel> ResetPasswordApi(var data) async{
+  Future<ResetPasswordModel> resetPasswordApi(var data) async{
     dynamic response = await _apiService.postApi2(data, AppUrl.ResetPasswordUrl);
     return ResetPasswordModel.fromJson(response);
   }

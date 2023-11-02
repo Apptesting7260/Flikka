@@ -1,4 +1,5 @@
 
+import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
@@ -16,16 +17,10 @@ class CheckEmailSignUpController extends GetxController {
 
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
-  void checkEmailSignUpApiHit(
-      String email
-      ) async{
+  void checkEmailSignUpApiHit(String email) async{
     loading.value = true ;
-    SharedPreferences sp= await SharedPreferences.getInstance();
 
-    print(loading.value);
-    Map data = {
-      'email' : email,
-    };
+    Map data = { 'email' : email,};
     print(data);
     print("Dataaaaaaaaaaaaaaa");
     _api.checkEmailSignUpApi(data).then((value){
@@ -33,7 +28,7 @@ class CheckEmailSignUpController extends GetxController {
       print(value);
       if(value.status!){
         // Utils.snackBar( "Message",value.message.toString());
-        Get.to(() => const ChooseRole()) ;
+        Get.to(() => const OtpScreen(register: true) , arguments: {"email": email}) ;
       }
       else{
      errorMessage.value =  value.message.toString();

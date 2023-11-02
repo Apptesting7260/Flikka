@@ -32,9 +32,7 @@ class ForgotPasswordController extends GetxController {
 
       if(value.status == true ) {
         // Utils.snackBar( "Message",value.message.toString());
-        Get.to(() => const OtpScreen(), arguments: {
-          "email": verifyEmail
-        });
+        Get.to(() => const OtpScreen(register: false,), arguments: {"email": verifyEmail});
       } else {
         loading.value = false ;
         // Utils.snackBar('Failed',value.message.toString());

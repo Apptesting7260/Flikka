@@ -31,7 +31,7 @@ class ResetPasswordController extends GetxController {
       'confirm_password' :confirmpasswordcontroller.value.text,
     };
     print(data);
-    _api.ResetPasswordApi(data).then((value){
+    _api.resetPasswordApi(data).then((value){
       loading.value = false ;
       print(value);
       print("dataaaaa");

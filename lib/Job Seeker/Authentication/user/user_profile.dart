@@ -30,6 +30,7 @@ import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
@@ -2360,8 +2361,7 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.language ==
-                                              null ||
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
                                               seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
@@ -2510,12 +2510,13 @@ class _UserProfileState extends State<UserProfile> {
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
                                             onTap: () {
-                                              CommonFunctions.confirmationDialog(context, message: "Do you want to download this file",
+                                              CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
                                               onTap: () async {
-                                                String? directory = await getLocalDownloadDir() ;
-                                                CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
-                                                    '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
-                                                Get.back() ;
+                                                launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}')) ;
+                                                // String? directory = await getLocalDownloadDir() ;
+                                                // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                                //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                                // Get.back() ;
                                               },) ;
 
                                             },
@@ -2528,10 +2529,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 children: [
                                                   Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
                                                   SizedBox(width: Get.width*.02,) ,
-                                                  Text('Document',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors.white),),
+                                                  Text('Document', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                                 ],
                                               ),
                                               InkWell(
@@ -2539,9 +2537,8 @@ class _UserProfileState extends State<UserProfile> {
                                                     editSeekerResumeController.documentPath.value = "" ;
                                                     document() ;
                                                   },
-                                                  child: seekerProfileController.viewSeekerData
-                                                      .value.seekerInfo?.documentImg == null || seekerProfileController
-                                                      .viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
+                                                  child: seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
+                                                      seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
                                                   Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
                                                   Image.asset('assets/images/icon_edit.png',height: 18,)
                                               )
@@ -2549,11 +2546,8 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                           SizedBox(height: Get.height*.015,) ,
                                           const Divider(thickness: 0.2, color: AppColors.white,),
-                                          ListTile(title:
-                                          Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                              style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
-                                          ),
+                                          ListTile(title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                              style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                           SizedBox(height: Get.height * 0.02,),
                                           Center(
                                             child: MyButton(
