@@ -2,9 +2,10 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class RangePicker extends StatefulWidget {
-  const RangePicker({super.key});
-  static  double startValue = 25;
-  static double endValue = 75;
+  final dynamic maxSalary ;
+  const RangePicker({super.key, required this.maxSalary});
+  static  double startValue = 1000;
+  static double endValue = 5000;
   @override
   RangePickerState createState() => RangePickerState();
 }
@@ -29,7 +30,7 @@ class RangePickerState extends State<RangePicker> {
                 });
               },
               min: 0.0,
-              max: 10000.0,
+              max: widget.maxSalary,
               divisions: 100,
               labels: RangeLabels('${RangePicker.startValue}', '${ RangePicker.endValue}'),
             ),

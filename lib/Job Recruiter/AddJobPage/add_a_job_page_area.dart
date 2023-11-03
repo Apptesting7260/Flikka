@@ -869,7 +869,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               scrollController.animateTo(typeOfWorkPlaceFocus.context!.size!.height  + Get.height*.75, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
                             } else if (qualification == null) {
                               addJobController.qualificationErrorMessage.value =  "Please select qualification" ;
-                            } else if(LanguageSelectorState.languages.isEmpty  ) {
+                            } else if(LanguageSelectorState.languages.isEmpty) {
                               addJobController.languageErrorMessage.value = "Please select language" ;
                             }
                             else {

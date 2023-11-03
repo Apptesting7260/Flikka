@@ -4,6 +4,8 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../AddJobPage/add_a_job_page_area.dart';
+
 class RecruiterJobs extends StatefulWidget {
   final List<RecruiterJobsData>? recruiterJobsData ;
   final String? company ;
@@ -44,7 +46,20 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
       backgroundColor: const Color(0x000ff000),
         body: SingleChildScrollView(
           child: widget.recruiterJobsData?.length == 0 || widget.recruiterJobsData == null ?
-          Center(child: Text("No jobs available",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),) :
+          Center(
+            child: Column( crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(height: Get.height*.05,),
+              Text("You have not posted any job.",textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),
+             SizedBox(height: Get.height*.1,),
+                GestureDetector(
+                  onTap: () {
+                    Get.to(const AddAJobPage()) ;
+                  },
+                    child: Text("Add a job",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),)),
+              ],
+            ),
+          ) :
           Column(
             children: [
               SizedBox(height: Get.height*.06,),
