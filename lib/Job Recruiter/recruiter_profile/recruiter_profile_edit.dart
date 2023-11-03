@@ -1032,8 +1032,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                                         "employees", ""),
                                                     founded: selectedDateString,
                                                     specialties: aboutySpecialtiesController.text,
-                                                    contactPerson: contactPersonNameController
-                                                        .text
+                                                    contactPerson: contactPersonNameController.text
                                                 );
                                               }
                                             }
