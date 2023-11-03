@@ -23,7 +23,6 @@ class ChooseSkills extends StatefulWidget {
 }
 
 class _ChooseSkillsState extends State<ChooseSkills> {
-  //int? _selectedChooseSkillsIndex;
   List _selectedChooseSkillsIndices = [];
   List _selectedChoosePassionSkills =[];
   List _selectedChoosepreferenceSkills =[];
@@ -37,46 +36,13 @@ class _ChooseSkillsState extends State<ChooseSkills> {
   SeekerChooseSkillsController seekerChooseSkillsController = Get.put(SeekerChooseSkillsController()) ;
   SkipStepController skipStepController = Get.put(SkipStepController()) ;
 
-  final ScrollController _controller = ScrollController();
 
   @override
   void initState() {
     seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
-    RangePicker.startValue = 5000 ;
-    RangePicker.endValue = 10000 ;
+    RangePicker.minValue = 5000 ;
+    RangePicker.maxValue = 10000 ;
     super.initState();
-  }
-  void showSkipDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          contentPadding: EdgeInsets.zero,
-          content: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Row(
-                  children: [
-                    const SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator(backgroundColor: Color(0xff353535),)) ,
-                    SizedBox(width: Get.width*.1,),
-                    Text("Skipping...",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12),) ,
-                  ],
-                )
-              ],
-            ),
-          ),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(15),
-          ),
-        );
-      },
-    );
   }
 
   @override
@@ -120,15 +86,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                         height: Get.height,
                         width: Get.width,
                         // margin: seekerGetAllSkillsController.refreshLoading.value ? const EdgeInsets.only(top : 100) : EdgeInsets.zero,
-                        decoration: const BoxDecoration(
-                          // gradient: LinearGradient(
-                          //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                          //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                          //   begin: Alignment.topLeft,
-                          //   end: Alignment.bottomRight,
-                          // ),
-                            color: AppColors.blueThemeColor
-                        ),
+                        decoration: const BoxDecoration(color: AppColors.blueThemeColor),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -296,19 +254,9 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
-                                                            child: Icon(Icons.check,
+                                                            child: const Icon(Icons.check,
                                                               color: Color(
                                                                   0xffFFFFFF),
                                                               size: 15,),
@@ -349,32 +297,19 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           },),
                                       ),
                                       SizedBox(height: Get.height * .02,),
-                                      Text("Passion", style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .displaySmall),
+                                      Text("Passion", style: Theme.of(context).textTheme.displaySmall),
                                       SizedBox(height: Get.height * .02,),
                                       Obx( () =>
                                         GridView.builder(
-                                          physics: NeverScrollableScrollPhysics(),
-                                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                                          physics: const NeverScrollableScrollPhysics(),
+                                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2, mainAxisExtent: 65),
-                                          itemCount:  seekerGetAllSkillsController
-                                              .seekerGetAllSkillsData.value.passion
-                                              ?.length,
+                                          itemCount:  seekerGetAllSkillsController.seekerGetAllSkillsData.value.passion?.length,
                                           shrinkWrap: true,
                                           itemBuilder: (context, index) {
-
                                             var data =  seekerGetAllSkillsController.seekerGetAllSkillsData.value.passion?[index] ;
-                                            final isSelectedPassion = _selectedChoosePassionSkills
-                                                .contains("${data?.id.toString()}");
+                                            final isSelectedPassion = _selectedChoosePassionSkills.contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedPassion
-                                                ? Color(0xff56B6F6)
-                                                : Color(0xffFFFFFF);
-                                            // final gradient = isSelected
-                                            //     ? LinearGradient(colors: [Color(0xff56B8F6), Color(0xff4D6FED)])
-                                            //     : LinearGradient(colors: [Color(0xffFFFFFF), Color(0xffFFFFFF)]);;
 
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
@@ -415,19 +350,9 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                color: AppColors.blueThemeColor
                                                             ),
-                                                            child: Icon(Icons.check,
+                                                            child: const Icon(Icons.check,
                                                               color: Color(
                                                                   0xffFFFFFF),
                                                               size: 15,),
@@ -486,11 +411,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
 
                                             var data =  seekerGetAllSkillsController
                                                 .seekerGetAllSkillsData.value.industry?[index] ;
-                                            final isSelectedpreference = _selectedChoosepreferenceSkills
-                                                .contains("${data?.id.toString()}");
+                                            final isSelectedpreference = _selectedChoosepreferenceSkills.contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedpreference ? Color(0xff56B6F6)
-                                                : Color(0xffFFFFFF);
 
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
@@ -531,25 +453,12 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
-                                                              color: Color(
-                                                                  0xffFFFFFF),
-                                                              size: 15,),
+                                                              color: Color(0xffFFFFFF), size: 15,),
                                                           ),
-                                                          if (!_selectedChoosepreferenceSkills
-                                                              .contains("${data?.id.toString()}"))
+                                                          if (!_selectedChoosepreferenceSkills.contains("${data?.id.toString()}"))
                                                             Center(
                                                               child: Container(
                                                                 width: Get.width *
@@ -594,20 +503,14 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           physics: const NeverScrollableScrollPhysics(),
                                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                                               crossAxisCount: 2, mainAxisExtent: 65),
-                                          itemCount:  seekerGetAllSkillsController
-                                              .seekerGetAllSkillsData.value.strengths
-                                              ?.length,
+                                          itemCount:  seekerGetAllSkillsController.seekerGetAllSkillsData.value.strengths?.length,
                                           shrinkWrap: true,
                                           itemBuilder: (context, index) {
-
                                             var data =  seekerGetAllSkillsController
                                                 .seekerGetAllSkillsData.value.strengths?[index] ;
                                             final isSelectedstrengths = _selectedChoosestrengthsSkills
                                                 .contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedstrengths
-                                                ? Color(0xff56B6F6)
-                                                : Color(0xffFFFFFF);
 
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
@@ -648,16 +551,6 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
@@ -709,10 +602,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                       SizedBox( height: Get.height * 0.1 ,child:
                                       RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)) ,
                                       SizedBox(height: Get.height * .02,),
-                                      Text("When Can I Start Working?", style: Theme
-                                          .of(context)
-                                          .textTheme
-                                          .displaySmall),
+                                      Text("When Can I Start Working?", style: Theme.of(context).textTheme.displaySmall),
                                       SizedBox(height: Get.height * .02,),
                                       Obx( () =>
                                          GridView.builder(
@@ -730,13 +620,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                             final isSelectedWorking = _selectedChooseworkingSkills
                                                 .contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedWorking
-                                                ? Color(0xff56B6F6)
-                                                : Color(0xffFFFFFF);
-                                            // final gradient = isSelected
-                                            //     ? LinearGradient(colors: [Color(0xff56B8F6), Color(0xff4D6FED)])
-                                            //     : LinearGradient(colors: [Color(0xffFFFFFF), Color(0xffFFFFFF)]);
-                                            return Padding(
+                                              return Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: Get.width * .02,
                                                   vertical: Get.height * .01),
@@ -775,16 +659,6 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(Icons.check,
@@ -844,9 +718,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                             final isSelectedAvailability = _selectedChooseAvailabilitySkills
                                                 .contains("${data?.id.toString()}");
                                             //final isSelected = _selectedChooseSkillsIndex == index;
-                                            final borderColor = isSelectedAvailability
-                                                ? Color(0xff56B6F6)
-                                                : Color(0xffFFFFFF);
+
                                             return Padding(
                                               padding: EdgeInsets.symmetric(
                                                   horizontal: Get.width * .02,
@@ -886,16 +758,6 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                             height: Get.height * .05,
                                                             decoration: const BoxDecoration(
                                                               shape: BoxShape.circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin: Alignment
-                                                              //       .topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
                                                                 color: AppColors.blueThemeColor
                                                             ),
                                                             child: const Icon(
@@ -946,7 +808,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           title: "CONTINUE",
                                           loading: seekerChooseSkillsController.loading.value,
                                           onTap1: () {
-                                            selectedSalary = "${RangePicker.startValue.toInt()} - ${RangePicker.endValue.toInt()}" ;
+                                            selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;
                                             debugPrint("this is =========== $selectedSalary") ;
                                             seekerChooseSkillsController.errorMessage.value = "" ;
                                             if(_selectedChooseSkillsIndices.isEmpty ||
@@ -965,7 +827,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                   _selectedChoosestrengthsSkills,
                                                   _selectedChoosePassionSkills,
                                                   _selectedChoosepreferenceSkills,
-                                                  selectedSalary,
+                                                  RangePicker.minValue.toInt() ,
+                                                  RangePicker.maxValue.toInt() ,
                                                   _selectedChooseworkingSkills,
                                                   _selectedChooseAvailabilitySkills);
                                             }

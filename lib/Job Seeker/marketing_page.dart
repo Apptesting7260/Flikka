@@ -1,4 +1,3 @@
-
 import 'package:flikka/controllers/ApplyJobController/ApplyJobController.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -241,9 +240,17 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  Text(
-                    "${widget.jobData?.language}",
-                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
+                  widget.jobData?.languages == null || widget.jobData?.languages?.length == 0 ?
+                      const SizedBox() :
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.jobData?.languages?.length,
+                    itemBuilder: (context , index) {
+                      var data = widget.jobData?.languages?[index] ;
+                      return Text(data?.languages ?? "",
+                        style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
+                      );
+                    }
                   ),
                   const Divider(
                     color: Colors.grey,

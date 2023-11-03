@@ -1,5 +1,3 @@
-// import 'dart:html';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/SeekerEarningController/SeekerEarningController.dart';
 import 'package:flikka/data/response/status.dart';

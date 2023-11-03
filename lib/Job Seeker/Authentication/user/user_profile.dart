@@ -17,6 +17,7 @@ import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfile
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/utils/RangeSlider.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -886,11 +887,12 @@ class _UserProfileState extends State<UserProfile> {
   //********************* for skill *************
   TextEditingController skillController = TextEditingController();
 
-  salarySection(dynamic selected) {
+  salarySection() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        var selectedSalary = selected ;
+        RangePicker.maxValue = seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary ?? 10000 ;
+        RangePicker.minValue = seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary ?? 5000 ;
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -903,69 +905,7 @@ class _UserProfileState extends State<UserProfile> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Salary expectation", style: Theme.of(context).textTheme.displaySmall,),
-                      SizedBox(
-                        height: Get.height * 0.3,
-                        child: GridView.builder(
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2, mainAxisExtent: 65),
-                          itemCount: skillsController.seekerGetAllSkillsData.value.salaryExpectation?.length ,
-                          shrinkWrap: true,
-                          itemBuilder: (context, index) {
-                            var data = skillsController.seekerGetAllSkillsData.value.salaryExpectation?[index] ;
-
-                            final isSelected = selectedSalary == data?.id.toString();
-
-                            return Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: Get.width * .02,
-                                  vertical: Get.height * .01),
-                              child: GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    selectedSalary = data?.id.toString() ;
-                                  });
-                                },
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(35),
-                                      border: Border.all(color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF))
-                                  ),
-                                  child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      SizedBox(width: Get.width * .02,),
-                                      Stack(alignment: Alignment.center,
-                                        children: [
-                                          Container(
-                                            width: Get.width * .06,
-                                            height: Get.height * .05,
-                                            decoration: const BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                color: AppColors.blueThemeColor
-                                            ),
-                                            child: const Icon(Icons.check,
-                                              color: Color(0xffFFFFFF), size: 15,),),
-                                          if (isSelected != data?.id.toString())
-                                            Center(
-                                              child: Container(width: Get.width * .05,
-                                                height: Get.width * .05,
-                                                decoration: const BoxDecoration(
-                                                  color: Color(0xff000000),
-                                                  shape: BoxShape.circle,),
-                                              ),
-                                            ),
-                                        ],
-                                      ),
-                                      SizedBox(width: Get.width * .02,),
-                                      Expanded(child: Text("${data?.salaryExpectation}",
-                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,
-                                            color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            );
-                          },),
-                      ),
+                     RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),),
                       SizedBox(height: Get.height *0.02,) ,
                       Row(mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -983,7 +923,7 @@ class _UserProfileState extends State<UserProfile> {
                                 height: 40,
                                 loading: editSeekerSoftSkillsController.salaryLoading.value,
                                 onTap1: () {
-                                  editSeekerSoftSkillsController.salaryApi(selectedSalary) ;
+                                  editSeekerSoftSkillsController.salaryApi(RangePicker.minValue , RangePicker.maxValue) ;
                                 },
                                 title: 'Submit',
                               ),
@@ -1173,8 +1113,7 @@ class _UserProfileState extends State<UserProfile> {
                                           "assets/images/icon_upload_cv.png",
                                           width: Get.width * .07,
                                           height: Get.height * .06,
-                                        )
-                                            :
+                                        ) :
                                         SizedBox(width: Get.width * .0),
                                         if (editSeekerResumeController.documentPath.value.isNotEmpty)
                                           SizedBox(
@@ -1593,8 +1532,7 @@ class _UserProfileState extends State<UserProfile> {
                         initialChildSize: 0.5, // half screen
                         minChildSize: 0.5, // half screen
                         maxChildSize: 1, // full screen
-                        builder: (BuildContext context,
-                            ScrollController scrollController) {
+                        builder: (BuildContext context, ScrollController scrollController) {
                           return
                             Container(decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
@@ -2155,13 +2093,10 @@ class _UserProfileState extends State<UserProfile> {
                                           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('Salary expectation',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
+                                                style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                               GestureDetector(
                                                 onTap: () {
-                                                 salarySection( seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName.toString()) ;
+                                                 salarySection() ;
                                                 },
                                                 child: Image.asset("assets/images/icon_edit.png", height: 18,),
                                               )
@@ -2169,11 +2104,8 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.salaryExpectationName ==
-                                              null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.salaryExpectationName?.length == 0 ?
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary?.length == 0 ?
                                           const Text("No Data") :
                                           Container(
                                             decoration: BoxDecoration(
@@ -2182,8 +2114,7 @@ class _UserProfileState extends State<UserProfile> {
                                               color: AppColors.blackdown,
                                             ),
                                             padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
-                                            child: Text('${seekerProfileController.viewSeekerData.value
-                                                .seekerDetails?.salaryExpectationName}',
+                                            child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
                                               overflow: TextOverflow
                                                   .ellipsis,
                                               style: Get.theme.textTheme
@@ -2213,10 +2144,8 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                           SizedBox(
                                             height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName ==
-                                              null ||
-                                              seekerProfileController.viewSeekerData.value
-                                                  .seekerDetails?.startWorkName?.length == 0 ?
+                                          seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
                                           const Text("No Data") :
                                           GridView.builder(gridDelegate:
                                           SliverGridDelegateWithMaxCrossAxisExtent(
@@ -2540,14 +2469,10 @@ class _UserProfileState extends State<UserProfile> {
                                           SizedBox(height: Get.height*.015,) ,
                                           const Divider(thickness: 0.2, color: AppColors.white,),
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerInfo
-                                                  ?.documentImg?.length == 0 ?
+                                              seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
                                           const Text("No Data") :
-                                          ListTile( leading: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" ) ||
-                                         seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".doc" ) ||
-                                         seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".docx" )  ?
-                                              Image.asset("assets/images/doc_icon.png")
-                                          : Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}")  ,
+                                          ListTile( leading: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
+                                          SvgPicture.asset('assets/images/PDF.svg') : Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}")  ,
                                             title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                               style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                           SizedBox(height: Get.height * 0.02,),
@@ -2781,13 +2706,15 @@ class _UserProfileState extends State<UserProfile> {
   Future<void> _openFilePicker(bool resume , String? documentType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.any,
-      // allowedExtensions: ,
+      allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic'],
       allowMultiple: false,
     );
 
     if(result != null) {
       if (resume) {
-        if (result.files.single.path!.toLowerCase().endsWith('.pdf') ) {
+        if (result.files.single.path!.toLowerCase().endsWith('.pdf') ||
+            result.files.single.path!.toLowerCase().endsWith('.doc') ||
+            result.files.single.path!.toLowerCase().endsWith('.docx') ) {
           setState(() {
             resumePath = result.files.single.path!;
             editSeekerResumeController.fileApi(resumePath, true,"");
@@ -2795,13 +2722,9 @@ class _UserProfileState extends State<UserProfile> {
           print(resumePath);
         } else {
           if (resumePath.isEmpty) {
-            // editSeekerResumeController.errorMessage.value =
-            Utils.toastMessage('Please pick a pdf file') ;
-            // 'Please pick a pdf or docx file';
+            Utils.toastMessage('Please pick a file') ;
           } else {
-            // editSeekerResumeController.errorMessage.value =
             Utils.toastMessage('Only pdf file is allowed') ;
-            // 'Only pdf and docx file is allowed';
           }
         }
       }

@@ -187,7 +187,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                 SizedBox(height: Get.height*.01,) ,
                 GestureDetector(
                   onTap: () {
-                    Get.to(() => FilterPage()) ;
+                    Get.to(() => const FilterPage()) ;
                   },
                     child: Image.asset("assets/images/icon_filter_seeker_home.png",height: Get.height*.043,))
               ],
