@@ -2,10 +2,12 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerFilter/filter_page.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../widgets/my_button.dart';
 
@@ -18,6 +20,7 @@ class HomeSwiperWidget extends StatefulWidget {
 }
 
 class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
+
   bool _isValidEmail(String email) {
     final RegExp emailRegex =
     RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
@@ -101,6 +104,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
   @override
   Widget build(BuildContext context) {
     var data = widget.jobData ;
+    var description = parse(data?.description) ;
+    var requirements = parse(data?.requirements) ;
     return Container(
       decoration: BoxDecoration(
           color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
@@ -213,59 +218,29 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data?.jobPositions ?? "Test Data",
+                        data?.jobPositions ?? "",
                         style: Theme.of(context).textTheme.displayLarge,
                         softWrap: true,
                       ),
-                      SizedBox(
-                        height: Get.height * .003,
+                      SizedBox( height: Get.height * .003,),
+                      Text( data?.recruiterDetails?.companyName ?? "",
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),
                       ),
-                      Text(
-                        data?.recruiterDetails?.companyName ?? "Test Data",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                      SizedBox( height: Get.height * 0.03,),
+                      Text( "Job Description",
+                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
                       ),
-                      SizedBox(
-                        height: Get.height * 0.03,
-                      ),
-                      Text(
-                        "Job Description",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                        height: Get.height * .008,
-                      ),
-                      Text(data?.description ?? "Test Data",
+                      SizedBox(height: Get.height * .008,),
+                      Text( CommonFunctions.parseHTML(data?.description) ?? "" ,
                         // overflow: TextOverflow.ellipsis,
                         // softWrap: true,
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),
                       ),
-                      SizedBox(
-                        height: Get.height * 0.03,
-                      ),
-                      Text(
-                        "Requirements",
-                        style: Theme.of(context)
-                            .textTheme
-                            .titleSmall?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                      SizedBox(
-                        height: Get.height * .007,
-                      ),
-                      Text(
-                        data?.requirements ?? "Test Data",
-                        style: Theme.of(context)
-                            .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
-                      ),
+                      SizedBox(height: Get.height * 0.03,),
+                      Text("Requirements", style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
+                      SizedBox(height: Get.height * .007,),
+                      Text( CommonFunctions.parseHTML(data?.requirements) ?? "" ,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),),
                       SizedBox(height: Get.height*.02,),
                     ],
                   ),
