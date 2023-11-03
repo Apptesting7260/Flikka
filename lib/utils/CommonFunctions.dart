@@ -3,7 +3,6 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
-import 'package:path_provider/path_provider.dart';
 import '../widgets/my_button.dart';
 
 class CommonFunctions {
@@ -93,6 +92,13 @@ class CommonFunctions {
       showNotification: true,
       openFileFromNotification: true,
     );
+  }
+
+  static changeToHTML (String string) {
+    String formattedText = string ;
+    List<String> list = formattedText.split('\n');
+    List<String> formattedLines = list.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
+   return formattedText = formattedLines.join('');
   }
 
 }

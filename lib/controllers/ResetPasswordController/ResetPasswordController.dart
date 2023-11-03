@@ -1,4 +1,5 @@
 
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
@@ -38,7 +39,7 @@ class ResetPasswordController extends GetxController {
       // verifyEmail =  emailController.value.text;
       // Utils.snackBar( "Message",value.message.toString());
 
-      Get.offAll(const TabScreen(index: 0,));
+      Get.offAll(const Login());
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;

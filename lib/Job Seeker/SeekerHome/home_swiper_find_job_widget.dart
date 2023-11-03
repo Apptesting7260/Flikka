@@ -146,16 +146,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     child: Container(
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          // gradient: LinearGradient(
-                          //   colors: [
-                          //     Color(0xFF56B8F6),
-                          //     Color(0xFF4D6FED),
-                          //   ],
-                          //   begin: Alignment
-                          //       .topCenter, // Start from the top center
-                          //   end: Alignment
-                          //       .bottomCenter, // End at the bottom center
-                          // ),
                           color: AppColors.blueThemeColor
                         ),
                         child: CircleAvatar(

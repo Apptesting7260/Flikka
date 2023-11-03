@@ -256,7 +256,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                       loading: applyJobController.loading.value,
                       title: "APPLY NOW",
                       onTap1: () {
-                    applyJobController.applyJop("${widget.jobData?.id}") ;
+                    applyJobController.applyJob("${widget.jobData?.id}") ;
                     },),
                   ),
                   SizedBox(height: Get.height*.1,),
