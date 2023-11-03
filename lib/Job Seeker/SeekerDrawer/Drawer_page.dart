@@ -48,210 +48,224 @@ class _DrawerClassState extends State<DrawerClass> {
         body: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
           SingleChildScrollView(
             physics: const NeverScrollableScrollPhysics(),
-            child: Container(
-              //height: Get.height * 1.43,
-              width: Get.width * 0.62,
-              alignment: Alignment.centerLeft,
-              child: Column(
+            child: SizedBox(
+              height: Get.height,
+              width: Get.width,
+              child: Stack(
                 children: [
-                  Center(
+                  GestureDetector(
+                    onTap: () { Get.back() ;},
+                  ) ,
+                  Positioned(
+                    right: 0,
                     child: Container(
-                      height: Get.height*.28,
-                      width: double.infinity,
-                      decoration: const BoxDecoration(
-                          color: AppColors.blueThemeColor
-                      ),
+                      //height: Get.height * 1.43,
+                      width: Get.width * 0.62,
+                      alignment: Alignment.centerRight,
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(height: Get.height*.02,),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 18.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CircleAvatar(
-                                  radius:42,
-                                  backgroundImage: NetworkImage("${widget.profileImage}"),
-                                ),
-                                const SizedBox(
-                                  height: 9,
-                                ),
-                                Text("${widget.name}",
-                                  style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
-                                ),
-                                SizedBox(
-                                  height: Get.height*.002,
-                                ),
-                                Text(
-                                    "${widget.jobTitle}",
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall?.copyWith(color: Color(0xffFFFFFF),fontWeight: FontWeight.w600)
-                                ),
-                                SizedBox(
-                                  height: Get.height*.002,
-                                ),
-                                Text(
-                                  "${widget.location}",
-                                  style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  textAlign: TextAlign.center,
-                                ),
+                          Center(
+                            child: Container(
+                              height: Get.height*.28,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                  color: AppColors.blueThemeColor
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: Get.height*.02,),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 18.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        CircleAvatar(
+                                          radius:42,
+                                          backgroundImage: NetworkImage("${widget.profileImage}"),
+                                        ),
+                                        const SizedBox(
+                                          height: 9,
+                                        ),
+                                        Text("${widget.name}",
+                                          style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),
+                                        ),
+                                        SizedBox(
+                                          height: Get.height*.002,
+                                        ),
+                                        Text(
+                                            "${widget.jobTitle}",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall?.copyWith(color: Color(0xffFFFFFF),fontWeight: FontWeight.w600)
+                                        ),
+                                        SizedBox(
+                                          height: Get.height*.002,
+                                        ),
+                                        Text(
+                                          "${widget.location}",
+                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                          textAlign: TextAlign.center,
+                                        ),
 
-                              ],
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+
+                          Container(
+                            height: Get.height/1.4,
+                            color: const Color(0xff353535),
+                            child: SingleChildScrollView(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: Get.height * 0.04,
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Get.offAll(const TabScreen(index: 0));
+                                    },
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: drawerIcon(homeIcon) ,
+                                    title: Text(
+                                      "Home",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    onTap: () {
+                                      Get.to(() => const UserProfile());
+                                    },
+                                    dense: true,
+                                    leading: drawerIcon(profileIcon) ,
+                                    title: Text(
+                                      "Profile",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    onTap: () {
+                                      Get.to(const MettingListTabbar());
+                                    },
+                                    leading: drawerIcon(interviewIcon),
+                                    title: Text(
+                                      "Interviews",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Get.to(() => const Notification1());
+                                    },
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: drawerIcon(notificationIcon),
+                                    title: Text(
+                                      "Notifications",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Get.to(() =>const SavedPost());
+                                    },
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: drawerIcon(savePostIcon) ,
+                                    title: Text(
+                                      "Save Post",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    onTap: () {
+                                      Get.to( () => const SeekerAppliedJobs()) ;
+                                    },
+                                    leading: drawerIcon(appliedJobsIcon) ,
+                                    title: Text(
+                                      "Applied jobs",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    onTap: (){
+                                      Get.to(() =>const CompanySeekerPage());
+                                    } ,
+                                    dense: true,
+                                    leading: drawerIcon(companyIcon) ,
+                                    title: Text(
+                                      "Companies",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    onTap: (){
+                                      Get.to(() =>const MessagePage());
+                                    } ,
+                                    dense: true,
+                                    leading: drawerIcon(messageIcon) ,
+                                    title: Text(
+                                      "Message",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: drawerIcon(aboutIcon) ,
+                                    title: Text(
+                                      "About",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Get.to(() =>const SettingPage());
+                                    },
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    leading: drawerIcon(settingIcon) ,
+                                    title: Text(
+                                      "Setting",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    onTap: () {
+                                      logoutController.logout() ;
+                                      showLogoutDialog(context)  ;
+                                    },
+                                    leading: drawerIcon(logoutIcon) ,
+                                    title: Text(
+                                      "Logout",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+
+                                  SizedBox(height: Get.height*.2,),
+                                ],
+                              ),
                             ),
                           )
                         ],
                       ),
                     ),
                   ),
-
-                  Container(
-                    height: Get.height/1.4,
-                    color: const Color(0xff353535),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: Get.height * 0.04,
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Get.offAll(const TabScreen(index: 0));
-                            },
-                            horizontalTitleGap:0,
-                            dense: true,
-                            leading: drawerIcon(homeIcon) ,
-                            title: Text(
-                              "Home",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            onTap: () {
-                              Get.to(() => const UserProfile());
-                            },
-                            dense: true,
-                            leading: drawerIcon(profileIcon) ,
-                            title: Text(
-                              "Profile",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            dense: true,
-                            onTap: () {
-                              Get.to(const MettingListTabbar());
-                            },
-                            leading: drawerIcon(interviewIcon),
-                            title: Text(
-                              "Interviews",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Get.to(() => const Notification1());
-                            },
-                            horizontalTitleGap:0,
-                            dense: true,
-                            leading: drawerIcon(notificationIcon),
-                            title: Text(
-                              "Notifications",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Get.to(() =>const SavedPost());
-                            },
-                            horizontalTitleGap:0,
-                            dense: true,
-                            leading: drawerIcon(savePostIcon) ,
-                            title: Text(
-                              "Save Post",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            dense: true,
-                            onTap: () {
-                              Get.to( () => const SeekerAppliedJobs()) ;
-                            },
-                            leading: drawerIcon(appliedJobsIcon) ,
-                            title: Text(
-                              "Applied jobs",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            onTap: (){
-                              Get.to(() =>const CompanySeekerPage());
-                            } ,
-                            dense: true,
-                            leading: drawerIcon(companyIcon) ,
-                            title: Text(
-                              "Companies",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            onTap: (){
-                              Get.to(() =>const MessagePage());
-                            } ,
-                            dense: true,
-                            leading: drawerIcon(messageIcon) ,
-                            title: Text(
-                              "Message",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            dense: true,
-                            leading: drawerIcon(aboutIcon) ,
-                            title: Text(
-                              "About",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Get.to(() =>const SettingPage());
-                            },
-                            horizontalTitleGap:0,
-                            dense: true,
-                            leading: drawerIcon(settingIcon) ,
-                            title: Text(
-                              "Setting",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-                          ListTile(
-                            horizontalTitleGap:0,
-                            dense: true,
-                            onTap: () {
-                              logoutController.logout() ;
-                              showLogoutDialog(context)  ;
-                            },
-                            leading: drawerIcon(logoutIcon) ,
-                            title: Text(
-                              "Logout",
-                              style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                            ),
-                          ),
-
-                          SizedBox(height: Get.height*.2,),
-                        ],
-                      ),
-                    ),
-                  )
                 ],
               ),
             ),

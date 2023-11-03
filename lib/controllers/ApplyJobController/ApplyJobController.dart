@@ -9,9 +9,7 @@ class ApplyJobController extends GetxController {
 
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
-  void applyJop(
-      String id
-      ) async{
+  void applyJob(String id) async{
     loading.value = true ;
 
     Map data = {
@@ -25,10 +23,12 @@ class ApplyJobController extends GetxController {
       if(value.status!){
         // Get.to(() => const ChooseRole()) ;
         Utils.toastMessage( "Successfully Applied") ;
+        Get.back() ;
       }
       else{
         errorMessage.value =  value.message.toString();
         Utils.toastMessage( "${value.message}") ;
+        Get.back() ;
       }
     }).onError((error, stackTrace){
       print(error);

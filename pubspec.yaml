@@ -61,6 +61,7 @@ dependencies:
   image_cropper: ^5.0.0
   cached_network_image: ^3.3.0
   percent_indicator: ^4.2.3
+  html: ^0.15.4
 #  table_calendar: ^2.3.3
 
 
