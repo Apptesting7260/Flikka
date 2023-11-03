@@ -60,7 +60,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
               endDrawer: DrawerRecruiter(),
               appBar: AppBar(
                 title: Text(
-                  'Example Company Inc.',
+                  viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyName ?? "",
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall
@@ -139,7 +139,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                     .value
                                     .recruiterProfileDetails
                                     ?.companyName ??
-                                "No data",
+                                "",
                             style: Theme.of(context)
                                 .textTheme
                                 .headlineSmall

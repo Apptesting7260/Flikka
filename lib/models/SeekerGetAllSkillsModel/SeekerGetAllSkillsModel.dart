@@ -64,7 +64,7 @@ class SeekerSkillsAvailability {
   DateTime? updatedAt;
   String? industryPreferences;
   String? passion;
-  String? salaryExpectation;
+  dynamic salaryExpectation;
   String? skills;
   String? startWork;
   String? strengths;

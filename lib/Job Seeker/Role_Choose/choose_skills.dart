@@ -704,7 +704,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           .textTheme
                                           .displaySmall),
                                       SizedBox(height: Get.height * .02,),
-                                      SizedBox( height: Get.height * 0.1 ,child: const RangePicker()) ,
+                                      SizedBox( height: Get.height * 0.1 ,child:
+                                      RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)) ,
                                       // Obx( () =>
                                       //   GridView.builder(
                                       //     physics: const NeverScrollableScrollPhysics(),
@@ -1030,7 +1031,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           title: "CONTINUE",
                                           loading: seekerChooseSkillsController.loading.value,
                                           onTap1: () {
-                                            selectedSalary = "\$${RangePicker.startValue.toInt()} - \$${RangePicker.endValue.toInt()}" ;
+                                            selectedSalary = "${RangePicker.startValue.toInt()} - ${RangePicker.endValue.toInt()}" ;
                                             debugPrint("this is =========== $selectedSalary") ;
                                             seekerChooseSkillsController.errorMessage.value = "" ;
                                             if(_selectedChooseSkillsIndices.isEmpty ||
