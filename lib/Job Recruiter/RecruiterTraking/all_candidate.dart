@@ -37,12 +37,12 @@ class _AllCandidateState extends State<AllCandidate> {
               Container(
                 padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.008),
                 decoration: BoxDecoration(
-                  color: Color(0xff373737),
+                  color: AppColors.textFieldFilledColor,
                   borderRadius: BorderRadius.circular(33.0),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search, color: Color(0xff56B8F6),size: 27,),
+                    Icon(Icons.search, color: AppColors.blueThemeColor,size: 27,),
                     SizedBox(width: Get.width*.03),
                     Expanded(
                       child: TextFormField(
@@ -74,26 +74,17 @@ class _AllCandidateState extends State<AllCandidate> {
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
                           isExpanded: true,
-                          hint: Row(
-                            children: [
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'Job Type',
-                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                          hint: Text(
+                            'Job Type',
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           items: jobTypeItems
                               .map((String item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text(
                               item,
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ))
@@ -105,9 +96,9 @@ class _AllCandidateState extends State<AllCandidate> {
                             });
                           },
                           buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.065,
+                            height: Get.height*0.06,
                             width: Get.width*.29,
-                            padding: const EdgeInsets.only(left: 14, right: 14),
+                           padding: const EdgeInsets.only(left: 10, right: 5),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(35),
                                 border: Border.all(color: Color(0xff686868))
@@ -115,15 +106,10 @@ class _AllCandidateState extends State<AllCandidate> {
                             ),
                             elevation: 2,
                           ),
-                          iconStyleData:  IconStyleData(
-                            icon: Image.asset('assets/images/arrowdown.png'),
-                            iconSize: 14,
-                            iconEnabledColor: Colors.yellow,
-                            iconDisabledColor: Colors.grey,
-                          ),
+
                           dropdownStyleData: DropdownStyleData(
                             maxHeight: Get.height*0.35,
-                            width: Get.width*0.902,
+                            width: Get.width*.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               color: Color(0xff353535),
@@ -135,36 +121,24 @@ class _AllCandidateState extends State<AllCandidate> {
                               thumbVisibility: MaterialStateProperty.all<bool>(true),
                             ),
                           ),
-                          menuItemStyleData: const MenuItemStyleData(
-                            height: 40,
-                            padding: EdgeInsets.only(left: 14, right: 14),
-                          ),
+
                         ),
                       ),
                       SizedBox(width: Get.width*.02,),
                       DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
                           isExpanded: true,
-                          hint:  Row(
-                            children: [
-                              SizedBox(
-                                width: 4,
-                              ),
-                              Expanded(
-                                child: Text(
-                                  'All',
-                                  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                            ],
+                          hint:  Text(
+                            'All',
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
+                            overflow: TextOverflow.ellipsis,
                           ),
                           items: allTypeItems
                               .map((String item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text(
                               item,
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ))
@@ -176,7 +150,7 @@ class _AllCandidateState extends State<AllCandidate> {
                             });
                           },
                           buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.065,
+                            height: Get.height*0.06,
                             width: Get.width*.29,
                             padding: const EdgeInsets.only(left: 14, right: 14),
                             decoration: BoxDecoration(
@@ -186,15 +160,11 @@ class _AllCandidateState extends State<AllCandidate> {
                             ),
                             elevation: 2,
                           ),
-                          iconStyleData:  IconStyleData(
-                            icon: Image.asset('assets/images/arrowdown.png'),
-                            iconSize: 14,
-                            iconEnabledColor: Colors.yellow,
-                            iconDisabledColor: Colors.grey,
-                          ),
+
                           dropdownStyleData: DropdownStyleData(
+                            padding: const EdgeInsets.only(left: 10, right: 5),
                             maxHeight: Get.height*0.35,
-                            width: Get.width*0.902,
+                            width: Get.width*0.42,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(14),
                               color: Color(0xff353535),
@@ -205,10 +175,6 @@ class _AllCandidateState extends State<AllCandidate> {
                               thickness: MaterialStateProperty.all<double>(6),
                               thumbVisibility: MaterialStateProperty.all<bool>(true),
                             ),
-                          ),
-                          menuItemStyleData: const MenuItemStyleData(
-                            height: 40,
-                            padding: EdgeInsets.only(left: 14, right: 14),
                           ),
                         ),
                       )
