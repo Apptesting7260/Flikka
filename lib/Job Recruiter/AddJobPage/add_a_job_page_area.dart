@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.dart';
 import 'package:flikka/controllers/AddJobController/AddJobController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -796,27 +797,31 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               addJobController.languageErrorMessage.value = "Please select language" ;
                             }
                             else {
+                              var formattedDescriptionText = CommonFunctions.changeToHTML(jobDescriptionController.text) ;
+                              var formattedRequirementText = CommonFunctions.changeToHTML(jobRequirementController.text) ;
+                              debugPrint(formattedDescriptionText) ;
+                              debugPrint(formattedRequirementText) ;
 
-                              String formattedDescriptionText = jobDescriptionController.text ;
-                              List<String> descriptionPara = formattedDescriptionText.split('\n');
-                              List<String> formattedDescription = descriptionPara.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
-                               formattedDescriptionText = formattedDescription.join('');
+                              // String formattedDescriptionText = jobDescriptionController.text ;
+                              // List<String> descriptionPara = formattedDescriptionText.split('\n');
+                              // List<String> formattedDescription = descriptionPara.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
+                              //  formattedDescriptionText = formattedDescription.join('');
 
-                              addJobController.addJobApi(
-                                  imgFile?.path,
-                                  jobTypeTitle,
-                                  jobPositionController.text,
-                                  specializationController.text,
-                                  jobLocationController.text,
-                                  formattedDescriptionText,
-                                  jobRequirementController.text,
-                                  employmentType.toString(),
-                                  workplaceType.toString(),
-                                  experienceController.text,
-                                  preferredExperienceController.text,
-                                  qualification.toString(),
-                                  LanguageSelectorState.languages
-                              );
+                              // addJobController.addJobApi(
+                              //     imgFile?.path,
+                              //     jobTypeTitle,
+                              //     jobPositionController.text,
+                              //     specializationController.text,
+                              //     jobLocationController.text,
+                              //     formattedDescriptionText,
+                              //     jobRequirementController.text,
+                              //     employmentType.toString(),
+                              //     workplaceType.toString(),
+                              //     experienceController.text,
+                              //     preferredExperienceController.text,
+                              //     qualification.toString(),
+                              //     LanguageSelectorState.languages
+                              // );
                             }
                           }
                                 // Get.to(()=> const RequiredSkills());
