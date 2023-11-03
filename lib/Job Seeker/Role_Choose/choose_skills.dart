@@ -1,4 +1,3 @@
-import 'dart:html';
 
 import 'package:flikka/controllers/SeekerChooseSkillsController/SeekerChooseSkillsController.dart';
 import 'package:flikka/controllers/SkipStepController/SkipStepController.dart';
