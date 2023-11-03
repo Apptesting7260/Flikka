@@ -18,7 +18,6 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/utils.dart';
-import 'package:flikka/widgets/PdfViewer.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -26,19 +25,16 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../utils/CommonWidgets.dart';
 import '../../../utils/MultiSelectField.dart';
-import 'create-profile.dart';
 
 
 class UserProfile extends StatefulWidget {
@@ -2496,14 +2492,12 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData
-                                              .value.seekerInfo?.resume == null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value.seekerInfo
-                                                  ?.resume.length == 0 ?
+                                          seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
+                                              seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
                                           const Text("No Data")
                                               : ListTile(
-                                            leading: SvgPicture.asset('assets/images/PDF.svg'),
+                                            leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
+                                            SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
                                             title: Text(
                                               '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}',
                                               overflow: TextOverflow.ellipsis,
@@ -2518,8 +2512,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
                                                 // Get.back() ;
                                               },) ;
-
-                                            },
+                                              },
                                           ),
                                           SizedBox(height: Get.height * .03,),
                                           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -2546,7 +2539,16 @@ class _UserProfileState extends State<UserProfile> {
                                           ),
                                           SizedBox(height: Get.height*.015,) ,
                                           const Divider(thickness: 0.2, color: AppColors.white,),
-                                          ListTile(title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                          seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
+                                              seekerProfileController.viewSeekerData.value.seekerInfo
+                                                  ?.documentImg?.length == 0 ?
+                                          const Text("No Data") :
+                                          ListTile( leading: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" ) ||
+                                         seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".doc" ) ||
+                                         seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".docx" )  ?
+                                              Image.asset("assets/images/doc_icon.png")
+                                          : Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}")  ,
+                                            title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                               style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                           SizedBox(height: Get.height * 0.02,),
                                           Center(

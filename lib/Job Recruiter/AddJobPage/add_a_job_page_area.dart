@@ -81,6 +81,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   void initState() {
     seekerChoosePositionGetController.seekerGetPositionApi(false) ;
     viewLanguageController.viewLanguageApi() ;
+    LanguageSelectorState.languages = [] ;
     super.initState();
   }
 

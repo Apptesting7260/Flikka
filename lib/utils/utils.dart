@@ -47,6 +47,7 @@ class Utils {
         backgroundColor: Colors.blueAccent
     );
     }
+
  static showMessageDialog(BuildContext context , String message) {
   showDialog(
     barrierDismissible: false,
@@ -79,6 +80,7 @@ class Utils {
     },
   );
 }
+
 }
 
 

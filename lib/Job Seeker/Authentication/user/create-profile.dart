@@ -161,6 +161,7 @@ class _CreateProfileState extends State<CreateProfile> {
     _addEducation();
     _addAppreciation();
     viewLanguageController.viewLanguageApi() ;
+    LanguageSelectorState.languages = [] ;
   }
 
   List selectedFields = [];

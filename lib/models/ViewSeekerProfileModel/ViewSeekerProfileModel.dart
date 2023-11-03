@@ -119,7 +119,7 @@ class SeekerDetails {
 
 class SeekerSalaryExpectation {
   dynamic id ;
-  String? salary ;
+  dynamic salary ;
 
   SeekerSalaryExpectation({
     this.id ,
