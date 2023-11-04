@@ -32,8 +32,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
   @override
   void initState() {
     seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
-    RangePicker.minValue = 5000 ;
-    RangePicker.maxValue = 10000 ;
+    RangePicker.minValue = 5000.0 ;
+    RangePicker.maxValue = 10000.0 ;
     super.initState();
   }
 
@@ -728,14 +728,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           ),
                                           SizedBox(
                                             width: Get.width * .02,),
-                                          Expanded(child: Text("${data?.availabity}",
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .labelLarge
-                                                ?.copyWith(
-                                                fontWeight: FontWeight
-                                                    .w700,
+                                          Expanded(child: Text("${data?.availabity}", style: Theme.of(context).textTheme.
+                                            labelLarge?.copyWith(fontWeight: FontWeight.w700,
                                                 color: isSelectedAvailability ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                         ],
                                       ),
@@ -770,11 +764,13 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                   }
                                   else {
                                     requiredSkillsController.requiredSkillsApi(
+                                      Get.arguments["job_id"],
                                         _selectedChooseSkillsIndices,
                                         _selectedChoosestrengthsSkills,
                                         _selectedChoosePassionSkills,
                                         _selectedChoosepreferenceSkills,
-                                        selectedSalary,
+                                        RangePicker.minValue,
+                                        RangePicker.maxValue,
                                         _selectedChooseworkingSkills,
                                         _selectedChooseAvailabilitySkills);
                                   }

@@ -51,10 +51,10 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
             physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (index) => pageChanged(index),
             children: [
-              FindCandidateHomePage(),
-              ApplicantTracking(),
-            CreateJobPost(),
-              MessagePage(),
+              const FindCandidateHomePage(),
+              const ApplicantTracking(),
+            const CreateJobPost(),
+              const MessagePage(),
               RecruiterProfileTabBar(index: widget.profileTabIndex ?? 0,)
             ],
           ),

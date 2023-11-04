@@ -40,4 +40,16 @@ class ViewRecruiterProfileGetController extends GetxController {
     });
   }
 
+
+  Future<void> refreshRecruiterProfileApi() async {
+    _api.viewRecruiterProfile().then((value){
+      viewRecruiterProfile(value);
+      print(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      print(stackTrace);
+    });
+  }
+
 }

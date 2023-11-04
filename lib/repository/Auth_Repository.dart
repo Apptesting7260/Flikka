@@ -85,7 +85,7 @@ class AuthRepository {
   }
 
   Future<RequiredSkillsModel> requiredSkillsApi(var data) async{
-    dynamic response = await _apiService.postApi2(data, AppUrl.addJobSkills);
+    dynamic response = await _apiService.postApi2(data, AppUrl.addUpdateJobSkills);
     return RequiredSkillsModel.fromJson(response);
   }
 
