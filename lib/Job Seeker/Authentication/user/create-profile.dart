@@ -74,12 +74,14 @@ class _CreateProfileState extends State<CreateProfile> {
   Future<void> _openFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['pdf'],
+      allowedExtensions: ['pdf','doc','docx'],
       allowMultiple: false,
     );
 
     if(result != null) {
-      if (result.files.single.path!.toLowerCase().endsWith('.pdf')) {
+      if (result.files.single.path!.toLowerCase().endsWith('.pdf') ||
+          result.files.single.path!.toLowerCase().endsWith('.doc') ||
+          result.files.single.path!.toLowerCase().endsWith('.docx')) {
         setState(() {
           _filePath = result.files.single.path!;
           seekerCreateProfileController.cvErrorMessage.value = '' ;
@@ -88,10 +90,10 @@ class _CreateProfileState extends State<CreateProfile> {
       } else {
         if(_filePath.isEmpty) {
           seekerCreateProfileController.cvErrorMessage.value =
-          'Please pick a pdf file';
+          'Please pick a file';
         }else {
           seekerCreateProfileController.cvErrorMessage.value =
-          'Only pdf file is allowed';
+          'Only pdf or document file is allowed';
         }
       }
     }
@@ -1183,16 +1185,13 @@ class _CreateProfileState extends State<CreateProfile> {
                           ),
                           Text(
                             "Document Type",
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleSmall,
+                            style: Theme.of(context).textTheme.titleSmall,
                           ),
                           SizedBox(height: Get.height * .01,),
                           Container(
                             height: Get.height * 0.076,
                             decoration: BoxDecoration(
-                              color: Color(0xff373737),
+                              color: const Color(0xff373737),
                               borderRadius: BorderRadius.circular(30),
                             ),
                             child: DropdownButtonHideUnderline(
@@ -1394,7 +1393,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           DottedBorder(
                             borderType: BorderType.RRect,
                             radius: const Radius.circular(20),
-                            dashPattern: [5, 5],
+                            dashPattern: const [5, 5],
                             color: const Color(0xffCFCFCF),
                             strokeWidth: 0.7,
                             child: Stack(

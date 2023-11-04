@@ -891,8 +891,8 @@ class _UserProfileState extends State<UserProfile> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        RangePicker.maxValue = seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary ?? 10000 ;
-        RangePicker.minValue = seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary ?? 5000 ;
+        RangePicker.maxValue = double.tryParse("${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}") ?? 10000.0 ;
+        RangePicker.minValue = double.tryParse("${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary}") ?? 5000.0 ;
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
@@ -2105,7 +2105,7 @@ class _UserProfileState extends State<UserProfile> {
                                           SizedBox(
                                             height: Get.height * 0.015,),
                                           seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary?.length == 0 ?
+                                              seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
                                           const Text("No Data") :
                                           Container(
                                             decoration: BoxDecoration(
@@ -2115,13 +2115,10 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                             padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
                                             child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
-                                              overflow: TextOverflow
-                                                  .ellipsis,
-                                              style: Get.theme.textTheme
-                                                  .bodySmall!.copyWith(
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white,
-                                                  fontWeight: FontWeight
-                                                      .w400),),
+                                                  fontWeight: FontWeight.w400),),
                                           ),
                                           //////////////Salary expectation////////
 
