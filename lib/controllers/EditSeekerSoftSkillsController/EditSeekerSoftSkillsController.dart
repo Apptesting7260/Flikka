@@ -44,9 +44,12 @@ class EditSeekerSoftSkillsController extends GetxController {
     }) ;
   }
 
-  salaryApi( dynamic salary) async{
+  salaryApi( dynamic minSalary , dynamic maxSalary ) async{
     salaryLoading(true) ;
-    Map data = {'salary_expectation_id' : salary };
+    Map data = {
+      'min_salary_expectation' : minSalary.toString() ,
+      'max_salary_expectation' : maxSalary.toString() ,
+    };
     print(data);
 
     _api.editSeekerSalaryExpectation(data).then((value){

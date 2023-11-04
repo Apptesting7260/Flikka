@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
+
 GetJobsListingModel getJobsListingFromJson(String str) => GetJobsListingModel.fromJson(json.decode(str));
 
 String getJobsListingToJson(GetJobsListingModel data) => json.encode(data.toJson());
@@ -46,10 +48,10 @@ class SeekerJobsData {
   String? workExperience;
   String? preferredWorkExperience;
   String? education;
-  String? language;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
+  List<LanguageModel>? languages ;
   RecruiterDetails? recruiterDetails;
   JobsDetail? jobsDetail;
 
@@ -67,9 +69,9 @@ class SeekerJobsData {
     this.workExperience,
     this.preferredWorkExperience,
     this.education,
-    this.language,
     this.createdAt,
     this.updatedAt,
+    this.languages ,
     this.jobPositions,
     this.recruiterDetails,
     this.jobsDetail,
@@ -89,9 +91,9 @@ class SeekerJobsData {
     workExperience: json["work_experience"],
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
-    language: json["language"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
+    languages: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
     jobPositions: json["job_positions"],
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),
@@ -111,7 +113,6 @@ class SeekerJobsData {
     "work_experience": workExperience,
     "preferred_work_experience": preferredWorkExperience,
     "education": education,
-    "language": language,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "job_positions": jobPositions,
@@ -280,10 +281,8 @@ class RecruiterDetails {
   String? companyName;
   String? companyLocation;
   String? addBio;
-  dynamic homeTitle;
   String? homeDescription;
   String? websiteLink;
-  dynamic aboutTitle;
   String? aboutDescription;
   String? industry;
   String? companySize;
@@ -300,10 +299,8 @@ class RecruiterDetails {
     this.companyName,
     this.companyLocation,
     this.addBio,
-    this.homeTitle,
     this.homeDescription,
     this.websiteLink,
-    this.aboutTitle,
     this.aboutDescription,
     this.industry,
     this.companySize,
@@ -321,10 +318,8 @@ class RecruiterDetails {
     companyName: json["company_name"],
     companyLocation: json["company_location"],
     addBio: json["add_bio"],
-    homeTitle: json["home_title"],
     homeDescription: json["home_description"],
     websiteLink: json["website_link"],
-    aboutTitle: json["about_title"],
     aboutDescription: json["about_description"],
     industry: json["industris"],
     companySize: json["company_size"],
@@ -342,10 +337,8 @@ class RecruiterDetails {
     "company_name": companyName,
     "company_location": companyLocation,
     "add_bio": addBio,
-    "home_title": homeTitle,
     "home_description": homeDescription,
     "website_link": websiteLink,
-    "about_title": aboutTitle,
     "about_description": aboutDescription,
     "industris": industry,
     "company_size": companySize,

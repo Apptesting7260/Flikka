@@ -172,6 +172,7 @@ class _CreateProfileState extends State<CreateProfile> {
     SharedPreferences sp = await SharedPreferences.getInstance();
     nameController.text = sp.getString("name")!;
   }
+
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   var DocumentType;
   final List selectDocumentType = [
@@ -210,11 +211,8 @@ class _CreateProfileState extends State<CreateProfile> {
                         children: [
                           Row(
                             children: [
-                              SizedBox(
-                                height: Get.height * .13,
-                              ),
-                              Align(
-                                  alignment: Alignment.topLeft,
+                              SizedBox( height: Get.height * .13,),
+                              Align( alignment: Alignment.topLeft,
                                   child: InkWell(
                                       onTap: () {
                                         Get.back();
@@ -223,9 +221,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                         "assets/images/icon_back_blue.png",
                                         height: Get.height * .05,
                                       ))),
-                              SizedBox(
-                                width: Get.width * .04,
-                              ),
+                              SizedBox(width: Get.width * .04,),
                               Text(
                                 "Create Profile",
                                 style: Theme
@@ -295,9 +291,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: Get.height * .03,
-                          ),
+                          SizedBox(height: Get.height * .03,),
                           Center(
                               child: Text(
                                 "Select Profile image",
@@ -433,18 +427,10 @@ class _CreateProfileState extends State<CreateProfile> {
                                       companyController: column.textController2,
                                       onFieldSubmitted: (value) {
                                         if (!value) {
-                                          // if(workExperienceList.length !=0 ){
-                                          //   workExperienceList[index] = {
-                                          //     "work_exp_job":
-                                          //     column.textController1.text,
-                                          //     "company_name":
-                                          //     column.textController2.text,
-                                          //     "job_start_date":
-                                          //     column.startDate.toString(),
-                                          //     "job_end_date":
-                                          //     column.endDate.toString()
-                                          //   } ;
-                                          // }
+                                          if(workExperienceList.isNotEmpty ){
+                                            workExperienceList[index]["work_exp_job"] = column.textController1.text ;
+                                            workExperienceList[index]["company_name"] = column.textController2.text ;
+                                          }
                                         }
                                       },
                                       remove: () {
@@ -468,13 +454,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                               children: [
                                                 Align(
                                                   alignment: Alignment.topLeft,
-                                                  child: CommonWidgets
-                                                      .textFieldHeading(
-                                                      context, "Start date"),
+                                                  child: CommonWidgets.textFieldHeading(context, "Start date"),
                                                 ),
-                                                SizedBox(
-                                                  height: Get.height * .01,
-                                                ),
+                                                SizedBox(height: Get.height * .01,),
 
                                                 // DatePickerWidget(
                                                 //   form: column.startDateForm,
@@ -497,64 +479,67 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: " Enter start date", firstDate: DateTime(1990),),
-                                                TextFormField(controller: column.startDateController,
-                                                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                      color: const Color(0xffCFCFCF), fontSize: 12, fontWeight: FontWeight.w400),
-                                                  onTap: () {
-                                                    seekerCreateProfileController
-                                                        .selectStartDateExperienceErrorMessage
-                                                        .value = "";
-                                                    _selectDate(
-                                                        context, DateTime(1990),
-                                                        1, column
-                                                        .startDateController);
-                                                  },
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    errorStyle: const TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight: FontWeight
-                                                            .w300,
-                                                        fontSize: 12),
-                                                    constraints: const BoxConstraints(
-                                                      //maxWidth: Get.width * 0.41,
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: const Color(
-                                                        0xff373737),
-                                                    hintText: "Select date",
-                                                    contentPadding: EdgeInsets
-                                                        .symmetric(
-                                                        vertical: Get.height *
-                                                            .027,
-                                                        horizontal: Get.width *
-                                                            .06),
-                                                    hintStyle: Theme
-                                                        .of(context)
-                                                        .textTheme
-                                                        .bodyLarge
-                                                        ?.copyWith(
-                                                        color: Color(0xffCFCFCF),
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight
-                                                            .w400),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(35),
-                                                        borderSide: BorderSide
-                                                            .none),
-                                                    suffixIcon: const Icon(
-                                                      Icons.calendar_month,
-                                                      size: 13,
-                                                    ),
-                                                  ),
-                                                  validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      return 'Select start date';
+                                                Focus(
+                                                  onFocusChange: (value) {
+                                                    if(workExperienceList.isNotEmpty) {
+                                                      workExperienceList[index]["job_start_date"] = column.startDateController.text ;
                                                     }
-                                                    return null;
                                                   },
+                                                  child: TextFormField(
+                                                    controller: column.startDateController,
+                                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                        color: const Color(0xffCFCFCF), fontSize: 12, fontWeight: FontWeight.w400),
+                                                    onTap: () {
+                                                      seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "";
+                                                      _selectDate(context, DateTime(1990), 1, column.startDateController);
+                                                    },
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      errorStyle: const TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight: FontWeight
+                                                              .w300,
+                                                          fontSize: 12),
+                                                      constraints: const BoxConstraints(
+                                                        //maxWidth: Get.width * 0.41,
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: const Color(
+                                                          0xff373737),
+                                                      hintText: "Select date",
+                                                      contentPadding: EdgeInsets
+                                                          .symmetric(
+                                                          vertical: Get.height *
+                                                              .027,
+                                                          horizontal: Get.width *
+                                                              .06),
+                                                      hintStyle: Theme
+                                                          .of(context)
+                                                          .textTheme
+                                                          .bodyLarge
+                                                          ?.copyWith(
+                                                          color: Color(0xffCFCFCF),
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight
+                                                              .w400),
+                                                      border: OutlineInputBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(35),
+                                                          borderSide: BorderSide
+                                                              .none),
+                                                      suffixIcon: const Icon(
+                                                        Icons.calendar_month,
+                                                        size: 13,
+                                                      ),
+                                                    ),
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) {
+                                                        return 'Select start date';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
                                                 ),
                                                 SizedBox(height: Get.height *0.01,),
                                                 index == experienceData.length - 1
@@ -566,45 +551,21 @@ class _CreateProfileState extends State<CreateProfile> {
                                                         seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select date";
                                                       } else {_addExperience();
                                                         if (workExperienceList.length < index + 1) {
-                                                          workExperienceList
-                                                              .add({
-                                                            "work_exp_job": column
-                                                                .textController1
-                                                                .text,
-                                                            "company_name": column
-                                                                .textController2
-                                                                .text,
-                                                            "job_start_date": column
-                                                                .startDateController
-                                                                .text,
-                                                            "job_end_date": column
-                                                                .present
-                                                                ? "present"
-                                                                : column
-                                                                .endDateController
-                                                                .text,
+                                                          workExperienceList.add({
+                                                            "work_exp_job": column.textController1.text,
+                                                            "company_name": column.textController2.text,
+                                                            "job_start_date": column.startDateController.text,
+                                                            "job_end_date": column.present ? "present" : column.endDateController.text,
                                                           });
                                                           print(
                                                               workExperienceList);
                                                         } else
                                                         if (workExperienceList.length == index + 1) {
                                                           workExperienceList[index] =
-                                                          {
-                                                            "work_exp_job": column
-                                                                .textController1
-                                                                .text,
-                                                            "company_name": column
-                                                                .textController2
-                                                                .text,
-                                                            "job_start_date": column
-                                                                .startDateController
-                                                                .text,
-                                                            "job_end_date": column
-                                                                .present
-                                                                ? "present"
-                                                                : column
-                                                                .endDateController
-                                                                .text,
+                                                          {"work_exp_job": column.textController1.text,
+                                                            "company_name": column.textController2.text,
+                                                            "job_start_date": column.startDateController.text,
+                                                            "job_end_date": column.present ? "present" : column.endDateController.text,
                                                           };
                                                         }
                                                         setState(() {
@@ -627,13 +588,9 @@ class _CreateProfileState extends State<CreateProfile> {
                                               children: [
                                                 Align(
                                                   alignment: Alignment.topLeft,
-                                                  child: CommonWidgets
-                                                      .textFieldHeading(
-                                                      context, "End date"),
+                                                  child: CommonWidgets.textFieldHeading(context, "End date"),
                                                 ),
-                                                SizedBox(
-                                                  height: Get.height * .01,
-                                                ),
+                                                SizedBox(height: Get.height * .01,),
 
                                                 // DatePickerWidget(
                                                 //   form: column.endDateForm,
@@ -656,63 +613,65 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: column.startDate,),
-                                                TextFormField(
-                                                  controller: column.endDateController,
-                                                  style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      color: Color(0xffCFCFCF),
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .w400),
-                                                  onTap: () {
-                                                    if(column.present){}
-                                                  else {
-                                                  if (column.startDateController.text.isEmpty) {
-                                                    seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select start date";
-                                                  } else {seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "";
-                                                    _selectDate(context, startDateExperience, 2, column.endDateController);
-                                                  }
-                                                }
-                                              },
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    constraints: const BoxConstraints(
-                                                      //maxWidth: Get.width * 0.41,
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: const Color(
-                                                        0xff373737),
-                                                    hintText: "Select date",
-                                                    contentPadding: EdgeInsets
-                                                        .symmetric(
-                                                        vertical: Get.height *
-                                                            .027,
-                                                        horizontal: Get.width *
-                                                            .06),
-                                                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                        color: const Color(0xffCFCFCF),
-                                                        fontSize: 12,
-                                                        fontWeight: FontWeight.w400),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                        BorderRadius.circular(35),
-                                                        borderSide: BorderSide
-                                                            .none
-                                                    ),
-                                                    suffixIcon: const Icon(
-                                                      Icons.calendar_month,
-                                                      size: 13,
-                                                    ),
-                                                  ),
-                                                  validator: (value) {
-                                                    //   if (value == null || value.isEmpty) {
-                                                    //     return seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = 'Select date';
-                                                    // }
-                                                    return null;
+                                                Focus(
+                                                  onFocusChange: (value) {
+                                                    if(!value) {
+                                                      if(workExperienceList.isNotEmpty) {
+                                                        workExperienceList[index]["job_end_date"] = column.endDateController.text ;
+                                                      }
+                                                      debugPrint(workExperienceList[index]) ;
+                                                    }
                                                   },
+                                                  child: TextFormField(
+                                                    controller: column.endDateController,
+                                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: const Color(0xffCFCFCF), fontSize: 12, fontWeight: FontWeight.w400),
+                                                    onTap: () {
+                                                      if(column.present){}
+                                                    else {
+                                                    if (column.startDateController.text.isEmpty) {
+                                                      seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "Select start date";
+                                                    } else {seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = "";
+                                                      _selectDate(context, DateTime.parse(column.startDateController.text), 2, column.endDateController);
+                                                    }
+                                                  }
+                                              },
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      constraints: const BoxConstraints(
+                                                        //maxWidth: Get.width * 0.41,
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: const Color(
+                                                          0xff373737),
+                                                      hintText: "Select date",
+                                                      contentPadding: EdgeInsets
+                                                          .symmetric(
+                                                          vertical: Get.height *
+                                                              .027,
+                                                          horizontal: Get.width *
+                                                              .06),
+                                                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                          color: const Color(0xffCFCFCF),
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w400),
+                                                      border: OutlineInputBorder(
+                                                          borderRadius:
+                                                          BorderRadius.circular(35),
+                                                          borderSide: BorderSide
+                                                              .none
+                                                      ),
+                                                      suffixIcon: const Icon(
+                                                        Icons.calendar_month,
+                                                        size: 13,
+                                                      ),
+                                                    ),
+                                                    validator: (value) {
+                                                      //   if (value == null || value.isEmpty) {
+                                                      //     return seekerCreateProfileController.selectStartDateExperienceErrorMessage.value = 'Select date';
+                                                      // }
+                                                      return null;
+                                                    },
+                                                  ),
                                                 ),
                                                 // SizedBox(
                                                 //   height: Get.height * .01,
@@ -791,19 +750,22 @@ class _CreateProfileState extends State<CreateProfile> {
                               itemCount: educationData.length,
                               itemBuilder: (context, index) {
                                 final education = educationData[index];
-                                educationLevelController = education
-                                    .textController1;
-                                institutionNameController = education
-                                    .textController2;
+                                educationLevelController = education.textController1;
+                                institutionNameController = education.textController2;
                                 return Column(
                                   children: [
                                     addMoreFieldEducation(
                                       index: index,
-                                      educationLevelController: education
-                                          .textController1,
-                                      institutionNameController: education
-                                          .textController2,
-                                      onFieldSubmitted: (value) {},
+                                      educationLevelController: education.textController1,
+                                      institutionNameController: education.textController2,
+                                      onFieldSubmitted: (value) {
+                                        if (!value) {
+                                          if(educationList.isNotEmpty ){
+                                            educationList[index]["education_level"] = education.textController1.text ;
+                                            educationList[index]["institution_name"] = education.textController2.text ;
+                                          }
+                                        }
+                                      },
                                       remove: () {
                                         setState(() {
                                           educationData.removeAt(index);
@@ -850,47 +812,17 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: " Enter start date", firstDate: DateTime(1990),),
-                                                TextFormField(
-                                                  controller: education.startDateController,
-                                                  style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      color: Color(0xffCFCFCF),
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight
-                                                          .w400),
-                                                  onTap: () {
-                                                    seekerCreateProfileController
-                                                        .selectStartDateEducationErrorMessage
-                                                        .value = "";
-                                                    _selectDate(
-                                                        context, DateTime(1990),
-                                                        3, education
-                                                        .startDateController);
+                                                Focus(
+                                                  onFocusChange: (value) {
+                                                    if(!value){
+                                                      if(educationList.isNotEmpty ){
+                                                        educationList[index]["education_start_date"] = education.startDateController.text ; 
+                                                      }
+                                                    }
                                                   },
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    errorStyle: const TextStyle(
-                                                        color: Colors.red,
-                                                        fontWeight: FontWeight
-                                                            .w300,
-                                                        fontSize: 12),
-                                                    constraints: const BoxConstraints(
-                                                      //maxWidth: Get.width * 0.41,
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: const Color(
-                                                        0xff373737),
-                                                    hintText: "Select date",
-                                                    contentPadding: EdgeInsets
-                                                        .symmetric(
-                                                        vertical: Get.height *
-                                                            .027,
-                                                        horizontal: Get.width *
-                                                            .06),
-                                                    hintStyle: Theme
+                                                  child: TextFormField(
+                                                    controller: education.startDateController,
+                                                    style: Theme
                                                         .of(context)
                                                         .textTheme
                                                         .bodyLarge
@@ -899,23 +831,62 @@ class _CreateProfileState extends State<CreateProfile> {
                                                         fontSize: 12,
                                                         fontWeight: FontWeight
                                                             .w400),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius
-                                                            .circular(35),
-                                                        borderSide: BorderSide
-                                                            .none),
-                                                    suffixIcon: const Icon(
-                                                      Icons.calendar_month,
-                                                      size: 13,
+                                                    onTap: () {
+                                                      seekerCreateProfileController
+                                                          .selectStartDateEducationErrorMessage
+                                                          .value = "";
+                                                      _selectDate(
+                                                          context, DateTime(1990),
+                                                          3, education
+                                                          .startDateController);
+                                                    },
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      errorStyle: const TextStyle(
+                                                          color: Colors.red,
+                                                          fontWeight: FontWeight
+                                                              .w300,
+                                                          fontSize: 12),
+                                                      constraints: const BoxConstraints(
+                                                        //maxWidth: Get.width * 0.41,
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: const Color(
+                                                          0xff373737),
+                                                      hintText: "Select date",
+                                                      contentPadding: EdgeInsets
+                                                          .symmetric(
+                                                          vertical: Get.height *
+                                                              .027,
+                                                          horizontal: Get.width *
+                                                              .06),
+                                                      hintStyle: Theme
+                                                          .of(context)
+                                                          .textTheme
+                                                          .bodyLarge
+                                                          ?.copyWith(
+                                                          color: Color(0xffCFCFCF),
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight
+                                                              .w400),
+                                                      border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius
+                                                              .circular(35),
+                                                          borderSide: BorderSide
+                                                              .none),
+                                                      suffixIcon: const Icon(
+                                                        Icons.calendar_month,
+                                                        size: 13,
+                                                      ),
                                                     ),
+                                                    validator: (value) {
+                                                      if (value == null ||
+                                                          value.isEmpty) {
+                                                        return 'Select start date';
+                                                      }
+                                                      return null;
+                                                    },
                                                   ),
-                                                  validator: (value) {
-                                                    if (value == null ||
-                                                        value.isEmpty) {
-                                                      return 'Select start date';
-                                                    }
-                                                    return null;
-                                                  },
                                                 ),
                                                 SizedBox(
                                                   height: Get.height * .01,
@@ -995,65 +966,74 @@ class _CreateProfileState extends State<CreateProfile> {
                                                 //     });
                                                 //   },
                                                 //   hint: "Enter end date", firstDate: DateTime(2000),),
-                                                TextFormField(
-                                                  controller: education.endDateController,
-                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                  style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      color: Color(0xffCFCFCF),
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w400),
-                                                  onTap: () {
-                                                    if(education.present){}
-                                                   else {
-                                                      if (education.startDateController.text.isEmpty) {
-                                                        seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "Select start date";
-                                                      } else {   seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "" ;
-                                                        _selectDate(context, startDateEducation, 4, education.endDateController);
-                                                        print("this is after selection $startDateEducation");
+                                                Focus(
+                                                  onFocusChange: (value) {
+                                                    if(!value){
+                                                      if(educationList.isNotEmpty ){
+                                                        educationList[index]["education_end_date"] = education.endDateController.text ;
                                                       }
                                                     }
                                                   },
-                                                  readOnly: true,
-                                                  decoration: InputDecoration(
-                                                    constraints: const BoxConstraints(
-                                                      //maxWidth: Get.width * 0.41,
-                                                    ),
-                                                    filled: true,
-                                                    fillColor: const Color(
-                                                        0xff373737),
-                                                    hintText: "Select date",
-                                                    contentPadding: EdgeInsets
-                                                        .symmetric(
-                                                        vertical: Get.height *
-                                                            .027,
-                                                        horizontal: Get.width *
-                                                            .06),
-                                                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                                        color: const Color(0xffCFCFCF),
+                                                  child: TextFormField(
+                                                    controller: education.endDateController,
+                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                    style: Theme
+                                                        .of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.copyWith(
+                                                        color: Color(0xffCFCFCF),
                                                         fontSize: 12,
                                                         fontWeight: FontWeight.w400),
-                                                    border: OutlineInputBorder(
-                                                        borderRadius: BorderRadius
-                                                            .circular(35),
-                                                        borderSide: BorderSide
-                                                            .none),
-                                                    suffixIcon: const Icon(
-                                                      Icons.calendar_month,
-                                                      size: 13,
+                                                    onTap: () {
+                                                      if(education.present){}
+                                                     else {
+                                                        if (education.startDateController.text.isEmpty) {
+                                                          seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "Select start date";
+                                                        } else {   seekerCreateProfileController.selectStartDateEducationErrorMessage.value = "" ;
+                                                          _selectDate(context, DateTime.parse(education.startDateController.text), 4, education.endDateController);
+                                                          print("this is after selection $startDateEducation");
+                                                        }
+                                                      }
+                                                    },
+                                                    readOnly: true,
+                                                    decoration: InputDecoration(
+                                                      constraints: const BoxConstraints(
+                                                        //maxWidth: Get.width * 0.41,
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: const Color(
+                                                          0xff373737),
+                                                      hintText: "Select date",
+                                                      contentPadding: EdgeInsets
+                                                          .symmetric(
+                                                          vertical: Get.height *
+                                                              .027,
+                                                          horizontal: Get.width *
+                                                              .06),
+                                                      hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                                          color: const Color(0xffCFCFCF),
+                                                          fontSize: 12,
+                                                          fontWeight: FontWeight.w400),
+                                                      border: OutlineInputBorder(
+                                                          borderRadius: BorderRadius
+                                                              .circular(35),
+                                                          borderSide: BorderSide
+                                                              .none),
+                                                      suffixIcon: const Icon(
+                                                        Icons.calendar_month,
+                                                        size: 13,
+                                                      ),
                                                     ),
-                                                  ),
-                                                  validator: (value) {
+                                                    validator: (value) {
                                           //           if(seekerCreateProfileController.selectStartDateEducationErrorMessage.value.isEmpty) {
                                           //   if (value == null || value.isEmpty) {
                                           //     return 'Select date';
                                           //   }
                                           // }
                                           // return null;
-                                                  },
+                                                    },
+                                                  ),
                                                 ),
                                                 index == educationData.length - 1
                                                     ? Obx(() =>
@@ -1144,19 +1124,22 @@ class _CreateProfileState extends State<CreateProfile> {
                             itemCount: appreciationData.length,
                             itemBuilder: (context, index) {
                               final appreciation = appreciationData[index];
-                              awardNameController = appreciation
-                                  .textController1;
-                              achievementController = appreciation
-                                  .textController2;
+                              awardNameController = appreciation.textController1;
+                              achievementController = appreciation.textController2;
                               return Column(
                                 children: [
                                   addMoreFieldAppreciation(
                                     index: index,
-                                    awardController: appreciation
-                                        .textController1,
-                                    achievementController: appreciation
-                                        .textController2,
-                                    onFieldSubmitted: (value) {},
+                                    awardController: appreciation.textController1,
+                                    achievementController: appreciation.textController2,
+                                    onFieldSubmitted: (value) {
+                                      if(!value){
+                                        if(appreciationList.isNotEmpty){
+                                          appreciationList[index]["award_name"] = appreciation.textController1.text ;
+                                          appreciationList[index]["achievement"] = appreciation.textController2.text ;
+                                        }
+                                      }
+                                    },
                                     remove: () {
                                       setState(() {
                                         appreciationData.removeAt(index);

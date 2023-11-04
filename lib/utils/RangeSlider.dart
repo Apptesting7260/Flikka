@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class RangePicker extends StatefulWidget {
   final dynamic maxSalary ;
   const RangePicker({super.key, required this.maxSalary});
-  static  double startValue = 1000;
-  static double endValue = 5000;
+  static  double minValue = 1000;
+  static double maxValue = 5000;
   @override
   RangePickerState createState() => RangePickerState();
 }
@@ -22,20 +22,20 @@ class RangePickerState extends State<RangePicker> {
         children: [ Flexible(
           child: RangeSlider(
               activeColor: AppColors.blueThemeColor,
-              values: RangeValues(RangePicker.startValue, RangePicker.endValue),
+              values: RangeValues(RangePicker.minValue, RangePicker.maxValue),
               onChanged: (RangeValues values) {
                 setState(() {
-                  RangePicker.startValue = values.start;
-                  RangePicker.endValue = values.end;
+                  RangePicker.minValue = values.start;
+                  RangePicker.maxValue = values.end;
                 });
               },
               min: 0.0,
               max: widget.maxSalary,
               divisions: 100,
-              labels: RangeLabels('${RangePicker.startValue}', '${ RangePicker.endValue}'),
+              labels: RangeLabels('${RangePicker.minValue}', '${ RangePicker.maxValue}'),
             ),
         ),
-          Text('Selected Range: ${RangePicker.startValue.toInt()} - ${RangePicker.endValue.toInt()}'),
+          Text('Selected Range: ${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}'),
         ],
       ),
     );

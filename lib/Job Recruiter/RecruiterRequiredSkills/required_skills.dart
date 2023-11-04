@@ -32,8 +32,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
   @override
   void initState() {
     seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
-    RangePicker.startValue = 5000 ;
-    RangePicker.endValue = 10000 ;
+    RangePicker.minValue = 5000 ;
+    RangePicker.maxValue = 10000 ;
     super.initState();
   }
 
@@ -749,7 +749,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                 title: "CONTINUE",
                                 loading: requiredSkillsController.loading.value,
                                 onTap1: () {
-                                  selectedSalary = "${RangePicker.startValue.toInt()} - ${RangePicker.endValue.toInt()}" ;
+                                  selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;
                                   debugPrint("this is =========== $selectedSalary") ;
                                   requiredSkillsController.errorMessage.value = "" ;
                                   if(_selectedChooseSkillsIndices.isEmpty ||

@@ -56,8 +56,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      switch (getJobsListingController
-          .rxRequestStatus.value) {
+      switch (getJobsListingController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Scaffold(
             body: Center(
@@ -65,20 +64,15 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
           );
 
         case Status.ERROR:
-          if (getJobsListingController
-              .error.value ==
-              'No internet') {
+          if (getJobsListingController.error.value == 'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
               onPress: () {},
             ),);
-          } else if (getJobsListingController
-          .error.value == 'Request Time out') {
+          } else if (getJobsListingController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
-          } else if (getJobsListingController
-              .error.value == "Internal server error") {
+          } else if (getJobsListingController.error.value == "Internal server error") {
             return Scaffold(body: ServerErrorWidget(onPress: () {}),);
-          } else if (getJobsListingController.
-          error.value == "Unauthorised Request") {
+          } else if (getJobsListingController.error.value == "Unauthorised Request") {
             return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
           }else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);

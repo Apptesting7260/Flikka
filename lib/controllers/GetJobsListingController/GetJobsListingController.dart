@@ -25,6 +25,7 @@ class GetJobsListingController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
+      print(stackTrace.toString());
       setRxRequestStatus(Status.ERROR);
     });
   }
