@@ -33,7 +33,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
     super.dispose();
   }
   List<String> cards = [
-    'assets/images/swiperbg.png', 'assets/images/swiperbg.png',
+    'assets/images/icon_view_recruiter_job_background.png', 'assets/images/icon_view_recruiter_job_background.png',
   ];
 
   GetJobsListingController getJobsListingController = GetJobsListingController() ;

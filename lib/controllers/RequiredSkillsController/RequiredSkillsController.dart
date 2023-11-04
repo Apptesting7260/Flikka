@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
-import 'package:flikka/Job%20Recruiter/company_shared_job.dart';
+import 'package:flikka/Job%20Recruiter/ViewRecruiterJob.dart';
 import 'package:get/get.dart';
 import '../../Job Seeker/Authentication/user/create-profile.dart';
 import '../../data/response/status.dart';

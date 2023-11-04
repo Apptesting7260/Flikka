@@ -2,7 +2,7 @@
 
 import 'package:dotted_border/dotted_border.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:flikka/Job%20Recruiter/company_shared_job.dart';
+import 'package:flikka/Job%20Recruiter/ViewRecruiterJob.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -1465,7 +1465,7 @@ class _AddJobPageDownState extends State<AddJobPageDown> {
                         .copyWith(color: AppColors.white),
                     title: 'Continue',
                     onTap1: () {
-                      Get.to(()=>const CompanyRecruiter());
+                      Get.to(()=>const ViewRecruiterJob());
                     }),
               ),
               SizedBox(

@@ -901,13 +901,18 @@ class _UserProfileState extends State<UserProfile> {
             child: StatefulBuilder(
                 builder: (context , setState) {
                   return Column(
-                    mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      SizedBox(height: Get.height *0.01,) ,
                       Text("Salary expectation", style: Theme.of(context).textTheme.displaySmall,),
-                     RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),),
+                      SizedBox(height: Get.height *0.01,) ,
+                      SizedBox(
+                        height: Get.height*.12,
+                          child: RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),)),
                       SizedBox(height: Get.height *0.02,) ,
-                      Row(mainAxisAlignment: MainAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           MyButton(
                             width: 100,
@@ -927,12 +932,16 @@ class _UserProfileState extends State<UserProfile> {
                                 },
                                 title: 'Submit',
                               ),
+                            // Text("Salary expectation", style: Theme.of(context).textTheme.displaySmall,),
+                            // RangePicker(maxSalary: double.tryParse(seekerGetAllSkillsController.seekerGetAllSkillsData.value.salaryExpectation![0].salaryExpectation.toString()),),
+                            // SizedBox(height: Get.height *0.02,) ,
                           ),
                         ],
                       ),
-                      SizedBox(height: Get.height * 0.02,),
+                      SizedBox(height: Get.height *0.02,) ,
                     ],
                   );
+
                 }
             ),
           ),

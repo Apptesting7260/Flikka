@@ -209,7 +209,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                           itemBuilder: (context, index) {
                                             var data = seekerGetAllSkillsController
                                                 .seekerGetAllSkillsData.value
-                                                .softSkill?[index];
+                                                .softSkill?[index] ;
                                             final isSelected = _selectedChooseSkillsIndices
                                                 .contains("${data?.id.toString()}");
                                             final borderColor = isSelected ? Color(

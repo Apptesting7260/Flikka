@@ -22,7 +22,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
     super.dispose();
   }
   List<String> cards = [
-    'assets/images/swiperbg.png', 'assets/images/swiperbg.png',
+    'assets/images/icon_view_recruiter_job_background.png', 'assets/images/icon_view_recruiter_job_background.png',
   ];
   @override
   Widget build(BuildContext context) {
