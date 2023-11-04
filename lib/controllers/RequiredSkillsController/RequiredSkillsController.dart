@@ -18,22 +18,26 @@ class RequiredSkillsController extends GetxController {
   var errorMessage = "".obs ;
 
   requiredSkillsApi (
+      dynamic jobId ,
       List? skills ,
       List? strengths ,
       List? passion ,
       List? industryPreference ,
-      var salaryExpectation  ,
+      dynamic minSalaryExpectation  ,
+      dynamic maxSalaryExpectation  ,
       List? startWork ,
       List? availability
       ) {
     loading(true) ;
     setRxRequestStatus(Status.LOADING);
     var data = {
+      "job_id" : jobId.toString() ,
       "skill_id" : jsonEncode(skills) ,
       "strength_id" : jsonEncode(strengths),
       "passion_id" : jsonEncode(passion),
       "industry_preference_id" : jsonEncode(industryPreference),
-      "salary_expectation_id" : jsonEncode(salaryExpectation) ,
+      "min_salary_expectation" : minSalaryExpectation.toString(),
+      "max_salary_expectation" : maxSalaryExpectation.toString(),
       "start_work_id" : jsonEncode(startWork),
       "availabity_id" : jsonEncode(availability),
 

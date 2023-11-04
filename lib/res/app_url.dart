@@ -21,8 +21,8 @@ class AppUrl {
   static const String seekerEarningDetails = '$baseUrl/show-referral-by-user' ;
   static const String seekerChoosePositionGetUrl = '$baseUrl/Select-position' ;
   static const String seekerCreateProfile = '$baseUrl/seeker_profile' ;
-  static const String addJob = '$baseUrl/add_job' ;
-  static const String addJobSkills = '$baseUrl/add_job_skills' ;
+  static const String addUpdateJob = '$baseUrl/add_update_job' ;
+  static const String addUpdateJobSkills = '$baseUrl/add_update_job_skills' ;
   static const String seekerReferralCode = '$baseUrl/auth/referral_by' ;
   static const String CreateUpdateRecruiterProfileUrl = '$baseUrl/create_recruiter_profile' ;
   static const String editRecruiterProfileGetUrl = '$baseUrl/get_recruiter_profile' ;
@@ -53,6 +53,6 @@ class AppUrl {
   static const String saveBankDetailsUrl = '$baseUrl/save-bank-details' ;
   static const String showBankDetailsUrl = '$baseUrl/show-bank-details' ;
   static const String seekerAppliedJobs = '$baseUrl/applicant-jobs-view' ;
-
+  static const String recruiterDeleteJob = '$baseUrl/delete-recruiter-job' ;
 
 }

@@ -57,7 +57,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
           }
         case Status.COMPLETED:
           return Scaffold(
-              endDrawer: DrawerRecruiter(),
+              endDrawer: const DrawerRecruiter(),
               appBar: AppBar(
                 title: Text(
                   viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyName ?? "",
@@ -72,7 +72,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                        return InkWell(
                             onTap: () => Scaffold.of(context).openEndDrawer(),
                             child: Padding(
-                              padding:  EdgeInsets.only(top: 15,bottom: 10,right: 10),
+                              padding:  const EdgeInsets.only(top: 15,bottom: 10,right: 10),
                               child: Image.asset(
                                 'assets/images/inactive.png',
                                 height: Get.height * .05,
@@ -110,11 +110,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                             child: CircleAvatar(
                               radius: Get.width * .13,
                               backgroundImage: NetworkImage(
-                                viewRecruiterProfileController
-                                        .viewRecruiterProfile
-                                        .value
-                                        .recruiterProfileDetails
-                                        ?.profileImg ??
+                                viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ??
                                     "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
                               ),
                             ))
@@ -146,21 +142,6 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                 ?.copyWith(fontWeight: FontWeight.w700),
                           ),
                         ),
-                        // SizedBox(
-                        //   height: Get.height * .002,
-                        // ),
-                        // Align(
-                        //   alignment: Alignment.topLeft,
-                        //   child: Text(
-                        //     "Web And App Development Company",
-                        //     style: Theme.of(context)
-                        //         .textTheme
-                        //         .labelLarge
-                        //         ?.copyWith(
-                        //             fontWeight: FontWeight.w400,
-                        //             color: Color(0xffCFCFCF)),
-                        //   ),
-                        // ),
                       ],
                     ),
                   ),

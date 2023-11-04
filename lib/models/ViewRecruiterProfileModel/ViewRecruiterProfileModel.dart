@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 ViewRecruiterProfileModel viewRecruiterProfileModelFromJson(String str) => ViewRecruiterProfileModel.fromJson(json.decode(str));
@@ -14,7 +15,7 @@ class ViewRecruiterProfileModel {
   bool? status;
   String? contactPerson;
   RecruiterProfileDetails? recruiterProfileDetails;
-  List<RecruiterJobsData>? jobs;
+  RxList<RecruiterJobsData>? jobs;
   String? message;
 
   ViewRecruiterProfileModel({
@@ -29,7 +30,7 @@ class ViewRecruiterProfileModel {
     status: json["status"],
     contactPerson: json["contact_person"],
     recruiterProfileDetails: json["recruiterProfileDetails"] == null ? json["recruiterProfileDetails"] : RecruiterProfileDetails.fromJson(json["recruiterProfileDetails"]),
-    jobs: json["jobs"] == null ? json["jobs"] : List<RecruiterJobsData>.from(json["jobs"].map((x) => RecruiterJobsData.fromJson(x))),
+    jobs: json["jobs"] == null ? json["jobs"] : RxList<RecruiterJobsData>.from(json["jobs"].map((x) => RecruiterJobsData.fromJson(x))),
     message: json["message"],
   );
 

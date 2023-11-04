@@ -1,8 +1,6 @@
-
 import 'dart:convert';
 import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
-import 'package:flikka/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/app_url.dart';
@@ -36,10 +34,10 @@ class AddJobController extends GetxController {
       var  language ,
       ) async {
     try {
-      print(jobType);
+      debugPrint(jobType.toString());
       loading(true) ;
-      var url = Uri.parse(AppUrl.addJob) ;
-      print(url) ;
+      var url = Uri.parse(AppUrl.addUpdateJob) ;
+      debugPrint(url.toString()) ;
       var sp = await SharedPreferences.getInstance() ;
       var request = http.MultipartRequest('POST' , url ) ;
 
@@ -63,25 +61,21 @@ class AddJobController extends GetxController {
       request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath ?? "")) ;
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;
       var response = await request.send() ;
-      print(response.statusCode) ;
-      print(request.files) ;
-      print(request.fields) ;
+      debugPrint(response.statusCode.toString()) ;
+      debugPrint(request.files.toString()) ;
+      debugPrint(request.fields.toString()) ;
       var responded = await http.Response.fromStream(response) ;
       var responseData = jsonDecode(responded.body) ;
       if(response.statusCode == 200) {
-        print(responseData) ;
-        print("this is ================= object") ;
-
-       // Utils.snackBar("Success", responseData["message"]) ;
-        Get.to( () => const RequiredSkills());
+        debugPrint(responseData.toString()) ;
+        Get.to( () => const RequiredSkills() , arguments: {"job_id" : responseData["job_id"] });
       } else {
-        // featureImageError.value = responseData["message"] ;
       }
       loading(false) ;
     } catch ( e, stackTrace) {
       loading(false) ;
-      print(e.toString()) ;
-      print(stackTrace) ;
+      debugPrint(e.toString()) ;
+      debugPrint(stackTrace.toString()) ;
     }
   }
 

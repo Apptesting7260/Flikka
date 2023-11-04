@@ -40,8 +40,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
   @override
   void initState() {
     seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
-    RangePicker.minValue = 5000 ;
-    RangePicker.maxValue = 10000 ;
+    RangePicker.minValue = 5000.0 ;
+    RangePicker.maxValue = 10000.0 ;
     super.initState();
   }
 
