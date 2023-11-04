@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsListController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -218,11 +219,11 @@ class _SavedPostState extends State<SavedPost> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(data?.jobData?.jobPositions ?? "Test Data",
+                                Text(data?.jobData?.jobPositions ?? "",
                                   style: Theme.of(context).textTheme.displayLarge,
                                   softWrap: true,),
                                 SizedBox( height: Get.height * .005,),
-                                Text(data?.jobData?.recruiterDetails?.companyName ?? "Test Data",
+                                Text(data?.jobData?.recruiterDetails?.companyName ?? "",
                                   style: Theme.of(context).textTheme.bodySmall!
                                       .copyWith( color: AppColors.ratingcommenttextcolor),),
                                 SizedBox( height: Get.height * 0.03,),
@@ -230,23 +231,27 @@ class _SavedPostState extends State<SavedPost> {
                                   style: Theme.of(context).textTheme.titleSmall!
                                       .copyWith(color: AppColors.white),),
                                 SizedBox( height: Get.height * .005,),
-                                SizedBox(
-                                  height: Get.height*.1,
-                                  child: Text( "${data?.jobData?.description} " ?? "Test Data" ,
-                                    style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: Get.height*.1,
+                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.description) ?? "" ,
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                          .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                  ),
                                 ),
                                 SizedBox( height: Get.height * 0.03,),
                                 Text( "Requirements",
                                   style: Theme.of(context).textTheme.titleSmall!
                                       .copyWith(color: AppColors.white),),
                                 SizedBox( height: Get.height * 0.012,),
-                                SizedBox(
-                                  height: Get.height*.1,
-                                  width: Get.width,
-                                  child: Text( data?.jobData?.requirements ?? "Test Data",
-                                    style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                Flexible(
+                                  child: SizedBox(
+                                    height: Get.height*.1,
+                                    width: Get.width,
+                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.requirements)  ?? "",
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                          .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                  ),
                                 )
                               ],
                             ),

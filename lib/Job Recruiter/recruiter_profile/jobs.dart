@@ -62,7 +62,7 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
           ) :
           Column(
             children: [
-              SizedBox(height: Get.height*.06,),
+              SizedBox(height: Get.height*.02,),
               ListView.builder(
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: widget.recruiterJobsData?.length,
