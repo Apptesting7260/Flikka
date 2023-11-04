@@ -807,21 +807,21 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               // List<String> formattedDescription = descriptionPara.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
                               //  formattedDescriptionText = formattedDescription.join('');
 
-                              // addJobController.addJobApi(
-                              //     imgFile?.path,
-                              //     jobTypeTitle,
-                              //     jobPositionController.text,
-                              //     specializationController.text,
-                              //     jobLocationController.text,
-                              //     formattedDescriptionText,
-                              //     jobRequirementController.text,
-                              //     employmentType.toString(),
-                              //     workplaceType.toString(),
-                              //     experienceController.text,
-                              //     preferredExperienceController.text,
-                              //     qualification.toString(),
-                              //     LanguageSelectorState.languages
-                              // );
+                              addJobController.addJobApi(
+                                  imgFile?.path,
+                                  jobTypeTitle,
+                                  jobPositionController.text,
+                                  specializationController.text,
+                                  jobLocationController.text,
+                                  formattedDescriptionText,
+                                  formattedRequirementText,
+                                  employmentType.toString(),
+                                  workplaceType.toString(),
+                                  experienceController.text,
+                                  preferredExperienceController.text,
+                                  qualification.toString(),
+                                  LanguageSelectorState.languages
+                              );
                             }
                           }
                                 // Get.to(()=> const RequiredSkills());

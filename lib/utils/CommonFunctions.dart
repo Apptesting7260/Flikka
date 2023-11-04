@@ -75,7 +75,9 @@ class CommonFunctions {
                     width: Get.width*.25,
                     height: Get.height*.05,
                     title: "No",
-                    onTap1: () { Get.back() ;},)
+                    onTap1: () {
+                      Get.back();
+                      },)
                 ],
               ),
             ],
