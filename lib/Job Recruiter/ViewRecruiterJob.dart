@@ -1,15 +1,15 @@
-import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
-import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
-import 'package:flikka/Job%20Recruiter/RecruiterHome/find_candidate_home_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../widgets/app_colors.dart';
-import '../widgets/my_button.dart';
 
 class ViewRecruiterJob extends StatefulWidget {
-  const ViewRecruiterJob({super.key});
+  final RecruiterJobsData? recruiterJobsData ;
+  final String? company ;
+  const ViewRecruiterJob({super.key, required this.recruiterJobsData, this.company});
 
   @override
   State<ViewRecruiterJob> createState() => _ViewRecruiterJobState();
@@ -80,16 +80,14 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
       child: Scaffold(
         appBar: AppBar(
           leading: GestureDetector(
-            onTap: () {
-              Get.back() ;
-            },
+            onTap: () { Get.back() ;},
               child: Image.asset("assets/images/icon_back_blue.png")),
-          title: Text("Company",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+          title: Text(widget.company ?? "",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
           toolbarHeight: 40,
         ),
           body:
           Padding(
-            padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height*.03),
+            padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height *.01),
             child: Stack(
               children: [
                 //*************** for swiper image **************
@@ -100,17 +98,20 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                   width: Get.width,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
-                    child: Image.asset(
-                      'assets/images/icon_view_recruiter_job_background.png',
+                    child: CachedNetworkImage(
+                      imageUrl: '${widget.recruiterJobsData?.featureImg}',
+                      placeholder: (context, url) => const Center(
+                          child: CircularProgressIndicator()),
                       fit: BoxFit.cover,
+                      height: Get.height *0.45,
                     ),
                   ),
                 ),
                 //*************** for marketing intern **************
 
                 DraggableScrollableSheet(
-                  initialChildSize: 0.5, // half screen
-                  minChildSize: 0.5, // half screen
+                  initialChildSize: 0.55, // half screen
+                  minChildSize: 0.55, // half screen
                   maxChildSize: 1, // full screen
                   builder: (BuildContext context, ScrollController scrollController) {
                     return  ListView(
@@ -136,50 +137,32 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
-                                        Text(
-                                          "Marketing Intern",
+                                        Text( widget.recruiterJobsData?.jobPositions ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayLarge,
                                           softWrap: true,
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "Example Company Pvt. Ltd",
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.company ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
                                               .copyWith(
-                                              color: Color(0xffCFCFCF)),
+                                              color: const Color(0xffCFCFCF)),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
-                                        Text(
-                                          "Job Description",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(color: AppColors.white),
-                                        ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "Lorem Ipsum he printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text.",
-
-
+                                        SizedBox(height: Get.height * 0.04,),
+                                        Text("Job Description",
+                                          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? ""),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:  const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Requirements",
                                           style: Theme.of(context)
@@ -187,42 +170,13 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.015,
-                                        ),
-                                        Column(
-                                          children: [
-                                            Text(
-                                              "• Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                  color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                            ),
-                                            SizedBox(
-                                              height: Get.height * 0.015,
-                                            ),
-                                            Text(
-                                              "• Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                  color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                            ),
-                                            SizedBox(
-                                              height: Get.height * 0.015,
-                                            ),
-                                            Text(
-                                              "• Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodySmall!
-                                                  .copyWith(
-                                                  color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                            )
-                                          ],
+                                        SizedBox(height: Get.height * 0.015,),
+                                        Text(CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements ?? ""),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                              color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
 
                                         SizedBox(
@@ -235,21 +189,15 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "Full Time",
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.employmentType ??"",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
-
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Type of workplace",
                                           style: Theme.of(context)
@@ -257,21 +205,15 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "On-site",
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.typeOfWorkplace ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
-
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Work experience",
                                           style: Theme.of(context)
@@ -279,21 +221,15 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "2 - 4 Years",
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.workExperience ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
-
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Education",
                                           style: Theme.of(context)
@@ -301,38 +237,36 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "Graduate",
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.education ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
                                         ),
-
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
-                                        Text(
-                                          "Language",
+                                        SizedBox(height: Get.height * 0.03,),
+                                        Text("Language",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
                                               .copyWith(color: AppColors.white),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.010,
-                                        ),
-                                        Text(
-                                          "Hindi - English",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                        SizedBox(height: Get.height * 0.010,),
+                                        widget.recruiterJobsData?.language == null || widget.recruiterJobsData?.language?.length == 0 ?
+                                            const SizedBox() :
+                                        ListView.builder(
+                                          shrinkWrap: true,
+                                          itemCount: widget.recruiterJobsData?.language?.length,
+                                          itemBuilder: (context , index) {
+                                            return Text(  widget.recruiterJobsData?.language?[index].languages ?? "",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .bodySmall!
+                                                  .copyWith(
+                                                  color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                            );
+                                          }
                                         ),
 
                                         SizedBox(
@@ -347,17 +281,19 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         ),
                                         SizedBox(height: Get.height*0.01,),
                                         /////
+                                        widget.recruiterJobsData?.jobsDetail?.skillName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.skillName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 4,
+                                            itemCount: widget.recruiterJobsData?.jobsDetail?.skillName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
@@ -367,7 +303,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('Communication',
+                                                child: Text(widget.recruiterJobsData?.jobsDetail?.skillName?[index].skills ?? "",
                                                   overflow: TextOverflow
                                                       .ellipsis,
                                                   style: Get.theme.textTheme
@@ -387,13 +323,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
+                                        widget.recruiterJobsData?.jobsDetail?.passionName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.passionName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 3,
+                                            itemCount: widget.recruiterJobsData?.jobsDetail?.passionName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
@@ -403,11 +342,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .circular(20),
-                                                  color: Color(0xff484848),
+                                                  color: const Color(0xff484848),
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('Passion 1',
+                                                child: Text( widget.recruiterJobsData?.jobsDetail?.passionName?[index].passion  ?? '',
                                                   overflow: TextOverflow
                                                       .ellipsis,
                                                   style: Get.theme.textTheme
@@ -428,13 +367,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
+                                        widget.recruiterJobsData?.jobsDetail?.industryPreferenceName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 4,
+                                            itemCount: widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
@@ -448,48 +390,41 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('preference 1',
-                                                  overflow: TextOverflow
-                                                      .ellipsis,
-                                                  style: Get.theme.textTheme
-                                                      .bodySmall!.copyWith(
+                                                child: Text(widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?[index].industryPreferences ?? "",
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
                                                       color: AppColors.white,
-                                                      fontWeight: FontWeight
-                                                          .w400,fontSize: 9),),
+                                                      fontWeight: FontWeight.w400,fontSize: 9),),
                                               );
                                             }),
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
-                                        Text(
-                                          "Strengths",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(color: AppColors.white),
+                                        SizedBox(height: Get.height * 0.04,),
+                                        Text("Strengths",
+                                          style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
+                                        widget.recruiterJobsData?.jobsDetail?.strengthsName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.strengthsName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 4,
+                                            itemCount: widget.recruiterJobsData?.jobsDetail?.strengthsName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .circular(20),
-                                                  color: Color(0xff484848),
+                                                  color: const Color(0xff484848),
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('strengths 1',
+                                                child: Text( widget.recruiterJobsData?.jobsDetail?.strengthsName?[index].strengths ?? '',
                                                   overflow: TextOverflow
                                                       .ellipsis,
                                                   style: Get.theme.textTheme
@@ -499,9 +434,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                           .w400,fontSize: 9),),
                                               );
                                             }),
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
+                                        SizedBox(height: Get.height * 0.04,),
                                         Text(
                                           "Salary expectation",
                                           style: Theme.of(context)
@@ -514,18 +447,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                           decoration: BoxDecoration(
                                             borderRadius: BorderRadius
                                                 .circular(20),
-                                            color: Color(0xff484848),
+                                            color: const Color(0xff484848),
                                           ),
                                           padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
-                                          child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
+                                          child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''}',
                                             overflow: TextOverflow.ellipsis,
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
                                                 color: AppColors.white,
                                                 fontWeight: FontWeight.w400),),
                                         ),
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
+                                        SizedBox(height: Get.height * 0.04,),
                                         Text(
                                           "When can i start working?",
                                           style: Theme.of(context)
@@ -534,17 +465,19 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
+                                        widget.recruiterJobsData?.jobsDetail?.startWorkName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.startWorkName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 4,
+                                            itemCount: widget.recruiterJobsData?.jobsDetail?.startWorkName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
@@ -554,7 +487,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('Immediately',
+                                                child: Text( widget.recruiterJobsData?.jobsDetail?.startWorkName?[index].startWork ?? '',
                                                   overflow: TextOverflow
                                                       .ellipsis,
                                                   style: Get.theme.textTheme
@@ -565,9 +498,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               );
                                             }),
 
-                                        SizedBox(
-                                          height: Get.height * 0.04,
-                                        ),
+                                        SizedBox(height: Get.height * 0.04,),
                                         Text(
                                           "Availability",
                                           style: Theme.of(context)
@@ -576,27 +507,29 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
+                                        widget.recruiterJobsData?.jobsDetail?.availabityName == null ||
+                                            widget.recruiterJobsData?.jobsDetail?.availabityName?.length == 0 ?
+                                            const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
                                             maxCrossAxisExtent: Get.width * 0.35,
                                             mainAxisSpacing: 7,
                                             crossAxisSpacing: 7),
-                                            itemCount: 4,
+                                            itemCount:  widget.recruiterJobsData?.jobsDetail?.availabityName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
-                                              //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .circular(20),
-                                                  color: Color(0xff484848),
+                                                  color: const Color(0xff484848),
                                                 ),
                                                 // padding: const EdgeInsets.all(
                                                 //     8),
-                                                child: Text('Monday',
+                                                child: Text(  widget.recruiterJobsData?.jobsDetail?.availabityName?[index].availabity ?? '',
                                                   overflow: TextOverflow
                                                       .ellipsis,
                                                   style: Get.theme.textTheme
@@ -608,21 +541,6 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             }),
                                         SizedBox(height: Get.height*0.02,),
 
-                                        SizedBox(height: Get.height*0.05,),
-                                        Center(
-                                          child: MyButton(title: 'SUBMIT',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyMedium!
-                                                  .copyWith(
-                                                color: AppColors
-                                                    .ratingcommenttextcolor,fontWeight: FontWeight.w700, ),
-                                              onTap1:(){
-                                            print("called") ;
-                                                  //Get.offAll(TabScreenEmployer(index: 4, profileTabIndex: 2,));
-                                              }
-                                          ),
-                                        )
                                       ],
                                     ),
                                   ),

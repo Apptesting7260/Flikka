@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -60,7 +61,7 @@ class RecruiterJobsData {
   String? workExperience;
   String? preferredWorkExperience;
   String? education;
-  String? language;
+  List<LanguageModel>? language;
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
@@ -103,7 +104,7 @@ class RecruiterJobsData {
     workExperience: json["work_experience"],
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
-    language: json["language"],
+    language: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
@@ -125,7 +126,7 @@ class RecruiterJobsData {
     "work_experience": workExperience,
     "preferred_work_experience": preferredWorkExperience,
     "education": education,
-    "language": language,
+    "language_name": List<dynamic>.from(language!.map((x) => x.toJson())),
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "job_positions": jobPositions,

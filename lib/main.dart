@@ -1,4 +1,4 @@
-import 'package:flikka/Job%20Recruiter/ViewRecruiterJob.dart';
+
 import 'package:flikka/Job%20Seeker/splash_screen.dart';
 import 'package:flikka/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flikka',
       theme: MyTheme.dark,
-      home: const ViewRecruiterJob()
+      home: const SplashScreen()
     );
   }
 }

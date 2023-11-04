@@ -1465,7 +1465,7 @@ class _AddJobPageDownState extends State<AddJobPageDown> {
                         .copyWith(color: AppColors.white),
                     title: 'Continue',
                     onTap1: () {
-                      Get.to(()=>const ViewRecruiterJob());
+                      // Get.to(()=>const ViewRecruiterJob());
                     }),
               ),
               SizedBox(
