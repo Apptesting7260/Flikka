@@ -241,12 +241,14 @@ class _UserProfileState extends State<UserProfile> {
                                       ],
                                     ),
                                     SizedBox(width: Get.width * .02,),
-                                    Expanded(child: Text( number == 1 ? "${data?.skills}" :
+                                    Expanded(
+                                        child: Text(
+                                          number == 1 ? "${data?.skills}":
                                         number == 2 ? "${data?.passion}" :
                                         number == 3 ? "${data?.industryPreferences}" :
                                         number == 4 ? "${data?.strengths}" :
                                         number == 5 ? "${data?.startWork}" : "${data?.availabity}",
-                                      style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,
+                                    overflow: TextOverflow.ellipsis,  style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w500,
                                         color: isSelected ? AppColors.blueThemeColor : const Color(0xffFFFFFF)),))
                                   ],
                                 ),

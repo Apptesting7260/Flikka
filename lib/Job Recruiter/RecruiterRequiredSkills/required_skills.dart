@@ -240,7 +240,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           ),
                                           SizedBox(
                                             width: Get.width * .02,),
-                                          Expanded(child: Text("${data?.skills}", style: Theme
+                                          Expanded(
+                                              child: Text(
+                                                "${data?.skills}",
+                                           overflow: TextOverflow.ellipsis, style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -342,7 +345,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           SizedBox(
                                             width: Get.width * .02,),
                                           Expanded(child: Text(
-                                            "${data?.passion}", style: Theme
+                                            "${data?.passion}",
+                                           overflow: TextOverflow.ellipsis, style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -442,7 +446,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           SizedBox(
                                             width: Get.width * .02,),
                                           Expanded(child: Text(
-                                            "${data?.industryPreferences}", style: Theme
+                                            "${data?.industryPreferences}",
+                                           overflow: TextOverflow.ellipsis, style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -544,7 +549,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           SizedBox(
                                             width: Get.width * .02,),
                                           Expanded(child: Text(
-                                            "${data?.strengths}", style: Theme
+                                            "${data?.strengths}",
+                                           overflow: TextOverflow.ellipsis, style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -647,7 +653,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           SizedBox(
                                             width: Get.width * .02,),
                                           Expanded(child: Text(
-                                            "${data?.startWork}", style: Theme
+                                            "${data?.startWork}",
+                                           overflow: TextOverflow.ellipsis, style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -748,7 +755,10 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                           ),
                                           SizedBox(
                                             width: Get.width * .02,),
-                                          Expanded(child: Text("${data?.availabity}", style: Theme.of(context).textTheme.
+                                          Expanded(
+                                              child: Text(
+                                                "${data?.availabity}",
+                                               overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.
                                             labelLarge?.copyWith(fontWeight: FontWeight.w700,
                                                 color: isSelectedAvailability ? AppColors.blueThemeColor : Color(0xffFFFFFF)),))
                                         ],
