@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Recruiter/ViewRecruiterJob.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -101,13 +102,13 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                           ),
                           placeholder: (context, url) => const CircularProgressIndicator(),
                         ),
-                        title: Text(data?.jobPositions ?? "No Data",overflow: TextOverflow.ellipsis,
+                        title: Text(data?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFFFFFF),fontWeight: FontWeight.w700),),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: Get.height*.001,),
-                            Text(widget.company ?? "No Data",overflow: TextOverflow.ellipsis,
+                            Text(widget.company ?? "",overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)
                                     .textTheme
                                     .labelLarge?.copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)
@@ -126,10 +127,10 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                             // Handle the selected option
                             switch (value) {
                               case 1:
-                              // View option selected
+                              Get.to( () => ViewRecruiterJob(recruiterJobsData: data , company: widget.company,)) ;
                                 break;
                               case 2:
-                              // Edit option selected
+                              Get.to( () => AddAJobPage()) ;
                                 break;
                               case 3:
                               CommonFunctions.confirmationDialog(context, message: "Do you want to delete",

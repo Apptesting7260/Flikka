@@ -1,30 +1,25 @@
-
 import 'dart:io';
-
-import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:file_picker/file_picker.dart';
-import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.dart';
 import 'package:flikka/controllers/AddJobController/AddJobController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
-import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../utils/MultiSelectField.dart';
 
 
 class AddAJobPage extends StatefulWidget {
-  const AddAJobPage({super.key});
+  final RecruiterJobsData? recruiterJobsData ;
+  const AddAJobPage({super.key, this.recruiterJobsData});
 
   @override
   State<AddAJobPage> createState() => _AddAJobPageState();
@@ -32,7 +27,7 @@ class AddAJobPage extends StatefulWidget {
 
 class _AddAJobPageState extends State<AddAJobPage> {
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
   var qualification ;
@@ -44,7 +39,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
 
 
   var jobTypeTitle;
-  String? jobTitleName ;
+  String? jobPosition ;
 
   final List<String> itemsExp = [
     'On-site','Remote','Hybrid'
@@ -70,7 +65,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
   TextEditingController jobLocationController = TextEditingController() ;
   TextEditingController jobDescriptionController = TextEditingController() ;
   TextEditingController jobRequirementController = TextEditingController() ;
-  TextEditingController languageController = TextEditingController() ;
   TextEditingController educationController = TextEditingController() ;
   TextEditingController experienceController = TextEditingController() ;
   TextEditingController preferredExperienceController = TextEditingController() ;
@@ -83,6 +77,17 @@ class _AddAJobPageState extends State<AddAJobPage> {
     seekerChoosePositionGetController.seekerGetPositionApi(false) ;
     viewLanguageController.viewLanguageApi() ;
     LanguageSelectorState.languages = [] ;
+    if(widget.recruiterJobsData != null) {
+      jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
+      jobPosition = widget.recruiterJobsData?.jobPositions ?? "" ;
+      specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
+      jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
+      jobDescriptionController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.description) ?? "" ;
+      jobRequirementController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements) ?? "" ;
+      educationController.text = widget.recruiterJobsData?.education ?? "" ;
+      experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
+      preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;
+    }
     super.initState();
   }
 
@@ -202,7 +207,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     SizedBox(height: Get.height*0.01,),
                     TextFormField(
                       autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: jobPositionController,
+                      controller: jobTitleController,
                       style: Theme.of(context).textTheme.bodyMedium,
                       decoration: InputDecoration(
                         border:OutlineInputBorder(
@@ -254,7 +259,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                             alignment: Alignment.centerLeft,
                             borderRadius: BorderRadius.circular(20),
                             isExpanded: true,
-                            value: jobTitleName,
+                            value: jobPosition,
                             hint:  Text(
                               'Add Position',
                               style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
@@ -266,7 +271,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               onTap: () {
                                 setState(() {
                                   jobTypeTitle = item.id ;
-                                  jobTitleName = item.positions ;
+                                  jobPosition = item.positions ;
                                 });
                                 },
                               child: Text(
@@ -782,7 +787,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           }
 
                          else if(_formKey.currentState!.validate()) {
-                            if (jobTitleName == null) {
+                            if (jobPosition == null) {
                               addJobController.jobPositionErrorMessage.value = "Please select job position";
                               scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                             } else if (employmentType == null) {
@@ -810,7 +815,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               addJobController.addJobApi(
                                   imgFile?.path,
                                   jobTypeTitle,
-                                  jobPositionController.text,
+                                  jobTitleController.text,
                                   specializationController.text,
                                   jobLocationController.text,
                                   formattedDescriptionText,

@@ -122,28 +122,32 @@ class SeekerJobsData {
 }
 
 class JobsDetail {
-  var id;
-  var jobId;
+  dynamic id;
+  dynamic jobId;
+  dynamic recruiterId;
   DateTime? createdAt;
   DateTime? updatedAt;
   List<SkillName>? skillName;
   List<PassionName>? passionName;
   List<IndustryPreferenceName>? industryPreferenceName;
   List<StrengthsName>? strengthsName;
-  String? salaryExpectationName;
+  dynamic minSalaryExpectation;
+  dynamic maxSalaryExpectation;
   List<StartWorkName>? startWorkName;
   List<AvailabityName>? availabityName;
 
   JobsDetail({
     this.id,
     this.jobId,
+    this.recruiterId ,
     this.createdAt,
     this.updatedAt,
     this.skillName,
     this.passionName,
     this.industryPreferenceName,
     this.strengthsName,
-    this.salaryExpectationName,
+    this.minSalaryExpectation,
+    this.maxSalaryExpectation,
     this.startWorkName,
     this.availabityName,
   });
@@ -151,13 +155,15 @@ class JobsDetail {
   factory JobsDetail.fromJson(Map<String, dynamic> json) => JobsDetail(
     id: json["id"],
     jobId: json["job_id"],
+    recruiterId: json["recruiter_id"],
+    maxSalaryExpectation: json["max_salary_expectation"],
+    minSalaryExpectation: json["min_salary_expectation"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SkillName>.from(json["skill_name"].map((x) => SkillName.fromJson(x))),
     passionName: json["passion_name"] == null ? json["passion_name"] : List<PassionName>.from(json["passion_name"].map((x) => PassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<IndustryPreferenceName>.from(json["industry_preference_name"].map((x) => IndustryPreferenceName.fromJson(x))),
     strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<StrengthsName>.from(json["strengths_name"].map((x) => StrengthsName.fromJson(x))),
-    salaryExpectationName: json["salary_expectation_name"],
     startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<StartWorkName>.from(json["start_work_name"].map((x) => StartWorkName.fromJson(x))),
     availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<AvailabityName>.from(json["availabity_name"].map((x) => AvailabityName.fromJson(x))),
   );
@@ -171,7 +177,8 @@ class JobsDetail {
     "passion_name": List<dynamic>.from(passionName!.map((x) => x.toJson())),
     "industry_preference_name": List<dynamic>.from(industryPreferenceName!.map((x) => x.toJson())),
     "strengths_name": List<dynamic>.from(strengthsName!.map((x) => x.toJson())),
-    "salary_expectation_name": salaryExpectationName,
+    "min_salary_expectation": minSalaryExpectation,
+    "max_salary_expectation": maxSalaryExpectation,
     "start_work_name": List<dynamic>.from(startWorkName!.map((x) => x.toJson())),
     "availabity_name": List<dynamic>.from(availabityName!.map((x) => x.toJson())),
   };
