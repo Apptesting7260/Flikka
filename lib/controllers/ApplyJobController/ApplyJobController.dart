@@ -9,7 +9,7 @@ class ApplyJobController extends GetxController {
 
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
-  void applyJob(String id) async{
+  void applyJob(dynamic id) async{
     loading.value = true ;
 
     Map data = {

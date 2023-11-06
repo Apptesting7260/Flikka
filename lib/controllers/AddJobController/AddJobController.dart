@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.d
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../../res/app_url.dart';
 import 'package:http/http.dart' as http;
 
@@ -32,7 +33,10 @@ class AddJobController extends GetxController {
       var  preferredExperience ,
       var  qualification ,
       var  language ,
-      ) async {
+
+   { var jobId,
+  RecruiterJobsData? recruiterJobsData
+  }) async {
     try {
       debugPrint(jobType.toString());
       loading(true) ;
@@ -41,7 +45,21 @@ class AddJobController extends GetxController {
       var sp = await SharedPreferences.getInstance() ;
       var request = http.MultipartRequest('POST' , url ) ;
 
-      final formData = <String, dynamic>{
+      final formData = jobId != null ?  {
+        'job_title': jobTitle,
+        'job_position': position,
+        'specialization': specialization ,
+        'job_location': location,
+        'description': description,
+        'employment_type': jobType,
+        'type_of_workplace': workplace,
+        'requirements': requirements,
+        'work_experience': experience,
+        'preferred_work_experience': preferredExperience,
+        'education': qualification,
+        'language': jsonEncode(language),
+        'job_id':jobId
+      }:{
         'job_title': jobTitle,
         'job_position': position,
         'specialization': specialization ,
@@ -58,7 +76,8 @@ class AddJobController extends GetxController {
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
       });
-      request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath ?? "")) ;
+      if(profilePath != null) {
+      request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath)) ; }
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;
       var response = await request.send() ;
       debugPrint(response.statusCode.toString()) ;
@@ -68,7 +87,11 @@ class AddJobController extends GetxController {
       var responseData = jsonDecode(responded.body) ;
       if(response.statusCode == 200) {
         debugPrint(responseData.toString()) ;
-        Get.to( () => const RequiredSkills() , arguments: {"job_id" : responseData["job_id"] });
+        if(recruiterJobsData != null) {
+          print("called function 1") ;
+          Get.to( () => RequiredSkills(recruiterJobsData: recruiterJobsData,) , arguments: {"job_id" : responseData["job_id"] });
+        } else if (recruiterJobsData == null) {
+        Get.to( () => const RequiredSkills() , arguments: {"job_id" : responseData["job_id"] }); }
       } else {
       }
       loading(false) ;

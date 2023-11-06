@@ -130,7 +130,7 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                               Get.to( () => ViewRecruiterJob(recruiterJobsData: data , company: widget.company,)) ;
                                 break;
                               case 2:
-                              Get.to( () => AddAJobPage()) ;
+                              Get.to( () => AddAJobPage(recruiterJobsData: data,)) ;
                                 break;
                               case 3:
                               CommonFunctions.confirmationDialog(context, message: "Do you want to delete",

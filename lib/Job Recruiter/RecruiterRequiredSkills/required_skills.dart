@@ -5,13 +5,15 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
+import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../utils/RangeSlider.dart';
 
 
 class RequiredSkills extends StatefulWidget {
-  const RequiredSkills({super.key});
+  final RecruiterJobsData? recruiterJobsData ;
+  const RequiredSkills({super.key, this.recruiterJobsData});
 
   @override
   State<RequiredSkills> createState() => _RequiredSkillsState();
@@ -34,6 +36,30 @@ class _RequiredSkillsState extends State<RequiredSkills> {
     seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
     RangePicker.minValue = 5000.0 ;
     RangePicker.maxValue = 10000.0 ;
+    if(widget.recruiterJobsData?.jobsDetail?.skillName != null){
+      _selectedChooseSkillsIndices = widget.recruiterJobsData?.jobsDetail?.skillName?.map((e) => e.id.toString()).toList() ?? [];
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.availabityName != null){
+      _selectedChooseAvailabilitySkills = widget.recruiterJobsData?.jobsDetail?.availabityName?.map((e) => e.id.toString()).toList() ?? [];
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.passionName != null){
+      _selectedChoosePassionSkills = widget.recruiterJobsData?.jobsDetail?.passionName?.map((e) => e.id.toString()).toList() ?? [] ;
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.industryPreferenceName != null){
+      _selectedChoosepreferenceSkills = widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?.map((e) => e.id.toString()).toList() ?? [] ;
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.strengthsName != null){
+      _selectedChoosestrengthsSkills = widget.recruiterJobsData?.jobsDetail?.strengthsName?.map((e) => e.id.toString()).toList() ?? [];
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.startWorkName != null){
+      _selectedChooseworkingSkills = widget.recruiterJobsData?.jobsDetail?.startWorkName?.map((e) => e.id.toString()).toList() ?? [] ;
+    }
+    if(widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation != null) {
+      RangePicker.minValue = double.tryParse('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation}') ?? 5000.0 ;
+      RangePicker.maxValue = double.tryParse('${widget.recruiterJobsData?.jobsDetail?.maxSalaryExpectation}') ?? 10000.0 ;
+    }
+
+
     super.initState();
   }
 
@@ -142,11 +168,8 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                             SizedBox(height: Get.height * .01,),
                             GridView.builder(
                               physics: const NeverScrollableScrollPhysics(),
-                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2, mainAxisExtent: 65),
-                              itemCount: seekerGetAllSkillsController
-                                  .seekerGetAllSkillsData.value.softSkill
-                                  ?.length,
+                              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, mainAxisExtent: 65),
+                              itemCount: seekerGetAllSkillsController.seekerGetAllSkillsData.value.softSkill?.length,
                               shrinkWrap: true,
                               itemBuilder: (context, index) {
                                 var data = seekerGetAllSkillsController
@@ -154,9 +177,6 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                     .softSkill?[index];
                                 final isSelected = _selectedChooseSkillsIndices
                                     .contains("${data?.id.toString()}");
-                                final borderColor = isSelected ? Color(
-                                    0xff56B6F6) : Color(0xffFFFFFF);
-
                                 return Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: Get.width * .02,
