@@ -4,6 +4,8 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/CompaniesListController/CompaniesListController.dart';
+
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
 
@@ -50,6 +52,13 @@ class _FilterPageState extends State<FilterPage> {
     'Test','Demo','Testing',
   ];
   String? companyValue;
+  CompaniesListController companiesListController = Get.put(CompaniesListController()) ;
+
+  @override
+  void initState() {
+    companiesListController.getCompaniesApi() ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -191,64 +200,73 @@ class _FilterPageState extends State<FilterPage> {
             Text('Company Name',style: Get.theme.textTheme.titleSmall),
             SizedBox(height: Get.height*0.01,),
             Container(
-              padding: EdgeInsets.only(left: 10,right: 5),
+              padding: const EdgeInsets.only(left: 10,right: 5),
               height: Get.height*.07,
               width: Get.width,
               decoration: BoxDecoration(
                   color: AppColors.textFieldFilledColor,
                   borderRadius: BorderRadius.circular(30)
               ),
-              child: Center(
-                child:
-                DropdownButtonHideUnderline(
-                  child: DropdownButton2<String>(
-                    style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
-                    isExpanded: true,
-                    hint: Text(
-                      'Select Company',
-                      style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    items: companyItems
-                        .map((String item) => DropdownMenuItem<String>(
-                      value: item,
-                      child: Text(
-                        item,
-                        style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ))
-                        .toList(),
-                    value: companyValue,
-                    onChanged: (String? value) {
-                      setState(() {
-                        companyValue = value;
-                      });
-                    },
-                    dropdownStyleData: DropdownStyleData(
-                      maxHeight: Get.height*0.35,
-                      width: Get.width*0.400,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(14),
-                        color: Color(0xff353535),
-                      ),
-                      offset: const Offset(5, 0),
-                      scrollbarTheme: ScrollbarThemeData(
-                        radius:  Radius.circular(40),
-                        thickness: MaterialStateProperty.all<double>(6),
-                        thumbVisibility: MaterialStateProperty.all<bool>(true),
-                      ),
-                    ),
-                    menuItemStyleData: const MenuItemStyleData(
-                      height: 40,
-                      padding: EdgeInsets.only(left: 15, right: 15),
-                    ),
-                  ),
+              child: TextFormField(
+                style: Theme
+                    .of(context)
+                    .textTheme
+                    .bodyLarge
+                    ?.copyWith(
+                    color: const Color(0xffCFCFCF), fontSize: 19),
+                onChanged: (query) {
+                  companiesListController.filterList(query) ;
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search Company',
+                  hintStyle: Theme
+                      .of(context)
+                      .textTheme
+                      .bodyLarge
+                      ?.copyWith(color: const Color(0xffCFCFCF)),
+                  border: InputBorder.none,
                 ),
               ),
             ),
+            SizedBox(height: Get.height*.015,) ,
+            Obx( () =>
+               ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: companiesListController.companies?.length,
+                shrinkWrap: true,
+                itemBuilder: (context, index) {
+                  var data = companiesListController.companies?[index] ;
+                  return Column(
+                    children: [
+                      GestureDetector(
+                        onTap: () {},
+                        child: ListTile(
+                          leading:  CircleAvatar(
+                              radius: 26,
+                              backgroundImage: NetworkImage(
+                                  '${data?.profileImg}')
+                          ),
+                          title: Text(data?.companyName ?? "",
+                              style: Get.theme.textTheme.labelMedium!
+                                  .copyWith(color: AppColors.white)),
+                          subtitle: Text(data?.companyLocation ?? "",
+                              style: Get.theme.textTheme.bodySmall!
+                                  .copyWith(color: const Color(0xffCFCFCF))),
+                        ),
+                      ),
+                      const Divider(
+                        height: 40,
+                        color: Color(0xff414141),
+                        thickness: 1,
+                        indent: 15,
+                        endIndent: 15,
+                      ),
+                    ],
+                  );
+                },),
+            ) ,
             SizedBox(height: Get.height*0.05,),
-            Container(
+            SizedBox(
               height: Get.height*.06,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
@@ -275,8 +293,7 @@ class _FilterPageState extends State<FilterPage> {
                             style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                             overflow: TextOverflow.ellipsis,
                           ),
-                          items: itemsDate
-                              .map((String item) => DropdownMenuItem<String>(
+                          items: itemsDate.map((String item) => DropdownMenuItem<String>(
                             value: item,
                             child: Text(
                               item,
@@ -300,7 +317,7 @@ class _FilterPageState extends State<FilterPage> {
                             ),
                             offset: const Offset(5, 0),
                             scrollbarTheme: ScrollbarThemeData(
-                              radius:  Radius.circular(40),
+                              radius:  const Radius.circular(40),
                               thickness: MaterialStateProperty.all<double>(6),
                               thumbVisibility: MaterialStateProperty.all<bool>(true),
                             ),
@@ -317,7 +334,7 @@ class _FilterPageState extends State<FilterPage> {
               },),
             ) ,
             SizedBox(height: Get.height*0.04,),
-            Container(
+            SizedBox(
               height: Get.height*.2,
               child: ListView.builder(
                 itemCount: 10,
@@ -346,7 +363,7 @@ class _FilterPageState extends State<FilterPage> {
                                 width: 45,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(image: AssetImage("assets/images/icon_marketing.png"))
+                                  image: const DecorationImage(image: AssetImage("assets/images/icon_marketing.png"))
                                 ),
                               ),
                               SizedBox(width: 12,),

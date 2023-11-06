@@ -1,13 +1,15 @@
 
 import 'dart:convert';
 
+import 'package:get/get.dart';
+
 CompanyListModel companyListModelFromJson(String str) => CompanyListModel.fromJson(json.decode(str));
 
 String companyListModelToJson(CompanyListModel data) => json.encode(data.toJson());
 
 class CompanyListModel {
   bool? status;
-  List<CompanyList>? companyList;
+  RxList<CompanyList>? companyList;
 
   CompanyListModel({
     this.status,
@@ -16,7 +18,7 @@ class CompanyListModel {
 
   factory CompanyListModel.fromJson(Map<String, dynamic> json) => CompanyListModel(
     status: json["status"],
-    companyList: json["company_list"] == null ? json["company_list"] : List<CompanyList>.from(json["company_list"].map((x) => CompanyList.fromJson(x))),
+    companyList: json["company_list"] == null ? json["company_list"] : RxList<CompanyList>.from(json["company_list"].map((x) => CompanyList.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {

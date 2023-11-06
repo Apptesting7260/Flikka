@@ -141,21 +141,21 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       controller: controller,
                       cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
                       numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
-                      isLoop: false,
+                      // isLoop: false,
                       backCardOffset: const Offset(40, 40),
                       padding: const EdgeInsets.all(24.0),
                       allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
                       onSwipe: _onSwipe,
-                      onEnd: () {
-                        for (var direction in allDirections) {
-                          _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
-                          Timer(const Duration(milliseconds: 300), () {
-                            setState(() {
-                              last = true;
-                            });
-                          });
-                        }
-                      },
+                      // onEnd: () {
+                      //   for (var direction in allDirections) {
+                      //     _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
+                      //     Timer(const Duration(milliseconds: 300), () {
+                      //       setState(() {
+                      //         last = true;
+                      //       });
+                      //     });
+                      //   }
+                      // },
                       cardBuilder: (context, index,
                           horizontalThresholdPercentage, verticalThresholdPercentage,) {
                         debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
@@ -176,7 +176,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   }
 
   bool _onSwipe(
-      int? previousIndex,
+      int previousIndex,
       int? currentIndex,
       CardSwiperDirection direction,
       ) {
@@ -189,19 +189,17 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         // });
 
       } else if (direction.name == "right") {
-        approved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
-        // CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
-        //   Get.back() ;
+        CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
+          Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Applying") ;
-          applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs?[currentIndex - 1].id.toString()) ;
-        // }) ;
+          applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id.toString()) ;
+        }) ;
         debugPrint("this is approved list $approved");
       } else if (direction.name == "top") {
-        saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
         CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
           Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Saving") ;
-          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[currentIndex - 1].id , 1) ;
+          seekerSaveJobController.saveJobApi(getJobsListingController.getJobsListing.value.jobs?[previousIndex].id , 1) ;
         }) ;
 
         print("this is saved list $saved");
@@ -213,8 +211,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
       return true;
 
   }
-  lastCard(CardSwiperDirection direction) {
-    _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction) ;
-  }
+  // lastCard(CardSwiperDirection direction) {
+  //   _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction) ;
+  // }
 
 }
