@@ -3,14 +3,12 @@ import 'package:flikka/controllers/CompaniesListController/CompaniesListControll
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../res/components/unauthorised_request_widget.dart';
-import '../SeekerFilter/filter_page.dart';
 import 'rating_page_seeker.dart';
 
 class CompanySeekerPage extends StatefulWidget {
@@ -149,12 +147,12 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                       backgroundImage: NetworkImage(
                                           '${data?.profileImg}')
                                   ),
-                                  title: Text(data?.companyName ?? "Demo Name",
+                                  title: Text(data?.companyName ?? "",
                                       style: Get.theme.textTheme.labelMedium!
                                           .copyWith(color: AppColors.white)),
-                                  subtitle: Text(data?.companyLocation ?? "Demo Location",
+                                  subtitle: Text(data?.companyLocation ?? "",
                                       style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: Color(0xffCFCFCF))),
+                                          .copyWith(color: const Color(0xffCFCFCF))),
                                 ),
                               ),
                               const Divider(

@@ -2,6 +2,7 @@
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 
@@ -11,7 +12,7 @@ class CompaniesListController extends GetxController {
 
 
   final rxRequestStatus = Status.LOADING.obs ;
-  final getCompaniesList =CompanyListModel().obs ;
+  final getCompaniesList = CompanyListModel().obs ;
   RxList<CompanyList>? companies = <CompanyList>[].obs  ;
   RxString error = ''.obs;
   var loading = false.obs ;
@@ -40,8 +41,12 @@ class CompaniesListController extends GetxController {
   }
 
   filterList(String? query) {
-    companies?.value = getCompaniesList.value.companyList!.where((element) =>
+    if(getCompaniesList.value.companyList != null) {
+      debugPrint("called") ;
+      debugPrint(companies.toString()) ;
+      companies?.value = getCompaniesList.value.companyList!.where((element) =>
     element.companyName!.toLowerCase().contains(query!.toLowerCase())).toList() ;
+    }
 
     // getCompaniesList.value.companyList!.map((element) {
     //   if(element.companyName != null) {
