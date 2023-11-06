@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/controllers/SeekerEarningController/SeekerEarningController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -98,9 +99,21 @@ class _WalletState extends State<Wallet> {
                   child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                     SizedBox(height: Get.height * 0.01,),
-                    const Text("Earnings",
-                        style: TextStyle(fontSize: 24, fontWeight: FontWeight
-                            .w700, color: Colors.white)),
+                     Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("Earnings",
+                            style: TextStyle(fontSize: 24, fontWeight: FontWeight
+                                .w700, color: Colors.white)),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() =>AddBankAccountDetails());
+                          },
+                          child: Text("Add bank account details",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),
+                              ),
+                        ),
+                      ],
+                    ),
                      Text("How do I earn",
                        style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
                     ),

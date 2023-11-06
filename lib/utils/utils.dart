@@ -3,20 +3,16 @@ import 'package:flikka/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:get/get.dart';
-
-import '../Payment_Methods/request_withdraw.dart';
 import '../widgets/app_colors.dart';
 import '../widgets/my_button.dart';
 
 class Utils {
 
 
-
   static void fieldFocusChange(BuildContext context , FocusNode current , FocusNode  nextFocus ){
     current.unfocus();
     FocusScope.of(context).requestFocus(nextFocus);
   }
-
 
   static toastMessage(String message){
     Fluttertoast.showToast(
@@ -28,7 +24,6 @@ class Utils {
 
     );
   }
-
 
   static toastMessageCenter(String message){
     Fluttertoast.showToast(
@@ -70,7 +65,7 @@ class Utils {
                   width: Get.width*.3,
                   height: Get.height*.05,
                   title: "Ok", onTap1: () {
-                  Get.off(RequestWithdraw()) ;
+                 Get.back() ;
                 },),
               )
             ],

@@ -136,7 +136,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     const SeekerNoJobAvailable() :  CardSwiper(
                       controller: controller,
                       cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
-                      numberOfCardsDisplayed: 2,
+                      numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
                       isLoop: false,
                       backCardOffset: const Offset(40, 40),
                       padding: const EdgeInsets.all(24.0),

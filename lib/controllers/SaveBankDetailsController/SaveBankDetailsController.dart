@@ -32,7 +32,7 @@ class SaveBankDetailsController extends GetxController {
       loading.value = false ;
       print(value);
 
-      if(value.status!) {
+      if(value.status==true) {
        Utils.showMessageDialog(context, "Bank Details save successfully") ;
       }
       // Get.to(AddBankAccountDetails()) ;

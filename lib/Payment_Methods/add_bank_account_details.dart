@@ -2,7 +2,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/SaveBankDetailsController/SaveBankDetailsController.dart';
 
 import 'package:flikka/widgets/my_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

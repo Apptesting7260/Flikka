@@ -9,14 +9,14 @@ import '../controllers/ShowBankDetailsController/ShowBankDetailsController.dart'
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
-class EditBankAccountDetail extends StatefulWidget {
-  const EditBankAccountDetail({super.key});
+class ShowBankAccountDetail extends StatefulWidget {
+  const ShowBankAccountDetail({super.key});
 
   @override
-  State<EditBankAccountDetail> createState() => _EditBankAccountDetailState();
+  State<ShowBankAccountDetail> createState() => _ShowBankAccountDetailState();
 }
 
-class _EditBankAccountDetailState extends State<EditBankAccountDetail> {
+class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
 
   ShowBankDetailsController ShowBankDetailsControllerInstanse = Get.put(
       ShowBankDetailsController());

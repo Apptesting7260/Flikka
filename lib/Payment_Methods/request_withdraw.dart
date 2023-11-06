@@ -50,7 +50,7 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
                 SizedBox(height: Get.height*0.01,),
                 GestureDetector(
               onTap: () {
-              Get.to(()=>EditBankAccountDetail());
+              Get.to(()=>ShowBankAccountDetail());
               },
               child: Text("See Account Details",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor))),
                 SizedBox(height: Get.height*0.05,),

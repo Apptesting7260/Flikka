@@ -2,6 +2,7 @@
 
 import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
@@ -36,14 +37,10 @@ class PaymentRequestController extends GetxController {
       print(value);
 
       if(value.status == true) {
-        Get.to(AddBankAccountDetails()) ;
+       Utils.showMessageDialog(context, "payment request Successfully") ;
       }else if(value.status == false) {
       paymentDialog(context) ;
       }
-      // else {
-      //
-      //   //Utils.snackBar( "Message",value.message.toString());
-      // }
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;

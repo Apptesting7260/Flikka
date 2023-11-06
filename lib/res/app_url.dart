@@ -17,7 +17,7 @@ class AppUrl {
   static const String skipStep = '$baseUrl/skip_position' ;
   static const String seekerGetAllSkills = '$baseUrl/select-skill' ;
   static const String getIndustries = '$baseUrl/get-industry-list' ;
-  static const String getJobsListing = '$baseUrl/job_listing' ;
+  static const String getJobsListing = '$baseUrl/seeker-home-page-jobs-listing' ;
   static const String seekerEarningDetails = '$baseUrl/show-referral-by-user' ;
   static const String seekerChoosePositionGetUrl = '$baseUrl/Select-position' ;
   static const String seekerCreateProfile = '$baseUrl/seeker_profile' ;
