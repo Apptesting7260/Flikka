@@ -58,7 +58,8 @@ class AddJobController extends GetxController {
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
       });
-      request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath ?? "")) ;
+      if(profilePath != null) {
+      request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath)) ; }
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;
       var response = await request.send() ;
       debugPrint(response.statusCode.toString()) ;

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/AddJobController/AddJobController.dart';
 import 'package:flikka/data/response/status.dart';
@@ -51,7 +52,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   ];
   String? qualificatonType;
 
-  List languageList = [];
+  List? languageList = [];
 
  AddJobController addJobController = Get.put(AddJobController()) ;
   SeekerChoosePositionGetController seekerChoosePositionGetController =
@@ -87,6 +88,14 @@ class _AddAJobPageState extends State<AddAJobPage> {
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
       preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;
+      employmentType = widget.recruiterJobsData?.employmentType ?? "" ;
+      workplaceType = widget.recruiterJobsData?.typeOfWorkplace ?? "" ;
+      qualificatonType = widget.recruiterJobsData?.education ?? "" ;
+      if(widget.recruiterJobsData?.language != null) {
+        languageList = widget.recruiterJobsData?.language?.map((e) => e.languages).toList();
+        LanguageSelectorState.languages = widget.recruiterJobsData!.language!.map((e) => e.id.toString()).toList();
+      }
+
     }
     super.initState();
   }
@@ -158,7 +167,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                     color: const Color(0xff353535),
                                     borderRadius: BorderRadius.circular(22)
                                 ),
-                                child:imgFile?.path == null ?
+                                child: widget.recruiterJobsData?.featureImg != null ? 
+                                    CachedNetworkImage(
+                                      fit: BoxFit.cover,
+                                      imageUrl: "${widget.recruiterJobsData?.featureImg}" ,
+                                      placeholder: (context , url) => const Center(child: CircularProgressIndicator(),),)
+                                    :  imgFile?.path == null ?
                                   Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
@@ -189,10 +203,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               top: 8,
                               right: 8,
                               child: imgFile == null ?
-                                  SizedBox() :
+                                  const SizedBox() :
                               IconButton(onPressed: () {
                                 _openImagePickerDialog();
-                              }, icon: Icon(Icons.edit,color: Colors.white,size: 28,)),
+                              }, icon: const Icon(Icons.edit,color: Colors.white,size: 28,)),
                             ),
                           ]
                       ),),
@@ -766,7 +780,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                     LanguageSelector(selectedLanguageList: languageList,languageList: viewLanguageController.viewLanguageData.value.languages,),
                    Obx(() => addJobController.languageErrorMessage.value.isEmpty ?
                    const SizedBox():
-                       Text(addJobController.languageErrorMessage.value,style: TextStyle(color: Colors.red),),
+                       Text(addJobController.languageErrorMessage.value,style: const TextStyle(color: Colors.red),),
                    ),
                     SizedBox(height: Get.height*0.065,),
 
@@ -781,7 +795,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           addJobController.jobPositionErrorMessage.value = "" ;
                           addJobController.qualificationErrorMessage.value = "" ;
                           addJobController.languageErrorMessage.value = "" ;
-                          if(imgFile == null) {
+                          if( widget.recruiterJobsData?.featureImg == null && imgFile == null) {
                             addJobController.featureImageError.value = "Please select image" ;
                             scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                           }
@@ -796,7 +810,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                             } else if (workplaceType == null) {
                               addJobController.typeOfWorkPlaceErrorMessage.value = "Please select type of workplace";
                               scrollController.animateTo(typeOfWorkPlaceFocus.context!.size!.height  + Get.height*.75, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
-                            } else if (qualification == null) {
+                            } else if (qualificatonType == null) {
                               addJobController.qualificationErrorMessage.value =  "Please select qualification" ;
                             } else if(LanguageSelectorState.languages.isEmpty) {
                               addJobController.languageErrorMessage.value = "Please select language" ;
@@ -885,6 +899,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   final imgPicker = ImagePicker();
   final featureImageCropper = ImageCropper() ;
   File? imgFile;
+  File? profilePath;
   Future<void> _pickImage(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
     if(imgCamera != null) {
@@ -894,6 +909,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
         compressQuality: 40,);
       setState(() {
         imgFile = File(croppedImage!.path) ;
+        profilePath = File(croppedImage.path) ;
         print(imgFile) ;
       });
       Get.back();

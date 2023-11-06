@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
@@ -25,6 +27,8 @@ class FindJobHomeScreen extends StatefulWidget {
 
 class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   final CardSwiperController controller = CardSwiperController();
+
+  List<CardSwiperDirection> allDirections = CardSwiperDirection.values;
 
 
   @override
@@ -140,16 +144,23 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       isLoop: false,
                       backCardOffset: const Offset(40, 40),
                       padding: const EdgeInsets.all(24.0),
-                      onEnd: () {setState(() {
-                        last = true ;
-                      });
-                      },
                       allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
                       onSwipe: _onSwipe,
+                      onEnd: () {
+                        for (var direction in allDirections) {
+                          _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
+                          Timer(const Duration(milliseconds: 300), () {
+                            setState(() {
+                              last = true;
+                            });
+                          });
+                        }
+                      },
                       cardBuilder: (context, index,
                           horizontalThresholdPercentage, verticalThresholdPercentage,) {
                         debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
                         return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+
                       },
                     ),
                   ),
@@ -165,7 +176,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   }
 
   bool _onSwipe(
-      int previousIndex,
+      int? previousIndex,
       int? currentIndex,
       CardSwiperDirection direction,
       ) {
@@ -179,12 +190,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
       } else if (direction.name == "right") {
         approved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
-        CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
-          Get.back() ;
+        // CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
+        //   Get.back() ;
           CommonFunctions.showLoadingDialog(context, "Applying") ;
-          applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs![currentIndex - 1].id.toString()) ;
-        }) ;
-        print("this is approved list $approved");
+          applyJobController.applyJob(getJobsListingController.getJobsListing.value.jobs?[currentIndex - 1].id.toString()) ;
+        // }) ;
+        debugPrint("this is approved list $approved");
       } else if (direction.name == "top") {
         saved?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
         CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
@@ -202,6 +213,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
       return true;
 
   }
-
+  lastCard(CardSwiperDirection direction) {
+    _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction) ;
+  }
 
 }
