@@ -185,14 +185,17 @@ class JobsDetail {
 }
 
 class AvailabityName {
+  dynamic id ;
   String? availabity;
 
   AvailabityName({
+    this.id ,
     this.availabity,
   });
 
   factory AvailabityName.fromJson(Map<String, dynamic> json) => AvailabityName(
     availabity:  json["availabity"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -201,14 +204,17 @@ class AvailabityName {
 }
 
 class IndustryPreferenceName {
+  dynamic id ;
   String? industryPreferences;
 
   IndustryPreferenceName({
+    this.id ,
     this.industryPreferences,
   });
 
   factory IndustryPreferenceName.fromJson(Map<String, dynamic> json) => IndustryPreferenceName(
     industryPreferences: json["industry_preferences"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -217,14 +223,17 @@ class IndustryPreferenceName {
 }
 
 class PassionName {
+  dynamic id ;
   String? passion;
 
   PassionName({
+    this.id ,
     this.passion,
   });
 
   factory PassionName.fromJson(Map<String, dynamic> json) => PassionName(
     passion: json["passion"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -233,14 +242,18 @@ class PassionName {
 }
 
 class SkillName {
+  dynamic id ;
   String? skills;
 
   SkillName({
     this.skills,
+    this.id
   });
 
   factory SkillName.fromJson(Map<String, dynamic> json) => SkillName(
     skills: json["skills"],
+    id: json["id"]
+
   );
 
   Map<String, dynamic> toJson() => {
@@ -249,14 +262,17 @@ class SkillName {
 }
 
 class StartWorkName {
+  dynamic id ;
   String? startWork;
 
   StartWorkName({
     this.startWork,
+    this.id
   });
 
   factory StartWorkName.fromJson(Map<String, dynamic> json) => StartWorkName(
     startWork: json["start_work"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -265,14 +281,17 @@ class StartWorkName {
 }
 
 class StrengthsName {
+  dynamic id ;
   String? strengths;
 
   StrengthsName({
     this.strengths,
+    this.id
   });
 
   factory StrengthsName.fromJson(Map<String, dynamic> json) => StrengthsName(
     strengths: json["strengths"],
+    id: json["id"]
   );
 
   Map<String, dynamic> toJson() => {

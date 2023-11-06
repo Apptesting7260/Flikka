@@ -80,7 +80,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
     LanguageSelectorState.languages = [] ;
     if(widget.recruiterJobsData != null) {
       jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
-      jobPosition = widget.recruiterJobsData?.jobPositions ?? "" ;
       specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
       jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
       jobDescriptionController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.description) ?? "" ;
@@ -88,12 +87,22 @@ class _AddAJobPageState extends State<AddAJobPage> {
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
       preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;
-      employmentType = widget.recruiterJobsData?.employmentType ?? "" ;
-      workplaceType = widget.recruiterJobsData?.typeOfWorkplace ?? "" ;
-      qualificatonType = widget.recruiterJobsData?.education ?? "" ;
+      if(widget.recruiterJobsData?.employmentType.toString().toLowerCase() != "null") {
+        employmentType = widget.recruiterJobsData?.employmentType ;
+      }
+      if(widget.recruiterJobsData?.typeOfWorkplace.toString().toLowerCase() != "null") {
+        workplaceType = widget.recruiterJobsData?.typeOfWorkplace ;
+      }
+      if(widget.recruiterJobsData?.education.toString().toLowerCase() != "null") {
+        qualificatonType = widget.recruiterJobsData?.education ;
+      }
+
+      if(widget.recruiterJobsData?.jobPositions.toString().toLowerCase() != "null") {
+        jobPosition = widget.recruiterJobsData?.jobPositions ;
+      }
       if(widget.recruiterJobsData?.language != null) {
-        languageList = widget.recruiterJobsData?.language?.map((e) => e.languages).toList();
-        LanguageSelectorState.languages = widget.recruiterJobsData!.language!.map((e) => e.id.toString()).toList();
+        languageList = widget.recruiterJobsData?.language?.map((e) => e.languages).toList() ?? [];
+        LanguageSelectorState.languages = widget.recruiterJobsData?.language?.map((e) => e.id.toString()).toList() ?? [];
       }
 
     }
@@ -167,7 +176,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                     color: const Color(0xff353535),
                                     borderRadius: BorderRadius.circular(22)
                                 ),
-                                child: widget.recruiterJobsData?.featureImg != null ? 
+                                child: widget.recruiterJobsData?.featureImg != null && imgFile?.path == null ?
                                     CachedNetworkImage(
                                       fit: BoxFit.cover,
                                       imageUrl: "${widget.recruiterJobsData?.featureImg}" ,
@@ -839,7 +848,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   experienceController.text,
                                   preferredExperienceController.text,
                                   qualification.toString(),
-                                  LanguageSelectorState.languages
+                                  LanguageSelectorState.languages,
+                                recruiterJobsData: widget.recruiterJobsData ,
+                                jobId: widget.recruiterJobsData?.jobsDetail?.jobId
                               );
                             }
                           }
