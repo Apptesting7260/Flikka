@@ -5,9 +5,7 @@ import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
 
 class SeekerGetAllSkillsController extends GetxController {
-
   final _api = AuthRepository();
-
 
   final rxRequestStatus = Status.LOADING.obs ;
   final seekerGetAllSkillsData =  SeekerGetAllSkillsModel().obs ;

@@ -124,7 +124,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                             ),
 
                             child: Padding(
-                              padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.05),
+                              padding: EdgeInsets.symmetric(horizontal: Get.width*.03,vertical: Get.height*.05),
                               child: Column(
                                 children: [
                                   //********************* for jessica  ***************************
@@ -286,23 +286,22 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount: widget.recruiterJobsData?.jobsDetail?.skillName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
                                                       .circular(20),
                                                   color: Color(0xff484848),
                                                 ),
-                                                // padding: const EdgeInsets.all(
-                                                //     8),
                                                 child: Text(widget.recruiterJobsData?.jobsDetail?.skillName?[index].skills ?? "",
                                                   overflow: TextOverflow
                                                       .ellipsis,
@@ -328,16 +327,17 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount: widget.recruiterJobsData?.jobsDetail?.passionName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
@@ -372,16 +372,17 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount: widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
@@ -407,15 +408,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount: widget.recruiterJobsData?.jobsDetail?.strengthsName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
@@ -449,7 +451,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 .circular(20),
                                             color: const Color(0xff484848),
                                           ),
-                                          padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
+                                          padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
                                           child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''}',
                                             overflow: TextOverflow.ellipsis,
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
@@ -470,15 +472,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount: widget.recruiterJobsData?.jobsDetail?.startWorkName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius
@@ -512,15 +515,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             const SizedBox() :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
-                                            mainAxisExtent: 36,
+                                            mainAxisExtent: 39,
                                             maxCrossAxisExtent: Get.width * 0.35,
-                                            mainAxisSpacing: 7,
-                                            crossAxisSpacing: 7),
+                                            mainAxisSpacing: 6,
+                                            crossAxisSpacing: 6),
                                             itemCount:  widget.recruiterJobsData?.jobsDetail?.availabityName?.length,
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
                                             itemBuilder: (context, index) {
                                               return Container(
+                                                padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
                                                   borderRadius: BorderRadius

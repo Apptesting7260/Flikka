@@ -350,8 +350,6 @@ void showSkipDialog(BuildContext context) {
                                                     setState(() {
                                                       if (_selectedPositionIndex ==
                                                           index) {
-                                                        // _selectedPositionIndex =
-                                                        // null;
                                                       } else {
                                                         _selectedPositionIndex =
                                                             index;
@@ -362,16 +360,19 @@ void showSkipDialog(BuildContext context) {
                                                   child: Row(
                                                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                     children: [
-                                                      Text(
-                                                       "${ seekerChoosePositionGetControllerInstanse.positionsList?[index].positions}",
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .headlineSmall
-                                                            ?.copyWith(
-                                                          fontWeight:
-                                                          FontWeight.w500,
-                                                          color: const Color(0xffFFFFFF),),
+                                                      Flexible(
+                                                        child: Text(
+                                                          "${ seekerChoosePositionGetControllerInstanse.positionsList?[index].positions}",
+                                                         overflow: TextOverflow.ellipsis,
+                                                          style: Theme
+                                                              .of(context)
+                                                              .textTheme
+                                                              .headlineSmall
+                                                              ?.copyWith(
+                                                            fontWeight:
+                                                            FontWeight.w500,
+                                                            color: const Color(0xffFFFFFF)),
+                                                        ),
                                                       ),
 
                                                       Stack(
@@ -434,9 +435,6 @@ void showSkipDialog(BuildContext context) {
                                     SizedBox(
                                       height: Get.height * .05,
                                     ),
-
-
-
 
                                   Obx(() =>  Center(
                                     child: MyButton(
