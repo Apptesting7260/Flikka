@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Payment_Methods/add_bank_account_details.dart';
 import 'package:flikka/controllers/SeekerEarningController/SeekerEarningController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,8 @@ class _WalletState extends State<Wallet> {
 
   bool employee = true ;
   bool employer = false ;
+
+  var requstedWitharwal ;
 
   // List of items in our dropdown menu
   var items = [
@@ -85,7 +88,7 @@ class _WalletState extends State<Wallet> {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                 toolbarHeight: 45,
+                 toolbarHeight: 40,
                 leading: GestureDetector(
                     onTap: () {
                       Get.back() ;
@@ -102,7 +105,7 @@ class _WalletState extends State<Wallet> {
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("Earnings",
+                        const Text("Earnings",
                             style: TextStyle(fontSize: 24, fontWeight: FontWeight
                                 .w700, color: Colors.white)),
                         GestureDetector(
@@ -129,7 +132,8 @@ class _WalletState extends State<Wallet> {
                       child: MyButton(
 
                           title: "Request Withdraw", onTap1: () {
-                        Get.to(() => const RequestWithdraw());
+
+                        Get.to(() =>  const RequestWithdraw());
                       }),
                     ),
                     SizedBox(height: Get.height * 0.025,),
