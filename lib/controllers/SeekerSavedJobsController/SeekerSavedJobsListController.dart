@@ -1,6 +1,7 @@
 
 import 'package:flikka/models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:get/get.dart';
 import '../../data/response/status.dart';
 
@@ -35,6 +36,7 @@ class SeekerSavedJobsListController extends GetxController {
       print(error.toString());
 
       setRxRequestStatus(Status.ERROR);
+
     }) ;
   }
 }
