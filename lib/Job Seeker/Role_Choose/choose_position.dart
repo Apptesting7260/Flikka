@@ -151,7 +151,7 @@ void showSkipDialog(BuildContext context) {
                               height: Get.height * .010,
                             ),
                             Obx(() =>
-                            seekerChoosePositionGetControllerInstanse.loading.value ?
+                            seekerChoosePositionGetControllerInstanse.refreshLoading.value ?
                             const Center(child: CircularProgressIndicator(
                               color: Colors.white,
                             ),)

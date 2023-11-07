@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
 import 'package:flikka/controllers/SelectIndustryController/SelectIndustryController.dart';
@@ -180,7 +179,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? sizeValues;
 
   ////date///
-  String selectedDateString = 'yyyy-MM-dd';
+  String selectedDateString = 'Select Date';
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,

@@ -39,6 +39,7 @@ class AddJobController extends GetxController {
   }) async {
     try {
       debugPrint(jobType.toString());
+      debugPrint("this is profile path =================$profilePath");
       loading(true) ;
       var url = Uri.parse(AppUrl.addUpdateJob) ;
       debugPrint(url.toString()) ;
@@ -77,6 +78,7 @@ class AddJobController extends GetxController {
         request.fields[key] = value.toString();
       });
       if(profilePath != null) {
+        debugPrint("inside multipart") ;
       request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath)) ; }
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;
       var response = await request.send() ;

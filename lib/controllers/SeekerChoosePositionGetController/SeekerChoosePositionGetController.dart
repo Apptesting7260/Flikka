@@ -15,6 +15,7 @@ class SeekerChoosePositionGetController extends GetxController {
   final seekerChoosePositionGetList =SeekerChoosePositionGetModel().obs ;
   RxList<SeekerPositionData>? positionsList = <SeekerPositionData>[].obs  ;
   RxString error = ''.obs;
+  var refreshLoading = false.obs ;
   var loading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
@@ -53,18 +54,18 @@ class SeekerChoosePositionGetController extends GetxController {
 
 
   Future<void> refreshApi() async {
-    loading(true) ;
+    refreshLoading(true) ;
     var sp = await SharedPreferences.getInstance() ;
     print(sp.getString("BarrierToken")) ;
     _api.seekerGetPositions().then((value){
-      loading(false) ;
+      refreshLoading(false) ;
       seekerChoosePositionGetList(value);
       positionsList?.value = seekerChoosePositionGetList.value.data! ;
 
       print(value);
 
     }).onError((error, stackTrace){
-      loading(false) ;
+      refreshLoading(false) ;
       setError(error.toString());
       print(error.toString());
     });
