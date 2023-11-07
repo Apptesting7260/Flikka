@@ -54,6 +54,7 @@ class _WalletState extends State<Wallet> {
     super.initState();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -130,9 +131,7 @@ class _WalletState extends State<Wallet> {
                     SizedBox(height: Get.height * 0.035,),
                     Center(
                       child: MyButton(
-
                           title: "Request Withdraw", onTap1: () {
-
                         Get.to(() =>  const RequestWithdraw());
                       }),
                     ),
