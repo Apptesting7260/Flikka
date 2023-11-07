@@ -18,6 +18,7 @@ class AppUrl {
   static const String seekerGetAllSkills = '$baseUrl/select-skill' ;
   static const String getIndustries = '$baseUrl/get-industry-list' ;
   static const String getJobsListing = '$baseUrl/seeker-home-page-jobs-listing' ;
+  static const String getFilteredJobsListing = '$baseUrl/job-search-by-filteration' ;
   static const String seekerEarningDetails = '$baseUrl/show-referral-by-user' ;
   static const String seekerChoosePositionGetUrl = '$baseUrl/Select-position' ;
   static const String seekerCreateProfile = '$baseUrl/seeker_profile' ;

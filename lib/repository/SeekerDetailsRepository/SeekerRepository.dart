@@ -32,6 +32,11 @@ class SeekerRepository {
     return SeekerSavedJobsListModel.fromJson(response);
   }
 
+  Future<GetJobsListingModel> seekerJobFilterApi(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.getFilteredJobsListing);
+    return GetJobsListingModel.fromJson(response);
+  }
+
   Future<EditAboutModel> seekerSaveJobPost(var data) async {
     dynamic response = await apiServices.postApi2(data, AppUrl.seekerSaveJob);
     return EditAboutModel.fromJson(response);

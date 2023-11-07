@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/utils/RangeSlider.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -28,7 +29,8 @@ class _FilterPageState extends State<FilterPage> {
   final List<String> itemsC = [
     'Social Marketing','Programming','Health Finance','Content Manager'
   ];
-  String? socialValue;
+  String? positionName;
+  dynamic positionId ;
 
   final List<String> itemsDate = ['1 Day', '3 Day', '6 Day', '9 Day', '1 Month' ,];
   String? dateValue;
@@ -50,11 +52,15 @@ class _FilterPageState extends State<FilterPage> {
   String? employmentType;
 
   String? skillsValue ;
+  dynamic skillsId ;
+  String? languageName ;
+  dynamic languageId ;
 
   CompaniesListController companiesListController = Get.put(CompaniesListController()) ;
   SeekerChoosePositionGetController positionController = Get.put(SeekerChoosePositionGetController());
   SeekerGetAllSkillsController getSkillsController = Get.put(SeekerGetAllSkillsController()) ;
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
+  SeekerJobFilterController jobFilterController = Get.put(SeekerJobFilterController()) ;
   TextEditingController companyController = TextEditingController() ;
   TextEditingController locationController = TextEditingController() ;
 
@@ -132,11 +138,7 @@ class _FilterPageState extends State<FilterPage> {
                         child:
                         DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .labelLarge
-                                ?.copyWith(fontWeight: FontWeight.w300),
+                            style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
                             isExpanded: true,
                             hint: Text(
                               'Select position',
@@ -144,33 +146,33 @@ class _FilterPageState extends State<FilterPage> {
                                   fontWeight: FontWeight.w400),
                               overflow: TextOverflow.ellipsis,
                             ),
-                            items: itemsC
-                                .map((String item) =>
-                                DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(item,
+                            items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
+                                DropdownMenuItem(
+                                  value: item.positions,
+                                  child: Text(item.positions ?? '',
                                     style: Get.theme.textTheme.bodyLarge!
                                         .copyWith(color: AppColors.white),
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                ))
-                                .toList(),
-                            value: socialValue,
+                                  onTap: () {
+                                    setState(() {
+                                      positionName = item.positions ;
+                                      positionId = item.id ;
+                                    });
+                                  },
+                                )).toList(),
+                            value: positionName,
                             onChanged: (String? value) {
-                              setState(() {
-                                socialValue = value;
-                              });
+                                positionName = value;
                             },
                             dropdownStyleData: DropdownStyleData(
-                              maxHeight: Get.height * 0.35,
-                              width: Get.width * 0.400,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(14),
-                                color: Color(0xff353535),
+                                color: const Color(0xff353535),
                               ),
                               offset: const Offset(5, 0),
                               scrollbarTheme: ScrollbarThemeData(
-                                radius: Radius.circular(40),
+                                radius: const Radius.circular(40),
                                 thickness: MaterialStateProperty.all<double>(6),
                                 thumbVisibility: MaterialStateProperty.all<bool>(
                                     true),
@@ -330,47 +332,108 @@ class _FilterPageState extends State<FilterPage> {
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
                           children: [
-                            dropDown(hint: "Date Posted",
-                                items: itemsDate,
-                                value: dateValue),
-                            dropDown(hint: "Type of Workplace",
-                                items: typeOfWorkplaceItems,
-                                value: workplaceType),
-                            dropDown(hint: "Employment Type",
-                                items: employmentTypeItems,
-                                value: employmentType),
-                            dropDown(hint: "Qualification",
-                                items: itemQualification,
-                                value: qualificationType),
-                            SizedBox(width: Get.width * .35,
+                            dropDown(hint: "Date Posted", items: itemsDate, value: dateValue , onChanged: ( val) {
+                              setState(() {
+                                dateValue = val.toString() ;
+                              });
+                            }),
+                            dropDown(hint: "Type of Workplace", items: typeOfWorkplaceItems, value: workplaceType , onChanged: (val) {
+                              setState(() {
+                                workplaceType = val.toString() ;
+                              });
+                            }),
+                            dropDown(hint: "Employment Type", items: employmentTypeItems, value: employmentType , onChanged: (val) {
+                              setState(() {
+                                employmentType = val.toString() ;
+                              });
+                            }),
+                            dropDown(hint: "Qualification", items: itemQualification, value: qualificationType , onChanged: (val) {
+                              setState(() {
+                                qualificationType = val.toString() ;
+                              });
+                            }),
+                            Container(margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.textFieldFilledColor,
+                                  borderRadius: BorderRadius.circular(25)
+                              ),
+                              width: Get.width * .35,
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton2(
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(fontWeight: FontWeight.w300),
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
                                   isExpanded: true,
                                   hint: Text("Skills",
                                     style: Get.theme.textTheme.labelLarge?.copyWith(
                                         fontWeight: FontWeight.w400),
                                     overflow: TextOverflow.ellipsis,
                                   ),
-                                  items: getSkillsController.seekerGetAllSkillsData
-                                      .value.softSkill?.map((item) =>
+                                  items: getSkillsController.seekerGetAllSkillsData.value.softSkill?.map((item) =>
                                       DropdownMenuItem(
+                                        onTap: () {
+                                          setState(() {
+                                            skillsId = item.id ;
+                                            skillsValue = item.skills ;
+                                          });
+                                        },
                                         value: item.skills,
                                         child: Text("${item.skills}",
-                                          style: Get.theme.textTheme.bodyLarge!
-                                              .copyWith(color: AppColors.white),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      )).toList(),
+                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                          overflow: TextOverflow.ellipsis,),)).toList(),
                                   value: skillsValue,
                                   onChanged: (val) {
-                                    setState(() {
-                                      skillsValue = val;
-                                    });
+                                  },
+                                  dropdownStyleData: DropdownStyleData(
+                                    maxHeight: Get.height * 0.35,
+                                    // width: Get.width*0.902,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(14),
+                                      color: const Color(0xff353535),
+                                    ),
+                                    offset: const Offset(5, 0),
+                                    scrollbarTheme: ScrollbarThemeData(
+                                      radius: const Radius.circular(40),
+                                      thickness: MaterialStateProperty.all<double>(
+                                          6),
+                                      thumbVisibility: MaterialStateProperty.all<
+                                          bool>(true),
+                                    ),
+                                  ),
+                                  menuItemStyleData: const MenuItemStyleData(
+                                    height: 40,
+                                    padding: EdgeInsets.only(left: 10, right: 5),
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Container(margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.textFieldFilledColor,
+                                  borderRadius: BorderRadius.circular(25)
+                              ),
+                              width: Get.width * .35,
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton2(
+                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
+                                  isExpanded: true,
+                                  hint: Text("Job language",
+                                    style: Get.theme.textTheme.labelLarge?.copyWith(
+                                        fontWeight: FontWeight.w400),
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  items: viewLanguageController.viewLanguageData.value.languages?.map((item) =>
+                                      DropdownMenuItem(
+                                        onTap: () {
+                                          setState(() {
+                                            languageId = item.id ;
+                                            languageName = item.languages ;
+                                          });
+                                        },
+                                        value: item.languages,
+                                        child: Text("${item.languages}",
+                                          style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                          overflow: TextOverflow.ellipsis,),)).toList(),
+                                  value: languageName,
+                                  onChanged: (val) {
                                   },
                                   dropdownStyleData: DropdownStyleData(
                                     maxHeight: Get.height * 0.35,
@@ -499,12 +562,17 @@ class _FilterPageState extends State<FilterPage> {
                               ?.copyWith(fontWeight: FontWeight.w700),)),
                         ),
                         SizedBox(width: Get.width * .025,),
-                        MyButton(
-                          height: Get.height * .07,
-                          width: Get.width * .35,
-                          title: "APPLY", onTap1: () {
-
-                        },)
+                        Obx( () =>
+                           MyButton(
+                             loading: jobFilterController.loading.value,
+                            height: Get.height * .07,
+                            width: Get.width * .35,
+                            title: "APPLY", onTap1: () {
+                               jobFilterController.filterJob(positionId, locationController.text, companyController.text, dateValue,
+                                   workplaceType, RangePicker.minValue, RangePicker.maxValue, employmentType, qualificationType,
+                                   skillsId, languageId) ;
+                          },),
+                        )
                       ],
                     ),
                     SizedBox(height: Get.height * .1,)
@@ -521,9 +589,15 @@ class _FilterPageState extends State<FilterPage> {
   dropDown ( {
     required String hint ,
     required List<String> items ,
-    dynamic value
+    dynamic value ,
+  Function(Object?)? onChanged
 }) {
-    return SizedBox(
+    return Container(
+      margin: const EdgeInsets.only(right: 10),
+      decoration: BoxDecoration(
+        color: AppColors.textFieldFilledColor,
+        borderRadius: BorderRadius.circular(25)
+      ),
       width: Get.width * .35,
       child: DropdownButtonHideUnderline(
         child: DropdownButton2 (
@@ -539,19 +613,19 @@ class _FilterPageState extends State<FilterPage> {
               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
               overflow: TextOverflow.ellipsis,
             ),
+            onTap: () {
+              setState(() {
+                value = item ;
+                print(value) ;
+              });
+            },
           )).toList(),
           value: value,
-          onChanged: (val) {
-            setState(() {
-              value = val ;
-            });
-          },
+          onChanged: onChanged ,
           dropdownStyleData: DropdownStyleData(
-            maxHeight: Get.height*0.35,
-            // width: Get.width*0.902,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(14),
-              color: Color(0xff353535),
+              color: const Color(0xff353535),
             ),
             offset: const Offset(5, 0),
             scrollbarTheme: ScrollbarThemeData(
