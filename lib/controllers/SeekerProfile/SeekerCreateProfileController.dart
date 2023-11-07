@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/app_url.dart';
@@ -26,10 +27,10 @@ class SeekerCreateProfileController extends GetxController {
       var  name ,
       var  location ,
       var  aboutMe ,
-      var  workExperience ,
-      var  education ,
-      var  language ,
-      var  appreciation ,
+      List?  workExperience ,
+      List?  education ,
+      List?  language ,
+      List?  appreciation ,
       var documentType,
       var fresher
 
@@ -43,29 +44,18 @@ class SeekerCreateProfileController extends GetxController {
       var sp = await SharedPreferences.getInstance() ;
       var request = http.MultipartRequest('POST' , url ) ;
 
-      final formData = fresher == null ?
-      <String, dynamic>{
-        'name': name,
-        'location': location,
-        'about_me': aboutMe,
-        'work_exp_job': jsonEncode(workExperience),
-        'education_level': jsonEncode(education),
-        'language': jsonEncode(language),
-        'appreciation': jsonEncode(appreciation),
-        'document_type' :documentType,
-      }:
-      <String, dynamic>{
-        'name': name,
-        'location': location,
-        'about_me': aboutMe,
-        'work_exp_job': jsonEncode(workExperience),
-        'education_level': jsonEncode(education),
-        'language': jsonEncode(language),
-        'appreciation': jsonEncode(appreciation),
-        'document_type' :documentType,
-        'fresher' : jsonEncode(fresher)
-      };
+      final formData = {} ;
+      formData.addIf(name != null , "name" , name) ;
+      formData.addIf(location != null , "location" , location) ;
+      formData.addIf(aboutMe != null && aboutMe.toString().isNotEmpty, 'about_me', aboutMe) ;
+      formData.addIf(workExperience != null && workExperience.length != 0, 'work_exp_job', jsonEncode(workExperience)) ;
+      formData.addIf(education != null && education.length != 0, 'education_level', jsonEncode(education)) ;
+      formData.addIf(language != null && language.length != 0, 'language', jsonEncode(language)) ;
+      formData.addIf(appreciation != null && appreciation.length != 0, 'appreciation', jsonEncode(appreciation)) ;
+      formData.addIf(documentType != null && documentPath != null && documentPath.length != 0  && documentType.toString().isNotEmpty, 'document_type', jsonEncode(appreciation)) ;
+      formData.addIf(fresher != null && fresher.toString().isNotEmpty, 'fresher', jsonEncode(appreciation)) ;
 
+      debugPrint("this is formdata ======== $formData") ;
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
       });

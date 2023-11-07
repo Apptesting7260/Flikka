@@ -19,7 +19,7 @@ class ViewSeekerProfileController extends GetxController {
   void setError(String _value) => error.value = _value ;
 
 
-  Future<void> viewSeekerProfileApi() async {
+   viewSeekerProfileApi() async {
     setRxRequestStatus(Status.LOADING);
     loading(true) ;
     _api.viewSeekerProfile().then((value){
