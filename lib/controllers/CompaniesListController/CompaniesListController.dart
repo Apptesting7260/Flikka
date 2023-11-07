@@ -10,7 +10,7 @@ class CompaniesListController extends GetxController {
 
   final _api = SeekerRepository();
 
-
+  RxBool showCompanies = false.obs ;
   final rxRequestStatus = Status.LOADING.obs ;
   final getCompaniesList = CompanyListModel().obs ;
   RxList<CompanyList>? companies = <CompanyList>[].obs  ;

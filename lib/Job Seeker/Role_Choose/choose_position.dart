@@ -30,8 +30,7 @@ RxBool goToNext = false.obs;
 
   }
 
-  SeekerChoosePositionGetController seekerChoosePositionGetControllerInstanse =
-      Get.put(SeekerChoosePositionGetController());
+  SeekerChoosePositionGetController seekerChoosePositionGetControllerInstanse = Get.put(SeekerChoosePositionGetController());
 
   SeekerChoosePositionController seekerChoosePositionController = Get.put(SeekerChoosePositionController()) ;
   SkipStepController skipStepController = Get.put(SkipStepController()) ;
