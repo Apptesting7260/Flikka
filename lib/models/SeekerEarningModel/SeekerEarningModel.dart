@@ -1,10 +1,5 @@
-// To parse this JSON data, do
-//
-//     final seekerEarningModel = seekerEarningModelFromJson(jsonString);
 
 import 'dart:convert';
-
-import 'package:intl/intl.dart';
 
 SeekerEarningModel seekerEarningModelFromJson(String str) => SeekerEarningModel.fromJson(json.decode(str));
 
@@ -14,6 +9,7 @@ class SeekerEarningModel {
   bool? status;
   String? referralCode;
   String? totalAmount;
+  dynamic bankAccount;
   List<Seeker>? seeker;
   List<Recruiter>? recruiter;
 
@@ -21,6 +17,7 @@ class SeekerEarningModel {
     this.status,
     this.referralCode,
     this.totalAmount,
+    this.bankAccount,
     this.seeker,
     this.recruiter,
   });
@@ -29,6 +26,7 @@ class SeekerEarningModel {
     status: json["status"],
     referralCode: json["referral_code"],
     totalAmount: json["total_amount"],
+    bankAccount: json["bank_account"],
     seeker: json["seeker"] == null ? json["seeker"] : List<Seeker>.from(json["seeker"].map((x) => Seeker.fromJson(x))),
     recruiter: json["recruiter"] == null ? json["recruiter"] : List<Recruiter>.from(json["recruiter"].map((x) => Recruiter.fromJson(x))),
   );
@@ -37,6 +35,7 @@ class SeekerEarningModel {
     "status": status,
     "referral_code": referralCode,
     "total_amount": totalAmount,
+    "bank_account" : bankAccount ,
     "seeker": List<dynamic>.from(seeker!.map((x) => x.toJson())),
     "recruiter": List<dynamic>.from(recruiter!.map((x) => x.toJson())),
   };
