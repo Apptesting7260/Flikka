@@ -387,7 +387,7 @@ class _UserProfileState extends State<UserProfile> {
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(22)),
                     insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: seekerChoosePositionGetController.loading.value ?
+                    child: seekerChoosePositionGetController.refreshLoading.value ?
                     const CircularProgressIndicator()
                         : Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -2713,7 +2713,7 @@ class _UserProfileState extends State<UserProfile> {
 
   Future<void> _openFilePicker(bool resume , String? documentType) async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.any,
+      type: FileType.custom,
       allowedExtensions: resume ?  ['pdf', 'doc' ,'docx'] : ['jpg','jpeg','png','heic'],
       allowMultiple: false,
     );

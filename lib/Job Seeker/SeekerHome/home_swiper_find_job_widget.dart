@@ -9,21 +9,21 @@ import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import '../../widgets/my_button.dart';
 
 class HomeSwiperWidget extends StatefulWidget {
- final SeekerJobsData? jobData ;
-  const HomeSwiperWidget({super.key , required this.jobData});
+  final SeekerJobsData? jobData;
+  const HomeSwiperWidget({super.key, required this.jobData});
 
   @override
   State<HomeSwiperWidget> createState() => _HomeSwiperWidgetState();
 }
 
 class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
-
   bool _isValidEmail(String email) {
     final RegExp emailRegex =
-    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
     return emailRegex.hasMatch(email);
   }
 
@@ -40,9 +40,12 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
     setState(() {
       selectedFav = !selectedFav;
       buttonColor =
-      selectedFav ? AppColors.red : AppColors.ratingcommenttextcolor;
+          selectedFav ? AppColors.red : AppColors.ratingcommenttextcolor;
     });
   }
+
+  SeekerSaveJobController seekerSaveJobController =
+      Get.put(SeekerSaveJobController());
 
   TextEditingController commentController = TextEditingController();
   void showCommentDialog() {
@@ -103,9 +106,9 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
 
   @override
   Widget build(BuildContext context) {
-    var data = widget.jobData ;
-    var description = parse(data?.description) ;
-    var requirements = parse(data?.requirements) ;
+    var data = widget.jobData;
+    var description = parse(data?.description);
+    var requirements = parse(data?.requirements);
     return Container(
       decoration: BoxDecoration(
           color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
@@ -116,24 +119,26 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-              Get.to(() =>  MarketingIntern( jobData: widget.jobData, ));
+              Get.to(() => MarketingIntern(
+                    jobData: widget.jobData,
+                  ));
             },
             child: Container(
               decoration:
-              BoxDecoration(borderRadius: BorderRadius.circular(26)),
+                  BoxDecoration(borderRadius: BorderRadius.circular(26)),
               width: Get.width,
               height: Get.height * 0.5,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: CachedNetworkImage(
-                  fit: BoxFit.cover,
-                    placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator()),
-                    imageUrl: "${data?.featureImg}")
-                // Image.network("${data?.featureImg}",
-                //   fit: BoxFit.cover,
-                // ),
-              ),
+                  borderRadius: BorderRadius.circular(20),
+                  child: CachedNetworkImage(
+                      fit: BoxFit.cover,
+                      placeholder: (context, url) =>
+                          const Center(child: CircularProgressIndicator()),
+                      imageUrl: "${data?.featureImg}")
+                  // Image.network("${data?.featureImg}",
+                  //   fit: BoxFit.cover,
+                  // ),
+                  ),
             ),
           ),
           //************* for 50% match ************
@@ -150,9 +155,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     padding: const EdgeInsets.all(3.0),
                     child: Container(
                         decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.blueThemeColor
-                        ),
+                            shape: BoxShape.circle,
+                            color: AppColors.blueThemeColor),
                         child: CircleAvatar(
                             radius: 30,
                             backgroundColor: Colors.transparent,
@@ -160,14 +164,14 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text('50%',
+                                  Text('${widget.jobData?.jobMatchPercentage}%',
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(color: AppColors.white)),
                                   Text('match',
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(
-                                          color: AppColors.white,
-                                          fontSize: 7)),
+                                              color: AppColors.white,
+                                              fontSize: 7)),
                                 ],
                               ),
                             ))),
@@ -183,13 +187,29 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             top: 15,
             child: Column(
               children: [
-                Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
-                SizedBox(height: Get.height*.01,) ,
                 GestureDetector(
-                  onTap: () {
-                    Get.to(() => const FilterPage()) ;
-                  },
-                    child: Image.asset("assets/images/icon_filter_seeker_home.png",height: Get.height*.043,))
+                    onTap: () {
+                      CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
+                        Get.back();
+                        CommonFunctions.showLoadingDialog(context, "Saving");
+                        seekerSaveJobController.saveJobApi(widget.jobData?.id, 1);
+                      });
+                    },
+                    child: Image.asset(
+                      "assets/images/icon_Save_post.png",
+                      height: Get.height * .043,
+                    )),
+                SizedBox(
+                  height: Get.height * .01,
+                ),
+                GestureDetector(
+                    onTap: () {
+                      Get.to(() => const FilterPage());
+                    },
+                    child: Image.asset(
+                      "assets/images/icon_filter_seeker_home.png",
+                      height: Get.height * .043,
+                    ))
               ],
             ),
           ),
@@ -202,7 +222,9 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                Get.to(() =>  MarketingIntern( jobData: widget.jobData, ));
+                Get.to(() => MarketingIntern(
+                      jobData: widget.jobData,
+                    ));
               },
               child: Container(
                 height: Get.height * 0.35,
@@ -222,26 +244,62 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         style: Theme.of(context).textTheme.displayLarge,
                         softWrap: true,
                       ),
-                      SizedBox( height: Get.height * .003,),
-                      Text( data?.recruiterDetails?.companyName ?? "",
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),
+                      SizedBox(
+                        height: Get.height * .003,
                       ),
-                      SizedBox( height: Get.height * 0.03,),
-                      Text( "Job Description",
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
+                      Text(
+                        data?.recruiterDetails?.companyName ?? "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
                       ),
-                      SizedBox(height: Get.height * .008,),
-                      Text( CommonFunctions.parseHTML("${data?.description}") ?? "" ,
+                      SizedBox(
+                        height: Get.height * 0.03,
+                      ),
+                      Text(
+                        "Job Description",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: Get.height * .008,
+                      ),
+                      Text(
+                        CommonFunctions.parseHTML("${data?.description}") ?? "",
                         // overflow: TextOverflow.ellipsis,
                         // softWrap: true,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
                       ),
-                      SizedBox(height: Get.height * 0.03,),
-                      Text("Requirements", style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                      SizedBox(height: Get.height * .007,),
-                      Text( CommonFunctions.parseHTML("${data?.requirements}") ?? "" ,
-                        style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor),),
-                      SizedBox(height: Get.height*.02,),
+                      SizedBox(
+                        height: Get.height * 0.03,
+                      ),
+                      Text(
+                        "Requirements",
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleSmall
+                            ?.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(
+                        height: Get.height * .007,
+                      ),
+                      Text(
+                        CommonFunctions.parseHTML("${data?.requirements}") ??
+                            "",
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodySmall!
+                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                      ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
                     ],
                   ),
                 ),
@@ -270,21 +328,21 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                             onPressed: () => toggleFavorite(),
                             icon: selectedFav == false
                                 ? SvgPicture.asset(
-                              'assets/images/likesvg.svg',
-                              width: Get.width * 0.027,
-                              height: Get.height * 0.027,
-                              color: buttonColor,
-                            )
+                                    'assets/images/likesvg.svg',
+                                    width: Get.width * 0.027,
+                                    height: Get.height * 0.027,
+                                    color: buttonColor,
+                                  )
                                 : const Icon(
-                              Icons.favorite_rounded,
-                              color: AppColors.red,
-                            )),
+                                    Icons.favorite_rounded,
+                                    color: AppColors.red,
+                                  )),
                         Text("12",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
-                                color: AppColors.white, fontSize: 14)),
+                                    color: AppColors.white, fontSize: 14)),
                         SizedBox(
                           width: Get.width * 0.04,
                         ),
@@ -296,14 +354,14 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                             showCommentDialog();
                           },
                           icon:
-                          SvgPicture.asset('assets/images/commentsvg.svg'),
+                              SvgPicture.asset('assets/images/commentsvg.svg'),
                         ),
                         Text("10",
                             style: Theme.of(context)
                                 .textTheme
                                 .bodySmall!
                                 .copyWith(
-                                color: AppColors.white, fontSize: 14)),
+                                    color: AppColors.white, fontSize: 14)),
                       ],
                     ),
                     Padding(
@@ -319,13 +377,14 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                   return Stack(children: [
                                     AlertDialog(
                                       shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(17)
-                                      ),
+                                          borderRadius:
+                                              BorderRadius.circular(17)),
                                       //contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
                                       content: SingleChildScrollView(
                                         child: Column(
                                           children: [
-                                            Image.asset('assets/images/personpng.png'),
+                                            Image.asset(
+                                                'assets/images/personpng.png'),
                                             SizedBox(height: Get.height * 0.02),
                                             Text(
                                               "Refer a friend",
@@ -333,7 +392,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                   .textTheme
                                                   .headlineSmall!
                                                   .copyWith(
-                                                  color: AppColors.white),
+                                                      color: AppColors.white),
                                             ),
                                             SizedBox(height: Get.height * 0.01),
                                             Text.rich(
@@ -345,11 +404,11 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                         .textTheme
                                                         .headlineSmall!
                                                         .copyWith(
-                                                        color: AppColors
-                                                            .ratingcommenttextcolor,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w400),
+                                                            color: AppColors
+                                                                .ratingcommenttextcolor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
                                                   ),
                                                   TextSpan(
                                                     text: "£100",
@@ -357,21 +416,21 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                         .textTheme
                                                         .headlineSmall!
                                                         .copyWith(
-                                                        color: Colors
-                                                            .blue), // Change to the desired blue color
+                                                            color: Colors
+                                                                .blue), // Change to the desired blue color
                                                   ),
                                                   TextSpan(
                                                     text:
-                                                    " by referring friends.",
+                                                        " by referring friends.",
                                                     style: Theme.of(context)
                                                         .textTheme
                                                         .titleLarge!
                                                         .copyWith(
-                                                        color: AppColors
-                                                            .ratingcommenttextcolor,
-                                                        fontWeight:
-                                                        FontWeight
-                                                            .w400),
+                                                            color: AppColors
+                                                                .ratingcommenttextcolor,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .w400),
                                                   ),
                                                 ],
                                               ),
@@ -383,28 +442,28 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                   .textTheme
                                                   .bodyLarge
                                                   ?.copyWith(
-                                                  color: Color(0xff000000),
-                                                  fontWeight:
-                                                  FontWeight.w600),
+                                                      color: Color(0xff000000),
+                                                      fontWeight:
+                                                          FontWeight.w600),
                                               decoration: InputDecoration(
                                                 contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal:
-                                                    Get.width * 0.06,
-                                                    vertical:
-                                                    Get.height * 0.027),
+                                                    EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            Get.width * 0.06,
+                                                        vertical:
+                                                            Get.height * 0.027),
                                                 enabledBorder:
-                                                OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(35),
+                                                      BorderRadius.circular(35),
                                                   borderSide: const BorderSide(
                                                     color: AppColors.blackdown,
                                                   ),
                                                 ),
                                                 focusedBorder:
-                                                OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(35),
+                                                      BorderRadius.circular(35),
                                                   borderSide: const BorderSide(
                                                     color: AppColors.blackdown,
                                                   ),
@@ -417,10 +476,10 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                     .textTheme
                                                     .bodyMedium
                                                     ?.copyWith(
-                                                    color:
-                                                    Color(0xffCFCFCF),
-                                                    fontWeight:
-                                                    FontWeight.w500),
+                                                        color:
+                                                            Color(0xffCFCFCF),
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                               onFieldSubmitted: (value) {},
                                               validator: (value) {
@@ -431,7 +490,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                 return null;
                                               },
                                             ),
-
                                             SizedBox(
                                                 height: Get.height * 0.018),
                                             TextFormField(
@@ -439,28 +497,28 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                   .textTheme
                                                   .bodyLarge
                                                   ?.copyWith(
-                                                  color: Color(0xff000000),
-                                                  fontWeight:
-                                                  FontWeight.w600),
+                                                      color: Color(0xff000000),
+                                                      fontWeight:
+                                                          FontWeight.w600),
                                               decoration: InputDecoration(
                                                 contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal:
-                                                    Get.width * 0.06,
-                                                    vertical:
-                                                    Get.height * 0.027),
+                                                    EdgeInsets.symmetric(
+                                                        horizontal:
+                                                            Get.width * 0.06,
+                                                        vertical:
+                                                            Get.height * 0.027),
                                                 enabledBorder:
-                                                OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(35),
+                                                      BorderRadius.circular(35),
                                                   borderSide: const BorderSide(
                                                     color: AppColors.blackdown,
                                                   ),
                                                 ),
                                                 focusedBorder:
-                                                OutlineInputBorder(
+                                                    OutlineInputBorder(
                                                   borderRadius:
-                                                  BorderRadius.circular(35),
+                                                      BorderRadius.circular(35),
                                                   borderSide: const BorderSide(
                                                     color: AppColors.blackdown,
                                                   ),
@@ -473,10 +531,10 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                                     .textTheme
                                                     .bodyMedium
                                                     ?.copyWith(
-                                                    color:
-                                                    Color(0xffCFCFCF),
-                                                    fontWeight:
-                                                    FontWeight.w500),
+                                                        color:
+                                                            Color(0xffCFCFCF),
+                                                        fontWeight:
+                                                            FontWeight.w500),
                                               ),
                                               onFieldSubmitted: (value) {},
                                               validator: (value) {
@@ -506,71 +564,77 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                       ),
                                     ),
                                     //**************** for close on alert dialog **************
-                                    Stack(
-                                        children: [
-                                          GestureDetector(
-                                            onTap: () {
-                                              Navigator.of(context).pop(); // Close the dialog
-                                            },
-                                            child: Align(
-                                              alignment:AlignmentDirectional.topEnd,
-                                              child: Container(
-                                                height:Get.height * 0.50,
-                                                width: Get.width * 0.50,
-                                                child: Center(
-                                                  child: Stack(
-                                                      children: [
-                                                        Positioned(
-                                                            top: Get.height * 0.135,
-                                                            right: Get.width * 0.10,
-                                                            child:
-                                                            Container(
-                                                              decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(60.0),
-                                                                gradient: const LinearGradient(
-                                                                  colors: [
-                                                                    Color(0xFF56B8F6),
-                                                                    Color(0xFF4D6FED),
-                                                                  ],
-                                                                  begin: Alignment.topCenter, // Start from the top center
-                                                                  end: Alignment.bottomCenter, // End at the bottom center
-                                                                ),
-                                                              ),
-                                                              child: Icon(Icons.close,color: AppColors.white,size: Get.height*0.028,),
-                                                            )
+                                    Stack(children: [
+                                      GestureDetector(
+                                        onTap: () {
+                                          Navigator.of(context)
+                                              .pop(); // Close the dialog
+                                        },
+                                        child: Align(
+                                          alignment:
+                                              AlignmentDirectional.topEnd,
+                                          child: Container(
+                                            height: Get.height * 0.50,
+                                            width: Get.width * 0.50,
+                                            child: Center(
+                                              child: Stack(children: [
+                                                Positioned(
+                                                    top: Get.height * 0.135,
+                                                    right: Get.width * 0.10,
+                                                    child: Container(
+                                                      decoration: BoxDecoration(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(60.0),
+                                                        gradient:
+                                                            const LinearGradient(
+                                                          colors: [
+                                                            Color(0xFF56B8F6),
+                                                            Color(0xFF4D6FED),
+                                                          ],
+                                                          begin: Alignment
+                                                              .topCenter, // Start from the top center
+                                                          end: Alignment
+                                                              .bottomCenter, // End at the bottom center
                                                         ),
-                                                      ]
-                                                  ),
-                                                ),
-                                              ),
+                                                      ),
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        color: AppColors.white,
+                                                        size:
+                                                            Get.height * 0.028,
+                                                      ),
+                                                    )),
+                                              ]),
                                             ),
                                           ),
-                                          // ******************* for close icon in in *************
-
-                                        ]
-                                    )
+                                        ),
+                                      ),
+                                      // ******************* for close icon in in *************
+                                    ])
                                   ]);
                                 },
                               );
                             },
                             child: Stack(
                               children: [
-                              Image.asset(
-                                   'assets/images/personicons.png',height: Get.height*.05,),
+                                Image.asset(
+                                  'assets/images/personicons.png',
+                                  height: Get.height * .05,
+                                ),
                                 // CircleAvatar(
                                 //   backgroundColor: AppColors.blueThemeColor,
                                 //   radius: 17,
                                 //   child: Image.asset(
                                 //       'assets/images/personicons.png'),
                                 // ),
-
                               ],
                             ),
                           ),
                           IconButton(
                             onPressed: text.isEmpty &&
-                                imagePaths.isEmpty &&
-                                uri.isEmpty
+                                    imagePaths.isEmpty &&
+                                    uri.isEmpty
                                 ? null
                                 : () => _onShare(context),
                             icon: SvgPicture.asset(
@@ -582,7 +646,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                                   .textTheme
                                   .bodySmall!
                                   .copyWith(
-                                  color: AppColors.white, fontSize: 14)),
+                                      color: AppColors.white, fontSize: 14)),
                         ],
                       ),
                     )
@@ -591,7 +655,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
               ),
             ),
           ),
-
         ],
       ),
     );

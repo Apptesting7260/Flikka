@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';

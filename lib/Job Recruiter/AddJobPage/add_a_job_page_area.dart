@@ -87,14 +87,16 @@ class _AddAJobPageState extends State<AddAJobPage> {
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
       preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;
+      jobTypeTitle = widget.recruiterJobsData?.jobPosition ;
       if(widget.recruiterJobsData?.employmentType.toString().toLowerCase() != "null") {
         employmentType = widget.recruiterJobsData?.employmentType ;
       }
       if(widget.recruiterJobsData?.typeOfWorkplace.toString().toLowerCase() != "null") {
         workplaceType = widget.recruiterJobsData?.typeOfWorkplace ;
       }
-      if(widget.recruiterJobsData?.education.toString().toLowerCase() != "null") {
+      if(widget.recruiterJobsData?.education != null) {
         qualificatonType = widget.recruiterJobsData?.education ;
+        debugPrint(qualificatonType) ;
       }
 
       if(widget.recruiterJobsData?.jobPositions.toString().toLowerCase() != "null") {
@@ -293,7 +295,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               value: item.positions,
                               onTap: () {
                                 setState(() {
-                                  jobTypeTitle = item.id ;
+                                  jobTypeTitle = item.id.toString() ;
                                   jobPosition = item.positions ;
                                 });
                                 },
@@ -738,7 +740,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           onChanged: (String? value) {
                             setState(() {
                               qualificatonType = value;
-                              qualification = value;
                             });
                           },
                           buttonStyleData: ButtonStyleData(
@@ -847,7 +848,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   workplaceType.toString(),
                                   experienceController.text,
                                   preferredExperienceController.text,
-                                  qualification.toString(),
+                                  qualificatonType.toString(),
                                   LanguageSelectorState.languages,
                                 recruiterJobsData: widget.recruiterJobsData ,
                                 jobId: widget.recruiterJobsData?.jobsDetail?.jobId

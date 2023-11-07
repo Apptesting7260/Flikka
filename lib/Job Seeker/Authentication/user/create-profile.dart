@@ -1102,7 +1102,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                   child: Text(
                                     seekerCreateProfileController
                                         .languageErrorMessage.value,
-                                    style: TextStyle(color: Colors.red),
+                                    style: const TextStyle(color: Colors.red),
                                   )))),
                           SizedBox(
                             height: Get.height * .02,
@@ -1525,7 +1525,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                             });
                                             print(appreciationList);
                                           }
-                                          if (jobTitleController.text.isNotEmpty && companyNameController.text.isNotEmpty) {
+                                          if (jobTitleController.text.isNotEmpty && companyNameController.text.isNotEmpty && startDateExperience != null ) {
                                             workExperienceList.add({
                                               "work_exp_job": jobTitleController.text,
                                               "company_name": companyNameController.text,
