@@ -1,4 +1,5 @@
 import 'package:flikka/controllers/ApplyJobController/ApplyJobController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -7,7 +8,7 @@ import 'package:get/get.dart';
 import '../models/GetJobsListingModel/GetJobsListingModel.dart';
 
 class MarketingIntern extends StatefulWidget {
-  final SeekerJobsData? jobData ;
+  final dynamic jobData ;
   const MarketingIntern({super.key, this.jobData});
 
   @override
@@ -77,7 +78,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.description}",
+                   CommonFunctions.parseHTML( widget.jobData?.description ?? '' ),
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
@@ -91,8 +92,8 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.requirements}",
-                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
+                   CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ),
+                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
                     height: Get.height * 0.025,

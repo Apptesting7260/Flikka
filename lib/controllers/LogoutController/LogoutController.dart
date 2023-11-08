@@ -30,6 +30,7 @@ class LogoutController extends GetxController {
       logoutModel = LogoutModel.fromJson(jsonDecode(response.body)) ;
       if(logoutModel.status == true) {
         sp.remove("BarrierToken") ;
+        sp.remove("loggedIn") ;
         Get.offAll( () => const Login()) ;
       }
     }catch(e){

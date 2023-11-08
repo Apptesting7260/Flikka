@@ -70,16 +70,25 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
         case Status.ERROR:
           if (getJobsListingController.error.value == 'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                getJobsListingController.seekerGetAllJobsApi() ;
+                seekerProfileController.viewSeekerProfileApi() ;
+              },
             ),);
           } else if (getJobsListingController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
+            return Scaffold(body: RequestTimeoutWidget(onPress: () {
+              getJobsListingController.seekerGetAllJobsApi() ;
+              seekerProfileController.viewSeekerProfileApi() ;
+            }),);
           } else if (getJobsListingController.error.value == "Internal server error") {
             return Scaffold(body: ServerErrorWidget(onPress: () {}),);
           } else if (getJobsListingController.error.value == "Unauthorised Request") {
             return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
           }else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              getJobsListingController.seekerGetAllJobsApi() ;
+              seekerProfileController.viewSeekerProfileApi() ;
+            }),);
           }
         case Status.COMPLETED:
           return Scaffold(
@@ -138,7 +147,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
                         getJobsListingController.getJobsListing.value.jobs == null ?
                     const SeekerNoJobAvailable() :  Obx( () =>
-                    jobFilterController.reset.value ? CardSwiper(
+                    jobFilterController.reset.value ?
+                    CardSwiper(
                         controller: controller,
                         cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
                         numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
@@ -214,11 +224,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
     if(currentIndex != null ) {
       if (direction.name == "left") {
         print("swiped left");
-        // setState(() {
-        rejected?.add(getJobsListingController.getJobsListing.value.jobs?[currentIndex].id);
-        print("this is rejected list $rejected");
-        // });
-
       } else if (direction.name == "right") {
         CommonFunctions.confirmationDialog(context, message: "Do you want to Apply for the post", onTap: () {
           Get.back() ;

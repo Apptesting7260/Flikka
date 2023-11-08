@@ -1,6 +1,6 @@
-
 import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
+import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ class SeekerJobFilterController extends GetxController {
   RxBool loading = false.obs;
   RxBool reset = true.obs ;
   var errorMessage = "".obs ;
-  var jobsData = GetJobsListingModel().obs ;
-  GetJobsListingController jobsListingController = Get.put(GetJobsListingController()) ;
+  var jobsData = SeekerJobFilterModel().obs ;
+  final getJobsListing = GetJobsListingModel().obs ;
+  var homeJobs = Get.put(GetJobsListingController()) ;
 
   void filterJob(
       BuildContext context,
@@ -38,8 +39,8 @@ class SeekerJobFilterController extends GetxController {
     data.addIf(company != null && company.toString().length != 0 , 'company' , company.toString()) ;
     data.addIf(datePosted != null && datePosted.toString().length != 0 , 'date_posted' , datePosted.toString()) ;
     data.addIf(typeOfWorkplace != null && typeOfWorkplace.toString().length != 0 , 'type_of_workplace' , typeOfWorkplace.toString()) ;
-    data.addIf(minSalaryExpectation != null && minSalaryExpectation.toString().length != 0 , 'min_salary_expectation' , minSalaryExpectation.toString()) ;
-    data.addIf(maxSalaryExpectation != null && maxSalaryExpectation.toString().length != 0 , 'max_salary_expectation' , maxSalaryExpectation.toString()) ;
+    // data.addIf(minSalaryExpectation != null && minSalaryExpectation.toString().length != 0 , 'min_salary_expectation' , minSalaryExpectation.toString()) ;
+    // data.addIf(maxSalaryExpectation != null && maxSalaryExpectation.toString().length != 0 , 'max_salary_expectation' , maxSalaryExpectation.toString()) ;
     data.addIf(employmentType != null && employmentType.toString().length != 0 , 'employment_type' , employmentType.toString()) ;
     data.addIf(qualification != null && qualification.toString().length != 0 , 'qualification' , qualification.toString()) ;
     data.addIf(skills != null && skills.toString().length != 0 , 'sales_skills' , skills.toString()) ;
@@ -50,17 +51,20 @@ class SeekerJobFilterController extends GetxController {
       loading.value = false ;
       if(value.status!){
       jobsData(value) ;
-      jobsListingController.getJobsListing(value) ;
+      // jobsListingController.getJobsListing(value) ;
       print("this is value ==== $value") ;
-      print("this is joblength ==== ${jobsData.value.jobs.toString()}") ;
-      print("this is job   ---- length ==== ${ jobsListingController.getJobsListing.value.jobs.toString()}") ;
-      // Get.back() ;
+      print("this is joblength ==== ${jobsData.value.jobs?.length.toString()}") ;
+      // getJobsListing.value.jobs = jobsData.value.jobs ;
+      // print("this is getJobsListing  ============>>>>>>>>>${getJobsListing.value.jobs.toString()}") ;
+
+      // print("this is job   ---- length ==== ${ jobsListingController.getJobsListing.value.jobs.toString()}") ;
+      Get.back() ;
 
       reset(false) ;
       print(reset.value) ;
       }
       else{
-        errorMessage.value =  value.message.toString();
+        // errorMessage.value =  value.message.toString();
         Utils.showMessageDialog(context, "No Matching Job Found") ;
       }
     }).onError((error, stackTrace){

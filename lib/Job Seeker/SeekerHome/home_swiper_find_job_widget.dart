@@ -13,7 +13,7 @@ import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.da
 import '../../widgets/my_button.dart';
 
 class HomeSwiperWidget extends StatefulWidget {
-  final SeekerJobsData? jobData;
+  final dynamic jobData;
   const HomeSwiperWidget({super.key, required this.jobData});
 
   @override
@@ -58,7 +58,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             style: Theme.of(context).textTheme.displayLarge,
           ),
           content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
+            style: const TextStyle(color: AppColors.white, fontSize: 23),
             onChanged: (String value) {
               setState(() => uri = value);
             },

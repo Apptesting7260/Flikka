@@ -7,7 +7,6 @@ import 'package:get/get.dart';
 class GetJobsListingController extends GetxController {
 
   final _api = SeekerRepository();
-
   final rxRequestStatus = Status.LOADING.obs ;
   final getJobsListing = GetJobsListingModel().obs ;
   RxString error = ''.obs;
