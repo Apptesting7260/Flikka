@@ -1242,6 +1242,124 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
+  resume () {
+     showDialog(context: context,
+         builder: (BuildContext context) {
+       var resumeName ;
+       return Dialog(
+         shape: RoundedRectangleBorder(
+             borderRadius: BorderRadius.circular(22)),
+         insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+         child: Column(
+           children: [
+             DottedBorder(
+               borderType: BorderType.RRect,
+               radius: const Radius.circular(20),
+               dashPattern: [5, 5],
+               color: const Color(0xffCFCFCF),
+               strokeWidth: 0.7,
+               child: Obx( () =>
+                   Stack(
+                     clipBehavior: Clip.none,
+                     children: [
+                       GestureDetector(
+                         onTap: () {
+                           if (resumeName == null || resumeName.toString().length == 0) {
+                             _openFilePicker(true,"") ;
+                           } else {
+                               OpenFile.open(resumeName);
+                           }
+                         },
+                         child: Container(
+                           height: Get.height * .15,
+                           width: Get.width,
+                           decoration: BoxDecoration(
+                             borderRadius: BorderRadius.circular(22),
+                           ),
+                           child: Center(
+                             child: Obx( () => Row(
+                               crossAxisAlignment: CrossAxisAlignment.center,
+                               mainAxisAlignment: MainAxisAlignment.center,
+                               children: [
+                                 editSeekerResumeController.documentPath.value == ''
+                                     ? Image.asset(
+                                   "assets/images/icon_upload_cv.png",
+                                   width: Get.width * .07,
+                                   height: Get.height * .06,
+                                 ) :
+                                 SizedBox(width: Get.width * .0),
+                                 if (editSeekerResumeController.documentPath.value.isNotEmpty)
+                                   SizedBox(
+                                     width: Get.width * .6,
+                                     child: Row(
+                                       mainAxisSize: MainAxisSize.min,
+                                       children: [
+                                         SizedBox(
+                                             width: Get.width * .02),
+                                         Flexible(
+                                           child: Obx( () =>
+                                               Text(
+                                                 "File uploaded: ${resumePath.split('/').last}",
+                                                 overflow: TextOverflow
+                                                     .ellipsis,
+                                                 style: Theme
+                                                     .of(context)
+                                                     .textTheme
+                                                     .labelLarge
+                                                     ?.copyWith(
+                                                     fontWeight: FontWeight
+                                                         .w400),
+                                               ),
+                                           ),
+                                         ),
+                                       ],
+                                     ),
+                                   )
+                                 else
+                                   Padding(
+                                     padding:
+                                     const EdgeInsets.only(
+                                         left: 8.0, top: 4),
+                                     child: Text(
+                                       "Upload File",
+                                       style: Theme
+                                           .of(context)
+                                           .textTheme
+                                           .labelLarge
+                                           ?.copyWith(
+                                           fontWeight: FontWeight
+                                               .w400),
+                                     ),
+                                   ),
+                               ],
+                             ),
+                             ),
+                           ),
+                         ),
+                       ),
+                       Positioned(
+                           right: 5,
+                           top: 1,
+                           child: editSeekerResumeController.documentPath.value.isEmpty ?
+                           const SizedBox() :
+                           IconButton(
+                               onPressed: () {
+                                   _openFilePicker(true,"");
+                               },
+                               icon: const Icon(
+                                 Icons.edit,
+                                 color: Colors.white,
+                               ))),
+                     ],
+                   ),
+               ),
+             ),
+           ],
+         ),
+       ) ;
+     }) ;
+  }
+
   //********************* for appreciation *************
   TextEditingController appreciationController = TextEditingController();
 
@@ -2436,7 +2554,7 @@ class _UserProfileState extends State<UserProfile> {
                                             leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
                                             SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
                                             title: Text(
-                                              '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}',
+                                              'Resume',
                                               overflow: TextOverflow.ellipsis,
                                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
@@ -2479,10 +2597,14 @@ class _UserProfileState extends State<UserProfile> {
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                               seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
                                           const Text("No Data") :
-                                          ListTile( leading: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
-                                          SvgPicture.asset('assets/images/PDF.svg') : Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}")  ,
-                                            title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                              style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
+                                          ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
+                                          SvgPicture.asset('assets/images/PDF.svg') :
+                                          SizedBox( height: Get.height *.4 ,
+                                            child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
+                                            fit: BoxFit.cover, ),
+                                          ) )  ,
+                                            // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                            //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                           SizedBox(height: Get.height * 0.02,),
                                           Center(
                                             child: MyButton(
@@ -2603,8 +2725,7 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
-  Future<void> _openDeleteDialog( int index,
-      bool isExperience) {
+  Future<void> _openDeleteDialog( int index, bool isExperience) {
     return showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -27,19 +27,18 @@ class SeekerJobFilterController extends GetxController {
       ) async{
     loading.value = true ;
 
-    Map data = {
-      'job_title' : jobTitle.toString(),
-      "location" : location.toString(),
-      "company" : company.toString(),
-      "date_posted" : datePosted.toString(),
-      "type_of_workplace" : typeOfWorkplace.toString(),
-      "min_salary_expectation" : minSalaryExpectation.toString(),
-      "max_salary_expectation" : maxSalaryExpectation.toString(),
-      "employment_type" : employmentType.toString(),
-      "qualification" : qualification.toString(),
-      "sales_skills" : skills.toString(),
-      "language" : language.toString(),
-    };
+    var data = {};
+    data.addIf(jobTitle != null && jobTitle.toString().length != 0 , 'job_title' , jobTitle.toString()) ;
+    data.addIf(location != null && location.toString().length != 0 , 'location' , location.toString()) ;
+    data.addIf(company != null && company.toString().length != 0 , 'company' , company.toString()) ;
+    data.addIf(datePosted != null && datePosted.toString().length != 0 , 'date_posted' , datePosted.toString()) ;
+    data.addIf(typeOfWorkplace != null && typeOfWorkplace.toString().length != 0 , 'type_of_workplace' , typeOfWorkplace.toString()) ;
+    data.addIf(minSalaryExpectation != null && minSalaryExpectation.toString().length != 0 , 'min_salary_expectation' , minSalaryExpectation.toString()) ;
+    data.addIf(maxSalaryExpectation != null && maxSalaryExpectation.toString().length != 0 , 'max_salary_expectation' , maxSalaryExpectation.toString()) ;
+    data.addIf(employmentType != null && employmentType.toString().length != 0 , 'employment_type' , employmentType.toString()) ;
+    data.addIf(qualification != null && qualification.toString().length != 0 , 'qualification' , qualification.toString()) ;
+    data.addIf(skills != null && skills.toString().length != 0 , 'sales_skills' , skills.toString()) ;
+    data.addIf(language != null && language.toString().length != 0 , 'language' , language.toString()) ;
     print(data);
 
     _api.seekerJobFilterApi(data).then((value){
