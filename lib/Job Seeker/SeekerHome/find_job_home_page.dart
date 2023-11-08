@@ -1,3 +1,4 @@
+import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
@@ -42,6 +43,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
   SeekerSaveJobController seekerSaveJobController = Get.put(SeekerSaveJobController()) ;
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+  SeekerJobFilterController jobFilterController = Get.put(SeekerJobFilterController()) ;
 
   @override
   void initState() {
@@ -84,7 +86,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
            endDrawer: DrawerClass(
             name: '${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}',
             location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
-            jobTitle: '${seekerProfileController.viewSeekerData.value.seekerDetails?.positions}',
+            jobTitle: '${seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? ''}',
           profileImage: '${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}',),
            body: SafeArea(
             child:
@@ -135,10 +137,39 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                     last ? const SeekerNoJobAvailable() :
                     getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
                         getJobsListingController.getJobsListing.value.jobs == null ?
-                    const SeekerNoJobAvailable() :  CardSwiper(
+                    const SeekerNoJobAvailable() :  Obx( () =>
+                    jobFilterController.reset.value ? CardSwiper(
+                        controller: controller,
+                        cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
+                        numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
+                        // isLoop: false,
+                        backCardOffset: const Offset(40, 40),
+                        padding: const EdgeInsets.all(24.0),
+                        allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
+                        onSwipe: _onSwipe,
+                        // onEnd: () {
+                        //   for (var direction in allDirections) {
+                        //     _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
+                        //     Timer(const Duration(milliseconds: 300), () {
+                        //       setState(() {
+                        //         last = true;
+                        //       });
+                        //     });
+                        //   }
+                        // },
+                        cardBuilder: (context, index,
+                            horizontalThresholdPercentage, verticalThresholdPercentage,) {
+                          debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
+                          return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+
+                        },
+                      )
+                      : jobFilterController.jobsData.value.jobs?.length == 0 ||
+                        jobFilterController.jobsData.value.jobs == null ?
+                    const SeekerNoJobAvailable() : CardSwiper(
                       controller: controller,
-                      cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
-                      numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
+                      cardsCount: jobFilterController.jobsData.value.jobs?.length ?? 0 ,
+                      numberOfCardsDisplayed: jobFilterController.jobsData.value.jobs?.length == 1 ? 1 : 2,
                       // isLoop: false,
                       backCardOffset: const Offset(40, 40),
                       padding: const EdgeInsets.all(24.0),
@@ -156,10 +187,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       // },
                       cardBuilder: (context, index,
                           horizontalThresholdPercentage, verticalThresholdPercentage,) {
-                        debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
-                        return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+                        debugPrint("inside filter jobs") ;
+                        debugPrint(jobFilterController.jobsData.value.jobs?.length.toString()) ;
+                        return  HomeSwiperWidget(jobData: jobFilterController.jobsData.value.jobs?[index],);
 
                       },
+                    ),
                     ),
                   ),
 

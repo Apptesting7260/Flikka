@@ -1,7 +1,9 @@
 
+import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SeekerJobFilterController extends GetxController {
@@ -9,10 +11,13 @@ class SeekerJobFilterController extends GetxController {
   final _api = SeekerRepository();
 
   RxBool loading = false.obs;
+  RxBool reset = true.obs ;
   var errorMessage = "".obs ;
   var jobsData = GetJobsListingModel().obs ;
+  GetJobsListingController jobsListingController = Get.put(GetJobsListingController()) ;
 
   void filterJob(
+      BuildContext context,
       dynamic jobTitle ,
       dynamic location ,
       dynamic company ,
@@ -45,11 +50,18 @@ class SeekerJobFilterController extends GetxController {
       loading.value = false ;
       if(value.status!){
       jobsData(value) ;
+      jobsListingController.getJobsListing(value) ;
+      print("this is value ==== $value") ;
+      print("this is joblength ==== ${jobsData.value.jobs.toString()}") ;
+      print("this is job   ---- length ==== ${ jobsListingController.getJobsListing.value.jobs.toString()}") ;
+      // Get.back() ;
+
+      reset(false) ;
+      print(reset.value) ;
       }
       else{
         errorMessage.value =  value.message.toString();
-        Utils.toastMessage( "${value.message}") ;
-        Get.back() ;
+        Utils.showMessageDialog(context, "No Matching Job Found") ;
       }
     }).onError((error, stackTrace){
       print(error);

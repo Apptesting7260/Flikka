@@ -46,7 +46,7 @@ class MyButton extends StatelessWidget {
           //   begin: Alignment.topCenter, // Start from the top center
           //   end: Alignment.bottomCenter, // End at the bottom center
           // ),
-          color: AppColors.blueThemeColor
+          color: bgColor ?? AppColors.blueThemeColor
         ),
         child: Center(
           child: loading == false
@@ -54,7 +54,7 @@ class MyButton extends StatelessWidget {
             title,
             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
               fontWeight: FontWeight.w700,
-              color: Color(0xffFFFFFF),
+              color: textColor ?? const Color(0xffFFFFFF),
             ),
           )
               : LoadingAnimationWidget.fallingDot(
