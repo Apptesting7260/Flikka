@@ -1,3 +1,4 @@
+
 import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_edit.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/create-profile.dart';
 import 'package:flikka/Job%20Seeker/Role_Choose/choose_position.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../Job Recruiter/bottom_bar/tab_bar.dart';
+import '../../utils/utils.dart';
 
 class LoginController extends GetxController {
   final _api = AuthRepository();
@@ -18,7 +20,9 @@ class LoginController extends GetxController {
 
   RxBool loading = false.obs;
 
-  void loginApiHit() async {
+  void loginApiHit(
+      BuildContext context
+      ) async {
     loading.value = true;
     SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -56,6 +60,7 @@ class LoginController extends GetxController {
       print(error);
       loading.value = false;
       // Utils.snackBar('Failed', error.toString());
+      Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
 }
