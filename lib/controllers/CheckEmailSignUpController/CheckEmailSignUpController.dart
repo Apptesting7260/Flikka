@@ -1,23 +1,20 @@
 
 import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
-import 'package:flikka/Job%20Seeker/Role_Choose/choose_role.dart';
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../Job Seeker/Authentication/sign_up.dart';
 
 class CheckEmailSignUpController extends GetxController {
 
   final _api = AuthRepository();
 
-
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
-  void checkEmailSignUpApiHit(String email) async{
+  void checkEmailSignUpApiHit(
+      String email,
+      BuildContext context
+      ) async{
     loading.value = true ;
 
     Map data = { 'email' : email,};
@@ -37,6 +34,7 @@ class CheckEmailSignUpController extends GetxController {
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
+      Utils.showApiErrorDialog(context, error.toString()) ;
       // Utils.snackBar('Failed',error.toString());
     });
   }

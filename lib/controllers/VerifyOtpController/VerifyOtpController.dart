@@ -19,7 +19,10 @@ class VerifyOtpController extends GetxController {
   var verifyOtpErrorMessage = ''.obs ;
 
 
-  Future<void> verifyOtpApiHit(var email , bool register) async {
+  Future<void> verifyOtpApiHit(
+      var email , bool register ,
+      BuildContext context
+      ) async {
 
     SharedPreferences sp = await SharedPreferences.getInstance();
     loading.value = true ;
@@ -44,7 +47,8 @@ class VerifyOtpController extends GetxController {
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
-      Utils.snackBar('Failed',error.toString());
+      // Utils.snackBar('Failed',error.toString());
+      Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
 }

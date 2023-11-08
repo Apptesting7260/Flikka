@@ -449,11 +449,12 @@ void showSkipDialog(BuildContext context) {
                                         if(id == null) {
                                           // Utils.snackBar("Failed", "Please select a field") ;
                                           seekerChoosePositionController.errorMessage.value = "Please select a field" ;
-                                        } else {
+                                        }
+                                        else {
                                           print(seekerChoosePositionController
                                               .loading.value);
                                           seekerChoosePositionController
-                                              .seekerChoosePositionApiHit(id);
+                                              .seekerChoosePositionApiHit(id,context);
                                         }
                                         // Get.to(() => ChooseSkills());
 

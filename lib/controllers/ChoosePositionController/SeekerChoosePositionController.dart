@@ -17,7 +17,9 @@ class SeekerChoosePositionController extends GetxController {
   var errorMessage = "".obs ;
 
   Future<void> seekerChoosePositionApiHit(
-      var id
+      var id ,
+      BuildContext context
+
       ) async {
     print("$id");
     loading.value = true ;
@@ -41,6 +43,7 @@ class SeekerChoosePositionController extends GetxController {
       loading.value = false ;
       errorMessage.value = error.toString() ;
       // Utils.snackBar('Failed',error.toString());
+      Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
 }
