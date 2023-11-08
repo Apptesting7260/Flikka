@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/CompaniesListController/CompaniesListController.dart';
 import 'package:flikka/data/response/status.dart';
@@ -142,11 +143,27 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                   Get.to(() => const RattingPage());
                                 },
                                 child: ListTile(
-                                  leading:  CircleAvatar(
-                                      radius: 26,
-                                      backgroundImage: NetworkImage(
-                                          '${data?.profileImg}')
+                                  leading: CachedNetworkImage(
+                                      imageUrl: '${data?.profileImg}',
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    width: 80,
+                                    height: 80,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover
+                                      )
+                                    ),
                                   ),
+                                    placeholder: (context, url) => const CircularProgressIndicator(),
+                                  ),
+                                  // leading:  CircleAvatar(
+                                  //     radius: 26,
+                                  //     backgroundImage: NetworkImage(
+                                  //         '${data?.profileImg}'
+                                  //         )
+                                  // ),
                                   title: Text(data?.companyName ?? "",
                                       style: Get.theme.textTheme.labelMedium!
                                           .copyWith(color: AppColors.white)),

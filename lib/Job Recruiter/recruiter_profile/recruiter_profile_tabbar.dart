@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/about.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/home.dart';

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -77,9 +78,25 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                           GestureDetector(
                             onTap: () {},
                             child: ListTile(
-                              leading:  CircleAvatar(
-                                  radius: 26,
-                                  backgroundImage: NetworkImage("${data?.featureImg}")),
+                              leading: CachedNetworkImage(
+                                imageUrl: "${data?.featureImg}",
+                                imageBuilder: (context, imageProvider) => Container(
+                                  height: 80,
+                                  width: 80,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    image: DecorationImage(
+                                      image: imageProvider,
+                                      fit: BoxFit.cover
+                                    )
+                                  ),
+                                ),
+                                placeholder: (context, url) => const CircularProgressIndicator(),
+                              ),
+                              // leading:  CircleAvatar(
+                              //     radius: 26,
+                              //     backgroundImage: NetworkImage("${data?.featureImg}")
+                              // ),
                               title: Text("${data?.jobPositions}",
                                   style: Get.theme.textTheme.labelMedium!
                                       .copyWith(color: AppColors.white)),

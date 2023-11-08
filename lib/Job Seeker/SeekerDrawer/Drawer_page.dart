@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';

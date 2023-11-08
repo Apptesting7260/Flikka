@@ -76,6 +76,39 @@ class Utils {
   );
 }
 
+  static showApiErrorDialog(BuildContext context , String message) {
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child:  Padding(
+            padding: const EdgeInsets.all(28.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(child: Text(message,style: Theme.of(context).textTheme.titleSmall,)) ,
+                const SizedBox(height: 15,) ,
+                Center(
+                  child: MyButton(
+                    width: Get.width*.3,
+                    height: Get.height*.05,
+                    title: "Ok", onTap1: () {
+                    Get.back() ;
+                  },),
+                )
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
 }
 
 

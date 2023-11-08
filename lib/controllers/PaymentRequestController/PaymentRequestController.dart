@@ -37,7 +37,7 @@ class PaymentRequestController extends GetxController {
       print(value);
 
       if(value.status == true) {
-       Utils.showMessageDialog(context, "payment request Successfully") ;
+       Utils.showMessageDialog(context, "Payment Request Successfully") ;
       }else if(value.status == false) {
       paymentDialog(context) ;
       }

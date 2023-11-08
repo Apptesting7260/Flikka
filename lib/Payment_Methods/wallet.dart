@@ -132,7 +132,9 @@ class _WalletState extends State<Wallet> {
                     Center(
                       child: MyButton(
                           title: "Request Withdraw", onTap1: () {
-                        Get.to(() =>  const RequestWithdraw());
+                            seekerEarningController.getEarningDetails.value.bankAccount ?
+                        Get.to(() =>  const RequestWithdraw()) :
+                           Utils.showMessageDialog(context, "Please add bank account details") ;
                       }),
                     ),
                     SizedBox(height: Get.height * 0.025,),

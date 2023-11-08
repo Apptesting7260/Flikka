@@ -54,8 +54,8 @@ class SeekerSavedJobsDatum {
     seekerId: json["seeker_id"],
     jobId: json["job_id"],
     type: json["type"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobData: json["job_data"] == null ? json["job_data"] : SeekerSavedJobsData.fromJson(json["job_data"]),
   );
 
@@ -132,8 +132,8 @@ class SeekerSavedJobsRecruiterDetails {
     companySize: json["company_size"],
     // founded: json["founded"] == null ? json["founded"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["founded"])),
     specialties: json["specialties"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     industris: json["industris"],
     recDetails: json["rec_details"] == null ? json["rec_details"] : List<SeekerSavedJobsData>.from(json["rec_details"].map((x) => SeekerSavedJobsData.fromJson(x))),
   );
@@ -225,8 +225,8 @@ class SeekerSavedJobsData {
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
     language: json["language"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
     languageName: json["language_name"] == null ? json["language_name"] : List<SeekerSavedJobsLanguageName>.from(json["language_name"].map((x) => SeekerSavedJobsLanguageName.fromJson(x))),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : SeekerSavedJobsDetail.fromJson(json["jobs_detail"]),
@@ -288,8 +288,8 @@ class SeekerSavedJobsDetail {
   factory SeekerSavedJobsDetail.fromJson(Map<String, dynamic> json) => SeekerSavedJobsDetail(
     id: json["id"],
     jobId: json["job_id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SeekerSavedJobsSkillName>.from(json["skill_name"].map((x) => SeekerSavedJobsSkillName.fromJson(x))),
     passionName: json["passion_name"] == null ? json["passion_name"] : List<SeekerSavedJobsPassionName>.from(json["passion_name"].map((x) => SeekerSavedJobsPassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<SeekerSavedJobsIndustryPreferenceName>.from(json["industry_preference_name"].map((x) => SeekerSavedJobsIndustryPreferenceName.fromJson(x))),
