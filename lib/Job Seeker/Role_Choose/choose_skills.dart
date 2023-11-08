@@ -61,12 +61,16 @@ class _ChooseSkillsState extends State<ChooseSkills> {
               .error.value ==
               'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
+              },
             ),)
             ;
           } else {
             return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {}),)
+                onPress: () {
+                  seekerGetAllSkillsController.seekerGetAllSkillsApi() ;
+                }),)
             ;
           }
         case Status.COMPLETED:

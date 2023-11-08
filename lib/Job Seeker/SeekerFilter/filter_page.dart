@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterController.dart';
 import 'package:flikka/utils/RangeSlider.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -89,19 +90,44 @@ class _FilterPageState extends State<FilterPage> {
         case Status.ERROR:
           if (companiesListController.error.value == 'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                companiesListController.getCompaniesApi() ;
+                positionController.seekerGetPositionApi(false);
+                getSkillsController.seekerGetAllSkillsApi() ;
+                viewLanguageController.viewLanguageApi() ;
+              },
             ),);
           } else
           if (companiesListController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
+            return Scaffold(body: RequestTimeoutWidget(onPress: () {
+              companiesListController.getCompaniesApi() ;
+              positionController.seekerGetPositionApi(false);
+              getSkillsController.seekerGetAllSkillsApi() ;
+              viewLanguageController.viewLanguageApi() ;
+            }),);
           } else
           if (companiesListController.error.value == "Internal server error") {
-            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
+            return Scaffold(body: ServerErrorWidget(onPress: () {
+              companiesListController.getCompaniesApi() ;
+              positionController.seekerGetPositionApi(false);
+              getSkillsController.seekerGetAllSkillsApi() ;
+              viewLanguageController.viewLanguageApi() ;
+            }),);
           } else
           if (companiesListController.error.value == "Unauthorised Request") {
-            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
+            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {
+              companiesListController.getCompaniesApi() ;
+              positionController.seekerGetPositionApi(false);
+              getSkillsController.seekerGetAllSkillsApi() ;
+              viewLanguageController.viewLanguageApi() ;
+            }),);
           } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              companiesListController.getCompaniesApi() ;
+              positionController.seekerGetPositionApi(false);
+              getSkillsController.seekerGetAllSkillsApi() ;
+              viewLanguageController.viewLanguageApi() ;
+            }),);
           }
         case Status.COMPLETED:
           return Obx( () => positionController.rxRequestStatus.value == Status.LOADING ||
@@ -556,6 +582,7 @@ class _FilterPageState extends State<FilterPage> {
                             bgColor: AppColors.white,
                             onTap1: () {
                           jobFilterController.reset(true) ;
+                          Get.off(const TabScreen(index: 0)) ;
                         }),
                         // Container(
                         //   height: Get.height * .07,

@@ -17,6 +17,7 @@ class EditSeekerResumeController extends GetxController {
   RxBool loading = false.obs;
   RxString errorMessage = "".obs ;
   RxString documentPath = "".obs ;
+  RxString resumePath = "".obs ;
   RxString documentName = "".obs ;
 
   fileApi(

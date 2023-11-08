@@ -778,6 +778,11 @@ class _UserProfileState extends State<UserProfile> {
                                           size: 13,
                                         ),
                                       ),
+                                      validator: (value) {
+                                        if(value == null || value.isEmpty) {
+                                          return 'Select end date' ;
+                                        }
+                                      },
                                     ),
                                   ),
                                 Row(
@@ -829,7 +834,11 @@ class _UserProfileState extends State<UserProfile> {
                               height: 40,
                               loading: editSeekerExperienceController.loading.value,
                               onTap1: () {
-                                if(key.currentState!.validate()) {
+                                if(_endDateController.text.isEmpty ) {
+
+                                }
+                                if(key.currentState!.validate() && startDateKey.currentState!.validate() &&
+                                    endDateKey.currentState!.validate()) {
                                   if (experience == true) {
                                     WorkExpJob experienceData = WorkExpJob() ;
                                     if (add == true) {
@@ -1242,119 +1251,153 @@ class _UserProfileState extends State<UserProfile> {
     );
   }
 
-  resume () {
+   resume () {
      showDialog(context: context,
          builder: (BuildContext context) {
-       var resumeName ;
        return Dialog(
          shape: RoundedRectangleBorder(
              borderRadius: BorderRadius.circular(22)),
          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-         child: Column(
-           children: [
-             DottedBorder(
-               borderType: BorderType.RRect,
-               radius: const Radius.circular(20),
-               dashPattern: [5, 5],
-               color: const Color(0xffCFCFCF),
-               strokeWidth: 0.7,
-               child: Obx( () =>
-                   Stack(
-                     clipBehavior: Clip.none,
-                     children: [
-                       GestureDetector(
-                         onTap: () {
-                           if (resumeName == null || resumeName.toString().length == 0) {
-                             _openFilePicker(true,"") ;
-                           } else {
-                               OpenFile.open(resumeName);
-                           }
-                         },
-                         child: Container(
-                           height: Get.height * .15,
-                           width: Get.width,
-                           decoration: BoxDecoration(
-                             borderRadius: BorderRadius.circular(22),
-                           ),
-                           child: Center(
-                             child: Obx( () => Row(
-                               crossAxisAlignment: CrossAxisAlignment.center,
-                               mainAxisAlignment: MainAxisAlignment.center,
-                               children: [
-                                 editSeekerResumeController.documentPath.value == ''
-                                     ? Image.asset(
-                                   "assets/images/icon_upload_cv.png",
-                                   width: Get.width * .07,
-                                   height: Get.height * .06,
-                                 ) :
-                                 SizedBox(width: Get.width * .0),
-                                 if (editSeekerResumeController.documentPath.value.isNotEmpty)
-                                   SizedBox(
-                                     width: Get.width * .6,
-                                     child: Row(
-                                       mainAxisSize: MainAxisSize.min,
+         child: StatefulBuilder(
+           builder: (context , setState) {
+             return Padding(
+               padding: EdgeInsets.symmetric( vertical: Get.height * .02 , horizontal: Get.width *.04),
+               child: Column(
+                 mainAxisSize: MainAxisSize.min,
+                 children: [
+                   // SizedBox(height: Get.height * .02,),
+                   DottedBorder(
+                     borderType: BorderType.RRect,
+                     radius: const Radius.circular(20),
+                     dashPattern: [5, 5],
+                     color: const Color(0xffCFCFCF),
+                     strokeWidth: 0.7,
+                     child: Obx( () =>
+                         Stack(
+                           clipBehavior: Clip.none,
+                           children: [
+                             GestureDetector(
+                               onTap: () {
+                                 if(editSeekerResumeController.resumePath.value.isNotEmpty) {
+                                   OpenFile.open(resumePath) ;
+                                 } else {
+                                   _openFilePicker(true, "");
+                                 }
+                               },
+                               child: Container(
+                                 height: Get.height * .15,
+                                 width: Get.width,
+                                 decoration: BoxDecoration(
+                                   borderRadius: BorderRadius.circular(22),
+                                 ),
+                                 child: Center(
+                                   child: Obx( () =>
+                                      Row(
+                                       crossAxisAlignment: CrossAxisAlignment.center,
+                                       mainAxisAlignment: MainAxisAlignment.center,
                                        children: [
-                                         SizedBox(
-                                             width: Get.width * .02),
-                                         Flexible(
-                                           child: Obx( () =>
-                                               Text(
-                                                 "File uploaded: ${resumePath.split('/').last}",
-                                                 overflow: TextOverflow
-                                                     .ellipsis,
-                                                 style: Theme
-                                                     .of(context)
-                                                     .textTheme
-                                                     .labelLarge
-                                                     ?.copyWith(
-                                                     fontWeight: FontWeight
-                                                         .w400),
-                                               ),
+                                         editSeekerResumeController.resumePath.value == "" ?
+                                         Image.asset(
+                                           "assets/images/icon_upload_cv.png",
+                                           width: Get.width * .07,
+                                           height: Get.height * .06,
+                                         ) :
+                                         SizedBox(width: Get.width * .0),
+                                           if( editSeekerResumeController.resumePath.value.isNotEmpty )
+                                           SizedBox(
+                                             width: Get.width * .6,
+                                             child: Row(
+                                               mainAxisSize: MainAxisSize.min,
+                                               children: [
+                                                 SizedBox(
+                                                     width: Get.width * .02),
+                                                 Flexible(
+                                                   child: Obx( () =>
+                                                       Text(
+                                                         "File uploaded: ${editSeekerResumeController.resumePath.value.split('/').last}",
+                                                         overflow: TextOverflow
+                                                             .ellipsis,
+                                                         style: Theme
+                                                             .of(context)
+                                                             .textTheme
+                                                             .labelLarge
+                                                             ?.copyWith(
+                                                             fontWeight: FontWeight
+                                                                 .w400),
+                                                       ),
+                                                   ),
+                                                 ),
+                                               ],
+                                             ),
+                                           )
+                                         else
+                                           Padding(
+                                             padding:
+                                             const EdgeInsets.only(
+                                                 left: 8.0, top: 4),
+                                             child: Text(
+                                               "Upload File",
+                                               style: Theme
+                                                   .of(context)
+                                                   .textTheme
+                                                   .labelLarge
+                                                   ?.copyWith(
+                                                   fontWeight: FontWeight
+                                                       .w400),
+                                             ),
                                            ),
-                                         ),
                                        ],
                                      ),
-                                   )
-                                 else
-                                   Padding(
-                                     padding:
-                                     const EdgeInsets.only(
-                                         left: 8.0, top: 4),
-                                     child: Text(
-                                       "Upload File",
-                                       style: Theme
-                                           .of(context)
-                                           .textTheme
-                                           .labelLarge
-                                           ?.copyWith(
-                                           fontWeight: FontWeight
-                                               .w400),
-                                     ),
                                    ),
-                               ],
+                                 ),
+                               ),
                              ),
-                             ),
-                           ),
+                             Positioned(
+                                 right: 5,
+                                 top: 1,
+                                 child: editSeekerResumeController.resumePath.value.isEmpty ?
+                                 const SizedBox() :
+                                 IconButton(
+                                     onPressed: () {
+                                         _openFilePicker(true,"");
+                                     },
+                                     icon: const Icon(
+                                       Icons.edit,
+                                       color: Colors.white,
+                                     ))),
+                           ],
                          ),
-                       ),
-                       Positioned(
-                           right: 5,
-                           top: 1,
-                           child: editSeekerResumeController.documentPath.value.isEmpty ?
-                           const SizedBox() :
-                           IconButton(
-                               onPressed: () {
-                                   _openFilePicker(true,"");
-                               },
-                               icon: const Icon(
-                                 Icons.edit,
-                                 color: Colors.white,
-                               ))),
-                     ],
+                     ),
                    ),
+               SizedBox(height: Get.height * .02,),
+               Row(
+                 mainAxisAlignment: MainAxisAlignment.center,
+                 children: [
+                   MyButton(
+                     width: 100,
+                     height: 40,
+                     onTap1: () {
+                       Navigator.of(context).pop();
+                     }, title: 'Cancel',
+                   ),
+                   const SizedBox(width: 20,) ,
+                   Obx( () =>
+                       MyButton(
+                         width: 100,
+                         height: 40,
+                         loading: editSeekerResumeController.loading.value,
+                         onTap1: () {
+                           editSeekerResumeController.fileApi(resumePath, true,"");
+                         }, title: 'Submit',
+                       ),
+                   ),
+                 ],
                ),
-             ),
-           ],
+               // SizedBox(height: Get.height * .02,),
+                 ],
+               ),
+             );
+           }
          ),
        ) ;
      }) ;
@@ -1524,11 +1567,19 @@ class _UserProfileState extends State<UserProfile> {
         case Status.ERROR:
           if (seekerProfileController.error.value == 'No internet') {
             return InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                seekerProfileController.viewSeekerProfileApi();
+                viewLanguageController.viewLanguageApi() ;
+                skillsController.seekerGetAllSkillsApi() ;
+              },
             );
           } else {
             return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {}));
+                onPress: () {
+                  seekerProfileController.viewSeekerProfileApi();
+                  viewLanguageController.viewLanguageApi() ;
+                  skillsController.seekerGetAllSkillsApi() ;
+                }));
           }
         case Status.COMPLETED:
           return
@@ -2531,7 +2582,8 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               InkWell(
                                                   onTap: () {
-                                                    _openFilePicker(true,"") ;
+                                                    editSeekerResumeController.resumePath.value = '' ;
+                                                   resume() ;
                                                   },
                                                   child: seekerProfileController.viewSeekerData
                                                       .value.seekerInfo?.resume == null || seekerProfileController
@@ -2845,8 +2897,8 @@ class _UserProfileState extends State<UserProfile> {
             result.files.single.path!.toLowerCase().endsWith('.doc') ||
             result.files.single.path!.toLowerCase().endsWith('.docx') ) {
           setState(() {
+            editSeekerResumeController.resumePath.value = result.files.single.path!;
             resumePath = result.files.single.path!;
-            editSeekerResumeController.fileApi(resumePath, true,"");
           });
           print(resumePath);
         } else {

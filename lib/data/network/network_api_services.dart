@@ -63,7 +63,9 @@ SharedPreferences sp=await SharedPreferences.getInstance();
 
     }on TimeoutException {
       throw RequestTimeOut('');
-}
+} on HttpException {
+
+    }
     print(responseJson);
     return responseJson ;
 

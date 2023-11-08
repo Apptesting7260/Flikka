@@ -38,12 +38,18 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
         case Status.ERROR:
           if (jobsController.error.value == 'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                jobsController.getJobsApi() ;
+              },
             ),);
           } else if (jobsController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
+            return Scaffold(body: RequestTimeoutWidget(onPress: () {
+              jobsController.getJobsApi() ;
+            }),);
           }  else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              jobsController.getJobsApi() ;
+            }),);
           }
         case Status.COMPLETED:
           return Scaffold(
@@ -97,7 +103,7 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                               //     radius: 26,
                               //     backgroundImage: NetworkImage("${data?.featureImg}")
                               // ),
-                              title: Text("${data?.jobPositions}",
+                              title: Text(data?.jobPositions ?? '',
                                   style: Get.theme.textTheme.labelMedium!
                                       .copyWith(color: AppColors.white)),
                               subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,

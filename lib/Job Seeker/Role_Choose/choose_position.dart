@@ -111,12 +111,16 @@ void showSkipDialog(BuildContext context) {
               .error.value ==
               'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
+              },
             ) ,)
              ;
           } else {
             return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {}) ,)
+                onPress: () {
+                  seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
+                }) ,)
              ;
           }
         case Status.COMPLETED:

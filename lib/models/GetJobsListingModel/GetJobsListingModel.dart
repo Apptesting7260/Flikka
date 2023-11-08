@@ -13,24 +13,24 @@ String getJobsListingToJson(GetJobsListingModel data) => json.encode(data.toJson
 class GetJobsListingModel {
   bool? status;
   List<SeekerJobsData>? jobs;
-  String? message;
+  // String? message;
 
   GetJobsListingModel({
     this.status,
     this.jobs,
-    this.message,
+    // this.message,
   });
 
   factory GetJobsListingModel.fromJson(Map<String, dynamic> json) => GetJobsListingModel(
     status: json["status"],
     jobs: json["Jobs"] == null ? json["Jobs"] : List<SeekerJobsData>.from(json["Jobs"].map((x) => SeekerJobsData.fromJson(x))),
-    message: json["message"],
+    // message: json["message"],
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "Jobs": List<dynamic>.from(jobs!.map((x) => x.toJson())),
-    "message": message,
+    // "message": message,
   };
 }
 

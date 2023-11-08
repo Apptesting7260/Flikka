@@ -64,6 +64,7 @@ class CreateUpdateRecruiterProfileController extends GetxController {
       var responseData = jsonDecode(responded.body) ;
       if(response.statusCode == 200) {
         print(responseData) ;
+        sp.setString("loggedIn", "recruiter") ;
         Get.offAll(TabScreenEmployer(index: 4,));
       }
       else {

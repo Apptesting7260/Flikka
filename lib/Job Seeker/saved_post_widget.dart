@@ -95,16 +95,26 @@ class _SavedPostState extends State<SavedPost> {
             body: Center(child: CircularProgressIndicator()),);
         case Status.ERROR:
           if (jobsListController.error.value == 'No internet') {
-            return Scaffold(body: InterNetExceptionWidget(onPress: () {},),);
+            return Scaffold(body: InterNetExceptionWidget(onPress: () {
+              jobsListController.savePostApi("1") ;
+            },),);
           } else if (jobsListController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
+            return Scaffold(body: RequestTimeoutWidget(onPress: () {
+              jobsListController.savePostApi("1") ;
+            }),);
           } else
           if (jobsListController.error.value == "Internal server error") {
-            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
+            return Scaffold(body: ServerErrorWidget(onPress: () {
+              jobsListController.savePostApi("1") ;
+            }),);
           } else if (jobsListController.error.value == "Unauthorised Request") {
-            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
+            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {
+              jobsListController.savePostApi("1") ;
+            }),);
           } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              jobsListController.savePostApi("1") ;
+            }),);
           }
         case Status.COMPLETED:
           return Scaffold(
