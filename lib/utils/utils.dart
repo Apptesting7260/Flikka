@@ -96,7 +96,7 @@ class Utils {
                 const SizedBox(height: 15,) ,
                 Center(
                   child: MyButton(
-                    width: Get.width*.3,
+                    width: Get.width*.27,
                     height: Get.height*.05,
                     title: "Ok",
                       onTap1: () {
