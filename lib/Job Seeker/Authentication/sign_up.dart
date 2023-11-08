@@ -172,7 +172,7 @@ class _SignUpState extends State<SignUp> {
                         checkEmailSignUpControllerInstanse.errorMessage.value = "" ;
                         signUpController.errorMessage.value = "" ;
                         if(_formKey.currentState!.validate()) {
-                          checkEmailSignUpControllerInstanse.checkEmailSignUpApiHit(SignUpControllerInstanse.emailController.value.text);
+                          checkEmailSignUpControllerInstanse.checkEmailSignUpApiHit(SignUpControllerInstanse.emailController.value.text,context);
                           SharedPreferences sp = await SharedPreferences.getInstance() ;
                           sp.setString("name", SignUpControllerInstanse.nameController.value.text) ;
 

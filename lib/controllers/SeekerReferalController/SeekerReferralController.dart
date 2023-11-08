@@ -15,7 +15,8 @@ class SeekerReferralController extends GetxController {
 
    referralApi(
       var referralCode ,
-      var role
+      var role ,
+
       )  {
     loading.value = true ;
     Map data = {
@@ -32,7 +33,8 @@ class SeekerReferralController extends GetxController {
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
-      Utils.snackBar('Failed',error.toString());
+      // Utils.snackBar('Failed',error.toString());
+      // Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
 }

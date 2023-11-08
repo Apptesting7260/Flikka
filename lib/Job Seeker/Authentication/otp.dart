@@ -152,7 +152,7 @@ class _OtpScreenState extends State<OtpScreen> {
                                   VerifyOtpControllerInstanse.verifyOtpErrorMessage.value = "" ;
                                 if(_formKey.currentState!.validate()){
                                   _formKey.currentState!.save();
-                                  VerifyOtpControllerInstanse.verifyOtpApiHit(email , widget.register);
+                                  VerifyOtpControllerInstanse.verifyOtpApiHit(email , widget.register,context);
                                 }
                               },),
                             )),

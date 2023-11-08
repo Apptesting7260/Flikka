@@ -83,9 +83,10 @@ class Utils {
       builder: (BuildContext context) {
         return Dialog(
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(22)),
+              borderRadius: BorderRadius.circular(20),
+              side: const BorderSide(color: AppColors.graySilverColor)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
-          child:  Padding(
+          child: Padding(
             padding: const EdgeInsets.all(28.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -97,8 +98,9 @@ class Utils {
                   child: MyButton(
                     width: Get.width*.3,
                     height: Get.height*.05,
-                    title: "Ok", onTap1: () {
-                    Get.back() ;
+                    title: "Ok",
+                      onTap1: () {
+                      Get.back() ;
                   },),
                 )
               ],

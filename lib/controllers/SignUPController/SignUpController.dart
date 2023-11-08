@@ -63,10 +63,12 @@ class SignUpController extends GetxController {
        }
 
         // Utils.snackBar( "Message",value.message.toString());
+
     }).onError((error, stackTrace){
       print('********************************');
       print(error);
       loading.value = false ;
+       Utils.showApiErrorDialog(context, error.toString()) ;
       setError(error.toString());
       setRxRequestStatus(Status.ERROR);
     });
@@ -229,7 +231,7 @@ class SignUpController extends GetxController {
                         child: MyButton(title: "SUBMIT",
                           loading: seekerReferralController.loading.value,
                           onTap1: () {
-                          seekerReferralController.referralApi(controller.text, role) ;
+                          seekerReferralController.referralApi(controller.text, role,) ;
                         },),
                       ),
                     ),
