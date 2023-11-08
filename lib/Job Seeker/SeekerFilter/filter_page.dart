@@ -32,7 +32,7 @@ class _FilterPageState extends State<FilterPage> {
   String? positionName;
   dynamic positionId ;
 
-  final List<String> itemsDate = ['1 Day', '3 Day', '6 Day', '9 Day', '1 Month' ,];
+  final List<String> itemsDate = ['past month','past week','past 24 hours','all'];
   String? dateValue;
 
 
@@ -322,9 +322,9 @@ class _FilterPageState extends State<FilterPage> {
                     SizedBox(height: Get.height * 0.01,),
                     SizedBox(height: Get.height * .1,
                         child: RangePicker(
-                          maxSalary: double.tryParse("${getSkillsController
-                              .seekerGetAllSkillsData.value.salaryExpectation?[0]
-                              .salaryExpectation ?? 50000}"),)),
+                          maxSalary: double.tryParse("100000"),
+                              // "${getSkillsController.seekerGetAllSkillsData.value.salaryExpectation?[0].salaryExpectation ?? 50000}"),
+                        )),
                     SizedBox(height: Get.height * 0.05,),
                     SizedBox(
                         height: Get.height * .06,
@@ -548,19 +548,24 @@ class _FilterPageState extends State<FilterPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Container(
-                          height: Get.height * .07,
-                          width: Get.width * .35,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(30),
-                              color: AppColors.white
-                          ),
-                          child: Center(child: Text("RESET", style: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(fontWeight: FontWeight.w700),)),
-                        ),
+                        MyButton(title: "RESET",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700 ),
+                            textColor: AppColors.blueThemeColor,
+                            height: Get.height * .07,
+                            width: Get.width * .35,
+                            bgColor: AppColors.white,
+                            onTap1: () {
+                          jobFilterController.reset(true) ;
+                        }),
+                        // Container(
+                        //   height: Get.height * .07,
+                        //   width: Get.width * .35,
+                        //   decoration: BoxDecoration(
+                        //       borderRadius: BorderRadius.circular(30),
+                        //       color: AppColors.white
+                        //   ),
+                        //   child: Center(child: Text("RESET", style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),)),
+                        // ),
                         SizedBox(width: Get.width * .025,),
                         Obx( () =>
                            MyButton(
@@ -568,7 +573,7 @@ class _FilterPageState extends State<FilterPage> {
                             height: Get.height * .07,
                             width: Get.width * .35,
                             title: "APPLY", onTap1: () {
-                               jobFilterController.filterJob(positionId, locationController.text, companyController.text, dateValue,
+                               jobFilterController.filterJob(context,positionId, locationController.text, companyController.text, dateValue,
                                    workplaceType, RangePicker.minValue, RangePicker.maxValue, employmentType, qualificationType,
                                    skillsId, languageId) ;
                           },),

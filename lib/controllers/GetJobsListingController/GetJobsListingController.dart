@@ -21,6 +21,7 @@ class GetJobsListingController extends GetxController {
     _api.getJobsListingApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
       getJobsListing(value);
+      print("this is length ===== ${getJobsListing.value.jobs?.length}") ;
       print(value);
     }).onError((error, stackTrace){
       setError(error.toString());
