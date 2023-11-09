@@ -217,6 +217,7 @@ class _FilterPageState extends State<FilterPage> {
                     SizedBox(height: Get.height * 0.01,),
                     Container(
                       padding: const EdgeInsets.only(left: 10, right: 5),
+                      alignment: Alignment.center,
                       height: Get.height * .07,
                       width: Get.width,
                       decoration: BoxDecoration(

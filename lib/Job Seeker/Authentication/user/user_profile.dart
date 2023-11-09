@@ -1622,10 +1622,7 @@ class _UserProfileState extends State<UserProfile> {
                                     shape: BoxShape.circle
                                   ),
                                   child: CircularPercentIndicator(
-
-                                    percent: seekerProfileController
-                                        .viewSeekerData.value.completeProfile /
-                                        100,
+                                    percent: seekerProfileController.viewSeekerData.value.completeProfile / 100,
                                     lineWidth: 3,
                                     center: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1733,40 +1730,25 @@ class _UserProfileState extends State<UserProfile> {
                                       ),
                                       //height: Get.height,
                                       //width: Get.width,
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment
-                                            .start,
+                                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceBetween,
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               SizedBox(width: Get.width * 0.6,
                                                 child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment
-                                                      .start,
+                                                  crossAxisAlignment: CrossAxisAlignment.start,
                                                   children: [
                                                     Text(
                                                       "${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}",
-                                                      overflow: TextOverflow
-                                                          .ellipsis,
-                                                      style: Theme
-                                                          .of(context)
-                                                          .textTheme
-                                                          .displayLarge,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: Theme.of(context).textTheme.displayLarge,
                                                       softWrap: true,
                                                     ),
                                                     Text(
                                                         seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "" ,
-                                                        style: Theme
-                                                            .of(context)
-                                                            .textTheme
-                                                            .bodySmall
-                                                            ?.copyWith(
-                                                            color: const Color(
-                                                                0xffCFCFCF),
-                                                            fontWeight: FontWeight
-                                                                .w600)
+                                                        style: Theme.of(context).textTheme.bodySmall
+                                                            ?.copyWith(color: const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
                                                     ),
                                                     SizedBox(height: Get.height * .003,),
                                                     Text(
@@ -1825,18 +1807,11 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.01,),
-                                          Text(
-                                            seekerProfileController.viewSeekerData
-                                                .value.seekerInfo?.aboutMe ??
+                                          Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe) ??
                                                 "No Data",
                                             textAlign: TextAlign.left,
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .bodyLarge!
-                                                .copyWith(
-                                                color: AppColors
-                                                    .ratingcommenttextcolor),
+                                            style: Theme.of(context).textTheme.bodyLarge!
+                                                .copyWith(color: AppColors.ratingcommenttextcolor),
                                           ),
 
                                           //********************* for work ex ***************************
