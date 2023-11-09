@@ -1,6 +1,7 @@
 
  import 'package:flikka/Job%20Recruiter/RecruiterTraking/inbox.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterTraking/talent_pool.dart';
+import 'package:flikka/controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
  import 'package:get/get.dart';
@@ -17,6 +18,9 @@ class ApplicantTracking extends StatefulWidget {
 }
 
 class _ApplicantTrackingState extends State<ApplicantTracking> {
+
+  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController()) ;
+
   @override
   Widget build(BuildContext context) {
     return  MaterialApp(
@@ -45,7 +49,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
           indicatorPadding: EdgeInsets.symmetric(horizontal: Get.width*.04),
           //labelPadding: EdgeInsets.only(right: 50),
           isScrollable: true,
-          indicator: UnderlineTabIndicator(
+          indicator: const UnderlineTabIndicator(
             borderSide: BorderSide(width: 2.0,color: AppColors.blueThemeColor),
             //insets: EdgeInsets.symmetric(horizontal: width*.14),
           ),
