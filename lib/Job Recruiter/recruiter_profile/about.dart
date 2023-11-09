@@ -30,7 +30,7 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               SizedBox(height: Get.height*.045,),
               Text("About",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.005,),
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.aboutDescription) ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
+              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.aboutDescription ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
               SizedBox(height: Get.height*.03,),
               Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
@@ -57,13 +57,13 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               SizedBox(height: Get.height*.02,),
               Text("Founded",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
-              Text("${widget.recruiterProfileDetails?.founded}",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+              Text(widget.recruiterProfileDetails?.founded ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
 
               // Text("${widget.recruiterProfileDetails?.founded?.day}-${widget.recruiterProfileDetails?.founded?.month}-${widget.recruiterProfileDetails?.founded?.year}",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
               SizedBox(height: Get.height*.02,),
               Text("Specialization",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties) ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
 
               SizedBox(height: Get.height*.1,),
 

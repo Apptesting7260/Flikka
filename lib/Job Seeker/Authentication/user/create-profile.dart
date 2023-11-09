@@ -1509,12 +1509,12 @@ class _CreateProfileState extends State<CreateProfile> {
                                           .loading.value,
                                       onTap1: () {
                                         if (educationLevelController.text.isNotEmpty &&
-                                            institutionNameController.text.isNotEmpty) {
+                                            institutionNameController.text.isNotEmpty && startDateEducation != null && startDateEducation.toString().isNotEmpty) {
                                           educationList.add({
                                             "education_level": educationLevelController.text,
                                             "institution_name": institutionNameController.text,
                                             "education_start_date": "${startDateEducation?.year.toString().padLeft(4, '0')}-${startDateEducation?.month.toString().padLeft(2, '0')}-${startDateEducation?.day.toString().padLeft(2, '0')}",
-                                            "education_end_date": educationPresent ? "present" : "${endDateEducation?.year.toString().padLeft(4, '0')}-${endDateEducation?.month.toString().padLeft(2, '0')}-${endDateEducation?.day.toString().padLeft(2, '0')}",
+                                            "education_end_date": educationPresent == true || endDateEducation == null || endDateEducation.toString().isEmpty ? "present" : "${endDateEducation?.year.toString().padLeft(4, '0')}-${endDateEducation?.month.toString().padLeft(2, '0')}-${endDateEducation?.day.toString().padLeft(2, '0')}",
                                           });
                                         }
                                           if (awardNameController.text.isNotEmpty &&
@@ -1525,12 +1525,12 @@ class _CreateProfileState extends State<CreateProfile> {
                                             });
                                             print(appreciationList);
                                           }
-                                          if (jobTitleController.text.isNotEmpty && companyNameController.text.isNotEmpty && startDateExperience != null ) {
+                                          if (jobTitleController.text.isNotEmpty && companyNameController.text.isNotEmpty && startDateExperience != null &&  startDateExperience.toString().isNotEmpty ) {
                                             workExperienceList.add({
                                               "work_exp_job": jobTitleController.text,
                                               "company_name": companyNameController.text,
                                               "job_start_date":"${startDateExperience?.year.toString().padLeft(4, '0')}-${startDateExperience?.month.toString().padLeft(2, '0')}-${startDateExperience?.day.toString().padLeft(2, '0')}",
-                                              "job_end_date": experiencePresent ? "present" : "${endDateExperience?.year.toString().padLeft(4, '0')}-${endDateExperience?.month.toString().padLeft(2, '0')}-${endDateExperience?.day.toString().padLeft(2, '0')}",
+                                              "job_end_date": experiencePresent == true || endDateExperience == null || endDateExperience.toString().isEmpty  ? "present" :  "${endDateExperience?.year.toString().padLeft(4, '0')}-${endDateExperience?.month.toString().padLeft(2, '0')}-${endDateExperience?.day.toString().padLeft(2, '0')}",
                                             });
                                           }
                                           debugPrint(workExperienceList.toString()) ;

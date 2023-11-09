@@ -34,7 +34,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   var qualification ;
 
   final List<String> itemsEmp = [
-    'Full-Time','Part-Time','Contract','Temporary', 'Internship', 'Fresher' ,
+    'full-time','part-time','contract','temporary', 'internship', 'fresher' ,
   ];
   String? employmentType;
 
@@ -43,12 +43,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
   String? jobPosition ;
 
   final List<String> itemsExp = [
-    'On-site','Remote','Hybrid'
+    'on-site','remote','hybrid'
   ];
   String? workplaceType;
 
   final List<String> itemQualificaton = [
-    'Bachelor degree','Master degree','12th pass', 'Diploma', 'Doctoral degree', '10th pass', 'M.phil'
+    'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm.phil'
   ];
   String? qualificatonType;
 
