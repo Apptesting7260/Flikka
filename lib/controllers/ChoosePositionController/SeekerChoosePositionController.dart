@@ -41,7 +41,6 @@ class SeekerChoosePositionController extends GetxController {
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
-      errorMessage.value = error.toString() ;
       // Utils.snackBar('Failed',error.toString());
       Utils.showApiErrorDialog(context, error.toString()) ;
     });

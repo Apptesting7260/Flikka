@@ -143,7 +143,7 @@ class _FilterPageState extends State<FilterPage> {
                 toolbarHeight: 70,
               ),
               body: SingleChildScrollView(
-                physics: const NeverScrollableScrollPhysics(),
+                // physics: const NeverScrollableScrollPhysics(),
                 padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -489,88 +489,88 @@ class _FilterPageState extends State<FilterPage> {
                         )
                     ),
                     SizedBox(height: Get.height * 0.04,),
-                    // SizedBox(
-                    //   height: Get.height * .2,
-                    //   child: ListView.builder(
-                    //     itemCount: 10,
-                    //     shrinkWrap: true,
-                    //     scrollDirection: Axis.horizontal,
-                    //     itemBuilder: (context, index) {
-                    //       return Padding(
-                    //         padding: const EdgeInsets.symmetric(horizontal: 10),
-                    //         child: Container(
-                    //           height: Get.height * .1,
-                    //           width: Get.width * .7,
-                    //           decoration: BoxDecoration(
-                    //               borderRadius: BorderRadius.circular(15),
-                    //               color: AppColors.textFieldFilledColor
-                    //           ),
-                    //           child: Padding(
-                    //             padding: const EdgeInsets.only(left: 15.0),
-                    //             child: Column(
-                    //               crossAxisAlignment: CrossAxisAlignment.start,
-                    //               children: [
-                    //                 SizedBox(height: Get.height * .025,),
-                    //                 Row(
-                    //                   children: [
-                    //                     Container(
-                    //                       height: 45,
-                    //                       width: 45,
-                    //                       decoration: BoxDecoration(
-                    //                           borderRadius: BorderRadius.circular(
-                    //                               10),
-                    //                           image: const DecorationImage(
-                    //                               image: AssetImage(
-                    //                                   "assets/images/icon_marketing.png"))
-                    //                       ),
-                    //                     ),
-                    //                     const SizedBox(width: 12,),
-                    //                     Text("Marketing Intern", style: Theme
-                    //                         .of(context)
-                    //                         .textTheme
-                    //                         .titleSmall,)
-                    //                   ],
-                    //                 ),
-                    //                 SizedBox(height: Get.height * .02,),
-                    //                 RichText(text: TextSpan(
-                    //                     text: "£145k-£200k", style: Theme
-                    //                     .of(context)
-                    //                     .textTheme
-                    //                     .headlineSmall
-                    //                     ?.copyWith(fontWeight: FontWeight.w700,
-                    //                     color: AppColors.blueThemeColor),
-                    //                     children: [
-                    //                       TextSpan(text: "/yr", style: Theme
-                    //                           .of(context)
-                    //                           .textTheme
-                    //                           .headlineSmall
-                    //                           ?.copyWith(
-                    //                           fontWeight: FontWeight.w700,
-                    //                           color: AppColors.white))
-                    //                     ]
-                    //                 ),),
-                    //                 // SizedBox(height: Get.height*.02,),
-                    //                 Row(
-                    //                   children: [
-                    //                     Image.asset(
-                    //                       "assets/images/icon_location_filter.png",
-                    //                       height: Get.height * .05,),
-                    //                     SizedBox(width: Get.width * .02,),
-                    //                     Text("California, USA", style: Theme
-                    //                         .of(context)
-                    //                         .textTheme
-                    //                         .bodyLarge
-                    //                         ?.copyWith(
-                    //                         color: AppColors.graySilverColor),)
-                    //                   ],
-                    //                 ),
-                    //               ],
-                    //             ),
-                    //           ),
-                    //         ),
-                    //       );
-                    //     },),
-                    // ),
+                    SizedBox(
+                      height: Get.height * .2,
+                      child: ListView.builder(
+                        itemCount: 10,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
+                            child: Container(
+                              height: Get.height * .1,
+                              width: Get.width * .7,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: AppColors.textFieldFilledColor
+                              ),
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 15.0),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: Get.height * .025,),
+                                    Row(
+                                      children: [
+                                        Container(
+                                          height: 45,
+                                          width: 45,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(
+                                                  10),
+                                              image: const DecorationImage(
+                                                  image: AssetImage(
+                                                      "assets/images/icon_marketing.png"))
+                                          ),
+                                        ),
+                                        const SizedBox(width: 12,),
+                                        Text("Marketing Intern", style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .titleSmall,)
+                                      ],
+                                    ),
+                                    SizedBox(height: Get.height * .02,),
+                                    RichText(text: TextSpan(
+                                        text: "£145k-£200k", style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .headlineSmall
+                                        ?.copyWith(fontWeight: FontWeight.w700,
+                                        color: AppColors.blueThemeColor),
+                                        children: [
+                                          TextSpan(text: "/yr", style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .headlineSmall
+                                              ?.copyWith(
+                                              fontWeight: FontWeight.w700,
+                                              color: AppColors.white))
+                                        ]
+                                    ),),
+                                    // SizedBox(height: Get.height*.02,),
+                                    Row(
+                                      children: [
+                                        Image.asset(
+                                          "assets/images/icon_location_filter.png",
+                                          height: Get.height * .05,),
+                                        SizedBox(width: Get.width * .02,),
+                                        Text("California, USA", style: Theme
+                                            .of(context)
+                                            .textTheme
+                                            .bodyLarge
+                                            ?.copyWith(
+                                            color: AppColors.graySilverColor),)
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          );
+                        },),
+                    ),
                     SizedBox(height: Get.height * 0.04,),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
