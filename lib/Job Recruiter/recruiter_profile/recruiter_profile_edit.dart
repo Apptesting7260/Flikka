@@ -169,12 +169,12 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? socialValue;
 
   final List<String> itemsCompanySize = [
-   ' 0-10 Employees',
-   ' 10-20 Employees',
-    '20-30 Employees',
-   ' 30-50 Employees',
-    '50-75 Employees',
-    '75-100 Employees'
+   ' 0-10',
+   ' 10-20',
+    '20-30',
+   ' 30-50',
+    '50-75',
+    '75-100'
   ];
   String? sizeValues;
 
@@ -199,8 +199,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   DateTime selectedDate = DateTime.now();
 
   CreateUpdateRecruiterProfileController
-      CreateUpdateRecruiterProfileControllerInstanse =
-      Get.put(CreateUpdateRecruiterProfileController());
+      CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
 
   var formKey = GlobalKey<FormState>() ;
 
@@ -795,12 +794,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                           fontWeight: FontWeight.w400),
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                    items: itemsCompanySize
-                                        .map((String item) =>
+                                    items: itemsCompanySize.map((String item) =>
                                         DropdownMenuItem<String>(
                                           value: item,
-                                          child: Text(
-                                            item,
+                                          child: Text("$item Employees",
                                             style: Get.theme.textTheme
                                                 .bodyLarge!
                                                 .copyWith(
@@ -1004,31 +1001,18 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                               } else {
                                                 CreateUpdateRecruiterProfileControllerInstanse
                                                     .createUpdateRecruiterProfileApi(
-                                                    profilePath: profileImage
-                                                        ?.path,
+                                                    profilePath: profileImage?.path,
                                                     coverPath: coverImage?.path,
-                                                    companyName: companyNameController
-                                                        .text,
-                                                    companyLocation:
-                                                    companyLocationController
-                                                        .text,
-                                                    addBio: addBioController
-                                                        .text,
-                                                    homeTitleName: homeTitleNameController
-                                                        .text,
-                                                    homeDescription:
-                                                    addBioController.text,
-                                                    websiteLink: websiteLinkController
-                                                        .text,
-                                                    aboutTitleName: aboutTitleNameController
-                                                        .text,
-                                                    aboutDescription:
-                                                    aboutDescriptionController
-                                                        .text,
+                                                    companyName: companyNameController.text,
+                                                    companyLocation: companyLocationController.text,
+                                                    addBio: addBioController.text,
+                                                    homeTitleName: homeTitleNameController.text,
+                                                    homeDescription: addBioController.text,
+                                                    websiteLink: websiteLinkController.text,
+                                                    aboutTitleName: aboutTitleNameController.text,
+                                                    aboutDescription: aboutDescriptionController.text,
                                                     industry: industry,
-                                                    companySize: companySize
-                                                        ?.replaceAll(
-                                                        "employees", ""),
+                                                    companySize: companySize?.replaceAll("Employees", ""),
                                                     founded: selectedDateString,
                                                     specialties: aboutySpecialtiesController.text,
                                                     contactPerson: contactPersonNameController.text

@@ -296,8 +296,7 @@ class _FilterPageState extends State<FilterPage> {
                                 GestureDetector(
                                   onTap: () {
                                     companiesListController.showCompanies(false);
-                                    companyController.text =
-                                        data?.companyName ?? '';
+                                    companyController.text = data?.companyName ?? '';
                                   },
                                   child: ListTile(
                                     leading: SizedBox(width: 70,
@@ -344,8 +343,7 @@ class _FilterPageState extends State<FilterPage> {
                         : const SizedBox(),
                     ),
                     SizedBox(height: Get.height * 0.03,),
-                    Text('Salary Expectation',
-                        style: Get.theme.textTheme.titleSmall),
+                    Text('Salary Expectation', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
                     SizedBox(height: Get.height * .1,
                         child: RangePicker(

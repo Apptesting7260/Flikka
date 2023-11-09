@@ -63,7 +63,7 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               SizedBox(height: Get.height*.02,),
               Text("Specialization",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties) ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties ) ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
 
               SizedBox(height: Get.height*.1,),
 
