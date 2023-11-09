@@ -1807,8 +1807,7 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.01,),
-                                          Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ??
-                                                "No Data",
+                                          Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
                                             textAlign: TextAlign.left,
                                             style: Theme.of(context).textTheme.bodyLarge!
                                                 .copyWith(color: AppColors.ratingcommenttextcolor),
