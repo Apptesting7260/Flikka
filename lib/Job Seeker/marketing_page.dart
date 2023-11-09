@@ -78,7 +78,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                   CommonFunctions.parseHTML( widget.jobData?.description ?? '' ),
+                   CommonFunctions.parseHTML( widget.jobData?.description ?? '' ) ?? '',
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
@@ -92,7 +92,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                   CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ),
+                   CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(

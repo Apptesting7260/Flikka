@@ -244,7 +244,7 @@ class _SavedPostState extends State<SavedPost> {
                                 Flexible(
                                   child: SizedBox(
                                     height: Get.height*.1,
-                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.description) ?? "" ,
+                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.description ?? '') ?? "" ,
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor),),
                                   ),
@@ -258,7 +258,7 @@ class _SavedPostState extends State<SavedPost> {
                                   child: SizedBox(
                                     height: Get.height*.1,
                                     width: Get.width,
-                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.requirements)  ?? "",
+                                    child: Text(CommonFunctions.parseHTML(data?.jobData?.requirements ?? '')  ?? "",
                                       style: Theme.of(context).textTheme.bodySmall!
                                           .copyWith(color: AppColors.ratingcommenttextcolor),),
                                   ),

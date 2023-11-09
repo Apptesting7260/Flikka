@@ -82,8 +82,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
       jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
       specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
       jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
-      jobDescriptionController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.description) ?? "" ;
-      jobRequirementController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements) ?? "" ;
+      jobDescriptionController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? "") ?? "" ;
+      jobRequirementController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements ?? "") ?? "" ;
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
       preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;

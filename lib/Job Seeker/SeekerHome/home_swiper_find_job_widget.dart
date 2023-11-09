@@ -268,7 +268,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         height: Get.height * .008,
                       ),
                       Text(
-                        CommonFunctions.parseHTML("${data?.description}") ?? "",
+                        CommonFunctions.parseHTML(data?.description ?? "") ?? "",
                         // overflow: TextOverflow.ellipsis,
                         // softWrap: true,
                         style: Theme.of(context)
@@ -290,8 +290,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         height: Get.height * .007,
                       ),
                       Text(
-                        CommonFunctions.parseHTML("${data?.requirements}") ??
-                            "",
+                        CommonFunctions.parseHTML(data?.requirements ?? "") ?? "",
                         style: Theme.of(context)
                             .textTheme
                             .bodySmall!
