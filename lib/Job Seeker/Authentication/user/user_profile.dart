@@ -1806,7 +1806,7 @@ class _UserProfileState extends State<UserProfile> {
                                             thickness: 0.2,
                                             color: AppColors.white,
                                           ),
-                                          SizedBox(height: Get.height * 0.01,),
+                                                SizedBox(height: Get.height * 0.01,),
                                           Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
                                             textAlign: TextAlign.left,
                                             style: Theme.of(context).textTheme.bodyLarge!

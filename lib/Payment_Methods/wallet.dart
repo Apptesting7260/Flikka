@@ -33,7 +33,6 @@ class _WalletState extends State<Wallet> {
 
   var requstedWitharwal ;
 
-  // List of items in our dropdown menu
   var items = [
     'Latest',
     'Latest2',
@@ -102,13 +101,13 @@ class _WalletState extends State<Wallet> {
                   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
                   child: Column( crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    SizedBox(height: Get.height * 0.01,),
+                    SizedBox(height: Get.height * 0.04,),
                      Row(
                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        const Text("Earnings",
-                            style: TextStyle(fontSize: 24, fontWeight: FontWeight
-                                .w700, color: Colors.white)),
+                         Text("Earnings",
+                            style: Theme.of(context).textTheme.displayLarge,
+                        ),
                         GestureDetector(
                           onTap: () {
                             Get.to(() =>AddBankAccountDetails());
@@ -160,19 +159,17 @@ class _WalletState extends State<Wallet> {
                             color: Colors.black)),),
                         ),
                     ),
-                    SizedBox(height: Get.height * 0.02,),
+                    SizedBox(height: Get.height * 0.04,),
                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                      const Text('All Referral', style: TextStyle(fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white)),
+                       Text('All Referral', style: Theme.of(context).textTheme.labelMedium,
+                       ),
                       SizedBox(width: Get.width * 0.18,),
-                      const Text('Sort by', style: TextStyle(fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.white)),
+                       Text('Sort by', style: Theme.of(context).textTheme.bodyMedium,
+                      ),
                       SizedBox(width: Get.width * 0.02,),
                       Container(
-                        height: Get.height * 0.045,
+                        height: 40,
                         width: Get.width * 0.27,
                         decoration: BoxDecoration(
                           borderRadius: const BorderRadius.all(
@@ -181,14 +178,11 @@ class _WalletState extends State<Wallet> {
                               width: 1, color: Colors.white),),
                         child: DropdownButtonHideUnderline(
                           child: DropdownButton2<String>(
+                            //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                             isExpanded: true,
                             hint: Text(
-                              'Select Item',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.bold,
-                                color: Colors.white,
-                              ),
+                              'Select',
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                               overflow: TextOverflow.ellipsis,
                             ),
                             items: items
@@ -197,11 +191,7 @@ class _WalletState extends State<Wallet> {
                                   value: item,
                                   child: Text(
                                     item,
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.white,
-                                    ),
+                                    style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ))
@@ -213,18 +203,18 @@ class _WalletState extends State<Wallet> {
                               });
                             },
 
-                            iconStyleData: const IconStyleData(
-                              icon: Icon(
-                                Icons.arrow_forward_ios_outlined,
-                              ),
-                              iconSize: 14,
-                              iconEnabledColor: Colors.white,
-                              iconDisabledColor: Colors.grey,
-                            ),
+                            // iconStyleData: const IconStyleData(
+                            //   icon: Icon(
+                            //     Icons.arrow_forward_ios_outlined,
+                            //   ),
+                            //   iconSize: 14,
+                            //   iconEnabledColor: Colors.white,
+                            //   iconDisabledColor: Colors.grey,
+                            // ),
 
                             menuItemStyleData: const MenuItemStyleData(
                               height: 40,
-                              padding: EdgeInsets.only(left: 14, right: 14),
+                              padding: EdgeInsets.only(left: 5, right: 14),
                             ),
                           ),
                         ),)

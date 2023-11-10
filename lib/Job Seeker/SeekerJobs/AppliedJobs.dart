@@ -54,17 +54,17 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
         case Status.COMPLETED:
           return Scaffold(
             appBar: AppBar(
-              leading: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
-                  child: Image.asset("assets/images/icon_back_blue.png")),
-              title: Text("My Jobs", style: Theme
-                  .of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(fontWeight: FontWeight.w700)),
-              toolbarHeight: 45,
+              toolbarHeight: 75,
+              leading: Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Image.asset('assets/images/icon_back_blue.png')),
+              ),
+              elevation: 0,
+              title: Text("My Jobs", style: Get.theme.textTheme.displayLarge),
             ),
             body: SingleChildScrollView(
               padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),

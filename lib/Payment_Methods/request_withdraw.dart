@@ -35,7 +35,7 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
             },
               child: Image.asset("assets/images/icon_back_blue.png")),
           title: Text("Request Withdraw", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
-          toolbarHeight: 45,
+          toolbarHeight: 40,
         ),
         body: SingleChildScrollView(
           padding: EdgeInsets.symmetric(horizontal: Get.width*.04),

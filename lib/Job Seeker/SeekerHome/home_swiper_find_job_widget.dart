@@ -251,8 +251,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         data?.recruiterDetails?.companyName ?? "",
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                            .bodyMedium!
+                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
                         height: Get.height * 0.03,
@@ -273,8 +273,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         // softWrap: true,
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                            .labelLarge!
+                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
                         height: Get.height * 0.03,
@@ -293,8 +293,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         CommonFunctions.parseHTML(data?.requirements ?? "") ?? "",
                         style: Theme.of(context)
                             .textTheme
-                            .bodySmall!
-                            .copyWith(color: AppColors.ratingcommenttextcolor),
+                            .labelLarge!
+                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                       ),
                       SizedBox(
                         height: Get.height * .02,

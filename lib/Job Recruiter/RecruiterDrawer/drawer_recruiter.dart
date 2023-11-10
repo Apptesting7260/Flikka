@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterRequest/request.dart';
 import 'package:flikka/Job%20Seeker/ChartReport/chart_report.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
+import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/hiring%20Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -22,6 +23,7 @@ class DrawerRecruiter extends StatefulWidget {
 class _DrawerRecruiterState extends State<DrawerRecruiter> {
 
   LogoutController logoutController = Get.put(LogoutController()) ;
+  ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
 
   @override
   Widget build(BuildContext context) {
@@ -71,21 +73,21 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         CircleAvatar(
                                           radius:35,
                                           backgroundColor: const Color(0xffE94D8A).withOpacity(0.3),
-                                          backgroundImage: const AssetImage("assets/images/icon_recruiter_drawer.png"),
+                                          backgroundImage:  NetworkImage(viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ?? "assets/images/icon_recruiter_drawer.png"),
                                           //backgroundImage: NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80'),
                                         ),
                                         const SizedBox(
                                           height: 9,
                                         ),
                                         Text(
-                                          "Example Company Inc.",
+                                          viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyName ?? "No Data",
                                           style: Get.theme.textTheme.titleSmall,
                                         ),
                                         SizedBox(
                                           height: Get.height*.002,
                                         ),
                                         Text(
-                                          "California, USA",
+                                          viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyLocation ?? "No Data",
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                           textAlign: TextAlign.center,
                                         ),

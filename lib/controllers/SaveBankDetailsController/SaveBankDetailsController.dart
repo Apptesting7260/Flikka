@@ -8,6 +8,7 @@ class SaveBankDetailsController extends GetxController {
   final _api = AuthRepository();
 
   RxBool loading = false.obs;
+  var bankErrorMessage = ''.obs ;
 
   Future<void> saveBankDetailsApiHit(
       var bankName,

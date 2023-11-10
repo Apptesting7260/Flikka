@@ -6,6 +6,7 @@ import 'package:flikka/res/components/request_timeout_widget.dart';
 import 'package:flikka/res/components/server_error_widget.dart';
 import 'package:flikka/res/components/unauthorised_request_widget.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
@@ -121,11 +122,11 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           SizedBox(height: Get.height*.03,),
                           Text(
                             "Find Job",
-                            style:Theme.of(context).textTheme.displayLarge,
+                            style:Theme.of(context).textTheme.displaySmall,
                           ),
                           Text(
-                              "California USA",
-                              style: Theme.of(context).textTheme.bodySmall!.copyWith(color: Color(0xffCFCFCF))
+                              seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No Data",
+                              style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.graySilverColor)
                           )
                         ],
                       ),

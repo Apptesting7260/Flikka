@@ -119,6 +119,7 @@ class _SavedPostState extends State<SavedPost> {
         case Status.COMPLETED:
           return Scaffold(
             appBar: AppBar(
+              toolbarHeight: 75,
               leading: Padding(
                 padding: const EdgeInsets.only(left: 15.0),
                 child: GestureDetector(
@@ -131,7 +132,7 @@ class _SavedPostState extends State<SavedPost> {
               title: Text("Saved Post", style: Get.theme.textTheme.displayLarge),
               actions: [
                 Padding(
-                  padding: const EdgeInsets.only(right: 15, top: 20),
+                  padding: const EdgeInsets.only(right: 15, top: 30),
                   child: Text("Delete All",
                       style: Get.theme.textTheme.bodyLarge!.copyWith(
                           color: AppColors.blueThemeColor)),
