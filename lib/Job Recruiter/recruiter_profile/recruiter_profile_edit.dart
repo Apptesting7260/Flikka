@@ -86,7 +86,17 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
         sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
         // Adjust aspect ratio as needed
-        compressQuality: 40,);
+        compressQuality: 60,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: AppColors.blueThemeColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(title: 'Cropper', ),
+        ],// Adjust compression quality as needed
+      );
 
       setState(() {
         coverImage = File(croppedImage!.path);
@@ -149,7 +159,17 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
         sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2),
         // Adjust aspect ratio as needed
-        compressQuality: 70,);
+        compressQuality: 60,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: AppColors.blueThemeColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(title: 'Cropper', ),
+        ],// Adjust compression quality as needed
+      );
 
       setState(() {
         profileImage = File(croppedImage!.path);

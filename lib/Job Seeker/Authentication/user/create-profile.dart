@@ -1785,7 +1785,16 @@ class _CreateProfileState extends State<CreateProfile> {
         sourcePath: pickedImage.path,
         aspectRatio: const CropAspectRatio(
             ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
-        compressQuality: 70, // Adjust compression quality as needed
+        compressQuality: 60, // Adjust compression quality as needed
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: AppColors.blueThemeColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(title: 'Cropper', ),
+        ],// Adjust compression quality as needed
       );
 
       setState(() {

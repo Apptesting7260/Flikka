@@ -918,7 +918,17 @@ class _AddAJobPageState extends State<AddAJobPage> {
       final croppedImage = await featureImageCropper.cropImage(
           sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
-        compressQuality: 40,);
+        compressQuality: 60,
+        uiSettings: [
+          AndroidUiSettings(
+              toolbarTitle: 'Cropper',
+              toolbarColor: AppColors.blueThemeColor,
+              toolbarWidgetColor: Colors.white,
+              initAspectRatio: CropAspectRatioPreset.original,
+              lockAspectRatio: false),
+          IOSUiSettings(title: 'Cropper', ),
+        ],// Adjust compression quality as needed
+      );
       setState(() {
         imgFile = File(croppedImage!.path) ;
         profilePath = File(croppedImage.path) ;
