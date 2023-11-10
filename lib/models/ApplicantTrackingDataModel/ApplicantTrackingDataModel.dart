@@ -50,7 +50,7 @@ class CandidateStatusElement {
     id: json["id"],
     jobTitle: json["job_title"],
     jobPositions: json["job_positions"],
-    languageName: json["language_name"] == null || json["language_name"].isBlank ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
+    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
     appliedJob: json["applied_job"] == null ? json["applied_job"] : List<TrackingAppliedJob>.from(json["applied_job"].map((x) => TrackingAppliedJob.fromJson(x))),
   );
 

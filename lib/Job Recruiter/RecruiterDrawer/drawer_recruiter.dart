@@ -182,7 +182,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         icon: Image.asset('assets/images/icon_applicant.png',scale: 2.8,fit: BoxFit.cover,)),
                                     title: InkWell(
                                         onTap: (){
-                                          Get.to(() => ApplicantTracking());
+                                          Get.to(() => const ApplicantTracking());
                                         } ,
                                         child: Text(
                                           "Applicant Tracking",

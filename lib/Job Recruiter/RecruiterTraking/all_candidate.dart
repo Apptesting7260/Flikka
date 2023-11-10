@@ -2,6 +2,14 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
+import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
+import '../../data/response/status.dart';
+import '../../res/components/general_expection.dart';
+import '../../res/components/internet_exception_widget.dart';
+import '../../res/components/request_timeout_widget.dart';
+import '../../res/components/server_error_widget.dart';
+import '../../res/components/unauthorised_request_widget.dart';
 import '../../widgets/app_colors.dart';
 import '../../widgets/my_button.dart';
 
@@ -14,456 +22,548 @@ class AllCandidate extends StatefulWidget {
 
 class _AllCandidateState extends State<AllCandidate> {
 
-  final List<String> jobTypeItems = [
-    'Social Marketing','Programming','Health Finance','Content Manager'
-  ];
-  String? jobTypeValues;
+  String? jobTitleValue;
 
-  final List<String> allTypeItems = [
-    'Selected','Rejected',
-  ];
-  String? allTypeValues;
+  final List<String> statusList = ['Accepted','Rejected',"pending","all"];
+  String? statusValue;
+
+  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
+  ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
+
+@override
+  void initState() {
+   jobTitleController.recruiterJobTitleApi() ;
+   trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(height: Get.height*.04,),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.008),
-                decoration: BoxDecoration(
-                  color: AppColors.textFieldFilledColor,
-                  borderRadius: BorderRadius.circular(33.0),
-                ),
-                child: Row(
+      body: Obx(() {
+        switch (trackingDataController.rxRequestStatus.value) {
+          case Status.LOADING:
+            return const Scaffold(
+              body: Center(child: CircularProgressIndicator()),);
+          case Status.ERROR:
+            if (trackingDataController.error.value ==
+                'No internet') {
+              return Scaffold(
+                body: InterNetExceptionWidget(
+                onPress: () {
+                  jobTitleController.recruiterJobTitleApi() ;
+                  trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+                },
+              ),);
+            } else if (trackingDataController.error.value == 'Request Time out') {
+              return Scaffold(body: RequestTimeoutWidget(onPress: () {
+                jobTitleController.recruiterJobTitleApi() ;
+                trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+              }),);
+            } else if (trackingDataController.error.value == "Internal server error") {
+              return Scaffold(body: ServerErrorWidget(onPress: () {
+                jobTitleController.recruiterJobTitleApi() ;
+                trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+              }),);
+            } else if (trackingDataController.error.value == "Unauthorised Request") {
+              return Scaffold(body: UnauthorisedRequestWidget(onPress: () {
+                jobTitleController.recruiterJobTitleApi() ;
+                trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+              }),);
+            } else {
+              return Scaffold(body: GeneralExceptionWidget(onPress: () {
+                jobTitleController.recruiterJobTitleApi() ;
+                trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
+              }),);
+            }
+          case Status.COMPLETED:
+            return Padding(
+              padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
+              child: SingleChildScrollView(
+                child: Column(
                   children: [
-                    Icon(Icons.search, color: AppColors.blueThemeColor,size: 27,),
-                    SizedBox(width: Get.width*.03),
-                    Expanded(
-                      child: TextFormField(
-                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF),fontSize: 19),
-                        onChanged: (query){
-                          // filterPositionNames(query);
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Search',
-                          hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xffCFCFCF)),
-                          border: InputBorder.none,
-                        ),
+                    SizedBox(height: Get.height * .04,),
+                    Container(
+                      padding: EdgeInsets.symmetric(horizontal: Get.width * .05,
+                          vertical: Get.height * .008),
+                      decoration: BoxDecoration(
+                        color: AppColors.textFieldFilledColor,
+                        borderRadius: BorderRadius.circular(33.0),
+                      ),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.search, color: AppColors
+                              .blueThemeColor, size: 27,),
+                          SizedBox(width: Get.width * .03),
+                          Expanded(
+                            child: TextFormField(
+                              style: Theme
+                                  .of(context)
+                                  .textTheme
+                                  .bodyLarge
+                                  ?.copyWith(
+                                  color: Color(0xffCFCFCF), fontSize: 19),
+                              onChanged: (query) {
+                                // filterPositionNames(query);
+                              },
+                              decoration: InputDecoration(
+                                hintText: 'Search',
+                                hintStyle: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(color: Color(0xffCFCFCF)),
+                                border: InputBorder.none,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
+                    SizedBox(height: Get.height * .03,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text("All Candidate", style: Theme
+                            .of(context)
+                            .textTheme
+                            .bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.w700,
+                            color: const Color(0xffFFFFFF))),
+                        Row(
+                          children: [
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton2(
+                                isExpanded: true,
+                                hint: Text(
+                                  'Select Title',
+                                  style: Get.theme.textTheme.bodyLarge!
+                                      .copyWith(
+                                      color: AppColors.white, fontSize: 12),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                items: jobTitleController.getJobTitleDetails
+                                    .value.jobTitleList?.map((item) =>
+                                    DropdownMenuItem(
+                                      value: item.jobTitle,
+                                      child: Text(item.jobTitle.toString(),
+                                        style: Get.theme.textTheme.bodyLarge!
+                                            .copyWith(color: AppColors.white,
+                                            fontSize: 12),
+                                        overflow: TextOverflow.ellipsis,),
+                                      onTap: () {
+                                        setState(() {
+                                          jobTitleValue = item.jobTitle;
+                                          trackingDataController.applicantTrackingApi(jobTitleValue, statusValue) ;
+                                        });
+                                      },
+                                    ))
+                                    .toList(),
+                                value: jobTitleValue,
+                                onChanged: (value) {},
+                                buttonStyleData: ButtonStyleData(
+                                  height: Get.height * 0.06,
+                                  width: Get.width * .29,
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 5),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(35),
+                                      border: Border.all(
+                                          color: const Color(0xff686868))
+                                    // color: Color(0xff353535),
+                                  ),
+                                  elevation: 2,
+                                ),
+
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: Get.height * 0.35,
+                                  width: Get.width * .42,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  offset: const Offset(5, 0),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<
+                                        double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<
+                                        bool>(true),
+                                  ),
+                                ),
+
+                              ),
+                            ),
+                            SizedBox(width: Get.width * .02,),
+                            DropdownButtonHideUnderline(
+                              child: DropdownButton2<String>(
+                                isExpanded: true,
+                                hint: Text(
+                                  'Status',
+                                  style: Get.theme.textTheme.bodyLarge!
+                                      .copyWith(
+                                      color: AppColors.white, fontSize: 12),
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                items: statusList.map((String item) =>
+                                    DropdownMenuItem<String>(
+                                      value: item,
+                                      child: Text(item,
+                                        style: Get.theme.textTheme.bodyLarge!
+                                            .copyWith(color: AppColors.white,
+                                            fontSize: 12),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    ))
+                                    .toList(),
+                                value: statusValue,
+                                onChanged: (String? value) {
+                                  setState(() {
+                                    statusValue = value;
+                                    trackingDataController.applicantTrackingApi(jobTitleValue, statusValue) ;
+                                  });
+                                },
+                                buttonStyleData: ButtonStyleData(
+                                  height: Get.height * 0.06,
+                                  width: Get.width * .29,
+                                  padding: const EdgeInsets.only(
+                                      left: 14, right: 14),
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(35),
+                                      border: Border.all(
+                                          color: Color(0xff686868))
+                                    // color: Color(0xff353535),
+                                  ),
+                                  elevation: 2,
+                                ),
+
+                                dropdownStyleData: DropdownStyleData(
+                                  padding: const EdgeInsets.only(
+                                      left: 10, right: 5),
+                                  maxHeight: Get.height * 0.35,
+                                  width: Get.width * 0.42,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Color(0xff353535),
+                                  ),
+                                  offset: const Offset(5, 0),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: Radius.circular(40),
+                                    thickness: MaterialStateProperty.all<
+                                        double>(6),
+                                    thumbVisibility: MaterialStateProperty.all<
+                                        bool>(true),
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                    SizedBox(height: Get.height * .03,),
+                    Column(
+                      children: [
+                        ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: trackingDataController
+                                .applicantTrackingDataModel.value
+                                .candidateStatus?.length,
+                            itemBuilder: (context, i) {
+                              var candidateStatusData = trackingDataController
+                                  .applicantTrackingDataModel.value
+                                  .candidateStatus?[i];
+                              return ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: candidateStatusData?.appliedJob?.length,
+                                  itemBuilder: (context, index) {
+                                    var data = candidateStatusData?.appliedJob?[index];
+                                    return Container(
+                                      padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
+                                        margin: EdgeInsets.only(bottom: Get.height *.02),
+                                        decoration: BoxDecoration(
+                                            color: const Color(0xff353535),
+                                            borderRadius: BorderRadius.circular(24)
+                                        ),
+                                      child: Column(
+                                        children: [
+                                          SizedBox(height: Get.height * .013,),
+                                          ListTile(
+                                            contentPadding: EdgeInsets.zero,
+                                            minVerticalPadding: 15,
+                                            leading: CircleAvatar(radius: 27,
+                                              backgroundImage: NetworkImage(
+                                                  "${data?.seekerData
+                                                      ?.profileImg}"),
+                                            ),
+                                            title: Text(
+                                              data?.seekerData?.fullname ?? "",
+                                              style: Theme
+                                                  .of(context)
+                                                  .textTheme
+                                                  .titleLarge
+                                                  ?.copyWith(
+                                                  color: Color(0xffFFFFFF)),),
+                                            subtitle: Column(
+                                              crossAxisAlignment: CrossAxisAlignment
+                                                  .start,
+                                              children: [
+                                                SizedBox(
+                                                  height: Get.height * .003,),
+                                                Text(candidateStatusData
+                                                    ?.jobPositions ?? "",
+                                                    style: Theme
+                                                        .of(context)
+                                                        .textTheme
+                                                        .bodySmall
+                                                        ?.copyWith(
+                                                        color: const Color(
+                                                            0xffCFCFCF),
+                                                        fontWeight: FontWeight
+                                                            .w600)
+                                                ),
+                                                SizedBox(
+                                                  height: Get.height * .003,),
+                                                Text(
+                                                  data?.seekerData?.location ??
+                                                      "", style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .labelLarge
+                                                    ?.copyWith(
+                                                    fontWeight: FontWeight.w400,
+                                                    color: Color(0xffCFCFCF)),),
+                                                SizedBox(
+                                                  height: Get.height * .003,),
+                                                Text(
+                                                  data?.candidateStatus ?? "",
+                                                  style: Theme
+                                                      .of(context)
+                                                      .textTheme
+                                                      .labelLarge
+                                                      ?.copyWith(
+                                                      fontWeight: FontWeight
+                                                          .w700,
+                                                      color: "${data
+                                                          ?.candidateStatus}"
+                                                          .toLowerCase() ==
+                                                          "accepted"
+                                                          ? const Color(
+                                                          0xff42D396)
+                                                          :
+                                                      "${data?.candidateStatus}"
+                                                          .toLowerCase() ==
+                                                          "rejected" ? Colors
+                                                          .red : AppColors.white
+                                                  ),),
+
+                                              ],
+                                            ),
+                                            trailing: const Icon(
+                                              Icons.more_vert,
+                                              color: Color(0xffCFCFCF),
+                                              size: 25,),
+                                          ),
+                                          SizedBox(height: Get.height * .017,),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment
+                                                .spaceAround,
+                                            children: [
+                                              MyButton(
+                                                width: Get.width * .32,
+                                                height: Get.height * .066,
+                                                title: "ACCEPT", onTap1: () {
+
+                                              },),
+                                              SizedBox(
+                                                width: Get.width * .32,
+                                                height: Get.height * .066,
+                                                child: ElevatedButton(
+                                                  onPressed: () {},
+                                                  style: ElevatedButton
+                                                      .styleFrom(
+                                                    shape: RoundedRectangleBorder(
+                                                        borderRadius: BorderRadius
+                                                            .circular(30)),
+                                                  ),
+                                                  child: Text(
+                                                    "REJECT", style: Theme
+                                                      .of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(
+                                                      fontWeight: FontWeight
+                                                          .w700),),
+                                                ),
+                                              ),
+                                              GestureDetector(
+                                                  onTap: () {
+                                                    showDialog(
+                                                      // barrierDismissible: false,
+                                                        context: context,
+                                                        builder: (
+                                                            BuildContext context) {
+                                                          return AlertDialog(
+                                                            shape: RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius
+                                                                    .circular(
+                                                                    18)),
+                                                            backgroundColor: Color(
+                                                                0xff353535),
+                                                            contentPadding: EdgeInsets
+                                                                .zero,
+                                                            content:
+                                                            Container(
+                                                              alignment: Alignment
+                                                                  .center,
+                                                              height: Get
+                                                                  .height * .5,
+                                                              child: Column(
+                                                                mainAxisAlignment: MainAxisAlignment
+                                                                    .center,
+                                                                crossAxisAlignment: CrossAxisAlignment
+                                                                    .center,
+                                                                children: [
+                                                                  SizedBox(
+                                                                    height: Get
+                                                                        .height *
+                                                                        0.001,),
+                                                                  Center(child:
+                                                                  Text(
+                                                                    "Save Notes",
+                                                                    style: Theme
+                                                                        .of(
+                                                                        context)
+                                                                        .textTheme
+                                                                        .displaySmall
+                                                                        ?.copyWith(
+                                                                        color: AppColors
+                                                                            .white,
+                                                                        fontSize: 20,
+                                                                        fontWeight: FontWeight
+                                                                            .w600),)
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: Get
+                                                                        .height *
+                                                                        .02,),
+                                                                  Center(child:
+                                                                  Text(
+                                                                    "Lorem Ipsum is simply industry.",
+                                                                    style: Theme
+                                                                        .of(
+                                                                        context)
+                                                                        .textTheme
+                                                                        .labelLarge
+                                                                        ?.copyWith(
+                                                                        fontWeight: FontWeight
+                                                                            .w400,
+                                                                        color: Color(
+                                                                            0xffCFCFCF)),)
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: Get
+                                                                        .height *
+                                                                        .03,),
+                                                                  Padding(
+                                                                    padding: EdgeInsets
+                                                                        .symmetric(
+                                                                        horizontal: Get
+                                                                            .width *
+                                                                            .04),
+                                                                    child: TextFormField(
+                                                                        maxLines: 4,
+                                                                        style: Theme
+                                                                            .of(
+                                                                            context)
+                                                                            .textTheme
+                                                                            .bodyMedium,
+                                                                        decoration: InputDecoration(
+                                                                          filled: true,
+                                                                          fillColor: const Color(
+                                                                              0xff1A1A1A),
+                                                                          hintText: "Enter Note",
+                                                                          hintStyle: Theme
+                                                                              .of(
+                                                                              context)
+                                                                              .textTheme
+                                                                              .labelLarge
+                                                                              ?.copyWith(
+                                                                              color: Color(
+                                                                                  0xffCFCFCF)),
+                                                                          contentPadding: EdgeInsets
+                                                                              .symmetric(
+                                                                              vertical: Get
+                                                                                  .height *
+                                                                                  .03,
+                                                                              horizontal: Get
+                                                                                  .width *
+                                                                                  .05),
+                                                                          border: OutlineInputBorder(
+                                                                              borderRadius: BorderRadius
+                                                                                  .circular(
+                                                                                  18),
+                                                                              borderSide: const BorderSide(
+                                                                                  color: Color(
+                                                                                      0xff1A1A1A))),
+                                                                          enabledBorder: OutlineInputBorder(
+                                                                            borderRadius: BorderRadius
+                                                                                .circular(
+                                                                                22),
+                                                                            // borderSide: BorderSide(color: Colors.white),
+                                                                          ),
+                                                                        )
+                                                                    ),
+                                                                  ),
+                                                                  SizedBox(
+                                                                    height: Get
+                                                                        .height *
+                                                                        0.03,),
+                                                                  MyButton(
+                                                                    width: Get
+                                                                        .width *
+                                                                        .65,
+                                                                    title: "SAVE",
+                                                                    onTap1: () {
+
+                                                                    },)
+                                                                ],),
+                                                            ),
+                                                          );
+                                                        }
+                                                    );
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/images/icon_save_request.png",
+                                                    height: Get.height * .06,)),
+                                            ],
+                                          ),
+                                          SizedBox(height: Get.height * .027,),
+                                          MyButton(
+                                            height: Get.height * .066,
+                                            title: "VIEW PROFILE", onTap1: () {
+
+                                          },),
+                                          SizedBox(height: Get.height * .013,),
+                                        ],
+                                      ),
+                                    );
+                                  }
+                              );
+                            }
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: Get.height * .08,),
                   ],
                 ),
               ),
-              SizedBox(height: Get.height*.03,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text("All Candidate",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF))),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton2<String>(
-                          isExpanded: true,
-                          hint: Text(
-                            'Job Type',
-                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          items: jobTypeItems
-                              .map((String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                              .toList(),
-                          value: jobTypeValues,
-                          onChanged: (String? value) {
-                            setState(() {
-                              jobTypeValues = value;
-                            });
-                          },
-                          buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.06,
-                            width: Get.width*.29,
-                           padding: const EdgeInsets.only(left: 10, right: 5),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                                border: Border.all(color: Color(0xff686868))
-                              // color: Color(0xff353535),
-                            ),
-                            elevation: 2,
-                          ),
-
-                          dropdownStyleData: DropdownStyleData(
-                            maxHeight: Get.height*0.35,
-                            width: Get.width*.42,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: Color(0xff353535),
-                            ),
-                            offset: const Offset(5, 0),
-                            scrollbarTheme: ScrollbarThemeData(
-                              radius:  Radius.circular(40),
-                              thickness: MaterialStateProperty.all<double>(6),
-                              thumbVisibility: MaterialStateProperty.all<bool>(true),
-                            ),
-                          ),
-
-                        ),
-                      ),
-                      SizedBox(width: Get.width*.02,),
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton2<String>(
-                          isExpanded: true,
-                          hint:  Text(
-                            'All',
-                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          items: allTypeItems
-                              .map((String item) => DropdownMenuItem<String>(
-                            value: item,
-                            child: Text(
-                              item,
-                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white,fontSize: 10),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                          ))
-                              .toList(),
-                          value: allTypeValues,
-                          onChanged: (String? value) {
-                            setState(() {
-                              allTypeValues = value;
-                            });
-                          },
-                          buttonStyleData: ButtonStyleData(
-                            height: Get.height*0.06,
-                            width: Get.width*.29,
-                            padding: const EdgeInsets.only(left: 14, right: 14),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(35),
-                              border: Border.all(color: Color(0xff686868))
-                              // color: Color(0xff353535),
-                            ),
-                            elevation: 2,
-                          ),
-
-                          dropdownStyleData: DropdownStyleData(
-                            padding: const EdgeInsets.only(left: 10, right: 5),
-                            maxHeight: Get.height*0.35,
-                            width: Get.width*0.42,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: Color(0xff353535),
-                            ),
-                            offset: const Offset(5, 0),
-                            scrollbarTheme: ScrollbarThemeData(
-                              radius:  Radius.circular(40),
-                              thickness: MaterialStateProperty.all<double>(6),
-                              thumbVisibility: MaterialStateProperty.all<bool>(true),
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(height: Get.height*.035,),
-              Container(
-                height: Get.height*.35,
-                width: Get.width,
-                decoration: BoxDecoration(
-                  color: Color(0xff353535),
-                  borderRadius: BorderRadius.circular(24)
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                  child: Column(
-                    children: [
-                      SizedBox(height: Get.height*.013,),
-                      // Align(
-                      //   alignment: Alignment.topRight,
-                      //     child: Padding(
-                      //       padding:  EdgeInsets.only(right: Get.width*.05),
-                      //       child: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      //     )),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        minVerticalPadding: 15,
-                        leading: CircleAvatar(
-                          radius: 27,
-                          backgroundImage: AssetImage("assets/images/icon_jesika.png",),
-                        ),
-                            title: Text("Jessica Parker",style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Color(0xffFFFFFF)),),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: Get.height*.003,),
-                            Text(
-                                "Software engineer ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w600)
-                            ),
-                            SizedBox(height: Get.height*.003,),
-                            Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                          ],
-                        ),
-                         trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      ),
-                      SizedBox(height: Get.height*.017,),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          MyButton(
-                            width: Get.width*.32,
-                            height: Get.height*.066,
-                            title: "ACCEPT", onTap1: () {
-
-                          },),
-                          SizedBox(
-                            width:   Get.width*.32,
-                            height: Get.height*.066,
-                            child: ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                primary: Color(0xffFFFFFF),
-                                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-                              ),
-                              child: Text("REJECT",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700),),
-                            ),
-                          ),
-                          GestureDetector(
-                              onTap: () {
-                                showDialog(
-                                  // barrierDismissible: false,
-                                    context: context, builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18)),
-                                    backgroundColor: Color(0xff353535),
-                                    contentPadding: EdgeInsets.zero,
-                                    content:
-                                    Container(
-                                      alignment: Alignment.center,
-                                      height:Get.height*.5,
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          SizedBox(height: Get.height*0.001,),
-                                          Center(child:
-                                          Text("Save Notes",style: Theme.of(context).textTheme.displaySmall?.copyWith(color: AppColors.white,fontSize: 20,fontWeight: FontWeight.w600),)
-                                          ),
-                                          SizedBox(height: Get.height*.02,),
-                                          Center(child:
-                                          Text("Lorem Ipsum is simply industry.",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),)
-                                          ),
-                                          SizedBox(height: Get.height*.03,),
-                                          Padding(
-                                            padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                                            child: TextFormField(
-                                                maxLines: 4,
-                                                style: Theme.of(context).textTheme.bodyMedium,
-                                                decoration: InputDecoration(
-                                                  filled: true,
-                                                  fillColor: Color(0xff1A1A1A),
-                                                  hintText: "Enter Note",
-                                                  hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF)),
-                                                  contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.05),
-                                                  border: OutlineInputBorder(borderRadius: BorderRadius.circular(18),
-                                                      borderSide: BorderSide(color: Color(0xff1A1A1A))),
-
-                                                  enabledBorder:  OutlineInputBorder(
-                                                    borderRadius: BorderRadius.circular(22),
-                                                    // borderSide: BorderSide(color: Colors.white),
-                                                  ),
-                                                  errorBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(22.0)),
-                                                    borderSide: BorderSide(color: Colors.red),
-                                                  ),
-                                                  disabledBorder: OutlineInputBorder(
-                                                    borderRadius: BorderRadius.all(Radius.circular(22.0)),
-                                                    borderSide: BorderSide(color: Color(0xff373737)),
-                                                  ),
-
-                                                )
-                                            ),
-                                          ),
-                                          SizedBox(height: Get.height*0.03,),
-                                          MyButton(
-                                            width: Get.width*.65,
-                                            title: "SAVE", onTap1: () {
-
-                                          },)
-                                        ],),
-                                    ),
-                                  );
-                                }
-                                );
-                              },
-                              child: Image.asset("assets/images/icon_save_request.png",height: Get.height*.06,)),
-                        ],
-                      ),
-                      SizedBox(height: Get.height*.027,),
-                      SizedBox(
-                        width:   295,
-                        height: Get.height*.066,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                             primary: Color(0xff353535),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: Color(0xffFFFFFF))),
-                          ),
-                          child: Text("TALENT POOL",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: Get.height*.03,),
-              Container(
-                height: Get.height*.29,
-                width: Get.width,
-                decoration: BoxDecoration(
-                    color: Color(0xff353535),
-                    borderRadius: BorderRadius.circular(24)
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                  child: Column(
-                    children: [
-                      SizedBox(height: Get.height*.013,),
-                      // Align(
-                      //     alignment: Alignment.topRight,
-                      //     child: Padding(
-                      //       padding:  EdgeInsets.only(right: Get.width*.05),
-                      //       child: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      //     )),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        minVerticalPadding: 15,
-                        leading: CircleAvatar(
-                          radius: 27,
-                          backgroundImage: AssetImage("assets/images/icon_jesika.png",),
-                        ),
-                        title: Text("Jessica Parker",style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Color(0xffFFFFFF)),),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(height: Get.height*.003,),
-                            Text(
-                                "Software engineer ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w600)
-                            ),
-                            SizedBox(height: Get.height*.003,),
-                            Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                            SizedBox(height: Get.height*.003,),
-                            Text("SELECTED",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xff42D396)),),
-
-                          ],
-                        ),
-                        trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      ),
-                      SizedBox(height: Get.height*.024,),
-                      MyButton(
-                        height: Get.height*.066,
-                        title: "VIEW PROFILE", onTap1: () {
-
-                      },),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: Get.height*.035,),
-              Container(
-                height: Get.height*.38,
-                width: Get.width,
-                decoration: BoxDecoration(
-                    color: Color(0xff353535),
-                    borderRadius: BorderRadius.circular(24)
-                ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                  child: Column(
-                    children: [
-                      SizedBox(height: Get.height*.013,),
-                      // Align(
-                      //     alignment: Alignment.topRight,
-                      //     child: Padding(
-                      //       padding:  EdgeInsets.only(right: Get.width*.05),
-                      //       child: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      //     )),
-                      ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        minVerticalPadding: 15,
-                        leading: CircleAvatar(
-                          radius: 27,
-                          backgroundImage: AssetImage("assets/images/icon_jesika.png",),
-                        ),
-                        title: Text("Jessica Parker",style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Color(0xffFFFFFF)),),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [ SizedBox(height: Get.height*.003,),
-                            Text(
-                                "Software engineer ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w600)
-                            ),
-                            SizedBox(height: Get.height*.003,),
-                            Text("California, USA",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                            SizedBox(height: Get.height*.003,),
-                            Text("REJECTED",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xff42D396)),),
-
-                          ],
-                        ),
-                        trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
-                      ),
-                      SizedBox(height: Get.height*.024,),
-                      MyButton(
-                        height: Get.height*.066,
-                        title: "VIEW PROFILE", onTap1: () {
-
-                      },),
-                      SizedBox(height: Get.height*.024,),
-                      SizedBox(
-                        width:   295,
-                        height: Get.height*.066,
-                        child: ElevatedButton(
-                          onPressed: () {},
-                          style: ElevatedButton.styleFrom(
-                            primary: Color(0xff353535),
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: Color(0xffFFFFFF))),
-                          ),
-                          child: Text("TALENT POOL",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
-                        ),
-                      ),
-
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(height: Get.height*.08,),
-            ],
-          ),
-        ),
+            );
+        }
+      }
       ),
     );
   }
