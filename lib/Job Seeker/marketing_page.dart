@@ -5,7 +5,6 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../models/GetJobsListingModel/GetJobsListingModel.dart';
 
 class MarketingIntern extends StatefulWidget {
   final dynamic jobData ;
@@ -84,51 +83,22 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
-                  Text(
-                    "Requirements",
-                    style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                   CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
-                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.025,
-                  ),
-                  Text(
-                    "Locations",
-                    style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                    "${widget.jobData?.jobLocation}",
-                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
+                  Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text(CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
+                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  SizedBox(height: Get.height * 0.025,),
+                  Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text("${widget.jobData?.jobLocation}", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  SizedBox(height: Get.height * 0.015,),
                   InkWell(
                       onTap: ()=>Get.to(const GoogleMapIntegration()),
                       child: Image.asset('assets/images/Map.png')),
-                  SizedBox(
-                    height: Get.height * 0.035,
-                  ),
-                  Text(
-                    "Informations",
-                    style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                    "Position",
-                    style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),
-                  ),
+                  SizedBox(height: Get.height * 0.035,),
+                  Text("Informations", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text("Position", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(
                     height: Get.height * 0.015,
                   ),

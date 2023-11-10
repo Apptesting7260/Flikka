@@ -103,9 +103,18 @@ class _UserProfileState extends State<UserProfile> {
     if (pickedImage != null) {
       final croppedImage = await imageCropper.cropImage(
         sourcePath: pickedImage.path,
-        aspectRatio: const CropAspectRatio(
-            ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
-        compressQuality: 40, // Adjust compression quality as needed
+        cropStyle: CropStyle.rectangle,
+        aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
+        compressQuality: 60,
+          uiSettings: [
+          AndroidUiSettings(
+          toolbarTitle: 'Cropper',
+          toolbarColor: AppColors.blueThemeColor,
+          toolbarWidgetColor: Colors.white,
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false),
+          IOSUiSettings(title: 'Cropper', ),
+    ],// Adjust compression quality as needed
       );
 
       setState(() {
@@ -1812,7 +1821,6 @@ class _UserProfileState extends State<UserProfile> {
                                             style: Theme.of(context).textTheme.bodyLarge!
                                                 .copyWith(color: AppColors.ratingcommenttextcolor),
                                           ),
-
                                           //********************* for work ex ***************************
                                           SizedBox(height: Get.height * 0.045,),
                                           Row(mainAxisAlignment: MainAxisAlignment
