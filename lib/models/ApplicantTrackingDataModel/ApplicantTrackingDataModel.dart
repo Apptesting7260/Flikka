@@ -1,11 +1,7 @@
-// To parse this JSON data, do
-//
-//     final applicantTrackingDataModel = applicantTrackingDataModelFromJson(jsonString);
 
 import 'dart:convert';
 
-import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
-import 'package:get/get.dart';
+import '../ViewLanguageModel/VIewLanguageModel.dart';
 
 ApplicantTrackingDataModel applicantTrackingDataModelFromJson(String str) => ApplicantTrackingDataModel.fromJson(json.decode(str));
 
@@ -13,32 +9,32 @@ String applicantTrackingDataModelToJson(ApplicantTrackingDataModel data) => json
 
 class ApplicantTrackingDataModel {
   bool? status;
-  List<CandidateStatusElement>? candidateStatus;
+  List<ApplicantDatum>? applicantData;
 
   ApplicantTrackingDataModel({
     this.status,
-    this.candidateStatus,
+    this.applicantData,
   });
 
   factory ApplicantTrackingDataModel.fromJson(Map<String, dynamic> json) => ApplicantTrackingDataModel(
     status: json["status"],
-    candidateStatus: json["candidate_status"] == null ? json["candidate_status"] : List<CandidateStatusElement>.from(json["candidate_status"].map((x) => CandidateStatusElement.fromJson(x))),
+    applicantData: json["applicant_data"] == null ? json["applicant_data"] : List<ApplicantDatum>.from(json["applicant_data"].map((x) => ApplicantDatum.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "candidate_status": List<dynamic>.from(candidateStatus!.map((x) => x.toJson())),
+    "applicant_data": List<dynamic>.from(applicantData!.map((x) => x.toJson())),
   };
 }
 
-class CandidateStatusElement {
+class ApplicantDatum {
   dynamic id;
   String? jobTitle;
   String? jobPositions;
   List<LanguageModel>? languageName;
-  List<TrackingAppliedJob>? appliedJob;
+  List<AppliedJob>? appliedJob;
 
-  CandidateStatusElement({
+  ApplicantDatum({
     this.id,
     this.jobTitle,
     this.jobPositions,
@@ -46,12 +42,12 @@ class CandidateStatusElement {
     this.appliedJob,
   });
 
-  factory CandidateStatusElement.fromJson(Map<String, dynamic> json) => CandidateStatusElement(
+  factory ApplicantDatum.fromJson(Map<String, dynamic> json) => ApplicantDatum(
     id: json["id"],
     jobTitle: json["job_title"],
     jobPositions: json["job_positions"],
-    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
-    appliedJob: json["applied_job"] == null ? json["applied_job"] : List<TrackingAppliedJob>.from(json["applied_job"].map((x) => TrackingAppliedJob.fromJson(x))),
+    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
+    appliedJob: json["applied_job"] == null ? json["applied_job"] : List<AppliedJob>.from(json["applied_job"].map((x) => AppliedJob.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -63,33 +59,36 @@ class CandidateStatusElement {
   };
 }
 
-class TrackingAppliedJob {
+class AppliedJob {
   dynamic id;
   dynamic seekerId;
   dynamic jobId;
-  String? candidateStatus;
-  String? interviews;
+  String? status;
+  DateTime? interviewScheduleTime;
+  String? interviewStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
   SeekerData? seekerData;
 
-  TrackingAppliedJob({
+  AppliedJob({
     this.id,
     this.seekerId,
     this.jobId,
-    this.candidateStatus,
-    this.interviews,
+    this.status,
+    this.interviewScheduleTime,
+    this.interviewStatus,
     this.createdAt,
     this.updatedAt,
     this.seekerData,
   });
 
-  factory TrackingAppliedJob.fromJson(Map<String, dynamic> json) => TrackingAppliedJob(
+  factory AppliedJob.fromJson(Map<String, dynamic> json) => AppliedJob(
     id: json["id"],
     seekerId: json["seeker_id"],
     jobId: json["job_id"],
-    candidateStatus: json["candidate_status"],
-    interviews: json["interviews"],
+    status: json["status"],
+    interviewScheduleTime: json["interview_schedule_time"] == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
+    interviewStatus: json["interview_status"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     seekerData: json["seeker_data"] == null ? json["seeker_data"] : SeekerData.fromJson(json["seeker_data"]),
@@ -99,8 +98,9 @@ class TrackingAppliedJob {
     "id": id,
     "seeker_id": seekerId,
     "job_id": jobId,
-    "candidate_status": candidateStatus,
-    "interviews": interviews,
+    "status": status,
+    "interview_schedule_time": interviewScheduleTime?.toIso8601String(),
+    "interview_status": interviewStatus,
     "created_at": createdAt?.toIso8601String(),
     "updated_at": updatedAt?.toIso8601String(),
     "seeker_data": seekerData?.toJson(),

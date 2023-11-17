@@ -125,12 +125,8 @@ class _AllCandidateState extends State<AllCandidate> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text("All Candidate", style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(fontWeight: FontWeight.w700,
-                            color: const Color(0xffFFFFFF))),
+                        Text("All Candidate", style: Theme.of(context).textTheme.bodyLarge
+                            ?.copyWith(fontWeight: FontWeight.w700, color: const Color(0xffFFFFFF))),
                         Row(
                           children: [
                             DropdownButtonHideUnderline(
@@ -265,16 +261,16 @@ class _AllCandidateState extends State<AllCandidate> {
                     SizedBox(height: Get.height * .03,),
                     Column(
                       children: [
+                        trackingDataController.applicantTrackingDataModel.value.applicantData == null ||
+                            trackingDataController.applicantTrackingDataModel.value.applicantData?.length == 0 ?
+                            Text("No Data" , style: Theme.of(context).textTheme.bodyLarge
+                                ?.copyWith(fontWeight: FontWeight.w700, color: const Color(0xffFFFFFF))) :
                         ListView.builder(
                             shrinkWrap: true,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: trackingDataController
-                                .applicantTrackingDataModel.value
-                                .candidateStatus?.length,
+                            itemCount: trackingDataController.applicantTrackingDataModel.value.applicantData?.length,
                             itemBuilder: (context, i) {
-                              var candidateStatusData = trackingDataController
-                                  .applicantTrackingDataModel.value
-                                  .candidateStatus?[i];
+                              var candidateStatusData = trackingDataController.applicantTrackingDataModel.value.applicantData?[i];
                               return ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
@@ -306,7 +302,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                                   .textTheme
                                                   .titleLarge
                                                   ?.copyWith(
-                                                  color: Color(0xffFFFFFF)),),
+                                                  color: const Color(0xffFFFFFF)),),
                                             subtitle: Column(
                                               crossAxisAlignment: CrossAxisAlignment
                                                   .start,
@@ -335,31 +331,18 @@ class _AllCandidateState extends State<AllCandidate> {
                                                     .labelLarge
                                                     ?.copyWith(
                                                     fontWeight: FontWeight.w400,
-                                                    color: Color(0xffCFCFCF)),),
+                                                    color: const Color(0xffCFCFCF)),),
                                                 SizedBox(
                                                   height: Get.height * .003,),
                                                 Text(
-                                                  data?.candidateStatus ?? "",
-                                                  style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .labelLarge
-                                                      ?.copyWith(
-                                                      fontWeight: FontWeight
-                                                          .w700,
-                                                      color: "${data
-                                                          ?.candidateStatus}"
-                                                          .toLowerCase() ==
-                                                          "accepted"
-                                                          ? const Color(
-                                                          0xff42D396)
-                                                          :
-                                                      "${data?.candidateStatus}"
-                                                          .toLowerCase() ==
-                                                          "rejected" ? Colors
-                                                          .red : AppColors.white
+                                                  data?.status ?? "",
+                                                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                                      fontWeight: FontWeight.w700,
+                                                      color: "${data?.status}".toLowerCase() == "accepted"
+                                                          ? const Color(0xff42D396) :
+                                                      "${data?.status}".toLowerCase() == "rejected"
+                                                          ? Colors.red : AppColors.white
                                                   ),),
-
                                               ],
                                             ),
                                             trailing: const Icon(
