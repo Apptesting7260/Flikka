@@ -4,21 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
+import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
 import '../../widgets/my_button.dart';
 
 class FindCandidateHomePageRecruiter extends StatefulWidget {
-  const FindCandidateHomePageRecruiter({super.key});
+  final RecruiterHomeData? recruiterData ;
+  const FindCandidateHomePageRecruiter({super.key, this.recruiterData});
 
   @override
   State<FindCandidateHomePageRecruiter> createState() => _FindCandidateHomePageRecruiterState();
 }
 
 class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRecruiter> {
-  bool _isValidEmail(String email) {
-    final RegExp emailRegex =
-    RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-    return emailRegex.hasMatch(email);
-  }
 
   String text = '';
   String subject = '';
@@ -97,8 +94,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
+      decoration: BoxDecoration(color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
       height: Get.height,
       width: Get.width,
       child: Stack(
@@ -134,22 +130,13 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                   child: Padding(
                     padding: const EdgeInsets.all(3.0),
                     child: Container(
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           shape: BoxShape.circle,
-                          // gradient: LinearGradient(
-                          //   colors: [
-                          //     Color(0xFF56B8F6),
-                          //     Color(0xFF4D6FED),
-                          //   ],
-                          //   begin: Alignment
-                          //       .topCenter, // Start from the top center
-                          //   end: Alignment
-                          //       .bottomCenter, // End at the bottom center
-                          // ),
                           color: AppColors.blueThemeColor
                         ),
                         child: CircleAvatar(
                             radius: 30,
+                            backgroundColor: Colors.transparent,
                             child: Center(
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
@@ -164,8 +151,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                                           fontSize: 7)),
                                 ],
                               ),
-                            ),
-                            backgroundColor: Colors.transparent)),
+                            ))),
                   ),
                 )
               ],
@@ -180,20 +166,6 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                 Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
               ],
             ),
-            // child: Stack(children: [
-            //   SvgPicture.asset(
-            //     'assets/images/bookmarksvg1.svg',
-            //     fit: BoxFit.cover,
-            //   ),
-            //   Positioned(
-            //     left: 9,
-            //     top: 7,
-            //     child: SvgPicture.asset(
-            //       'assets/images/bookmarksvg2.svg',
-            //       fit: BoxFit.cover,
-            //     ),
-            //   ),
-            // ]),
           ),
           //************* for marketing intern text  ************
           Positioned(
@@ -202,9 +174,8 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
             left: 0,
             right: 0,
             child: Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                // color: AppColors.blackdown,
+              padding: const EdgeInsets.all(20),
+              decoration: const BoxDecoration(
                 color: Color(0xff353535),
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(22),
@@ -216,24 +187,17 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        "Jessica Parker",
+                      Text( widget.recruiterData?.fullname ?? "" ,
                         style: Theme.of(context).textTheme.displayLarge,
                         softWrap: true,
                       ),
-                      Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
+                      const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
                     ],
                   ),
-                  Text("Marketing Intern",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
-                  SizedBox(
-                    height: Get.height * 0.010,
-                  ),
-                  Text(
-                    "California, USA",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
-                  ),
+                  Text( widget.recruiterData?.seekerData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
+                  SizedBox(height: Get.height * 0.010,),
+                  Text(widget.recruiterData?.location ?? "",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
@@ -245,18 +209,32 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                  ],
                ),
                   SizedBox(height: Get.height*.004,),
-                  Padding(
-                    padding: EdgeInsets.only(left: Get.width*.1),
-                    child: Text(
-                      "4 Years",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium?.copyWith(color: Color(0xffCFCFCF)),
-                    ),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.03,
-                  ),
+                  widget.recruiterData?.seekerData?.workExpJob?.length == 0 ||
+                      widget.recruiterData?.seekerData?.workExpJob == null ?
+                      const SizedBox() :
+                  ListView.builder(
+                    itemCount: widget.recruiterData?.seekerData?.workExpJob?.length,
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context , index) {
+                      var data = widget.recruiterData?.seekerData?.workExpJob?[index] ;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text( data?.workExpJob ?? "",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                            Text( data?.companyName ?? "",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                            Text( "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                          ],
+                        ) ;
+
+                  }) ,
+                  SizedBox(height: Get.height * 0.03,),
                   Row(
                     children: [
                       Image.asset("assets/images/icon_education.png",height: Get.height*.04,color: AppColors.blueThemeColor,),
@@ -264,29 +242,31 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       Text("Education",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
                     ],
                   ),
-                  // SizedBox(
-                  //   height: Get.height * 0.019,
-                  // ),
                   SizedBox(height: Get.height*.004,),
-                  Padding(
-                    padding: EdgeInsets.only(left: Get.width*.1),
-                    child: Text(
-                      "University of Oxford",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium?.copyWith(color: Color(0xffCFCFCF)),
-                    ),
-                  ),
-                  SizedBox(height: Get.height*.004,),
-                  Padding(
-                    padding: EdgeInsets.only(left: Get.width*.1),
-                    child: Text(
-                      "Sep 2010 - Aug 2013 . 5 Years",
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyMedium?.copyWith(color: Color(0xffCFCFCF)),
-                    ),
-                  ),
+                  widget.recruiterData?.seekerData?.educationLevel?.length == 0 ||
+                      widget.recruiterData?.seekerData?.educationLevel == null ?
+                      const SizedBox() :
+                  ListView.builder(
+                    shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                    itemCount: widget.recruiterData?.seekerData?.educationLevel?.length,
+                      itemBuilder: (context , index) {
+                      var data = widget.recruiterData?.seekerData?.educationLevel?[index] ;
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text( data?.educationLevel ?? "",
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                        ),
+                        Text( data?.institutionName ?? "",
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                        ),
+                        Text( "${data?.educationStartDate?.year}-${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')} - ${data?.educationEndDate}"  ,
+                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                        ),
+                      ],
+                    ) ;
+                  }) ,
                   SizedBox(height: Get.height*.03,),
                 ],
               ),
@@ -299,7 +279,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
             child: Align(
               alignment: AlignmentDirectional.bottomCenter,
               child: Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Color(0xff3F3F3F),
                   borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(20),
@@ -317,9 +297,8 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                               'assets/images/likesvg.svg',
                               width: Get.width * 0.027,
                               height: Get.height * 0.027,
-                              color: buttonColor,
                             )
-                                : Icon(
+                                : const Icon(
                               Icons.favorite_rounded,
                               color: AppColors.red,
                             )),
@@ -354,272 +333,13 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       padding: const EdgeInsets.only(right: 14.0),
                       child: Row(
                         children: [
-                          // InkWell(
-                          //   onTap: () {
-                          //     showDialog(
-                          //       barrierDismissible: false,
-                          //       context: context,
-                          //       builder: (BuildContext context) {
-                          //         return Stack(children: [
-                          //           AlertDialog(
-                          //             shape: RoundedRectangleBorder(
-                          //                 borderRadius: BorderRadius.circular(17)
-                          //             ),
-                          //             //contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
-                          //             content: SingleChildScrollView(
-                          //               child: Column(
-                          //                 children: [
-                          //                   Image.asset('assets/images/personpng.png'),
-                          //                   SizedBox(height: Get.height * 0.02),
-                          //                   Text(
-                          //                     "Refer a friend",
-                          //                     style: Theme.of(context)
-                          //                         .textTheme
-                          //                         .headlineSmall!
-                          //                         .copyWith(
-                          //                         color: AppColors.white),
-                          //                   ),
-                          //                   SizedBox(height: Get.height * 0.01),
-                          //                   Text.rich(
-                          //                     TextSpan(
-                          //                       children: [
-                          //                         TextSpan(
-                          //                           text: "Earn up to ",
-                          //                           style: Theme.of(context)
-                          //                               .textTheme
-                          //                               .headlineSmall!
-                          //                               .copyWith(
-                          //                               color: AppColors
-                          //                                   .ratingcommenttextcolor,
-                          //                               fontWeight:
-                          //                               FontWeight
-                          //                                   .w400),
-                          //                         ),
-                          //                         TextSpan(
-                          //                           text: "£100",
-                          //                           style: Theme.of(context)
-                          //                               .textTheme
-                          //                               .headlineSmall!
-                          //                               .copyWith(
-                          //                               color: Colors
-                          //                                   .blue), // Change to the desired blue color
-                          //                         ),
-                          //                         TextSpan(
-                          //                           text:
-                          //                           " by referring friends.",
-                          //                           style: Theme.of(context)
-                          //                               .textTheme
-                          //                               .titleLarge!
-                          //                               .copyWith(
-                          //                               color: AppColors
-                          //                                   .ratingcommenttextcolor,
-                          //                               fontWeight:
-                          //                               FontWeight
-                          //                                   .w400),
-                          //                         ),
-                          //                       ],
-                          //                     ),
-                          //                   ),
-                          //                   SizedBox(
-                          //                       height: Get.height * 0.055),
-                          //                   TextFormField(
-                          //                     style: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodyLarge
-                          //                         ?.copyWith(
-                          //                         color: Color(0xff000000),
-                          //                         fontWeight:
-                          //                         FontWeight.w600),
-                          //                     decoration: InputDecoration(
-                          //                       contentPadding:
-                          //                       EdgeInsets.symmetric(
-                          //                           horizontal:
-                          //                           Get.width * 0.06,
-                          //                           vertical:
-                          //                           Get.height * 0.027),
-                          //                       enabledBorder:
-                          //                       OutlineInputBorder(
-                          //                         borderRadius:
-                          //                         BorderRadius.circular(35),
-                          //                         borderSide: BorderSide(
-                          //                           color: AppColors.blackdown,
-                          //                         ),
-                          //                       ),
-                          //                       focusedBorder:
-                          //                       OutlineInputBorder(
-                          //                         borderRadius:
-                          //                         BorderRadius.circular(35),
-                          //                         borderSide: BorderSide(
-                          //                           color: AppColors.blackdown,
-                          //                         ),
-                          //                       ),
-                          //                       hintText: 'Name',
-                          //                       filled: true,
-                          //                       fillColor: AppColors.white
-                          //                           .withOpacity(0.1),
-                          //                       hintStyle: Theme.of(context)
-                          //                           .textTheme
-                          //                           .bodyMedium
-                          //                           ?.copyWith(
-                          //                           color:
-                          //                           Color(0xffCFCFCF),
-                          //                           fontWeight:
-                          //                           FontWeight.w500),
-                          //                     ),
-                          //                     onFieldSubmitted: (value) {},
-                          //                     validator: (value) {
-                          //                       if (value == null ||
-                          //                           value.isEmpty) {
-                          //                         return 'Please enter your name';
-                          //                       }
-                          //                       return null;
-                          //                     },
-                          //                   ),
-                          //
-                          //                   SizedBox(
-                          //                       height: Get.height * 0.018),
-                          //                   TextFormField(
-                          //                     style: Theme.of(context)
-                          //                         .textTheme
-                          //                         .bodyLarge
-                          //                         ?.copyWith(
-                          //                         color: Color(0xff000000),
-                          //                         fontWeight:
-                          //                         FontWeight.w600),
-                          //                     decoration: InputDecoration(
-                          //                       contentPadding:
-                          //                       EdgeInsets.symmetric(
-                          //                           horizontal:
-                          //                           Get.width * 0.06,
-                          //                           vertical:
-                          //                           Get.height * 0.027),
-                          //                       enabledBorder:
-                          //                       OutlineInputBorder(
-                          //                         borderRadius:
-                          //                         BorderRadius.circular(35),
-                          //                         borderSide: BorderSide(
-                          //                           color: AppColors.blackdown,
-                          //                         ),
-                          //                       ),
-                          //                       focusedBorder:
-                          //                       OutlineInputBorder(
-                          //                         borderRadius:
-                          //                         BorderRadius.circular(35),
-                          //                         borderSide: BorderSide(
-                          //                           color: AppColors.blackdown,
-                          //                         ),
-                          //                       ),
-                          //                       hintText: 'Email address',
-                          //                       filled: true,
-                          //                       fillColor: AppColors.white
-                          //                           .withOpacity(0.1),
-                          //                       hintStyle: Theme.of(context)
-                          //                           .textTheme
-                          //                           .bodyMedium
-                          //                           ?.copyWith(
-                          //                           color:
-                          //                           Color(0xffCFCFCF),
-                          //                           fontWeight:
-                          //                           FontWeight.w500),
-                          //                     ),
-                          //                     onFieldSubmitted: (value) {},
-                          //                     validator: (value) {
-                          //                       if (value == null ||
-                          //                           value.isEmpty) {
-                          //                         return 'Please enter an email address';
-                          //                       } else if (!_isValidEmail(
-                          //                           value)) {
-                          //                         return 'Please enter a valid email address';
-                          //                       }
-                          //                       return null;
-                          //                     },
-                          //                   ),
-                          //                   SizedBox(
-                          //                       height: Get.height * 0.035),
-                          //                   Center(
-                          //                     child: MyButton(
-                          //                       title: "CONTINUE",
-                          //                       onTap1: () {
-                          //                         // Get.to(() => LocationPopUp());
-                          //                       },
-                          //                     ),
-                          //                   ),
-                          //                   SizedBox(height: Get.height * 0.02),
-                          //                 ],
-                          //               ),
-                          //             ),
-                          //           ),
-                          //           //**************** for close on alert dialog **************
-                          //           Stack(
-                          //               children: [
-                          //                 GestureDetector(
-                          //                   onTap: () {
-                          //                     Navigator.of(context).pop(); // Close the dialog
-                          //                   },
-                          //                   child: Align(
-                          //                     alignment:AlignmentDirectional.topEnd,
-                          //                     child: Container(
-                          //                       height:Get.height * 0.50,
-                          //                       width: Get.width * 0.50,
-                          //                       child: Center(
-                          //                         child: Stack(
-                          //                             children: [
-                          //                               Positioned(
-                          //                                   top: Get.height * 0.135,
-                          //                                   right: Get.width * 0.10,
-                          //                                   child:
-                          //                                   Container(
-                          //                                     decoration: BoxDecoration(
-                          //                                       borderRadius: BorderRadius.circular(60.0),
-                          //                                       gradient: LinearGradient(
-                          //                                         colors: [
-                          //                                           Color(0xFF56B8F6),
-                          //                                           Color(0xFF4D6FED),
-                          //                                         ],
-                          //                                         begin: Alignment.topCenter, // Start from the top center
-                          //                                         end: Alignment.bottomCenter, // End at the bottom center
-                          //                                       ),
-                          //                                     ),
-                          //                                     child: Icon(Icons.close,color: AppColors.white,size: Get.height*0.028,),
-                          //                                   )
-                          //                               ),
-                          //                             ]
-                          //                         ),
-                          //                       ),
-                          //                     ),
-                          //                   ),
-                          //                 ),
-                          //                 // ******************* for close icon in in *************
-                          //
-                          //               ]
-                          //           )
-                          //         ]);
-                          //       },
-                          //     );
-                          //   },
-                          //   child: Stack(
-                          //     children: [
-                          //       CircleAvatar(
-                          //         backgroundColor: Color(0xff56B8F6),
-                          //         radius: 17,
-                          //         child: Image.asset(
-                          //             'assets/images/personicons.png'),
-                          //       ),
-                          //       // SvgPicture.asset(
-                          //       //     'assets/images/personsvg22.svg'),
-                          //     ],
-                          //   ),
-                          // ),
                           IconButton(
                             onPressed: text.isEmpty &&
                                 imagePaths.isEmpty &&
                                 uri.isEmpty
                                 ? null
                                 : () => _onShare(context),
-                            icon: SvgPicture.asset(
-                              'assets/images/sharesvg.svg',
-                            ),
-                          ),
+                            icon: SvgPicture.asset('assets/images/sharesvg.svg',),),
                           Text("2",
                               style: Theme.of(context)
                                   .textTheme

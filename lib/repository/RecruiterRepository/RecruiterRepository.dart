@@ -1,5 +1,6 @@
 import 'package:flikka/data/network/network_api_services.dart';
 import 'package:flikka/models/EditAboutModel/EditAboutModel.dart';
+import 'package:flikka/models/RecruiterHomeModel/RecruiterHomeModel.dart';
 import 'package:flikka/models/RecuiterJobTitleModel/RecruiterJobTitleModel.dart';
 import '../../models/ApplicantTrackingDataModel/ApplicantTrackingDataModel.dart';
 import '../../res/app_url.dart';
@@ -22,4 +23,11 @@ class RecruiterRepository {
     dynamic response = await apiServices.getApi2(AppUrl.recruiterJobTitle);
     return RecruiterJobTitleModel.fromJson(response);
   }
+
+  Future<RecruiterHomeModel> recruiterHomeApi() async{
+    dynamic response = await apiServices.getApi2(AppUrl.recruiterHomePage);
+    return RecruiterHomeModel.fromJson(response);
+  }
+
+
 }
