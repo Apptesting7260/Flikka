@@ -153,8 +153,8 @@ class _FilterPageState extends State<FilterPage> {
                     Text('Job Position', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
                     Container(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
-                      height: Get.height * .07,
+                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                      // height: Get.height * .07,
                       width: Get.width,
                       decoration: BoxDecoration(
                           color: AppColors.textFieldFilledColor,
@@ -169,7 +169,7 @@ class _FilterPageState extends State<FilterPage> {
                             hint: Text(
                               'Select position',
                               style: Get.theme.textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w400),
+                                  fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
                               overflow: TextOverflow.ellipsis,
                             ),
                             items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
@@ -206,7 +206,7 @@ class _FilterPageState extends State<FilterPage> {
                             ),
                             menuItemStyleData: const MenuItemStyleData(
                               height: 40,
-                              padding: EdgeInsets.only(left: 15, right: 15),
+                              padding: EdgeInsets.only(right: 15),
                             ),
                           ),
                         ),
@@ -215,70 +215,64 @@ class _FilterPageState extends State<FilterPage> {
                     SizedBox(height: Get.height * 0.03,),
                     Text('Location', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
-                      alignment: Alignment.center,
-                      height: Get.height * .07,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          color: AppColors.textFieldFilledColor,
-                          borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: TextFormField(
-                        controller: locationController,
-                        style: Theme
+                    TextFormField(
+                      controller: locationController,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(
+                          color: AppColors.white, fontSize: 15),
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                        hintText: 'Location',
+                        filled: true,
+                        fillColor: AppColors.textFieldFilledColor,
+                        hintStyle: Theme
                             .of(context)
                             .textTheme
                             .bodyLarge
-                            ?.copyWith(
-                            color: const Color(0xffCFCFCF), fontSize: 19),
-                        decoration: InputDecoration(
-                          hintText: 'Location',
-                          hintStyle: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(color: const Color(0xffCFCFCF)),
-                          border: InputBorder.none,
+                            ?.copyWith(color: const Color(0xffCFCFCF)),
+                        border:  OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(33),
                         ),
                       ),
                     ),
                     SizedBox(height: Get.height * 0.03,),
                     Text('Company Name', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
-                    Container(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
-                      height: Get.height * .07,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          color: AppColors.textFieldFilledColor,
-                          borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: TextFormField(
-                        controller: companyController,
-                        style: Theme
+                    TextFormField(
+                      controller: companyController,
+                      style: Theme
+                          .of(context)
+                          .textTheme
+                          .bodyLarge
+                          ?.copyWith(
+                          color:AppColors.white, fontSize: 15),
+                      onChanged: (query) {
+                        if (query.isEmpty) {
+                          companiesListController.showCompanies(false);
+                        } else {
+                          companiesListController.showCompanies(true);
+                        }
+                        companiesListController.filterList(query);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
+                        filled: true,
+                        fillColor: AppColors.textFieldFilledColor,
+                        hintText: 'Search Company',
+                        hintStyle: Theme
                             .of(context)
                             .textTheme
                             .bodyLarge
-                            ?.copyWith(
-                            color: const Color(0xffCFCFCF), fontSize: 19),
-                        onChanged: (query) {
-                          if (query.isEmpty) {
-                            companiesListController.showCompanies(false);
-                          } else {
-                            companiesListController.showCompanies(true);
-                          }
-                          companiesListController.filterList(query);
-                        },
-                        decoration: InputDecoration(
-                          hintText: 'Search Company',
-                          hintStyle: Theme
-                              .of(context)
-                              .textTheme
-                              .bodyLarge
-                              ?.copyWith(color: const Color(0xffCFCFCF)),
-                          border: InputBorder.none,
+                            ?.copyWith(color: const Color(0xffCFCFCF)),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.circular(33)
                         ),
+                       
                       ),
                     ),
                     Obx(() =>
@@ -488,7 +482,7 @@ class _FilterPageState extends State<FilterPage> {
                     ),
                     SizedBox(height: Get.height * 0.04,),
                     SizedBox(
-                      height: Get.height * .2,
+                      height: Get.height * .24,
                       child: ListView.builder(
                         itemCount: 10,
                         shrinkWrap: true,
@@ -508,7 +502,7 @@ class _FilterPageState extends State<FilterPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    SizedBox(height: Get.height * .025,),
+                                    const SizedBox(height: 18),
                                     Row(
                                       children: [
                                         Container(

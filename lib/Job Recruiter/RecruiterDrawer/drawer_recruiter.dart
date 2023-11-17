@@ -56,7 +56,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                         children: [
                           Center(
                             child: Container(
-                              height: Get.height*.28,
+                              height: Get.height*.27,
                               width: double.infinity,
                               decoration: const BoxDecoration(
                                   color: AppColors.blueThemeColor,
@@ -77,7 +77,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                           //backgroundImage: NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80'),
                                         ),
                                         const SizedBox(
-                                          height: 9,
+                                          height: 12,
                                         ),
                                         Text(
                                           viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyName ?? "No Data",

@@ -175,9 +175,16 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
           Positioned(
             left: 12,
             top: 15,
-            child: Stack(
+            child: Column(
               children: [
                 Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
+                SizedBox(
+                  height: Get.height * .01,
+                ),
+                Image.asset(
+                  "assets/images/icon_filter_seeker_home.png",
+                  height: Get.height * .043,
+                ),
               ],
             ),
           ),

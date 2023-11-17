@@ -1,8 +1,10 @@
+import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 class CandidateProfileAcceptHiring extends StatefulWidget {
   const CandidateProfileAcceptHiring({Key? key}) : super(key: key);
@@ -14,64 +16,9 @@ class CandidateProfileAcceptHiring extends StatefulWidget {
 
 class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHiring> {
 
+  ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+
   String uri = '';
-  //********************* for aboutsectionedition *************
-  TextEditingController aboutsectionController = TextEditingController();
-  void aboutsection() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add more",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: aboutsectionController,
-            decoration: InputDecoration(
-              hintText: 'Write your summary profile',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   //********************* for workexperience *************
   TextEditingController workexperienceController = TextEditingController();
@@ -376,14 +323,8 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
       Stack(
           children:[
             Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Color(0xff2386C7), Color(0xff4D6FED)
-                  ],
-                  begin: Alignment.topCenter, // Start from the top center
-                  end: Alignment.bottomCenter, // End at the bottom center
-                ),
+              decoration: const BoxDecoration(
+              color: AppColors.blueThemeColor
               ),
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 14.0,vertical: 15),
@@ -410,7 +351,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                       children: [
                         Stack(
                             children: [
-                              CircleAvatar(
+                              const CircleAvatar(
                                 radius:48,
                                 backgroundImage: NetworkImage('https://images.unsplash.com/photo-1581668181500-08c6a6e006f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'),
                               ),
@@ -426,7 +367,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                       child: Padding(
                                         padding: const EdgeInsets.all(3.0),
                                         child: Container(
-                                            decoration: BoxDecoration(
+                                            decoration: const BoxDecoration(
                                               shape: BoxShape.circle,
                                               gradient: LinearGradient(
                                                 colors: [
@@ -536,13 +477,13 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
             ),
             //************** scrollable functionality *******************
             DraggableScrollableSheet(
-              initialChildSize: 0.45, // half screen
-              minChildSize: 0.45, // half screen
+              initialChildSize: 0.36, // half screen
+              minChildSize: 0.36, // half screen
               maxChildSize: 1, // full screen
               builder: (BuildContext context, ScrollController scrollController) {
                 return
                   Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       borderRadius: BorderRadius.only(
                         topRight: Radius.circular(35),
                         topLeft: Radius.circular(35),
@@ -558,17 +499,14 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                 color: AppColors.black,
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
                             ),
-
                             child: Column(
+                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                //********************* for jessica  ***************************
-
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     InkWell(
-
-                                        child: SvgPicture.asset('assets/images/aboutsvg.svg')),
+                                        child: Image.asset('assets/images/about.png',height: Get.height*.04,)),
                                     SizedBox(width: Get.width*0.02,),
                                     Text(
                                       "About Jessica Parker",
@@ -577,27 +515,13 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                           .titleSmall,
                                       softWrap: true,
                                     ),
-
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.015,),
                                 Divider(
                                   thickness: 0.2,color: AppColors.white,
                                 ),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Container(
-                                      child: Column(
-                                        crossAxisAlignment:CrossAxisAlignment.start,
-                                        children: [
 
-                                        ],
-                                      ),
-                                    ),
-
-                                  ],
-                                ),
                                 SizedBox(height: Get.height*0.02,),
                                 Text(
                                   "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.",
@@ -614,8 +538,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     InkWell(
-
-                                        child: SvgPicture.asset('assets/images/experisvg.svg')),
+                                        child: Image.asset('assets/images/icon work experience.png',height: Get.height*.04,)),
                                     SizedBox(width: Get.width*0.02,),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 4.0),
@@ -628,44 +551,25 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   thickness: 0.2,color: AppColors.white,
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Manager',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-
-
-                                      ],
-                                    ),
-                                    SizedBox(height: Get.height*0.01,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Amazon Inc",style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          "Jan 2015 - Feb 2022 5 Years",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color: AppColors
-                                                  .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-
-                                      ],
-                                    )
-                                  ],
+                                Text('Manager',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                SizedBox(height: Get.height*0.01,),
+                                Text(
+                                  "Amazon Inc",style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    color: AppColors
+                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                 ),
-
+                                Text(
+                                  "Jan 2015 - Feb 2022 5 Years",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                      color: AppColors
+                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                ),
 
                                 //********************* for Education ***************************
                                 SizedBox(height: Get.height*0.04,),
@@ -676,7 +580,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: SvgPicture.asset('assets/images/Educationsvg.svg')),
+                                            child: Image.asset('assets/images/icon education.png',height: Get.height*.05,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),
@@ -692,43 +596,25 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   thickness: 0.2,color: AppColors.white,
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Information Technology',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-
-                                      ],
-                                    ),
-                                    SizedBox(height: Get.height*0.01,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "University of Oxford",style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          "Jan 2015 - Feb 2022 5 Years",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color: AppColors
-                                                  .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-
-                                      ],
-                                    )
-                                  ],
+                                Text('Information Technology',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                SizedBox(height: Get.height*0.01,),
+                                Text(
+                                  "University of Oxford",style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    color: AppColors
+                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                 ),
-
+                                Text(
+                                  "Jan 2015 - Feb 2022 5 Years",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                      color: AppColors
+                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                ),
 
                                 //********************* for Skill ***************************
                                 SizedBox(height: Get.height*0.04,),
@@ -739,7 +625,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: SvgPicture.asset('assets/images/skillsvg.svg')),
+                                            child: Image.asset('assets/images/skillsvg.png',height: Get.height*.04,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 4.0),
@@ -756,87 +642,40 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   thickness: 0.2,color: AppColors.white,
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
+                                seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
+                                    seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Leadership',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Teamwork',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Visioner',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: Get.height*0.015,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Target oriented',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-                                      width: Get.width*0.35,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Consistent',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.01),
-                                    Text("+5 more..",style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),)
-                                  ],
-                                ),
+                                const Text("No Data") :
+                                GridView.builder(gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                    mainAxisExtent: 36,
+                                    maxCrossAxisExtent: Get.width * 0.4,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8),
+                                    itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius
+                                              .circular(12),
+                                          color: AppColors.blackdown,
+                                        ),
+                                        padding: const EdgeInsets.all(
+                                            8),
+                                        child: Text('${data?.skills}',
+                                          overflow: TextOverflow
+                                              .ellipsis,
+                                          style: Get.theme.textTheme
+                                              .bodySmall!.copyWith(
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight
+                                                  .w400),),
+                                      );
+                                    }),
 
                                 //********************* for Language ***************************
                                 SizedBox(height: Get.height*0.04,),
@@ -847,7 +686,7 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: SvgPicture.asset('assets/images/languagesvg.svg')),
+                                            child: Image.asset('assets/images/languagesvg.png',height: Get.height*.04,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 2.0),
@@ -856,7 +695,6 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                         ),
                                       ],
                                     ),
-
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
@@ -864,85 +702,32 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   thickness: 0.2,color: AppColors.white,
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('English',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('German',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Spanish',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: Get.height*0.015,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Mandarin',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                    SizedBox(width: Get.width*0.015,),
-                                    Container(
-
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: EdgeInsets.all(15),
-
-                                      child: Center(
-                                        child:
-                                        Text('Italy',style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white,fontWeight: FontWeight.w400),),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
+                                    seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
+                                const Text("No Data") :
+                                GridView.builder(gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                    mainAxisExtent: 36,
+                                    maxCrossAxisExtent: Get.width * 0.4,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8),
+                                    itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var data = seekerProfileController
+                                          .viewSeekerData.value
+                                          .seekerDetails
+                                          ?.language?[index];
+                                      return Container( alignment: Alignment.center,
+                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
+                                          color: AppColors.blackdown,),
+                                        padding: const EdgeInsets.all(8),
+                                        child: Text('${data?.languages}',
+                                          style: Get.theme.textTheme.bodySmall!.copyWith(
+                                              color: AppColors.white, fontWeight: FontWeight.w400),),
+                                      );
+                                    }),
 
                                 //********************* for appreciation ***************************
                                 SizedBox(height: Get.height*0.04,),
@@ -965,41 +750,25 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                 Divider(
                                   thickness: 0.2,color: AppColors.white,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text('Wireless Symposium (RWS)',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-
-                                      ],
-                                    ),
-                                    SizedBox(height: Get.height*0.01,),
-                                    Column(
-                                      crossAxisAlignment: CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Young Scientist",style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-                                        Text(
-                                          "2014",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color: AppColors
-                                                  .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
-
-                                      ],
-                                    )
-                                  ],
+                                SizedBox(height: Get.height*0.02,),
+                                Text('Wireless Symposium (RWS)',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                SizedBox(height: Get.height*0.01,),
+                                Text(
+                                  "Young Scientist",style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    color: AppColors
+                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                ),
+                                Text(
+                                  "2014",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall!
+                                      .copyWith(
+                                      color: AppColors
+                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                 ),
                                 SizedBox(height: Get.height*0.05,),
                                 Center(
@@ -1032,19 +801,6 @@ class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHir
                                   ),
                                 ),
                                 SizedBox(height: Get.height*0.03,),
-                                SizedBox(
-                                  width:   295,
-                                  height: Get.height*.066,
-                                  child: ElevatedButton(
-                                    onPressed: () {},
-                                    style: ElevatedButton.styleFrom(
-                                      primary: Color(0xff353535),
-                                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30),side: BorderSide(color: Color(0xffFFFFFF))),
-                                    ),
-                                    child: Text("TALENT POOL",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
-                                  ),
-                                ),
-
                               ],
                             )
                         ),
