@@ -78,13 +78,19 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(
-          leading: GestureDetector(
-            onTap: () { Get.back() ;},
-              child: Image.asset("assets/images/icon_back_blue.png")),
-          title: Text(widget.company ?? "",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
-          toolbarHeight: 40,
-        ),
+          appBar: AppBar(
+            toolbarHeight: 75,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Image.asset('assets/images/icon_back_blue.png')),
+            ),
+            elevation: 0,
+            title: Text(widget.company ?? "",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+          ),
           body:
           Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height *.01),
