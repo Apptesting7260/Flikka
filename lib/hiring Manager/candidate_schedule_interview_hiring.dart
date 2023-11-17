@@ -1,13 +1,10 @@
 import 'package:flikka/Job%20Recruiter/Schedule_meeting_calendar/meeting_calendar.dart';
-import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:omni_datetime_picker/omni_datetime_picker.dart';
 
-import '../Job Recruiter/Schedule_meeting_calendar/sechedule_metting_calander.dart';
 
 class CandidateProfileScheduleInterviewHiring extends StatefulWidget {
   const CandidateProfileScheduleInterviewHiring({Key? key}) : super(key: key);

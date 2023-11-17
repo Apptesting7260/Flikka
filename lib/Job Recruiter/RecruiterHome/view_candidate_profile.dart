@@ -4,17 +4,18 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
 
-class CandidateProfileAcceptHiring extends StatefulWidget {
-  const CandidateProfileAcceptHiring({Key? key}) : super(key: key);
+
+class ViewCandidateProfile extends StatefulWidget {
+
+  const ViewCandidateProfile({Key? key}) : super(key: key);
 
 
   @override
-  State<CandidateProfileAcceptHiring> createState() => _CandidateProfileAcceptHiringState();
+  State<ViewCandidateProfile> createState() => _ViewCandidateProfileState();
 }
 
-class _CandidateProfileAcceptHiringState extends State<CandidateProfileAcceptHiring> {
+class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
 
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
 

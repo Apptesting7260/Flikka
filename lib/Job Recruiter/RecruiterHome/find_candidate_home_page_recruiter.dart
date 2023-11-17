@@ -1,12 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flikka/Job%20Seeker/marketing_page.dart';
+import 'package:flikka/Job%20Recruiter/RecruiterHome/view_candidate_profile.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
-import '../../widgets/my_button.dart';
 
 class FindCandidateHomePageRecruiter extends StatefulWidget {
   final RecruiterHomeData? recruiterData ;
@@ -94,6 +93,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       decoration: BoxDecoration(color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
       height: Get.height,
@@ -103,7 +103,9 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-             // Get.to(() => MarketingIntern());
+            Get.to(() => const ViewCandidateProfile(
+
+            )) ;
             },
             child: Container(
               decoration:
@@ -132,62 +134,62 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
             ),
           ),
           //************* for 50% match ************
-          Positioned(
-            right: 20,
-            top: 10,
-            child: Stack(
-              children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: AppColors.white, width: 2)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                        decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.blueThemeColor
-                        ),
-                        child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.transparent,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('50%',
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: AppColors.white)),
-                                  Text('match',
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(
-                                          color: AppColors.white,
-                                          fontSize: 7)),
-                                ],
-                              ),
-                            ))),
-                  ),
-                )
-              ],
-            ),
-          ),
+          // Positioned(
+          //   right: 20,
+          //   top: 10,
+          //   child: Stack(
+          //     children: [
+          //       Container(
+          //         decoration: BoxDecoration(
+          //             borderRadius: BorderRadius.circular(50),
+          //             border: Border.all(color: AppColors.white, width: 2)),
+          //         child: Padding(
+          //           padding: const EdgeInsets.all(3.0),
+          //           child: Container(
+          //               decoration: const BoxDecoration(
+          //                 shape: BoxShape.circle,
+          //                 color: AppColors.blueThemeColor
+          //               ),
+          //               child: CircleAvatar(
+          //                   radius: 30,
+          //                   backgroundColor: Colors.transparent,
+          //                   child: Center(
+          //                     child: Column(
+          //                       mainAxisAlignment: MainAxisAlignment.center,
+          //                       children: [
+          //                         Text('50%',
+          //                             style: Get.theme.textTheme.bodySmall!
+          //                                 .copyWith(color: AppColors.white)),
+          //                         Text('match',
+          //                             style: Get.theme.textTheme.bodySmall!
+          //                                 .copyWith(
+          //                                 color: AppColors.white,
+          //                                 fontSize: 7)),
+          //                       ],
+          //                     ),
+          //                   ))),
+          //         ),
+          //       )
+          //     ],
+          //   ),
+          // ),
           //************* for bookmarks ************
-          Positioned(
-            left: 12,
-            top: 15,
-            child: Column(
-              children: [
-                Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
-                SizedBox(
-                  height: Get.height * .01,
-                ),
-                Image.asset(
-                  "assets/images/icon_filter_seeker_home.png",
-                  height: Get.height * .043,
-                ),
-              ],
-            ),
-          ),
+          // Positioned(
+          //   left: 12,
+          //   top: 15,
+          //   child: Column(
+          //     children: [
+          //       Image.asset("assets/images/icon_Save_post.png",height: Get.height*.043,),
+          //       SizedBox(
+          //         height: Get.height * .01,
+          //       ),
+          //       Image.asset(
+          //         "assets/images/icon_filter_seeker_home.png",
+          //         height: Get.height * .043,
+          //       ),
+          //     ],
+          //   ),
+          // ),
           //************* for marketing intern text  ************
           Positioned(
             height: Get.height / 2.5-Get.height*0.12 ,

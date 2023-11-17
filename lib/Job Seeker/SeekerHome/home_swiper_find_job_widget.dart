@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerFilter/filter_page.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
-import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
