@@ -57,5 +57,6 @@ class AppUrl {
   static const String recruiterDeleteJob = '$baseUrl/delete-recruiter-job' ;
   static const String recruiterJobTitle = '$baseUrl/job-title-listing' ;
   static const String applicantTrackingData = '$baseUrl/applicant-tracking-data' ;
+  static const String recruiterHomePage = '$baseUrl/recruiter-home-page-listing' ;
 
 }

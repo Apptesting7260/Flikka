@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final recruiterHomeModel = recruiterHomeModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -32,23 +29,17 @@ class RecruiterHomeModel {
 
 class RecruiterHomeData {
   dynamic id;
-  String? profileImg;
-  String? fullname;
-  String? email;
-  String? password;
-  String? location;
-  String? aboutMe;
-  String? documentType;
-  String? documentImg;
-  String? resume;
-  dynamic totalExperience;
-  String? referralCode;
-  String? referralBy;
+  dynamic profileImg;
+  dynamic fullname;
+  dynamic email;
+  dynamic location;
+  dynamic aboutMe;
+  dynamic documentType;
+  dynamic documentImg;
+  dynamic resume;
   dynamic currentAmount;
-  String? status;
+  dynamic status;
   dynamic googleId;
-  DateTime? createdAt;
-  DateTime? updatedAt;
   RecruiterHomeSeekerData? seekerData;
 
   RecruiterHomeData({
@@ -56,20 +47,14 @@ class RecruiterHomeData {
     this.profileImg,
     this.fullname,
     this.email,
-    this.password,
     this.location,
     this.aboutMe,
     this.documentType,
     this.documentImg,
     this.resume,
-    this.totalExperience,
-    this.referralCode,
-    this.referralBy,
     this.currentAmount,
     this.status,
     this.googleId,
-    this.createdAt,
-    this.updatedAt,
     this.seekerData,
   });
 
@@ -78,20 +63,14 @@ class RecruiterHomeData {
     profileImg: json["profile_img"],
     fullname: json["fullname"],
     email: json["email"],
-    password: json["password"],
     location: json["location"],
     aboutMe: json["about_me"],
     documentType: json["document_type"],
     documentImg: json["document_img"],
     resume: json["resume"],
-    totalExperience: json["total_experience"],
-    referralCode: json["referral_code"],
-    referralBy: json["referral_by"],
     currentAmount: json["current_amount"],
     status: json["status"],
     googleId: json["google_id"],
-    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     seekerData: json["seeker_data"] == null ? json["seeker_data"] : RecruiterHomeSeekerData.fromJson(json["seeker_data"]),
   );
 
@@ -100,20 +79,14 @@ class RecruiterHomeData {
     "profile_img": profileImg,
     "fullname": fullname,
     "email": email,
-    "password": password,
     "location": location,
     "about_me": aboutMe,
     "document_type": documentType,
     "document_img": documentImg,
     "resume": resume,
-    "total_experience": totalExperience,
-    "referral_code": referralCode,
-    "referral_by": referralBy,
     "current_amount": currentAmount,
     "status": status,
     "google_id": googleId,
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
     "seeker_data": seekerData?.toJson(),
   };
 }
@@ -121,7 +94,7 @@ class RecruiterHomeData {
 class RecruiterHomeSeekerData {
   dynamic id;
   dynamic seekerId;
-  String? position;
+  dynamic position;
   dynamic minSalaryExpectation;
   dynamic maxSalaryExpectation;
   dynamic fresher;
@@ -129,14 +102,12 @@ class RecruiterHomeSeekerData {
   List<EducationLevel>? educationLevel;
   dynamic language;
   List<Appreciation>? appreciation;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  String? positions;
+  dynamic positions;
   List<SkillName>? skillName;
   List<PassionName>? passionName;
   List<IndustryPreferenceName>? industryPreferenceName;
   List<StrengthsName>? strengthsName;
-  List<LanguageModel>? languageName;
+  // List<LanguageModel>? languageName;
   List<StartWorkName>? startWorkName;
   List<AvailabityName>? availabityName;
 
@@ -151,14 +122,12 @@ class RecruiterHomeSeekerData {
     this.educationLevel,
     this.language,
     this.appreciation,
-    this.createdAt,
-    this.updatedAt,
     this.positions,
     this.skillName,
     this.passionName,
     this.industryPreferenceName,
     this.strengthsName,
-    this.languageName,
+    // this.languageName,
     this.startWorkName,
     this.availabityName,
   });
@@ -174,14 +143,12 @@ class RecruiterHomeSeekerData {
     educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
     language: json["language"],
     appreciation: json["appreciation"] == null ? json["appreciation"] : List<Appreciation>.from(json["appreciation"].map((x) => Appreciation.fromJson(x))),
-    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
-    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     positions: json["positions"],
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SkillName>.from(json["skill_name"].map((x) => SkillName.fromJson(x))),
     passionName: json["passion_name"] == null ? json["passion_name"] : List<PassionName>.from(json["passion_name"].map((x) => PassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<IndustryPreferenceName>.from(json["industry_preference_name"].map((x) => IndustryPreferenceName.fromJson(x))),
     strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<StrengthsName>.from(json["strengths_name"].map((x) => StrengthsName.fromJson(x))),
-    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
+    // languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
     startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<StartWorkName>.from(json["start_work_name"].map((x) => StartWorkName.fromJson(x))),
     availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<AvailabityName>.from(json["availabity_name"].map((x) => AvailabityName.fromJson(x))),
   );
@@ -197,22 +164,20 @@ class RecruiterHomeSeekerData {
     "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
     "language": language,
     "appreciation": List<dynamic>.from(appreciation!.map((x) => x.toJson())),
-    "created_at": createdAt?.toIso8601String(),
-    "updated_at": updatedAt?.toIso8601String(),
     "positions": positions,
     "skill_name": List<dynamic>.from(skillName!.map((x) => x.toJson())),
     "passion_name": List<dynamic>.from(passionName!.map((x) => x.toJson())),
     "industry_preference_name": List<dynamic>.from(industryPreferenceName!.map((x) => x.toJson())),
     "strengths_name": List<dynamic>.from(strengthsName!.map((x) => x.toJson())),
-    "language_name": List<dynamic>.from(languageName!.map((x) => x.toJson())),
+    // "language_name": List<dynamic>.from(languageName!.map((x) => x.toJson())),
     "start_work_name": List<dynamic>.from(startWorkName!.map((x) => x.toJson())),
     "availabity_name": List<dynamic>.from(availabityName!.map((x) => x.toJson())),
   };
 }
 
 class Appreciation {
-  String? awardName;
-  String? achievement;
+  dynamic awardName;
+  dynamic achievement;
 
   Appreciation({
     this.awardName,
@@ -232,7 +197,7 @@ class Appreciation {
 
 class AvailabityName {
   dynamic id;
-  String? availabity;
+  dynamic availabity;
 
   AvailabityName({
     this.id,
@@ -252,8 +217,8 @@ class AvailabityName {
 
 
 class EducationLevel {
-  String? educationLevel;
-  String? institutionName;
+  dynamic educationLevel;
+  dynamic institutionName;
   DateTime? educationStartDate;
   dynamic educationEndDate;
   dynamic fieldOfStudy;
