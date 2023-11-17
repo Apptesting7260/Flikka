@@ -2407,7 +2407,6 @@ class _UserProfileState extends State<UserProfile> {
                                               }),
                                           //////////////Availability?////////
 
-
                                           SizedBox(height: Get.height * 0.045,),
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [

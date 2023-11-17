@@ -93,7 +93,6 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
       height: Get.height,
