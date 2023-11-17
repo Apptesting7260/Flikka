@@ -5,10 +5,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
+
 
 class ViewCandidateProfile extends StatefulWidget {
-
-  const ViewCandidateProfile({Key? key}) : super(key: key);
+  final RecruiterHomeData? recruiterData ;
+  const ViewCandidateProfile({Key? key, this.recruiterData}) : super(key: key);
 
 
   @override
@@ -342,7 +344,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                               },
                               child: SvgPicture.asset('assets/images/backiconsvg.svg')),
                           SizedBox(width: Get.width*0.035,),
-                          Text("Jessica Parker",style: Get.theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700)),
+                          Text( widget.recruiterData?.fullname ?? "",style: Get.theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700)),
 
                         ],
                       ),
@@ -352,68 +354,20 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                       children: [
                         Stack(
                             children: [
-                              const CircleAvatar(
+                               CircleAvatar(
                                 radius:48,
-                                backgroundImage: NetworkImage('https://images.unsplash.com/photo-1581668181500-08c6a6e006f7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=687&q=80'),
-                              ),
-                              Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Stack(
-                                  children: [
-                                    Container(
-                                      decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(50),
-                                          border: Border.all(color: AppColors.white, width: 2)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: Container(
-                                            decoration: const BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  Color(0xFF56B8F6),
-                                                  Color(0xFF4D6FED),
-                                                ],
-                                                begin: Alignment
-                                                    .topCenter, // Start from the top center
-                                                end: Alignment
-                                                    .bottomCenter, // End at the bottom center
-                                              ),
-                                            ),
-                                            child: CircleAvatar(
-                                                radius: 17,
-                                                child: Center(
-                                                  child: Column(
-                                                    mainAxisAlignment: MainAxisAlignment.center,
-                                                    children: [
-                                                      Text('50%',
-                                                          style: Get.theme.textTheme.bodySmall!
-                                                              .copyWith(color: AppColors.white)),
-                                                      Text('match',
-                                                          style: Get.theme.textTheme.bodySmall!
-                                                              .copyWith(
-                                                              color: AppColors.white,
-                                                              fontSize: 7)),
-                                                    ],
-                                                  ),
-                                                ),
-                                                backgroundColor: Colors.transparent)),
-                                      ),
-                                    )
-                                  ],
-                                ),
+                                backgroundImage: NetworkImage( widget.recruiterData?.profileImg ?? ''),
                               ),
                             ]
                         )
                       ],
                     ),
                     SizedBox(height: Get.height*0.015,),
-                    Text("Jessica Parker",style: Get.theme.textTheme.displayLarge),
+                    Text( widget.recruiterData?.fullname ?? "",style: Get.theme.textTheme.displayLarge),
                     SizedBox(height: Get.height*0.005,),
-                    Text("Marketing Intern",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
+                    Text( widget.recruiterData?.seekerData?.positions ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.005,),
-                    Text("California, USA",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
+                    Text( widget.recruiterData?.location ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.015,),
                     Row(
                       children: [
@@ -495,8 +449,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                       controller: scrollController,
                       children: [
                         Container(
-                            padding:EdgeInsets.all(24),
-                            decoration: BoxDecoration(
+                            padding:const EdgeInsets.all(24),
+                            decoration: const BoxDecoration(
                                 color: AppColors.black,
                                 borderRadius: BorderRadius.only(topLeft: Radius.circular(25),topRight: Radius.circular(25))
                             ),
@@ -509,8 +463,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     InkWell(
                                         child: Image.asset('assets/images/about.png',height: Get.height*.04,)),
                                     SizedBox(width: Get.width*0.02,),
-                                    Text(
-                                      "About Jessica Parker",
+                                    Text("About",
                                       style: Theme.of(context)
                                           .textTheme
                                           .titleSmall,
@@ -519,19 +472,10 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.015,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
-
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text(
-                                  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer.",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyLarge!
-                                      .copyWith(
-                                      color: Color(0xffCFCFCF)),
-                                ),
+                                Text( widget.recruiterData?.aboutMe ?? "No Data" ,style: Theme.of(context).textTheme
+                                      .bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
 
                                 //********************* for work ex ***************************
                                 SizedBox(height: Get.height*0.04,),
@@ -548,28 +492,38 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text('Manager',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                SizedBox(height: Get.height*0.01,),
-                                Text(
-                                  "Amazon Inc",style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                    color: AppColors
-                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "Jan 2015 - Feb 2022 5 Years",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                      color: AppColors
-                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                widget.recruiterData?.seekerData?.workExpJob == null ||
+                                    widget.recruiterData?.seekerData?.workExpJob?.length == 0 ?
+                                const Text("No Data") :
+                                ListView.builder(
+                                    physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                    itemCount: widget.recruiterData?.seekerData?.workExpJob?.length,
+                                  itemBuilder: (context , index) {
+                                    var data = widget.recruiterData?.seekerData?.workExpJob?[index] ;
+                                    return Column(
+                                      children: [
+                                        Text(data?.workExpJob ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        SizedBox(height: Get.height*0.01,),
+                                        Text( data?.companyName ?? "",style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors
+                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        ),
+                                        Text( "${data?.jobStartDate?.year}-${data?.jobStartDate?.month}-${data?.jobStartDate?.day} - ${data?.jobEndDate}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                              color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    );
+                                  }
                                 ),
 
                                 //********************* for Education ***************************
@@ -593,28 +547,37 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text('Information Technology',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                SizedBox(height: Get.height*0.01,),
-                                Text(
-                                  "University of Oxford",style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                    color: AppColors
-                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "Jan 2015 - Feb 2022 5 Years",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                      color: AppColors
-                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                widget.recruiterData?.seekerData?.educationLevel == null ||
+                                    widget.recruiterData?.seekerData?.educationLevel?.length == 0 ?
+                                const Text("No Data") :
+                                ListView.builder(
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  shrinkWrap: true,
+                                  itemCount: widget.recruiterData?.seekerData?.educationLevel?.length,
+                                  itemBuilder: (context , index) {
+                                    var data = widget.recruiterData?.seekerData?.educationLevel?[index] ;
+                                    return Column(
+                                      children: [
+                                        Text(data?.educationLevel ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        SizedBox(height: Get.height*0.01,),
+                                        Text(data?.institutionName ?? "",style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        ),
+                                        Text( "${data?.educationStartDate?.year}-${data?.educationStartDate?.month}-${data?.educationStartDate?.day} - ${data?.educationEndDate}",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                              color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    );
+                                  }
                                 ),
 
                                 //********************* for Skill ***************************
@@ -639,13 +602,10 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
-                                    seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
-
+                                widget.recruiterData?.seekerData?.skillName == null ||
+                                    widget.recruiterData?.seekerData?.skillName?.length == 0 ?
                                 const Text("No Data") :
                                 GridView.builder(gridDelegate:
                                 SliverGridDelegateWithMaxCrossAxisExtent(
@@ -653,11 +613,11 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     maxCrossAxisExtent: Get.width * 0.4,
                                     mainAxisSpacing: 8,
                                     crossAxisSpacing: 8),
-                                    itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length,
+                                    itemCount: widget.recruiterData?.seekerData?.skillName?.length,
                                     shrinkWrap: true,
                                     physics: const NeverScrollableScrollPhysics(),
                                     itemBuilder: (context, index) {
-                                      var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                                      var data = widget.recruiterData?.seekerData?.skillName?[index];
                                       return Container(
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
@@ -699,39 +659,37 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
-                                    seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                const Text("No Data") :
-                                GridView.builder(gridDelegate:
-                                SliverGridDelegateWithMaxCrossAxisExtent(
-                                    mainAxisExtent: 36,
-                                    maxCrossAxisExtent: Get.width * 0.4,
-                                    mainAxisSpacing: 8,
-                                    crossAxisSpacing: 8),
-                                    itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
-                                    shrinkWrap: true,
-                                    physics: const NeverScrollableScrollPhysics(),
-                                    itemBuilder: (context, index) {
-                                      var data = seekerProfileController
-                                          .viewSeekerData.value
-                                          .seekerDetails
-                                          ?.language?[index];
-                                      return Container( alignment: Alignment.center,
-                                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
-                                          color: AppColors.blackdown,),
-                                        padding: const EdgeInsets.all(8),
-                                        child: Text('${data?.languages}',
-                                          style: Get.theme.textTheme.bodySmall!.copyWith(
-                                              color: AppColors.white, fontWeight: FontWeight.w400),),
-                                      );
-                                    }),
+                                // widget.recruiterData?.seekerData?.language == null ||
+                                //     seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
+                                // const Text("No Data") :
+                                // GridView.builder(gridDelegate:
+                                // SliverGridDelegateWithMaxCrossAxisExtent(
+                                //     mainAxisExtent: 36,
+                                //     maxCrossAxisExtent: Get.width * 0.4,
+                                //     mainAxisSpacing: 8,
+                                //     crossAxisSpacing: 8),
+                                //     itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
+                                //     shrinkWrap: true,
+                                //     physics: const NeverScrollableScrollPhysics(),
+                                //     itemBuilder: (context, index) {
+                                //       var data = seekerProfileController
+                                //           .viewSeekerData.value
+                                //           .seekerDetails
+                                //           ?.language?[index];
+                                //       return Container( alignment: Alignment.center,
+                                //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
+                                //           color: AppColors.blackdown,),
+                                //         padding: const EdgeInsets.all(8),
+                                //         child: Text('${data?.languages}',
+                                //           style: Get.theme.textTheme.bodySmall!.copyWith(
+                                //               color: AppColors.white, fontWeight: FontWeight.w400),),
+                                //       );
+                                //     }),
 
                                 //********************* for appreciation ***************************
-                                SizedBox(height: Get.height*0.04,),
+                                // SizedBox(height: Get.height*0.04,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -748,28 +706,31 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   ],
                                 ),
                                 SizedBox(height: Get.height*0.02,),
-                                Divider(
-                                  thickness: 0.2,color: AppColors.white,
-                                ),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text('Wireless Symposium (RWS)',style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                SizedBox(height: Get.height*0.01,),
-                                Text(
-                                  "Young Scientist",style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall!
-                                    .copyWith(
-                                    color: AppColors
-                                        .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                ),
-                                Text(
-                                  "2014",
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall!
-                                      .copyWith(
-                                      color: AppColors
-                                          .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                widget.recruiterData?.seekerData?.appreciation == null ||
+                                    widget.recruiterData?.seekerData?.appreciation?.length == 0 ?
+                                const Text("No Data") :
+                                ListView.builder(
+                                  shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
+                                  itemCount: widget.recruiterData?.seekerData?.appreciation?.length ,
+                                  itemBuilder: (context , index) {
+                                    var data = widget.recruiterData?.seekerData?.appreciation?[index] ;
+                                    return Column(
+                                      children: [
+                                        Text(data?.achievement ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        SizedBox(height: Get.height*0.01,),
+                                        Text(data?.awardName ?? "",style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color: AppColors
+                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        ),
+                                      ],
+                                    );
+                                  }
                                 ),
                                 SizedBox(height: Get.height*0.05,),
                                 Center(

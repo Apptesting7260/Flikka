@@ -102,9 +102,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-            Get.to(() => const ViewCandidateProfile(
-
-            )) ;
+            Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, )) ;
             },
             child: Container(
               decoration:
