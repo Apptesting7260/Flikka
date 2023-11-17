@@ -33,10 +33,8 @@ class ApplicantTrackingDataController extends GetxController {
     _api.applicantTrackingData(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       loading(false) ;
-      if(value.status!){
       applicantTrackingDataModel(value) ;
-      }else {
-      }
+
     }).onError((error, stackTrace){
       loading(false) ;
       setError(error.toString());

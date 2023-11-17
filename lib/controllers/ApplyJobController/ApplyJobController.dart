@@ -9,20 +9,24 @@ class ApplyJobController extends GetxController {
 
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
-  void applyJob(dynamic id) async{
+  void applyJob(dynamic id , {
+    String? seekerID
+  }) async{
     loading.value = true ;
 
-    Map data = {
+    var data = {
       'job_id' : id,
     };
     print(data);
+    data.addIf(seekerID != null && seekerID.isNotEmpty , "seeker_id", seekerID) ;
 
     _api.applyJobApi(data).then((value){
       loading.value = false ;
       print(value);
       if(value.status!){
         // Get.to(() => const ChooseRole()) ;
-        Utils.toastMessage( "Successfully Applied") ;
+       seekerID == null ? Utils.toastMessage( "Successfully Applied") :
+       Utils.toastMessage( "Profile Selected") ;
         Get.back() ;
       }
       else{
