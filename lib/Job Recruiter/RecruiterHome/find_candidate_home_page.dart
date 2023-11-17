@@ -9,8 +9,7 @@ import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
-import '../../res/components/server_error_widget.dart';
-import '../../res/components/unauthorised_request_widget.dart';
+
 
 class FindCandidateHomePage extends StatefulWidget {
   const FindCandidateHomePage({super.key});

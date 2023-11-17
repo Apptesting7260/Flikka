@@ -71,7 +71,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         CircleAvatar(
-                                          radius:35,
+                                          radius:45,
                                           backgroundColor: const Color(0xffE94D8A).withOpacity(0.3),
                                           backgroundImage:  NetworkImage(viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ?? "assets/images/icon_recruiter_drawer.png"),
                                           //backgroundImage: NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80'),
