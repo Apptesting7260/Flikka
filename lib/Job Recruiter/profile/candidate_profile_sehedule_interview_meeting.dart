@@ -961,7 +961,7 @@ class _CandidateProfileseheduleMettingState extends State<CandidateProfilesehedu
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           InkWell(
-                                              child: SvgPicture.asset('assets/images/appreciation.svg')),
+                                              child: SvgPicture.asset('assets/images/language.svg')),
                                           SizedBox(width: Get.width*0.02,),
                                           Text('Appreciation',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                         ],

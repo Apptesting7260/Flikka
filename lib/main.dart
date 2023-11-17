@@ -1,5 +1,6 @@
 
 import 'package:flikka/Job%20Seeker/splash_screen.dart';
+import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flikka/widgets/my_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -28,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flikka',
       theme: MyTheme.dark,
-      home: const SplashScreen()
+      home: const ScheduleInterview()
     );
   }
 }

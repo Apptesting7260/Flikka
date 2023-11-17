@@ -2407,14 +2407,13 @@ class _UserProfileState extends State<UserProfile> {
                                               }),
                                           //////////////Availability?////////
 
-
                                           SizedBox(height: Get.height * 0.045,),
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: Image.asset('assets/images/languagesvg.png',height: Get.height*.03,)),
+                                                      child: SvgPicture.asset('assets/images/language.svg',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Padding(
@@ -2477,7 +2476,7 @@ class _UserProfileState extends State<UserProfile> {
                                               Row( mainAxisAlignment: MainAxisAlignment.start,
                                                 children: [
                                                   InkWell(
-                                                      child: Image.asset( 'assets/images/Educationsvg.png',height: Get.height*.04,)),
+                                                      child: Image.asset( 'assets/images/appreciation.png',height: Get.height*.03,)),
                                                   SizedBox(width: Get.width * 0.02,),
                                                   Padding(padding: const EdgeInsets.only(top: 6.0),
                                                     child: Text('appreciation',

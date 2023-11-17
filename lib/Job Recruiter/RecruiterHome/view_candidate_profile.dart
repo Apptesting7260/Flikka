@@ -392,7 +392,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){},icon: Image.asset('assets/images/call.png',scale: 0.7,)),
-
                               ],
                             )
                         ),
@@ -405,7 +404,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){},icon: Image.asset('assets/images/videocall.png',scale: 0.7)),
-
                               ],
                             )
                         ),
@@ -504,6 +502,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemBuilder: (context , index) {
                                     var data = widget.recruiterData?.seekerData?.workExpJob?[index] ;
                                     return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.workExpJob ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.01,),
@@ -559,6 +558,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemBuilder: (context , index) {
                                     var data = widget.recruiterData?.seekerData?.educationLevel?[index] ;
                                     return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.educationLevel ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.01,),
@@ -647,7 +647,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: Image.asset('assets/images/languagesvg.png',height: Get.height*.04,)),
+                                            child: Image.asset('assets/images/appreciation.png',height: Get.height*.04,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 2.0),
@@ -697,7 +697,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: SvgPicture.asset('assets/images/appreciation.svg')),
+                                            child: SvgPicture.asset('assets/images/language.svg')),
                                         SizedBox(width: Get.width*0.02,),
                                         Text('Appreciation',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                       ],
@@ -718,6 +718,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemBuilder: (context , index) {
                                     var data = widget.recruiterData?.seekerData?.appreciation?[index] ;
                                     return Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.achievement ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.01,),
