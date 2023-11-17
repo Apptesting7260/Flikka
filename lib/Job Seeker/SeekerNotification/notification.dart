@@ -10,13 +10,13 @@ class Notification1 extends StatefulWidget {
 }
 
 class _Notification1PageState extends State<Notification1> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
         leading: Padding(
-          padding: const EdgeInsets.only(left: 25.0),
+          padding: const EdgeInsets.only(left: 10.0,),
           child: InkWell(
               onTap: (){
                 Get.back();
@@ -24,7 +24,6 @@ class _Notification1PageState extends State<Notification1> {
               child: Image.asset('assets/images/icon_back_blue.png')),
         ),
         elevation: 0,
-        backgroundColor: Colors.black,
         title: Text("Notification", style: Get.theme.textTheme.displayLarge),
       ),
       body: Padding(
@@ -77,7 +76,7 @@ class _Notification1PageState extends State<Notification1> {
                   ),
                 ),
               ),
-
+              SizedBox(height: Get.height*0.01,),
             ],
           ),
         ),

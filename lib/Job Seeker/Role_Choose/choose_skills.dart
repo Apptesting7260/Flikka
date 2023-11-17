@@ -642,6 +642,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                       _selectedChooseworkingSkills
                                                           .remove("${data?.id.toString()}");
                                                     } else {
+                                                      _selectedChooseworkingSkills.clear() ;
                                                       _selectedChooseworkingSkills
                                                           .add("${data?.id.toString()}");
                                                     }

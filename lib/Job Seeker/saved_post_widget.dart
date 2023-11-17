@@ -130,14 +130,14 @@ class _SavedPostState extends State<SavedPost> {
               ),
               elevation: 0,
               title: Text("Saved Post", style: Get.theme.textTheme.displayLarge),
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 15, top: 30),
-                  child: Text("Delete All",
-                      style: Get.theme.textTheme.bodyLarge!.copyWith(
-                          color: AppColors.blueThemeColor)),
-                )
-              ],
+              // actions: [
+              //   Padding(
+              //     padding: const EdgeInsets.only(right: 15, top: 30),
+              //     child: Text("Delete All",
+              //         style: Get.theme.textTheme.bodyLarge!.copyWith(
+              //             color: AppColors.blueThemeColor)),
+              //   )
+              // ],
             ),
             body: ListView.builder(
                 itemCount: jobsListController.savedPosts.value.data?.length,

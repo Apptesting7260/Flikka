@@ -146,9 +146,8 @@ class _UserProfileState extends State<UserProfile> {
   String _documentTypeFilePath = '';
   var DocumentType;
   final List selectDocumentType = [
-    'Aadhar Card',
-    'Voter Card',
-    'Pan Card',
+    'passport',
+    'id_card',
   ];
   skillSection(
       List? list ,
@@ -307,7 +306,7 @@ class _UserProfileState extends State<UserProfile> {
       builder: (BuildContext context) {
         editAboutController.loading.value = false;
         TextEditingController aboutSectionController = TextEditingController();
-        aboutSectionController.text = about ?? "";
+        aboutSectionController.text = CommonFunctions.parseHTML(about ?? "") ?? "";
         return Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(22)),
@@ -1803,7 +1802,7 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               InkWell(
                                                   onTap: () {
-                                                    aboutSection(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe);
+                                                    aboutSection(CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe) );
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/icon_edit.png",

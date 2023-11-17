@@ -91,8 +91,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
             elevation: 0,
             title: Text(widget.company ?? "",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
           ),
-          body:
-          Padding(
+          body: Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height *.01),
             child: Stack(
               children: [
@@ -161,7 +160,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         Text("Job Description",
                                           style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? ""),
+                                        Text(CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? ""),
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -189,7 +188,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                           height: Get.height * 0.03,
                                         ),
                                         Text(
-                                          "Employment type",
+                                          "Job type",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
@@ -458,7 +457,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             color: const Color(0xff484848),
                                           ),
                                           padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
-                                          child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''}',
+                                          child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.maxSalaryExpectation ?? ''}',
                                             overflow: TextOverflow.ellipsis,
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
                                                 color: AppColors.white,

@@ -13,6 +13,7 @@ class ViewSeekerProfileController extends GetxController {
   final viewSeekerData = ViewSeekerProfileModel().obs ;
   RxString error = ''.obs;
   var loading = false.obs ;
+  var refreshLoading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void viewSeeker(ViewSeekerProfileModel _value) => viewSeekerData.value = _value ;
@@ -27,13 +28,31 @@ class ViewSeekerProfileController extends GetxController {
       viewSeekerData(value);
       loading(false) ;
       print(value);
-      print("this is experience data =========== ${value.workExpJob?.length }") ;
+      // print("this is experience data =========== ${value.workExpJob?.length }") ;
 
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
       print(stackTrace);
       loading(false) ;
+      setRxRequestStatus(Status.ERROR);
+
+    });
+  }
+
+  void refreshApi(){
+    // setRxRequestStatus(Status.LOADING);
+    refreshLoading(true) ;
+    _api.viewSeekerProfile().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      viewSeekerData( value);
+      refreshLoading(false) ;
+      print(value);
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      refreshLoading(false) ;
       setRxRequestStatus(Status.ERROR);
 
     });

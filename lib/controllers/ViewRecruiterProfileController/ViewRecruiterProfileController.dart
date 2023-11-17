@@ -14,6 +14,7 @@ class ViewRecruiterProfileGetController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs ;
   final viewRecruiterProfile =ViewRecruiterProfileModel().obs ;
   RxString error = ''.obs;
+  var refreshLoading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void viewRecruiterProfileGetList(ViewRecruiterProfileModel _value) => viewRecruiterProfile.value = _value ;
@@ -49,6 +50,24 @@ class ViewRecruiterProfileGetController extends GetxController {
       setError(error.toString());
       print(error.toString());
       print(stackTrace);
+    });
+  }
+
+  void refreshApi(){
+    // setRxRequestStatus(Status.LOADING);
+    refreshLoading(true) ;
+    _api.viewRecruiterProfile().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      viewRecruiterProfile( value);
+      refreshLoading(false) ;
+      print(value);
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      refreshLoading(false) ;
+      setRxRequestStatus(Status.ERROR);
+
     });
   }
 

@@ -11,6 +11,7 @@ class SeekerEarningController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs ;
   final getEarningDetails =SeekerEarningModel().obs ;
   RxString error = ''.obs;
+  var refreshLoading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void seekerEarnings(SeekerEarningModel _value) => getEarningDetails.value = _value ;
@@ -30,6 +31,24 @@ class SeekerEarningController extends GetxController {
       setError(error.toString());
       print(error.toString());
       print(stackTrace) ;
+      setRxRequestStatus(Status.ERROR);
+
+    });
+  }
+
+  void refreshApi(){
+    // setRxRequestStatus(Status.LOADING);
+    refreshLoading(true) ;
+    _api.getWalletApi().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      getEarningDetails( value);
+      refreshLoading(false) ;
+      print(value);
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      refreshLoading(false) ;
       setRxRequestStatus(Status.ERROR);
 
     });

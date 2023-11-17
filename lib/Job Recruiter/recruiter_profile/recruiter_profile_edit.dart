@@ -3,6 +3,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
 import 'package:flikka/controllers/SelectIndustryController/SelectIndustryController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -28,11 +29,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   var companyLocationController = TextEditingController();
   var addBioController = TextEditingController();
   var contactPersonNameController = TextEditingController();
-  var homeTitleNameController = TextEditingController();
-  // var homeDescriptionController = TextEditingController();
+   //var homeDescriptionController = TextEditingController();
   var websiteLinkController = TextEditingController();
-  var titleNameController = TextEditingController();
-  var aboutTitleNameController = TextEditingController();
   var aboutDescriptionController = TextEditingController();
   var aboutySpecialtiesController = TextEditingController();
 
@@ -665,9 +663,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               SizedBox(
                                 height: Get.height * .01,
                               ),
-                              CommonWidgets.textFieldMaxLines(
-                                context,
-                                aboutDescriptionController,
+                              CommonWidgets.textFieldMaxLines(context, aboutDescriptionController,
                                 "Enter description",
                                 onFieldSubmitted: (value) {},
                               ),
@@ -1019,22 +1015,25 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                                     .foundedError.value =
                                                 "Please select founded date";
                                               } else {
+                                                var formattedAddBioText = CommonFunctions.changeToHTML(addBioController.text ?? "") ;
+                                                 var formattedAboutDescriptionText = CommonFunctions.changeToHTML(aboutDescriptionController.text ?? "") ;
+                                                 var formattedSpecilizationText = CommonFunctions.changeToHTML(aboutySpecialtiesController.text ?? "") ;
+                                                 debugPrint(formattedAddBioText) ;
+                                                 debugPrint(formattedAboutDescriptionText) ;
+
                                                 CreateUpdateRecruiterProfileControllerInstanse
                                                     .createUpdateRecruiterProfileApi(
                                                     profilePath: profileImage?.path,
                                                     coverPath: coverImage?.path,
                                                     companyName: companyNameController.text,
                                                     companyLocation: companyLocationController.text,
-                                                    addBio: addBioController.text,
-                                                    homeTitleName: homeTitleNameController.text,
-                                                    homeDescription: addBioController.text,
+                                                    addBio: formattedAddBioText,
                                                     websiteLink: websiteLinkController.text,
-                                                    aboutTitleName: aboutTitleNameController.text,
-                                                    aboutDescription: aboutDescriptionController.text,
+                                                    aboutDescription: formattedAboutDescriptionText,
                                                     industry: industry,
                                                     companySize: companySize?.replaceAll("Employees", ""),
                                                     founded: selectedDateString,
-                                                    specialties: aboutySpecialtiesController.text,
+                                                    specialties: formattedSpecilizationText,
                                                     contactPerson: contactPersonNameController.text
                                                 );
                                               }

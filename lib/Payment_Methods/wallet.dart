@@ -8,6 +8,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
 import '../res/components/request_timeout_widget.dart';
@@ -53,7 +54,6 @@ class _WalletState extends State<Wallet> {
     super.initState();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -88,277 +88,355 @@ class _WalletState extends State<Wallet> {
           return SafeArea(
             child: Scaffold(
               appBar: AppBar(
-                 toolbarHeight: 40,
-                leading: GestureDetector(
-                    onTap: () {
-                      Get.back() ;
-                    },
-                    child: Image.asset("assets/images/icon_back_blue.png")),
+                toolbarHeight: 75,
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.back();
+                      },
+                      child: Image.asset('assets/images/icon_back_blue.png')),
+                ),
+                elevation: 0,
                 title: Text("Wallet",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                // actions: [
+                //   Padding(
+                //     padding: const EdgeInsets.only(right: 15, top: 30),
+                //     child: Text("Delete All",
+                //         style: Get.theme.textTheme.bodyLarge!.copyWith(
+                //             color: AppColors.blueThemeColor)),
+                //   )
+                // ],
               ),
               body: SingleChildScrollView(
                 child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
-                  child: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                  child: Stack(
                     children: [
-                    SizedBox(height: Get.height * 0.04,),
-                     Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                         Text("Earnings",
-                            style: Theme.of(context).textTheme.displayLarge,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Get.to(() =>AddBankAccountDetails());
-                          },
-                          child: Text("Add bank account details",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),
-                              ),
-                        ),
-                      ],
-                    ),
-                     Text("How do I earn",
-                       style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
-                    ),
-                    SizedBox(height: Get.height * 0.02,),
-                     Center(
-                         child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
-                             style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
-                         )
-                     ),
-
-                    SizedBox(height: Get.height * 0.035,),
-                    Center(
-                      child: MyButton(
-                          title: "Request Withdraw", onTap1: () {
-                            seekerEarningController.getEarningDetails.value.bankAccount ?
-                        Get.to(() =>  const RequestWithdraw()) :
-                           Utils.showMessageDialog(context, "Please add bank account details") ;
-                      }),
-                    ),
-                    SizedBox(height: Get.height * 0.025,),
-                    Center(
-                      child: GestureDetector(
-                      onTap: () {
-                        _dialogBuilder(context);
-                      },
-                      child: Container(
-                        height: Get.height*.075,
-                        width: 295,
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(60)
-                        ),
-                        child: Text('See Referral Code', style: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyMedium
-                            ?.copyWith(fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                            color: Colors.black)),),
-                        ),
-                    ),
-                    SizedBox(height: Get.height * 0.04,),
-                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                       Text('All Referral', style: Theme.of(context).textTheme.labelMedium,
-                       ),
-                      SizedBox(width: Get.width * 0.18,),
-                       Text('Sort by', style: Theme.of(context).textTheme.bodyMedium,
-                      ),
-                      SizedBox(width: Get.width * 0.02,),
-                      Container(
-                        height: 40,
-                        width: Get.width * 0.27,
-                        decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.all(
-                              Radius.circular(60)),
-                          border: Border.all(
-                              width: 1, color: Colors.white),),
-                        child: DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
-                            //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                            isExpanded: true,
-                            hint: Text(
-                              'Select',
-                              style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            items: items
-                                .map((String item) =>
-                                DropdownMenuItem<String>(
-                                  value: item,
-                                  child: Text(
-                                    item,
-                                    style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ))
-                                .toList(),
-                            value: selectedValue,
-                            onChanged: (String? value) {
-                              setState(() {
-                                selectedValue = value;
-                              });
-                            },
-
-                            // iconStyleData: const IconStyleData(
-                            //   icon: Icon(
-                            //     Icons.arrow_forward_ios_outlined,
-                            //   ),
-                            //   iconSize: 14,
-                            //   iconEnabledColor: Colors.white,
-                            //   iconDisabledColor: Colors.grey,
-                            // ),
-
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              padding: EdgeInsets.only(left: 5, right: 14),
-                            ),
-                          ),
-                        ),)
-                    ],),
-                    const SizedBox(height: 20,),
-                    Row(mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              employee = true ;
-                              employer = false ;
-                            });
-                          },
-                          child: Container(
-                              height: 40,
-                              width: 120,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60.0),
-                                 color: employee ? AppColors.blueThemeColor : Color(0xff353535),
-                              ),
-                              child :  Text(
-                                "Employee",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                              )
-                          ),
-                        ) ,
-                        const SizedBox(width:20,),
-                        GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              employer = true ;
-                              employee = false ;
-                            });
-                          },
-                          child: Container(
-                            height: 40,
-                            width: 120,
-                            alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60.0),
-                                color: employer ? AppColors.blueThemeColor : Color(0xff353535),
-                              ),
-                            child :  Text(
-                              "Employer",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w700,
-                                  color: const Color(0xffFFFFFF),
-                                ),
-                              )
-                          ),
-                        ) ,
-                      ],
-                    ) ,
-                      const SizedBox(height: 20,),
-
-                   Container(
-                   child: employee ?   ListView.builder(
-                     shrinkWrap: true,
-                     physics: const BouncingScrollPhysics(),
-                          itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            var data = seekerEarningController.getEarningDetails.value.seeker?[index] ;
-                            String? formattedDate = formatDateTime(data?.createdAt);
-                            return Container(
-                              margin: const EdgeInsets.only(bottom: 10),
-                              height: Get.height * .1,
-                              decoration: BoxDecoration(
-                                color: const Color(0xff353535),
-                                borderRadius: BorderRadius.circular(
-                                    18),
-                              ),
-                              child: ListTile(
-                                title: Text(
-                                  "${data?.email}", style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(
-                                    fontWeight: FontWeight.w600,
-                                    color: Colors.white),),
-                                subtitle: Text(
-                                  "$formattedDate", style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(
-                                    fontWeight: FontWeight.w400,
-                                    color: const Color(0xffCFCFCF)),),
-                                trailing: const Text("View",
-                                    style: TextStyle(fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                        color: Color(0xff56B8F6))),
-                              ),
-                            );
+                      GestureDetector(
+                        onVerticalDragUpdate: (details) {
+                          if (details.delta.dy > 40) {
+                            print("object") ;
+                            seekerEarningController.refreshApi();
                           }
-                      ) :
-                        ListView.builder(
-                            shrinkWrap: true,
-                            itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
-                            itemBuilder: (BuildContext context,
-                                int index) {
-                              var data = seekerEarningController.getEarningDetails.value.recruiter?[index] ;
-                              String? formattedDate = formatDateTime(data?.createdAt);
-                              return Container(
-                                margin: const EdgeInsets.only(bottom: 10),
-                                height: Get.height * .1,
-                                decoration: BoxDecoration(
-                                  color: const Color(0xff353535),
-                                  borderRadius: BorderRadius.circular(
-                                      18),
+                        },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Obx(() => seekerEarningController.refreshLoading.value ?
+                            const Center(
+                              child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ),
+                            ): const SizedBox()
+                            ),
+                            SizedBox(height: Get.height * 0.1,),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text("Earnings",
+                                  style: Theme.of(context).textTheme.displayLarge,
                                 ),
-                                child: ListTile(
-                                  title: Text(
-                                    "${data?.email}", style: Theme
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(() =>AddBankAccountDetails());
+                                  },
+                                  child: Text("Add bank account details",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Text("How do I earn",
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
+                            ),
+                            SizedBox(height: Get.height * 0.02,),
+                            Center(
+                                child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
+                                    style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
+                                )
+                            ),
+                            SizedBox(height: Get.height * 0.035,),
+                            Center(
+                              child: MyButton(
+                                  title: "Request Withdraw", onTap1: () {
+                                seekerEarningController.getEarningDetails.value.bankAccount ?
+                                Get.to(() =>  const RequestWithdraw()) :
+                                Utils.showMessageDialog(context, "Please add bank account details") ;
+                              }),
+                            ),
+                            SizedBox(height: Get.height * 0.025,),
+                            Center(
+                              child: GestureDetector(
+                                onTap: () {
+                                  _dialogBuilder(context);
+                                },
+                                child: Container(
+                                  height: Get.height*.075,
+                                  width: 295,
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(60)
+                                  ),
+                                  child: Text('See Referral Code', style: Theme
                                       .of(context)
                                       .textTheme
-                                      .bodyLarge
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),),
-                                  subtitle: Text(
-                                    "$formattedDate", style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: const Color(0xffCFCFCF)),),
-                                  trailing: const Text("View",
-                                      style: TextStyle(fontSize: 16,
-                                          fontWeight: FontWeight.w600,
-                                          color: Color(0xff56B8F6))),
+                                      .bodyMedium
+                                      ?.copyWith(fontWeight: FontWeight.w700,
+                                      fontSize: 16,
+                                      color: Colors.black)),),
+                              ),
+                            ),
+                            SizedBox(height: Get.height * 0.04,),
+                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('All Referral', style: Theme.of(context).textTheme.labelMedium,
                                 ),
-                              );
-                            }
-                        ),
-                   ),
+                                SizedBox(width: Get.width * 0.18,),
+                                Text('Sort by', style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                SizedBox(width: Get.width * 0.02,),
+                                Container(
+                                  height: 40,
+                                  width: Get.width * 0.27,
+                                  decoration: BoxDecoration(
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(60)),
+                                    border: Border.all(
+                                        width: 1, color: Colors.white),),
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Select',
+                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: items
+                                          .map((String item) =>
+                                          DropdownMenuItem<String>(
+                                            value: item,
+                                            child: Text(
+                                              item,
+                                              style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ))
+                                          .toList(),
+                                      value: selectedValue,
+                                      onChanged: (String? value) {
+                                        setState(() {
+                                          selectedValue = value;
+                                        });
+                                      },
 
-                  ],),
+                                      // iconStyleData: const IconStyleData(
+                                      //   icon: Icon(
+                                      //     Icons.arrow_forward_ios_outlined,
+                                      //   ),
+                                      //   iconSize: 14,
+                                      //   iconEnabledColor: Colors.white,
+                                      //   iconDisabledColor: Colors.grey,
+                                      // ),
+
+                                      menuItemStyleData: const MenuItemStyleData(
+                                        height: 40,
+                                        padding: EdgeInsets.only(left: 5, right: 14),
+                                      ),
+                                    ),
+                                  ),)
+                              ],),
+                            const SizedBox(height: 20,),
+                            // Row(mainAxisAlignment: MainAxisAlignment.center,
+                            //   children: [
+                            //     GestureDetector(
+                            //       onTap: () {
+                            //         setState(() {
+                            //           employee = true ;
+                            //           employer = false ;
+                            //         });
+                            //       },
+                            //       child: Container(
+                            //           height: 40,
+                            //           width: 120,
+                            //           alignment: Alignment.center,
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(60.0),
+                            //             color: employee ? AppColors.blueThemeColor : Color(0xff353535),
+                            //           ),
+                            //           child :  Text(
+                            //             "Employee",
+                            //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            //               fontWeight: FontWeight.w700,
+                            //               color: const Color(0xffFFFFFF),
+                            //             ),
+                            //           )
+                            //       ),
+                            //     ) ,
+                            //     const SizedBox(width:20,),
+                            //     GestureDetector(
+                            //       onTap: () {
+                            //         setState(() {
+                            //           employer = true ;
+                            //           employee = false ;
+                            //         });
+                            //       },
+                            //       child: Container(
+                            //           height: 40,
+                            //           width: 120,
+                            //           alignment: Alignment.center,
+                            //           decoration: BoxDecoration(
+                            //             borderRadius: BorderRadius.circular(60.0),
+                            //             color: employer ? AppColors.blueThemeColor : Color(0xff353535),
+                            //           ),
+                            //           child :  Text(
+                            //             "Employer",
+                            //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            //               fontWeight: FontWeight.w700,
+                            //               color: const Color(0xffFFFFFF),
+                            //             ),
+                            //           )
+                            //       ),
+                            //     ) ,
+                            //   ],
+                            // ) ,
+                            // const SizedBox(height: 20,),
+                            //
+                            // Container(
+                            //   child: employee ?   ListView.builder(
+                            //       shrinkWrap: true,
+                            //       physics: const BouncingScrollPhysics(),
+                            //       itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
+                            //       itemBuilder: (BuildContext context, int index) {
+                            //         var data = seekerEarningController.getEarningDetails.value.seeker?[index] ;
+                            //         String? formattedDate = formatDateTime(data?.createdAt);
+                            //         return Container(
+                            //           margin: const EdgeInsets.only(bottom: 10),
+                            //           height: Get.height * .1,
+                            //           decoration: BoxDecoration(
+                            //             color: const Color(0xff353535),
+                            //             borderRadius: BorderRadius.circular(
+                            //                 18),
+                            //           ),
+                            //           child: ListTile(
+                            //             title: Text(
+                            //               "${data?.email}", style: Theme
+                            //                 .of(context)
+                            //                 .textTheme
+                            //                 .bodyLarge
+                            //                 ?.copyWith(
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: Colors.white),),
+                            //             subtitle: Text(
+                            //               "$formattedDate", style: Theme
+                            //                 .of(context)
+                            //                 .textTheme
+                            //                 .bodySmall
+                            //                 ?.copyWith(
+                            //                 fontWeight: FontWeight.w400,
+                            //                 color: const Color(0xffCFCFCF)),),
+                            //             trailing: const Text("View",
+                            //                 style: TextStyle(fontSize: 16,
+                            //                     fontWeight: FontWeight.w600,
+                            //                     color: Color(0xff56B8F6))),
+                            //           ),
+                            //         );
+                            //       }
+                            //   ) :
+                            //   ListView.builder(
+                            //       shrinkWrap: true,
+                            //       itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
+                            //       itemBuilder: (BuildContext context,
+                            //           int index) {
+                            //         var data = seekerEarningController.getEarningDetails.value.recruiter?[index] ;
+                            //         String? formattedDate = formatDateTime(data?.createdAt);
+                            //         return Container(
+                            //           margin: const EdgeInsets.only(bottom: 10),
+                            //           height: Get.height * .1,
+                            //           decoration: BoxDecoration(
+                            //             color: const Color(0xff353535),
+                            //             borderRadius: BorderRadius.circular(
+                            //                 18),
+                            //           ),
+                            //           child: ListTile(
+                            //             title: Text(
+                            //               "${data?.email}", style: Theme
+                            //                 .of(context)
+                            //                 .textTheme
+                            //                 .bodyLarge
+                            //                 ?.copyWith(
+                            //                 fontWeight: FontWeight.w600,
+                            //                 color: Colors.white),),
+                            //             subtitle: Text(
+                            //               "$formattedDate", style: Theme
+                            //                 .of(context)
+                            //                 .textTheme
+                            //                 .bodySmall
+                            //                 ?.copyWith(
+                            //                 fontWeight: FontWeight.w400,
+                            //                 color: const Color(0xffCFCFCF)),),
+                            //             trailing: const Text("View",
+                            //                 style: TextStyle(fontSize: 16,
+                            //                     fontWeight: FontWeight.w600,
+                            //                     color: Color(0xff56B8F6))),
+                            //           ),
+                            //         );
+                            //       }
+                            //   ),
+                            // ),
+                            Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 30),
+                              height: Get.height*.2,
+                              child: DefaultTabController(
+                                length: 2,
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                                  children: [
+                                    const TabBar(
+                                      tabs: [
+                                        Tab(
+                                          text: "EMPLOYEE",
+                                        ),
+                                        Tab(
+                                          text: "EMPLOYER",
+                                        ),
+                                      ],
+                                      labelColor: AppColors.blueThemeColor,
+                                      unselectedLabelColor: Color(0xffCFCFCF),
+                                      indicatorColor: AppColors.blueThemeColor,
+                                      indicatorPadding: EdgeInsets.symmetric(horizontal: 20),
+                                    ),
+                                    const SizedBox(height: 20),
+                                    Expanded(
+                                      child: TabBarView(
+                                        children: [
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            physics: const BouncingScrollPhysics(),
+                                            itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              // Employee view logic
+                                            },
+                                          ),
+                                          ListView.builder(
+                                            shrinkWrap: true,
+                                            itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
+                                            itemBuilder: (BuildContext context, int index) {
+                                              // Employer view logic
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            )
+                          ],),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

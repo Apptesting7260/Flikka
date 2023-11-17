@@ -1,5 +1,6 @@
 
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -29,7 +30,7 @@ class _RecruiterHomeState extends State<RecruiterHome> {
               SizedBox(height: Get.height*.035,),
               Text("Overview",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.01,),
-              Text(widget.recruiterProfileDetails?.homeDescription ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
+              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.addBio ?? "No Data"),style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                SizedBox(height: Get.height*.03,),
               Container(
                 width: Get.width,

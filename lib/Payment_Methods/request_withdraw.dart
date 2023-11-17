@@ -44,18 +44,19 @@ class _RequestWithdrawState extends State<RequestWithdraw> {
             child: Column(
               children: [
                 SizedBox(height: Get.height*.02,) ,
-              Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.blueThemeColor,fontSize: 30)),
+                Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0}",style: Theme.of(context).textTheme.displayLarge?.copyWith(color: AppColors.blueThemeColor,fontSize: 30)),
                 SizedBox(height: Get.height*0.001,),
                 Text("Your balance",style: Theme.of(context).textTheme.bodyMedium),
                 SizedBox(height: Get.height*0.01,),
                 GestureDetector(
-              onTap: () {
-              Get.to(()=>ShowBankAccountDetail());
-              },
+                onTap: () {
+                Get.to(()=>ShowBankAccountDetail());
+               },
               child: Text("See Account Details",style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: AppColors.blueThemeColor))),
                 SizedBox(height: Get.height*0.05,),
                 TextFormField(
-                  // keyboardType: TextInputType.number,
+                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                  keyboardType: TextInputType.number,
                   style: Theme.of(context).textTheme.labelMedium?.copyWith(fontWeight: FontWeight.w500),
                   controller: amountController,
                   decoration: InputDecoration(

@@ -15,6 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
+import '../../../utils/CommonFunctions.dart';
 import '../../../widgets/app_colors.dart';
 
 class ExperienceData {
@@ -178,9 +179,9 @@ class _CreateProfileState extends State<CreateProfile> {
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   var DocumentType;
   final List selectDocumentType = [
-    'Aadhar Card',
-    'Voter Card',
-    'Pan Card',
+    'passport',
+    'id_card',
+
   ];
   @override
   Widget build(BuildContext context) {
@@ -1536,9 +1537,10 @@ class _CreateProfileState extends State<CreateProfile> {
                                           debugPrint(workExperienceList.toString()) ;
                                           debugPrint(educationList.toString()) ;
                                           if (introFormKey.currentState!.validate()) {
+                                            var formattedAboutText = CommonFunctions.changeToHTML(aboutMeController.text ?? "") ;
                                             seekerCreateProfileController.createProfileApi(imgFile?.path, _filePath,
                                                 _documentTypeFilePath, nameController.text, locationController.text,
-                                                aboutMeController.text, workExperienceList, educationList, LanguageSelectorState.languages,
+                                                formattedAboutText, workExperienceList, educationList, LanguageSelectorState.languages,
                                                 appreciationList, DocumentType, fresher ? 1 : null);
                                           } else {
                                             scrollController.animateTo(0,

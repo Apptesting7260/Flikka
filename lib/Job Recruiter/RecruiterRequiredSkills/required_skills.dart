@@ -837,9 +837,9 @@ import '../../utils/RangeSlider.dart';
 //   }
 // }
 
-////////////////////////////
+//////////////////////////
 
-////////////////new
+//////////////new
 
 
 class RequiredSkills extends StatefulWidget {
@@ -1483,6 +1483,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                                           _selectedChooseworkingSkills
                                                               .remove("${data?.id.toString()}");
                                                         } else {
+                                                          _selectedChooseworkingSkills.clear();
                                                           _selectedChooseworkingSkills
                                                               .add("${data?.id.toString()}");
                                                         }

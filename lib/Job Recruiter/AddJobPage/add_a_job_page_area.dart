@@ -113,7 +113,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
 
   final ScrollController scrollController =ScrollController() ;
 
-
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -412,12 +411,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         style: Theme.of(context).textTheme.bodyMedium,
                         decoration: InputDecoration(
                           filled: true,
-                          fillColor: Color(0xff373737),
+                          fillColor: const Color(0xff373737),
                           hintText: "Add description",
                             hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
                           contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                           border: OutlineInputBorder(borderRadius: BorderRadius.circular(22),
-                              borderSide: BorderSide(color: Color(0xff373737))),
+                              borderSide: const BorderSide(color: Color(0xff373737))),
 
                           enabledBorder:  OutlineInputBorder(
                             borderRadius: BorderRadius.circular(22),
@@ -826,8 +825,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               addJobController.languageErrorMessage.value = "Please select language" ;
                             }
                             else {
-                              var formattedDescriptionText = CommonFunctions.changeToHTML(jobDescriptionController.text) ;
-                              var formattedRequirementText = CommonFunctions.changeToHTML(jobRequirementController.text) ;
+                              var formattedDescriptionText = CommonFunctions.changeToHTML(jobDescriptionController.text ?? "") ;
+                              var formattedRequirementText = CommonFunctions.changeToHTML(jobRequirementController.text ?? "") ;
                               debugPrint(formattedDescriptionText) ;
                               debugPrint(formattedRequirementText) ;
 
