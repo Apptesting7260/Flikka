@@ -595,7 +595,7 @@ class _TakenPoolCandidatePflState extends State<TakenPoolCandidatePfl> {
                                         mainAxisAlignment: MainAxisAlignment.start,
                                         children: [
                                           InkWell(
-                                              child: SvgPicture.asset('assets/images/appreciation.svg')),
+                                              child: SvgPicture.asset('assets/images/language.svg')),
                                           SizedBox(width: Get.width*0.02,),
                                           Text('Appreciation',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                         ],
