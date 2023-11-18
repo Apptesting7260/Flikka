@@ -229,7 +229,10 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ],
               ),
               const SizedBox(height: 25,) ,
-              MyButton(title: "SAVE", onTap1: () {
+              MyButton(
+                width: Get.width*.7,
+                height: 52,
+                title: "SAVE", onTap1: () {
                 Get.to(()=>const MettingListTabbar());
               },),
               SizedBox(height: Get.height*.1,),
