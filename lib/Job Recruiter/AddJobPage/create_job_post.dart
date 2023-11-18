@@ -2,6 +2,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../bottom_bar/tab_bar.dart';
 import 'add_a_job_page_area.dart';
 
 
@@ -16,6 +17,19 @@ class _CreateJobPostState extends State<CreateJobPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: GestureDetector(
+              onTap: () {
+                Get.offAll(() => TabScreenEmployer(index: 0,)) ;
+              },
+              child: Image.asset(
+                "assets/images/icon_back_blue.png",
+                height: Get.height * .02,
+              )),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [

@@ -1,3 +1,4 @@
+import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/video_calling_and_chatting_page.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +22,11 @@ class _MessagePageState extends State<MessagePage> {
             padding: const EdgeInsets.only(left: 15.0),
             child: InkWell(
                 onTap: (){
-                  Get.back();
+                  Get.offAll(TabScreenEmployer(index: 0)) ;
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),
           elevation: 0,
-          backgroundColor: Colors.black,
-
           actions: [
             Padding(
               padding: const EdgeInsets.only(right: 8.0),

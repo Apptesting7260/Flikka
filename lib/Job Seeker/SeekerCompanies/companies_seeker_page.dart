@@ -66,7 +66,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                 toolbarHeight: 75,
                 leading: IconButton(
                     onPressed: () {
-                      Get.offAll(TabScreen(index: 0)) ;
+                      Get.offAll(const TabScreen(index: 0)) ;
                 }, icon: Image.asset(
                 "assets/images/icon_back_blue.png",
                 height: Get.height * .06,)) ,

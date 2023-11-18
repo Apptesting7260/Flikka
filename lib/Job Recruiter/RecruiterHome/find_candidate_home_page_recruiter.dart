@@ -227,7 +227,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                     ),
                  Row(
                    children: [
-                     Image.asset("assets/images/icon work experience.png",height: Get.height*.03,color: AppColors.blueThemeColor,),
+                     Image.asset("assets/images/icon work experience.png",height: 18,color: AppColors.blueThemeColor,),
                      SizedBox(width: Get.width*.03,),
                      Text("Work experience",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
                    ],
@@ -261,7 +261,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                     SizedBox(height: Get.height * 0.03,),
                     Row(
                       children: [
-                        Image.asset("assets/images/icon_education.png",height: Get.height*.04,color: AppColors.blueThemeColor,),
+                        Image.asset("assets/images/icon_education.png",height: 30,color: AppColors.blueThemeColor,),
                         SizedBox(width: Get.width*.03,),
                         Text("Education",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
                       ],

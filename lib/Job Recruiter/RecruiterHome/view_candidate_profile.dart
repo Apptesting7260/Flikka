@@ -14,7 +14,6 @@ class ViewCandidateProfile extends StatefulWidget {
   final RecruiterHomeData? recruiterData ;
   const ViewCandidateProfile({Key? key, this.recruiterData}) : super(key: key);
 
-
   @override
   State<ViewCandidateProfile> createState() => _ViewCandidateProfileState();
 }
@@ -24,7 +23,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
 
   String uri = '';
-
   bool isWork = false;
   bool isEducation = false;
   bool isAppreciation = false;
@@ -153,8 +151,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
             ),
             //************** scrollable functionality *******************
             DraggableScrollableSheet(
-              initialChildSize: 0.36, // half screen
-              minChildSize: 0.36, // half screen
+              initialChildSize: 0.42, // half screen
+              minChildSize: 0.42, // half screen
               maxChildSize: 1, // full screen
               builder: (BuildContext context, ScrollController scrollController) {
                 return
@@ -164,7 +162,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         topRight: Radius.circular(35),
                         topLeft: Radius.circular(35),
                       ),
-
                     ),
                     child: ListView(
                       controller: scrollController,
@@ -182,7 +179,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     InkWell(
-                                        child: Image.asset('assets/images/about.png',height: Get.height*.04,)),
+                                        child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
                                     SizedBox(width: Get.width*0.02,),
                                     Text("About",
                                       style: Theme.of(context)
@@ -196,15 +193,16 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                 const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
                                 Text( CommonFunctions.parseHTML(widget.recruiterData?.aboutMe ?? "No Data") ,style: Theme.of(context).textTheme
+
                                       .bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
 
                                 //********************* for work ex ***************************
-                                SizedBox(height: Get.height*0.04,),
+                                SizedBox(height: Get.height*0.025,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
                                     InkWell(
-                                        child: Image.asset('assets/images/icon work experience.png',height: Get.height*.04,)),
+                                        child: Image.asset('assets/images/icon work experience.png',height: Get.height*.03,)),
                                     SizedBox(width: Get.width*0.02,),
                                     Padding(
                                       padding: const EdgeInsets.only(top: 4.0),
@@ -258,7 +256,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: Image.asset('assets/images/icon education.png',height: Get.height*.05,)),
+                                            child: Image.asset('assets/images/icon education.png',height: Get.height*.037,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 6.0),
@@ -314,7 +312,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: Image.asset('assets/images/skillsvg.png',height: Get.height*.04,)),
+                                            child: Image.asset('assets/images/skillsvg.png',height: Get.height*.03,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Padding(
                                           padding: const EdgeInsets.only(top: 4.0),
@@ -364,57 +362,28 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     }),
 
                                 //********************* for Language ***************************
-                                SizedBox(height: Get.height*0.04,),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      children: [
-                                        InkWell(
-                                            child: Image.asset('assets/images/appreciation.png',height: Get.height*.04,)),
-                                        SizedBox(width: Get.width*0.02,),
-                                        Padding(
-                                          padding: const EdgeInsets.only(top: 2.0),
-                                          child:
-                                          Text('Language',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: Get.height*0.02,),
-                                const Divider(thickness: 0.2,color: AppColors.white,),
-                                SizedBox(height: Get.height*0.02,),
-                                // widget.recruiterData?.seekerData?.language == null ||
-                                //     seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                // const Text("No Data") :
-                                // GridView.builder(gridDelegate:
-                                // SliverGridDelegateWithMaxCrossAxisExtent(
-                                //     mainAxisExtent: 36,
-                                //     maxCrossAxisExtent: Get.width * 0.4,
-                                //     mainAxisSpacing: 8,
-                                //     crossAxisSpacing: 8),
-                                //     itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
-                                //     shrinkWrap: true,
-                                //     physics: const NeverScrollableScrollPhysics(),
-                                //     itemBuilder: (context, index) {
-                                //       var data = seekerProfileController
-                                //           .viewSeekerData.value
-                                //           .seekerDetails
-                                //           ?.language?[index];
-                                //       return Container( alignment: Alignment.center,
-                                //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
-                                //           color: AppColors.blackdown,),
-                                //         padding: const EdgeInsets.all(8),
-                                //         child: Text('${data?.languages}',
-                                //           style: Get.theme.textTheme.bodySmall!.copyWith(
-                                //               color: AppColors.white, fontWeight: FontWeight.w400),),
-                                //       );
-                                //     }),
-
-                                //********************* for appreciation ***************************
                                 // SizedBox(height: Get.height*0.04,),
+                                // Row(
+                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                //   children: [
+                                //     Row(
+                                //       mainAxisAlignment: MainAxisAlignment.start,
+                                //       children: [
+                                //         InkWell(
+                                //             child: Image.asset('assets/images/appreciation.png',height: Get.height*.03,)),
+                                //         SizedBox(width: Get.width*0.02,),
+                                //         Padding(
+                                //           padding: const EdgeInsets.only(top: 2.0),
+                                //           child:
+                                //           Text('Language',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                                //         ),
+                                //       ],
+                                //     ),
+                                //   ],
+                                // ),
+                                // SizedBox(height: Get.height*0.02,),
+                                // const Divider(thickness: 0.2,color: AppColors.white,),
+                                SizedBox(height: Get.height*0.03,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -422,7 +391,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       mainAxisAlignment: MainAxisAlignment.start,
                                       children: [
                                         InkWell(
-                                            child: SvgPicture.asset('assets/images/language.svg')),
+                                            child: SvgPicture.asset('assets/images/language.svg',height: Get.height*.03,)),
                                         SizedBox(width: Get.width*0.02,),
                                         Text('Appreciation',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                       ],
@@ -454,6 +423,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                             color: AppColors
                                                 .ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         ),
+                                        SizedBox(height: Get.height*0.01,),
                                       ],
                                     );
                                   }
@@ -469,7 +439,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                           child: MyButton(onTap1: () {}, title: 'ACCEPT'),
                                         ),
                                       ),
-                                      SizedBox(width: 20), // Adding spacing between buttons
+                                      const SizedBox(width: 20), // Adding spacing between buttons
                                       Expanded(
                                         child: SizedBox(
                                           height: Get.height*0.07,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +42,6 @@ class _AllCandidateState extends State<AllCandidate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
       body: Obx(() {
         switch (trackingDataController.rxRequestStatus.value) {
           case Status.LOADING:
@@ -291,10 +291,22 @@ class _AllCandidateState extends State<AllCandidate> {
                                           ListTile(
                                             contentPadding: EdgeInsets.zero,
                                             minVerticalPadding: 15,
-                                            leading: CircleAvatar(radius: 27,
-                                              backgroundImage: NetworkImage(
-                                                  "${data?.seekerData
-                                                      ?.profileImg}"),
+                                            leading: CircleAvatar(
+                                              radius: 27,
+                                              // backgroundImage: NetworkImage("${data?.seekerData?.profileImg}"),
+                                              child: CachedNetworkImage(
+                                                imageUrl: "${data?.seekerData?.profileImg}",
+                                                imageBuilder: (context, imageProvider) => Container(
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    image: DecorationImage(
+                                                        image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                    )
+                                                  ),
+                                                ),
+                                                placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                              ),
                                             ),
                                             title: Text(
                                               data?.seekerData?.fullname ?? "",
@@ -346,192 +358,193 @@ class _AllCandidateState extends State<AllCandidate> {
                                                   ),),
                                               ],
                                             ),
-                                            trailing: const Icon(
-                                              Icons.more_vert,
-                                              color: Color(0xffCFCFCF),
-                                              size: 25,),
+                                            // trailing: const Icon(
+                                            //   Icons.more_vert,
+                                            //   color: Color(0xffCFCFCF),
+                                            //   size: 25,),
                                           ),
-                                          SizedBox(height: Get.height * .017,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment
-                                                .spaceAround,
-                                            children: [
-                                              MyButton(
-                                                width: Get.width * .32,
-                                                height: Get.height * .066,
-                                                title: "ACCEPT", onTap1: () {
-
-                                              },),
-                                              SizedBox(
-                                                width: Get.width * .32,
-                                                height: Get.height * .066,
-                                                child: ElevatedButton(
-                                                  onPressed: () {},
-                                                  style: ElevatedButton
-                                                      .styleFrom(
-                                                    shape: RoundedRectangleBorder(
-                                                        borderRadius: BorderRadius
-                                                            .circular(30)),
-                                                  ),
-                                                  child: Text(
-                                                    "REJECT", style: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      fontWeight: FontWeight
-                                                          .w700),),
-                                                ),
-                                              ),
-                                              GestureDetector(
-                                                  onTap: () {
-                                                    showDialog(
-                                                      // barrierDismissible: false,
-                                                        context: context,
-                                                        builder: (
-                                                            BuildContext context) {
-                                                          return AlertDialog(
-                                                            shape: RoundedRectangleBorder(
-                                                                borderRadius: BorderRadius
-                                                                    .circular(
-                                                                    18)),
-                                                            backgroundColor: Color(
-                                                                0xff353535),
-                                                            contentPadding: EdgeInsets
-                                                                .zero,
-                                                            content:
-                                                            Container(
-                                                              alignment: Alignment
-                                                                  .center,
-                                                              height: Get
-                                                                  .height * .5,
-                                                              child: Column(
-                                                                mainAxisAlignment: MainAxisAlignment
-                                                                    .center,
-                                                                crossAxisAlignment: CrossAxisAlignment
-                                                                    .center,
-                                                                children: [
-                                                                  SizedBox(
-                                                                    height: Get
-                                                                        .height *
-                                                                        0.001,),
-                                                                  Center(child:
-                                                                  Text(
-                                                                    "Save Notes",
-                                                                    style: Theme
-                                                                        .of(
-                                                                        context)
-                                                                        .textTheme
-                                                                        .displaySmall
-                                                                        ?.copyWith(
-                                                                        color: AppColors
-                                                                            .white,
-                                                                        fontSize: 20,
-                                                                        fontWeight: FontWeight
-                                                                            .w600),)
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: Get
-                                                                        .height *
-                                                                        .02,),
-                                                                  Center(child:
-                                                                  Text(
-                                                                    "Lorem Ipsum is simply industry.",
-                                                                    style: Theme
-                                                                        .of(
-                                                                        context)
-                                                                        .textTheme
-                                                                        .labelLarge
-                                                                        ?.copyWith(
-                                                                        fontWeight: FontWeight
-                                                                            .w400,
-                                                                        color: Color(
-                                                                            0xffCFCFCF)),)
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: Get
-                                                                        .height *
-                                                                        .03,),
-                                                                  Padding(
-                                                                    padding: EdgeInsets
-                                                                        .symmetric(
-                                                                        horizontal: Get
-                                                                            .width *
-                                                                            .04),
-                                                                    child: TextFormField(
-                                                                        maxLines: 4,
-                                                                        style: Theme
-                                                                            .of(
-                                                                            context)
-                                                                            .textTheme
-                                                                            .bodyMedium,
-                                                                        decoration: InputDecoration(
-                                                                          filled: true,
-                                                                          fillColor: const Color(
-                                                                              0xff1A1A1A),
-                                                                          hintText: "Enter Note",
-                                                                          hintStyle: Theme
-                                                                              .of(
-                                                                              context)
-                                                                              .textTheme
-                                                                              .labelLarge
-                                                                              ?.copyWith(
-                                                                              color: Color(
-                                                                                  0xffCFCFCF)),
-                                                                          contentPadding: EdgeInsets
-                                                                              .symmetric(
-                                                                              vertical: Get
-                                                                                  .height *
-                                                                                  .03,
-                                                                              horizontal: Get
-                                                                                  .width *
-                                                                                  .05),
-                                                                          border: OutlineInputBorder(
-                                                                              borderRadius: BorderRadius
-                                                                                  .circular(
-                                                                                  18),
-                                                                              borderSide: const BorderSide(
-                                                                                  color: Color(
-                                                                                      0xff1A1A1A))),
-                                                                          enabledBorder: OutlineInputBorder(
-                                                                            borderRadius: BorderRadius
-                                                                                .circular(
-                                                                                22),
-                                                                            // borderSide: BorderSide(color: Colors.white),
-                                                                          ),
-                                                                        )
-                                                                    ),
-                                                                  ),
-                                                                  SizedBox(
-                                                                    height: Get
-                                                                        .height *
-                                                                        0.03,),
-                                                                  MyButton(
-                                                                    width: Get
-                                                                        .width *
-                                                                        .65,
-                                                                    title: "SAVE",
-                                                                    onTap1: () {
-
-                                                                    },)
-                                                                ],),
-                                                            ),
-                                                          );
-                                                        }
-                                                    );
-                                                  },
-                                                  child: Image.asset(
-                                                    "assets/images/icon_save_request.png",
-                                                    height: Get.height * .06,)),
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * .027,),
+                                          SizedBox(height: Get.height * .010,),
+                                          // Row(
+                                          //   mainAxisAlignment: MainAxisAlignment
+                                          //       .spaceAround,
+                                          //   children: [
+                                          //     MyButton(
+                                          //       width: Get.width * .32,
+                                          //       height: Get.height * .066,
+                                          //       title: "ACCEPT", onTap1: () {
+                                          //
+                                          //     },),
+                                          //     SizedBox(
+                                          //       width: Get.width * .32,
+                                          //       height: Get.height * .066,
+                                          //       child: ElevatedButton(
+                                          //         onPressed: () {},
+                                          //         style: ElevatedButton
+                                          //             .styleFrom(
+                                          //           shape: RoundedRectangleBorder(
+                                          //               borderRadius: BorderRadius
+                                          //                   .circular(30)),
+                                          //         ),
+                                          //         child: Text(
+                                          //           "REJECT", style: Theme
+                                          //             .of(context)
+                                          //             .textTheme
+                                          //             .bodyLarge
+                                          //             ?.copyWith(
+                                          //             fontWeight: FontWeight
+                                          //                 .w700),),
+                                          //       ),
+                                          //     ),
+                                          //     GestureDetector(
+                                          //         onTap: () {
+                                          //           showDialog(
+                                          //             // barrierDismissible: false,
+                                          //               context: context,
+                                          //               builder: (
+                                          //                   BuildContext context) {
+                                          //                 return AlertDialog(
+                                          //                   shape: RoundedRectangleBorder(
+                                          //                       borderRadius: BorderRadius
+                                          //                           .circular(
+                                          //                           18)),
+                                          //                   backgroundColor: Color(
+                                          //                       0xff353535),
+                                          //                   contentPadding: EdgeInsets
+                                          //                       .zero,
+                                          //                   content:
+                                          //                   Container(
+                                          //                     alignment: Alignment
+                                          //                         .center,
+                                          //                     height: Get
+                                          //                         .height * .5,
+                                          //                     child: Column(
+                                          //                       mainAxisAlignment: MainAxisAlignment
+                                          //                           .center,
+                                          //                       crossAxisAlignment: CrossAxisAlignment
+                                          //                           .center,
+                                          //                       children: [
+                                          //                         SizedBox(
+                                          //                           height: Get
+                                          //                               .height *
+                                          //                               0.001,),
+                                          //                         Center(child:
+                                          //                         Text(
+                                          //                           "Save Notes",
+                                          //                           style: Theme
+                                          //                               .of(
+                                          //                               context)
+                                          //                               .textTheme
+                                          //                               .displaySmall
+                                          //                               ?.copyWith(
+                                          //                               color: AppColors
+                                          //                                   .white,
+                                          //                               fontSize: 20,
+                                          //                               fontWeight: FontWeight
+                                          //                                   .w600),)
+                                          //                         ),
+                                          //                         SizedBox(
+                                          //                           height: Get
+                                          //                               .height *
+                                          //                               .02,),
+                                          //                         Center(child:
+                                          //                         Text(
+                                          //                           "Lorem Ipsum is simply industry.",
+                                          //                           style: Theme
+                                          //                               .of(
+                                          //                               context)
+                                          //                               .textTheme
+                                          //                               .labelLarge
+                                          //                               ?.copyWith(
+                                          //                               fontWeight: FontWeight
+                                          //                                   .w400,
+                                          //                               color: Color(
+                                          //                                   0xffCFCFCF)),)
+                                          //                         ),
+                                          //                         SizedBox(
+                                          //                           height: Get
+                                          //                               .height *
+                                          //                               .03,),
+                                          //                         Padding(
+                                          //                           padding: EdgeInsets
+                                          //                               .symmetric(
+                                          //                               horizontal: Get
+                                          //                                   .width *
+                                          //                                   .04),
+                                          //                           child: TextFormField(
+                                          //                               maxLines: 4,
+                                          //                               style: Theme
+                                          //                                   .of(
+                                          //                                   context)
+                                          //                                   .textTheme
+                                          //                                   .bodyMedium,
+                                          //                               decoration: InputDecoration(
+                                          //                                 filled: true,
+                                          //                                 fillColor: const Color(
+                                          //                                     0xff1A1A1A),
+                                          //                                 hintText: "Enter Note",
+                                          //                                 hintStyle: Theme
+                                          //                                     .of(
+                                          //                                     context)
+                                          //                                     .textTheme
+                                          //                                     .labelLarge
+                                          //                                     ?.copyWith(
+                                          //                                     color: Color(
+                                          //                                         0xffCFCFCF)),
+                                          //                                 contentPadding: EdgeInsets
+                                          //                                     .symmetric(
+                                          //                                     vertical: Get
+                                          //                                         .height *
+                                          //                                         .03,
+                                          //                                     horizontal: Get
+                                          //                                         .width *
+                                          //                                         .05),
+                                          //                                 border: OutlineInputBorder(
+                                          //                                     borderRadius: BorderRadius
+                                          //                                         .circular(
+                                          //                                         18),
+                                          //                                     borderSide: const BorderSide(
+                                          //                                         color: Color(
+                                          //                                             0xff1A1A1A))),
+                                          //                                 enabledBorder: OutlineInputBorder(
+                                          //                                   borderRadius: BorderRadius
+                                          //                                       .circular(
+                                          //                                       22),
+                                          //                                   // borderSide: BorderSide(color: Colors.white),
+                                          //                                 ),
+                                          //                               )
+                                          //                           ),
+                                          //                         ),
+                                          //                         SizedBox(
+                                          //                           height: Get
+                                          //                               .height *
+                                          //                               0.03,),
+                                          //                         MyButton(
+                                          //                           width: Get
+                                          //                               .width *
+                                          //                               .65,
+                                          //                           title: "SAVE",
+                                          //                           onTap1: () {
+                                          //
+                                          //                           },)
+                                          //                       ],),
+                                          //                   ),
+                                          //                 );
+                                          //               }
+                                          //           );
+                                          //         },
+                                          //         child: Image.asset(
+                                          //           "assets/images/icon_save_request.png",
+                                          //           height: Get.height * .06,)),
+                                          //   ],
+                                          // ),
+                                          //SizedBox(height: Get.height * .027,),
                                           MyButton(
                                             height: Get.height * .066,
+                                            width: Get.width*.75,
                                             title: "VIEW PROFILE", onTap1: () {
                                               Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',) ) ;
                                           },),
-                                          SizedBox(height: Get.height * .013,),
+                                          SizedBox(height: Get.height * .018,),
                                         ],
                                       ),
                                     );

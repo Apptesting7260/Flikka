@@ -11,6 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../bottom_bar/tab_bar.dart';
 
 class RecruiterProfileTabBar extends StatefulWidget {
   int? index;
@@ -60,6 +61,14 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
           return Scaffold(
               endDrawer: const DrawerRecruiter(),
               appBar: AppBar(
+                leading: Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: InkWell(
+                      onTap: (){
+                        Get.offAll(TabScreenEmployer(index: 0)) ;
+                      },
+                      child: Image.asset('assets/images/icon_back_blue.png')),
+                ),
                 title: Text(
                   viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyName ?? "",
                   style: Theme.of(context)
