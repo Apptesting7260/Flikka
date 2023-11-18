@@ -1,4 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -528,7 +529,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                           MyButton(
                                             height: Get.height * .066,
                                             title: "VIEW PROFILE", onTap1: () {
-
+                                              Get.to( () => const ScheduleInterview() ) ;
                                           },),
                                           SizedBox(height: Get.height * .013,),
                                         ],
