@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -313,7 +314,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
     );
   }
 
-
   bool isWork = false;
   bool isEducation = false;
   bool isAppreciation = false;
@@ -322,18 +322,18 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-      Stack(
+      body: Stack(
           children:[
             Container(
               decoration: const BoxDecoration(
               color: AppColors.blueThemeColor
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 14.0,vertical: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 14.0,),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    SizedBox(height: 20,) ,
                     Padding(
                       padding: const EdgeInsets.only(top: 24.0),
                       child: Row(
@@ -345,18 +345,30 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                               child: SvgPicture.asset('assets/images/backiconsvg.svg')),
                           SizedBox(width: Get.width*0.035,),
                           Text( widget.recruiterData?.fullname ?? "",style: Get.theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700)),
-
                         ],
                       ),
                     ),
                     SizedBox(height: Get.height*0.0395,),
-                    Column(
+                     Column(
                       children: [
                         Stack(
                             children: [
                                CircleAvatar(
                                 radius:48,
-                                backgroundImage: NetworkImage( widget.recruiterData?.profileImg ?? ''),
+                                // backgroundImage: NetworkImage( widget.recruiterData?.profileImg ?? ''),
+                                 child: CachedNetworkImage(
+                                   imageUrl: widget.recruiterData?.profileImg ?? '',
+                                   imageBuilder: (context, imageProvider) => Container(
+                                     decoration: BoxDecoration(
+                                       shape: BoxShape.circle,
+                                       image: DecorationImage(
+                                         image: imageProvider,
+                                         fit: BoxFit.cover
+                                       )
+                                     ),
+                                   ),
+                                   placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                 ),
                               ),
                             ]
                         )
