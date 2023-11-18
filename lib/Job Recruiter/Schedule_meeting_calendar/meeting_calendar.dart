@@ -1,5 +1,6 @@
 
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -43,33 +44,31 @@ class _CalendarScreenState extends State<CalendarScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 18.0),
+          padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
             children: [
               SizedBox(height: Get.height*.04,),
-
               Container(
                 height: Get.height*.56,
                 decoration: BoxDecoration(
-                  color: Color(0xff353535),
+                  color: const Color(0xff353535),
                   borderRadius: BorderRadius.circular(24.0),
                 ),
-                // padding: EdgeInsets.all(8.0),
-                // margin: EdgeInsets.all(25.0),
+
                 child: Column(
                   children: [
                     SizedBox(height: Get.height*.025,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Pick Date",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
+                          const Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       height: 35,
                       color: Color(0xffFFFFFF),
                       thickness: .1,
@@ -84,14 +83,9 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           return Container(
                             height: 10,
                             width: 10,
-                            margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xff56B8F6 ),
-                                      Color(0xff4D6FED)],
-                                    end: Alignment.topCenter,
-                                    begin: Alignment.bottomCenter),
+                            margin: const EdgeInsets.all(5),
+                            decoration: const BoxDecoration(
+                               color: AppColors.blueThemeColor,
                                 shape: BoxShape.circle
                             ),
                             child: Center(
@@ -111,7 +105,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           );
                         },
                       ),
-                      calendarStyle: CalendarStyle(
+                      calendarStyle: const CalendarStyle(
                         outsideDaysVisible: false,
                         weekendStyle: TextStyle(color: Colors.white),
                         holidayStyle: TextStyle(color: Colors.white),
@@ -119,11 +113,11 @@ class _CalendarScreenState extends State<CalendarScreen> {
                         outsideWeekendStyle: TextStyle(color: Colors.white),
                         outsideHolidayStyle: TextStyle(color: Colors.white),
                       ),
-                      daysOfWeekStyle: DaysOfWeekStyle(
+                      daysOfWeekStyle: const DaysOfWeekStyle(
                         weekendStyle: TextStyle(color: Colors.white),
                         weekdayStyle: TextStyle(color: Colors.white),
                       ),
-                      headerStyle: HeaderStyle(
+                      headerStyle: const HeaderStyle(
                         formatButtonVisible: false,
                         titleTextStyle:
                         TextStyle(color: Colors.white, fontSize: 16),
@@ -143,25 +137,23 @@ class _CalendarScreenState extends State<CalendarScreen> {
               SizedBox(height: Get.height*.035,),
               Container(
                 decoration: BoxDecoration(
-                    color: Color(0xff353535),
+                    color: const Color(0xff353535),
                     borderRadius: BorderRadius.circular(20)),
-                // color: Colors.black,
                 height: Get.height*.29,
-                // width: MediaQuery.of(context).size.width * .75,
                 child: Column(
                   children: [
                     SizedBox(height: Get.height*.02,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Pick Time",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
+                          const Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
                         ],
                       ),
                     ),
-                    Divider(
+                    const Divider(
                       height: 40,
                       color: Color(0xffFFFFFF),
                       thickness: .1,
@@ -174,7 +166,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             width: 20,
                           ),
                           _buildSelectionContainer(),
@@ -183,44 +175,20 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           _buildHourMinText('Hour'),
                           Spacer(),
                           _buildSelectionContainer(),
-                          // SizedBox(
-                          //   width: 10,
-                          // ),
                           // _buildSelectionContainer(),
                           _buildMinutePicker(),
                           _buildSelectionContainer(),
                           _buildHourMinText('Min'),
+
                         ],
                       ),
                     ),
                   ],
                 ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //
-                //     SizedBox(
-                //       width: 20,
-                //     ),
-                //     _buildSelectionContainer(),
-                //     _buildHourPicker(),
-                //     _buildSelectionContainer(),
-                //     _buildHourMinText('Hour'),
-                //     Spacer(),
-                //     _buildSelectionContainer(),
-                //     // SizedBox(
-                //     //   width: 10,
-                //     // ),
-                //     // _buildSelectionContainer(),
-                //     _buildMinutePicker(),
-                //     _buildSelectionContainer(),
-                //     _buildHourMinText('Min'),
-                //   ],
-                // ),
               ),
               SizedBox(height: Get.height*.04,),
               MyButton(title: "SAVE", onTap1: () {
-                Get.to(()=>MettingListTabbar());
+                Get.to(()=>const MettingListTabbar());
               },),
               SizedBox(height: Get.height*.1,),
             ],
@@ -235,7 +203,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       padding: const EdgeInsets.symmetric(horizontal: 8.0),
       child: Text(
         x,
-        style: TextStyle(color: Colors.white),
+        style: const TextStyle(color: Colors.white),
       ),
     );
   }
@@ -246,14 +214,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
       height: 70,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(40), // Set border radius to 40
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Color(0xFF56B8F6), // Gradient start color
-            Color(0xFF4D6FED), // Gradient end color
-          ],
-        ),
+       color: AppColors.blueThemeColor
       ),
     );
   }
@@ -266,7 +227,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
     return Container(
       width: 50,
       height: 120,
-      color: Color(0xff353535),
+      color: const Color(0xff353535),
       child: ListWheelScrollView(
         controller: FixedExtentScrollController(
             initialItem: infiniteItemsCount ~/ 2), // Start in the middle
@@ -282,7 +243,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
           return Center(
             child: Text(
               '$hourValue',
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              style: const TextStyle(color: Colors.white, fontSize: 22),
             ),
           );
         }),
