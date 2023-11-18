@@ -93,7 +93,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             child: Center(
                               child: Text(
                                 date.day.toString(),
-                                style: TextStyle(color: Colors.white),
+                                style: const TextStyle(color: Colors.white),
                               ),
                             ),
                           );
@@ -102,7 +102,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           return Center(
                             child: Text(
                               date.day.toString(),
-                              style: TextStyle(color: Colors.white),
+                              style: const TextStyle(color: Colors.white),
                             ),
                           );
                         },
@@ -164,7 +164,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                     ),
                     SizedBox(height: Get.height*.01,),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -175,7 +175,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                           _buildHourPicker(),
                           _buildSelectionContainer(),
                           _buildHourMinText('Hour'),
-                          Spacer(),
+                          const Spacer(),
                           _buildSelectionContainer(),
                           // _buildSelectionContainer(),
                           _buildMinutePicker(),
