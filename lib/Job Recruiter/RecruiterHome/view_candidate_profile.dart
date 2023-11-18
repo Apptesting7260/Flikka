@@ -13,7 +13,6 @@ class ViewCandidateProfile extends StatefulWidget {
   final RecruiterHomeData? recruiterData ;
   const ViewCandidateProfile({Key? key, this.recruiterData}) : super(key: key);
 
-
   @override
   State<ViewCandidateProfile> createState() => _ViewCandidateProfileState();
 }

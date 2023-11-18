@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ApplyJobController/ApplyJobController.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
@@ -49,7 +50,20 @@ class _MarketingInternState extends State<MarketingIntern> {
                     alignment: Alignment.topLeft,
                     child: CircleAvatar(
                       radius: 45,
-                      backgroundImage: NetworkImage('${widget.jobData?.featureImg}'),
+                      // backgroundImage: NetworkImage('${widget.jobData?.featureImg}'),
+                      child: CachedNetworkImage(
+                        imageUrl: '${widget.jobData?.featureImg}',
+                        imageBuilder: (context, imageProvider) => Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            image: DecorationImage(
+                              image: imageProvider,
+                              fit: BoxFit.cover,
+                            )
+                          ),
+                        ),
+                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                      ),
                     ),
                   ),
                   SizedBox(
