@@ -7,6 +7,8 @@ import 'package:get/get.dart';
 import 'package:table_calendar_null_safe/table_calendar_null_safe.dart';
 
 class CalendarScreen extends StatefulWidget {
+  const CalendarScreen({super.key});
+
   @override
   _CalendarScreenState createState() => _CalendarScreenState();
 }
