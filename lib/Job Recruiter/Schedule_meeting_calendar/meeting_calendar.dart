@@ -51,7 +51,6 @@ class CalendarScreenState extends State<CalendarScreen> {
             children: [
               SizedBox(height: Get.height*.04,),
               Container(
-                height: Get.height*.56,
                 decoration: BoxDecoration(
                   color: const Color(0xff353535),
                   borderRadius: BorderRadius.circular(24.0),
@@ -59,14 +58,13 @@ class CalendarScreenState extends State<CalendarScreen> {
 
                 child: Column(
                   children: [
-                    SizedBox(height: Get.height*.025,),
+                    SizedBox(height: Get.height*.02,),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 15),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Pick Date",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          const Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
                         ],
                       ),
                     ),
@@ -132,6 +130,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                           color: Colors.white,
                         ),
                       ),
+                      availableGestures: AvailableGestures.horizontalSwipe,
                     ),
                   ],
                 ),
@@ -141,7 +140,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                 decoration: BoxDecoration(
                     color: const Color(0xff353535),
                     borderRadius: BorderRadius.circular(20)),
-                height: Get.height*.29,
                 child: Column(
                   children: [
                     SizedBox(height: Get.height*.02,),
@@ -151,7 +149,6 @@ class CalendarScreenState extends State<CalendarScreen> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text("Pick Time",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          const Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
                         ],
                       ),
                     ),
@@ -185,6 +182,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                         ],
                       ),
                     ),
+                    SizedBox(height: Get.height*.01,),
                   ],
                 ),
               ),
