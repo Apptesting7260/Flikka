@@ -14,6 +14,9 @@ class CalendarScreen extends StatefulWidget {
 }
 
 class CalendarScreenState extends State<CalendarScreen> {
+
+  Color button1Color = AppColors.textFieldFilledColor;
+  Color button2Color = AppColors.blueThemeColor;
   CalendarController _calendarController = CalendarController();
   FixedExtentScrollController _hourController = FixedExtentScrollController();
   FixedExtentScrollController _minuteController = FixedExtentScrollController();
@@ -187,6 +190,45 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
               SizedBox(height: Get.height*.04,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        button1Color = AppColors.blueThemeColor;
+                        button2Color = AppColors.textFieldFilledColor;
+                      });
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(button1Color),
+                      // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
+                    ),
+                    child: Text(
+                      'AM',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ),
+                  const SizedBox(width: 15,),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        button1Color = AppColors.textFieldFilledColor;
+                        button2Color = AppColors.blueThemeColor;
+                      });
+                    },
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(button2Color),
+                      // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
+                    ),
+                    child:  Text(
+                      'PM',
+                      style: Theme.of(context).textTheme.labelMedium,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 25,) ,
               MyButton(title: "SAVE", onTap1: () {
                 Get.to(()=>const MettingListTabbar());
               },),
