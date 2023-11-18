@@ -529,7 +529,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                           MyButton(
                                             height: Get.height * .066,
                                             title: "VIEW PROFILE", onTap1: () {
-                                              Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}",) ) ;
+                                              Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',) ) ;
                                           },),
                                           SizedBox(height: Get.height * .013,),
                                         ],

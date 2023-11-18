@@ -1,5 +1,6 @@
 
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
+import 'package:flikka/controllers/ScheduleInterviewController/ScheduleInterviewController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -7,7 +8,8 @@ import 'package:get/get.dart';
 import 'package:table_calendar_null_safe/table_calendar_null_safe.dart';
 
 class CalendarScreen extends StatefulWidget {
-  const CalendarScreen({super.key});
+ final String? requestID ;
+  const CalendarScreen({super.key, this.requestID});
 
   @override
   CalendarScreenState createState() => CalendarScreenState();
@@ -21,6 +23,10 @@ class CalendarScreenState extends State<CalendarScreen> {
   FixedExtentScrollController _hourController = FixedExtentScrollController();
   FixedExtentScrollController _minuteController = FixedExtentScrollController();
 
+  String? selectedHour ;
+  String? selectedMin ;
+  String? selectedDate ;
+  ScheduleInterviewController interviewController = Get.put(ScheduleInterviewController()) ;
 
   @override
   void initState() {
@@ -80,6 +86,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                     ),
                     TableCalendar(
                       initialSelectedDay: DateTime.now(),
+                      startDay: DateTime.now(),
                       calendarController: _calendarController,
                       builders: CalendarBuilders(
                         selectedDayBuilder: (context, date, _) {
@@ -134,6 +141,11 @@ class CalendarScreenState extends State<CalendarScreen> {
                         ),
                       ),
                       availableGestures: AvailableGestures.horizontalSwipe,
+                      onDaySelected: (day, events, holidays) {
+                        setState(() {
+                          selectedDate = "${day.year}-${day.month}-${day.day}" ;
+                        });
+                      },
                     ),
                   ],
                 ),
@@ -190,51 +202,57 @@ class CalendarScreenState extends State<CalendarScreen> {
                 ),
               ),
               SizedBox(height: Get.height*.04,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        button1Color = AppColors.blueThemeColor;
-                        button2Color = AppColors.textFieldFilledColor;
-                      });
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(button1Color),
-                      // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
-                    ),
-                    child: Text(
-                      'AM',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ),
-                  const SizedBox(width: 15,),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        button1Color = AppColors.textFieldFilledColor;
-                        button2Color = AppColors.blueThemeColor;
-                      });
-                    },
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all<Color>(button2Color),
-                      // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
-                    ),
-                    child:  Text(
-                      'PM',
-                      style: Theme.of(context).textTheme.labelMedium,
-                    ),
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //     TextButton(
+              //       onPressed: () {
+              //         setState(() {
+              //           button1Color = AppColors.blueThemeColor;
+              //           button2Color = AppColors.textFieldFilledColor;
+              //         });
+              //       },
+              //       style: ButtonStyle(
+              //         backgroundColor: MaterialStateProperty.all<Color>(button1Color),
+              //         // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
+              //       ),
+              //       child: Text(
+              //         'AM',
+              //         style: Theme.of(context).textTheme.labelMedium,
+              //       ),
+              //     ),
+              //     const SizedBox(width: 15,),
+              //     TextButton(
+              //       onPressed: () {
+              //         setState(() {
+              //           button1Color = AppColors.textFieldFilledColor;
+              //           button2Color = AppColors.blueThemeColor;
+              //         });
+              //       },
+              //       style: ButtonStyle(
+              //         backgroundColor: MaterialStateProperty.all<Color>(button2Color),
+              //         // minimumSize: MaterialStateProperty.all<Size>(Size(150.0, 50.0)),
+              //       ),
+              //       child:  Text(
+              //         'PM',
+              //         style: Theme.of(context).textTheme.labelMedium,
+              //       ),
+              //     ),
+              //   ],
+              // ),
               const SizedBox(height: 25,) ,
-              MyButton(
-                width: Get.width*.7,
-                height: 52,
-                title: "SAVE", onTap1: () {
-                Get.to(()=>const MettingListTabbar());
-              },),
+              Obx( () => MyButton(
+                  width: Get.width*.7,
+                  height: 52,
+                  loading: interviewController.loading.value,
+                  title: "SAVE", onTap1: () {
+                    selectedDate = "${_calendarController.selectedDay.year}-${_calendarController.selectedDay.month}-${_calendarController.selectedDay.day}";
+                    selectedHour = _hourController.selectedItem.toString().padLeft(2,'0') ;
+                    selectedMin = _minuteController.selectedItem.toString().padLeft(2,'0') ;
+                  // Get.to(()=>const MettingListTabbar());
+                  interviewController.scheduleInterview("$selectedDate $selectedHour:$selectedMin", widget.requestID) ;
+                },),
+              ),
               SizedBox(height: Get.height*.1,),
             ],
           ),
@@ -265,29 +283,29 @@ class CalendarScreenState extends State<CalendarScreen> {
   }
 
   Widget _buildHourPicker() {
-    const int numberOfHours = 12;
-    const int infiniteItemsCount =
-    100000; // Large number to give infinite scroll illusion
+    const int numberOfHours = 24;
+    const int infiniteItemsCount = 24; // Large number to give infinite scroll illusion
 
     return Container(
       width: 50,
       height: 120,
       color: const Color(0xff353535),
       child: ListWheelScrollView(
-        controller: FixedExtentScrollController(
-            initialItem: infiniteItemsCount ~/ 2), // Start in the middle
+        controller: _hourController,
         itemExtent: 50,
         perspective: 0.01,
         onSelectedItemChanged: (index) {
-          // Do something with the current hour if needed
           int currentHour = (index % numberOfHours) + 1;
           print('Selected Hour: $currentHour');
+          setState(() {
+            selectedHour = currentHour.toString() ;
+          });
         },
         children: List.generate(infiniteItemsCount, (index) {
-          int hourValue = (index % numberOfHours) + 1; // Loop from 1 to 12
+          int hourValue = (index % numberOfHours) ;
           return Center(
             child: Text(
-              '$hourValue',
+              '$hourValue'.padLeft(2,'0'),
               style: const TextStyle(color: Colors.white, fontSize: 22),
             ),
           );
@@ -298,29 +316,27 @@ class CalendarScreenState extends State<CalendarScreen> {
 
   Widget _buildMinutePicker() {
     const int numberOfMinutes = 60;
-    const int infiniteItemsCount =
-    100000; // Large number to give infinite scroll illusion
+    const int infiniteItemsCount = 60; // Large number to give infinite scroll illusion
 
     return Container(
       width: 60,
       height: 120,
-      color: Color(0xff353535),
+      color: const Color(0xff353535),
       child: ListWheelScrollView(
-        controller: FixedExtentScrollController(
-            initialItem: infiniteItemsCount ~/ 2), // Start in the middle
+        controller: _minuteController, // Start in the middle
         itemExtent: 50,
         perspective: 0.01,
         onSelectedItemChanged: (index) {
-          // Do something with the current minute if needed
           int currentMinute = index % numberOfMinutes;
           print('Selected Minute: ${currentMinute.toString().padLeft(2, '0')}');
+          selectedMin = currentMinute.toString().padLeft(2, '0') ;
         },
         children: List.generate(infiniteItemsCount, (index) {
           int minuteValue = index % numberOfMinutes; // Loop from 00 to 59
           return Center(
             child: Text(
               minuteValue.toString().padLeft(2, '0'),
-              style: TextStyle(color: Colors.white, fontSize: 22),
+              style: const TextStyle(color: Colors.white, fontSize: 22),
             ),
           );
         }),

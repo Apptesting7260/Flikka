@@ -25,8 +25,23 @@ class RecruiterRepository {
     return ViewParticularCandidateModel.fromJson(response);
   }
 
+  Future<EditAboutModel> scheduleInterview(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.scheduleInterview);
+    return EditAboutModel.fromJson(response);
+  }
+
+  Future<EditAboutModel> candidateJobStatus(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.candidateJobStatus);
+    return EditAboutModel.fromJson(response);
+  }
+
   Future<RecruiterJobTitleModel> getJobTitleApi() async{
     dynamic response = await apiServices.getApi2(AppUrl.recruiterJobTitle);
+    return RecruiterJobTitleModel.fromJson(response);
+  }
+
+  Future<RecruiterJobTitleModel> getInterviewList() async{
+    dynamic response = await apiServices.getApi2(AppUrl.scheduledInterviewList);
     return RecruiterJobTitleModel.fromJson(response);
   }
 

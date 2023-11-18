@@ -1078,7 +1078,8 @@ import '../res/components/unauthorised_request_widget.dart';
 
 class ScheduleInterview extends StatefulWidget {
  final String seekerID ;
-  const ScheduleInterview({Key? key, required this.seekerID}) : super(key: key);
+ final String requestID ;
+  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID}) : super(key: key);
 
 
   @override
@@ -1674,7 +1675,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                       SizedBox(height: Get.height * 0.05,),
                                       MyButton(title: 'SCHEDULE MEETING',
                                         onTap1: () {
-                                          Get.to(() => CalendarScreen());
+                                          Get.to(() => CalendarScreen(requestID: widget.requestID));
                                         },
                                       ),
                                       SizedBox(height: Get.height * 0.03,),

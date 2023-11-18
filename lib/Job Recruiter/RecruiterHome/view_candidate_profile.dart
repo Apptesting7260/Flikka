@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -23,296 +24,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
 
   String uri = '';
-
-  //********************* for workexperience *************
-  TextEditingController workexperienceController = TextEditingController();
-  void workexperience() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add experience",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: workexperienceController,
-            decoration: InputDecoration(
-              hintText: 'your experience',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  //********************* for education *************
-  TextEditingController educationController = TextEditingController();
-  void education() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add education",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: educationController,
-            decoration: InputDecoration(
-              hintText: 'Write your education',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  //********************* for skill *************
-  TextEditingController skillController = TextEditingController();
-  void skill() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add skill",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: skillController,
-            decoration: InputDecoration(
-              hintText: 'Write your skill',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  //********************* for language *************
-  TextEditingController languageController = TextEditingController();
-  void language() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add language",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: languageController,
-            decoration: InputDecoration(
-              hintText: 'Write your language',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  //********************* for appreciation *************
-  TextEditingController appreciationController = TextEditingController();
-  void appreciation() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text(
-            "Add appreciation",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: TextField(
-            style: TextStyle(color: AppColors.white, fontSize: 23),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: appreciationController,
-            decoration: InputDecoration(
-              hintText: 'Write your appreciation',
-              hintStyle: Theme.of(context)
-                  .textTheme
-                  .bodySmall!
-                  .copyWith(color: AppColors.white, fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text(
-                "Cancel",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text(
-                "Submit",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(color: AppColors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
 
   bool isWork = false;
   bool isEducation = false;
@@ -375,11 +86,11 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                       ],
                     ),
                     SizedBox(height: Get.height*0.015,),
-                    Text( widget.recruiterData?.fullname ?? "",style: Get.theme.textTheme.displayLarge),
+                    Text( CommonFunctions.parseHTML(widget.recruiterData?.fullname ?? ""),style: Get.theme.textTheme.displayLarge),
                     SizedBox(height: Get.height*0.005,),
                     Text( widget.recruiterData?.seekerData?.positions ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.005,),
-                    Text( widget.recruiterData?.location ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
+                    Text( CommonFunctions.parseHTML(widget.recruiterData?.location ?? ""),style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.015,),
                     Row(
                       children: [
@@ -484,7 +195,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                 SizedBox(height: Get.height*0.015,),
                                 const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text( widget.recruiterData?.aboutMe ?? "No Data" ,style: Theme.of(context).textTheme
+                                Text( CommonFunctions.parseHTML(widget.recruiterData?.aboutMe ?? "No Data") ,style: Theme.of(context).textTheme
                                       .bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
 
                                 //********************* for work ex ***************************
@@ -516,9 +227,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(data?.workExpJob ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        Text(CommonFunctions.parseHTML(data?.workExpJob ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text( data?.companyName ?? "",style: Theme.of(context)
+                                        Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
@@ -573,9 +284,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(data?.educationLevel ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        Text(CommonFunctions.parseHTML(data?.educationLevel ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text(data?.institutionName ?? "",style: Theme.of(context)
+                                        Text(CommonFunctions.parseHTML(data?.institutionName ?? ""),style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
@@ -734,9 +445,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(data?.achievement ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        Text(CommonFunctions.parseHTML(data?.achievement ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text(data?.awardName ?? "",style: Theme.of(context)
+                                        Text(CommonFunctions.parseHTML(data?.awardName ?? ""),style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
                                             .copyWith(
