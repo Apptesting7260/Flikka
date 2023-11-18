@@ -1,5 +1,6 @@
 
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,189 +45,168 @@ class _CalendarScreenState extends State<CalendarScreen> {
         ),
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding:  EdgeInsets.symmetric(horizontal: 18.0),
-          child: Column(
-            children: [
-              SizedBox(height: Get.height*.04,),
+        padding:  const EdgeInsets.symmetric(horizontal: 18.0),
+        child: Column( mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(height: Get.height*.04,),
 
-              Container(
-                height: Get.height*.56,
-                decoration: BoxDecoration(
-                  color: Color(0xff353535),
-                  borderRadius: BorderRadius.circular(24.0),
-                ),
-                // padding: EdgeInsets.all(8.0),
-                // margin: EdgeInsets.all(25.0),
-                child: Column(
-                  children: [
-                    SizedBox(height: Get.height*.025,),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Pick Date",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      height: 35,
-                      color: Color(0xffFFFFFF),
-                      thickness: .1,
-                      indent : 15,
-                      endIndent : 20,
-                    ),
-                    TableCalendar(
-                      initialSelectedDay: DateTime.now(),
-                      calendarController: _calendarController,
-                      builders: CalendarBuilders(
-                        selectedDayBuilder: (context, date, _) {
-                          return Container(
-                            height: 10,
-                            width: 10,
-                            margin: EdgeInsets.all(5),
-                            decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                    colors: [
-                                      Color(0xff56B8F6 ),
-                                      Color(0xff4D6FED)],
-                                    end: Alignment.topCenter,
-                                    begin: Alignment.bottomCenter),
-                                shape: BoxShape.circle
-                            ),
-                            child: Center(
-                              child: Text(
-                                date.day.toString(),
-                                style: TextStyle(color: Colors.white),
-                              ),
-                            ),
-                          );
-                        },
-                        todayDayBuilder: (context, date, _) {
-                          return Center(
+            Container(
+              decoration: BoxDecoration(
+                color: const Color(0xff353535),
+                borderRadius: BorderRadius.circular(24.0),
+              ),
+              child: Column( mainAxisSize: MainAxisSize.min,
+                children: [
+                  Flexible(child: SizedBox(height: Get.height*.02,)),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text("Pick Date",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
+                  ),
+                  const Divider(
+                    height: 35,
+                    color: Color(0xffFFFFFF),
+                    thickness: .1,
+                    indent : 15,
+                    endIndent : 20,
+                  ),
+                  TableCalendar(
+                    initialSelectedDay: DateTime.now(),
+                    calendarController: _calendarController,
+                    builders: CalendarBuilders(
+                      selectedDayBuilder: (context, date, _) {
+                        return Container(
+                          height: 10,
+                          width: 10,
+                          margin: const EdgeInsets.all(5),
+                          decoration: const BoxDecoration(
+                            color: AppColors.blueThemeColor,
+                              shape: BoxShape.circle
+                          ),
+                          child: Center(
                             child: Text(
                               date.day.toString(),
                               style: TextStyle(color: Colors.white),
                             ),
-                          );
-                        },
-                      ),
-                      calendarStyle: CalendarStyle(
-                        outsideDaysVisible: false,
-                        weekendStyle: TextStyle(color: Colors.white),
-                        holidayStyle: TextStyle(color: Colors.white),
-                        weekdayStyle: TextStyle(color: Colors.white),
-                        outsideWeekendStyle: TextStyle(color: Colors.white),
-                        outsideHolidayStyle: TextStyle(color: Colors.white),
-                      ),
-                      daysOfWeekStyle: DaysOfWeekStyle(
-                        weekendStyle: TextStyle(color: Colors.white),
-                        weekdayStyle: TextStyle(color: Colors.white),
-                      ),
-                      headerStyle: HeaderStyle(
-                        formatButtonVisible: false,
-                        titleTextStyle:
-                        TextStyle(color: Colors.white, fontSize: 16),
-                        leftChevronIcon: Icon(
-                          Icons.arrow_left,
-                          color: Colors.white,
-                        ),
-                        rightChevronIcon: Icon(
-                          Icons.arrow_right,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(height: Get.height*.035,),
-              Container(
-                decoration: BoxDecoration(
-                    color: Color(0xff353535),
-                    borderRadius: BorderRadius.circular(20)),
-                // color: Colors.black,
-                height: Get.height*.29,
-                // width: MediaQuery.of(context).size.width * .75,
-                child: Column(
-                  children: [
-                    SizedBox(height: Get.height*.02,),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 15),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text("Pick Time",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
-                          Icon(Icons.keyboard_arrow_down,color: Colors.white,size: 30,)
-                        ],
-                      ),
-                    ),
-                    Divider(
-                      height: 40,
-                      color: Color(0xffFFFFFF),
-                      thickness: .1,
-                      indent : 15,
-                      endIndent : 20,
-                    ),
-                    SizedBox(height: Get.height*.01,),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 30),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SizedBox(
-                            width: 20,
                           ),
-                          _buildSelectionContainer(),
-                          _buildHourPicker(),
-                          _buildSelectionContainer(),
-                          _buildHourMinText('Hour'),
-                          Spacer(),
-                          _buildSelectionContainer(),
-                          // SizedBox(
-                          //   width: 10,
-                          // ),
-                          // _buildSelectionContainer(),
-                          _buildMinutePicker(),
-                          _buildSelectionContainer(),
-                          _buildHourMinText('Min'),
-                        ],
+                        );
+                      },
+                      todayDayBuilder: (context, date, _) {
+                        return Center(
+                          child: Text(
+                            date.day.toString(),
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        );
+                      },
+                    ),
+                    calendarStyle: const CalendarStyle(
+                      outsideDaysVisible: false,
+                      weekendStyle: TextStyle(color: Colors.white),
+                      holidayStyle: TextStyle(color: Colors.white),
+                      weekdayStyle: TextStyle(color: Colors.white),
+                      outsideWeekendStyle: TextStyle(color: Colors.white),
+                      outsideHolidayStyle: TextStyle(color: Colors.white),
+                    ),
+                    daysOfWeekStyle: const DaysOfWeekStyle(
+                      weekendStyle: TextStyle(color: Colors.white),
+                      weekdayStyle: TextStyle(color: Colors.white),
+                    ),
+                    headerStyle: const HeaderStyle(
+                      formatButtonVisible: false,
+                      titleTextStyle:
+                      TextStyle(color: Colors.white, fontSize: 16),
+                      leftChevronIcon: Icon(
+                        Icons.arrow_left,
+                        color: Colors.white,
+                      ),
+                      rightChevronIcon: Icon(
+                        Icons.arrow_right,
+                        color: Colors.white,
                       ),
                     ),
-                  ],
-                ),
-                // child: Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   children: [
-                //
-                //     SizedBox(
-                //       width: 20,
-                //     ),
-                //     _buildSelectionContainer(),
-                //     _buildHourPicker(),
-                //     _buildSelectionContainer(),
-                //     _buildHourMinText('Hour'),
-                //     Spacer(),
-                //     _buildSelectionContainer(),
-                //     // SizedBox(
-                //     //   width: 10,
-                //     // ),
-                //     // _buildSelectionContainer(),
-                //     _buildMinutePicker(),
-                //     _buildSelectionContainer(),
-                //     _buildHourMinText('Min'),
-                //   ],
-                // ),
+                    availableGestures: AvailableGestures.horizontalSwipe,
+                  ),
+                ],
               ),
-              SizedBox(height: Get.height*.04,),
-              MyButton(title: "SAVE", onTap1: () {
-                Get.to(()=>MettingListTabbar());
-              },),
-              SizedBox(height: Get.height*.1,),
-            ],
-          ),
+            ),
+            SizedBox(height: Get.height*.035,),
+            Container(
+              decoration: BoxDecoration(
+                  color: Color(0xff353535),
+                  borderRadius: BorderRadius.circular(20)),
+              // color: Colors.black,
+              height: Get.height*.29,
+              // width: MediaQuery.of(context).size.width * .75,
+              child: Column(
+                children: [
+                  SizedBox(height: Get.height*.02,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    child: Text("Pick Time",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),),
+                  ),
+                  const Divider(
+                    height: 40,
+                    color: Color(0xffFFFFFF),
+                    thickness: .1,
+                    indent : 15,
+                    endIndent : 20,
+                  ),
+                  SizedBox(height: Get.height*.01,),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 30),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 20,
+                        ),
+                        _buildSelectionContainer(),
+                        _buildHourPicker(),
+                        _buildSelectionContainer(),
+                        _buildHourMinText('Hour'),
+                        Spacer(),
+                        _buildSelectionContainer(),
+                        // SizedBox(
+                        //   width: 10,
+                        // ),
+                        // _buildSelectionContainer(),
+                        _buildMinutePicker(),
+                        _buildSelectionContainer(),
+                        _buildHourMinText('Min'),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+              // child: Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: [
+              //
+              //     SizedBox(
+              //       width: 20,
+              //     ),
+              //     _buildSelectionContainer(),
+              //     _buildHourPicker(),
+              //     _buildSelectionContainer(),
+              //     _buildHourMinText('Hour'),
+              //     Spacer(),
+              //     _buildSelectionContainer(),
+              //     // SizedBox(
+              //     //   width: 10,
+              //     // ),
+              //     // _buildSelectionContainer(),
+              //     _buildMinutePicker(),
+              //     _buildSelectionContainer(),
+              //     _buildHourMinText('Min'),
+              //   ],
+              // ),
+            ),
+            SizedBox(height: Get.height*.04,),
+            MyButton(title: "SAVE", onTap1: () {
+              Get.to(()=>MettingListTabbar());
+            },),
+            SizedBox(height: Get.height*.1,),
+          ],
         ),
       ),
     );
