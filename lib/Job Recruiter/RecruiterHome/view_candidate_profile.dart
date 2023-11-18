@@ -517,7 +517,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.workExpJob ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                        SizedBox(height: Get.height*0.01,),
+                                        SizedBox(height: Get.height*0.001,),
                                         Text( data?.companyName ?? "",style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -532,13 +532,14 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                               .copyWith(
                                               color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         ),
+                                        SizedBox(height: Get.height*.01,)
                                       ],
                                     );
                                   }
                                 ),
 
                                 //********************* for Education ***************************
-                                SizedBox(height: Get.height*0.04,),
+                                SizedBox(height: Get.height*0.02,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
@@ -573,7 +574,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.educationLevel ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                        SizedBox(height: Get.height*0.01,),
+                                        SizedBox(height: Get.height*0.001,),
                                         Text(data?.institutionName ?? "",style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!
@@ -587,6 +588,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                               .copyWith(
                                               color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         ),
+                                        SizedBox(height: Get.height*.01,)
                                       ],
                                     );
                                   }
@@ -733,7 +735,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Text(data?.achievement ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
-                                        SizedBox(height: Get.height*0.01,),
+                                        SizedBox(height: Get.height*0.001,),
                                         Text(data?.awardName ?? "",style: Theme.of(context)
                                             .textTheme
                                             .bodySmall!

@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import 'Job Recruiter/Schedule_meeting_calendar/meeting_calendar.dart';
+
 
  void main() async {
   runApp(const MyApp());
@@ -27,7 +29,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flikka',
       theme: MyTheme.dark,
-      home: const SplashScreen()
+      home: const CalendarScreen()
     );
   }
 }
