@@ -5,6 +5,7 @@ import 'package:flikka/controllers/RecruiterJobTitleController/RecruiterJobTitle
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
 import 'upcoming_interviews.dart';
 
@@ -43,7 +44,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
               padding: const EdgeInsets.only(left: 15.0),
               child: GestureDetector(
                   onTap: () {
-                    Get.back();
+                    Get.offAll(() => TabScreenEmployer(index: 0,)) ;
                   },
                   child: Image.asset(
                     "assets/images/icon_back_blue.png",

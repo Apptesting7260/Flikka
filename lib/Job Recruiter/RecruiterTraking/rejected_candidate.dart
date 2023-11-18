@@ -26,7 +26,6 @@ class _RejectedCandidateState extends State<RejectedCandidate> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black,
     body: Padding(
       padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
       child: SingleChildScrollView(
@@ -41,7 +40,7 @@ class _RejectedCandidateState extends State<RejectedCandidate> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.search, color: Color(0xff56B8F6),size: 27,),
+                  Icon(Icons.search, color: AppColors.blueThemeColor,size: 27,),
                   SizedBox(width: Get.width*.03),
                   Expanded(
                     child: TextFormField(
@@ -265,13 +264,12 @@ class _RejectedCandidateState extends State<RejectedCandidate> {
 
                               ],
                             ),
-trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
+// trailing: Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 25,),
                           ),
                           SizedBox(height: Get.height*.024,),
                           MyButton(
                             height: Get.height*.066,
                             title: "VIEW PROFILE", onTap1: () {
-
                           },),
                           SizedBox(height: Get.height*.024,),
                           SizedBox(

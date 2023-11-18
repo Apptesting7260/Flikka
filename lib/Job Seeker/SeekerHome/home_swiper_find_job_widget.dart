@@ -180,7 +180,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             ),
           ),
           //************* for bookmarks ************
-
           Positioned(
             left: 12,
             top: 15,
@@ -212,7 +211,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
               ],
             ),
           ),
-
           //************* for marketing intern text  ************
           Positioned(
             //height: Get.height / 2.5-Get.height*0.12 ,

@@ -58,7 +58,7 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                   ),
                 ),
               ),
-              // SizedBox(height: Get.height*.07,),
+              SizedBox(height: Get.height*.05,),
               // Center(child: Text("SEE ALL DETAILS",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,color: const Color(0xff56B8F6)),)),
               // SizedBox(height: Get.height*.1,),
             ],
