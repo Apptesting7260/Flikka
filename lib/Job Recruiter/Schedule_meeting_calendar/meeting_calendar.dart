@@ -10,10 +10,10 @@ class CalendarScreen extends StatefulWidget {
   const CalendarScreen({super.key});
 
   @override
-  _CalendarScreenState createState() => _CalendarScreenState();
+  CalendarScreenState createState() => CalendarScreenState();
 }
 
-class _CalendarScreenState extends State<CalendarScreen> {
+class CalendarScreenState extends State<CalendarScreen> {
   CalendarController _calendarController = CalendarController();
   FixedExtentScrollController _hourController = FixedExtentScrollController();
   FixedExtentScrollController _minuteController = FixedExtentScrollController();
@@ -87,7 +87,7 @@ class _CalendarScreenState extends State<CalendarScreen> {
                             width: 10,
                             margin: const EdgeInsets.all(5),
                             decoration: const BoxDecoration(
-                               color: AppColors.blueThemeColor,
+                                color: AppColors.blueThemeColor,
                                 shape: BoxShape.circle
                             ),
                             child: Center(
@@ -215,8 +215,8 @@ class _CalendarScreenState extends State<CalendarScreen> {
       width: 5,
       height: 70,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(40), // Set border radius to 40
-       color: AppColors.blueThemeColor
+          borderRadius: BorderRadius.circular(40), // Set border radius to 40
+          color: AppColors.blueThemeColor
       ),
     );
   }
