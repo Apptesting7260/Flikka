@@ -47,14 +47,12 @@ class SeekerCreateProfileController extends GetxController {
       final formData = {} ;
       formData.addIf(name != null , "name" , name) ;
       formData.addIf(location != null , "location" , location) ;
-      formData.addIf(aboutMe != null && aboutMe.toString()
-
-          .isNotEmpty, 'about_me', aboutMe) ;
+      formData.addIf(aboutMe != null && aboutMe.toString().isNotEmpty, 'about_me', aboutMe) ;
       formData.addIf(workExperience != null && workExperience.length != 0, 'work_exp_job', jsonEncode(workExperience)) ;
       formData.addIf(education != null && education.length != 0, 'education_level', jsonEncode(education)) ;
       formData.addIf(language != null && language.length != 0, 'language', jsonEncode(language)) ;
       formData.addIf(appreciation != null && appreciation.length != 0, 'appreciation', jsonEncode(appreciation)) ;
-      formData.addIf(documentType != null && documentPath != null && documentPath.length != 0  && documentType.toString().isNotEmpty, 'document_type', jsonEncode(appreciation)) ;
+      formData.addIf(documentType != null && documentPath != null && documentPath.length != 0  && documentType.toString().isNotEmpty, 'document_type', jsonEncode(documentType)) ;
       formData.addIf(fresher != null && fresher.toString().isNotEmpty, 'fresher', jsonEncode(fresher)) ;
 
       debugPrint("this is formdata ======== $formData") ;

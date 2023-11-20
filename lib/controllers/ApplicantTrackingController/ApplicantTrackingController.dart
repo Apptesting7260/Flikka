@@ -22,7 +22,6 @@ class ApplicantTrackingDataController extends GetxController {
 
   applicantTrackingApi(dynamic jobTitle , dynamic status )
   async{
-    loading(true) ;
     setRxRequestStatus(Status.LOADING);
     var data =  {};
     data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title", jobTitle) ;
@@ -32,15 +31,30 @@ class ApplicantTrackingDataController extends GetxController {
     debugPrint(data.toString());
     _api.applicantTrackingData(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
+      applicantTrackingDataModel(value) ;
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      debugPrint(error.toString());
+      debugPrint(stackTrace.toString());
+      setRxRequestStatus(Status.ERROR);
+    }) ;
+  }
+
+  refreshApi(dynamic jobTitle , dynamic status) async{
+    loading(true) ;
+    var data =  {};
+    data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title", jobTitle) ;
+    data.addIf(status != null && status.toString().isNotEmpty, "candidate_status_type", status) ;
+
+    debugPrint(data.toString());
+    _api.applicantTrackingData(data).then((value){
       loading(false) ;
       applicantTrackingDataModel(value) ;
 
     }).onError((error, stackTrace){
       loading(false) ;
-      setError(error.toString());
-      debugPrint(error.toString());
-      debugPrint(stackTrace.toString());
-      setRxRequestStatus(Status.ERROR);
+
     }) ;
   }
 }
