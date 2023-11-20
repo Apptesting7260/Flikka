@@ -14,7 +14,6 @@ class MyTheme {
     scaffoldBackgroundColor:Colors.black,
     appBarTheme: const AppBarTheme(
         backgroundColor:Colors.black,
-
         systemOverlayStyle: SystemUiOverlayStyle(
           statusBarColor: Colors.white,
           // <-- SEE HERE

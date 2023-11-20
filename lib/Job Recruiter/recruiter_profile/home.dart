@@ -54,6 +54,7 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                         child: Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: AppColors.blueThemeColor),),
                       ),
+
                     ],
                   ),
                 ),
