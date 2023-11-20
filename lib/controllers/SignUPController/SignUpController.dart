@@ -84,7 +84,7 @@ class SignUpController extends GetxController {
           //********** you can't define any value because this is auto value padding added *********
           //insetPadding: EdgeInsets.all(20),
           content: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
