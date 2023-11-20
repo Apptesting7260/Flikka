@@ -1598,15 +1598,15 @@ class _UserProfileState extends State<UserProfile> {
                   body: Stack(
                     children: [
                       Obx( () => editSeekerProfileController.loadingImage.value ?
-                           Container( height: Get.height * 0.55,
-                              alignment: Alignment.center,
-                              child:const CircularProgressIndicator()) :
-                        CachedNetworkImage(
-                          fit: BoxFit.cover,
-                          height: Get.height * 0.5,
-                          width: Get.width,
-                          placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
-                          imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
+                      Container( height: Get.height * 0.55,
+                          alignment: Alignment.center,
+                          child:const CircularProgressIndicator()) :
+                      CachedNetworkImage(
+                        fit: BoxFit.cover,
+                        height: Get.height * 0.5,
+                        width: Get.width,
+                        placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                        imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
                       ) ,
                       Padding(
                         padding: const EdgeInsets.all(10.0),
@@ -1620,14 +1620,14 @@ class _UserProfileState extends State<UserProfile> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 GestureDetector(
-                                  onTap: () {
-                                    Get.offAll(const TabScreen(index: 0)) ;
-                                  },
+                                    onTap: () {
+                                      Get.offAll(const TabScreen(index: 0)) ;
+                                    },
                                     child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
                                 Container(
                                   decoration: const BoxDecoration(
-                                    color: AppColors.black,
-                                    shape: BoxShape.circle
+                                      color: AppColors.black,
+                                      shape: BoxShape.circle
                                   ),
                                   child: CircularPercentIndicator(
                                     percent: seekerProfileController.viewSeekerData.value.completeProfile / 100,
@@ -1698,7 +1698,7 @@ class _UserProfileState extends State<UserProfile> {
                                     height: 42,
                                     width: 42,
                                     decoration: const BoxDecoration(
-                                      shape: BoxShape.circle,
+                                        shape: BoxShape.circle,
                                         color: AppColors.blueThemeColor
                                     ),
                                     child: Image.asset(
@@ -1720,11 +1720,11 @@ class _UserProfileState extends State<UserProfile> {
                         builder: (BuildContext context, ScrollController scrollController) {
                           return
                             Container(decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  topRight: Radius.circular(35),
-                                  topLeft: Radius.circular(35),
-                                ),
+                              borderRadius: BorderRadius.only(
+                                topRight: Radius.circular(35),
+                                topLeft: Radius.circular(35),
                               ),
+                            ),
                               child: ListView(
                                 controller: scrollController,
                                 children: [
@@ -1814,7 +1814,7 @@ class _UserProfileState extends State<UserProfile> {
                                             thickness: 0.2,
                                             color: AppColors.white,
                                           ),
-                                                SizedBox(height: Get.height * 0.01,),
+                                          SizedBox(height: Get.height * 0.01,),
                                           Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
                                             textAlign: TextAlign.left,
                                             style: Theme.of(context).textTheme.bodyLarge!
@@ -1832,7 +1832,7 @@ class _UserProfileState extends State<UserProfile> {
                                                   InkWell(
 
                                                       child: Image.asset(
-                                                          'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
+                                                        'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
                                                   SizedBox(
                                                     width: Get.width * 0.02,),
                                                   Padding(
@@ -1852,7 +1852,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     workExperienceSection(true,"","","","",0,add: true);
                                                   },
                                                   child: Image.asset(
-                                                      'assets/images/icon_add_more.png',height: Get.height*.04,))
+                                                    'assets/images/icon_add_more.png',height: Get.height*.04,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -2257,7 +2257,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                               GestureDetector(
                                                 onTap: () {
-                                                 salarySection() ;
+                                                  salarySection() ;
                                                 },
                                                 child: Image.asset("assets/images/icon_edit.png", height: 18,),
                                               )
@@ -2434,7 +2434,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     language(seekerProfileController.viewSeekerData.value.seekerDetails?.language );
                                                   },
                                                   child: Image.asset(
-                                                      'assets/images/icon_edit.png',height: 18,))
+                                                    'assets/images/icon_edit.png',height: 18,))
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.02,),
@@ -2512,7 +2512,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                       children: [
                                                         Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                              color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                            color: AppColors.white, fontWeight: FontWeight.w700),),
                                                         Row(
                                                           children: [
                                                             InkWell(
@@ -2563,11 +2563,11 @@ class _UserProfileState extends State<UserProfile> {
                                               InkWell(
                                                   onTap: () {
                                                     editSeekerResumeController.resumePath.value = '' ;
-                                                   resume() ;
+                                                    resume() ;
                                                   },
                                                   child: seekerProfileController.viewSeekerData
                                                       .value.seekerInfo?.resume == null || seekerProfileController
-                                                          .viewSeekerData.value.seekerInfo?.resume.length == 0 ?
+                                                      .viewSeekerData.value.seekerInfo?.resume.length == 0 ?
                                                   Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
                                                   Image.asset('assets/images/icon_edit.png',height: 18,)
                                               )
@@ -2592,18 +2592,18 @@ class _UserProfileState extends State<UserProfile> {
                                                   color: AppColors.white, fontWeight: FontWeight.w500),),
                                             onTap: () {
                                               CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
-                                              onTap: () async {
-                                                launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}')) ;
-                                                // String? directory = await getLocalDownloadDir() ;
-                                                // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
-                                                //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
-                                                // Get.back() ;
-                                              },) ;
-                                              },
+                                                onTap: () async {
+                                                  launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}')) ;
+                                                  // String? directory = await getLocalDownloadDir() ;
+                                                  // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                                  //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                                  // Get.back() ;
+                                                },) ;
+                                            },
                                           ),
                                           SizedBox(height: Get.height * .03,),
                                           Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                            crossAxisAlignment: CrossAxisAlignment.start,
                                             children: [
                                               Row(
                                                 children: [
@@ -2633,10 +2633,10 @@ class _UserProfileState extends State<UserProfile> {
                                           SvgPicture.asset('assets/images/PDF.svg') :
                                           SizedBox( height: Get.height *.4 ,
                                             child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
-                                            fit: BoxFit.cover, ),
+                                              fit: BoxFit.cover, ),
                                           ) )  ,
-                                            // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                            //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
+                                          // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                          //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                           SizedBox(height: Get.height * 0.02,),
                                           Center(
                                             child: MyButton(
@@ -2659,8 +2659,8 @@ class _UserProfileState extends State<UserProfile> {
                                                             SizedBox( height: Get.height * 0.035 ),
                                                             Container(padding: const EdgeInsets.all(17),
                                                               decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular( 60.0),
-                                                                color: AppColors.blueThemeColor
+                                                                  borderRadius: BorderRadius.circular( 60.0),
+                                                                  color: AppColors.blueThemeColor
                                                               ),
                                                               child: Image.asset('assets/images/boost.png', scale: 3.4,),
                                                             ),
@@ -2673,7 +2673,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             SizedBox(height: Get.height * 0.05),
                                                             Container( decoration: BoxDecoration(
                                                                 borderRadius: BorderRadius.circular(10.0),
-                                                              color: AppColors.blueThemeColor
+                                                                color: AppColors.blueThemeColor
                                                             ),
                                                               height: Get.height * 0.21,
                                                               width: Get.width * 0.32,
@@ -2682,16 +2682,16 @@ class _UserProfileState extends State<UserProfile> {
                                                                   children: [
                                                                     SizedBox(height: Get.height * 0.035),
                                                                     Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
-                                                                            fontSize: 25, color: AppColors.white)),
+                                                                        fontSize: 25, color: AppColors.white)),
                                                                     SizedBox(height: Get.height * 0.014),
                                                                     Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                            fontSize: 15, color: AppColors.white)),
+                                                                        fontSize: 15, color: AppColors.white)),
                                                                     SizedBox(height: Get.height * 0.01),
                                                                     Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                                            fontSize: 13, color: AppColors.white)),
+                                                                        fontSize: 13, color: AppColors.white)),
                                                                     SizedBox(height: Get.height * 0.01),
                                                                     Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                            fontSize: 11, color: AppColors.white)),
+                                                                        fontSize: 11, color: AppColors.white)),
                                                                   ],
                                                                 ),
                                                               ),

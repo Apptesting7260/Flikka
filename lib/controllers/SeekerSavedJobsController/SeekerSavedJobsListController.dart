@@ -13,6 +13,7 @@ class SeekerSavedJobsListController extends GetxController {
   final savedPosts = SeekerSavedJobsListModel().obs ;
   RxString error = ''.obs;
   var loading = false.obs ;
+  var refreshLoading = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void savedPostData(SeekerSavedJobsListModel _value) => savedPosts.value = _value ;
@@ -34,9 +35,26 @@ class SeekerSavedJobsListController extends GetxController {
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
-
       setRxRequestStatus(Status.ERROR);
 
     }) ;
+  }
+
+  void refreshApi(dynamic type){
+    // setRxRequestStatus(Status.LOADING);
+    Map data =  {'type' : "$type"};
+    refreshLoading(true) ;
+    _api.seekerSavedJobsListApi(data).then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      savedPosts( value);
+      refreshLoading(false) ;
+      print(value);
+
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      refreshLoading(false) ;
+      setRxRequestStatus(Status.ERROR);
+    });
   }
 }

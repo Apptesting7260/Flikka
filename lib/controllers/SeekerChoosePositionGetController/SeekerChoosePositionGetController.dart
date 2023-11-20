@@ -70,4 +70,5 @@ class SeekerChoosePositionGetController extends GetxController {
       print(error.toString());
     });
   }
+
 }
