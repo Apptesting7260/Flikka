@@ -28,7 +28,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   var companyLocationController = TextEditingController();
   var addBioController = TextEditingController();
   var contactPersonNameController = TextEditingController();
-   //var homeDescriptionController = TextEditingController();
+  //var homeDescriptionController = TextEditingController();
   var websiteLinkController = TextEditingController();
   var aboutDescriptionController = TextEditingController();
   var aboutySpecialtiesController = TextEditingController();
@@ -46,25 +46,34 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
           title: Center(
             child: Text(
               'Please choose image',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MyButton(
-                width: Get.width*.25,
-                height: Get.height*.05,
-                title: "Camera", onTap1: () {
-                _pickImage(ImageSource.camera);
-              },),
-              const SizedBox(width: 10,) ,
+                width: Get.width * .25,
+                height: Get.height * .05,
+                title: "Camera",
+                onTap1: () {
+                  _pickImage(ImageSource.camera);
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               MyButton(
-                width: Get.width*.25,
-                height: Get.height*.05,
-                title: "Gallery", onTap1: () {
-                _pickImage(ImageSource.gallery);
-              },),
+                width: Get.width * .25,
+                height: Get.height * .05,
+                title: "Gallery",
+                onTap1: () {
+                  _pickImage(ImageSource.gallery);
+                },
+              ),
             ],
           ),
         );
@@ -74,19 +83,14 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   late File? _pickedImage;
   final imgPicker = ImagePicker();
-  final coverImageCropper = ImageCropper() ;
+  final coverImageCropper = ImageCropper();
   Future<void> _pickImage(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
 
-    if(imgCamera != null) {
+    if (imgCamera != null) {
       final croppedImage = await coverImageCropper.cropImage(
         sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
-        aspectRatioPresets:  [ CropAspectRatioPreset.original,
-          CropAspectRatioPreset.square,
-          CropAspectRatioPreset.ratio3x2,
-          CropAspectRatioPreset.ratio4x3,
-          CropAspectRatioPreset.ratio16x9,],
         // Adjust aspect ratio as needed
         compressQuality: 60,
         uiSettings: [
@@ -95,10 +99,11 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              hideBottomControls: true,
               lockAspectRatio: true),
-          IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
-        ],// Adjust compression quality as needed
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ], // Adjust compression quality as needed
       );
 
       setState(() {
@@ -122,25 +127,34 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
           title: Center(
             child: Text(
               'Please choose image',
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontSize: 18,fontWeight: FontWeight.w600),
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyMedium
+                  ?.copyWith(fontSize: 18, fontWeight: FontWeight.w600),
             ),
           ),
           content: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               MyButton(
-                width: Get.width*.25,
-                height: Get.height*.05,
-                title: "Camera", onTap1: () {
-                _pickImagee(ImageSource.camera);
-              },),
-              const SizedBox(width: 10,),
+                width: Get.width * .25,
+                height: Get.height * .05,
+                title: "Camera",
+                onTap1: () {
+                  _pickImagee(ImageSource.camera);
+                },
+              ),
+              const SizedBox(
+                width: 10,
+              ),
               MyButton(
-                width: Get.width*.25,
-                height: Get.height*.05,
-                title: "Gallery", onTap1: () {
-                _pickImagee(ImageSource.gallery);
-              },),
+                width: Get.width * .25,
+                height: Get.height * .05,
+                title: "Gallery",
+                onTap1: () {
+                  _pickImagee(ImageSource.gallery);
+                },
+              ),
             ],
           ),
         );
@@ -154,10 +168,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   late File? _pickedCoverImage;
   final imagePicker = ImagePicker();
-  final profileImageCropper = ImageCropper() ;
+  final profileImageCropper = ImageCropper();
   Future<void> _pickImagee(abc) async {
     var imgCamera = await imgPicker.pickImage(source: abc);
-    if(imgCamera != null) {
+    if (imgCamera != null) {
       final croppedImage = await profileImageCropper.cropImage(
         sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2),
@@ -170,8 +184,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: true),
-          IOSUiSettings(title: 'Cropper',aspectRatioLockEnabled: true, ),
-        ],// Adjust compression quality as needed
+          IOSUiSettings(
+            title: 'Cropper',
+          ),
+        ], // Adjust compression quality as needed
       );
 
       setState(() {
@@ -192,10 +208,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? socialValue;
 
   final List<String> itemsCompanySize = [
-   ' 0-10',
-   ' 10-20',
+    ' 0-10',
+    ' 10-20',
     '20-30',
-   ' 30-50',
+    ' 30-50',
     '50-75',
     '75-100'
   ];
@@ -213,7 +229,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     if (picked != null) {
       setState(() {
         selectedDate = picked;
-        selectedDateString = "${picked.year.toString().padLeft(4,'0')}-${picked.month.toString().padLeft(2,'0')}-${picked.day.toString().padLeft(2,'0')}";
+        selectedDateString =
+            "${picked.year.toString().padLeft(4, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
         founded = picked;
       });
     }
@@ -222,30 +239,32 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   DateTime selectedDate = DateTime.now();
 
   CreateUpdateRecruiterProfileController
-      CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
+      CreateUpdateRecruiterProfileControllerInstanse =
+      Get.put(CreateUpdateRecruiterProfileController());
 
-  var formKey = GlobalKey<FormState>() ;
+  var formKey = GlobalKey<FormState>();
 
   websiteLink(String value) {
-    print("object") ;
+    print("object");
     final Uri? uri = Uri.tryParse(value);
     if (!uri!.hasAbsolutePath) {
       return 'Please enter valid url';
     }
   }
 
-  nameInitialize () async {
-    SharedPreferences sp = await SharedPreferences.getInstance() ;
-    contactPersonNameController.text = sp.getString("name")! ;
+  nameInitialize() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    contactPersonNameController.text = sp.getString("name")!;
   }
 
-  SelectIndustryController selectIndustryController = Get.put(SelectIndustryController()) ;
-  final ScrollController scrollController = ScrollController() ;
+  SelectIndustryController selectIndustryController =
+      Get.put(SelectIndustryController());
+  final ScrollController scrollController = ScrollController();
 
-@override
+  @override
   void initState() {
-  nameInitialize() ;
-  selectIndustryController.selectIndustriesApi() ;
+    nameInitialize();
+    selectIndustryController.selectIndustriesApi();
     super.initState();
   }
 
@@ -254,176 +273,174 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx( () {
-      switch (selectIndustryController
-          .rxRequestStatus.value) {
+    return Obx(() {
+      switch (selectIndustryController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Scaffold(
-            body: Center(
-                child: CircularProgressIndicator()),
+            body: Center(child: CircularProgressIndicator()),
           );
 
         case Status.ERROR:
-          if (selectIndustryController
-              .error.value ==
-              'No internet') {
-            return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
-            ),)
-            ;
+          if (selectIndustryController.error.value == 'No internet') {
+            return Scaffold(
+              body: InterNetExceptionWidget(
+                onPress: () {},
+              ),
+            );
           } else {
-            return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {}),)
-            ;
+            return Scaffold(
+              body: GeneralExceptionWidget(onPress: () {}),
+            );
           }
         case Status.COMPLETED:
           return SafeArea(
               child: Scaffold(
-                body: SingleChildScrollView(
-                  controller: scrollController,
-                  child: Form(key: formKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: Get.height * .03,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Row(
-                            children: [
-                              GestureDetector(
-                                  onTap: () {
-                                    Get.back();
-                                  },
-                                  child: Image.asset(
-                                    "assets/images/icon_back_blue.png",
-                                    height: Get.height * .055,
-                                  )),
-                              SizedBox(
-                                width: Get.width * .04,
-                              ),
-                              Text(
-                                "Add your detail",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              )
-                            ],
+            body: SingleChildScrollView(
+              //padding: const EdgeInsets.symmetric(horizontal: 15),
+              controller: scrollController,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: Get.height * .03,
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: Image.asset(
+                                "assets/images/icon_back_blue.png",
+                                height: Get.height * .055,
+                              )),
+                          SizedBox(
+                            width: Get.width * .04,
                           ),
-                        ),
-                        SizedBox(
-                          height: Get.height * .05,
-                        ),
-                        Container(
-                          height: Get.height * .19 + 50,
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            children: [
+                          Text(
+                            "Add your detail",
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: Get.height * .05,
+                      ),
+                      Container(
+                        height: Get.height * .19 + 50,
+                        child: Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                if (coverImage == null) {
+                                  _openCoverImagePickerDialog();
+                                }
+                                return;
 
-                              GestureDetector(
+                                print(
+                                    "This is cover imgFile ${coverImage?.path}");
+                              },
+                              child: Container(
+                                height: Get.height * .19,
+                                width: Get.width,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff454545),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    coverImage == null
+                                        ? Image.asset(
+                                            "assets/images/icon_upload_cv.png",
+                                            height: Get.height * .05,
+                                          )
+                                        : Image.file(
+                                            coverImage!,
+                                            height: Get.height,
+                                            width: Get.width,
+                                            fit: BoxFit.cover,
+                                          ),
+                                    if (coverImage == null)
+                                      SizedBox(
+                                        width: Get.width * .04,
+                                      ),
+                                    if (coverImage == null)
+                                      Text(
+                                        "Upload Cover Image",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w400,
+                                                color: const Color(0xffFFFFFF)),
+                                      )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              right: 10,
+                              top: 10,
+                              child: coverImage == null
+                                  ? const SizedBox()
+                                  : IconButton(
+                                      icon: Icon(
+                                        Icons.edit,
+                                        color: Colors.white,
+                                        size: 30,
+                                      ),
+                                      onPressed: () {
+                                        _openCoverImagePickerDialog();
+                                      },
+                                    ),
+                            ),
+                            Positioned(
+                              bottom: 5,
+                              left: 20,
+                              child: CircleAvatar(
+                                radius: 45,
+                                backgroundColor: const Color(0xff353535),
+                                child: ClipOval(
+                                  child: profileImage == null
+                                      ? Image.asset(
+                                          "assets/images/icon_profile.png",
+                                          height: 40,
+                                          width: 40,
+                                          fit: BoxFit.cover,
+                                        )
+                                      : Image.file(
+                                          profileImage!,
+                                          height: Get.height,
+                                          width: Get.width,
+                                          fit: BoxFit.cover,
+                                        ),
+                                  // :Image.file(imgFile!,height: Get.height,width: Get.width,fit:BoxFit.cover,)
+                                ),
+                              ),
+                            ),
+                            Positioned(
+                              bottom: -0,
+                              left: 85,
+                              child: GestureDetector(
                                 onTap: () {
-                                  if (coverImage == null) {
-                                    _openCoverImagePickerDialog();
-                                  }
-                                  return;
-
-                                  print("This is cover imgFile ${coverImage
-                                      ?.path}");
+                                  _openProfileImagePickerDialog();
+                                  print(
+                                      "This is profile ImgFile ${profileImage?.path}");
                                 },
                                 child: Container(
-                                  height: Get.height * .19,
-                                  width: Get.width,
+                                  padding: const EdgeInsets.all(8),
+                                  height: 37,
+                                  width: 37,
+                                  // height: Get.height * .05,
+                                  // width: Get.height * .05,
                                   decoration: const BoxDecoration(
-                                    color: Color(0xff454545),
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      coverImage == null
-                                          ? Image.asset(
-                                        "assets/images/icon_upload_cv.png",
-                                        height: Get.height * .05,
-                                      )
-                                          : Image.file(
-                                        coverImage!,
-                                        height: Get.height,
-                                        width: Get.width,
-                                        fit: BoxFit.cover,
-                                      ),
-                                      if (coverImage == null)
-                                        SizedBox(
-                                          width: Get.width * .04,
-                                        ),
-                                      if (coverImage == null)
-                                        Text(
-                                          "Upload Cover Image",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .labelLarge
-                                              ?.copyWith(
-                                              fontWeight: FontWeight.w400,
-                                              color: const Color(0xffFFFFFF)),
-                                        )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                right: 10,
-                                top: 10,
-                                child: coverImage == null ?
-                                    const SizedBox() :
-                                IconButton(
-                                  icon:  const Icon(
-                                    Icons.edit, color: Colors.white, size: 30,),
-                                  onPressed: () {
-                                    _openCoverImagePickerDialog();
-                                  },)
-                                ,
-                              ),
-                              Positioned(
-                                bottom: 5,
-                                left: 20,
-                                child: CircleAvatar(
-                                  radius: 45,
-                                  backgroundColor: const Color(0xff353535),
-                                  child: ClipOval(
-                                    child: profileImage == null
-                                        ? Image.asset(
-                                      "assets/images/icon_profile.png",
-                                      height: 40,
-                                      width: 40,
-                                      fit: BoxFit.cover,
-                                    )
-                                        : Image.file(
-                                      profileImage!,
-                                      height: Get.height,
-                                      width: Get.width,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    // :Image.file(imgFile!,height: Get.height,width: Get.width,fit:BoxFit.cover,)
-                                  ),
-                                ),
-                              ),
-                              Positioned(
-                                bottom: -0,
-                                left: 85,
-                                child: GestureDetector(
-                                  onTap: () {
-                                    _openProfileImagePickerDialog();
-                                    print("This is profile ImgFile ${profileImage?.path}");
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(8),
-                                    height: 37,
-                                    width: 37,
-                                    // height: Get.height * .05,
-                                    // width: Get.height * .05,
-                                    decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
                                       // gradient: LinearGradient(
                                       //   colors: [
@@ -433,634 +450,657 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                       //   begin: Alignment.topLeft,
                                       //   end: Alignment.bottomRight,
                                       // ),
-                                      color: AppColors.blueThemeColor
-                                    ),
-                                    child: profileImage !=null && profileImage?.path.length !=0 ?
-                                        const Icon(Icons.edit,color: Colors.white,
-                                          size: 18,) :
-                                    Image.asset(
-                                      "assets/images/camera.png",
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
+                                      color: AppColors.blueThemeColor),
+                                  child: profileImage != null &&
+                                          profileImage?.path.length != 0
+                                      ? const Icon(
+                                          Icons.edit,
+                                          color: Colors.white,
+                                          size: 18,
+                                        )
+                                      : Image.asset(
+                                          "assets/images/camera.png",
+                                          fit: BoxFit.cover,
+                                        ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                        // const SizedBox(height: 58),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 15),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: Get.height * .01,),
-                              Obx(() =>
-                              CreateUpdateRecruiterProfileControllerInstanse
-                                  .profileImageError.value.isEmpty ?
-                              const SizedBox() :
-                              Center(child: Text(
-                                CreateUpdateRecruiterProfileControllerInstanse
-                                    .profileImageError.value,
-                                style: const TextStyle(color: Colors.red),))
+                      ),
+                      SizedBox(
+                        height: Get.height * .01,
+                      ),
+                      // Obx(() =>
+                      // CreateUpdateRecruiterProfileControllerInstanse
+                      //     .profileImageError.value.isEmpty ?
+                      // const SizedBox() :
+                      // Text(
+                      //   CreateUpdateRecruiterProfileControllerInstanse
+                      //       .profileImageError.value,
+                      //   style: TextStyle(color: Colors.red),)
+                      // ),
+                      // Obx(() =>
+                      // CreateUpdateRecruiterProfileControllerInstanse
+                      //     .coverImageError.value.isEmpty ?
+                      // const SizedBox() :
+                      // Text(
+                      //   CreateUpdateRecruiterProfileControllerInstanse
+                      //       .coverImageError.value,
+                      //   style: TextStyle(color: Colors.red),)
+                      // ),
+                      SizedBox(
+                        height: Get.height * .02,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Text(
+                          "Select Profile image",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(color: const Color(0xffFFFFFF)),
+                        ),
+                      ),
+                      SizedBox(
+                        height: Get.height * .031,
+                      ),
+                    ],
+                  ),
+                  Form(
+                    key: formKey,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Company name",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(
+                            height: Get.height * .01,
+                          ),
+                          CommonWidgets.textField(context,
+                              companyNameController, "Enter company name",
+                              onFieldSubmitted: (value) {}),
+                          SizedBox(
+                            height: Get.height * .032,
+                          ),
+                          Text(
+                            "Company Location",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(fontWeight: FontWeight.w700),
+                          ),
+                          SizedBox(
+                            height: Get.height * .01,
+                          ),
+                          CommonWidgets.textField(
+                              context,
+                              companyLocationController,
+                              "Enter company location",
+                              onFieldSubmitted: (value) {}),
+                          SizedBox(
+                            height: Get.height * .032,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Overview",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.textFieldMaxLines(
+                          context, addBioController, "Enter bio ",
+                          onFieldSubmitted: (value) {},
+                          // maxCharacter: 1000,
+                        ),
+                        // SizedBox(height: Get.height*.01,),
+                        CommonWidgets.divider(),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Text(
+                          "Contact Person Name",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.textField(
+                          context,
+                          contactPersonNameController,
+                          "Enter contact person name",
+                          onFieldSubmitted: (value) {},
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.divider(),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Text(
+                          "Website Link",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        TextFormField(
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          controller: websiteLinkController,
+                          style: Theme.of(context).textTheme.bodyMedium,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(35),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xff373737))),
+                              filled: true,
+                              fillColor: const Color(0xff373737),
+                              hintText: "Enter website link",
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(35),
+                                // borderSide: BorderSide(color: Colors.white),
                               ),
-                              Obx(() =>
-                              CreateUpdateRecruiterProfileControllerInstanse
-                                  .coverImageError.value.isEmpty ?
-                              const SizedBox() :
-                              Center(child: Text(
-                                CreateUpdateRecruiterProfileControllerInstanse
-                                    .coverImageError.value,
-                                style: const TextStyle(color: Colors.red),))
+                              errorBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(35.0)),
+                                borderSide: BorderSide(color: Colors.red),
                               ),
-                              SizedBox(
-                                height: Get.height * .02,
+                              disabledBorder: const OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(35.0)),
+                                borderSide:
+                                    BorderSide(color: Color(0xff373737)),
                               ),
-                              Text(
-                                "Select Profile image",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(color: const Color(0xffFFFFFF)),
-                              ),
-                              SizedBox(height: Get.height * .031,),
-                              Text(
-                                "Company name",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textField(
-                                  context, companyNameController,
-                                  "Enter company name",
-                                  onFieldSubmitted: (value) {}),
-                              SizedBox(
-                                height: Get.height * .032,
-                              ),
-                              Text(
-                                "Company Location",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textField(
-                                  context, companyLocationController,
-                                  "Enter company location",
-                                  onFieldSubmitted: (value) {}),
-                              SizedBox(
-                                height: Get.height * .032,
-                              ),
-                              Text(
-                                "Add Bio",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textFieldMaxLines(
-                                context, addBioController, "Enter bio ",
-                                onFieldSubmitted: (value) {},
-                                maxCharacter: 1000,
-                              ),
-                              // SizedBox(height: Get.height*.01,),
-                              CommonWidgets.divider(),
-                              SizedBox(height: Get.height * .01,),
-                              Text(
-                                "Contact Person Name",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textField(
-                                context, contactPersonNameController,
-                                "Enter contact person name",
-                                onFieldSubmitted: (value) {
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
+                                  ?.copyWith(color: const Color(0xffCFCFCF)),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * .06,
+                                  vertical: Get.height * .027)),
+                          validator: (value) {
+                            String pattern =
+                                r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
+                            RegExp regExp = new RegExp(pattern);
+                            if (value?.length == 0) {
+                              return 'Please enter url';
+                            } else if (!regExp.hasMatch(value!)) {
+                              return 'Please enter valid url';
+                            }
+                            return null;
+                          },
+                        ),
+                        SizedBox(
+                          height: Get.height * .025,
+                        ),
+                        CommonWidgets.divider(),
+                        Text(
+                          "About",
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        // SizedBox(
+                        //   height: Get.height * .028,
+                        // ),
+                        // Text(
+                        //   "Title name",
+                        //   style: Theme
+                        //       .of(context)
+                        //       .textTheme
+                        //       .titleSmall
+                        //       ?.copyWith(fontWeight: FontWeight.w700),
+                        // ),
+                        // SizedBox(
+                        //   height: Get.height * .01,
+                        // ),
+                        // CommonWidgets.textField(
+                        //   context, titleNameController,
+                        //   "Enter award name", onFieldSubmitted: (value) {
+                        //
+                        // },),
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
 
-                                },),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.divider(),
-                              SizedBox(height: Get.height * .01,),
-                              Text(
-                                "Website Link",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              TextFormField(
-                                autovalidateMode: AutovalidateMode.onUserInteraction,
-                                controller: websiteLinkController,
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyMedium,
-                                decoration: InputDecoration(
-                                    border: OutlineInputBorder(
-                                        borderRadius: BorderRadius.circular(35),
-                                        borderSide: const BorderSide(
-                                            color: Color(0xff373737))),
-                                    filled: true,
-                                    fillColor: const Color(0xff373737),
-                                    hintText: "Enter website link",
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(35),
-                                      // borderSide: BorderSide(color: Colors.white),
+                        Text(
+                          "Description",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.textFieldMaxLines(
+                          context,
+                          aboutDescriptionController,
+                          "Enter description",
+                          onFieldSubmitted: (value) {},
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.divider(),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Text(
+                          "Industry",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Center(
+                          child: DropdownButtonHideUnderline(
+                            child: Obx(
+                              () => DropdownButton2(
+                                isExpanded: true,
+                                hint: Row(
+                                  children: [
+                                    const SizedBox(
+                                      width: 4,
                                     ),
-                                    errorBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide: BorderSide(color: Colors.red),
-                                    ),
-                                    disabledBorder: const OutlineInputBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(35.0)),
-                                      borderSide: BorderSide(
-                                          color: Color(0xff373737)),
-                                    ),
-                                    hintStyle: Theme
-                                        .of(context)
-                                        .textTheme
-                                        .labelLarge
-                                        ?.copyWith(
-                                        color: const Color(0xffCFCFCF)),
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: Get.width * .06,
-                                        vertical: Get.height * .027)),
-                                validator: (value) {
-                                  String pattern = r'(http|https)://[\w-]+(\.[\w-]+)+([\w.,@?^=%&amp;:/~+#-]*[\w@?^=%&amp;/~+#-])?';
-                                  RegExp regExp = new RegExp(pattern);
-                                  if (value?.length == 0) {
-                                    return 'Please enter url';
-                                  }
-                                  else if (!regExp.hasMatch(value!)) {
-                                    return 'Please enter valid url';
-                                  }
-                                  return null;
-                                },
-                              ),
-                              SizedBox(
-                                height: Get.height * .025,
-                              ),
-                              CommonWidgets.divider(),
-                              Text(
-                                "About",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              // SizedBox(
-                              //   height: Get.height * .028,
-                              // ),
-                              // Text(
-                              //   "Title name",
-                              //   style: Theme
-                              //       .of(context)
-                              //       .textTheme
-                              //       .titleSmall
-                              //       ?.copyWith(fontWeight: FontWeight.w700),
-                              // ),
-                              // SizedBox(
-                              //   height: Get.height * .01,
-                              // ),
-                              // CommonWidgets.textField(
-                              //   context, titleNameController,
-                              //   "Enter award name", onFieldSubmitted: (value) {
-                              //
-                              // },),
-                              SizedBox(height: Get.height * .02,),
-
-                              Text(
-                                "Description",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textFieldMaxLines(context, aboutDescriptionController,
-                                "Enter description",
-                                onFieldSubmitted: (value) {},
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.divider(),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              Text(
-                                "Industry",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: Obx( () =>
-                                    DropdownButton2(
-                                      isExpanded: true,
-                                      hint: Row(
-                                        children: [
-                                          const SizedBox(
-                                            width: 4,
-                                          ),
-                                          Expanded(
-                                            child: Text(
-                                              'Enter industry',
-                                              style: Get.theme.textTheme
-                                                  .bodyMedium
-                                                  ?.copyWith(
-                                                  fontWeight: FontWeight.w400),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      items: selectIndustryController.getIndustriesData.value.industries?.map((item) =>
-                                          DropdownMenuItem<String>(
-                                            onTap: (){
-                                              setState(() {
-                                                industry = item.id.toString() ;
-                                                socialValue = item.industryPreferences ;
-                                              });
-
-                                            },
-                                            value: item.industryPreferences,
-                                            child: Text(
-                                              "${item.industryPreferences}",
-                                              style: Get.theme.textTheme
-                                                  .bodyLarge!
-                                                  .copyWith(
-                                                  color: AppColors.white),
-                                              overflow: TextOverflow.ellipsis,
-                                            ),
-                                          ))
-                                          .toList(),
-                                      value: socialValue,
-                                      onChanged: (String? value) {
-                                      },
-                                      buttonStyleData: ButtonStyleData(
-                                        height: Get.height * 0.078,
-                                        width: double.infinity,
-                                        padding: const EdgeInsets.only(
-                                            left: 15, right: 15),
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(35),
-                                          color: const Color(0xff373737),
-                                        ),
-                                        elevation: 2,
-                                      ),
-                                      iconStyleData: IconStyleData(
-                                        icon: Image.asset(
-                                            'assets/images/arrowdown.png'),
-                                        iconSize: 14,
-                                        iconEnabledColor: Colors.yellow,
-                                        iconDisabledColor: Colors.grey,
-                                      ),
-                                      dropdownStyleData: DropdownStyleData(
-                                        maxHeight: Get.height * 0.35,
-                                        width: Get.width * 0.902,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(14),
-                                          color: const Color(0xff353535),
-                                        ),
-                                        offset: const Offset(5, 0),
-                                        scrollbarTheme: ScrollbarThemeData(
-                                          radius: const Radius.circular(40),
-                                          thickness: MaterialStateProperty.all<
-                                              double>(6),
-                                          thumbVisibility:
-                                          MaterialStateProperty.all<bool>(true),
-                                        ),
-                                      ),
-                                      menuItemStyleData: const MenuItemStyleData(
-                                        height: 40,
-                                        padding: EdgeInsets.only(
-                                            left: 14, right: 14),
+                                    Expanded(
+                                      child: Text(
+                                        'Enter industry',
+                                        style: Get.theme.textTheme.bodyMedium
+                                            ?.copyWith(
+                                                fontWeight: FontWeight.w400),
+                                        overflow: TextOverflow.ellipsis,
                                       ),
                                     ),
-                                  ),
+                                  ],
                                 ),
-                              ),
-                              Obx(() =>
-                              CreateUpdateRecruiterProfileControllerInstanse
-                                  .industryError.value.isEmpty ?
-                              const SizedBox() :
-                              Center(child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    CreateUpdateRecruiterProfileControllerInstanse
-                                        .industryError.value,
-                                    style: TextStyle(color: Colors.red),)))
-                              ),
-                              SizedBox(
-                                height: Get.height * .04,
-                              ),
-                              Text(
-                                "Company Size",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              Center(
-                                child: DropdownButtonHideUnderline(
-                                  child: DropdownButton2<String>(
-                                    isExpanded: true,
-                                    hint: Text(
-                                      'Select employees',
-                                      style: Get.theme.textTheme
-                                          .bodyMedium
-                                          ?.copyWith(
-                                          fontWeight: FontWeight.w400),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    items: itemsCompanySize.map((String item) =>
-                                        DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text("$item Employees",
-                                            style: Get.theme.textTheme
-                                                .bodyLarge!
+                                items: selectIndustryController
+                                    .getIndustriesData.value.industries
+                                    ?.map((item) => DropdownMenuItem<String>(
+                                          onTap: () {
+                                            setState(() {
+                                              industry = item.id.toString();
+                                              socialValue =
+                                                  item.industryPreferences;
+                                            });
+                                          },
+                                          value: item.industryPreferences,
+                                          child: Text(
+                                            "${item.industryPreferences}",
+                                            style: Get
+                                                .theme.textTheme.bodyLarge!
                                                 .copyWith(
-                                                color: AppColors.white),
+                                                    color: AppColors.white),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ))
-                                        .toList(),
-                                    value: sizeValues,
-                                    onChanged: (String? value) {
-                                      setState(() {
-                                        sizeValues = value;
-                                        companySize = value;
-                                      });
-                                    },
-                                    buttonStyleData: ButtonStyleData(
-                                      height: Get.height * 0.078,
-                                      width: Get.width,
-                                      padding: const EdgeInsets.only(
-                                          left: 15, right: 15),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(35),
-                                        color: const Color(0xff373737),
-                                      ),
-                                      elevation: 2,
-                                    ),
-                                    iconStyleData: IconStyleData(
-                                      icon: Image.asset(
-                                          'assets/images/arrowdown.png'),
-                                      iconSize: 14,
-                                      iconEnabledColor: Colors.yellow,
-                                      iconDisabledColor: Colors.grey,
-                                    ),
-                                    dropdownStyleData: DropdownStyleData(
-                                      maxHeight: Get.height * 0.35,
-                                      width: Get.width * 0.902,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(14),
-                                        color: const Color(0xff353535),
-                                      ),
-                                      offset: const Offset(5, 0),
-                                      scrollbarTheme: ScrollbarThemeData(
-                                        radius: const Radius.circular(40),
-                                        thickness: MaterialStateProperty.all<
-                                            double>(6),
-                                        thumbVisibility:
-                                        MaterialStateProperty.all<bool>(true),
-                                      ),
-                                    ),
-                                    menuItemStyleData: const MenuItemStyleData(
-                                      height: 40,
-                                      padding: EdgeInsets.only(
-                                          left: 14, right: 14),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              Obx(() =>
-                              CreateUpdateRecruiterProfileControllerInstanse
-                                  .companySizeError.value.isEmpty ?
-                              const SizedBox() :
-                              Center(child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    CreateUpdateRecruiterProfileControllerInstanse
-                                        .companySizeError.value,
-                                    style: TextStyle(color: Colors.red),)))
-                              ),
-                              SizedBox(
-                                height: Get.height * .04,
-                              ),
-                              Text(
-                                "Founded",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              GestureDetector(
-                                onTap: () => _selectDate(context),
-                                child: Container(
-                                  height: Get.height * 0.08,
-                                  width: Get.width,
+                                    .toList(),
+                                value: socialValue,
+                                onChanged: (String? value) {},
+                                buttonStyleData: ButtonStyleData(
+                                  height: Get.height * 0.078,
+                                  width: double.infinity,
+                                  padding: const EdgeInsets.only(
+                                      left: 15, right: 15),
                                   decoration: BoxDecoration(
-                                      color: const Color(0xff373737),
-                                      borderRadius: BorderRadius.circular(35)),
-                                  child: Padding(
-                                    padding:
-                                    EdgeInsets.symmetric(
-                                        horizontal: Get.width * .04),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
-                                      children: [
-                                        Text(
-                                          selectedDateString,
-                                          style: const TextStyle(fontSize: 15),
-                                        ),
-                                        GestureDetector(
-                                          onTap: () => _selectDate(context),
-                                          child: Image.asset(
-                                            "assets/images/icon_calendar_blue.png",color: AppColors.blueThemeColor,
-                                            height: Get.height * 0.030,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
+                                    borderRadius: BorderRadius.circular(35),
+                                    color: const Color(0xff373737),
+                                  ),
+                                  elevation: 2,
+                                ),
+                                iconStyleData: IconStyleData(
+                                  icon: Image.asset(
+                                      'assets/images/arrowdown.png'),
+                                  iconSize: 14,
+                                  iconEnabledColor: Colors.yellow,
+                                  iconDisabledColor: Colors.grey,
+                                ),
+                                dropdownStyleData: DropdownStyleData(
+                                  maxHeight: Get.height * 0.35,
+                                  width: Get.width * 0.902,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: const Color(0xff353535),
+                                  ),
+                                  offset: const Offset(5, 0),
+                                  scrollbarTheme: ScrollbarThemeData(
+                                    radius: const Radius.circular(40),
+                                    thickness:
+                                        MaterialStateProperty.all<double>(6),
+                                    thumbVisibility:
+                                        MaterialStateProperty.all<bool>(true),
                                   ),
                                 ),
+                                menuItemStyleData: const MenuItemStyleData(
+                                  height: 40,
+                                  padding: EdgeInsets.only(left: 14, right: 14),
+                                ),
                               ),
-                              Obx(() =>
-                              CreateUpdateRecruiterProfileControllerInstanse
-                                  .foundedError.value.isEmpty ?
-                              const SizedBox() :
-                              Center(child: Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Text(
-                                    CreateUpdateRecruiterProfileControllerInstanse
-                                        .foundedError.value,
-                                    style: TextStyle(color: Colors.red),)))
-                              ),
-                              SizedBox(
-                                height: Get.height * .04,
-                              ),
-                              Text(
-                                "Specialization",
-                                style: Theme
-                                    .of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                              SizedBox(
-                                height: Get.height * .01,
-                              ),
-                              CommonWidgets.textFieldMaxLines(
-                                context,
-                                aboutySpecialtiesController,
-                                "Enter Specialization",
-                                onFieldSubmitted: (value) {},
-
-                              ),
-                              SizedBox(
-                                height: Get.height * .05,
-                              ),
-                              Obx(
-                                    () =>
-                                    Center(
-                                      child: MyButton(
-                                        loading: CreateUpdateRecruiterProfileControllerInstanse
-                                            .loading.value,
-                                        title: "CONTINUE",
-                                        onTap1: () {
-                                          CreateUpdateRecruiterProfileControllerInstanse
-                                              .profileImageError.value = "";
-                                          CreateUpdateRecruiterProfileControllerInstanse
-                                              .coverImageError.value = "";
-                                          CreateUpdateRecruiterProfileControllerInstanse
-                                              .industryError.value = "";
-                                          CreateUpdateRecruiterProfileControllerInstanse
-                                              .companySizeError.value = "";
-                                          CreateUpdateRecruiterProfileControllerInstanse
-                                              .foundedError.value = "";
-                                          if (profileImage == null) {
-                                            CreateUpdateRecruiterProfileControllerInstanse
-                                                .profileImageError.value =
-                                            "Please select profile image";
-                                            scrollController.animateTo(0,
-                                                duration: Duration(
-                                                    microseconds: 100),
-                                                curve: Curves.easeOut);
-                                          } else if (coverImage == null) {
-                                            CreateUpdateRecruiterProfileControllerInstanse
-                                                .coverImageError.value =
-                                            "Please select cover image";
-                                            scrollController.animateTo(0,
-                                                duration: Duration(
-                                                    microseconds: 100),
-                                                curve: Curves.easeOut);
-                                          }
-
-                                          else {
-                                            if (formKey.currentState!
-                                                .validate()) {
-                                              if (industry == null) {
-                                                CreateUpdateRecruiterProfileControllerInstanse
-                                                    .industryError.value =
-                                                "Please choose industry";
-                                              } else if (companySize == null) {
-                                                CreateUpdateRecruiterProfileControllerInstanse
-                                                    .companySizeError.value =
-                                                "Please select company size";
-                                              } else if (founded == null) {
-                                                CreateUpdateRecruiterProfileControllerInstanse
-                                                    .foundedError.value =
-                                                "Please select founded date";
-                                              } else {
-                                                var formattedAddBioText = CommonFunctions.changeToHTML(addBioController.text ?? "") ;
-                                                 var formattedAboutDescriptionText = CommonFunctions.changeToHTML(aboutDescriptionController.text ?? "") ;
-                                                 var formattedSpecilizationText = CommonFunctions.changeToHTML(aboutySpecialtiesController.text ?? "") ;
-                                                 debugPrint(formattedAddBioText) ;
-                                                 debugPrint(formattedAboutDescriptionText) ;
-
-                                                CreateUpdateRecruiterProfileControllerInstanse
-                                                    .createUpdateRecruiterProfileApi(
-                                                    profilePath: profileImage?.path,
-                                                    coverPath: coverImage?.path,
-                                                    companyName: companyNameController.text,
-                                                    companyLocation: companyLocationController.text,
-                                                    addBio: formattedAddBioText,
-                                                    websiteLink: websiteLinkController.text,
-                                                    aboutDescription: formattedAboutDescriptionText,
-                                                    industry: industry,
-                                                    companySize: companySize?.replaceAll("Employees", ""),
-                                                    founded: selectedDateString,
-                                                    specialties: formattedSpecilizationText,
-                                                    contactPerson: contactPersonNameController.text
-                                                );
-                                              }
-                                            }
-                                          }
-                                        },
-                                      ),
-                                    ),
-                              ),
-                              SizedBox(
-                                height: Get.height * .1,
-                              ),
-                            ],
+                            ),
                           ),
-                        )
+                        ),
+                        Obx(() => CreateUpdateRecruiterProfileControllerInstanse
+                                .industryError.value.isEmpty
+                            ? const SizedBox()
+                            : Center(
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .industryError.value,
+                                      style: TextStyle(color: Colors.red),
+                                    )))),
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
+                        Text(
+                          "Company Size",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        Center(
+                          child: DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Text(
+                                'Select employees',
+                                style: Get.theme.textTheme.bodyMedium
+                                    ?.copyWith(fontWeight: FontWeight.w400),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              items: itemsCompanySize
+                                  .map((String item) =>
+                                      DropdownMenuItem<String>(
+                                        value: item,
+                                        child: Text(
+                                          "$item Employees",
+                                          style: Get.theme.textTheme.bodyLarge!
+                                              .copyWith(color: AppColors.white),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                      ))
+                                  .toList(),
+                              value: sizeValues,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  sizeValues = value;
+                                  companySize = value;
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                height: Get.height * 0.078,
+                                width: Get.width,
+                                padding:
+                                    const EdgeInsets.only(left: 15, right: 15),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(35),
+                                  color: const Color(0xff373737),
+                                ),
+                                elevation: 2,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon:
+                                    Image.asset('assets/images/arrowdown.png'),
+                                iconSize: 14,
+                                iconEnabledColor: Colors.yellow,
+                                iconDisabledColor: Colors.grey,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: Get.height * 0.35,
+                                width: Get.width * 0.902,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: const Color(0xff353535),
+                                ),
+                                offset: const Offset(5, 0),
+                                scrollbarTheme: ScrollbarThemeData(
+                                  radius: const Radius.circular(40),
+                                  thickness:
+                                      MaterialStateProperty.all<double>(6),
+                                  thumbVisibility:
+                                      MaterialStateProperty.all<bool>(true),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                                padding: EdgeInsets.only(left: 14, right: 14),
+                              ),
+                            ),
+                          ),
+                        ),
+                        Obx(() => CreateUpdateRecruiterProfileControllerInstanse
+                                .companySizeError.value.isEmpty
+                            ? const SizedBox()
+                            : Center(
+                                child: Align(
+                                    alignment: Alignment.topLeft,
+                                    child: Text(
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .companySizeError.value,
+                                      style: TextStyle(color: Colors.red),
+                                    )))),
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
+                        Text(
+                          "Founded",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        GestureDetector(
+                          onTap: () => _selectDate(context),
+                          child: Container(
+                            height: Get.height * 0.08,
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                                color: const Color(0xff373737),
+                                borderRadius: BorderRadius.circular(35)),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Get.width * .04),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    selectedDateString,
+                                    style: const TextStyle(fontSize: 15),
+                                  ),
+                                  GestureDetector(
+                                    onTap: () => _selectDate(context),
+                                    child: Image.asset(
+                                      "assets/images/icon_calendar_blue.png",
+                                      color: AppColors.blueThemeColor,
+                                      height: Get.height * 0.030,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
+                        // Obx(() =>
+                        // CreateUpdateRecruiterProfileControllerInstanse
+                        //     .foundedError.value.isEmpty ?
+                        // const SizedBox() :
+                        // Center(child: Align(
+                        //     alignment: Alignment.topLeft,
+                        //     child: Text(
+                        //       CreateUpdateRecruiterProfileControllerInstanse
+                        //           .foundedError.value,
+                        //       style: TextStyle(color: Colors.red),)))
+                        // ),
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
+                        Text(
+                          "Specialization",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyMedium
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .01,
+                        ),
+                        CommonWidgets.textFieldMaxLines(
+                          context,
+                          aboutySpecialtiesController,
+                          "Enter Specialization",
+                          onFieldSubmitted: (value) {},
+                        ),
+                        SizedBox(
+                          height: Get.height * .05,
+                        ),
+                        Obx(
+                          () => Center(
+                            child: MyButton(
+                                loading:
+                                    CreateUpdateRecruiterProfileControllerInstanse
+                                        .loading.value,
+                                title: "CONTINUE",
+                                onTap1: () {
+                                  // CreateUpdateRecruiterProfileControllerInstanse
+                                  //     .profileImageError.value = "";
+                                  // CreateUpdateRecruiterProfileControllerInstanse
+                                  //     .coverImageError.value = "";
+                                  CreateUpdateRecruiterProfileControllerInstanse
+                                      .industryError.value = "";
+                                  CreateUpdateRecruiterProfileControllerInstanse
+                                      .companySizeError.value = "";
+                                  CreateUpdateRecruiterProfileControllerInstanse
+                                      .foundedError.value = "";
+                                  // if (profileImage == null) {
+                                  //   CreateUpdateRecruiterProfileControllerInstanse
+                                  //       .profileImageError.value =
+                                  //   "Please select profile image";
+                                  //   scrollController.animateTo(0,
+                                  //       duration: Duration(
+                                  //           microseconds: 100),
+                                  //       curve: Curves.easeOut);
+                                  // } else if (coverImage == null) {
+                                  //   CreateUpdateRecruiterProfileControllerInstanse
+                                  //       .coverImageError.value =
+                                  //   "Please select cover image";
+                                  //   scrollController.animateTo(0,
+                                  //       duration: Duration(
+                                  //           microseconds: 100),
+                                  //       curve: Curves.easeOut);
+                                  // }
+
+                                  if (formKey.currentState!.validate()) {
+                                    if (industry == null) {
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .industryError
+                                          .value = "Please choose industry";
+                                    } else if (companySize == null) {
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .companySizeError
+                                          .value = "Please select company size";
+                                      // } else if (founded == null) {
+                                      //   CreateUpdateRecruiterProfileControllerInstanse
+                                      //       .foundedError.value =
+                                      //   "Please select founded date";
+                                      // }
+                                    } else {
+                                      var formattedAddBioText =
+                                          CommonFunctions.changeToHTML(
+                                              addBioController.text ?? "");
+                                      var formattedAboutDescriptionText =
+                                          CommonFunctions.changeToHTML(
+                                              aboutDescriptionController.text ??
+                                                  "");
+                                      var formattedSpecilizationText =
+                                          CommonFunctions.changeToHTML(
+                                              aboutySpecialtiesController
+                                                      .text ??
+                                                  "");
+                                      debugPrint(formattedAddBioText);
+                                      debugPrint(formattedAboutDescriptionText);
+
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .createUpdateRecruiterProfileApi(
+                                              profilePath: profileImage?.path,
+                                              coverPath: coverImage?.path,
+                                              companyName:
+                                                  companyNameController.text,
+                                              companyLocation:
+                                                  companyLocationController
+                                                      .text,
+                                              addBio: formattedAddBioText,
+                                              websiteLink:
+                                                  websiteLinkController.text,
+                                              aboutDescription:
+                                                  formattedAboutDescriptionText,
+                                              industry: industry,
+                                              companySize: companySize
+                                                  ?.replaceAll("Employees", ""),
+                                              founded: selectedDateString,
+                                              specialties:
+                                                  formattedSpecilizationText,
+                                              contactPerson:
+                                                  contactPersonNameController
+                                                      .text);
+                                    }
+                                  } else {
+                                    scrollController.animateTo(0,
+                                        duration: Duration(milliseconds: 100),
+                                        curve: Curves.easeOut);
+                                  }
+                                }),
+                          ),
+                        ),
+                        SizedBox(
+                          height: Get.height * .1,
+                        ),
                       ],
                     ),
-                  ),
-                ),
-              ));
+                  )
+                ],
+              ),
+            ),
+          ));
       }
-    }
-    );
+    });
   }
 }

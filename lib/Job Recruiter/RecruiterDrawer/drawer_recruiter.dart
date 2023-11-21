@@ -1,4 +1,5 @@
 import 'package:flikka/Job%20Recruiter/RecruiterTraking/applicant_traking.dart';
+import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterRequest/request.dart';
 import 'package:flikka/Job%20Seeker/ChartReport/chart_report.dart';
@@ -137,13 +138,13 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     dense: true,
                                     leading: IconButton(
                                         onPressed: () {
-                                          //Get.to(AboutPage());
+
                                         },
                                         icon: Image.asset('assets/images/profiledrawericon.png')
                                     ),
                                     title: InkWell(
                                         onTap: (){
-                                          // Get.to(()=>UserProfile());
+                                          Get.offAll(TabScreenEmployer(index: 4,));
                                         },
                                         child: Text(
                                           "Profile",

@@ -1,6 +1,11 @@
+import 'dart:async';
+
+import 'package:flikka/controllers/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:flikka/controllers/VerifyOtpController/VerifyOtpController.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_pinput/new_pinput.dart';
 import 'package:get/get.dart';
 import '../../widgets/app_colors.dart';
@@ -15,15 +20,47 @@ class OtpScreen extends StatefulWidget {
 
 class _OtpScreenState extends State<OtpScreen> {
   VerifyOtpController VerifyOtpControllerInstanse=Get.put(VerifyOtpController());
+  ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPasswordController());
+
   final focusNode = FocusNode();
 
-  var _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   var isLoading = false;
-
-
   var email = Get.arguments["email"] ;
 
+  ///Timer///////
+  RxInt secondsRemaining = 60.obs;
+  late Timer timer;
+
+  void startTimer() {
+    const oneSecond = Duration(seconds: 1);
+    timer = Timer.periodic(oneSecond, (Timer timer) {
+      if (secondsRemaining.value == 0) {
+        timer.cancel();
+        // You can add additional actions here when the timer completes
+      } else {
+        secondsRemaining.value--;
+      }
+    });
+  }
+
+  ////Timer//
+
   @override
+  void initState(){
+    super.initState();
+      startTimer();
+    VerifyOtpControllerInstanse.otpController.value.text = "" ;
+    }
+
+  @override
+  void dispose() {
+    timer.cancel(); // Cancel the timer to avoid memory leaks
+    super.dispose();
+  }
+
+
+    @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
@@ -59,7 +96,7 @@ class _OtpScreenState extends State<OtpScreen> {
               DraggableScrollableSheet(
                 initialChildSize: 0.72, // half screen
                 minChildSize: 0.72, // half screen
-                maxChildSize: 1, // full screen
+                maxChildSize: 0.72, // full screen
                 builder: (BuildContext context, ScrollController scrollController) {
                   return Container(
                     decoration: const BoxDecoration(
@@ -68,8 +105,9 @@ class _OtpScreenState extends State<OtpScreen> {
                           topLeft:Radius.circular(30) , ),
                         color: Colors.black),
                     // color: Colors.black,
-                    child:   SingleChildScrollView(
-                      controller:scrollController ,
+                    child: SingleChildScrollView(
+                      physics: NeverScrollableScrollPhysics(),
+                      // controller:scrollController ,
                       child: Container(
                         height: Get.height,
                         width: Get.width,
@@ -140,6 +178,13 @@ class _OtpScreenState extends State<OtpScreen> {
                                        )),
                                  ],
                                ),
+                               
+                               Obx(() => Center(
+                                 child: Text(
+                                   '${secondsRemaining.value} seconds remaining',
+                                 ),
+                               ))
+                               ,
                                Obx(() => VerifyOtpControllerInstanse.verifyOtpErrorMessage.value.isEmpty ?
                                const SizedBox() :
                                Text(VerifyOtpControllerInstanse.verifyOtpErrorMessage.value,style: TextStyle(color: Colors.red),)
@@ -156,6 +201,55 @@ class _OtpScreenState extends State<OtpScreen> {
                                 }
                               },),
                             )),
+                               const SizedBox(height: 12,),
+                               Align(
+                                 alignment: Alignment.bottomCenter,
+                                 child: InkWell(
+                                   child: RichText(
+                                     text: TextSpan(
+                                       text: "Didn't receive a code?  ",
+                                       style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),
+                                       children: [
+                                         TextSpan(
+                                           recognizer: TapGestureRecognizer()..onTap=(){
+                                             if(secondsRemaining.value == 0) {
+                                               ForgotPasswordControllerInstanse.forgotPasswordApiHit();
+                                               secondsRemaining.value = 60 ;
+                                              startTimer();
+                                             }
+                                           } ,
+                                           text: "Resend",
+                                           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
+                                         ),
+                                       ],
+                                     ),
+                                   ),
+                                 ),
+                               ),
+
+                               // Obx( () =>
+                               //   InkWell(
+                               //     child: ForgotPasswordControllerInstanse.loading.value== false ?  Row(
+                               //       mainAxisAlignment: MainAxisAlignment.center,
+                               //       children: [
+                               //         Text("Didn't receive a code?", style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),) ,
+                               //          const SizedBox(width: 7,) ,
+                               //         Text(
+                               //           "Resend" ,
+                               //           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
+                               //         ),
+                               //       ],
+                               //     ):  Center(
+                               //       child: LoadingAnimationWidget.fallingDot(
+                               //         color: Colors.white,
+                               //         size: 38,
+                               //       ),
+                               //     ),
+                               //     onTap: () {
+                               //       ForgotPasswordControllerInstanse.forgotPasswordApiHit() ;
+                               //     },
+                               //   ),
+                               // ),
                              ],
                             ),
                           ),
