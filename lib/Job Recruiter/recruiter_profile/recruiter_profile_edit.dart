@@ -7,7 +7,6 @@ import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -63,7 +62,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
               MyButton(
                 width: Get.width*.25,
                 height: Get.height*.05,
-                title: "Galery", onTap1: () {
+                title: "Gallery", onTap1: () {
                 _pickImage(ImageSource.gallery);
               },),
             ],
@@ -83,6 +82,11 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
       final croppedImage = await coverImageCropper.cropImage(
         sourcePath: imgCamera.path,
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 1),
+        aspectRatioPresets:  [ CropAspectRatioPreset.original,
+          CropAspectRatioPreset.square,
+          CropAspectRatioPreset.ratio3x2,
+          CropAspectRatioPreset.ratio4x3,
+          CropAspectRatioPreset.ratio16x9,],
         // Adjust aspect ratio as needed
         compressQuality: 60,
         uiSettings: [
@@ -91,8 +95,9 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(title: 'Cropper', ),
+              hideBottomControls: true,
+              lockAspectRatio: true),
+          IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
         ],// Adjust compression quality as needed
       );
 
@@ -164,8 +169,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(title: 'Cropper', ),
+              lockAspectRatio: true),
+          IOSUiSettings(title: 'Cropper',aspectRatioLockEnabled: true, ),
         ],// Adjust compression quality as needed
       );
 
@@ -373,7 +378,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 child: coverImage == null ?
                                     const SizedBox() :
                                 IconButton(
-                                  icon:  Icon(
+                                  icon:  const Icon(
                                     Icons.edit, color: Colors.white, size: 30,),
                                   onPressed: () {
                                     _openCoverImagePickerDialog();
@@ -457,7 +462,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               Center(child: Text(
                                 CreateUpdateRecruiterProfileControllerInstanse
                                     .profileImageError.value,
-                                style: TextStyle(color: Colors.red),))
+                                style: const TextStyle(color: Colors.red),))
                               ),
                               Obx(() =>
                               CreateUpdateRecruiterProfileControllerInstanse
@@ -466,7 +471,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               Center(child: Text(
                                 CreateUpdateRecruiterProfileControllerInstanse
                                     .coverImageError.value,
-                                style: TextStyle(color: Colors.red),))
+                                style: const TextStyle(color: Colors.red),))
                               ),
                               SizedBox(
                                 height: Get.height * .02,

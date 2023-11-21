@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import '../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -22,45 +23,6 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
   List<String> imageNames = [];
   List<String> imagePaths = [];
 
-  void showCommentDialog() {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text("Add a Comment",style: Theme.of(context).textTheme.displayLarge,),
-          content: TextField(
-            style: const TextStyle(
-                color: AppColors.white,fontSize: 23
-            ),
-            onChanged: (String value) {
-              setState(() => uri = value);
-            },
-            controller: commentController,
-            decoration: InputDecoration(
-              hintText: 'Write a comment...',
-              hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.white,fontSize: 16),
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: Text("Cancel",style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.white,fontSize: 16),),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-            TextButton(
-              child: Text("Submit",style: Theme.of(context).textTheme.bodySmall!.copyWith(color: AppColors.white,fontSize: 16),),
-              onPressed: () {
-                // Implement comment submission logic here
-                // You can use the commentController.text to access the comment text
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
   bool selectedFav = false;
   Color buttonColor = AppColors.ratingcommenttextcolor;
 
@@ -76,6 +38,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
 
   @override
   Widget build(BuildContext context) {
+    print(widget.recruiterJobsData?.description) ;
     return SafeArea(
       child: Scaffold(
           appBar: AppBar(
@@ -83,9 +46,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
             leading: Padding(
               padding: const EdgeInsets.only(left: 15.0),
               child: GestureDetector(
-                  onTap: () {
-                    Get.back();
-                  },
+                  onTap: () { Get.back(); },
                   child: Image.asset('assets/images/icon_back_blue.png')),
             ),
             elevation: 0,
@@ -160,13 +121,9 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         Text("Job Description",
                                           style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text(CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? ""),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color:  const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                        ),
+                                        HtmlWidget(widget.recruiterJobsData?.description ?? "",
+                                        textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                color:  const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) ,
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Requirements",
@@ -176,17 +133,9 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.015,),
-                                        Text(CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements ?? ""),
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                        ),
-
-                                        SizedBox(
-                                          height: Get.height * 0.03,
-                                        ),
+                                        HtmlWidget(widget.recruiterJobsData?.requirements ?? "",textStyle: Theme.of(context).textTheme
+                                            .bodySmall!.copyWith(color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) ,
+                                        SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Job type",
                                           style: Theme.of(context)

@@ -8,6 +8,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:html/parser.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
@@ -82,7 +83,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
       jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
       specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
       jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
-      jobDescriptionController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? "") ?? "" ;
+      jobDescriptionController.text =   CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? "") ?? "" ;
+          // parse(parse(widget.recruiterJobsData?.description ?? "").body?.text).documentElement?.text ?? "" ;
+
       jobRequirementController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements ?? "") ?? "" ;
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
@@ -924,8 +927,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: false),
-          IOSUiSettings(title: 'Cropper', ),
+              lockAspectRatio: true),
+          IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true,),
         ],// Adjust compression quality as needed
       );
       setState(() {

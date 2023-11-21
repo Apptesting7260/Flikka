@@ -48,7 +48,8 @@ class _RecruiterHomeState extends State<RecruiterHome> {
                       GestureDetector(
                         onTap: () {
                           if(widget.recruiterProfileDetails?.websiteLink != null) {
-                            launchUrl(Uri.parse(widget.recruiterProfileDetails!.websiteLink!));
+                            launchUrl(Uri.parse(widget.recruiterProfileDetails!.websiteLink!) ,
+                              mode: LaunchMode.externalApplication);
                           }
                         },
                         child: Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data", overflow: TextOverflow.clip,

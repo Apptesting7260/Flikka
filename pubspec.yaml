@@ -62,10 +62,9 @@ dependencies:
   cached_network_image: ^3.3.0
   percent_indicator: ^4.2.3
   html: ^0.15.4
+  flutter_widget_from_html_core: ^0.14.7
 
 #  table_calendar: ^2.3.3
-
-
 
 dev_dependencies:
   flutter_test:

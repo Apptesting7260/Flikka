@@ -37,7 +37,8 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               GestureDetector(
                 onTap: () {
                   if(widget.recruiterProfileDetails?.websiteLink != null) {
-                    launchUrl(Uri.parse(widget.recruiterProfileDetails!.websiteLink!));
+                    launchUrl(Uri.parse(widget.recruiterProfileDetails!.websiteLink!),
+                    mode: LaunchMode.externalApplication);
                   }
                 },
                   child: Text(widget.recruiterProfileDetails?.websiteLink ?? "No Data",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,color: AppColors.blueThemeColor),)),
