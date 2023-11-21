@@ -36,23 +36,23 @@ class CreateUpdateRecruiterProfileController extends GetxController {
       loading(true) ;
       var url = Uri.parse(AppUrl.CreateUpdateRecruiterProfileUrl) ;
       var request = http.MultipartRequest('POST' , url ) ;
-      request.fields.addAll({
-        "company_name":companyName ,
-        "company_location":companyLocation ,
-        "add_bio": addBio ,
-        // "add_bio": addBio ,
-        // "home_description": homeDescription,
-        "website_link": websiteLink,
-        "about_description": aboutDescription,
-        "industry": industry.toString(),
-        "company_size": companySize.toString(),
-        "founded": founded,
-        "specialties": specialties,
-        "contact_person" : contactPerson
-      }) ;
+      request.fields.addIf(companyName != null && companyName.toString().length != 0, "company_name", companyName) ;
+      request.fields.addIf(companyLocation != null && companyLocation.toString().length != 0,  "company_location", companyLocation) ;
+      request.fields.addIf(addBio != null && addBio.toString().length != 0,   "add_bio", addBio) ;
+      request.fields.addIf(websiteLink != null && websiteLink.toString().length != 0,   "website_link", websiteLink) ;
+      request.fields.addIf(aboutDescription != null && aboutDescription.toString().length != 0,   "about_description", aboutDescription) ;
+      request.fields.addIf(industry != null && industry.toString().length != 0,   "industry", industry.toString()) ;
+      request.fields.addIf(companySize != null && companySize.toString().length != 0,   "company_size", companySize.toString()) ;
+      request.fields.addIf(founded != null && founded.toString().length != 0,   "founded", founded) ;
+      request.fields.addIf(specialties != null && specialties.toString().length != 0,   "specialties", specialties) ;
+      request.fields.addIf(contactPerson != null && contactPerson.toString().length != 0,   "contact_person", contactPerson) ;
       print(request.fields) ;
-      request.files.add(await http.MultipartFile.fromPath("profile_img" , profilePath ?? "")) ;
-      request.files.add(await http.MultipartFile.fromPath("cover_img" , coverPath ?? "")) ;
+      if(profilePath != null && profilePath.length != 0) {
+        request.files.add(await http.MultipartFile.fromPath("profile_img" , profilePath)) ;
+
+      }else if(coverPath != null && coverPath.length != 0) {
+        request.files.add(await http.MultipartFile.fromPath("cover_img" , coverPath ?? "")) ;
+      }
       SharedPreferences sp=await SharedPreferences.getInstance();
       request.headers["Authorization"] =" Bearer ${sp.getString("BarrierToken")}";
       var response = await request.send() ;

@@ -28,7 +28,7 @@ class _AllCandidateState extends State<AllCandidate> {
 
   String? jobTitleValue;
 
-  final List<String> statusList = ['Accepted','Rejected',"pending","all"];
+  final List<String> statusList = ['Accepted','Rejected',"Pending","All"];
   String? statusValue;
 
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());

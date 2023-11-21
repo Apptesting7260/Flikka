@@ -86,9 +86,9 @@ class CommonWidgets {
       child: TextFormField(
         autovalidateMode: AutovalidateMode.onUserInteraction,
         controller:controller ,
-          maxLength: maxCharacter ?? 500,
+          // maxLength: maxCharacter ?? 500,
           inputFormatters: [
-           LengthLimitingTextInputFormatter(1000)
+           // LengthLimitingTextInputFormatter(1000)
           ],
           maxLines: 5,
           style: Theme
