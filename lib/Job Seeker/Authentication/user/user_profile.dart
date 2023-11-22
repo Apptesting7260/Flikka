@@ -1711,6 +1711,26 @@ class _UserProfileState extends State<UserProfile> {
                                     ),
                                   ),
                                 ),
+                                SizedBox(width: Get.width * .04,),
+                                GestureDetector(
+                                  onTap: () {
+                                    // _openImagePickerDialog();
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 42,
+                                    width: 42,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: AppColors.blueThemeColor
+                                    ),
+                                    child: Image.asset(
+                                      "assets/images/icon_video.png",
+                                      height: 18,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ],
                             ),
                           ],
@@ -1793,6 +1813,32 @@ class _UserProfileState extends State<UserProfile> {
                                             ],
                                           ),
                                           SizedBox(height: Get.height * 0.04,),
+                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Row(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  InkWell(
+                                                      child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
+                                                  SizedBox(width: Get.width * 0.02,),
+                                                  Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                ],
+                                              ),
+                                              Image.asset(
+                                                "assets/images/icon_edit_phone_number.png",
+                                                height: 18,)
+                                            ],
+                                          ),
+                                          CommonWidgets.divider() ,
+                                          // SizedBox(height: Get.height * 0.04,),
+                                          Row(
+                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text("+91 9876543210",style: Theme.of(context).textTheme.titleSmall,) ,
+                                              Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
+                                            ],
+                                          ) ,
+                                          SizedBox(height: Get.height*.045,) ,
                                           Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                             children: [
                                               Row(mainAxisAlignment: MainAxisAlignment.start,

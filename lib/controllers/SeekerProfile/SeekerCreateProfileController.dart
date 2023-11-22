@@ -19,6 +19,7 @@ class SeekerCreateProfileController extends GetxController {
   var languageErrorMessage = ''.obs ;
   var selectStartDateExperienceErrorMessage = ''.obs ;
   var selectStartDateEducationErrorMessage = ''.obs ;
+  var phoneNumberErrorMessage = ''.obs ;
 
   createProfileApi (
       String? profilePath ,

@@ -16,6 +16,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:open_file/open_file.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
@@ -167,6 +168,7 @@ class _CreateProfileState extends State<CreateProfile> {
   List<Predictions> searchPlace = [];
 
   String? phoneNumber ;
+  bool validPhone = false ;
 
   @override
   void initState() {
@@ -333,8 +335,114 @@ class _CreateProfileState extends State<CreateProfile> {
                             style: const TextStyle(color: Colors.red),
                           ))),
                     SizedBox(
-                      height: Get.height * .055,
+                      height: Get.height * .035,
                     ),
+                    Text(
+                      "Upload Video",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(
+                          fontWeight: FontWeight.w700),
+                    ),
+                    SizedBox(height: Get.height*.01,) ,
+                    Text(
+                      "Add your short video here",
+                      style: Theme.of(context)
+                          .textTheme
+                          .labelLarge
+                          ?.copyWith(
+                          fontWeight: FontWeight.w400,),
+                    ),
+                    SizedBox(height: Get.height*.02,) ,
+                    DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: const Radius.circular(20),
+                      dashPattern: [5, 5],
+                      color: const Color(0xffCFCFCF),
+                      strokeWidth: 0.7,
+                      child: Stack(
+                        clipBehavior: Clip.none,
+                        children: [
+                          Container(
+                            height: Get.height * .15,
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(22),
+                            ),
+                            child: Center(
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset(
+                                    "assets/images/icon_upload_cv.png",
+                                    width: Get.width * .07,
+                                    height: Get.height * .06,
+                                  ),
+                                  SizedBox(width: Get.width * .0),
+                                  if (_documentTypeFilePath.isNotEmpty)
+                                    SizedBox(
+                                      width: Get.width * .6,
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SizedBox(width: Get.width * .02),
+                                          Flexible(
+                                            child: Text(
+                                              "File uploaded: ${_documentTypeFilePath.split('/').last}",
+                                              overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                  fontWeight:
+                                                  FontWeight.w400),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  else
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 8.0, top: 4),
+                                      child: Text(
+                                        "Upload Video",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                    ),
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                              right: 5,
+                              top: 1,
+                              child: _documentTypeFilePath.isEmpty
+                                  ? const SizedBox()
+                                  : IconButton(
+                                  onPressed: () {
+                                    if (DocumentType == null) {
+                                      seekerCreateProfileController
+                                          .documentErrorMessage.value =
+                                      "Please select document type first";
+                                    } else {
+                                      _openDocumentTypeFilePicker();
+                                    }
+                                  },
+                                  icon: const Icon(
+                                    Icons.edit,
+                                    color: Colors.white,
+                                  ))),
+                        ],
+                      ),
+                    ),
+                    SizedBox(height: Get.height*.05,) ,
                     Form(
                       key: introFormKey,
                       child: Column(
@@ -432,6 +540,7 @@ class _CreateProfileState extends State<CreateProfile> {
                           ),
                           IntlPhoneField(
                             flagsButtonPadding: const EdgeInsets.only(bottom: 3),
+                            autovalidateMode: AutovalidateMode.disabled,
                             controller: phoneController,
                             style: Theme.of(context).textTheme.bodyMedium,
                             pickerDialogStyle: PickerDialogStyle(
@@ -468,6 +577,9 @@ class _CreateProfileState extends State<CreateProfile> {
                             languageCode: "en",
                             onChanged: (phone) {
                              phoneNumber = phone.completeNumber ;
+                             if(phone.isValidNumber()) {
+                               validPhone = true ;
+                             }
                              debugPrint("this is ========= $phoneNumber") ;
                             },
                             onCountryChanged: (country) {
@@ -475,6 +587,10 @@ class _CreateProfileState extends State<CreateProfile> {
                              print( country.dialCode+phoneController.text) ;
                             },
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                          ),
+                          Obx(() => seekerCreateProfileController.phoneNumberErrorMessage.value.isEmpty ?
+                          const SizedBox() :
+                              Text(seekerCreateProfileController.phoneNumberErrorMessage.value ,style: TextStyle(color: Colors.red),)
                           ),
                           SizedBox(height: Get.height * .042,),
                         ],
@@ -1896,21 +2012,28 @@ class _CreateProfileState extends State<CreateProfile> {
                               debugPrint(workExperienceList.toString());
                               debugPrint(educationList.toString());
                               if (introFormKey.currentState!.validate()) {
-                                var formattedAboutText = CommonFunctions.changeToHTML(aboutMeController.text ?? "");
-                                seekerCreateProfileController.createProfileApi(
-                                    imgFile?.path,
-                                    _filePath,
-                                    _documentTypeFilePath,
-                                    nameController.text,
-                                    locationController.text,
-                                    phoneNumber ,
-                                    formattedAboutText,
-                                    workExperienceList,
-                                    educationList,
-                                    LanguageSelectorState.languages,
-                                    appreciationList,
-                                    DocumentType,
-                                    fresher ? 1 : null);
+                                if(!validPhone){
+                                  seekerCreateProfileController.phoneNumberErrorMessage.value = "Invalid Mobile Number" ;
+                                } else {
+                                  var formattedAboutText = CommonFunctions
+                                      .changeToHTML(
+                                      aboutMeController.text ?? "");
+                                  seekerCreateProfileController
+                                      .createProfileApi(
+                                      imgFile?.path,
+                                      _filePath,
+                                      _documentTypeFilePath,
+                                      nameController.text,
+                                      locationController.text,
+                                      phoneNumber,
+                                      formattedAboutText,
+                                      workExperienceList,
+                                      educationList,
+                                      LanguageSelectorState.languages,
+                                      appreciationList,
+                                      DocumentType,
+                                      fresher ? 1 : null);
+                                }
                               } else {
                                 scrollController.animateTo(0,
                                     duration: const Duration(milliseconds: 100),
