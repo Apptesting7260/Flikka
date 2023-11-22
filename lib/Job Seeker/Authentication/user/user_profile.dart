@@ -30,6 +30,7 @@ import 'package:image_picker/image_picker.dart' as i;
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
@@ -50,6 +51,24 @@ class _UserProfileState extends State<UserProfile> {
 
   SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
 
+  //////refresh//////
+  RefreshController _refreshController =
+  RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await seekerProfileController.viewSeekerProfileApi();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await seekerProfileController.viewSeekerProfileApi();
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+  /////refresh/////
 
   Future<void> _openImagePickerDialog() {
     return showDialog(
@@ -127,7 +146,6 @@ class _UserProfileState extends State<UserProfile> {
       });
     }
   }
-
 
   String uri = '';
 
@@ -1598,88 +1616,107 @@ class _UserProfileState extends State<UserProfile> {
               child: Obx( () => viewLanguageController.loading.value ?
                  const Center(child: CircularProgressIndicator(),)
               :  Scaffold(
-                  body: Stack(
-                    children: [
-                      Obx( () => editSeekerProfileController.loadingImage.value ?
-                      Container( height: Get.height * 0.55,
-                          alignment: Alignment.center,
-                          child:const CircularProgressIndicator()) :
-                      CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        height: Get.height * 0.5,
-                        width: Get.width,
-                        placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
-                        imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
-                      ) ,
-                      Padding(
-                        padding: const EdgeInsets.all(10.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: Get.height * .02,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                GestureDetector(
-                                    onTap: () {
-                                      Get.offAll(const TabScreen(index: 0)) ;
-                                    },
-                                    child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
-                                Container(
-                                  decoration: const BoxDecoration(
-                                      color: AppColors.black,
-                                      shape: BoxShape.circle
-                                  ),
-                                  child: CircularPercentIndicator(
-                                    percent: seekerProfileController.viewSeekerData.value.completeProfile / 100,
-                                    lineWidth: 3,
-                                    center: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "${seekerProfileController.viewSeekerData
-                                              .value.completeProfile}%",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color: AppColors.white,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        Text(
-                                          "Profile",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                              color: AppColors.white,
-                                              fontSize: 8,
-                                              fontWeight: FontWeight.w400),
-                                        ),
-                                      ],
+                  body: SmartRefresher(
+                    controller: _refreshController,
+                    onLoading: _onLoading,
+                    onRefresh: _onRefresh,
+                    child: Stack(
+                      children: [
+                        Obx( () => editSeekerProfileController.loadingImage.value ?
+                        Container( height: Get.height * 0.55,
+                            alignment: Alignment.center,
+                            child:const CircularProgressIndicator()) :
+                        CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          height: Get.height * 0.5,
+                          width: Get.width,
+                          placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                          imageUrl:  "${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}" ,),
+                        ) ,
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: Get.height * .02,
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {
+                                        Get.offAll(const TabScreen(index: 0)) ;
+                                      },
+                                      child: Image.asset("assets/images/icon_back_blue.png",height: Get.height*.055,)) ,
+                                  Container(
+                                    decoration: const BoxDecoration(
+                                        color: AppColors.black,
+                                        shape: BoxShape.circle
                                     ),
-                                    progressColor: AppColors.blueThemeColor,
-                                    backgroundColor: AppColors
-                                        .ratingcommentfillcolor,
-                                    radius: 25, // Background color
+                                    child: CircularPercentIndicator(
+                                      percent: seekerProfileController.viewSeekerData.value.completeProfile / 100,
+                                      lineWidth: 3,
+                                      center: Column(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Text(
+                                            "${seekerProfileController.viewSeekerData
+                                                .value.completeProfile}%",
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                color: AppColors.white,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                          Text(
+                                            "Profile",
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .bodySmall!
+                                                .copyWith(
+                                                color: AppColors.white,
+                                                fontSize: 8,
+                                                fontWeight: FontWeight.w400),
+                                          ),
+                                        ],
+                                      ),
+                                      progressColor: AppColors.blueThemeColor,
+                                      backgroundColor: AppColors
+                                          .ratingcommentfillcolor,
+                                      radius: 25, // Background color
+                                    ),
                                   ),
-                                ),
-                              ],
-                            ) ,
+                                ],
+                              ) ,
 
-                            SizedBox(
-                              height: Get.height * .25,
-                            ),
+                              SizedBox(
+                                height: Get.height * .25,
+                              ),
 
-                            Row(
-                              children: [
-                                GestureDetector(
+                              Row(
+                                children: [
+                                  GestureDetector(
+                                      onTap: () {
+                                        Get.to(() => const Wallet());
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        height: 42,
+                                        width: 42,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: AppColors.blueThemeColor
+                                        ),
+                                        child: Image.asset("assets/images/wallet_icon.png", height: 18,),
+                                      )),
+                                  SizedBox(width: Get.width * .04,),
+                                  GestureDetector(
                                     onTap: () {
-                                      Get.to(() => const Wallet());
+                                      _openImagePickerDialog();
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -1689,1097 +1726,1083 @@ class _UserProfileState extends State<UserProfile> {
                                           shape: BoxShape.circle,
                                           color: AppColors.blueThemeColor
                                       ),
-                                      child: Image.asset("assets/images/wallet_icon.png", height: 18,),
-                                    )),
-                                SizedBox(width: Get.width * .04,),
-                                GestureDetector(
-                                  onTap: () {
-                                    _openImagePickerDialog();
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 42,
-                                    width: 42,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors.blueThemeColor
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/camera.png",
-                                      height: 18,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                                SizedBox(width: Get.width * .04,),
-                                GestureDetector(
-                                  onTap: () {
-                                    // _openImagePickerDialog();
-                                  },
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    height: 42,
-                                    width: 42,
-                                    decoration: const BoxDecoration(
-                                        shape: BoxShape.circle,
-                                        color: AppColors.blueThemeColor
-                                    ),
-                                    child: Image.asset(
-                                      "assets/images/icon_video.png",
-                                      height: 18,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                      DraggableScrollableSheet(
-                        initialChildSize: 0.5, // half screen
-                        minChildSize: 0.5, // half screen
-                        maxChildSize: 1, // full screen
-                        builder: (BuildContext context, ScrollController scrollController) {
-                          return
-                            Container(decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(35),
-                                topLeft: Radius.circular(35),
-                              ),
-                            ),
-                              child: ListView(
-                                controller: scrollController,
-                                children: [
-                                  Container(
-                                      padding: const EdgeInsets.all(24),
-                                      decoration: const BoxDecoration(
-                                          color: AppColors.black,
-                                          borderRadius: BorderRadius.only(
-                                              topLeft: Radius.circular(25),
-                                              topRight: Radius.circular(25))
+                                      child: Image.asset(
+                                        "assets/images/camera.png",
+                                        height: 18,
+                                        fit: BoxFit.cover,
                                       ),
-                                      //height: Get.height,
-                                      //width: Get.width,
-                                      child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              SizedBox(width: Get.width * 0.6,
-                                                child: Column(
-                                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                    ),
+                                  ),
+                                  SizedBox(width: Get.width * .04,),
+                                  GestureDetector(
+                                    onTap: () {
+                                      // _openImagePickerDialog();
+                                    },
+                                    child: Container(
+                                      alignment: Alignment.center,
+                                      height: 42,
+                                      width: 42,
+                                      decoration: const BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: AppColors.blueThemeColor
+                                      ),
+                                      child: Image.asset(
+                                        "assets/images/icon_video.png",
+                                        height: 18,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                        DraggableScrollableSheet(
+                          initialChildSize: 0.5, // half screen
+                          minChildSize: 0.5, // half screen
+                          maxChildSize: 1, // full screen
+                          builder: (BuildContext context, ScrollController scrollController) {
+                            return
+                              Container(decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(35),
+                                  topLeft: Radius.circular(35),
+                                ),
+                              ),
+                                child: ListView(
+                                  controller: scrollController,
+                                  children: [
+                                    Container(
+                                        padding: const EdgeInsets.all(24),
+                                        decoration: const BoxDecoration(
+                                            color: AppColors.black,
+                                            borderRadius: BorderRadius.only(
+                                                topLeft: Radius.circular(25),
+                                                topRight: Radius.circular(25))
+                                        ),
+                                        //height: Get.height,
+                                        //width: Get.width,
+                                        child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                SizedBox(width: Get.width * 0.6,
+                                                  child: Column(
+                                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      Text(
+                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}",
+                                                        overflow: TextOverflow.ellipsis,
+                                                        style: Theme.of(context).textTheme.displayLarge,
+                                                        softWrap: true,
+                                                      ),
+                                                      Text(
+                                                          seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "" ,
+                                                          style: Theme.of(context).textTheme.bodySmall
+                                                              ?.copyWith(color: const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
+                                                      ),
+                                                      SizedBox(height: Get.height * .003,),
+                                                      Text(
+                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",
+                                                        style: Theme
+                                                            .of(context)
+                                                            .textTheme
+                                                            .bodyLarge!
+                                                            .copyWith(
+                                                            color: AppColors
+                                                                .ratingcommenttextcolor),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      introSection(
+                                                          seekerProfileController.viewSeekerData.value.seekerInfo?.fullname,
+                                                          seekerProfileController.viewSeekerData.value.seekerInfo?.location,
+                                                          seekerProfileController.viewSeekerData.value.seekerDetails?.positions,
+                                                          seekerProfileController.viewSeekerData.value.seekerDetails?.position
+                                                      );
+                                                      seekerChoosePositionGetController
+                                                          .seekerGetPositionApi(
+                                                          true);
+                                                    },
+                                                    child: Image.asset(
+                                                      "assets/images/icon_edit.png",
+                                                      height: 18,))
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.04,),
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                      "${seekerProfileController.viewSeekerData.value.seekerInfo?.fullname}",
-                                                      overflow: TextOverflow.ellipsis,
-                                                      style: Theme.of(context).textTheme.displayLarge,
-                                                      softWrap: true,
-                                                    ),
-                                                    Text(
-                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "" ,
-                                                        style: Theme.of(context).textTheme.bodySmall
-                                                            ?.copyWith(color: const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
-                                                    ),
-                                                    SizedBox(height: Get.height * .003,),
-                                                    Text(
-                                                      "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",
-                                                      style: Theme
-                                                          .of(context)
-                                                          .textTheme
-                                                          .bodyLarge!
-                                                          .copyWith(
-                                                          color: AppColors
-                                                              .ratingcommenttextcolor),
+                                                    InkWell(
+                                                        child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
+                                                    SizedBox(width: Get.width * 0.02,),
+                                                    Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                  ],
+                                                ),
+                                                Image.asset(
+                                                  "assets/images/icon_edit_phone_number.png",
+                                                  height: 18,)
+                                              ],
+                                            ),
+                                            CommonWidgets.divider() ,
+                                            // SizedBox(height: Get.height * 0.04,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text("+91 9876543210",style: Theme.of(context).textTheme.titleSmall,) ,
+                                                Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
+                                              ],
+                                            ) ,
+                                            SizedBox(height: Get.height*.045,) ,
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
+                                                    SizedBox(width: Get.width * 0.02,),
+                                                    Text('About me', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      aboutSection(CommonFunctions.parseHtmlAndAddNewline(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? ""));
+                                                      // parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)
+                                                    },
+                                                    child: Image.asset(
+                                                      "assets/images/icon_edit.png",
+                                                      height: 18,))
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.01,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(height: Get.height * 0.01,),
+                                            seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
+                                                CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
+                                            const Text("No Data") :
+                                            HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
+                                                .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                            // Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
+                                            //   textAlign: TextAlign.left,
+                                            //   style: Theme.of(context).textTheme.bodyLarge!
+                                            //       .copyWith(color: AppColors.ratingcommenttextcolor),
+                                            // ),
+                                            //********************* for work ex ***************************
+                                            SizedBox(height: Get.height * 0.045,),
+                                            Row(mainAxisAlignment: MainAxisAlignment
+                                                .spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    InkWell(
+
+                                                        child: Image.asset(
+                                                          'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
+                                                    SizedBox(
+                                                      width: Get.width * 0.02,),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          top: 4.0),
+                                                      child: Text('Work experience',
+                                                        style: Get.theme.textTheme
+                                                            .labelMedium!.copyWith(
+                                                            color: AppColors
+                                                                .white),),
                                                     ),
                                                   ],
                                                 ),
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    introSection(
-                                                        seekerProfileController.viewSeekerData.value.seekerInfo?.fullname,
-                                                        seekerProfileController.viewSeekerData.value.seekerInfo?.location,
-                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.positions,
-                                                        seekerProfileController.viewSeekerData.value.seekerDetails?.position
-                                                    );
-                                                    seekerChoosePositionGetController
-                                                        .seekerGetPositionApi(
-                                                        true);
-                                                  },
-                                                  child: Image.asset(
-                                                    "assets/images/icon_edit.png",
-                                                    height: 18,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.04,),
-                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
-                                                  SizedBox(width: Get.width * 0.02,),
-                                                  Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
-                                                ],
-                                              ),
-                                              Image.asset(
-                                                "assets/images/icon_edit_phone_number.png",
-                                                height: 18,)
-                                            ],
-                                          ),
-                                          CommonWidgets.divider() ,
-                                          // SizedBox(height: Get.height * 0.04,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text("+91 9876543210",style: Theme.of(context).textTheme.titleSmall,) ,
-                                              Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
-                                            ],
-                                          ) ,
-                                          SizedBox(height: Get.height*.045,) ,
-                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: Image.asset('assets/images/about.png',height: Get.height*.03,)),
-                                                  SizedBox(width: Get.width * 0.02,),
-                                                  Text('About me', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
-                                                ],
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    aboutSection(CommonFunctions.parseHtmlAndAddNewline(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? ""));
-                                                    // parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)
-                                                  },
-                                                  child: Image.asset(
-                                                    "assets/images/icon_edit.png",
-                                                    height: 18,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.01,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          SizedBox(height: Get.height * 0.01,),
-                                          seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
-                                              CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
-                                          const Text("No Data") :
-                                          HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
-                                              .copyWith(color: AppColors.ratingcommenttextcolor),),
-                                          // Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
-                                          //   textAlign: TextAlign.left,
-                                          //   style: Theme.of(context).textTheme.bodyLarge!
-                                          //       .copyWith(color: AppColors.ratingcommenttextcolor),
-                                          // ),
-                                          //********************* for work ex ***************************
-                                          SizedBox(height: Get.height * 0.045,),
-                                          Row(mainAxisAlignment: MainAxisAlignment
-                                              .spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .start,
-                                                children: [
-                                                  InkWell(
-
-                                                      child: Image.asset(
-                                                        'assets/images/icon_work_experience_.png',height: Get.height*.03,)),
-                                                  SizedBox(
-                                                    width: Get.width * 0.02,),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        top: 4.0),
-                                                    child: Text('Work experience',
-                                                      style: Get.theme.textTheme
-                                                          .labelMedium!.copyWith(
-                                                          color: AppColors
-                                                              .white),),
-                                                  ),
-                                                ],
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    workExperienceSection(true,"","","","",0,add: true);
-                                                  },
-                                                  child: Image.asset(
-                                                    'assets/images/icon_add_more.png',height: Get.height*.04,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          seekerProfileController.viewSeekerData.value.workExpJob == null ||
-                                              seekerProfileController.viewSeekerData.value.workExpJob?.length == 0 ?
-                                          const Text('Fresher')
-                                              : ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemCount: seekerProfileController.viewSeekerData.value.workExpJob?.length,
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
-                                                // if(data?.present == false) {
-                                                //  DateTime.parse(data!.jobStartDate.toString()) ;
-                                                //  print(data?.jobStartDate) ;
-                                                //  print(data?.jobEndDate) ;
-                                                // }
-                                                return Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: Get.height * 0.02,),
-                                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text('${data?.workExpJob}',
-                                                          style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                              color: AppColors.white, fontWeight: FontWeight.w700),),
-                                                        Row(
-                                                          children: [
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate , data?.jobEndDate ,index);
-                                                                },
-                                                                child:  Image.asset("assets/images/icon_edit.png",height: 18)),
-                                                            const SizedBox(width: 16,),
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  _openDeleteDialog(index , true) ;
-                                                                },
-                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027,)),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: Get.height * 0.01,),
-                                                    Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text("${data?.companyName}",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
-                                                        data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
-                                                            ? const SizedBox()
-                                                            : Text('${data?.jobStartDate} - ${data?.jobEndDate}',
-                                                          // "${data?.jobStartDate?.month}/${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}/${data?.jobEndDate?.year}",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                          ),
-
-                                          // ********************* for Education ***************************
-
-                                          SizedBox(height: Get.height * 0.045,),
-
-                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                            children: [
-                                              Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: Image.asset('assets/images/Educationsvg.png',height: Get.height*.04,)),
-                                                  SizedBox(
-                                                    width: Get.width * 0.02,),
-
-                                                  Text('Education',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors
-                                                            .white),),
-
-                                                ],
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    workExperienceSection(false,"","","","",0,add: true);
-                                                  },
-                                                  child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(thickness: 0.2, color: AppColors.white,),
-                                          seekerProfileController.viewSeekerData.value.educationLevel == null ||
-                                              seekerProfileController.viewSeekerData.value.educationLevel?.length == 0 ?
-                                          const Text("No Data") :
-                                          ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemCount: seekerProfileController.viewSeekerData.value.educationLevel?.length,
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.educationLevel?[index];
-                                                return Column(crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: Get.height * 0.02,),
-                                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text('${data?.educationLevel}',
-                                                          style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                              color: AppColors.white, fontWeight: FontWeight.w700),),
-                                                        Row(
-                                                          children: [
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate, data?.educationEndDate, index);
-                                                                },
-                                                                child: Image.asset("assets/images/icon_edit.png",height: 18)),
-
-                                                            const SizedBox(width: 16,),
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  _openDeleteDialog(index , false) ;
-                                                                },
-                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027)),
-                                                          ],
-                                                        )
-
-                                                      ],
-                                                    ),
-                                                    SizedBox(
-                                                      height: Get.height * 0.01,),
-                                                    Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text("${data?.institutionName}",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
-                                                        data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
-                                                            ? const SizedBox()
-                                                            : Text('${data?.educationStartDate} - ${data?.educationEndDate}',
-                                                          // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
-                                                      ],
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                          ),
-
-                                          // ********************* for Skill ***************************
-
-                                          SizedBox(height: Get.height * 0.045,),
-
-                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: Image.asset('assets/images/skillsvg.png',height: Get.height*.03,)),
-                                                  SizedBox(width: Get.width * 0.02,),
-                                                  Text('Skill',
-                                                    style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Soft Skill',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.map((e) => e.id.toString()).toList() , 1) ;
-                                                },
-                                                child: Image.asset( "assets/images/icon_edit.png", height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox( height: Get.height * 0.015,),
-
-                                          // SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
-
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(12),
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                      8),
-                                                  child: Text('${data?.skills}',
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: Get.theme.textTheme
-                                                        .bodySmall!.copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight: FontWeight
-                                                            .w400),),
-                                                );
-                                              }),
-                                          ///////////passion////////
-
-                                          SizedBox(height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Passion',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.map((e) => e.id.toString()).toList() , 2) ;
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/icon_edit.png",
-                                                  height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.passionName ==
-                                              null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
-
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(12),
-                                                    color: AppColors.blackdown,),
-                                                  padding: const EdgeInsets.all(8),
-                                                  child: Text('${data?.passion}',
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                        color: AppColors.white, fontWeight: FontWeight.w400),),
-                                                );
-                                              }),
-                                          //////////passion////////////
-
-                                          ////////industry preference////////////
-                                          SizedBox(height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Industry Preference',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.map((e) => e.id.toString()).toList() , 3) ;
-                                                },
-                                                child: Image.asset( "assets/images/icon_edit.png", height: 18,),
-                                              )
-                                            ],
-                                          ),
-
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName ==
-                                              null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
-
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius.circular(12),
-                                                    color: AppColors.blackdown,),
-                                                  padding: const EdgeInsets.all(8),
-                                                  child: Text('${data?.industryPreferences}',
-                                                    overflow: TextOverflow.ellipsis,
-                                                    style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                        color: AppColors.white, fontWeight: FontWeight.w400),),
-                                                );
-                                              }),
-                                          ////////industry preference////////////
-
-                                          //////////////Strengths////////
-                                          SizedBox( height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Strengths',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName?.map((e) => e.id.toString()).toList() , 4) ;
-                                                },
-                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName ==
-                                              null ||
-                                              seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.strengthsName
-                                                  ?.length == 0 ?
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.strengthsName
-                                                  ?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails
-                                                    ?.strengthsName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(12),
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                      8),
-                                                  child: Text('${data?.strengths}',
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: Get.theme.textTheme
-                                                        .bodySmall!.copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight: FontWeight
-                                                            .w400),),
-                                                );
-                                              }),
-                                          //////////////Strengths////////
-
-                                          //////////////Salary expectation////////
-                                          SizedBox(height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Salary expectation',
-                                                style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  salarySection() ;
-                                                },
-                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
-                                          const Text("No Data") :
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              borderRadius: BorderRadius
-                                                  .circular(12),
-                                              color: AppColors.blackdown,
+                                                InkWell(
+                                                    onTap: () {
+                                                      workExperienceSection(true,"","","","",0,add: true);
+                                                    },
+                                                    child: Image.asset(
+                                                      'assets/images/icon_add_more.png',height: Get.height*.04,))
+                                              ],
                                             ),
-                                            padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
-                                            child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                  color: AppColors.white,
-                                                  fontWeight: FontWeight.w400),),
-                                          ),
-                                          //////////////Salary expectation////////
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            seekerProfileController.viewSeekerData.value.workExpJob == null ||
+                                                seekerProfileController.viewSeekerData.value.workExpJob?.length == 0 ?
+                                            const Text('Fresher')
+                                                : ListView.builder(
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemCount: seekerProfileController.viewSeekerData.value.workExpJob?.length,
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
+                                                  // if(data?.present == false) {
+                                                  //  DateTime.parse(data!.jobStartDate.toString()) ;
+                                                  //  print(data?.jobStartDate) ;
+                                                  //  print(data?.jobEndDate) ;
+                                                  // }
+                                                  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: Get.height * 0.02,),
+                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text('${data?.workExpJob}',
+                                                            style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                                color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate , data?.jobEndDate ,index);
+                                                                  },
+                                                                  child:  Image.asset("assets/images/icon_edit.png",height: 18)),
+                                                              const SizedBox(width: 16,),
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    _openDeleteDialog(index , true) ;
+                                                                  },
+                                                                  child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027,)),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: Get.height * 0.01,),
+                                                      Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text("${data?.companyName}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                          data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
+                                                              ? const SizedBox()
+                                                              : Text('${data?.jobStartDate} - ${data?.jobEndDate}',
+                                                            // "${data?.jobStartDate?.month}/${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}/${data?.jobEndDate?.year}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  );
+                                                }
+                                            ),
 
-                                          //////////////When can i start working?////////
-                                          SizedBox( height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('When can i start working?',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.map((e) => e.id.toString()).toList() , 5) ;
-                                                },
-                                                child: Image.asset("assets/images/icon_edit.png", height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.startWorkName
-                                                  ?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails
-                                                    ?.startWorkName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(12),
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                      8),
-                                                  child: Text('${data?.startWork}',
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: Get.theme.textTheme
-                                                        .bodySmall!.copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight: FontWeight
-                                                            .w400),),
-                                                );
-                                              }),
-                                          //////////////When can i start working?////////
+                                            // ********************* for Education ***************************
 
+                                            SizedBox(height: Get.height * 0.045,),
 
-                                          //////////////Availability?////////
-                                          SizedBox(height: Get.height * 0.025,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Text('Availability?',
-                                                style: Get.theme.textTheme
-                                                    .labelMedium!.copyWith(
-                                                    color: AppColors
-                                                        .white),),
-                                              GestureDetector(
-                                                onTap: () {
-                                                  skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?.map((e) => e.id.toString()).toList() , 6) ;
-                                                },
-                                                child: Image.asset(
-                                                  "assets/images/icon_edit.png",
-                                                  height: 18,),
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.015,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName ==
-                                              null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
-                                                  ?.length == 0 ?
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController
-                                                  .viewSeekerData.value
-                                                  .seekerDetails?.availabityName
-                                                  ?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails
-                                                    ?.availabityName?[index];
-                                                return Container(
-                                                  alignment: Alignment.center,
-                                                  decoration: BoxDecoration(
-                                                    borderRadius: BorderRadius
-                                                        .circular(12),
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                  padding: const EdgeInsets.all(
-                                                      8),
-                                                  child: Text('${data?.availabity}',
-                                                    overflow: TextOverflow
-                                                        .ellipsis,
-                                                    style: Get.theme.textTheme
-                                                        .bodySmall!.copyWith(
-                                                        color: AppColors.white,
-                                                        fontWeight: FontWeight
-                                                            .w400),),
-                                                );
-                                              }),
-                                          //////////////Availability?////////
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
 
-                                          SizedBox(height: Get.height * 0.045,),
-                                          Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: SvgPicture.asset('assets/images/language.svg',height: Get.height*.03,)),
-                                                  SizedBox(
-                                                    width: Get.width * 0.02,),
-                                                  Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        top: 2.0),
-                                                    child:
-                                                    Text('Language',
+                                              children: [
+                                                Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        child: Image.asset('assets/images/Educationsvg.png',height: Get.height*.04,)),
+                                                    SizedBox(
+                                                      width: Get.width * 0.02,),
+
+                                                    Text('Education',
                                                       style: Get.theme.textTheme
                                                           .labelMedium!.copyWith(
                                                           color: AppColors
                                                               .white),),
-                                                  ),
-                                                ],
-                                              ),
-                                              InkWell(
+
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      workExperienceSection(false,"","","","",0,add: true);
+                                                    },
+                                                    child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(thickness: 0.2, color: AppColors.white,),
+                                            seekerProfileController.viewSeekerData.value.educationLevel == null ||
+                                                seekerProfileController.viewSeekerData.value.educationLevel?.length == 0 ?
+                                            const Text("No Data") :
+                                            ListView.builder(
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemCount: seekerProfileController.viewSeekerData.value.educationLevel?.length,
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.educationLevel?[index];
+                                                  return Column(crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: Get.height * 0.02,),
+                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text('${data?.educationLevel}',
+                                                            style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                                color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate, data?.educationEndDate, index);
+                                                                  },
+                                                                  child: Image.asset("assets/images/icon_edit.png",height: 18)),
+
+                                                              const SizedBox(width: 16,),
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    _openDeleteDialog(index , false) ;
+                                                                  },
+                                                                  child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027)),
+                                                            ],
+                                                          )
+
+                                                        ],
+                                                      ),
+                                                      SizedBox(
+                                                        height: Get.height * 0.01,),
+                                                      Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text("${data?.institutionName}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                          data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
+                                                              ? const SizedBox()
+                                                              : Text('${data?.educationStartDate} - ${data?.educationEndDate}',
+                                                            // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  );
+                                                }
+                                            ),
+
+                                            // ********************* for Skill ***************************
+
+                                            SizedBox(height: Get.height * 0.045,),
+
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        child: Image.asset('assets/images/skillsvg.png',height: Get.height*.03,)),
+                                                    SizedBox(width: Get.width * 0.02,),
+                                                    Text('Skill',
+                                                      style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                  ],
+                                                ),
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Soft Skill',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
                                                   onTap: () {
-                                                    language(seekerProfileController.viewSeekerData.value.seekerDetails?.language );
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.map((e) => e.id.toString()).toList() , 1) ;
+                                                  },
+                                                  child: Image.asset( "assets/images/icon_edit.png", height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox( height: Get.height * 0.015,),
+
+                                            // SizedBox(height: Get.height * 0.02,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
+
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .circular(12),
+                                                      color: AppColors.blackdown,
+                                                    ),
+                                                    padding: const EdgeInsets.all(
+                                                        8),
+                                                    child: Text('${data?.skills}',
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: Get.theme.textTheme
+                                                          .bodySmall!.copyWith(
+                                                          color: AppColors.white,
+                                                          fontWeight: FontWeight
+                                                              .w400),),
+                                                  );
+                                                }),
+                                            ///////////passion////////
+
+                                            SizedBox(height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Passion',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.map((e) => e.id.toString()).toList() , 2) ;
                                                   },
                                                   child: Image.asset(
-                                                    'assets/images/icon_edit.png',height: 18,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                          const Text("No Data") :
-                                          GridView.builder(gridDelegate:
-                                          SliverGridDelegateWithMaxCrossAxisExtent(
-                                              mainAxisExtent: 36,
-                                              maxCrossAxisExtent: Get.width * 0.4,
-                                              mainAxisSpacing: 8,
-                                              crossAxisSpacing: 8),
-                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController
-                                                    .viewSeekerData.value
-                                                    .seekerDetails
-                                                    ?.language?[index];
-                                                return Container( alignment: Alignment.center,
-                                                  decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
-                                                    color: AppColors.blackdown,),
-                                                  padding: const EdgeInsets.all(8),
-                                                  child: Text('${data?.languages}',
-                                                    style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                        color: AppColors.white, fontWeight: FontWeight.w400),),
-                                                );
-                                              }),
-                                          //********************* for appreciation ***************************
-                                          SizedBox(height: Get.height * 0.04,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row( mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  InkWell(
-                                                      child: Image.asset( 'assets/images/appreciation.png',height: Get.height*.03,)),
-                                                  SizedBox(width: Get.width * 0.02,),
-                                                  Padding(padding: const EdgeInsets.only(top: 6.0),
-                                                    child: Text('appreciation',
-                                                      style: Get.theme.textTheme.labelMedium!.copyWith(
-                                                          color: AppColors.white),),
-                                                  ),
-                                                ],
-                                              ),
-                                              InkWell(
-                                                  onTap: () {
-                                                    appreciation(0 , "", "", add: true);
-                                                  },
-                                                  child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
-                                          const Text("No Data")
-                                              : ListView.builder(
-                                              shrinkWrap: true,
-                                              physics: const NeverScrollableScrollPhysics(),
-                                              itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length,
-                                              itemBuilder: (context, index) {
-                                                var data = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?[index];
-                                                return Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                                  children: [
-                                                    SizedBox(height: Get.height * 0.02,),
-                                                    Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                      children: [
-                                                        Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                            color: AppColors.white, fontWeight: FontWeight.w700),),
-                                                        Row(
-                                                          children: [
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  appreciation(index , data?.awardName , data?.achievement);},
-                                                                child: Image.asset('assets/images/icon_edit.png',height: 18,)),
-                                                            const SizedBox(width: 16,),
-                                                            InkWell(
-                                                                onTap: () {
-                                                                  _openAppreciationDeleteDialog(index) ;
-                                                                },
-                                                                child: Image.asset('assets/images/icon_delete.png',height: Get.height*.03,)),
-                                                          ],
-                                                        )
-                                                      ],
-                                                    ),
-                                                    SizedBox(height: Get.height * 0.01,),
-                                                    Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                                      children: [
-                                                        Text( "${data?.achievement}",
-                                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                              color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
-                                                        ),
-                                                      ],
-                                                    )
-                                                  ],
-                                                );
-                                              }
-                                          ),
+                                                    "assets/images/icon_edit.png",
+                                                    height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.passionName ==
+                                                null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
-                                          SizedBox(height: Get.height * 0.04,),
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                mainAxisAlignment: MainAxisAlignment
-                                                    .start,
-                                                children: [
-                                                  InkWell(child: Image.asset('assets/images/resumesvg.png',height: Get.height*.03,)),
-                                                  SizedBox(width: Get.width * 0.02,),
-                                                  Text('Resume',
-                                                    style: Get.theme.textTheme
-                                                        .labelMedium!.copyWith(
-                                                        color: AppColors
-                                                            .white),),
-                                                ],
-                                              ),
-                                              InkWell(
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                      color: AppColors.blackdown,),
+                                                    padding: const EdgeInsets.all(8),
+                                                    child: Text('${data?.passion}',
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                  );
+                                                }),
+                                            //////////passion////////////
+
+                                            ////////industry preference////////////
+                                            SizedBox(height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Industry Preference',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
                                                   onTap: () {
-                                                    editSeekerResumeController.resumePath.value = '' ;
-                                                    resume() ;
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.map((e) => e.id.toString()).toList() , 3) ;
                                                   },
-                                                  child: seekerProfileController.viewSeekerData
-                                                      .value.seekerInfo?.resume == null || seekerProfileController
-                                                      .viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                                  Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
-                                                  Image.asset('assets/images/icon_edit.png',height: 18,)
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          const Divider(
-                                            thickness: 0.2,
-                                            color: AppColors.white,
-                                          ),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                          const Text("No Data")
-                                              : ListTile(
-                                            leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
-                                            SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
-                                            title: Text(
-                                              'Resume',
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                  color: AppColors.white, fontWeight: FontWeight.w500),),
-                                            onTap: () {
-                                              CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
-                                                onTap: () async {
-                                                  launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}')) ;
-                                                  // String? directory = await getLocalDownloadDir() ;
-                                                  // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
-                                                  //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
-                                                  // Get.back() ;
-                                                },) ;
-                                            },
-                                          ),
-                                          SizedBox(height: Get.height * .03,),
-                                          Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
-                                                  SizedBox(width: Get.width*.02,) ,
-                                                  Text('Document', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
-                                                ],
-                                              ),
-                                              InkWell(
+                                                  child: Image.asset( "assets/images/icon_edit.png", height: 18,),
+                                                )
+                                              ],
+                                            ),
+
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName ==
+                                                null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
+
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius.circular(12),
+                                                      color: AppColors.blackdown,),
+                                                    padding: const EdgeInsets.all(8),
+                                                    child: Text('${data?.industryPreferences}',
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                  );
+                                                }),
+                                            ////////industry preference////////////
+
+                                            //////////////Strengths////////
+                                            SizedBox( height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Strengths',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
                                                   onTap: () {
-                                                    editSeekerResumeController.documentPath.value = "" ;
-                                                    document() ;
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName?.map((e) => e.id.toString()).toList() , 4) ;
                                                   },
-                                                  child: seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
-                                                      seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
-                                                  Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
-                                                  Image.asset('assets/images/icon_edit.png',height: 18,)
-                                              )
-                                            ],
-                                          ),
-                                          SizedBox(height: Get.height*.015,) ,
-                                          const Divider(thickness: 0.2, color: AppColors.white,),
-                                          seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
-                                              seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
-                                          const Text("No Data") :
-                                          ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
-                                          SvgPicture.asset('assets/images/PDF.svg') :
-                                          SizedBox( height: Get.height *.4 ,
-                                            child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
-                                              fit: BoxFit.cover, ),
-                                          ) )  ,
-                                          // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
-                                          //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
-                                          SizedBox(height: Get.height * 0.02,),
-                                          Center(
-                                            child: MyButton(
-                                              title: "Boost Your Profile",
-                                              onTap1: () {
-                                                showDialog(
-                                                  barrierDismissible: false,
-                                                  context: context,
-                                                  builder: (
-                                                      BuildContext context) {
-                                                    return AlertDialog(
-                                                      content: SingleChildScrollView(
-                                                        child: Column(
-                                                          children: [
-                                                            Align(alignment: Alignment.topRight,
-                                                                child: GestureDetector(
-                                                                    onTap: () { Get.back();},
-                                                                    child: Image.asset("assets/images/closeiconondrawer.png",
-                                                                      height: Get.height * .027,))),
-                                                            SizedBox( height: Get.height * 0.035 ),
-                                                            Container(padding: const EdgeInsets.all(17),
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular( 60.0),
+                                                  child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.strengthsName ==
+                                                null ||
+                                                seekerProfileController
+                                                    .viewSeekerData.value
+                                                    .seekerDetails?.strengthsName
+                                                    ?.length == 0 ?
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController
+                                                    .viewSeekerData.value
+                                                    .seekerDetails?.strengthsName
+                                                    ?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController
+                                                      .viewSeekerData.value
+                                                      .seekerDetails
+                                                      ?.strengthsName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .circular(12),
+                                                      color: AppColors.blackdown,
+                                                    ),
+                                                    padding: const EdgeInsets.all(
+                                                        8),
+                                                    child: Text('${data?.strengths}',
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: Get.theme.textTheme
+                                                          .bodySmall!.copyWith(
+                                                          color: AppColors.white,
+                                                          fontWeight: FontWeight
+                                                              .w400),),
+                                                  );
+                                                }),
+                                            //////////////Strengths////////
+
+                                            //////////////Salary expectation////////
+                                            SizedBox(height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Salary expectation',
+                                                  style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    salarySection() ;
+                                                  },
+                                                  child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
+                                            const Text("No Data") :
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                borderRadius: BorderRadius
+                                                    .circular(12),
+                                                color: AppColors.blackdown,
+                                              ),
+                                              padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 8),
+                                              child: Text('${seekerProfileController.viewSeekerData.value.seekerDetails?.minSalary} - ${seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary}',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                    color: AppColors.white,
+                                                    fontWeight: FontWeight.w400),),
+                                            ),
+                                            //////////////Salary expectation////////
+
+                                            //////////////When can i start working?////////
+                                            SizedBox( height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('When can i start working?',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.map((e) => e.id.toString()).toList() , 5) ;
+                                                  },
+                                                  child: Image.asset("assets/images/icon_edit.png", height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController
+                                                    .viewSeekerData.value
+                                                    .seekerDetails?.startWorkName
+                                                    ?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController
+                                                      .viewSeekerData.value
+                                                      .seekerDetails
+                                                      ?.startWorkName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .circular(12),
+                                                      color: AppColors.blackdown,
+                                                    ),
+                                                    padding: const EdgeInsets.all(
+                                                        8),
+                                                    child: Text('${data?.startWork}',
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: Get.theme.textTheme
+                                                          .bodySmall!.copyWith(
+                                                          color: AppColors.white,
+                                                          fontWeight: FontWeight
+                                                              .w400),),
+                                                  );
+                                                }),
+                                            //////////////When can i start working?////////
+
+
+                                            //////////////Availability?////////
+                                            SizedBox(height: Get.height * 0.025,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Text('Availability?',
+                                                  style: Get.theme.textTheme
+                                                      .labelMedium!.copyWith(
+                                                      color: AppColors
+                                                          .white),),
+                                                GestureDetector(
+                                                  onTap: () {
+                                                    skillSection(seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName?.map((e) => e.id.toString()).toList() , 6) ;
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/images/icon_edit.png",
+                                                    height: 18,),
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.015,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName ==
+                                                null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
+                                                    ?.length == 0 ?
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController
+                                                    .viewSeekerData.value
+                                                    .seekerDetails?.availabityName
+                                                    ?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController
+                                                      .viewSeekerData.value
+                                                      .seekerDetails
+                                                      ?.availabityName?[index];
+                                                  return Container(
+                                                    alignment: Alignment.center,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius: BorderRadius
+                                                          .circular(12),
+                                                      color: AppColors.blackdown,
+                                                    ),
+                                                    padding: const EdgeInsets.all(
+                                                        8),
+                                                    child: Text('${data?.availabity}',
+                                                      overflow: TextOverflow
+                                                          .ellipsis,
+                                                      style: Get.theme.textTheme
+                                                          .bodySmall!.copyWith(
+                                                          color: AppColors.white,
+                                                          fontWeight: FontWeight
+                                                              .w400),),
+                                                  );
+                                                }),
+                                            //////////////Availability?////////
+
+                                            SizedBox(height: Get.height * 0.045,),
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        child: SvgPicture.asset('assets/images/language.svg',height: Get.height*.03,)),
+                                                    SizedBox(
+                                                      width: Get.width * 0.02,),
+                                                    Padding(
+                                                      padding: const EdgeInsets
+                                                          .only(
+                                                          top: 2.0),
+                                                      child:
+                                                      Text('Language',
+                                                        style: Get.theme.textTheme
+                                                            .labelMedium!.copyWith(
+                                                            color: AppColors
+                                                                .white),),
+                                                    ),
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      language(seekerProfileController.viewSeekerData.value.seekerDetails?.language );
+                                                    },
+                                                    child: Image.asset(
+                                                      'assets/images/icon_edit.png',height: 18,))
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
+                                            const Text("No Data") :
+                                            GridView.builder(gridDelegate:
+                                            SliverGridDelegateWithMaxCrossAxisExtent(
+                                                mainAxisExtent: 36,
+                                                maxCrossAxisExtent: Get.width * 0.4,
+                                                mainAxisSpacing: 8,
+                                                crossAxisSpacing: 8),
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController
+                                                      .viewSeekerData.value
+                                                      .seekerDetails
+                                                      ?.language?[index];
+                                                  return Container( alignment: Alignment.center,
+                                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
+                                                      color: AppColors.blackdown,),
+                                                    padding: const EdgeInsets.all(8),
+                                                    child: Text('${data?.languages}',
+                                                      style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                          color: AppColors.white, fontWeight: FontWeight.w400),),
+                                                  );
+                                                }),
+                                            //********************* for appreciation ***************************
+                                            SizedBox(height: Get.height * 0.04,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row( mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    InkWell(
+                                                        child: Image.asset( 'assets/images/appreciation.png',height: Get.height*.03,)),
+                                                    SizedBox(width: Get.width * 0.02,),
+                                                    Padding(padding: const EdgeInsets.only(top: 6.0),
+                                                      child: Text('appreciation',
+                                                        style: Get.theme.textTheme.labelMedium!.copyWith(
+                                                            color: AppColors.white),),
+                                                    ),
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      appreciation(0 , "", "", add: true);
+                                                    },
+                                                    child: Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,))
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
+                                            const Text("No Data")
+                                                : ListView.builder(
+                                                shrinkWrap: true,
+                                                physics: const NeverScrollableScrollPhysics(),
+                                                itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length,
+                                                itemBuilder: (context, index) {
+                                                  var data = seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?[index];
+                                                  return Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                                    children: [
+                                                      SizedBox(height: Get.height * 0.02,),
+                                                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                        children: [
+                                                          Text('${data?.awardName}', style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                              color: AppColors.white, fontWeight: FontWeight.w700),),
+                                                          Row(
+                                                            children: [
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    appreciation(index , data?.awardName , data?.achievement);},
+                                                                  child: Image.asset('assets/images/icon_edit.png',height: 18,)),
+                                                              const SizedBox(width: 16,),
+                                                              InkWell(
+                                                                  onTap: () {
+                                                                    _openAppreciationDeleteDialog(index) ;
+                                                                  },
+                                                                  child: Image.asset('assets/images/icon_delete.png',height: Get.height*.03,)),
+                                                            ],
+                                                          )
+                                                        ],
+                                                      ),
+                                                      SizedBox(height: Get.height * 0.01,),
+                                                      Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                                        children: [
+                                                          Text( "${data?.achievement}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                          ),
+                                                        ],
+                                                      )
+                                                    ],
+                                                  );
+                                                }
+                                            ),
+
+                                            SizedBox(height: Get.height * 0.04,),
+                                            Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                                Row(
+                                                  mainAxisAlignment: MainAxisAlignment
+                                                      .start,
+                                                  children: [
+                                                    InkWell(child: Image.asset('assets/images/resumesvg.png',height: Get.height*.03,)),
+                                                    SizedBox(width: Get.width * 0.02,),
+                                                    Text('Resume',
+                                                      style: Get.theme.textTheme
+                                                          .labelMedium!.copyWith(
+                                                          color: AppColors
+                                                              .white),),
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      editSeekerResumeController.resumePath.value = '' ;
+                                                      resume() ;
+                                                    },
+                                                    child: seekerProfileController.viewSeekerData
+                                                        .value.seekerInfo?.resume == null || seekerProfileController
+                                                        .viewSeekerData.value.seekerInfo?.resume.length == 0 ?
+                                                    Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
+                                                    Image.asset('assets/images/icon_edit.png',height: 18,)
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            const Divider(
+                                              thickness: 0.2,
+                                              color: AppColors.white,
+                                            ),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
+                                            const Text("No Data")
+                                                : ListTile(
+                                              leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
+                                              SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
+                                              title: Text(
+                                                'Resume',
+                                                overflow: TextOverflow.ellipsis,
+                                                style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                    color: AppColors.white, fontWeight: FontWeight.w500),),
+                                              onTap: () {
+                                                CommonFunctions.confirmationDialog(context, message: "Do you want to open this file",
+                                                  onTap: () async {
+                                                    launchUrl(Uri.parse('${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}')) ;
+                                                    // String? directory = await getLocalDownloadDir() ;
+                                                    // CommonFunctions.downloadFile( '${seekerProfileController.viewSeekerData.value.seekerInfo?.resumeLink}',
+                                                    //     '${seekerProfileController.viewSeekerData.value.seekerInfo?.resume}', "$directory" ) ;
+                                                    // Get.back() ;
+                                                  },) ;
+                                              },
+                                            ),
+                                            SizedBox(height: Get.height * .03,),
+                                            Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Row(
+                                                  children: [
+                                                    Image.asset("assets/images/icon_document.png",height: Get.height*.03,) ,
+                                                    SizedBox(width: Get.width*.02,) ,
+                                                    Text('Document', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+                                                  ],
+                                                ),
+                                                InkWell(
+                                                    onTap: () {
+                                                      editSeekerResumeController.documentPath.value = "" ;
+                                                      document() ;
+                                                    },
+                                                    child: seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
+                                                        seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
+                                                    Image.asset('assets/images/icon_add_more.png',height: Get.height*.04,):
+                                                    Image.asset('assets/images/icon_edit.png',height: 18,)
+                                                )
+                                              ],
+                                            ),
+                                            SizedBox(height: Get.height*.015,) ,
+                                            const Divider(thickness: 0.2, color: AppColors.white,),
+                                            seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
+                                                seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
+                                            const Text("No Data") :
+                                            ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
+                                            SvgPicture.asset('assets/images/PDF.svg') :
+                                            SizedBox( height: Get.height *.4 ,
+                                              child: Image.network("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentLink}",
+                                                fit: BoxFit.cover, ),
+                                            ) )  ,
+                                            // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
+                                            //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
+                                            SizedBox(height: Get.height * 0.02,),
+                                            Center(
+                                              child: MyButton(
+                                                title: "Boost Your Profile",
+                                                onTap1: () {
+                                                  showDialog(
+                                                    barrierDismissible: false,
+                                                    context: context,
+                                                    builder: (
+                                                        BuildContext context) {
+                                                      return AlertDialog(
+                                                        content: SingleChildScrollView(
+                                                          child: Column(
+                                                            children: [
+                                                              Align(alignment: Alignment.topRight,
+                                                                  child: GestureDetector(
+                                                                      onTap: () { Get.back();},
+                                                                      child: Image.asset("assets/images/closeiconondrawer.png",
+                                                                        height: Get.height * .027,))),
+                                                              SizedBox( height: Get.height * 0.035 ),
+                                                              Container(padding: const EdgeInsets.all(17),
+                                                                decoration: BoxDecoration(
+                                                                    borderRadius: BorderRadius.circular( 60.0),
+                                                                    color: AppColors.blueThemeColor
+                                                                ),
+                                                                child: Image.asset('assets/images/boost.png', scale: 3.4,),
+                                                              ),
+                                                              SizedBox(height: Get.height * 0.02),
+                                                              Text("Boost your profile", style: Get.theme.textTheme.labelMedium),
+                                                              SizedBox(height: Get.height * 0.01),
+                                                              Text("Lorem Ipsum is simply dummy text",
+                                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                                      fontWeight: FontWeight.w400, color: AppColors.white)),
+                                                              SizedBox(height: Get.height * 0.05),
+                                                              Container( decoration: BoxDecoration(
+                                                                  borderRadius: BorderRadius.circular(10.0),
                                                                   color: AppColors.blueThemeColor
                                                               ),
-                                                              child: Image.asset('assets/images/boost.png', scale: 3.4,),
-                                                            ),
-                                                            SizedBox(height: Get.height * 0.02),
-                                                            Text("Boost your profile", style: Get.theme.textTheme.labelMedium),
-                                                            SizedBox(height: Get.height * 0.01),
-                                                            Text("Lorem Ipsum is simply dummy text",
-                                                                style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                                    fontWeight: FontWeight.w400, color: AppColors.white)),
-                                                            SizedBox(height: Get.height * 0.05),
-                                                            Container( decoration: BoxDecoration(
-                                                                borderRadius: BorderRadius.circular(10.0),
-                                                                color: AppColors.blueThemeColor
-                                                            ),
-                                                              height: Get.height * 0.21,
-                                                              width: Get.width * 0.32,
-                                                              child: Center(
-                                                                child: Column(
-                                                                  children: [
-                                                                    SizedBox(height: Get.height * 0.035),
-                                                                    Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
-                                                                        fontSize: 25, color: AppColors.white)),
-                                                                    SizedBox(height: Get.height * 0.014),
-                                                                    Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                        fontSize: 15, color: AppColors.white)),
-                                                                    SizedBox(height: Get.height * 0.01),
-                                                                    Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                                        fontSize: 13, color: AppColors.white)),
-                                                                    SizedBox(height: Get.height * 0.01),
-                                                                    Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                        fontSize: 11, color: AppColors.white)),
-                                                                  ],
+                                                                height: Get.height * 0.21,
+                                                                width: Get.width * 0.32,
+                                                                child: Center(
+                                                                  child: Column(
+                                                                    children: [
+                                                                      SizedBox(height: Get.height * 0.035),
+                                                                      Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
+                                                                          fontSize: 25, color: AppColors.white)),
+                                                                      SizedBox(height: Get.height * 0.014),
+                                                                      Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                                                          fontSize: 15, color: AppColors.white)),
+                                                                      SizedBox(height: Get.height * 0.01),
+                                                                      Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                                          fontSize: 13, color: AppColors.white)),
+                                                                      SizedBox(height: Get.height * 0.01),
+                                                                      Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                                                          fontSize: 11, color: AppColors.white)),
+                                                                    ],
+                                                                  ),
                                                                 ),
                                                               ),
-                                                            ),
-                                                            SizedBox(height: Get.height * 0.035),
-                                                            Center(
-                                                              child: MyButton(width: Get.width * .7,
-                                                                title: "BOOST ME",
-                                                                onTap1: () {},),
-                                                            )
-                                                          ],
+                                                              SizedBox(height: Get.height * 0.035),
+                                                              Center(
+                                                                child: MyButton(width: Get.width * .7,
+                                                                  title: "BOOST ME",
+                                                                  onTap1: () {},),
+                                                              )
+                                                            ],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      shape: RoundedRectangleBorder(
-                                                          borderRadius: BorderRadius
-                                                              .circular(15)
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                              },),
-                                          ),
-                                          SizedBox(height: Get.height * .02,),
-                                        ],
-                                      )
-                                  ),
+                                                        shape: RoundedRectangleBorder(
+                                                            borderRadius: BorderRadius
+                                                                .circular(15)
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },),
+                                            ),
+                                            SizedBox(height: Get.height * .02,),
+                                          ],
+                                        )
+                                    ),
 
-                                ],
-                              ),
-                            );
-                        },
-                      ),
-                    ],
+                                  ],
+                                ),
+                              );
+                          },
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
