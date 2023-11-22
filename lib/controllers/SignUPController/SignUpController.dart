@@ -167,22 +167,18 @@ class SignUpController extends GetxController {
                 children: [
                   GestureDetector(
                     onTap: () => Get.back(),
-                    child: Container(
-                      decoration: BoxDecoration(
-                        // gradient: const LinearGradient(
-                        //     colors: [
-                        //       Color(0xff56B8F6),
-                        //       Color(0xff4D6FED)
-                        //     ],begin: Alignment.topCenter,
-                        //     end: Alignment.bottomCenter
-                        //
-                        // ),
-                        color: AppColors.blueThemeColor,
-                        borderRadius: BorderRadius.circular(12),),
-                      child: const Icon(
-                        Icons.close,
-                        color: Colors.white,
-                      ),),
+                    child: Stack(
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.blueThemeColor,
+                          borderRadius: BorderRadius.circular(12),),
+                        child: const Icon(
+                          Icons.close,
+                          color: Colors.white,
+                        ),),
+                    ],
+                    ),
                   )],),
               Container(
                 padding: const EdgeInsets.all(20),
