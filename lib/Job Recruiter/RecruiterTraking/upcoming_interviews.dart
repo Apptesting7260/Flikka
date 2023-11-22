@@ -21,7 +21,7 @@ class UpcomingInterviews extends StatefulWidget {
 }
 
 class _UpcomingInterviewsState extends State<UpcomingInterviews> {
-  final List<String> jobTypeItems = ['Upcoming','Rejected','Selected',];
+  final List<String> jobTypeItems = ['Upcoming','Past','All',];
   String? jobTypeValues;
 
   ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
@@ -73,91 +73,91 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                   child: Column(
                     children: [
                       SizedBox(height: Get.height * .02,),
-                      // Row(
-                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      //   children: [
-                      //     Text("Upcoming Interviews", style: Theme
-                      //         .of(context)
-                      //         .textTheme
-                      //         .bodyLarge
-                      //         ?.copyWith(fontWeight: FontWeight.w700,
-                      //         color: Color(0xffFFFFFF))),
-                      //     DropdownButtonHideUnderline(
-                      //       child: DropdownButton2<String>(
-                      //         isExpanded: true,
-                      //         hint: Row(
-                      //           children: [
-                      //             const SizedBox(width: 4,),
-                      //             Expanded(
-                      //               child: Text(
-                      //                 'Upcoming',
-                      //                 style: Get.theme.textTheme.bodyLarge!
-                      //                     .copyWith(color: AppColors.white),
-                      //                 overflow: TextOverflow.ellipsis,
-                      //               ),
-                      //             ),
-                      //           ],
-                      //         ),
-                      //         items: jobTypeItems.map((String item) =>
-                      //             DropdownMenuItem<String>(
-                      //               value: item,
-                      //               child: Text(
-                      //                 item,
-                      //                 style: Get.theme.textTheme.bodyLarge!
-                      //                     .copyWith(color: AppColors.white),
-                      //                 overflow: TextOverflow.ellipsis,
-                      //               ),
-                      //             ))
-                      //             .toList(),
-                      //         value: jobTypeValues,
-                      //         onChanged: (String? value) {
-                      //           setState(() {
-                      //             jobTypeValues = value;
-                      //           });
-                      //         },
-                      //         buttonStyleData: ButtonStyleData(
-                      //           height: Get.height * 0.060,
-                      //           width: Get.width * .26,
-                      //           padding: const EdgeInsets.only(
-                      //               left: 14, right: 14),
-                      //           decoration: BoxDecoration(
-                      //               borderRadius: BorderRadius.circular(35),
-                      //               border: Border.all(color: Color(0xff686868))
-                      //             // color: Color(0xff353535),
-                      //           ),
-                      //           elevation: 2,
-                      //         ),
-                      //         iconStyleData: IconStyleData(
-                      //           icon: Image.asset(
-                      //               'assets/images/arrowdown.png'),
-                      //           iconSize: 14,
-                      //           iconEnabledColor: Colors.yellow,
-                      //           iconDisabledColor: Colors.grey,
-                      //         ),
-                      //         dropdownStyleData: DropdownStyleData(
-                      //           maxHeight: Get.height * 0.35,
-                      //           width: Get.width * 0.902,
-                      //           decoration: BoxDecoration(
-                      //             borderRadius: BorderRadius.circular(14),
-                      //             color: Color(0xff353535),
-                      //           ),
-                      //           offset: const Offset(5, 0),
-                      //           scrollbarTheme: ScrollbarThemeData(
-                      //             radius: Radius.circular(40),
-                      //             thickness: MaterialStateProperty.all<double>(
-                      //                 6),
-                      //             thumbVisibility: MaterialStateProperty.all<
-                      //                 bool>(true),
-                      //           ),
-                      //         ),
-                      //         menuItemStyleData: const MenuItemStyleData(
-                      //           height: 40,
-                      //           padding: EdgeInsets.only(left: 14, right: 14),
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text("Upcoming Interviews", style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge
+                              ?.copyWith(fontWeight: FontWeight.w700,
+                              color: Color(0xffFFFFFF))),
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton2<String>(
+                              isExpanded: true,
+                              hint: Row(
+                                children: [
+                                  const SizedBox(width: 4,),
+                                  Expanded(
+                                    child: Text(
+                                      'Filter',
+                                      style: Get.theme.textTheme.bodyLarge!
+                                          .copyWith(color: AppColors.white),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              items: jobTypeItems.map((String item) =>
+                                  DropdownMenuItem<String>(
+                                    value: item,
+                                    child: Text(
+                                      item,
+                                      style: Get.theme.textTheme.bodyLarge!
+                                          .copyWith(color: AppColors.white),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ))
+                                  .toList(),
+                              value: jobTypeValues,
+                              onChanged: (String? value) {
+                                setState(() {
+                                  jobTypeValues = value;
+                                });
+                              },
+                              buttonStyleData: ButtonStyleData(
+                                height: Get.height * 0.060,
+                                width: Get.width * .26,
+                                padding: const EdgeInsets.only(
+                                    left: 14, right: 14),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(35),
+                                    border: Border.all(color: Color(0xff686868))
+                                  // color: Color(0xff353535),
+                                ),
+                                elevation: 2,
+                              ),
+                              iconStyleData: IconStyleData(
+                                icon: Image.asset(
+                                    'assets/images/arrowdown.png'),
+                                iconSize: 14,
+                                iconEnabledColor: Colors.yellow,
+                                iconDisabledColor: Colors.grey,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                maxHeight: Get.height * 0.35,
+                                width: Get.width * 0.902,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(14),
+                                  color: Color(0xff353535),
+                                ),
+                                offset: const Offset(5, 0),
+                                scrollbarTheme: ScrollbarThemeData(
+                                  radius: Radius.circular(40),
+                                  thickness: MaterialStateProperty.all<double>(
+                                      6),
+                                  thumbVisibility: MaterialStateProperty.all<
+                                      bool>(true),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                height: 40,
+                                padding: EdgeInsets.only(left: 14, right: 14),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(height: Get.height * .01,),
 
                       interviewListController.interviewData.value.seeker == null ||
