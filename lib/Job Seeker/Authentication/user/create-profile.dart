@@ -435,7 +435,6 @@ class _CreateProfileState extends State<CreateProfile> {
                             controller: phoneController,
                             style: Theme.of(context).textTheme.bodyMedium,
                             pickerDialogStyle: PickerDialogStyle(
-                              searchTextStyle: Theme.of(context).textTheme.bodyMedium,
                               countryNameStyle:Theme.of(context).textTheme.bodyMedium,),
                             decoration: InputDecoration(
                               filled: true,

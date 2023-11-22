@@ -1,6 +1,3 @@
-// To parse this JSON data, do
-//
-//     final viewRecruiterProfileModel = viewRecruiterProfileModelFromJson(jsonString);
 
 import 'dart:convert';
 
@@ -146,6 +143,7 @@ class RecruiterProfileDetails {
   String? homeDescription;
   String? websiteLink;
   dynamic aboutTitle;
+  dynamic industryID;
   String? aboutDescription;
   String? industry;
   String? companySize;
@@ -173,6 +171,7 @@ class RecruiterProfileDetails {
     this.specialties,
     this.createdAt,
     this.updatedAt,
+    this.industryID ,
   });
 
   factory RecruiterProfileDetails.fromJson(Map<String, dynamic> json) => RecruiterProfileDetails(
@@ -189,6 +188,7 @@ class RecruiterProfileDetails {
     aboutTitle: json["about_title"],
     aboutDescription: json["about_description"],
     industry: json["industris"],
+    industryID: json["industry"],
     companySize: json["company_size"],
     founded: json["founded"],
 
@@ -212,6 +212,7 @@ class RecruiterProfileDetails {
     "about_title": aboutTitle,
     "about_description": aboutDescription,
     "industris": industry,
+    "industry": industryID ,
     "company_size": companySize,
     // "founded": "${founded?.year.toString().padLeft(4, '0')}-${founded?.month.toString().padLeft(2, '0')}-${founded?.day.toString().padLeft(2, '0')}",
     "specialties": specialties,

@@ -37,7 +37,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   //var homeDescriptionController = TextEditingController();
   var websiteLinkController = TextEditingController();
   var aboutDescriptionController = TextEditingController();
-  var aboutySpecialtiesController = TextEditingController();
+  var specializationController = TextEditingController();
 
   File? coverImage;
   File? profileImage;
@@ -214,10 +214,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? socialValue;
 
   final List<String> itemsCompanySize = [
-    ' 0-10',
-    ' 10-20',
+    '0-10',
+    '10-20',
     '20-30',
-    ' 30-50',
+    '30-50',
     '50-75',
     '75-100'
   ];
@@ -245,8 +245,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   DateTime selectedDate = DateTime.now();
 
-  CreateUpdateRecruiterProfileController
-      CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
+  CreateUpdateRecruiterProfileController CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
 
   var formKey = GlobalKey<FormState>();
 
@@ -259,8 +258,12 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   }
 
   nameInitialize() async {
-    SharedPreferences sp = await SharedPreferences.getInstance();
-    contactPersonNameController.text = sp.getString("name")!;
+    if(widget.profileModel?.contactPerson != null && widget.profileModel?.contactPerson?.length !=0){
+      contactPersonNameController.text = widget.profileModel?.contactPerson ?? "" ;
+    } else {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      contactPersonNameController.text = sp.getString("name")!;
+    }
   }
 
   SelectIndustryController selectIndustryController =
@@ -273,8 +276,15 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     selectIndustryController.selectIndustriesApi();
     companyNameController.text = widget.profileModel?.recruiterProfileDetails?.companyName ?? "" ;
     companyLocationController.text = widget.profileModel?.recruiterProfileDetails?.companyLocation ?? "" ;
-    addBioController.text = widget.profileModel?.recruiterProfileDetails?.addBio ?? "" ;
-
+    addBioController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.addBio ?? "") ;
+    websiteLinkController.text = widget.profileModel?.recruiterProfileDetails?.websiteLink ?? "" ;
+    aboutDescriptionController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.aboutDescription ?? "") ;
+    specializationController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.specialties ?? "") ;
+    socialValue = widget.profileModel?.recruiterProfileDetails?.industry  ;
+    companySize = widget.profileModel?.recruiterProfileDetails?.companySize  ;
+    foundedText = widget.profileModel?.recruiterProfileDetails?.founded ?? 'Select Date'  ;
+    industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
+    print("this is ========== industryID =======$industry ====== ${widget.profileModel?.recruiterProfileDetails?.industryID}") ;
     super.initState();
   }
 
@@ -359,12 +369,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                if (coverImage == null) {
+                                if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg?.length == 0) {
                                   _openCoverImagePickerDialog();
                                 }
                                 return;
-
-
                               },
                               child: Container(
                                 height: Get.height * .19,
@@ -375,22 +383,21 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    coverImage == null
-                                        ? Image.asset(
-                                            "assets/images/icon_upload_cv.png",
-                                            height: Get.height * .05,
-                                          )
+                                    widget.profileModel?.recruiterProfileDetails?.coverImg != null ?
+                                    Image.network(widget.profileModel?.recruiterProfileDetails?.coverImg ?? "", width: Get.width, fit : BoxFit.cover,) :
+                                     widget.profileModel?.recruiterProfileDetails?.coverImg == null ?
+                                    Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,)
                                         : Image.file(
                                             coverImage!,
                                             height: Get.height,
                                             width: Get.width,
                                             fit: BoxFit.cover,
                                           ),
-                                    if (coverImage == null)
+                                    if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
                                       SizedBox(
                                         width: Get.width * .04,
                                       ),
-                                    if (coverImage == null)
+                                    if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
                                       Text(
                                         "Upload Cover Image",
                                         style: Theme.of(context)
@@ -407,10 +414,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                             Positioned(
                               right: 10,
                               top: 10,
-                              child: coverImage == null
+                              child: coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg?.length == 0
                                   ? const SizedBox()
                                   : IconButton(
-                                      icon: Icon(
+                                      icon: const Icon(
                                         Icons.edit,
                                         color: Colors.white,
                                         size: 30,
@@ -428,12 +435,14 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 backgroundColor: const Color(0xff353535),
                                 child: ClipOval(
                                   child: profileImage == null
+                                      ? widget.profileModel?.recruiterProfileDetails?.profileImg == null ||
+                                      widget.profileModel?.recruiterProfileDetails?.profileImg?.length == 0
                                       ? Image.asset(
                                           "assets/images/icon_profile.png",
                                           height: 40,
                                           width: 40,
-                                          fit: BoxFit.cover,
-                                        )
+                                          fit: BoxFit.cover,) : Image.network(widget.profileModel?.recruiterProfileDetails?.profileImg ?? "",
+                                    height: Get.height, width: Get.width, fit: BoxFit.cover,)
                                       : Image.file(
                                           profileImage!,
                                           height: Get.height,
@@ -457,26 +466,12 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                   padding: const EdgeInsets.all(8),
                                   height: 37,
                                   width: 37,
-                                  // height: Get.height * .05,
-                                  // width: Get.height * .05,
                                   decoration: const BoxDecoration(
                                       shape: BoxShape.circle,
-                                      // gradient: LinearGradient(
-                                      //   colors: [
-                                      //     Color(0xff56B8F6),
-                                      //     Color(0xff4D6FED)
-                                      //   ],
-                                      //   begin: Alignment.topLeft,
-                                      //   end: Alignment.bottomRight,
-                                      // ),
                                       color: AppColors.blueThemeColor),
-                                  child: profileImage != null &&
-                                          profileImage?.path.length != 0
-                                      ? const Icon(
-                                          Icons.edit,
-                                          color: Colors.white,
-                                          size: 18,
-                                        )
+                                  child: profileImage != null && profileImage?.path.length != 0 &&
+                                      widget.profileModel?.recruiterProfileDetails?.profileImg?.length != 0
+                                      ? const Icon(Icons.edit, color: Colors.white, size: 18,)
                                       : Image.asset(
                                           "assets/images/camera.png",
                                           fit: BoxFit.cover,
@@ -617,11 +612,6 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                       setState(() {
                                         companyLocationController.text = searchPlace[index].description ?? "";
                                         _getLatLang();
-                                        // SelectedLocation =
-                                        //     locationController.text;
-                                        // // print(SelectedLocation);
-                                        // Sikeraddress = SelectedLocation;
-                                        // print("$Sikeraddress=============");
                                         setState(() {
                                           searchPlace.clear();
                                         });
@@ -759,25 +749,6 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               .headlineSmall
                               ?.copyWith(fontWeight: FontWeight.w700),
                         ),
-                        // SizedBox(
-                        //   height: Get.height * .028,
-                        // ),
-                        // Text(
-                        //   "Title name",
-                        //   style: Theme
-                        //       .of(context)
-                        //       .textTheme
-                        //       .titleSmall
-                        //       ?.copyWith(fontWeight: FontWeight.w700),
-                        // ),
-                        // SizedBox(
-                        //   height: Get.height * .01,
-                        // ),
-                        // CommonWidgets.textField(
-                        //   context, titleNameController,
-                        //   "Enter award name", onFieldSubmitted: (value) {
-                        //
-                        // },),
                         SizedBox(
                           height: Get.height * .02,
                         ),
@@ -836,14 +807,11 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                     ),
                                   ],
                                 ),
-                                items: selectIndustryController
-                                    .getIndustriesData.value.industries
-                                    ?.map((item) => DropdownMenuItem<String>(
+                                items: selectIndustryController.getIndustriesData.value.industries?.map((item) => DropdownMenuItem<String>(
                                           onTap: () {
                                             setState(() {
                                               industry = item.id.toString();
-                                              socialValue =
-                                                  item.industryPreferences;
+                                              socialValue = item.industryPreferences;
                                             });
                                           },
                                           value: item.industryPreferences,
@@ -901,8 +869,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                             ),
                           ),
                         ),
-                        Obx(() => CreateUpdateRecruiterProfileControllerInstanse
-                                .industryError.value.isEmpty
+                        Obx(() => CreateUpdateRecruiterProfileControllerInstanse.industryError.value.isEmpty
                             ? const SizedBox()
                             : Center(
                                 child: Align(
@@ -935,8 +902,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                     ?.copyWith(fontWeight: FontWeight.w400),
                                 overflow: TextOverflow.ellipsis,
                               ),
-                              items: itemsCompanySize
-                                  .map((String item) =>
+                              items: itemsCompanySize.map((String item) =>
                                       DropdownMenuItem<String>(
                                         value: item,
                                         child: Text(
@@ -947,10 +913,9 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                         ),
                                       ))
                                   .toList(),
-                              value: sizeValues,
+                              value: companySize,
                               onChanged: (String? value) {
                                 setState(() {
-                                  sizeValues = value;
                                   companySize = value;
                                 });
                               },
@@ -1051,17 +1016,6 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                             ),
                           ),
                         ),
-                        // Obx(() =>
-                        // CreateUpdateRecruiterProfileControllerInstanse
-                        //     .foundedError.value.isEmpty ?
-                        // const SizedBox() :
-                        // Center(child: Align(
-                        //     alignment: Alignment.topLeft,
-                        //     child: Text(
-                        //       CreateUpdateRecruiterProfileControllerInstanse
-                        //           .foundedError.value,
-                        //       style: TextStyle(color: Colors.red),)))
-                        // ),
                         SizedBox(
                           height: Get.height * .04,
                         ),
@@ -1077,7 +1031,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                         ),
                         CommonWidgets.textFieldMaxLines(
                           context,
-                          aboutySpecialtiesController,
+                          specializationController,
                           "Enter Specialization",
                           onFieldSubmitted: (value) {},
                         ),
@@ -1090,82 +1044,39 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 loading: CreateUpdateRecruiterProfileControllerInstanse.loading.value,
                                 title: "CONTINUE",
                                 onTap1: () {
-                                  // CreateUpdateRecruiterProfileControllerInstanse
-                                  //     .profileImageError.value = "";
-                                  // CreateUpdateRecruiterProfileControllerInstanse
-                                  //     .coverImageError.value = "";
-                                  CreateUpdateRecruiterProfileControllerInstanse
-                                      .industryError.value = "";
-                                  CreateUpdateRecruiterProfileControllerInstanse
-                                      .companySizeError.value = "";
-                                  CreateUpdateRecruiterProfileControllerInstanse
-                                      .foundedError.value = "";
-                                  // if (profileImage == null) {
-                                  //   CreateUpdateRecruiterProfileControllerInstanse
-                                  //       .profileImageError.value =
-                                  //   "Please select profile image";
-                                  //   scrollController.animateTo(0,
-                                  //       duration: Duration(
-                                  //           microseconds: 100),
-                                  //       curve: Curves.easeOut);
-                                  // } else if (coverImage == null) {
-                                  //   CreateUpdateRecruiterProfileControllerInstanse
-                                  //       .coverImageError.value =
-                                  //   "Please select cover image";
-                                  //   scrollController.animateTo(0,
-                                  //       duration: Duration(
-                                  //           microseconds: 100),
-                                  //       curve: Curves.easeOut);
-                                  // }
-
+                                  CreateUpdateRecruiterProfileControllerInstanse.industryError.value = "";
+                                  CreateUpdateRecruiterProfileControllerInstanse.companySizeError.value = "";
+                                  CreateUpdateRecruiterProfileControllerInstanse.foundedError.value = "";
                                   if (formKey.currentState!.validate()) {
                                     if (industry == null) {
-                                      CreateUpdateRecruiterProfileControllerInstanse
-                                          .industryError
-                                          .value = "Please choose industry";
+                                      CreateUpdateRecruiterProfileControllerInstanse.industryError.value = "Please choose industry";
                                     } else if (companySize == null) {
-                                      CreateUpdateRecruiterProfileControllerInstanse
-                                          .companySizeError
-                                          .value = "Please select company size";
-                                      // } else if (founded == null) {
-                                      //   CreateUpdateRecruiterProfileControllerInstanse
-                                      //       .foundedError.value =
-                                      //   "Please select founded date";
-                                      // }
+                                      CreateUpdateRecruiterProfileControllerInstanse.companySizeError.value = "Please select company size";
                                     } else {
-                                      var formattedAddBioText =
-                                          CommonFunctions.changeToHTML(
-                                              addBioController.text ?? "");
-                                      var formattedAboutDescriptionText =
-                                          CommonFunctions.changeToHTML(
-                                              aboutDescriptionController.text ??
-                                                  "");
-                                      var formattedSpecilizationText =
-                                          CommonFunctions.changeToHTML(
-                                              aboutySpecialtiesController
-                                                      .text ??
-                                                  "");
+                                      var formattedAddBioText = CommonFunctions.changeToHTML(addBioController.text ?? "");
+                                      var formattedAboutDescriptionText = CommonFunctions.changeToHTML(aboutDescriptionController.text ?? "");
+                                      var formattedSpecilizationText = CommonFunctions.changeToHTML(specializationController.text ?? "");
                                       debugPrint(formattedAddBioText);
                                       debugPrint(formattedAboutDescriptionText);
 
                                       print("this is =====================================${coverImage?.path}") ;
-                                      // CreateUpdateRecruiterProfileControllerInstanse
-                                      //     .createUpdateRecruiterProfileApi(
-                                      //         profilePath: profileImage?.path,
-                                      //         coverPath: coverImage?.path,
-                                      //         companyName: companyNameController.text,
-                                      //         companyLocation: companyLocationController.text,
-                                      //         addBio: formattedAddBioText,
-                                      //         websiteLink: websiteLinkController.text,
-                                      //         aboutDescription: formattedAboutDescriptionText,
-                                      //         industry: industry,
-                                      //         companySize: companySize?.replaceAll("Employees", ""),
-                                      //         founded: selectedDateString,
-                                      //         specialties:
-                                      //             formattedSpecilizationText,
-                                      //         contactPerson:
-                                      //             contactPersonNameController
-                                      //                 .text);
+                                      CreateUpdateRecruiterProfileControllerInstanse
+                                          .createUpdateRecruiterProfileApi(
+                                              profilePath: profileImage?.path,
+                                              coverPath: coverImage?.path,
+                                              companyName: companyNameController.text,
+                                              companyLocation: companyLocationController.text,
+                                              addBio: formattedAddBioText,
+                                              websiteLink: websiteLinkController.text,
+                                              aboutDescription: formattedAboutDescriptionText,
+                                              industry: industry,
+                                              companySize: companySize?.replaceAll("Employees", ""),
+                                              founded: selectedDateString,
+                                              specialties:
+                                                  formattedSpecilizationText,
+                                              contactPerson:
+                                                  contactPersonNameController
+                                                      .text);
                                     }
                                   } else {
                                     scrollController.animateTo(0,
