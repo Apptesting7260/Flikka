@@ -694,7 +694,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         value: monthsValue,
                         onChanged: ( newValue) {
                           setState(() {
-                            monthsValue = newValue!.toString();
+                            monthsValue = newValue!.toString().padLeft(2,'0');
                           });
                         },
                         items: List.generate(12, (index) => DropdownMenuItem(

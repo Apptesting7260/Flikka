@@ -1819,6 +1819,9 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.01,),
+                                          seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
+                                              CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
+                                          const Text("No Data") :
                                           HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
                                               .copyWith(color: AppColors.ratingcommenttextcolor),),
                                           // Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",

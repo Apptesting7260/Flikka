@@ -4,6 +4,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
 import 'package:flikka/controllers/SelectIndustryController/SelectIndustryController.dart';
 import 'package:flikka/data/response/status.dart';
+import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -21,7 +22,8 @@ import '../../res/components/internet_exception_widget.dart';
 import 'package:http/http.dart' as http;
 
 class RecruiterProfileEdit extends StatefulWidget {
-  const RecruiterProfileEdit({super.key});
+  final ViewRecruiterProfileModel? profileModel ;
+  const RecruiterProfileEdit({super.key, this.profileModel});
 
   @override
   State<RecruiterProfileEdit> createState() => _RecruiterProfileEditState();
@@ -269,10 +271,13 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   void initState() {
     nameInitialize();
     selectIndustryController.selectIndustriesApi();
+    companyNameController.text = widget.profileModel?.recruiterProfileDetails?.companyName ?? "" ;
+    companyLocationController.text = widget.profileModel?.recruiterProfileDetails?.companyLocation ?? "" ;
+    addBioController.text = widget.profileModel?.recruiterProfileDetails?.addBio ?? "" ;
+
     super.initState();
   }
 
-  var _formKey = GlobalKey<FormState>();
   var isLoading = false;
   List<Location> locations = [] ;
   double? lat;
@@ -292,12 +297,16 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
           if (selectIndustryController.error.value == 'No internet') {
             return Scaffold(
               body: InterNetExceptionWidget(
-                onPress: () {},
+                onPress: () {
+                  selectIndustryController.selectIndustriesApi();
+                },
               ),
             );
           } else {
             return Scaffold(
-              body: GeneralExceptionWidget(onPress: () {}),
+              body: GeneralExceptionWidget(onPress: () {
+                selectIndustryController.selectIndustriesApi();
+              }),
             );
           }
         case Status.COMPLETED:

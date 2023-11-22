@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/about.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/home.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/jobs.dart';
+import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_edit.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -155,20 +156,26 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                   SizedBox(
                                     height: Get.height * .017,
                                   ),
-                                  Align(
-                                    alignment: Alignment.topLeft,
-                                    child: Text(
-                                      viewRecruiterProfileController
-                                          .viewRecruiterProfile
-                                          .value
-                                          .recruiterProfileDetails
-                                          ?.companyName ??
-                                          "",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall
-                                          ?.copyWith(fontWeight: FontWeight.w700),
-                                    ),
+                                  Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        viewRecruiterProfileController
+                                            .viewRecruiterProfile
+                                            .value
+                                            .recruiterProfileDetails
+                                            ?.companyName ??
+                                            "",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall
+                                            ?.copyWith(fontWeight: FontWeight.w700),
+                                      ),
+                                      InkWell(
+                                          onTap: () {
+                                            Get.to( () => RecruiterProfileEdit( profileModel: viewRecruiterProfileController.viewRecruiterProfile.value,) ) ;
+                                          },
+                                          child: Image.asset("assets/images/icon_edit.png", height: 18,))
+                                    ],
                                   ),
                                 ],
                               ),

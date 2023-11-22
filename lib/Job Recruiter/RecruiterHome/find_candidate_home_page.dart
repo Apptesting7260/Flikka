@@ -255,7 +255,19 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                       )
                     ],
                   ) :
-                  const Text("Post any job to select candidates"),
+                  Column( mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text("Post any job to select candidates"),
+                  SizedBox(height: Get.height *.02,) ,
+                  MyButton(
+                    width: Get.width*.25,
+                    height: Get.height*.05,
+                    title: "Ok",
+                    onTap1: () {
+                      Get.back();
+                    },),
+                    ],
+                  ),
                 );
               }
             ),

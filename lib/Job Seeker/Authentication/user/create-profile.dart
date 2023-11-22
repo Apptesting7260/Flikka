@@ -63,8 +63,7 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  SeekerCreateProfileController seekerCreateProfileController =
-      Get.put(SeekerCreateProfileController());
+  SeekerCreateProfileController seekerCreateProfileController = Get.put(SeekerCreateProfileController());
 
   bool fresher = false;
   bool experiencePresent = false;
@@ -166,6 +165,10 @@ class _CreateProfileState extends State<CreateProfile> {
   double? lat;
   double? long;
   List<Predictions> searchPlace = [];
+
+  String? phoneNumber ;
+
+  @override
   void initState() {
     super.initState();
     nameInitialize();
@@ -185,13 +188,13 @@ class _CreateProfileState extends State<CreateProfile> {
     nameController.text = sp.getString("name")!;
   }
 
-  ViewLanguageController viewLanguageController =
-      Get.put(ViewLanguageController());
+  ViewLanguageController viewLanguageController = Get.put(ViewLanguageController());
   var DocumentType;
   final List selectDocumentType = [
     'passport',
     'id_card',
   ];
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -327,7 +330,7 @@ class _CreateProfileState extends State<CreateProfile> {
                             child: Text(
                             seekerCreateProfileController
                                 .imageErrorMessage.value,
-                            style: TextStyle(color: Colors.red),
+                            style: const TextStyle(color: Colors.red),
                           ))),
                     SizedBox(
                       height: Get.height * .055,
@@ -365,8 +368,6 @@ class _CreateProfileState extends State<CreateProfile> {
                               print(value);
                               setState(() {
                                 if (locationController.text.isEmpty) {
-                                  // Sikeraddress = value;
-                                  // // searchPlace.clear();
                                 }
                               });
                               searchAutocomplete(value);
@@ -390,10 +391,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                   borderRadius: BorderRadius.all(Radius.circular(35.0)),
                                   borderSide: BorderSide(color: Color(0xff373737)),
                                 ),
-                                hintStyle: Theme.of(context)
-                                    .textTheme
-                                    .labelLarge
-                                    ?.copyWith(color: const Color(0xffCFCFCF)),
+                                hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: const Color(0xffCFCFCF)),
                                 contentPadding: EdgeInsets.symmetric(
                                     horizontal: Get.width * .06, vertical: Get.height * .027)),
                           ),
@@ -409,11 +407,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                       setState(() {
                                         locationController.text = searchPlace[index].description ?? "";
                                         _getLatLang();
-                                        // SelectedLocation =
-                                        //     locationController.text;
-                                        // // print(SelectedLocation);
-                                        // Sikeraddress = SelectedLocation;
-                                        // print("$Sikeraddress=============");
                                         setState(() {
                                           searchPlace.clear();
                                         });
@@ -442,15 +435,13 @@ class _CreateProfileState extends State<CreateProfile> {
                             controller: phoneController,
                             style: Theme.of(context).textTheme.bodyMedium,
                             pickerDialogStyle: PickerDialogStyle(
+                              searchTextStyle: Theme.of(context).textTheme.bodyMedium,
                               countryNameStyle:Theme.of(context).textTheme.bodyMedium,),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xff373737),
                               hintText: "Enter Phone number",
-                              hintStyle: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .labelLarge
+                              hintStyle: Theme.of(context).textTheme.labelLarge
                                   ?.copyWith(color: const Color(0xffCFCFCF)),
                               contentPadding: EdgeInsets.symmetric(
                                   vertical: Get.height * .025, horizontal: Get.width * .07),
@@ -468,22 +459,25 @@ class _CreateProfileState extends State<CreateProfile> {
                               disabledBorder: const OutlineInputBorder(
                                 borderRadius: BorderRadius.all(Radius.circular(22.0)),
                                 borderSide: BorderSide(color: Color(0xff373737)),
-                              ),
-
-                            ),
+                              ),),
+                            validator: (p0) {
+                              if(p0?.number.length != 10) {
+                                return "Please enter a valid number" ;
+                              }
+                              return null;
+                            },
                             languageCode: "en",
                             onChanged: (phone) {
-                              print(phone.completeNumber);
+                             phoneNumber = phone.completeNumber ;
+                             debugPrint("this is ========= $phoneNumber") ;
                             },
                             onCountryChanged: (country) {
-                              print('Country changed to: ' + country.name);
+                              print('Country changed to: ${country.name}');
                              print( country.dialCode+phoneController.text) ;
                             },
                             inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                           ),
-                          SizedBox(
-                            height: Get.height * .042,
-                          ),
+                          SizedBox(height: Get.height * .042,),
                         ],
                       ),
                     ),
@@ -1910,7 +1904,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                     _documentTypeFilePath,
                                     nameController.text,
                                     locationController.text,
-                                    phoneController.text ,
+                                    phoneNumber ,
                                     formattedAboutText,
                                     workExperienceList,
                                     educationList,

@@ -360,7 +360,7 @@ class SeekerInfo {
   var email;
   var password;
   var location;
-  var aboutMe;
+  String? aboutMe;
   var resume;
   dynamic totalExperience;
   var referralCode;
