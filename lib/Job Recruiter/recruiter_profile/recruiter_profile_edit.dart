@@ -995,9 +995,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                         Obx(
                           () => Center(
                             child: MyButton(
-                                loading:
-                                    CreateUpdateRecruiterProfileControllerInstanse
-                                        .loading.value,
+                                loading: CreateUpdateRecruiterProfileControllerInstanse.loading.value,
                                 title: "CONTINUE",
                                 onTap1: () {
                                   // CreateUpdateRecruiterProfileControllerInstanse
