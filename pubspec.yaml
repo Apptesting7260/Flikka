@@ -34,7 +34,7 @@ dependencies:
   flutter_share: ^2.0.0
   geolocator: ^10.1.0
   fluttertoast: ^8.0.9
-  geocoding: ^2.0.4
+  geocoding: ^2.1.0
   google_maps_flutter: ^2.2.3
   permission_handler: ^11.0.0
   flutter_screenutil: ^5.5.3+2
@@ -63,6 +63,8 @@ dependencies:
   percent_indicator: ^4.2.3
   html: ^0.15.4
   flutter_widget_from_html_core: ^0.14.7
+  country_picker: ^2.0.22
+  intl_phone_field: ^3.2.0
 
 #  table_calendar: ^2.3.3
 

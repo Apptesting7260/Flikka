@@ -4,6 +4,7 @@ import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileMode
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -30,7 +31,8 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               SizedBox(height: Get.height*.045,),
               Text("About",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.005,),
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.aboutDescription ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
+              HtmlWidget(widget.recruiterProfileDetails?.aboutDescription ?? "No Data",textStyle:Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
+              // Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.aboutDescription ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
               SizedBox(height: Get.height*.03,),
               Text("Website",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
@@ -64,9 +66,8 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
               SizedBox(height: Get.height*.02,),
               Text("Specialization",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.003,),
-
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
-
+              HtmlWidget(widget.recruiterProfileDetails?.specialties ?? "No Data",textStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
+              // Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.specialties ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w500,color: const Color(0xffCFCFCF)),),
 
               SizedBox(height: Get.height*.1,),
 

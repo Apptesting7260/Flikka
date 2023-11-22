@@ -1001,7 +1001,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                       .textTheme
                                       .labelLarge
                                       ?.copyWith(fontWeight: FontWeight.w400,
-                                      color: Color(0xffFFFFFF)),),
+                                      color: const Color(0xffFFFFFF)),),
                               ),
                               SizedBox(height: Get.height * .05,),
                             ],

@@ -3,6 +3,7 @@ import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterP
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -30,7 +31,8 @@ class _RecruiterHomeState extends State<RecruiterHome> {
               SizedBox(height: Get.height*.035,),
               Text("Overview",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.01,),
-              Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.addBio ?? "No Data"),style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
+              HtmlWidget(widget.recruiterProfileDetails?.addBio ?? "No Data",textStyle: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),) ,
+              // Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.addBio ?? "No Data"),style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                SizedBox(height: Get.height*.03,),
               Container(
                 width: Get.width,

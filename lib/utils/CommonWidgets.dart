@@ -7,7 +7,8 @@ class CommonWidgets {
       BuildContext context,
     TextEditingController controller,
     var hint,
-      {required Function(bool) onFieldSubmitted }
+      {required Function(bool) onFieldSubmitted ,
+      Function(String)? onChanged}
   ) {
         return Focus(
           onFocusChange: onFieldSubmitted ,

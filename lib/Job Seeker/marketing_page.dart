@@ -5,6 +5,7 @@ import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
 class MarketingIntern extends StatefulWidget {
@@ -90,17 +91,19 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  Text(
-                   CommonFunctions.parseHTML( widget.jobData?.description ?? '' ) ?? '',
-                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
-                  ),
+                  HtmlWidget(widget.jobData?.description ?? '',textStyle:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)) ,),
+                  // Text(
+                  //  CommonFunctions.parseHTML( widget.jobData?.description ?? '' ) ?? '',
+                  //   style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
+                  // ),
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
                   Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text(CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
-                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  HtmlWidget(widget.jobData?.requirements ?? '',textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  // Text(CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
+                  //   style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.025,),
                   Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),

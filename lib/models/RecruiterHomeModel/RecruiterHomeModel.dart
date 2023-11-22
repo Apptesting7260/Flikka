@@ -9,20 +9,24 @@ String recruiterHomeModelToJson(RecruiterHomeModel data) => json.encode(data.toJ
 
 class RecruiterHomeModel {
   bool? status;
+  bool? postedJob;
   List<RecruiterHomeData>? data;
 
   RecruiterHomeModel({
     this.status,
+    this.postedJob,
     this.data,
   });
 
   factory RecruiterHomeModel.fromJson(Map<String, dynamic> json) => RecruiterHomeModel(
     status: json["status"],
+    postedJob: json["posted_job"],
     data: json["data"] == null ? json["data"] : List<RecruiterHomeData>.from(json["data"].map((x) => RecruiterHomeData.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
+    "posted_job": postedJob,
     "data": List<dynamic>.from(data!.map((x) => x.toJson())),
   };
 }

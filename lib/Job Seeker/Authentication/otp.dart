@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flikka/controllers/CheckEmailSignUpController/CheckEmailSignUpController.dart';
 import 'package:flikka/controllers/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:flikka/controllers/VerifyOtpController/VerifyOtpController.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -21,6 +22,7 @@ class OtpScreen extends StatefulWidget {
 class _OtpScreenState extends State<OtpScreen> {
   VerifyOtpController VerifyOtpControllerInstanse=Get.put(VerifyOtpController());
   ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPasswordController());
+  CheckEmailSignUpController emailSignUpController = Get.put(CheckEmailSignUpController()) ;
 
   final focusNode = FocusNode();
 
@@ -213,7 +215,11 @@ class _OtpScreenState extends State<OtpScreen> {
                                          TextSpan(
                                            recognizer: TapGestureRecognizer()..onTap=(){
                                              if(secondsRemaining.value == 0) {
-                                               ForgotPasswordControllerInstanse.forgotPasswordApiHit();
+                                               if(widget.register) {
+                                                 emailSignUpController.checkEmailSignUpApiHit(email, context) ;
+                                               }else {
+                                                 ForgotPasswordControllerInstanse.forgotPasswordApiHit();
+                                               }
                                                secondsRemaining.value = 60 ;
                                               startTimer();
                                              }
