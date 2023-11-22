@@ -119,13 +119,14 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                       dense: true,
                                       leading: IconButton(
                                           onPressed: () {
-                                            // Get.to(HomePage());
+                                            // print("object") ;
+                                            // Get.to(TabScreenEmployer(index: 0,)) ;
                                           },
                                           icon: Image.asset('assets/images/homedrawericon.png')
                                       ),
                                       title: InkWell(
                                           onTap: () {
-                                            // Get.offAll(TabScreen(index: 0));
+                                            Get.offAll(TabScreenEmployer(index: 0,));
                                           },
                                           child: Text(
                                             "Home",
@@ -183,7 +184,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         icon: Image.asset('assets/images/icon_applicant.png',scale: 2.8,fit: BoxFit.cover,)),
                                     title: InkWell(
                                         onTap: (){
-                                          Get.to(() => const ApplicantTracking());
+                                          Get.offAll(TabScreenEmployer(index: 1,));
                                         } ,
                                         child: Text(
                                           "Applicant Tracking",

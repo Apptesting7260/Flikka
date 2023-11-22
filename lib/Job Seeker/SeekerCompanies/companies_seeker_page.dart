@@ -119,7 +119,6 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                           ],
                         ),
                       ),
-
                       SizedBox(height: Get.height*.015,) ,
                       ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -155,12 +154,13 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                   //         '${data?.profileImg}'
                                   //         )
                                   // ),
-                                  title: Text(data?.companyName ?? "",
-                                      style: Get.theme.textTheme.labelMedium!
+                                  title: Text("${data?.companyName}bljkbnjklbnuigjkn;jkndcdvvdfvfd" ?? "",
+                                     overflow: TextOverflow.ellipsis, style:  Get.theme.textTheme.labelMedium!
                                           .copyWith(color: AppColors.white)),
                                   subtitle: Text(data?.companyLocation ?? "",
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(color: const Color(0xffCFCFCF))),
+                                  trailing: Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),),
                                 ),
                               ),
                               const Divider(
@@ -173,7 +173,6 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                             ],
                           );
                         },)
-
                     ],
                   ),
                 ),
