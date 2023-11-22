@@ -3,6 +3,7 @@ import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsList
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:share_plus/share_plus.dart';
 import '../data/response/status.dart';
@@ -258,9 +259,11 @@ class _SavedPostState extends State<SavedPost> {
                                       Flexible(
                                         child: SizedBox(
                                           height: Get.height*.1,
-                                          child: Text(CommonFunctions.parseHTML(data?.jobData?.description ?? '') ?? "" ,
-                                            style: Theme.of(context).textTheme.bodySmall!
-                                                .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                          child: HtmlWidget(data?.jobData?.description ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
+                                              .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                          // Text(CommonFunctions.parse(data?.jobData?.description ?? '') ?? "" ,
+                                          //   style: Theme.of(context).textTheme.bodySmall!
+                                          //       .copyWith( color: AppColors.ratingcommenttextcolor),),
                                         ),
                                       ),
                                       SizedBox( height: Get.height * 0.03,),
@@ -272,9 +275,11 @@ class _SavedPostState extends State<SavedPost> {
                                         child: SizedBox(
                                           height: Get.height*.1,
                                           width: Get.width,
-                                          child: Text(CommonFunctions.parseHTML(data?.jobData?.requirements ?? '')  ?? "",
-                                            style: Theme.of(context).textTheme.bodySmall!
-                                                .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                          child: HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
+                                              .copyWith(color: AppColors.ratingcommenttextcolor),)
+                                          // Text(CommonFunctions.parseHTML(data?.jobData?.requirements ?? '')  ?? "",
+                                          //   style: Theme.of(context).textTheme.bodySmall!
+                                          //       .copyWith(color: AppColors.ratingcommenttextcolor),),
                                         ),
                                       )
                                     ],

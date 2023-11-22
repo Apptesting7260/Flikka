@@ -122,8 +122,8 @@ class _SuccessfullyState extends State<Successfully> {
                                   loading: ResetPasswordControllerInstanse.loading.value,
                                   title: "CONTINUE",
                                   onTap1: () {
-                                    print(ResetPasswordControllerInstanse.loading.value);
-                                    ResetPasswordControllerInstanse.resetPasswordApiHit("");
+                                    // print(ResetPasswordControllerInstanse.loading.value);
+                                    // ResetPasswordControllerInstanse.resetPasswordApiHit("");
                                   }
                               ),
                             ),) ,

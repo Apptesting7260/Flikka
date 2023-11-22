@@ -29,7 +29,8 @@ class AddJobController extends GetxController {
       var  requirements ,
       var  jobType ,
       var  workplace ,
-      var  experience ,
+      var  yearExperience ,
+      var  monthExperience ,
       var  preferredExperience ,
       var  qualification ,
       var  language ,
@@ -46,34 +47,22 @@ class AddJobController extends GetxController {
       var sp = await SharedPreferences.getInstance() ;
       var request = http.MultipartRequest('POST' , url ) ;
 
-      final formData = jobId != null ?  {
-        'job_title': jobTitle,
-        'job_position': position,
-        'specialization': specialization ,
-        'job_location': location,
-        'description': description,
-        'employment_type': jobType,
-        'type_of_workplace': workplace,
-        'requirements': requirements,
-        'work_experience': experience,
-        'preferred_work_experience': preferredExperience,
-        'education': qualification,
-        'language': jsonEncode(language),
-        'job_id':jobId
-      }:{
-        'job_title': jobTitle,
-        'job_position': position,
-        'specialization': specialization ,
-        'job_location': location,
-        'description': description,
-        'employment_type': jobType,
-        'type_of_workplace': workplace,
-        'requirements': requirements,
-        'work_experience': experience,
-        'preferred_work_experience': preferredExperience,
-        'education': qualification,
-        'language': jsonEncode(language),
-      };
+      var formData = {} ;
+      formData.addIf(jobTitle != null || jobTitle.toString().length != 0, "job_title", jobTitle) ;
+      formData.addIf(position != null || position.toString().length != 0, "job_position", position) ;
+      formData.addIf(specialization != null || specialization.toString().length != 0, "specialization", specialization) ;
+      formData.addIf(location != null || location.toString().length != 0, "job_location", location) ;
+      formData.addIf(description != null || description.toString().length != 0, "description", description) ;
+      formData.addIf(jobType != null || jobType.toString().length != 0, "employment_type", jobType) ;
+      formData.addIf(workplace != null || workplace.toString().length != 0, "type_of_workplace", workplace) ;
+      formData.addIf(requirements != null || requirements.toString().length != 0, "requirements", requirements) ;
+      formData.addIf(yearExperience != null || yearExperience.toString().length != 0, "year_experience", yearExperience) ;
+      formData.addIf(monthExperience != null || monthExperience.toString().length != 0, "month_experience", monthExperience) ;
+      formData.addIf(preferredExperience != null || preferredExperience.toString().length != 0, "preferred_work_experience", preferredExperience) ;
+      formData.addIf(qualification != null || qualification.toString().length != 0, "education", qualification) ;
+      formData.addIf(language != null || language.toString().length != 0, "language", jsonEncode(language)) ;
+      formData.addIf(jobId != null || jobId.toString().length != 0, "job_id", jobId) ;
+
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
       });
@@ -89,6 +78,7 @@ class AddJobController extends GetxController {
       var responseData = jsonDecode(responded.body) ;
       if(response.statusCode == 200) {
         debugPrint(responseData.toString()) ;
+        submitted(true) ;
         if(recruiterJobsData != null) {
           print("called function 1") ;
           Get.to( () => RequiredSkills(recruiterJobsData: recruiterJobsData,) , arguments: {"job_id" : responseData["job_id"] });

@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,7 +22,7 @@ class ResetPasswordController extends GetxController {
   RxBool loading = false.obs;
 
   void resetPasswordApiHit(
-      var email
+      var email,BuildContext context
       ){
     print("*****************");
     loading.value = true ;
@@ -36,14 +37,15 @@ class ResetPasswordController extends GetxController {
       loading.value = false ;
       print(value);
       print("dataaaaa");
+      Utils.showMessageDialog(context , "Password reset successful") ;
       // verifyEmail =  emailController.value.text;
       // Utils.snackBar( "Message",value.message.toString());
 
-      Get.offAll(const Login());
+      // Get.offAll(const Login());
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
-      Utils.snackBar('Failed',error.toString());
+      Utils.toastMessage("Password reset failed") ;
     });
   }
 }

@@ -43,15 +43,15 @@ class CreateUpdateRecruiterProfileController extends GetxController {
       request.fields.addIf(aboutDescription != null && aboutDescription.toString().length != 0,   "about_description", aboutDescription) ;
       request.fields.addIf(industry != null && industry.toString().length != 0,   "industry", industry.toString()) ;
       request.fields.addIf(companySize != null && companySize.toString().length != 0,   "company_size", companySize.toString()) ;
-      request.fields.addIf(founded != null && founded.toString().length != 0,   "founded", founded) ;
+      request.fields.addIf(founded != null && founded.toString().length != 0,   "founded", founded.toString()) ;
       request.fields.addIf(specialties != null && specialties.toString().length != 0,   "specialties", specialties) ;
       request.fields.addIf(contactPerson != null && contactPerson.toString().length != 0,   "contact_person", contactPerson) ;
       print(request.fields) ;
       if(profilePath != null && profilePath.length != 0) {
         request.files.add(await http.MultipartFile.fromPath("profile_img" , profilePath)) ;
-
-      }else if(coverPath != null && coverPath.length != 0) {
-        request.files.add(await http.MultipartFile.fromPath("cover_img" , coverPath ?? "")) ;
+      }
+      if(coverPath != null && coverPath.length != 0) {
+        request.files.add(await http.MultipartFile.fromPath("cover_img" , coverPath )) ;
       }
       SharedPreferences sp=await SharedPreferences.getInstance();
       request.headers["Authorization"] =" Bearer ${sp.getString("BarrierToken")}";

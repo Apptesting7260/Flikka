@@ -199,19 +199,19 @@ class _CreatePasswordState extends State<CreatePassword> {
                               child: MyButton(title: "SAVE", onTap1: () {
                                 if(_formKey.currentState!.validate()) {
                                   _formKey.currentState!.save();
-                                  resetPasswordController.resetPasswordApiHit(widget.email) ;
-                                  Get.to(()=>const Successfully());
+                                  resetPasswordController.resetPasswordApiHit(widget.email,context) ;
+                                  // Get.to(()=>const Successfully());
                                 }
                               },),
                             ),
-                            SizedBox(height: 17),
+                            const SizedBox(height: 17),
                             Center(
                               child: SizedBox(
                                 width:   295,
                                 height:   56,
                                 child: ElevatedButton(
                                   onPressed: () {
-                                     Get.to(()=>const Login());
+                                     Get.offAll(()=>const Login());
                                   },
                                   style: ElevatedButton.styleFrom(
                                     primary: Color(0xffFFFFFF),

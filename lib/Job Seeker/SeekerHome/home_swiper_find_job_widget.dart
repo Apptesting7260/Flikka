@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Seeker/marketing_page.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart';
@@ -264,15 +265,17 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       SizedBox(
                         height: Get.height * .008,
                       ),
-                      Text(
-                        CommonFunctions.parseHTML(data?.description ?? "") ?? "",
-                        // overflow: TextOverflow.ellipsis,
-                        // softWrap: true,
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                      ),
+                      HtmlWidget(data?.description ?? "",textStyle: Theme.of(context).textTheme.labelLarge!
+                          .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
+                      // Text(
+                      //   CommonFunctions.parseHTML(data?.description ?? "") ?? "",
+                      //   // overflow: TextOverflow.ellipsis,
+                      //   // softWrap: true,
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .labelLarge!
+                      //       .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                      // ),
                       SizedBox(
                         height: Get.height * 0.03,
                       ),
@@ -286,13 +289,15 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       SizedBox(
                         height: Get.height * .007,
                       ),
-                      Text(
-                        CommonFunctions.parseHTML(data?.requirements ?? "") ?? "",
-                        style: Theme.of(context)
-                            .textTheme
-                            .labelLarge!
-                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                      ),
+                      HtmlWidget(data?.requirements ?? "",textStyle: Theme.of(context).textTheme.labelLarge!
+                          .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
+                      // Text(
+                      //   CommonFunctions.parseHTML(data?.requirements ?? "") ?? "",
+                      //   style: Theme.of(context)
+                      //       .textTheme
+                      //       .labelLarge!
+                      //       .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                      // ),
                       SizedBox(
                         height: Get.height * .02,
                       ),

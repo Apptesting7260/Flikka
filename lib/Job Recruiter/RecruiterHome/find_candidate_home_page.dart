@@ -164,7 +164,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               builder: (context , setState) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: Get.height *.02, horizontal: Get.width * .04),
-                  child: Column(
+                  child: homeController.homeData.value.postedJob! ? Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -254,7 +254,8 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                         ],
                       )
                     ],
-                  ),
+                  ) :
+                  const Text("Post any job to select candidates"),
                 );
               }
             ),

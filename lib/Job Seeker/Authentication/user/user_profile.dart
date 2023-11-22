@@ -23,9 +23,10 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:image_picker/image_picker.dart' as i;
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -75,14 +76,14 @@ class _UserProfileState extends State<UserProfile> {
                 width: Get.width * .25,
                 height: Get.height * .05,
                 title: "Camera", onTap1: () {
-                _pickImage(ImageSource.camera);
+                _pickImage(i.ImageSource.camera);
               },),
               const SizedBox(width: 10,),
               MyButton(
                 width: Get.width * .25,
                 height: Get.height * .05,
                 title: "Gallery", onTap1: () {
-                _pickImage(ImageSource.gallery);
+                _pickImage(i.ImageSource.gallery);
               },),
             ],
           ),
@@ -94,11 +95,11 @@ class _UserProfileState extends State<UserProfile> {
   File? imageFile;
   String resumePath = '';
   String documentPath = '';
-  final imgPicker = ImagePicker();
+  final imgPicker = i.ImagePicker();
   final imageCropper = ImageCropper();
 
   Future<void> _pickImage(abc) async {
-    final pickedImage = await ImagePicker().pickImage(source: abc);
+    final pickedImage = await i.ImagePicker().pickImage(source: abc);
 
     if (pickedImage != null) {
       final croppedImage = await imageCropper.cropImage(
@@ -112,7 +113,7 @@ class _UserProfileState extends State<UserProfile> {
           toolbarColor: AppColors.blueThemeColor,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: false),
+          lockAspectRatio: true),
           IOSUiSettings(title: 'Cropper', ),
     ],// Adjust compression quality as needed
       );
@@ -306,7 +307,7 @@ class _UserProfileState extends State<UserProfile> {
       builder: (BuildContext context) {
         editAboutController.loading.value = false;
         TextEditingController aboutSectionController = TextEditingController();
-        aboutSectionController.text = CommonFunctions.parseHTML(about ?? "") ?? "";
+        aboutSectionController.text = about ?? "";
         return Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(22)),
@@ -324,6 +325,8 @@ class _UserProfileState extends State<UserProfile> {
                   style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
                   onChanged: (String value) {},
                   controller: aboutSectionController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: 4,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: const Color(0xff373737),
@@ -356,8 +359,8 @@ class _UserProfileState extends State<UserProfile> {
                           height: 40,
                           loading: editAboutController.loading.value,
                           onTap1: () {
-                            editAboutController.aboutApi(
-                                aboutSectionController.text, context);
+                            var aboutText = CommonFunctions.changeToHTML(aboutSectionController.text ?? "") ;
+                            editAboutController.aboutApi(aboutText, context);
                           },
                           title: 'Submit',
                         ),
@@ -1802,7 +1805,8 @@ class _UserProfileState extends State<UserProfile> {
                                               ),
                                               InkWell(
                                                   onTap: () {
-                                                    aboutSection(CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe) );
+                                                    aboutSection(CommonFunctions.parseHtmlAndAddNewline(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? ""));
+                                                    // parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/icon_edit.png",
@@ -1815,11 +1819,13 @@ class _UserProfileState extends State<UserProfile> {
                                             color: AppColors.white,
                                           ),
                                           SizedBox(height: Get.height * 0.01,),
-                                          Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
-                                            textAlign: TextAlign.left,
-                                            style: Theme.of(context).textTheme.bodyLarge!
-                                                .copyWith(color: AppColors.ratingcommenttextcolor),
-                                          ),
+                                          HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
+                                              .copyWith(color: AppColors.ratingcommenttextcolor),),
+                                          // Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
+                                          //   textAlign: TextAlign.left,
+                                          //   style: Theme.of(context).textTheme.bodyLarge!
+                                          //       .copyWith(color: AppColors.ratingcommenttextcolor),
+                                          // ),
                                           //********************* for work ex ***************************
                                           SizedBox(height: Get.height * 0.045,),
                                           Row(mainAxisAlignment: MainAxisAlignment

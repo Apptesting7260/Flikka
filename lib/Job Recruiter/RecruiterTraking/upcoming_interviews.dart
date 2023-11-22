@@ -3,6 +3,7 @@ import 'package:flikka/controllers/ScheduledInterviewListController/ScheduledInt
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
 import '../../data/response/status.dart';
@@ -225,11 +226,12 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                       //   height: Get.height * .028,),
                                     ),
                                     SizedBox(height: Get.height * .025,),
-                                    Text( CommonFunctions.parseHTML(data?.seekerData?.aboutMe ?? ""), style: Theme.of(context).textTheme
-                                          .bodyLarge?.copyWith(fontWeight: FontWeight.w400,
-                                          color: const Color(0xffCFCFCF)),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                    HtmlWidget(data?.seekerData?.aboutMe ?? "",textStyle: Theme.of(context).textTheme
+                                        .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
+                                    // Text( CommonFunctions.parseHTML(data?.seekerData?.aboutMe ?? ""), style: Theme.of(context).textTheme
+                                    //       .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),
+                                    //   overflow: TextOverflow.ellipsis,
+                                    // ),
                                     SizedBox(height: Get.height * .03,),
                                     Row(
                                       children: [

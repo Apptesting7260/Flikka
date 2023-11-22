@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/CreateUpdateRecruiterProfileController/CreateUpdateRecruiterProfileController.dart';
@@ -8,13 +9,16 @@ import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import 'package:http/http.dart' as http;
 
 class RecruiterProfileEdit extends StatefulWidget {
   const RecruiterProfileEdit({super.key});
@@ -108,7 +112,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
       setState(() {
         coverImage = File(croppedImage!.path);
-        print(coverImage);
+        print(coverImage?.path);
       });
       Get.back();
     }
@@ -174,7 +178,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     if (imgCamera != null) {
       final croppedImage = await profileImageCropper.cropImage(
         sourcePath: imgCamera.path,
-        aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2),
+        aspectRatio: const CropAspectRatio(ratioX: 1, ratioY: 1),
         // Adjust aspect ratio as needed
         compressQuality: 60,
         uiSettings: [
@@ -218,7 +222,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? sizeValues;
 
   ////date///
-  String selectedDateString = 'Select Date';
+  String? selectedDateString ;
+  String foundedText = 'Select Date';
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
@@ -229,8 +234,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     if (picked != null) {
       setState(() {
         selectedDate = picked;
-        selectedDateString =
-            "${picked.year.toString().padLeft(4, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+        selectedDateString = "${picked.year.toString().padLeft(4, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+        foundedText = "${picked.year.toString().padLeft(4, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
         founded = picked;
       });
     }
@@ -239,8 +244,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   DateTime selectedDate = DateTime.now();
 
   CreateUpdateRecruiterProfileController
-      CreateUpdateRecruiterProfileControllerInstanse =
-      Get.put(CreateUpdateRecruiterProfileController());
+      CreateUpdateRecruiterProfileControllerInstanse = Get.put(CreateUpdateRecruiterProfileController());
 
   var formKey = GlobalKey<FormState>();
 
@@ -270,6 +274,10 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
 
   var _formKey = GlobalKey<FormState>();
   var isLoading = false;
+  List<Location> locations = [] ;
+  double? lat;
+  double? long;
+  List<Predictions> searchPlace = [];
 
   @override
   Widget build(BuildContext context) {
@@ -344,8 +352,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 }
                                 return;
 
-                                print(
-                                    "This is cover imgFile ${coverImage?.path}");
+
                               },
                               child: Container(
                                 height: Get.height * .19,
@@ -540,11 +547,84 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                           SizedBox(
                             height: Get.height * .01,
                           ),
-                          CommonWidgets.textField(
-                              context,
-                              companyLocationController,
-                              "Enter company location",
-                              onFieldSubmitted: (value) {}),
+                          TextFormField(
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            keyboardType: TextInputType.text,
+                            controller: companyLocationController,
+                            style: Theme.of(context).textTheme.bodyMedium,
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return 'Please Enter your address';
+                              }
+                            },
+                            onChanged: (value) {
+                              print(value);
+                              setState(() {
+                                if (companyLocationController.text.isEmpty) {
+                                  // Sikeraddress = value;
+                                  // // searchPlace.clear();
+                                }
+                              });
+                              searchAutocomplete(value);
+                            },
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(35),
+                                    borderSide: const BorderSide(color: Color(0xff373737))),
+                                filled: true,
+                                fillColor: const Color(0xff373737),
+                                hintText: "Enter Location",
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(35),
+                                  // borderSide: BorderSide(color: Colors.white),
+                                ),
+                                errorBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide: BorderSide(color: Colors.red),
+                                ),
+                                disabledBorder: const OutlineInputBorder(
+                                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide: BorderSide(color: Color(0xff373737)),
+                                ),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(color: const Color(0xffCFCFCF)),
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: Get.width * .06, vertical: Get.height * .027)),
+                          ),
+                          Visibility(
+                            visible: companyLocationController.text.isNotEmpty,
+                            child: SizedBox(
+                              width: double.infinity,
+                              child: ListView.builder(
+                                  shrinkWrap: true,
+                                  itemCount: searchPlace.length,
+                                  itemBuilder: (context, index) => ListTile(
+                                    onTap: () {
+                                      setState(() {
+                                        companyLocationController.text = searchPlace[index].description ?? "";
+                                        _getLatLang();
+                                        // SelectedLocation =
+                                        //     locationController.text;
+                                        // // print(SelectedLocation);
+                                        // Sikeraddress = SelectedLocation;
+                                        // print("$Sikeraddress=============");
+                                        setState(() {
+                                          searchPlace.clear();
+                                        });
+                                      });
+                                    },
+                                    horizontalTitleGap: 0,
+                                    title: Text(
+                                      searchPlace[index].description ?? "",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context).textTheme.bodyMedium,
+                                    ),
+                                  )),
+                            ),
+                          ),
                           SizedBox(
                             height: Get.height * .032,
                           ),
@@ -943,7 +1023,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
-                                    selectedDateString,
+                                    foundedText,
                                     style: const TextStyle(fontSize: 15),
                                   ),
                                   GestureDetector(
@@ -1058,29 +1138,24 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                       debugPrint(formattedAddBioText);
                                       debugPrint(formattedAboutDescriptionText);
 
-                                      CreateUpdateRecruiterProfileControllerInstanse
-                                          .createUpdateRecruiterProfileApi(
-                                              profilePath: profileImage?.path,
-                                              coverPath: coverImage?.path,
-                                              companyName:
-                                                  companyNameController.text,
-                                              companyLocation:
-                                                  companyLocationController
-                                                      .text,
-                                              addBio: formattedAddBioText,
-                                              websiteLink:
-                                                  websiteLinkController.text,
-                                              aboutDescription:
-                                                  formattedAboutDescriptionText,
-                                              industry: industry,
-                                              companySize: companySize
-                                                  ?.replaceAll("Employees", ""),
-                                              founded: selectedDateString,
-                                              specialties:
-                                                  formattedSpecilizationText,
-                                              contactPerson:
-                                                  contactPersonNameController
-                                                      .text);
+                                      print("this is =====================================${coverImage?.path}") ;
+                                      // CreateUpdateRecruiterProfileControllerInstanse
+                                      //     .createUpdateRecruiterProfileApi(
+                                      //         profilePath: profileImage?.path,
+                                      //         coverPath: coverImage?.path,
+                                      //         companyName: companyNameController.text,
+                                      //         companyLocation: companyLocationController.text,
+                                      //         addBio: formattedAddBioText,
+                                      //         websiteLink: websiteLinkController.text,
+                                      //         aboutDescription: formattedAboutDescriptionText,
+                                      //         industry: industry,
+                                      //         companySize: companySize?.replaceAll("Employees", ""),
+                                      //         founded: selectedDateString,
+                                      //         specialties:
+                                      //             formattedSpecilizationText,
+                                      //         contactPerson:
+                                      //             contactPersonNameController
+                                      //                 .text);
                                     }
                                   } else {
                                     scrollController.animateTo(0,
@@ -1101,6 +1176,43 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
             ),
           ));
       }
+    });
+  }
+
+  String googleAPiKey = "AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8" ;
+
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": googleAPiKey});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      print(response.statusCode);
+      final parse = jsonDecode(response.body);
+      print(parse);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+
+          print(searchPlace.length);
+        });
+      }
+    } catch (err) {}
+  }
+
+  Future<void> _getLatLang() async {
+    final query = companyLocationController.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      print("*****lat ${lat} : ${long}**********long");
     });
   }
 }

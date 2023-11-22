@@ -32,6 +32,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
 
+  bool submitted = false ;
   var qualification ;
 
   final List<String> itemsEmp = [
@@ -54,6 +55,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
   String? qualificatonType;
 
   List? languageList = [];
+  String? yearValue ;
+  String? monthsValue ;
 
  AddJobController addJobController = Get.put(AddJobController()) ;
   SeekerChoosePositionGetController seekerChoosePositionGetController =
@@ -83,10 +86,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
       jobTitleController.text = widget.recruiterJobsData?.jobTitle ?? "" ;
       specializationController.text = widget.recruiterJobsData?.specialization ?? "" ;
       jobLocationController.text = widget.recruiterJobsData?.jobLocation ?? "" ;
-      jobDescriptionController.text =   CommonFunctions.parseHTML(widget.recruiterJobsData?.description ?? "") ?? "" ;
+      jobDescriptionController.text =   CommonFunctions.parseHtmlAndAddNewline(widget.recruiterJobsData?.description ?? "") ?? "" ;
           // parse(parse(widget.recruiterJobsData?.description ?? "").body?.text).documentElement?.text ?? "" ;
 
-      jobRequirementController.text = CommonFunctions.parseHTML(widget.recruiterJobsData?.requirements ?? "") ?? "" ;
+      jobRequirementController.text = CommonFunctions.parseHtmlAndAddNewline(widget.recruiterJobsData?.requirements ?? "") ?? "" ;
       educationController.text = widget.recruiterJobsData?.education ?? "" ;
       experienceController.text = widget.recruiterJobsData?.workExperience ?? "" ;
       preferredExperienceController.text = widget.recruiterJobsData?.preferredWorkExperience ?? "" ;
@@ -241,7 +244,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                             borderRadius: BorderRadius.circular(35),
                             borderSide: const BorderSide(color: Color(0xff373737))
                         ),
-                        fillColor: Color(0xff373737),
+                        fillColor: const Color(0xff373737),
                         filled: true,
                         contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
                         enabledBorder:  OutlineInputBorder(
@@ -353,15 +356,14 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       onFieldSubmitted: (value) {
 
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'This field is empty';
+                      //   }
+                      //   return null;
+                      // },
 
                     ),
-
                     SizedBox(height: Get.height*0.03,),
                     Text('Job location',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -395,15 +397,14 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       onFieldSubmitted: (value) {
 
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'This field is empty';
+                      //   }
+                      //   return null;
+                      // },
 
                     ),
-
                     SizedBox(height: Get.height*0.03,),
                     Text('Description',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -438,12 +439,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       onFieldSubmitted: (value) {
 
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'This field is empty';
+                      //   }
+                      //   return null;
+                      // },
                     ),
 
                     SizedBox(height: Get.height*0.03,),
@@ -479,12 +480,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       onFieldSubmitted: (value) {
 
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'This field is empty';
+                      //   }
+                      //   return null;
+                      // },
                     ),
                     //********************************************
                     SizedBox(height: Get.height*0.03,),
@@ -555,10 +556,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    Obx(() => addJobController.jobTypeErrorMessage.value.isEmpty ?
-                    const SizedBox() :
-                    Text(addJobController.jobTypeErrorMessage.value,style: TextStyle(color: Colors.red),)
-                    ) ,
+                    // Obx(() => addJobController.jobTypeErrorMessage.value.isEmpty ?
+                    // const SizedBox() :
+                    // Text(addJobController.jobTypeErrorMessage.value,style: TextStyle(color: Colors.red),)
+                    // ) ,
                     SizedBox(height: Get.height*0.042,),
                     Text('Type of workplace',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -627,50 +628,82 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    Obx(() => addJobController.typeOfWorkPlaceErrorMessage.value.isEmpty ?
-                    const SizedBox() :
-                    Text(addJobController.typeOfWorkPlaceErrorMessage.value,style: TextStyle(color: Colors.red),)
-                    ) ,
+                    // Obx(() => addJobController.typeOfWorkPlaceErrorMessage.value.isEmpty ?
+                    // const SizedBox() :
+                    // Text(addJobController.typeOfWorkPlaceErrorMessage.value,style: TextStyle(color: Colors.red),)
+                    // ) ,
                     SizedBox(height: Get.height*0.042,),
                     Text('Work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
-                    TextFormField(
-                      autovalidateMode: AutovalidateMode.onUserInteraction,
-                      controller: experienceController,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      decoration: InputDecoration(
-                          border:OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide(color: Color(0xff373737))
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2(
+                        value: yearValue,
+                        onChanged: ( newValue) {
+                          setState(() {
+                            yearValue = newValue!.toString();
+                          });
+                        },
+                        items: List.generate(
+                          20,
+                              (index) => DropdownMenuItem(
+                            value: index + 1,
+                            child: Text((index + 1).toString().padLeft(2,'0')),
                           ),
-                          fillColor: Color(0xff373737),
-                          filled: true,
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width *0.04,vertical: Get.height*.027),
-                          enabledBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                            //borderSide: BorderSide(color: Colors.white),
+                        ),
+                        hint: Text('Select years',  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
+                        buttonStyleData: ButtonStyleData(
+                          height: Get.height*0.08,
+                          width: double.infinity,
+                          padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(30),
+
+                            color: Color(0xff353535),
                           ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Colors.red),
+                          elevation: 2,
+                        ),
+                        iconStyleData:  IconStyleData(
+                          icon: Image.asset('assets/images/arrowdown.png'),
+                          iconSize: 14,
+                          iconEnabledColor: Colors.yellow,
+                          iconDisabledColor: Colors.grey,
+                        ),
+                        dropdownStyleData: DropdownStyleData(
+                          maxHeight: Get.height*0.35,
+                          width: Get.width*0.902,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(14),
+                            color: const Color(0xff353535),
                           ),
-                          disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff373737)),
+                          offset: const Offset(5, 0),
+                          scrollbarTheme: ScrollbarThemeData(
+                            radius:  const Radius.circular(40),
+                            thickness: MaterialStateProperty.all<double>(6),
+                            thumbVisibility: MaterialStateProperty.all<bool>(true),
                           ),
-                          hintText: 'Add work experience',
-                          hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
+                        ),
+                        menuItemStyleData: const MenuItemStyleData(
+                          height: 40,
+                          padding: EdgeInsets.only(left: 14, right: 14),
+                        ),
                       ),
-                      onFieldSubmitted: (value) {
-
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
-
+                    ),
+                    SizedBox(height: Get.height*0.01,),
+                    DropdownButtonHideUnderline(
+                      child: DropdownButton2(
+                        value: monthsValue,
+                        onChanged: ( newValue) {
+                          setState(() {
+                            monthsValue = newValue!.toString();
+                          });
+                        },
+                        items: List.generate(12, (index) => DropdownMenuItem(
+                            value: index + 1,
+                            child: Text((index + 1).toString().padLeft(2,'0')),
+                          ),
+                        ),
+                        hint: Text('Select months',  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
+                      ),
                     ),
 
                     SizedBox(height: Get.height*0.042,),
@@ -706,12 +739,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       onFieldSubmitted: (value) {
 
                       },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'This field is empty';
-                        }
-                        return null;
-                      },
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'This field is empty';
+                      //   }
+                      //   return null;
+                      // },
 
                     ),
 
@@ -782,57 +815,57 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    Obx(() => addJobController.qualificationErrorMessage.value.isEmpty ?
-                    const SizedBox():
-                        Text(addJobController.qualificationErrorMessage.value,style: TextStyle(color: Colors.red),) ,
-                    ),
+                    // Obx(() => addJobController.qualificationErrorMessage.value.isEmpty ?
+                    // const SizedBox():
+                    //     Text(addJobController.qualificationErrorMessage.value,style: TextStyle(color: Colors.red),) ,
+                    // ),
                     SizedBox(height: Get.height*0.042,),
                     Text('Language',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     LanguageSelector(selectedLanguageList: languageList,languageList: viewLanguageController.viewLanguageData.value.languages,),
-                   Obx(() => addJobController.languageErrorMessage.value.isEmpty ?
-                   const SizedBox():
-                       Text(addJobController.languageErrorMessage.value,style: const TextStyle(color: Colors.red),),
-                   ),
+                   // Obx(() => addJobController.languageErrorMessage.value.isEmpty ?
+                   // const SizedBox():
+                   //     Text(addJobController.languageErrorMessage.value,style: const TextStyle(color: Colors.red),),
+                   // ),
                     SizedBox(height: Get.height*0.065,),
 
                     Obx( () =>
                        Center(
                         child: MyButton(
                           loading: addJobController.loading.value,
-                            title: 'Continue', onTap1: (){
+                            title: 'Continue', onTap1: addJobController.submitted.value ? () {} : (){
                           addJobController.featureImageError.value = "" ;
                           addJobController.jobTypeErrorMessage.value = "" ;
                           addJobController.typeOfWorkPlaceErrorMessage.value = "" ;
                           addJobController.jobPositionErrorMessage.value = "" ;
                           addJobController.qualificationErrorMessage.value = "" ;
                           addJobController.languageErrorMessage.value = "" ;
-                          if( widget.recruiterJobsData?.featureImg == null && imgFile == null) {
-                            addJobController.featureImageError.value = "Please select image" ;
-                            scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
-                          }
+                          // if( widget.recruiterJobsData?.featureImg == null && imgFile == null) {
+                          //   addJobController.featureImageError.value = "Please select image" ;
+                          //   scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+                          // }
 
-                         else if(_formKey.currentState!.validate()) {
+                          if(_formKey.currentState!.validate()) {
                             if (jobPosition == null) {
                               addJobController.jobPositionErrorMessage.value = "Please select job position";
                               scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
-                            } else if (employmentType == null) {
-                              addJobController.jobTypeErrorMessage.value = "Please select job type";
-                              scrollController.animateTo(jobTypeFocus.context!.size!.height  + Get.height*.65, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
-                            } else if (workplaceType == null) {
-                              addJobController.typeOfWorkPlaceErrorMessage.value = "Please select type of workplace";
-                              scrollController.animateTo(typeOfWorkPlaceFocus.context!.size!.height  + Get.height*.75, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
-                            } else if (qualificatonType == null) {
-                              addJobController.qualificationErrorMessage.value =  "Please select qualification" ;
-                            } else if(LanguageSelectorState.languages.isEmpty) {
-                              addJobController.languageErrorMessage.value = "Please select language" ;
                             }
+      // else if (employmentType == null) {
+                            //   addJobController.jobTypeErrorMessage.value = "Please select job type";
+                            //   scrollController.animateTo(jobTypeFocus.context!.size!.height  + Get.height*.65, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
+                            // } else if (workplaceType == null) {
+                            //   addJobController.typeOfWorkPlaceErrorMessage.value = "Please select type of workplace";
+                            //   scrollController.animateTo(typeOfWorkPlaceFocus.context!.size!.height  + Get.height*.75, duration: Duration(milliseconds: 100), curve: Curves.easeOut) ;
+                            // } else if (qualificatonType == null) {
+                            //   addJobController.qualificationErrorMessage.value =  "Please select qualification" ;
+                            // } else if(LanguageSelectorState.languages.isEmpty) {
+                            //   addJobController.languageErrorMessage.value = "Please select language" ;
+                            // }
                             else {
                               var formattedDescriptionText = CommonFunctions.changeToHTML(jobDescriptionController.text ?? "") ;
                               var formattedRequirementText = CommonFunctions.changeToHTML(jobRequirementController.text ?? "") ;
                               debugPrint(formattedDescriptionText) ;
                               debugPrint(formattedRequirementText) ;
-
                               // String formattedDescriptionText = jobDescriptionController.text ;
                               // List<String> descriptionPara = formattedDescriptionText.split('\n');
                               // List<String> formattedDescription = descriptionPara.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
@@ -848,7 +881,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   formattedRequirementText,
                                   employmentType.toString(),
                                   workplaceType.toString(),
-                                  experienceController.text,
+                                  yearValue.toString(),
+                                  monthsValue.toString(),
                                   preferredExperienceController.text,
                                   qualificatonType.toString(),
                                   LanguageSelectorState.languages,
@@ -856,6 +890,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                 jobId: widget.recruiterJobsData?.jobsDetail?.jobId
                               );
                             }
+                          }else{
+                            scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                           }
                                 // Get.to(()=> const RequiredSkills());
                         }),

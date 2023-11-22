@@ -109,4 +109,18 @@ class CommonFunctions {
     return parsed.body?.text ;
   }
 
+ static String parseHtmlAndAddNewline(String htmlString) {
+    List<String> paragraphs = htmlString.split('</p>');
+    List<String> formattedParagraphs = [];
+
+    for (String paragraph in paragraphs) {
+      String formattedParagraph = paragraph.trim();
+      if (formattedParagraph.isNotEmpty) {
+        formattedParagraphs.add(formattedParagraph);
+      }
+    }
+
+    return parseHTML(formattedParagraphs.join('\n'));
+  }
+
 }

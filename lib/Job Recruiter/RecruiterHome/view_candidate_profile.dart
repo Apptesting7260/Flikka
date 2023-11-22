@@ -5,6 +5,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
 import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
@@ -42,7 +43,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(height: 20,) ,
+                    SizedBox(height: Get.height *.01,) ,
                     Padding(
                       padding: const EdgeInsets.only(top: 24.0),
                       child: Row(
@@ -57,13 +58,13 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         ],
                       ),
                     ),
-                    SizedBox(height: Get.height*0.0395,),
+                    SizedBox(height: Get.height*0.02,),
                      Column(
                       children: [
                         Stack(
                             children: [
                                CircleAvatar(
-                                radius:48,
+                                radius: 40,
                                 // backgroundImage: NetworkImage( widget.recruiterData?.profileImg ?? ''),
                                  child: CachedNetworkImage(
                                    imageUrl: widget.recruiterData?.profileImg ?? '',
@@ -83,13 +84,15 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         )
                       ],
                     ),
-                    SizedBox(height: Get.height*0.015,),
-                    Text( CommonFunctions.parseHTML(widget.recruiterData?.fullname ?? ""),style: Get.theme.textTheme.displayLarge),
+                    SizedBox(height: Get.height*0.01,),
+                    HtmlWidget(widget.recruiterData?.fullname ?? "",textStyle: Get.theme.textTheme.displayLarge),
+                    // Text( CommonFunctions.parseHTML(widget.recruiterData?.fullname ?? ""),style: Get.theme.textTheme.displayLarge),
                     SizedBox(height: Get.height*0.005,),
                     Text( widget.recruiterData?.seekerData?.positions ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.005,),
-                    Text( CommonFunctions.parseHTML(widget.recruiterData?.location ?? ""),style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
-                    SizedBox(height: Get.height*0.015,),
+                    HtmlWidget(widget.recruiterData?.location ?? "",textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
+                    // Text( CommonFunctions.parseHTML(widget.recruiterData?.location ?? ""),style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
+                    SizedBox(height: Get.height*0.01,),
                     Row(
                       children: [
                         Container(
@@ -117,20 +120,23 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             )
                         ),
                         SizedBox(width: Get.width*0.045,),
-                        Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: AppColors.white
-                            ),
-                            child: Row(
-                              children: [
-                                IconButton(onPressed: (){},icon: Image.asset('assets/images/videocall.png',scale: 0.7)),
-                              ],
-                            )
-                        ),
+                        // Container(
+                        //     decoration: BoxDecoration(
+                        //         borderRadius: BorderRadius.circular(50),
+                        //         color: AppColors.white
+                        //     ),
+                        //     child: Row(
+                        //       children: [
+                        //         IconButton(onPressed: (){},icon: Image.asset('assets/images/videocall.png',scale: 0.7)),
+                        //       ],
+                        //     )
+                        // ),
                       ],
                     ),
-                    SizedBox(height: Get.height*0.035,),
+                    SizedBox(height: Get.height*0.02,),
+                    widget.recruiterData?.seekerData?.startWorkName?[0].startWork == null ||
+                    widget.recruiterData?.seekerData?.startWorkName?[0].startWork.toString().length == 0 ?
+                        const SizedBox() :
                     SizedBox(
                       height: Get.height*0.072,
                       width: Get.width*0.69,
@@ -141,7 +147,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         )
                         ),
                         onPressed: (){}, child: Text(
-                        'AVAILABLE IMMEDIATELY',
+                        widget.recruiterData?.seekerData?.startWorkName?[0].startWork ?? "",
                         style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,),
                       ),),
                     )
@@ -192,9 +198,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                 SizedBox(height: Get.height*0.015,),
                                 const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
-                                Text( CommonFunctions.parseHTML(widget.recruiterData?.aboutMe ?? "No Data") ,style: Theme.of(context).textTheme
-
-                                      .bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                                HtmlWidget(widget.recruiterData?.aboutMe ?? "No Data",textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                                // Text( CommonFunctions.parseHTML(widget.recruiterData?.aboutMe ?? "No Data") ,
+                                //   style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
 
                                 //********************* for work ex ***************************
                                 SizedBox(height: Get.height*0.025,),
@@ -225,15 +231,14 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(CommonFunctions.parseHTML(data?.workExpJob ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        HtmlWidget(data?.workExpJob ?? "",textStyle: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        // Text(CommonFunctions.parseHTML(data?.workExpJob ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
-                                        ),
+                                        HtmlWidget(data?.companyName ?? "",textStyle: Theme.of(context).textTheme.bodySmall!
+                                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
+                                        // Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context).textTheme.bodySmall!
+                                        //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        // ),
                                         Text( "${data?.jobStartDate?.year}-${data?.jobStartDate?.month}-${data?.jobStartDate?.day} - ${data?.jobEndDate}",
                                           style: Theme.of(context)
                                               .textTheme
@@ -282,13 +287,10 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(CommonFunctions.parseHTML(data?.educationLevel ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        Text(data?.educationLevel ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text(CommonFunctions.parseHTML(data?.institutionName ?? ""),style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        Text(data?.institutionName ?? "",style: Theme.of(context)
+                                            .textTheme.bodySmall!.copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         ),
                                         Text( "${data?.educationStartDate?.year}-${data?.educationStartDate?.month}-${data?.educationStartDate?.day} - ${data?.educationEndDate}",
                                           style: Theme.of(context)
@@ -414,14 +416,10 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     return Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        Text(CommonFunctions.parseHTML(data?.achievement ?? ""),style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
+                                        Text(data?.achievement ?? "",style: Get.theme.textTheme.bodyMedium!.copyWith(color: AppColors.white,fontWeight: FontWeight.w700),),
                                         SizedBox(height: Get.height*0.001,),
-                                        Text(CommonFunctions.parseHTML(data?.awardName ?? ""),style: Theme.of(context)
-                                            .textTheme
-                                            .bodySmall!
-                                            .copyWith(
-                                            color: AppColors
-                                                .ratingcommenttextcolor,fontWeight: FontWeight.w400),
+                                        Text(data?.awardName ?? "",style: Theme.of(context).textTheme.bodySmall!
+                                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         ),
                                         SizedBox(height: Get.height*0.01,),
                                       ],
