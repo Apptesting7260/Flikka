@@ -64,7 +64,8 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  SeekerCreateProfileController seekerCreateProfileController = Get.put(SeekerCreateProfileController());
+  SeekerCreateProfileController seekerCreateProfileController =
+      Get.put(SeekerCreateProfileController());
 
   bool fresher = false;
   bool experiencePresent = false;
@@ -162,13 +163,13 @@ class _CreateProfileState extends State<CreateProfile> {
   var endDateExperienceForm = GlobalKey<FormState>();
   var startDateEducationForm = GlobalKey<FormState>();
   var endDateEducationForm = GlobalKey<FormState>();
-  List<Location> locations = [] ;
+  List<Location> locations = [];
   double? lat;
   double? long;
   List<Predictions> searchPlace = [];
 
-  String? phoneNumber ;
-  bool validPhone = false ;
+  String? phoneNumber;
+  bool validPhone = false;
 
   @override
   void initState() {
@@ -190,12 +191,14 @@ class _CreateProfileState extends State<CreateProfile> {
     nameController.text = sp.getString("name")!;
   }
 
-  ViewLanguageController viewLanguageController = Get.put(ViewLanguageController());
+  ViewLanguageController viewLanguageController =
+      Get.put(ViewLanguageController());
   var DocumentType;
   final List selectDocumentType = [
     'passport',
     'id_card',
   ];
+  Key myIntlPhoneFieldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -342,19 +345,20 @@ class _CreateProfileState extends State<CreateProfile> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyMedium
-                          ?.copyWith(
-                          fontWeight: FontWeight.w700),
+                          ?.copyWith(fontWeight: FontWeight.w700),
                     ),
-                    SizedBox(height: Get.height*.01,) ,
+                    SizedBox(
+                      height: Get.height * .01,
+                    ),
                     Text(
                       "Add your short video here",
-                      style: Theme.of(context)
-                          .textTheme
-                          .labelLarge
-                          ?.copyWith(
-                          fontWeight: FontWeight.w400,),
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            fontWeight: FontWeight.w400,
+                          ),
                     ),
-                    SizedBox(height: Get.height*.02,) ,
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
                     DottedBorder(
                       borderType: BorderType.RRect,
                       radius: const Radius.circular(20),
@@ -396,8 +400,8 @@ class _CreateProfileState extends State<CreateProfile> {
                                                   .textTheme
                                                   .labelLarge
                                                   ?.copyWith(
-                                                  fontWeight:
-                                                  FontWeight.w400),
+                                                      fontWeight:
+                                                          FontWeight.w400),
                                             ),
                                           ),
                                         ],
@@ -413,7 +417,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                             .textTheme
                                             .labelLarge
                                             ?.copyWith(
-                                            fontWeight: FontWeight.w400),
+                                                fontWeight: FontWeight.w400),
                                       ),
                                     ),
                                 ],
@@ -426,23 +430,25 @@ class _CreateProfileState extends State<CreateProfile> {
                               child: _documentTypeFilePath.isEmpty
                                   ? const SizedBox()
                                   : IconButton(
-                                  onPressed: () {
-                                    if (DocumentType == null) {
-                                      seekerCreateProfileController
-                                          .documentErrorMessage.value =
-                                      "Please select document type first";
-                                    } else {
-                                      _openDocumentTypeFilePicker();
-                                    }
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.white,
-                                  ))),
+                                      onPressed: () {
+                                        if (DocumentType == null) {
+                                          seekerCreateProfileController
+                                                  .documentErrorMessage.value =
+                                              "Please select document type first";
+                                        } else {
+                                          _openDocumentTypeFilePicker();
+                                        }
+                                      },
+                                      icon: const Icon(
+                                        Icons.edit,
+                                        color: Colors.white,
+                                      ))),
                         ],
                       ),
                     ),
-                    SizedBox(height: Get.height*.05,) ,
+                    SizedBox(
+                      height: Get.height * .05,
+                    ),
                     Form(
                       key: introFormKey,
                       child: Column(
@@ -463,7 +469,8 @@ class _CreateProfileState extends State<CreateProfile> {
                             height: Get.height * .01,
                           ),
                           TextFormField(
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            autovalidateMode:
+                                AutovalidateMode.onUserInteraction,
                             keyboardType: TextInputType.text,
                             controller: locationController,
                             style: Theme.of(context).textTheme.bodyMedium,
@@ -475,15 +482,15 @@ class _CreateProfileState extends State<CreateProfile> {
                             onChanged: (value) {
                               print(value);
                               setState(() {
-                                if (locationController.text.isEmpty) {
-                                }
+                                if (locationController.text.isEmpty) {}
                               });
                               searchAutocomplete(value);
                             },
                             decoration: InputDecoration(
                                 border: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(35),
-                                    borderSide: const BorderSide(color: Color(0xff373737))),
+                                    borderSide: const BorderSide(
+                                        color: Color(0xff373737))),
                                 filled: true,
                                 fillColor: const Color(0xff373737),
                                 hintText: "Enter Location",
@@ -492,16 +499,23 @@ class _CreateProfileState extends State<CreateProfile> {
                                   // borderSide: BorderSide(color: Colors.white),
                                 ),
                                 errorBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
                                   borderSide: BorderSide(color: Colors.red),
                                 ),
                                 disabledBorder: const OutlineInputBorder(
-                                  borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                                  borderSide: BorderSide(color: Color(0xff373737)),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(35.0)),
+                                  borderSide:
+                                      BorderSide(color: Color(0xff373737)),
                                 ),
-                                hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: const Color(0xffCFCFCF)),
+                                hintStyle: Theme.of(context)
+                                    .textTheme
+                                    .labelLarge
+                                    ?.copyWith(color: const Color(0xffCFCFCF)),
                                 contentPadding: EdgeInsets.symmetric(
-                                    horizontal: Get.width * .06, vertical: Get.height * .027)),
+                                    horizontal: Get.width * .06,
+                                    vertical: Get.height * .027)),
                           ),
                           Visibility(
                             visible: locationController.text.isNotEmpty,
@@ -511,23 +525,28 @@ class _CreateProfileState extends State<CreateProfile> {
                                   shrinkWrap: true,
                                   itemCount: searchPlace.length,
                                   itemBuilder: (context, index) => ListTile(
-                                    onTap: () {
-                                      setState(() {
-                                        locationController.text = searchPlace[index].description ?? "";
-                                        _getLatLang();
-                                        setState(() {
-                                          searchPlace.clear();
-                                        });
-                                      });
-                                    },
-                                    horizontalTitleGap: 0,
-                                    title: Text(
-                                      searchPlace[index].description ?? "",
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context).textTheme.bodyMedium,
-                                    ),
-                                  )),
+                                        onTap: () {
+                                          setState(() {
+                                            locationController.text =
+                                                searchPlace[index]
+                                                        .description ??
+                                                    "";
+                                            _getLatLang();
+                                            setState(() {
+                                              searchPlace.clear();
+                                            });
+                                          });
+                                        },
+                                        horizontalTitleGap: 0,
+                                        title: Text(
+                                          searchPlace[index].description ?? "",
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyMedium,
+                                        ),
+                                      )),
                             ),
                           ),
                           SizedBox(
@@ -539,60 +558,82 @@ class _CreateProfileState extends State<CreateProfile> {
                             height: Get.height * .01,
                           ),
                           IntlPhoneField(
-                            flagsButtonPadding: const EdgeInsets.only(bottom: 3),
+                            flagsButtonPadding:
+                                const EdgeInsets.only(bottom: 3),
                             autovalidateMode: AutovalidateMode.disabled,
+                            key: myIntlPhoneFieldKey,
                             controller: phoneController,
                             style: Theme.of(context).textTheme.bodyMedium,
                             pickerDialogStyle: PickerDialogStyle(
-                              countryNameStyle:Theme.of(context).textTheme.bodyMedium,),
+                              countryNameStyle:
+                                  Theme.of(context).textTheme.bodyMedium,
+                            ),
                             decoration: InputDecoration(
                               filled: true,
                               fillColor: const Color(0xff373737),
                               hintText: "Enter Phone number",
-                              hintStyle: Theme.of(context).textTheme.labelLarge
+                              hintStyle: Theme.of(context)
+                                  .textTheme
+                                  .labelLarge
                                   ?.copyWith(color: const Color(0xffCFCFCF)),
                               contentPadding: EdgeInsets.symmetric(
-                                  vertical: Get.height * .025, horizontal: Get.width * .07),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(30),
-                                  borderSide: const BorderSide(color: Color(0xff373737))),
-
+                                  vertical: Get.height * .025,
+                                  horizontal: Get.width * .07),
+                              border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(30),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xff373737))),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(22),
                                 // borderSide: BorderSide(color: Colors.white),
                               ),
                               errorBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(22.0)),
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(22.0)),
                                 borderSide: BorderSide(color: Colors.red),
                               ),
                               disabledBorder: const OutlineInputBorder(
-                                borderRadius: BorderRadius.all(Radius.circular(22.0)),
-                                borderSide: BorderSide(color: Color(0xff373737)),
-                              ),),
-                            validator: (p0) {
-                              if(p0?.number.length != 10) {
-                                return "Please enter a valid number" ;
-                              }
-                              return null;
-                            },
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(22.0)),
+                                borderSide:
+                                    BorderSide(color: Color(0xff373737)),
+                              ),
+                            ),
                             languageCode: "en",
+                            disableLengthCheck: true,
                             onChanged: (phone) {
-                             phoneNumber = phone.completeNumber ;
-                             if(phone.isValidNumber()) {
-                               validPhone = true ;
-                             }
-                             debugPrint("this is ========= $phoneNumber") ;
+                              phoneNumber = phone.completeNumber;
+                              if (phone.isValidNumber()) {
+                                validPhone = true;
+                              }
+                              debugPrint("this is ========= $phoneNumber");
+                            },
+                            validator: (p0) {
+                              if (p0 != null) {
+                                if (!p0.isValidNumber()) {
+                                  return "Invalid number" ;
+                                }
+                              }
                             },
                             onCountryChanged: (country) {
                               print('Country changed to: ${country.name}');
-                             print( country.dialCode+phoneController.text) ;
+                              print(country.dialCode + phoneController.text);
                             },
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                           ),
-                          Obx(() => seekerCreateProfileController.phoneNumberErrorMessage.value.isEmpty ?
-                          const SizedBox() :
-                              Text(seekerCreateProfileController.phoneNumberErrorMessage.value ,style: TextStyle(color: Colors.red),)
+                          Obx(() => seekerCreateProfileController
+                                  .phoneNumberErrorMessage.value.isEmpty
+                              ? const SizedBox()
+                              : Text(
+                                  seekerCreateProfileController
+                                      .phoneNumberErrorMessage.value,
+                                  style: TextStyle(color: Colors.red),
+                                )),
+                          SizedBox(
+                            height: Get.height * .042,
                           ),
-                          SizedBox(height: Get.height * .042,),
                         ],
                       ),
                     ),
@@ -2004,35 +2045,42 @@ class _CreateProfileState extends State<CreateProfile> {
                                 workExperienceList.add({
                                   "work_exp_job": jobTitleController.text,
                                   "company_name": companyNameController.text,
-                                  "job_start_date": "${startDateExperience?.year.toString().padLeft(4, '0')}-${startDateExperience?.month.toString().padLeft(2, '0')}-${startDateExperience?.day.toString().padLeft(2, '0')}",
-                                  "job_end_date": experiencePresent == true || endDateExperience == null || endDateExperience.toString().isEmpty
-                                      ? "present" : "${endDateExperience?.year.toString().padLeft(4, '0')}-${endDateExperience?.month.toString().padLeft(2, '0')}-${endDateExperience?.day.toString().padLeft(2, '0')}",
+                                  "job_start_date":
+                                      "${startDateExperience?.year.toString().padLeft(4, '0')}-${startDateExperience?.month.toString().padLeft(2, '0')}-${startDateExperience?.day.toString().padLeft(2, '0')}",
+                                  "job_end_date": experiencePresent == true ||
+                                          endDateExperience == null ||
+                                          endDateExperience.toString().isEmpty
+                                      ? "present"
+                                      : "${endDateExperience?.year.toString().padLeft(4, '0')}-${endDateExperience?.month.toString().padLeft(2, '0')}-${endDateExperience?.day.toString().padLeft(2, '0')}",
                                 });
                               }
                               debugPrint(workExperienceList.toString());
                               debugPrint(educationList.toString());
                               if (introFormKey.currentState!.validate()) {
-                                if(!validPhone){
-                                  seekerCreateProfileController.phoneNumberErrorMessage.value = "Invalid Mobile Number" ;
+                                if (!validPhone) {
+                                  seekerCreateProfileController.phoneNumberErrorMessage.value = "Invalid Mobile Number";
+                                  scrollController.animateTo(0,
+                                      duration: const Duration(milliseconds: 100),
+                                      curve: Curves.easeOut);
                                 } else {
-                                  var formattedAboutText = CommonFunctions
-                                      .changeToHTML(
-                                      aboutMeController.text ?? "");
+                                  var formattedAboutText =
+                                      CommonFunctions.changeToHTML(
+                                          aboutMeController.text ?? "");
                                   seekerCreateProfileController
                                       .createProfileApi(
-                                      imgFile?.path,
-                                      _filePath,
-                                      _documentTypeFilePath,
-                                      nameController.text,
-                                      locationController.text,
-                                      phoneNumber,
-                                      formattedAboutText,
-                                      workExperienceList,
-                                      educationList,
-                                      LanguageSelectorState.languages,
-                                      appreciationList,
-                                      DocumentType,
-                                      fresher ? 1 : null);
+                                          imgFile?.path,
+                                          _filePath,
+                                          _documentTypeFilePath,
+                                          nameController.text,
+                                          locationController.text,
+                                          phoneNumber,
+                                          formattedAboutText,
+                                          workExperienceList,
+                                          educationList,
+                                          LanguageSelectorState.languages,
+                                          appreciationList,
+                                          DocumentType,
+                                          fresher ? 1 : null);
                                 }
                               } else {
                                 scrollController.animateTo(0,
@@ -2582,7 +2630,7 @@ class _CreateProfileState extends State<CreateProfile> {
     }
   }
 
-  String googleAPiKey = "AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8" ;
+  String googleAPiKey = "AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8";
 
   void searchAutocomplete(String query) async {
     print("calling");

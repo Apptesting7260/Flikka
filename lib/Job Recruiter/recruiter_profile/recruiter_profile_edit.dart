@@ -284,7 +284,6 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     companySize = widget.profileModel?.recruiterProfileDetails?.companySize  ;
     foundedText = widget.profileModel?.recruiterProfileDetails?.founded ?? 'Select Date'  ;
     industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
-    print("this is ========== industryID =======$industry ====== ${widget.profileModel?.recruiterProfileDetails?.industryID}") ;
     super.initState();
   }
 
@@ -369,7 +368,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg?.length == 0) {
+                                if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null) {
                                   _openCoverImagePickerDialog();
                                 }
                                 return;
@@ -385,7 +384,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                   children: [
                                     widget.profileModel?.recruiterProfileDetails?.coverImg != null ?
                                     Image.network(widget.profileModel?.recruiterProfileDetails?.coverImg ?? "", width: Get.width, fit : BoxFit.cover,) :
-                                     widget.profileModel?.recruiterProfileDetails?.coverImg == null ?
+                                     widget.profileModel?.recruiterProfileDetails?.coverImg == null && coverImage == null ?
                                     Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,)
                                         : Image.file(
                                             coverImage!,
@@ -414,7 +413,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                             Positioned(
                               right: 10,
                               top: 10,
-                              child: coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg?.length == 0
+                              child: coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null
                                   ? const SizedBox()
                                   : IconButton(
                                       icon: const Icon(
