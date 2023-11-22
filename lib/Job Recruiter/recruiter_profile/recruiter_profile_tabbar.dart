@@ -1,9 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/about.dart';
+import 'package:flikka/Job%20Recruiter/recruiter_profile/benchmark.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/home.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/jobs.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_edit.dart';
+import 'package:flikka/Job%20Recruiter/recruiter_profile/review.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -96,7 +98,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
               ),
               body: DefaultTabController(
                 initialIndex: pageIndex,
-                length: 3,
+                length: 4,
                 child: Stack(
                   children: [
                     GestureDetector(
@@ -206,11 +208,15 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                     Tab(
                                       text: "JOBS",
                                     ),
+                                    Tab(
+                                     text: "Review",
+                                    ),
                                   ],
                                 ),
                               ],
                             ),
                             Flexible(
+                              // flex: 4,
                               child: TabBarView(
                                 children: [
                                   RecruiterHome(
@@ -235,6 +241,8 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                         .recruiterProfileDetails
                                         ?.companyLocation,
                                   ),
+                                  Review() ,
+                                  // BenchMark() ,
                                 ],
                               ),
                             ),

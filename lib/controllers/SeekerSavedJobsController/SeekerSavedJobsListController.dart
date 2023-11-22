@@ -40,21 +40,21 @@ class SeekerSavedJobsListController extends GetxController {
     }) ;
   }
 
-  void refreshApi(dynamic type){
-    // setRxRequestStatus(Status.LOADING);
-    Map data =  {'type' : "$type"};
-    refreshLoading(true) ;
-    _api.seekerSavedJobsListApi(data).then((value){
-      // setRxRequestStatus(Status.COMPLETED);
-      savedPosts( value);
-      refreshLoading(false) ;
-      print(value);
-
-    }).onError((error, stackTrace){
-      setError(error.toString());
-      print(error.toString());
-      refreshLoading(false) ;
-      setRxRequestStatus(Status.ERROR);
-    });
-  }
+  // void refreshApi(dynamic type){
+  //   // setRxRequestStatus(Status.LOADING);
+  //   Map data =  {'type' : "$type"};
+  //   refreshLoading(true) ;
+  //   _api.seekerSavedJobsListApi(data).then((value){
+  //     // setRxRequestStatus(Status.COMPLETED);
+  //     savedPosts( value);
+  //     refreshLoading(false) ;
+  //     print(value);
+  //
+  //   }).onError((error, stackTrace){
+  //     setError(error.toString());
+  //     print(error.toString());
+  //     refreshLoading(false) ;
+  //     setRxRequestStatus(Status.ERROR);
+  //   });
+  // }
 }

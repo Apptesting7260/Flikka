@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -18,6 +19,25 @@ class SeekerAppliedJobs extends StatefulWidget {
 class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
 
   SeekerAppliedJobsController jobsController = Get.put(SeekerAppliedJobsController()) ;
+
+  //////refresh//////
+  RefreshController _refreshController =
+  RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await jobsController.getJobsApi();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await jobsController.getJobsApi();
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+  /////refresh/////
 
   @override
   void initState() {
@@ -66,69 +86,74 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
               elevation: 0,
               title: Text("My Jobs", style: Get.theme.textTheme.displayLarge),
             ),
-            body: SingleChildScrollView(
-              padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),
-              child: jobsController.jobsList.value.job?.length == 0 || jobsController.jobsList.value.job == null ?
-                  Center(child: Text("You have not Applied to any jobs", style: Get.theme.textTheme.labelMedium!
-                     .copyWith(color: AppColors.white))) :
-              Column(
-                children: [
-                  ListView.builder(
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: jobsController.jobsList.value.job?.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) {
-                      var data = jobsController.jobsList.value.job?[index] ;
-                      return Column(
-                        children: [
-                          GestureDetector(
-                            onTap: () {},
-                            child: ListTile(
-                              leading: CachedNetworkImage(
-                                imageUrl: "${data?.featureImg}",
-                                imageBuilder: (context, imageProvider) => Container(
-                                  height: 80,
-                                  width: 80,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    image: DecorationImage(
-                                      image: imageProvider,
-                                      fit: BoxFit.cover
-                                    )
+            body: SmartRefresher(
+              controller: _refreshController,
+              onLoading: _onLoading,
+              onRefresh: _onRefresh,
+              child: SingleChildScrollView(
+                padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),
+                child: jobsController.jobsList.value.job?.length == 0 || jobsController.jobsList.value.job == null ?
+                    Center(child: Text("You have not Applied to any jobs", style: Get.theme.textTheme.labelMedium!
+                       .copyWith(color: AppColors.white))) :
+                Column(
+                  children: [
+                    ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: jobsController.jobsList.value.job?.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        var data = jobsController.jobsList.value.job?[index] ;
+                        return Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () {},
+                              child: ListTile(
+                                leading: CachedNetworkImage(
+                                  imageUrl: "${data?.featureImg}",
+                                  imageBuilder: (context, imageProvider) => Container(
+                                    height: 80,
+                                    width: 80,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      image: DecorationImage(
+                                        image: imageProvider,
+                                        fit: BoxFit.cover
+                                      )
+                                    ),
                                   ),
+                                  placeholder: (context, url) => const CircularProgressIndicator(),
                                 ),
-                                placeholder: (context, url) => const CircularProgressIndicator(),
-                              ),
-                              // leading:  CircleAvatar(
-                              //     radius: 26,
-                              //     backgroundImage: NetworkImage("${data?.featureImg}")
-                              // ),
-                              title: Text(data?.jobPositions ?? '',
-                                  style: Get.theme.textTheme.labelMedium!
-                                      .copyWith(color: AppColors.white)),
-                              subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text("${data?.recruiterDetails?.companyName}",
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: Color(0xffCFCFCF))),
-                                  Text("${data?.recruiterDetails?.companyLocation}",
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: Color(0xffCFCFCF))),
-                                ],
+                                // leading:  CircleAvatar(
+                                //     radius: 26,
+                                //     backgroundImage: NetworkImage("${data?.featureImg}")
+                                // ),
+                                title: Text(data?.jobPositions ?? '',
+                                    style: Get.theme.textTheme.labelMedium!
+                                        .copyWith(color: AppColors.white)),
+                                subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text("${data?.recruiterDetails?.companyName}",
+                                        style: Get.theme.textTheme.bodySmall!
+                                            .copyWith(color: Color(0xffCFCFCF))),
+                                    Text("${data?.recruiterDetails?.companyLocation}",
+                                        style: Get.theme.textTheme.bodySmall!
+                                            .copyWith(color: Color(0xffCFCFCF))),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                          const Divider(
-                            height: 40,
-                            color: Color(0xff414141),
-                            thickness: 1,
-                            indent: 15,
-                            endIndent: 15,
-                          ),
-                        ],
-                      );
-                    },)
-                ],
+                            const Divider(
+                              height: 40,
+                              color: Color(0xff414141),
+                              thickness: 1,
+                              indent: 15,
+                              endIndent: 15,
+                            ),
+                          ],
+                        );
+                      },)
+                  ],
+                ),
               ),
             ),
           );

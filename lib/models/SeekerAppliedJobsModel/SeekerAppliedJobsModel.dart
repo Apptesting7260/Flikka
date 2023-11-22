@@ -93,8 +93,8 @@ class AppliedJobsList {
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
     language: json["language"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
     // languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => x)),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : AppliedJobsDetail.fromJson(json["jobs_detail"]),
@@ -156,8 +156,8 @@ class AppliedJobsDetail {
   factory AppliedJobsDetail.fromJson(Map<String, dynamic> json) => AppliedJobsDetail(
     id: json["id"],
     jobId: json["job_id"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"]  : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SkillName>.from(json["skill_name"].map((x) => SkillName.fromJson(x))),
     passionName: json["passion_name"] == null ? json["passion_name"] : List<PassionName>.from(json["passion_name"].map((x) => PassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<IndustryPreferenceName>.from(json["industry_preference_name"].map((x) => IndustryPreferenceName.fromJson(x))),
@@ -338,8 +338,8 @@ class RecruiterDetails {
     companySize: json["company_size"],
     // founded: DateTime.parse(json["founded"]),
     specialties: json["specialties"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt:json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     industris: json["industris"],
   );
 
