@@ -21,6 +21,176 @@ class HomeSwiperWidget extends StatefulWidget {
 }
 
 class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
+
+  // showSeekerHomePagePercentageProfile() {
+  //   showDialog(
+  //     context: context,
+  //     builder: (BuildContext context) {
+  //       // editAboutController.loading.value = false;
+  //       // TextEditingController aboutSectionController = TextEditingController();
+  //       // aboutSectionController.text = about ?? "";
+  //       return Dialog(
+  //         shape: RoundedRectangleBorder(
+  //             borderRadius: BorderRadius.circular(22)),
+  //         insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+  //         child: Padding(
+  //           padding: const EdgeInsets.all(8.0),
+  //           child: Column(
+  //             mainAxisSize: MainAxisSize.min,
+  //             //crossAxisAlignment: CrossAxisAlignment.start,
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               Row(
+  //                 mainAxisAlignment: MainAxisAlignment.end,
+  //                 children: [
+  //                   GestureDetector(
+  //                     onTap: (() => Get.back()),
+  //                     child: Stack(
+  //                      children: [
+  //                        Container(
+  //                          decoration: BoxDecoration(
+  //                            color: AppColors.blueThemeColor,
+  //                            borderRadius: BorderRadius.circular(12),),
+  //                          child: const Icon(
+  //                            Icons.close,
+  //                            color: Colors.white,
+  //                          ),),
+  //                      ],
+  //                     ),
+  //                   ),
+  //                 ],
+  //               ),
+  //               SizedBox(height: Get.height*.03,) ,
+  //               Container(
+  //                 decoration: BoxDecoration(
+  //                     borderRadius: BorderRadius.circular(50),
+  //                     border: Border.all(color: AppColors.white, width: 2)),
+  //                 child: Padding(
+  //                   padding: const EdgeInsets.all(3.0),
+  //                   child: Container(
+  //                       decoration: const BoxDecoration(
+  //                           shape: BoxShape.circle,
+  //                           color: AppColors.blueThemeColor),
+  //                       child: CircleAvatar(
+  //                           radius: 34,
+  //                           backgroundColor: Colors.transparent,
+  //                           child: Center(
+  //                             child: Column(
+  //                               mainAxisAlignment: MainAxisAlignment.center,
+  //                               children: [
+  //                                 Text('${widget.jobData?.jobMatchPercentage}%',
+  //                                     style: Get.theme.textTheme.bodySmall!
+  //                                         .copyWith(color: AppColors.white)),
+  //                                 Text('match',
+  //                                     style: Get.theme.textTheme.bodySmall!
+  //                                         .copyWith(
+  //                                         color: AppColors.white,
+  //                                         fontSize: 7)),
+  //                               ],
+  //                             ),
+  //                           ))),
+  //                 ),
+  //               ) ,
+  //               SizedBox(height: Get.height*.03,) ,
+  //               Text('Profile Match ${widget.jobData?.jobMatchPercentage}%',style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+  //               SizedBox(height: Get.height*.015,) ,
+  //               Padding(
+  //                 padding: const EdgeInsets.symmetric(horizontal: 10),
+  //                 child: Text("According to your skills your profile is match for this job.",textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: AppColors.graySilverColor,),),
+  //               ) ,
+  //               SizedBox(height: Get.height*.05,) ,
+  //             ],
+  //           ),
+  //         ),
+  //       );
+  //     },
+  //   );
+  // }
+
+  void showSeekerHomePagePercentageProfile(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+           backgroundColor: AppColors.textFieldFilledColor,
+           contentPadding: EdgeInsets.zero,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.blueThemeColor,
+                              borderRadius: BorderRadius.circular(12),),
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),),
+
+                        ],
+                      ),
+                    )],),
+                SizedBox(height: Get.height*.03,) ,
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: AppColors.white, width: 2)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.blueThemeColor),
+                        child: CircleAvatar(
+                            radius: 34,
+                            backgroundColor: Colors.transparent,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text('${widget.jobData?.jobMatchPercentage}%',
+                                      style: Get.theme.textTheme.bodySmall!
+                                          .copyWith(color: AppColors.white)),
+                                  Text('match',
+                                      style: Get.theme.textTheme.bodySmall!
+                                          .copyWith(
+                                          color: AppColors.white,
+                                          fontSize: 7)),
+                                ],
+                              ),
+                            ))),
+                  ),
+                ) ,
+                SizedBox(height: Get.height*.03,) ,
+                Text('Profile Match ${widget.jobData?.jobMatchPercentage}%',style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                SizedBox(height: Get.height*.015,) ,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("According to your skills your profile is match for this job.",textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: AppColors.graySilverColor,),),
+                ) ,
+                SizedBox(height: Get.height*.05,) ,
+              ],
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        );
+      },
+    );
+  }
+
   bool _isValidEmail(String email) {
     final RegExp emailRegex =
         RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
@@ -147,34 +317,39 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             top: 10,
             child: Stack(
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      border: Border.all(color: AppColors.white, width: 2)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(3.0),
-                    child: Container(
-                        decoration: const BoxDecoration(
-                            shape: BoxShape.circle,
-                            color: AppColors.blueThemeColor),
-                        child: CircleAvatar(
-                            radius: 30,
-                            backgroundColor: Colors.transparent,
-                            child: Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Text('${widget.jobData?.jobMatchPercentage}%',
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(color: AppColors.white)),
-                                  Text('match',
-                                      style: Get.theme.textTheme.bodySmall!
-                                          .copyWith(
-                                              color: AppColors.white,
-                                              fontSize: 7)),
-                                ],
-                              ),
-                            ))),
+                GestureDetector(
+                  onTap: () {
+                    showSeekerHomePagePercentageProfile(context) ;
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: AppColors.white, width: 2)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: Container(
+                          decoration: const BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: AppColors.blueThemeColor),
+                          child: CircleAvatar(
+                              radius: 30,
+                              backgroundColor: Colors.transparent,
+                              child: Center(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('${widget.jobData?.jobMatchPercentage}%',
+                                        style: Get.theme.textTheme.bodySmall!
+                                            .copyWith(color: AppColors.white)),
+                                    Text('match',
+                                        style: Get.theme.textTheme.bodySmall!
+                                            .copyWith(
+                                                color: AppColors.white,
+                                                fontSize: 7)),
+                                  ],
+                                ),
+                              ))),
+                    ),
                   ),
                 )
               ],

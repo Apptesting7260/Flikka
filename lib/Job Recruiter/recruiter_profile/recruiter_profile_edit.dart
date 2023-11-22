@@ -324,27 +324,30 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        children: [
-                          GestureDetector(
-                              onTap: () {
-                                Get.back();
-                              },
-                              child: Image.asset(
-                                "assets/images/icon_back_blue.png",
-                                height: Get.height * .055,
-                              )),
-                          SizedBox(
-                            width: Get.width * .04,
-                          ),
-                          Text(
-                            "Add your detail",
-                            style: Theme.of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(fontWeight: FontWeight.w700),
-                          )
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Row(
+                          children: [
+                            GestureDetector(
+                                onTap: () {
+                                  Get.back();
+                                },
+                                child: Image.asset(
+                                  "assets/images/icon_back_blue.png",
+                                  height: Get.height * .055,
+                                )),
+                            SizedBox(
+                              width: Get.width * .04,
+                            ),
+                            Text(
+                              "Add your detail",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            )
+                          ],
+                        ),
                       ),
                       SizedBox(
                         height: Get.height * .05,
@@ -1084,9 +1087,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                         Obx(
                           () => Center(
                             child: MyButton(
-                                loading:
-                                    CreateUpdateRecruiterProfileControllerInstanse
-                                        .loading.value,
+                                loading: CreateUpdateRecruiterProfileControllerInstanse.loading.value,
                                 title: "CONTINUE",
                                 onTap1: () {
                                   // CreateUpdateRecruiterProfileControllerInstanse
