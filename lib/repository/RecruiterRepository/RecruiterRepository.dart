@@ -41,8 +41,8 @@ class RecruiterRepository {
     return RecruiterJobTitleModel.fromJson(response);
   }
 
-  Future<ScheduledInterviewListModel> getInterviewList() async{
-    dynamic response = await apiServices.getApi2(AppUrl.scheduledInterviewList);
+  Future<ScheduledInterviewListModel> getInterviewList(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.scheduledInterviewList);
     return ScheduledInterviewListModel.fromJson(response);
   }
 

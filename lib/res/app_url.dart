@@ -62,5 +62,6 @@ class AppUrl {
   static const String scheduleInterview = '$baseUrl/recruiter-interview-schedule' ;
   static const String candidateJobStatus = '$baseUrl/candidate-job-status' ;
   static const String scheduledInterviewList = '$baseUrl/interview-schedule-list' ;
+  static const String seekerViewCompanyDetails = '$baseUrl/view-company-details' ;
 
 }
