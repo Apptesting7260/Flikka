@@ -1,6 +1,7 @@
 
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ApplyJobController extends GetxController {
@@ -35,7 +36,7 @@ class ApplyJobController extends GetxController {
         Get.back() ;
       }
     }).onError((error, stackTrace){
-      print(error);
+      debugPrint(error.toString());
       loading.value = false ;
 
     });

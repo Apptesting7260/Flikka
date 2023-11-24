@@ -1,39 +1,26 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import '../controllers/ApplyJobController/ApplyJobController.dart';
 import '../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../widgets/app_colors.dart';
 
 class ViewRecruiterJob extends StatefulWidget {
   final RecruiterJobsData? recruiterJobsData ;
-  final String? company ;
-  const ViewRecruiterJob({super.key, required this.recruiterJobsData, this.company});
+  final String? company ; final bool? isSeeker ;
+  const ViewRecruiterJob({super.key, required this.recruiterJobsData, this.company, this.isSeeker});
 
   @override
   State<ViewRecruiterJob> createState() => _ViewRecruiterJobState();
 }
 
 class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
-  String text = '';
-  String subject = '';
-  String uri = '';
-  List<String> imageNames = [];
-  List<String> imagePaths = [];
-
-  bool selectedFav = false;
-  Color buttonColor = AppColors.ratingcommenttextcolor;
-
-  void toggleFavorite() {
-    setState(() {
-      selectedFav = !selectedFav;
-      buttonColor = selectedFav ? AppColors.red : AppColors.ratingcommenttextcolor;
-    });
-  }
 
   TextEditingController commentController = TextEditingController();
-  ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+  ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -209,6 +196,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         widget.recruiterJobsData?.language == null || widget.recruiterJobsData?.language?.length == 0 ?
                                             const SizedBox() :
                                         ListView.builder(
+                                          physics: const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
                                           itemCount: widget.recruiterJobsData?.language?.length,
                                           itemBuilder: (context , index) {
@@ -497,7 +485,16 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               );
                                             }),
                                         SizedBox(height: Get.height*0.02,),
-
+                                     widget.isSeeker == true ?   Center(
+                                       child: Obx( () => MyButton(title: "Apply",
+                                                loading: applyJobController.loading.value,
+                                                onTap1: () {
+                                         print(widget.recruiterJobsData?.id.toString()) ;
+                                              applyJobController.applyJob(widget.recruiterJobsData?.id.toString()) ;
+                                            }),
+                                          ),
+                                     ) : const SizedBox(),
+                                        SizedBox(height: widget.isSeeker == true ? Get.height*0.02 : Get.height*0.0,),
                                       ],
                                     ),
                                   ),

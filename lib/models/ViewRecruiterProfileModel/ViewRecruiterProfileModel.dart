@@ -102,8 +102,8 @@ class RecruiterJobsData {
     preferredWorkExperience: json["preferred_work_experience"],
     education: json["education"],
     language: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),
   );
@@ -194,8 +194,8 @@ class RecruiterProfileDetails {
 
     // founded: json["founded"].toString() == 'null' ? json["founded"] : (DateTime.parse(json["founded"].substring(0,20).toString())),
     specialties: json["specialties"],
-    createdAt: DateTime.parse(json["created_at"].toString()),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
   );
 
   Map<String, dynamic> toJson() => {

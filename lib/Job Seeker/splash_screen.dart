@@ -3,7 +3,6 @@ import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../Job Recruiter/bottom_bar/tab_bar.dart';
 import 'SeekerBottomNavigationBar/tab_bar.dart';
 
@@ -23,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen> {
         () async {
           SharedPreferences sp = await SharedPreferences.getInstance();
           if(sp.getString("loggedIn") == "recruiter") {
-            Get.offAll( () => TabScreenEmployer(index: 4,)) ;
+            Get.offAll( () => TabScreenEmployer(index: 0,)) ;
           } else if (sp.getString("loggedIn") == "seeker") {
             Get.offAll(const TabScreen(index: 0)) ;
           } else {

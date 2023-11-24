@@ -52,7 +52,7 @@ class LoginController extends GetxController {
           }
         } else if (value.role == 1) {
           value.step == 1 ? Get.offAll( () => const RecruiterProfileEdit()) :
-              Get.offAll( () => TabScreenEmployer(index: 4,)) ;
+              Get.offAll( () => TabScreenEmployer(index: 0,)) ;
           if(value.step != 1) {
             sp.setString("loggedIn", "recruiter");
           }

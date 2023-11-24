@@ -22,6 +22,7 @@ class SeekerCreateProfileController extends GetxController {
   var phoneNumberErrorMessage = ''.obs ;
 
   createProfileApi (
+      String? videoPath ,
       String? profilePath ,
       String? resumePath ,
       String? documentPath,
@@ -63,6 +64,7 @@ class SeekerCreateProfileController extends GetxController {
         request.fields[key] = value.toString();
       });
       if( profilePath != null && profilePath.isNotEmpty) { request.files.add(await http.MultipartFile.fromPath("profile_img" , profilePath )) ; }
+      if( videoPath != null && videoPath.isNotEmpty) { request.files.add(await http.MultipartFile.fromPath("short_video" , videoPath )) ; }
       if( resumePath != null && resumePath.isNotEmpty) {  request.files.add(await http.MultipartFile.fromPath("resume" , resumePath )) ; }
       if( documentPath != null && documentPath.isNotEmpty) { request.files.add(await http.MultipartFile.fromPath("document_img" , documentPath )) ; }
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;

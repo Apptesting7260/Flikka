@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
+import 'package:flikka/Job%20Seeker/SeekerJobs/SeekerRequestedJobs.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -75,7 +76,7 @@ class _DrawerClassState extends State<DrawerClass> {
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  SizedBox(height: Get.height*.02,),
+                                  SizedBox(height: Get.height*.04,),
                                   Padding(
                                     padding: const EdgeInsets.only(left: 18.0),
                                     child: Column(
@@ -116,7 +117,6 @@ class _DrawerClassState extends State<DrawerClass> {
                               ),
                             ),
                           ),
-
                           Container(
                             height: Get.height/1.4,
                             color: const Color(0xff353535),
@@ -196,6 +196,18 @@ class _DrawerClassState extends State<DrawerClass> {
                                     leading: drawerIcon(appliedJobsIcon) ,
                                     title: Text(
                                       "Applied jobs",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
+                                    dense: true,
+                                    onTap: () {
+                                      Get.to( () => const SeekerRequestedJobs()) ;
+                                    },
+                                    leading: drawerIcon(appliedJobsIcon) ,
+                                    title: Text(
+                                      "Requested jobs",
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                     ),
                                   ),

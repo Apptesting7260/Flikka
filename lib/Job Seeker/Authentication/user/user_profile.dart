@@ -18,6 +18,7 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/RangeSlider.dart';
+import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -1661,8 +1662,7 @@ class _UserProfileState extends State<UserProfile> {
                                         mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            "${seekerProfileController.viewSeekerData
-                                                .value.completeProfile}%",
+                                            "${seekerProfileController.viewSeekerData.value.completeProfile}%",
                                             style: Theme
                                                 .of(context)
                                                 .textTheme
@@ -1692,11 +1692,7 @@ class _UserProfileState extends State<UserProfile> {
                                   ),
                                 ],
                               ) ,
-
-                              SizedBox(
-                                height: Get.height * .25,
-                              ),
-
+                              SizedBox(height: Get.height * .25,),
                               Row(
                                 children: [
                                   GestureDetector(
@@ -1734,9 +1730,12 @@ class _UserProfileState extends State<UserProfile> {
                                     ),
                                   ),
                                   SizedBox(width: Get.width * .04,),
+                                  seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
+                                      seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0 ?
+                                      const SizedBox() :
                                   GestureDetector(
                                     onTap: () {
-                                      // _openImagePickerDialog();
+                                   Get.to(() => VideoPlayerScreen(videoPath: seekerProfileController.viewSeekerData.value.seekerInfo!.video!));
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -1846,9 +1845,9 @@ class _UserProfileState extends State<UserProfile> {
                                                     Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
                                                   ],
                                                 ),
-                                                Image.asset(
-                                                  "assets/images/icon_edit_phone_number.png",
-                                                  height: 18,)
+                                                // Image.asset(
+                                                //   "assets/images/icon_edit_phone_number.png",
+                                                //   height: 18,)
                                               ],
                                             ),
                                             CommonWidgets.divider() ,
@@ -1856,8 +1855,9 @@ class _UserProfileState extends State<UserProfile> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                                Text("+91 9876543210",style: Theme.of(context).textTheme.titleSmall,) ,
-                                                Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
+                                                Text(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ??"No Data",style: Theme.of(context).textTheme.bodyLarge!
+                                                    .copyWith(color: AppColors.ratingcommenttextcolor),)
+                                                // Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
                                               ],
                                             ) ,
                                             SizedBox(height: Get.height*.045,) ,
@@ -1874,7 +1874,6 @@ class _UserProfileState extends State<UserProfile> {
                                                 InkWell(
                                                     onTap: () {
                                                       aboutSection(CommonFunctions.parseHtmlAndAddNewline(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? ""));
-                                                      // parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)
                                                     },
                                                     child: Image.asset(
                                                       "assets/images/icon_edit.png",
@@ -1892,12 +1891,6 @@ class _UserProfileState extends State<UserProfile> {
                                             const Text("No Data") :
                                             HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
                                                 .copyWith(color: AppColors.ratingcommenttextcolor),),
-                                            // Text( CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data') ?? "No Data",
-                                            //   textAlign: TextAlign.left,
-                                            //   style: Theme.of(context).textTheme.bodyLarge!
-                                            //       .copyWith(color: AppColors.ratingcommenttextcolor),
-                                            // ),
-                                            //********************* for work ex ***************************
                                             SizedBox(height: Get.height * 0.045,),
                                             Row(mainAxisAlignment: MainAxisAlignment
                                                 .spaceBetween,

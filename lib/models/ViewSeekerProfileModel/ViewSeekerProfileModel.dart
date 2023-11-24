@@ -360,6 +360,8 @@ class SeekerInfo {
   var email;
   var password;
   var location;
+  String? phone;
+  String? video;
   String? aboutMe;
   var resume;
   dynamic totalExperience;
@@ -384,6 +386,8 @@ class SeekerInfo {
     this.email,
     this.password,
     this.location,
+    this.phone,
+    this.video,
     this.aboutMe,
     this.resume,
     this.totalExperience,
@@ -409,6 +413,8 @@ class SeekerInfo {
     email: json["email"],
     password: json["password"],
     location: json["location"],
+    phone: json["mobile"],
+    video: json["short_video"],
     aboutMe: json["about_me"],
     resume: json["resume"],
     totalExperience: json["total_experience"],
@@ -419,8 +425,8 @@ class SeekerInfo {
     resetPassOtp: json["reset_pass_otp"],
     signupOtp: json["signup_otp"],
     otpTime: json["otp_time"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     documentType: json["document_type"] ,
     documentImg: json["document_img"] ,
     documentLink: json["document_link"] ,

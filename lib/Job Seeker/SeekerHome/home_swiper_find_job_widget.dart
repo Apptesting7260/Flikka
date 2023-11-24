@@ -277,8 +277,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
   @override
   Widget build(BuildContext context) {
     var data = widget.jobData;
-    var description = parse(data?.description);
-    var requirements = parse(data?.requirements);
     return Container(
       decoration: BoxDecoration(
           color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
@@ -289,9 +287,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-              Get.to(() => MarketingIntern(
-                    jobData: widget.jobData,
-                  ));
+              Get.to(() => MarketingIntern(jobData: widget.jobData,));
             },
             child: Container(
               decoration:

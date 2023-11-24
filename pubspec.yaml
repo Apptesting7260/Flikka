@@ -65,6 +65,10 @@ dependencies:
   flutter_widget_from_html_core: ^0.14.7
   country_picker: ^2.0.22
   intl_phone_field: ^3.2.0
+  video_player: ^2.8.1
+  chewie: ^1.7.1
+  video_compress: ^3.1.2
+  flutter_rating_bar: ^4.0.1
 
 #  table_calendar: ^2.3.3
 

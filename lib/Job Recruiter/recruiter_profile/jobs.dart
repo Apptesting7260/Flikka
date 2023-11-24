@@ -10,9 +10,8 @@ import '../AddJobPage/add_a_job_page_area.dart';
 
 class RecruiterJobs extends StatefulWidget {
   final RxList<RecruiterJobsData>? recruiterJobsData ;
-  final String? company ;
-  final String? location ;
-  const RecruiterJobs({super.key, this.recruiterJobsData, this.company, this.location});
+  final String? company ; final String? location ; final bool? isSeeker ;
+  const RecruiterJobs({super.key, this.recruiterJobsData, this.company, this.location, this.isSeeker});
 
   @override
   State<RecruiterJobs> createState() => _RecruiterJobsState();
@@ -54,12 +53,10 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
             child: Column( crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: Get.height*.05,),
-              Text("You have not posted any job.",textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),
+              Text("No jobs have been posted",textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),),
              SizedBox(height: Get.height*.1,),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(const AddAJobPage()) ;
-                  },
+             widget.isSeeker == true ? const SizedBox() : GestureDetector(
+                  onTap: () { Get.to(const AddAJobPage()) ; },
                     child: Text("Add a job",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),)),
               ],
             ),
@@ -87,6 +84,11 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                       ),
                       child: ListTile(
                         contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
+                        onTap: () {
+                          if(widget.isSeeker == true) {
+                            Get.to( () => ViewRecruiterJob(recruiterJobsData: data , company: widget.company, isSeeker: true,)) ;
+                          }
+                        },
                         minVerticalPadding: 13,
                         leading: CachedNetworkImage(
                           imageUrl: "${data?.featureImg}",
@@ -122,7 +124,7 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                             ),
                           ],
                         ),
-                        trailing:  PopupMenuButton<int>(
+                        trailing: widget.isSeeker == true ? const SizedBox() : PopupMenuButton<int>(
                           onSelected: (value) {
                             // Handle the selected option
                             switch (value) {

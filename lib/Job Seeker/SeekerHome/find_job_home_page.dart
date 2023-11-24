@@ -158,21 +158,10 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         padding: const EdgeInsets.all(24.0),
                         allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
                         onSwipe: _onSwipe,
-                        // onEnd: () {
-                        //   for (var direction in allDirections) {
-                        //     _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
-                        //     Timer(const Duration(milliseconds: 300), () {
-                        //       setState(() {
-                        //         last = true;
-                        //       });
-                        //     });
-                        //   }
-                        // },
                         cardBuilder: (context, index,
                             horizontalThresholdPercentage, verticalThresholdPercentage,) {
                           debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
                           return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
-
                         },
                       )
                       : jobFilterController.jobsData.value.jobs?.length == 0 ||
@@ -186,16 +175,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       padding: const EdgeInsets.all(24.0),
                       allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
                       onSwipe: _onSwipe,
-                      // onEnd: () {
-                      //   for (var direction in allDirections) {
-                      //     _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction);
-                      //     Timer(const Duration(milliseconds: 300), () {
-                      //       setState(() {
-                      //         last = true;
-                      //       });
-                      //     });
-                      //   }
-                      // },
                       cardBuilder: (context, index,
                           horizontalThresholdPercentage, verticalThresholdPercentage,) {
                         debugPrint("inside filter jobs") ;
@@ -248,8 +227,5 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
       return true;
 
   }
-  // lastCard(CardSwiperDirection direction) {
-  //   _onSwipe(null, getJobsListingController.getJobsListing.value.jobs!.length - 1, direction) ;
-  // }
 
 }

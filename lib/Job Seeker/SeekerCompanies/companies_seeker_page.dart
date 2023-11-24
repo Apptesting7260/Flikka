@@ -1,16 +1,17 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/CompaniesListController/CompaniesListController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../res/components/unauthorised_request_widget.dart';
-import 'rating_page_seeker.dart';
 
 class CompanySeekerPage extends StatefulWidget {
   const CompanySeekerPage({super.key});
@@ -26,6 +27,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
   @override
   void initState() {
     companiesListController.getCompaniesApi() ;
+
     super.initState();
   }
 
@@ -41,23 +43,14 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
           );
 
         case Status.ERROR:
-          if (companiesListController
-              .error.value ==
-              'No internet') {
+          if (companiesListController.error.value == 'No internet') {
             return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () { companiesListController.getCompaniesApi() ;},
             ),);
-          } else if (companiesListController
-              .error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
-          } else if (companiesListController
-              .error.value == "Internal server error") {
-            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
-          } else if (companiesListController.
-          error.value == "Unauthorised Request") {
-            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
+          } else if (companiesListController.error.value == 'Request Time out') {
+            return Scaffold(body: RequestTimeoutWidget(onPress: () { companiesListController.getCompaniesApi() ;}),);
           } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(body: GeneralExceptionWidget(onPress: () { companiesListController.getCompaniesApi() ;}),);
           }
         case Status.COMPLETED:
           return SafeArea(
@@ -65,10 +58,8 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
               appBar: AppBar(
                 toolbarHeight: 75,
                 leading: IconButton(
-                    onPressed: () {
-                      Get.offAll(const TabScreen(index: 0)) ;
-                }, icon: Image.asset(
-                "assets/images/icon_back_blue.png",
+                    onPressed: () { Get.offAll(const TabScreen(index: 0)) ;}, icon:
+                Image.asset("assets/images/icon_back_blue.png",
                 height: Get.height * .06,)) ,
                 title:Text("Companies", style: Get.theme.textTheme
               .displayLarge),
@@ -129,9 +120,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                           return Column(
                             children: [
                               GestureDetector(
-                                onTap: () {
-                                  Get.to(() => const RattingPage());
-                                },
+                                onTap: () {},
                                 child: ListTile(
                                   leading: CachedNetworkImage(
                                       imageUrl: '${data?.profileImg}',
@@ -146,21 +135,20 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                       )
                                     ),
                                   ),
-                                    placeholder: (context, url) => const CircularProgressIndicator(),
-                                  ),
-                                  // leading:  CircleAvatar(
-                                  //     radius: 26,
-                                  //     backgroundImage: NetworkImage(
-                                  //         '${data?.profileImg}'
-                                  //         )
-                                  // ),
-                                  title: Text("${data?.companyName}bljkbnjklbnuigjkn;jkndcdvvdfvfd" ?? "",
+                                    placeholder: (context, url) => const CircularProgressIndicator(),),
+                                  title: Text(data?.companyName ?? "",
                                      overflow: TextOverflow.ellipsis, style:  Get.theme.textTheme.labelMedium!
                                           .copyWith(color: AppColors.white)),
                                   subtitle: Text(data?.companyLocation ?? "",
                                       style: Get.theme.textTheme.bodySmall!
                                           .copyWith(color: const Color(0xffCFCFCF))),
-                                  trailing: Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),),
+                                  trailing: TextButton(onPressed: () async {
+                                    SharedPreferences sp = await SharedPreferences.getInstance() ;
+                                    Get.to(() =>  RecruiterProfileTabBar(recruiterID: data?.recruiterID.toString(),isSeeker: true,) , arguments: {
+                                      "SeekerName" : sp.getString("seekerName"), "seekerLocation" : sp.getString("seekerLocation") ,
+                                      "seekerPosition" : sp.getString("seekerPosition"), "seekerProfileImg" : sp.getString("seekerProfileImg")
+                                    });},
+                                      child: Text("View",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),)),
                                 ),
                               ),
                               const Divider(

@@ -2,6 +2,7 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class ViewSeekerProfileController extends GetxController {
@@ -21,6 +22,7 @@ class ViewSeekerProfileController extends GetxController {
 
 
    viewSeekerProfileApi() async {
+     SharedPreferences sp = await SharedPreferences.getInstance() ;
     setRxRequestStatus(Status.LOADING);
     loading(true) ;
     _api.viewSeekerProfile().then((value){
@@ -28,8 +30,10 @@ class ViewSeekerProfileController extends GetxController {
       viewSeekerData(value);
       loading(false) ;
       print(value);
-      // print("this is experience data =========== ${value.workExpJob?.length }") ;
-
+      sp.setString("seekerName", value.seekerInfo?.fullname ?? "") ;
+      sp.setString("seekerLocation", value.seekerInfo?.location ?? "") ;
+      sp.setString("seekerPosition", value.seekerDetails?.positions ?? "") ;
+      sp.setString("seekerProfileImg", value.seekerInfo?.profileImg ?? "") ;
     }).onError((error, stackTrace){
       setError(error.toString());
       print(error.toString());
@@ -41,10 +45,8 @@ class ViewSeekerProfileController extends GetxController {
   }
 
   void refreshApi(){
-    // setRxRequestStatus(Status.LOADING);
     refreshLoading(true) ;
     _api.viewSeekerProfile().then((value){
-      // setRxRequestStatus(Status.COMPLETED);
       viewSeekerData( value);
       refreshLoading(false) ;
       print(value);

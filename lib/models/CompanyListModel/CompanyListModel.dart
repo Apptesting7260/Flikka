@@ -31,17 +31,23 @@ class CompanyList {
   String? profileImg;
   String? companyName;
   String? companyLocation;
+  dynamic id ;
+  dynamic recruiterID ;
 
   CompanyList({
     this.profileImg,
     this.companyName,
     this.companyLocation,
+    this.id,
+    this.recruiterID
   });
 
   factory CompanyList.fromJson(Map<String, dynamic> json) => CompanyList(
     profileImg: json["profile_img"],
     companyName: json["company_name"],
     companyLocation: json["company_location"],
+    id: json["id"],
+    recruiterID: json["recruiter_id"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -9,14 +9,14 @@ import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../widgets/app_colors.dart';
 
-class SeekerAppliedJobs extends StatefulWidget {
-  const SeekerAppliedJobs({super.key});
+class SeekerRequestedJobs extends StatefulWidget {
+  const SeekerRequestedJobs({super.key});
 
   @override
-  State<SeekerAppliedJobs> createState() => _SeekerAppliedJobsState();
+  State<SeekerRequestedJobs> createState() => _SeekerRequestedJobsState();
 }
 
-class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
+class _SeekerRequestedJobsState extends State<SeekerRequestedJobs> {
 
   SeekerAppliedJobsController jobsController = Get.put(SeekerAppliedJobsController()) ;
 
@@ -92,8 +92,8 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
               child: SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: Get.width * .04, vertical: Get.height * .02),
                 child: jobsController.jobsList.value.job?.length == 0 || jobsController.jobsList.value.job == null ?
-                    Center(child: Text("You have not Applied to any jobs", style: Get.theme.textTheme.labelMedium!
-                       .copyWith(color: AppColors.white))) :
+                Center(child: Text("You have not Applied to any jobs", style: Get.theme.textTheme.labelMedium!
+                    .copyWith(color: AppColors.white))) :
                 Column(
                   children: [
                     ListView.builder(
@@ -113,11 +113,11 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                                     height: 80,
                                     width: 80,
                                     decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                        image: imageProvider,
-                                        fit: BoxFit.cover
-                                      )
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: imageProvider,
+                                            fit: BoxFit.cover
+                                        )
                                     ),
                                   ),
                                   placeholder: (context, url) => const CircularProgressIndicator(),

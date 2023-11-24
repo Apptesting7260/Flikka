@@ -4,6 +4,7 @@ import 'package:flikka/models/SeekerAppliedJobsModel/SeekerAppliedJobsModel.dart
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
 import 'package:flikka/models/SeekerSavedPostModel/SeekerSavedPostModel.dart';
+import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 
 import '../../data/network/network_api_services.dart';
 import '../../models/EditAboutModel/EditAboutModel.dart';
@@ -31,6 +32,11 @@ class SeekerRepository {
   Future<SeekerSavedJobsListModel> seekerSavedJobsListApi(var data) async{
     dynamic response = await apiServices.postApi2( data,AppUrl.seekerSavedJobsList);
     return SeekerSavedJobsListModel.fromJson(response);
+  }
+
+  Future<ViewRecruiterProfileModel> seekerViewCompanyDetail(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.seekerViewCompanyDetails);
+    return ViewRecruiterProfileModel.fromJson(response);
   }
 
   Future<SeekerJobFilterModel> seekerJobFilterApi(var data) async{

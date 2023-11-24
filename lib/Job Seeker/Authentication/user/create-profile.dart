@@ -5,7 +5,9 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flikka/utils/MultiSelectField.dart';
+import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
@@ -18,6 +20,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:open_file/open_file.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:video_compress/video_compress.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../../res/components/general_expection.dart';
@@ -109,10 +112,10 @@ class _CreateProfileState extends State<CreateProfile> {
       // User canceled the picker
     }
   }
-  //////////CV//////////
 
-  //////////Document type upload////////////////
   String _documentTypeFilePath = '';
+  String videoFilePath = '';
+  File? videoFile ;
   Future<void> _openDocumentTypeFilePicker() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -128,7 +131,7 @@ class _CreateProfileState extends State<CreateProfile> {
       // User canceled the picker
     }
   }
-  //////////////document////////////////
+
 
   DateTime? startDateExperience;
   DateTime? startDateEducation;
@@ -362,88 +365,68 @@ class _CreateProfileState extends State<CreateProfile> {
                     DottedBorder(
                       borderType: BorderType.RRect,
                       radius: const Radius.circular(20),
-                      dashPattern: [5, 5],
+                      dashPattern: const [5, 5],
                       color: const Color(0xffCFCFCF),
                       strokeWidth: 0.7,
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Container(
-                            height: Get.height * .15,
-                            width: Get.width,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(22),
-                            ),
-                            child: Center(
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset(
-                                    "assets/images/icon_upload_cv.png",
-                                    width: Get.width * .07,
-                                    height: Get.height * .06,
-                                  ),
-                                  SizedBox(width: Get.width * .0),
-                                  if (_documentTypeFilePath.isNotEmpty)
-                                    SizedBox(
-                                      width: Get.width * .6,
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          SizedBox(width: Get.width * .02),
-                                          Flexible(
-                                            child: Text(
-                                              "File uploaded: ${_documentTypeFilePath.split('/').last}",
-                                              overflow: TextOverflow.ellipsis,
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .labelLarge
-                                                  ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400),
-                                            ),
+                      child: GestureDetector(
+                        onTap: () {
+                          _startRecording() ;
+                        },
+                        child: Container(
+                          height: Get.height * .15,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/icon_upload_cv.png",
+                                  width: Get.width * .07,
+                                  height: Get.height * .06,
+                                ),
+                                SizedBox(width: Get.width * .0),
+                                videoFilePath.isNotEmpty ?
+                                  SizedBox(
+                                    width: Get.width * .6,
+                                    child: Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        SizedBox(width: Get.width * .02),
+                                        Flexible(
+                                          child: Text(
+                                            "File uploaded: ${videoFilePath.split('/').last}",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .labelLarge
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w400),
                                           ),
-                                        ],
-                                      ),
-                                    )
-                                  else
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 8.0, top: 4),
-                                      child: Text(
-                                        "Upload Video",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w400),
-                                      ),
+                                        ),
+                                      ],
                                     ),
-                                ],
-                              ),
+                                  ) :
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 8.0, top: 4),
+                                    child: Text(
+                                      "Upload Video",
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .labelLarge
+                                          ?.copyWith(
+                                              fontWeight: FontWeight.w400),
+                                    ),
+                                  ),
+                              ],
                             ),
                           ),
-                          Positioned(
-                              right: 5,
-                              top: 1,
-                              child: _documentTypeFilePath.isEmpty
-                                  ? const SizedBox()
-                                  : IconButton(
-                                      onPressed: () {
-                                        if (DocumentType == null) {
-                                          seekerCreateProfileController
-                                                  .documentErrorMessage.value =
-                                              "Please select document type first";
-                                        } else {
-                                          _openDocumentTypeFilePicker();
-                                        }
-                                      },
-                                      icon: const Icon(
-                                        Icons.edit,
-                                        color: Colors.white,
-                                      ))),
-                        ],
+                        ),
                       ),
                     ),
                     SizedBox(
@@ -2057,17 +2040,9 @@ class _CreateProfileState extends State<CreateProfile> {
                               debugPrint(workExperienceList.toString());
                               debugPrint(educationList.toString());
                               if (introFormKey.currentState!.validate()) {
-                                if (!validPhone) {
-                                  seekerCreateProfileController.phoneNumberErrorMessage.value = "Invalid Mobile Number";
-                                  scrollController.animateTo(0,
-                                      duration: const Duration(milliseconds: 100),
-                                      curve: Curves.easeOut);
-                                } else {
-                                  var formattedAboutText =
-                                      CommonFunctions.changeToHTML(
-                                          aboutMeController.text ?? "");
+                                  var formattedAboutText = CommonFunctions.changeToHTML(aboutMeController.text ?? "");
                                   seekerCreateProfileController
-                                      .createProfileApi(
+                                      .createProfileApi( videoFilePath ,
                                           imgFile?.path,
                                           _filePath,
                                           _documentTypeFilePath,
@@ -2081,7 +2056,6 @@ class _CreateProfileState extends State<CreateProfile> {
                                           appreciationList,
                                           DocumentType,
                                           fresher ? 1 : null);
-                                }
                               } else {
                                 scrollController.animateTo(0,
                                     duration: const Duration(milliseconds: 100),
@@ -2280,7 +2254,7 @@ class _CreateProfileState extends State<CreateProfile> {
           shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15)),
           title: Center(
             child: Text(
-              'Please choose image',
+             'Please choose image',
               style: Theme.of(context)
                   .textTheme
                   .bodyMedium
@@ -2298,7 +2272,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     height: Get.height * .05,
                     title: "Camera",
                     onTap1: () {
-                      _pickImage(ImageSource.camera);
+                        _pickImage(ImageSource.camera);
                     },
                   )
                 ],
@@ -2311,7 +2285,7 @@ class _CreateProfileState extends State<CreateProfile> {
                     height: Get.height * .05,
                     title: "Gallery",
                     onTap1: () {
-                      _pickImage(ImageSource.gallery);
+                        _pickImage(ImageSource.gallery);
                     },
                   )
                 ],
@@ -2557,13 +2531,6 @@ class _CreateProfileState extends State<CreateProfile> {
                       ),
                     ),
                   ),
-
-            // index == 0
-            //     ? const SizedBox()
-            //     : IconButton(
-            //   icon: const Icon(Icons.remove_circle),
-            //   onPressed: remove,
-            // ),
           ],
         ),
         CommonWidgets.textFieldHeading(context, "Award name"),
@@ -2641,15 +2608,17 @@ class _CreateProfileState extends State<CreateProfile> {
     print(uri);
     try {
       final response = await http.get(uri);
-      print(response.statusCode);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
       final parse = jsonDecode(response.body);
-      print(parse);
       if (parse['status'] == "OK") {
         setState(() {
           SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
           searchPlace = searchPlaceModel.predictions!;
-
-          print(searchPlace.length);
+          if (kDebugMode) {
+            print(searchPlace.length);
+          }
         });
       }
     } catch (err) {}
@@ -2663,7 +2632,36 @@ class _CreateProfileState extends State<CreateProfile> {
       var first = locations.first;
       lat = first.latitude;
       long = first.longitude;
-      print("*****lat ${lat} : ${long}**********long");
+      if (kDebugMode) {
+        print("*****lat ${lat} : ${long}**********long");
+      }
     });
+  }
+
+  Future<void> _startRecording() async {
+    final video = await ImagePicker().pickVideo(source: ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
+    if(video != null) {
+      await compressVideo(video.path);
+    }
+  }
+
+  Future<void> compressVideo(String inputPath) async {
+    final MediaInfo? info = await VideoCompress.compressVideo(
+      inputPath,
+      quality: VideoQuality.MediumQuality,
+      deleteOrigin: false,
+    );
+
+    if (kDebugMode) {
+      print('Compressed video path: ${info?.path}');
+    }
+    if(info?.path != null && info?.path?.length != 0 ) {
+      setState(() {
+        videoFilePath = info!.path! ;
+        if (kDebugMode) {
+          print("this is file size ================== ${info.filesize}") ;
+        }
+      });
+    }
   }
 }

@@ -29,7 +29,7 @@ class _RecruiterAboutState extends State<RecruiterAbout> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: Get.height*.045,),
-              Text("About",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: Color(0xffFFFFFF)),),
+              Text("About",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: const Color(0xffFFFFFF)),),
               SizedBox(height: Get.height*.005,),
               HtmlWidget(widget.recruiterProfileDetails?.aboutDescription ?? "No Data",textStyle:Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
               // Text(CommonFunctions.parseHTML(widget.recruiterProfileDetails?.aboutDescription ?? "No Data") ?? "No Data",style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
