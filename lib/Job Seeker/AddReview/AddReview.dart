@@ -1,12 +1,17 @@
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/SeekerPostReviewController/SeekerPostReviewController.dart';
+
 class AddReview extends StatefulWidget {
-  const AddReview({super.key});
+  final String? recruiterID ;
+  const AddReview({super.key, this.recruiterID});
 
   @override
   State<AddReview> createState() => _AddReviewState();
@@ -14,7 +19,9 @@ class AddReview extends StatefulWidget {
 
 class _AddReviewState extends State<AddReview> {
   TextEditingController controller = TextEditingController() ;
-  double ratingValue = 1 ;
+  SeekerPostReviewController reviewController = Get.put(SeekerPostReviewController()) ;
+  double ratingValue = 0 ;
+  final formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +46,14 @@ class _AddReviewState extends State<AddReview> {
           children: [
             CommonWidgets.textFieldHeading(context, "How was your experience?") ,
             SizedBox(height: Get.height *0.01,) ,
-            CommonWidgets.textFieldMaxLines(context, controller, "Describe your experience", onFieldSubmitted: (value) {}) ,
+            Form( key: formKey,
+                child: CommonWidgets.textFieldMaxLines(context, controller, "Describe your experience", onFieldSubmitted: (value) {})),
             SizedBox(height: Get.height *0.02,) ,
             const Text("What are your ratings?") ,
             SizedBox(height: Get.height *0.01,) ,
             RatingBar.builder(
               initialRating: ratingValue,
-              minRating: 1,
+              minRating: 0,
               direction: Axis.horizontal,
               tapOnlyMode: true,
               glow: false,
@@ -62,7 +70,20 @@ class _AddReviewState extends State<AddReview> {
               },
             ),
             SizedBox(height: Get.height *0.05,) ,
-            Center(child: MyButton(title: "SUBMIT REVIEW", onTap1: (){}),)
+            Center(child:
+            Obx( () =>
+                MyButton(title: "SUBMIT REVIEW",
+                    loading: reviewController.loading.value,
+                    onTap1: (){
+                      if(ratingValue == 0) {
+                        Utils.showMessageDialog(context, "Please add rating to submit your review") ;
+                      } else {
+                  if(formKey.currentState!.validate()) {
+                  var review = CommonFunctions.changeToHTML(controller.text) ;
+                      reviewController.postReview(widget.recruiterID, review, ratingValue.toString()) ;
+                    }
+                      }
+                    })),)
           ],
         ),
       ),

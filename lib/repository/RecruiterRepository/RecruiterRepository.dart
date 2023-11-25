@@ -57,5 +57,9 @@ class RecruiterRepository {
     return TalentPoolModel.fromJson(response);
   }
 
+  Future<EditAboutModel> addToPool(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.talentPoolSeeker);
+    return EditAboutModel.fromJson(response);
+  }
 
 }
