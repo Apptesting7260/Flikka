@@ -16,6 +16,7 @@ class ViewRecruiterProfileModel {
   String? contactPerson;
   RecruiterProfileDetails? recruiterProfileDetails;
   RxList<RecruiterJobsData>? jobs;
+  RxList<CompanyReviewsModel>? reviews;
   String? message;
 
   ViewRecruiterProfileModel({
@@ -23,6 +24,7 @@ class ViewRecruiterProfileModel {
     this.contactPerson,
     this.recruiterProfileDetails,
     this.jobs,
+    this.reviews ,
     this.message,
   });
 
@@ -31,6 +33,7 @@ class ViewRecruiterProfileModel {
     contactPerson: json["contact_person"],
     recruiterProfileDetails: json["recruiterProfileDetails"] == null ? json["recruiterProfileDetails"] : RecruiterProfileDetails.fromJson(json["recruiterProfileDetails"]),
     jobs: json["jobs"] == null ? json["jobs"] : RxList<RecruiterJobsData>.from(json["jobs"].map((x) => RecruiterJobsData.fromJson(x))),
+    reviews: json["company_reviews"] == null ? json["company_reviews"] : RxList<CompanyReviewsModel>.from(json["company_reviews"].map((x) => CompanyReviewsModel.fromJson(x))),
     message: json["message"],
   );
 
@@ -220,3 +223,104 @@ class RecruiterProfileDetails {
     "updated_at": updatedAt?.toIso8601String(),
   };
 }
+
+class CompanyReviewsModel {
+  dynamic id;
+  dynamic seekerId;
+  dynamic recruiterId;
+  String? description;
+  dynamic stars;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  List<SeekerInfo>? seekerInfo;
+  List<SeekerDetailsInfo>? seekerDetailsInfo;
+
+  CompanyReviewsModel({
+    this.id,
+    this.seekerId,
+    this.recruiterId,
+    this.description,
+    this.stars,
+    this.createdAt,
+    this.updatedAt,
+    this.seekerInfo,
+    this.seekerDetailsInfo,
+  });
+
+  factory CompanyReviewsModel.fromJson(Map<String, dynamic> json) => CompanyReviewsModel(
+    id: json["id"],
+    seekerId: json["seeker_id"],
+    recruiterId: json["recruiter_id"],
+    description: json["discription"],
+    stars: json["stars"],
+    createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
+    updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
+    seekerInfo: json["seeker_info"] == null ? json["seeker_info"] : List<SeekerInfo>.from(json["seeker_info"].map((x) => SeekerInfo.fromJson(x))),
+    seekerDetailsInfo: json["seeker_details_info"] == null ? json["seeker_details_info"] : List<SeekerDetailsInfo>.from(json["seeker_details_info"].map((x) => SeekerDetailsInfo.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "seeker_id": seekerId,
+    "recruiter_id": recruiterId,
+    "discription": description,
+    "stars": stars,
+    "created_at": createdAt?.toIso8601String(),
+    "updated_at": updatedAt?.toIso8601String(),
+    "seeker_info": List<dynamic>.from(seekerInfo!.map((x) => x.toJson())),
+    "seeker_details_info": List<dynamic>.from(seekerDetailsInfo!.map((x) => x.toJson())),
+  };
+}
+
+class SeekerDetailsInfo {
+  dynamic id;
+  dynamic seekerId;
+  String? position;
+  String? positions;
+
+  SeekerDetailsInfo({
+    this.id,
+    this.seekerId,
+    this.position,
+    this.positions,
+  });
+
+  factory SeekerDetailsInfo.fromJson(Map<String, dynamic> json) => SeekerDetailsInfo(
+    id: json["id"],
+    seekerId: json["seeker_id"],
+    position: json["position"],
+    positions: json["positions"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "seeker_id": seekerId,
+    "position": position,
+    "positions": positions,
+  };
+}
+
+class SeekerInfo {
+  dynamic id;
+  String? profileImg;
+  String? fullname;
+
+  SeekerInfo({
+    this.id,
+    this.profileImg,
+    this.fullname,
+  });
+
+  factory SeekerInfo.fromJson(Map<String, dynamic> json) => SeekerInfo(
+    id: json["id"],
+    profileImg: json["profile_img"],
+    fullname: json["fullname"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "profile_img": profileImg,
+    "fullname": fullname,
+  };
+}
+

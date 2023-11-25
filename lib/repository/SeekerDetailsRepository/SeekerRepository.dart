@@ -49,6 +49,11 @@ class SeekerRepository {
     return EditAboutModel.fromJson(response);
   }
 
+  Future<EditAboutModel> seekerPostReview(var data) async {
+    dynamic response = await apiServices.postApi2(data, AppUrl.seekerPostReview);
+    return EditAboutModel.fromJson(response);
+  }
+
   Future<EditAboutModel> editSeekerSalaryExpectation(var data) async {
     dynamic response = await apiServices.postApi2(data, AppUrl.editSeekerSalary);
     return EditAboutModel.fromJson(response);
