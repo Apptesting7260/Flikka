@@ -12,6 +12,7 @@ import 'package:flikka/data/response/status.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../bottom_bar/tab_bar.dart';
@@ -27,6 +28,25 @@ class RecruiterProfileTabBar extends StatefulWidget {
 class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
   ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
   SeekerViewCompanyController seekerViewCompanyController = Get.put(SeekerViewCompanyController()) ;
+
+  //////refresh//////
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await viewRecruiterProfileController.viewRecruiterProfileApi();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await viewRecruiterProfileController.viewRecruiterProfile();
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+  /////refresh/////
+
   int pageIndex = 0;
 
   String? name ;
@@ -112,155 +132,148 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                     )
                   ],
                 ),
-                body: DefaultTabController(
-                  initialIndex: pageIndex,
-                  length: 4,
-                  child: Stack(
-                    children: [
-                      GestureDetector(
-                        onVerticalDragUpdate: (details) {
-                          if (details.delta.dy > 40) {
-                            print("object");
-                            viewRecruiterProfileController.refreshApi();
-                          }
-                        },
-                        child: Column(
-                            children: [
-                              Obx(() =>
-                              viewRecruiterProfileController.refreshLoading.value ?
-                              const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
+                body: SmartRefresher(
+                  controller: _refreshController,
+                  onRefresh: _onRefresh,
+                  onLoading: _onLoading,
+                  child: DefaultTabController(
+                    initialIndex: pageIndex,
+                    length: 4,
+                    child: Column(
+                        children: [
+                          Obx(() =>
+                          viewRecruiterProfileController.refreshLoading.value ?
+                          const Center(
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          ) : const SizedBox()
+                          ),
+                          SizedBox(height: Get.height * .025,),
+                          SizedBox(
+                            child: Stack(
+                              clipBehavior: Clip.none,
+                              children: [
+                                CachedNetworkImage(
+                                  fit: BoxFit.cover,
+                                  height: Get.height * .22,
+                                  width: Get.width,
+                                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                    imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
+                                recruiterProfileDetails?.coverImg ??
+                                    "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
                                 ),
-                              ) : const SizedBox()
-                              ),
-                              SizedBox(height: Get.height * .025,),
-                              SizedBox(
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    CachedNetworkImage(
-                                      fit: BoxFit.cover,
-                                      height: Get.height * .22,
-                                      width: Get.width,
-                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                                Positioned(
+                                    bottom: -40,
+                                    left: 10,
+                                    child: CachedNetworkImage(
+                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
                                         imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
-                                    recruiterProfileDetails?.coverImg ??
-                                        "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
-                                    ),
-                                    Positioned(
-                                        bottom: -40,
-                                        left: 10,
-                                        child: CachedNetworkImage(
-                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                                            imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
-                                        recruiterProfileDetails?.profileImg ??
-                                            "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png" ,
-                                        imageBuilder: (context , imageProvider) => Container(
-                                          height: Get.width *.25,
-                                          width: Get.width *.25,
-                                          decoration: BoxDecoration(shape: BoxShape.circle,
-                                            image:  DecorationImage(image: imageProvider,fit: BoxFit.cover),),
-                                        ),) ,
-                                    )],
+                                    recruiterProfileDetails?.profileImg ??
+                                        "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png" ,
+                                    imageBuilder: (context , imageProvider) => Container(
+                                      height: Get.width *.25,
+                                      width: Get.width *.25,
+                                      decoration: BoxDecoration(shape: BoxShape.circle,
+                                        image:  DecorationImage(image: imageProvider,fit: BoxFit.cover),),
+                                    ),) ,
+                                )],
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 50,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 15),
+                            child: Column(
+                              children: [
+                                SizedBox(
+                                  height: Get.height * .017,
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 50,
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 15),
-                                child: Column(
+                                Row(mainAxisAlignment: MainAxisAlignment
+                                    .spaceBetween,
                                   children: [
-                                    SizedBox(
-                                      height: Get.height * .017,
-                                    ),
-                                    Row(mainAxisAlignment: MainAxisAlignment
-                                        .spaceBetween,
-                                      children: [
-                                        Text(
-                                          viewRecruiterProfileController
-                                              .viewRecruiterProfile
-                                              .value
-                                              .recruiterProfileDetails
-                                              ?.companyName ??
-                                              "",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .headlineSmall
-                                              ?.copyWith(
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                        InkWell(
-                                            onTap: () {
-                                              Get.to(() =>
-                                                  RecruiterProfileEdit(
-                                                    profileModel: viewRecruiterProfileController
-                                                        .viewRecruiterProfile
-                                                        .value,));
-                                            },
-                                            child: Image.asset(
-                                              "assets/images/icon_edit.png",
-                                              height: 18,))
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              SizedBox(height: Get.height * .018,),
-                              TabBar(
-                                indicatorPadding: EdgeInsets.symmetric(horizontal: Get.width * .02),
-                                isScrollable: true,
-                                indicator: const UnderlineTabIndicator(
-                                  borderSide:
-                                  BorderSide(width: 2.0, color: AppColors.blueThemeColor),),
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                unselectedLabelColor: const Color(0xffCFCFCF),
-                                labelColor: AppColors.blueThemeColor,
-                                labelStyle: Theme.of(context).textTheme.bodyMedium,
-                                tabs: const [
-                                  Tab(text: "HOME"),
-                                  Tab(text: "ABOUT",),
-                                  Tab(text: "JOBS",),
-                                  Tab(text: "Review",),
-                                ],
-                              ),
-                              Flexible(
-                                child: TabBarView(
-                                  children: [
-                                    RecruiterHome(
-                                      recruiterProfileDetails: viewRecruiterProfileController
-                                          .viewRecruiterProfile.value
-                                          .recruiterProfileDetails,
-                                    ),
-                                    RecruiterAbout(
-                                      recruiterProfileDetails: viewRecruiterProfileController
-                                          .viewRecruiterProfile.value
-                                          .recruiterProfileDetails,
-                                    ),
-                                    RecruiterJobs(
-                                      recruiterJobsData: viewRecruiterProfileController
-                                          .viewRecruiterProfile.value.jobs,
-                                      company: viewRecruiterProfileController
+                                    Text(
+                                      viewRecruiterProfileController
                                           .viewRecruiterProfile
                                           .value
                                           .recruiterProfileDetails
-                                          ?.companyName,
-                                      location: viewRecruiterProfileController
-                                          .viewRecruiterProfile
-                                          .value
-                                          .recruiterProfileDetails
-                                          ?.companyLocation,
+                                          ?.companyName ??
+                                          "",
+                                      style: Theme
+                                          .of(context)
+                                          .textTheme
+                                          .headlineSmall
+                                          ?.copyWith(
+                                          fontWeight: FontWeight.w700),
                                     ),
-                                    Review(isSeeker: false, reviews: viewRecruiterProfileController.viewRecruiterProfile.value.reviews,),
+                                    InkWell(
+                                        onTap: () {
+                                          Get.to(() =>
+                                              RecruiterProfileEdit(
+                                                profileModel: viewRecruiterProfileController
+                                                    .viewRecruiterProfile
+                                                    .value,));
+                                        },
+                                        child: Image.asset(
+                                          "assets/images/icon_edit.png",
+                                          height: 18,))
                                   ],
                                 ),
-                              ),
-                            ]),
-                      )
-                    ],
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: Get.height * .018,),
+                          TabBar(
+                            indicatorPadding: EdgeInsets.symmetric(horizontal: Get.width * .02),
+                            isScrollable: true,
+                            indicator: const UnderlineTabIndicator(
+                              borderSide:
+                              BorderSide(width: 2.0, color: AppColors.blueThemeColor),),
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            unselectedLabelColor: const Color(0xffCFCFCF),
+                            labelColor: AppColors.blueThemeColor,
+                            labelStyle: Theme.of(context).textTheme.bodyMedium,
+                            tabs: const [
+                              Tab(text: "HOME"),
+                              Tab(text: "ABOUT",),
+                              Tab(text: "JOBS",),
+                              Tab(text: "Review",),
+                            ],
+                          ),
+                          Flexible(
+                            child: TabBarView(
+                              children: [
+                                RecruiterHome(
+                                  recruiterProfileDetails: viewRecruiterProfileController
+                                      .viewRecruiterProfile.value
+                                      .recruiterProfileDetails,
+                                ),
+                                RecruiterAbout(
+                                  recruiterProfileDetails: viewRecruiterProfileController
+                                      .viewRecruiterProfile.value
+                                      .recruiterProfileDetails,
+                                ),
+                                RecruiterJobs(
+                                  recruiterJobsData: viewRecruiterProfileController
+                                      .viewRecruiterProfile.value.jobs,
+                                  company: viewRecruiterProfileController
+                                      .viewRecruiterProfile
+                                      .value
+                                      .recruiterProfileDetails
+                                      ?.companyName,
+                                  location: viewRecruiterProfileController
+                                      .viewRecruiterProfile
+                                      .value
+                                      .recruiterProfileDetails
+                                      ?.companyLocation,
+                                ),
+                                Review(isSeeker: false, reviews: viewRecruiterProfileController.viewRecruiterProfile.value.reviews,),
+                              ],
+                            ),
+                          ),
+                        ]),
                   ),
                 )
             );
