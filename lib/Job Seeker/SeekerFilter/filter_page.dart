@@ -7,6 +7,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
@@ -64,6 +65,24 @@ class _FilterPageState extends State<FilterPage> {
   SeekerJobFilterController jobFilterController = Get.put(SeekerJobFilterController()) ;
   TextEditingController companyController = TextEditingController() ;
   TextEditingController locationController = TextEditingController() ;
+
+  //////refresh//////
+  // RefreshController _refreshController = RefreshController(initialRefresh: false);
+  //
+  // void _onRefresh() async{
+  //   await jobsController.getJobsApi();
+  //   _refreshController.refreshCompleted();
+  // }
+  //
+  // void _onLoading() async{
+  //   await jobsController.getJobsApi();
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
+  /////refresh/////
 
   @override
   void initState() {
@@ -272,7 +291,7 @@ class _FilterPageState extends State<FilterPage> {
                           borderSide: BorderSide.none,
                           borderRadius: BorderRadius.circular(33)
                         ),
-                       
+
                       ),
                     ),
                     Obx(() =>
