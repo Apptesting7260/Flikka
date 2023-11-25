@@ -35,12 +35,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   RefreshController _refreshController = RefreshController(initialRefresh: false);
 
   void _onRefresh() async{
-    await getJobsListingController.seekerGetAllJobsApi;
+     getJobsListingController.seekerGetAllJobsApi();
     _refreshController.refreshCompleted();
   }
 
   void _onLoading() async{
-    await getJobsListingController.seekerGetAllJobsApi;
+     getJobsListingController.seekerGetAllJobsApi();
     if(mounted)
       setState(() {
 

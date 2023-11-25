@@ -62,19 +62,24 @@ class _ShowBankAccountDetailState extends State<ShowBankAccountDetail> {
             SafeArea(
               child: Scaffold(
                 appBar: AppBar(
-                  leading: GestureDetector(
-                      onTap: () {
-                        Get.back();
-                      },
-                      child: Image.asset("assets/images/icon_back_blue.png")),
-                  toolbarHeight: 45,
+                  //title: Text("Request Withdraw", style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
+                  toolbarHeight: 75,
+                  leading: Padding(
+                    padding: const EdgeInsets.only(left: 15.0),
+                    child: GestureDetector(
+                        onTap: () {
+                          Get.back();
+                        },
+                        child: Image.asset('assets/images/icon_back_blue.png')),
+                  ),
+                  elevation: 0,
                 ),
                 body: SingleChildScrollView(
                   padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: Get.height * .04,),
+                     // SizedBox(height: Get.height * .04,),
                       Text("Bank account details", style: Theme
                           .of(context)
                           .textTheme
