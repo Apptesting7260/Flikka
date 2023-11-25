@@ -6,7 +6,6 @@ import 'package:flikka/controllers/VerifyOtpController/VerifyOtpController.dart'
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:new_pinput/new_pinput.dart';
 import 'package:get/get.dart';
 import '../../widgets/app_colors.dart';

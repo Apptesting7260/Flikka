@@ -4,6 +4,7 @@ import 'package:flikka/controllers/SeekerProfile/SeekerCreateProfileController.d
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flikka/utils/Constants.dart';
 import 'package:flikka/utils/MultiSelectField.dart';
 import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/my_button.dart';
@@ -2307,16 +2308,17 @@ class _CreateProfileState extends State<CreateProfile> {
         sourcePath: pickedImage.path,
         aspectRatio: const CropAspectRatio(
             ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
-        compressQuality: 60, // Adjust compression quality as needed
+        compressQuality: 60,
         uiSettings: [
           AndroidUiSettings(
+            hideBottomControls: true,
               toolbarTitle: 'Cropper',
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: true),
           IOSUiSettings(
-            title: 'Cropper',
+            title: 'Cropper',aspectRatioLockEnabled: true
           ),
         ], // Adjust compression quality as needed
       );
@@ -2597,14 +2599,12 @@ class _CreateProfileState extends State<CreateProfile> {
     }
   }
 
-  String googleAPiKey = "AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8";
-
   void searchAutocomplete(String query) async {
     print("calling");
     Uri uri = Uri.https(
         "maps.googleapis.com",
         "maps/api/place/autocomplete/json",
-        {"input": query, "key": googleAPiKey});
+        {"input": query, "key": Constants.googleAPiKey});
     print(uri);
     try {
       final response = await http.get(uri);

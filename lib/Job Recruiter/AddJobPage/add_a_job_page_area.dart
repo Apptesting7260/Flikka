@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -7,16 +8,19 @@ import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
-import 'package:html/parser.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
+import '../../utils/Constants.dart';
 import '../../utils/MultiSelectField.dart';
+import 'package:http/http.dart' as http;
 
 
 class AddAJobPage extends StatefulWidget {
@@ -76,6 +80,13 @@ class _AddAJobPageState extends State<AddAJobPage> {
 
   FocusNode jobTypeFocus = FocusNode() ;
   FocusNode typeOfWorkPlaceFocus = FocusNode() ;
+
+
+  List<Location> locations = [] ;
+  double? lat;
+  double? long;
+  List<Predictions> searchPlace = [];
+
 
   @override
   void initState() {
@@ -394,16 +405,40 @@ class _AddAJobPageState extends State<AddAJobPage> {
                           hintText: 'Add location',
                           hintStyle:  Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF))
                       ),
-                      onFieldSubmitted: (value) {
-
+                      onChanged: (value) {
+                        setState(() {
+                          if (jobLocationController.text.isEmpty) {
+                          }
+                        });
+                        searchAutocomplete(value);
                       },
-                      // validator: (value) {
-                      //   if (value == null || value.isEmpty) {
-                      //     return 'This field is empty';
-                      //   }
-                      //   return null;
-                      // },
-
+                    ),
+                    Visibility(
+                      visible: jobLocationController.text.isNotEmpty,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: searchPlace.length,
+                            itemBuilder: (context, index) => ListTile(
+                              onTap: () {
+                                setState(() {
+                                  jobLocationController.text = searchPlace[index].description ?? "";
+                                  _getLatLang();
+                                  setState(() {
+                                    searchPlace.clear();
+                                  });
+                                });
+                              },
+                              horizontalTitleGap: 0,
+                              title: Text(
+                                searchPlace[index].description ?? "",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context).textTheme.bodyMedium,
+                              ),
+                            )),
+                      ),
                     ),
                     SizedBox(height: Get.height*0.03,),
                     Text('Description',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
@@ -960,6 +995,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
+              hideBottomControls: true,
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
@@ -974,11 +1010,40 @@ class _AddAJobPageState extends State<AddAJobPage> {
       });
       Get.back();
     }
-    // setState(() {
-    //   imgFile = File(imgCamera!.path);
-    //   print(imgFile);
-    // });
-    // Get.back();
   }
 
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": Constants.googleAPiKey});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      print(response.statusCode);
+      final parse = jsonDecode(response.body);
+      print(parse);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+
+          print(searchPlace.length);
+        });
+      }
+    } catch (err) {}
+  }
+
+  Future<void> _getLatLang() async {
+    final query = jobLocationController.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      print("*****lat ${lat} : ${long}**********long");
+    });
+  }
 }

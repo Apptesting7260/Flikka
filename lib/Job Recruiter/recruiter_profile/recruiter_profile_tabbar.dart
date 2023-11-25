@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/about.dart';
 import 'package:flikka/Job%20Recruiter/recruiter_profile/home.dart';
@@ -128,8 +129,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                         child: Column(
                             children: [
                               Obx(() =>
-                              viewRecruiterProfileController.refreshLoading
-                                  .value ?
+                              viewRecruiterProfileController.refreshLoading.value ?
                               const Center(
                                 child: CircularProgressIndicator(
                                   color: Colors.white,
@@ -141,20 +141,33 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                 child: Stack(
                                   clipBehavior: Clip.none,
                                   children: [
-                                    Container(
+                                    CachedNetworkImage(
+                                      fit: BoxFit.cover,
                                       height: Get.height * .18,
                                       width: Get.width,
-                                      decoration: BoxDecoration(
-                                          image: DecorationImage(
-                                              image: NetworkImage(
-                                                  viewRecruiterProfileController
-                                                      .viewRecruiterProfile
-                                                      .value
-                                                      .recruiterProfileDetails
-                                                      ?.coverImg ??
-                                                      "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png"),
-                                              fit: BoxFit.cover)),
+                                      placeholder: (context, url) => const CircularProgressIndicator(),
+                                        imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
+                                    recruiterProfileDetails?.coverImg ??
+                                        "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
+                                    // imageBuilder: (context, imageProvider) =>  Container(
+                                    //   height: Get.height * .18,
+                                    //   width: Get.width,
+                                    // ),
                                     ),
+                                    // Container(
+                                    //   height: Get.height * .18,
+                                    //   width: Get.width,
+                                    //   decoration: BoxDecoration(
+                                    //       image: DecorationImage(
+                                    //           image: NetworkImage(
+                                    //               viewRecruiterProfileController
+                                    //                   .viewRecruiterProfile
+                                    //                   .value
+                                    //                   .recruiterProfileDetails
+                                    //                   ?.coverImg ??
+                                    //                   "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png"),
+                                    //           fit: BoxFit.cover)),
+                                    // ),
                                     Positioned(
                                         bottom: -40,
                                         left: 10,

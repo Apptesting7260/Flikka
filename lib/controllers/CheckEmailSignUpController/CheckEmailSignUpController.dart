@@ -3,6 +3,7 @@ import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 class CheckEmailSignUpController extends GetxController {
@@ -18,24 +19,27 @@ class CheckEmailSignUpController extends GetxController {
     loading.value = true ;
 
     Map data = { 'email' : email,};
-    print(data);
-    print("Dataaaaaaaaaaaaaaa");
+    if (kDebugMode) {
+      print(data);
+    }
     _api.checkEmailSignUpApi(data).then((value){
       loading.value = false ;
-      print(value);
+      if (kDebugMode) {
+        print(value);
+      }
       if(value.status!){
-        // Utils.snackBar( "Message",value.message.toString());
+       Utils.toastMessage("otp sent successfully") ;
         Get.to(() => const OtpScreen(register: true) , arguments: {"email": email}) ;
       }
       else{
      errorMessage.value =  value.message.toString();
       }
-      // Get.to(TabScreen(index: 0));
     }).onError((error, stackTrace){
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       loading.value = false ;
       Utils.showApiErrorDialog(context, error.toString()) ;
-      // Utils.snackBar('Failed',error.toString());
     });
   }
 }

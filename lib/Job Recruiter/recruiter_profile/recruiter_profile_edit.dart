@@ -21,6 +21,8 @@ import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import 'package:http/http.dart' as http;
 
+import '../../utils/Constants.dart';
+
 class RecruiterProfileEdit extends StatefulWidget {
   final ViewRecruiterProfileModel? profileModel ;
   const RecruiterProfileEdit({super.key, this.profileModel});
@@ -102,12 +104,13 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
+              hideBottomControls: true,
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: true),
           IOSUiSettings(
-            title: 'Cropper',
+            title: 'Cropper',aspectRatioLockEnabled: true
           ),
         ], // Adjust compression quality as needed
       );
@@ -186,12 +189,13 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
         uiSettings: [
           AndroidUiSettings(
               toolbarTitle: 'Cropper',
+              hideBottomControls: true,
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
               lockAspectRatio: true),
           IOSUiSettings(
-            title: 'Cropper',
+            title: 'Cropper',aspectRatioLockEnabled: true
           ),
         ], // Adjust compression quality as needed
       );
@@ -567,8 +571,6 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                               print(value);
                               setState(() {
                                 if (companyLocationController.text.isEmpty) {
-                                  // Sikeraddress = value;
-                                  // // searchPlace.clear();
                                 }
                               });
                               searchAutocomplete(value);
@@ -1099,14 +1101,12 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     });
   }
 
-  String googleAPiKey = "AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8" ;
-
   void searchAutocomplete(String query) async {
     print("calling");
     Uri uri = Uri.https(
         "maps.googleapis.com",
         "maps/api/place/autocomplete/json",
-        {"input": query, "key": googleAPiKey});
+        {"input": query, "key": Constants.googleAPiKey});
     print(uri);
     try {
       final response = await http.get(uri);

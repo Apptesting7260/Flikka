@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dotted_border/dotted_border.dart';
@@ -25,6 +26,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart' as i;
@@ -34,11 +36,14 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../../../res/components/general_expection.dart';
 import '../../../res/components/internet_exception_widget.dart';
 import '../../../utils/CommonWidgets.dart';
+import '../../../utils/Constants.dart';
 import '../../../utils/MultiSelectField.dart';
+import 'package:http/http.dart' as http;
 
 
 class UserProfile extends StatefulWidget {
@@ -130,11 +135,12 @@ class _UserProfileState extends State<UserProfile> {
           uiSettings: [
           AndroidUiSettings(
           toolbarTitle: 'Cropper',
+          hideBottomControls: true,
           toolbarColor: AppColors.blueThemeColor,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
           lockAspectRatio: true),
-          IOSUiSettings(title: 'Cropper', ),
+          IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
     ],// Adjust compression quality as needed
       );
 
@@ -410,166 +416,232 @@ class _UserProfileState extends State<UserProfile> {
         locationController.text = location ?? "";
         positionId = id;
         var selectedPosition;
+        List<Location> locations = [] ;
+        double? lat;
+        double? long;
+        List<Predictions> searchPlace = [];
+        void searchAutocomplete(String query) async {
+          print("calling");
+          Uri uri = Uri.https(
+              "maps.googleapis.com",
+              "maps/api/place/autocomplete/json",
+              {"input": query, "key": Constants.googleAPiKey});
+          print(uri);
+          try {
+            final response = await http.get(uri);
+            print(response.statusCode);
+            final parse = jsonDecode(response.body);
+            print(parse);
+            if (parse['status'] == "OK") {
+              setState(() {
+                SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+                searchPlace = searchPlaceModel.predictions!;
+
+                print(searchPlace.length);
+              });
+            }
+          } catch (err) {}
+        }
+
+        Future<void> _getLatLang() async {
+          final query = locationController.text;
+          locations = await locationFromAddress(query);
+
+          setState(() {
+          var first = locations.first;
+          lat = first.latitude;
+          long = first.longitude;
+          print("*****lat ${lat} : ${long}**********long");
+          });
+        }
         return StatefulBuilder(
             builder: (BuildContext context, StateSetter setState) {
               return Obx(() =>
                   Dialog(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(22)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
                     insetPadding: const EdgeInsets.symmetric(horizontal: 20),
                     child: seekerChoosePositionGetController.refreshLoading.value ?
                     const CircularProgressIndicator()
                         : Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(height: Get.height * 0.02,),
-                          CommonWidgets.textFieldHeading(context, "Full Name"),
-                          SizedBox(height: Get.height * 0.01,),
-                          TextField(
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(fontSize: 13),
-                            onChanged: (String value) {
-                              setState(() => uri = value);
-                            },
-                            controller: nameController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xff373737),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(33),
-                                borderSide: BorderSide.none
-                              ),
-                              hintText: 'Enter name',
-                              hintStyle: Theme
+                      child: SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(height: Get.height * 0.02,),
+                            CommonWidgets.textFieldHeading(context, "Full Name"),
+                            SizedBox(height: Get.height * 0.01,),
+                            TextField(
+                              style: Theme
                                   .of(context)
                                   .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                  color: AppColors.white, fontSize: 12),
-                            ),
-                          ),
-                          SizedBox(height: Get.height * 0.02,),
-                          CommonWidgets.textFieldHeading(context, "Location"),
-                          SizedBox(height: Get.height * 0.01,),
-                          TextField(
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .titleSmall
-                                ?.copyWith(fontSize: 13),
-                            onChanged: (String value) {
-                              setState(() => uri = value);
-                            },
-                            controller: locationController,
-                            decoration: InputDecoration(
-                              filled: true,
-                              fillColor: Color(0xff373737),
-                              border: OutlineInputBorder(
+                                  .titleSmall
+                                  ?.copyWith(fontSize: 13),
+                              onChanged: (String value) {
+                              },
+                              controller: nameController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xff373737),
+                                border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(33),
                                   borderSide: BorderSide.none
-                              ),
-                              hintText: 'Enter location',
-                              hintStyle: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                  color: AppColors.white, fontSize: 12),
-                            ),
-                          ),
-                          Flexible(child: SizedBox(height: Get.height * 0.02,)),
-                          CommonWidgets.textFieldHeading(context, "Position"),
-                          SizedBox(height: Get.height * 0.01,),
-                          Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(33),
-                              color: Color(0xff373737),
-                            ),
-                            child: DropdownButtonHideUnderline(
-                              child: DropdownButton(
-                                padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.01),
-                                isExpanded: true,
-                                value: selectedPosition,
-                                hint: Text(
-                                  positions == null || positions.length == 0 ? "Select Position" : positions,
-                                  style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .labelLarge
-                                      ?.copyWith(
-                                      color: const Color(0xffCFCFCF)),
                                 ),
-                                items: seekerChoosePositionGetController
-                                    .seekerChoosePositionGetList.value.data?.map((
-                                    document) {
-                                  return DropdownMenuItem(
-                                    value: document.positions,
-                                    child: Text("${document.positions}",
-                                        style: Theme
-                                            .of(context)
-                                            .textTheme
-                                            .bodyMedium),
-                                    onTap: () {
-                                      setState(() {
-                                        positionId = document.id;
-                                        print(positionId);
-                                        selectedPosition = document.positions!;
-                                      });
-                                    },
-                                  );
-                                }).toList(),
-                                onChanged: (value) {
-                                  // setState(() {
-                                  //   selectedPosition = value.toString();
-                                  // });
-                                },
+                                hintText: 'Enter name',
+                                hintStyle: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    color: AppColors.white, fontSize: 12),
                               ),
                             ),
-                          ),
-                          Flexible(child: SizedBox(height: Get.height * .02,)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              MyButton(
-                                width: 100,
-                                height: 40,
-                                onTap1: () {
-                                  Navigator.of(context).pop();
-                                }, title: 'Cancel',
+                            SizedBox(height: Get.height * 0.02,),
+                            CommonWidgets.textFieldHeading(context, "Location"),
+                            SizedBox(height: Get.height * 0.01,),
+                            TextField(
+                              style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                              onChanged: (value) {
+                                setState(() {
+                                  if (locationController.text.isEmpty) {
+                                  }
+                                });
+                                searchAutocomplete(value);
+                              },
+                              controller: locationController,
+                              decoration: InputDecoration(
+                                filled: true,
+                                fillColor: Color(0xff373737),
+                                border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(33),
+                                    borderSide: BorderSide.none
+                                ),
+                                hintText: 'Enter location',
+                                hintStyle: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .bodySmall!
+                                    .copyWith(
+                                    color: AppColors.white, fontSize: 12),
                               ),
-                              const SizedBox(width: 20,),
-                              Obx(() =>
-                                  MyButton(
-                                    width: 100,
-                                    height: 40,
-                                    loading: editSeekerProfileController.loading
-                                        .value,
-                                    onTap1: () {
-                                      editSeekerProfileController.profileApi(
-                                          null, nameController.text,
-                                          locationController.text, positionId,
-                                          context
-                                      );
-                                    },
-                                    title: 'Submit',
+                            ),
+                            Visibility(
+                              visible: locationController.text.isNotEmpty,
+                              child: SizedBox(
+                                width: double.infinity,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: searchPlace.length,
+                                    itemBuilder: (context, index) => ListTile(
+                                      onTap: () {
+                                        setState(() {
+                                          locationController.text = searchPlace[index].description ?? "";
+                                          _getLatLang();
+                                          setState(() {
+                                            searchPlace.clear();
+                                          });
+                                        });
+                                      },
+                                      horizontalTitleGap: 0,
+                                      title: Text(
+                                        searchPlace[index].description ?? "",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: Theme.of(context).textTheme.bodyMedium,
+                                      ),
+                                    )),
+                              ),
+                            ),
+                            Flexible(child: SizedBox(height: Get.height * 0.02,)),
+                            CommonWidgets.textFieldHeading(context, "Position"),
+                            SizedBox(height: Get.height * 0.01,),
+                            Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(33),
+                                color: Color(0xff373737),
+                              ),
+                              child: DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.04,vertical: Get.height*.01),
+                                  isExpanded: true,
+                                  value: selectedPosition,
+                                  hint: Text(
+                                    positions == null || positions.length == 0 ? "Select Position" : positions,
+                                    style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(
+                                        color: const Color(0xffCFCFCF)),
                                   ),
+                                  items: seekerChoosePositionGetController
+                                      .seekerChoosePositionGetList.value.data?.map((
+                                      document) {
+                                    return DropdownMenuItem(
+                                      value: document.positions,
+                                      child: Text("${document.positions}",
+                                          style: Theme
+                                              .of(context)
+                                              .textTheme
+                                              .bodyMedium),
+                                      onTap: () {
+                                        setState(() {
+                                          positionId = document.id;
+                                          print(positionId);
+                                          selectedPosition = document.positions!;
+                                        });
+                                      },
+                                    );
+                                  }).toList(),
+                                  onChanged: (value) {
+                                    // setState(() {
+                                    //   selectedPosition = value.toString();
+                                    // });
+                                  },
+                                ),
                               ),
-                            ],
-                          ),
-                          Flexible(child: SizedBox(height: Get.height * 0.02,)),
-                        ],
+                            ),
+                            Flexible(child: SizedBox(height: Get.height * .02,)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                MyButton(
+                                  width: 100,
+                                  height: 40,
+                                  onTap1: () {
+                                    Navigator.of(context).pop();
+                                  }, title: 'Cancel',
+                                ),
+                                const SizedBox(width: 20,),
+                                Obx(() =>
+                                    MyButton(
+                                      width: 100,
+                                      height: 40,
+                                      loading: editSeekerProfileController.loading
+                                          .value,
+                                      onTap1: () {
+                                        editSeekerProfileController.profileApi(
+                                            null, nameController.text,
+                                            locationController.text, positionId,
+                                            context
+                                        );
+                                      },
+                                      title: 'Submit',
+                                    ),
+                                ),
+                              ],
+                            ),
+                            Flexible(child: SizedBox(height: Get.height * 0.02,)),
+                          ],
+                        ),
                       ),
                     ),
                   ),
               );
             }
         );
+
       },
     );
   }
@@ -2977,4 +3049,6 @@ class _UserProfileState extends State<UserProfile> {
     final directory = await getExternalStorageDirectory();
     return directory?.path;
   }
+
+
 }

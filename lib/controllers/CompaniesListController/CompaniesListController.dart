@@ -41,7 +41,7 @@ class CompaniesListController extends GetxController {
   }
 
   filterList(String? query) {
-    if(getCompaniesList.value.companyList != null) {
+    if(getCompaniesList.value.companyList != null ) {
       debugPrint("called") ;
       debugPrint(companies.toString()) ;
       companies?.value = getCompaniesList.value.companyList!.where((element) =>

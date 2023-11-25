@@ -48,11 +48,6 @@ class _ChooseRoleState extends State<ChooseRole> {
                 height: Get.height,
                 width: Get.width,
                 decoration: const BoxDecoration(
-                  // gradient: LinearGradient(
-                  //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                  //   begin: Alignment.topLeft,
-                  //   end: Alignment.bottomRight,
-                  // ),
                   color: AppColors.blueThemeColor
                 ),
                 child: Column(
@@ -127,7 +122,7 @@ class _ChooseRoleState extends State<ChooseRole> {
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(horizontal: Get.width*.06),
                                             child: Text(
-                                              'I am a Employee',
+                                              'I am a Job Seeker',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .headlineSmall

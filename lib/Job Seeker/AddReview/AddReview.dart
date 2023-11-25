@@ -1,5 +1,6 @@
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,9 @@ class _AddReviewState extends State<AddReview> {
                 setState(() {
                   ratingValue = rating ;
                 });
-                print(rating);
+                if (kDebugMode) {
+                  print(rating);
+                }
               },
             ),
             SizedBox(height: Get.height *0.05,) ,
