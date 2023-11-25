@@ -41,25 +41,24 @@ int? _selectedPositionIndex;
   var id ;
 
   TextEditingController searchController = TextEditingController() ;
-  /////////Pull to refresh//////////
-RefreshController _refreshController =
-RefreshController(initialRefresh: false);
+
+//////refresh//////
+RefreshController _refreshController = RefreshController(initialRefresh: false);
 
 void _onRefresh() async{
-  await Future.delayed(Duration(milliseconds: 1000));
+  await seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
   _refreshController.refreshCompleted();
 }
 
 void _onLoading() async{
-  await Future.delayed(Duration(milliseconds: 1000));
-  seekerChoosePositionGetControllerInstanse.seekerChoosePositionGetList;
+  await seekerChoosePositionGetControllerInstanse.seekerGetPositionApi(false);
   if(mounted)
     setState(() {
 
     });
   _refreshController.loadComplete();
 }
-  ////////refresh//////////
+/////refresh/////
 
 void showSkipDialog(BuildContext context) {
   showDialog(
@@ -126,17 +125,14 @@ void showSkipDialog(BuildContext context) {
         case Status.COMPLETED:
           return Scaffold(
               resizeToAvoidBottomInset: false,
-              body: SafeArea(
-                child: Stack(
-                  children: [
-                    GestureDetector(
-                      onVerticalDragUpdate: (details) {
-                        if (details.delta.dy > 40) {
-                          print("object") ;
-                          seekerChoosePositionGetControllerInstanse.refreshApi() ;
-                        }
-                      },
-                      child: Container(
+              body: SmartRefresher(
+                controller: _refreshController,
+                onLoading: _onLoading,
+                onRefresh: _onRefresh,
+                child: SafeArea(
+                  child: Stack(
+                    children: [
+                      Container(
                         height: Get.height,
                         width: Get.width,
                         decoration: const BoxDecoration(
@@ -231,250 +227,250 @@ void showSkipDialog(BuildContext context) {
                           ],
                         ),
                       ),
-                    ),
-                    DraggableScrollableSheet(
-                      initialChildSize: 0.72, // half screen
-                      minChildSize: 0.72, // half screen
-                      maxChildSize: 0.72, // full screen
-                      builder:
-                          (BuildContext context,
-                          ScrollController scrollController) {
-                        return Container(
-                          decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(30),
-                                topLeft: Radius.circular(30),
-                              ),
-                              color: Colors.black),
-                          // color: Colors.black,
-                          child: SingleChildScrollView(
-                            // controller: scrollController,
-                            physics: const NeverScrollableScrollPhysics(),
-                            child: Container(
-                              height: Get.height,
-                              width: Get.width,
-                              decoration: const BoxDecoration(
-                                color: Color(0xff000000),
+                      DraggableScrollableSheet(
+                        initialChildSize: 0.72, // half screen
+                        minChildSize: 0.72, // half screen
+                        maxChildSize: 0.72, // full screen
+                        builder:
+                            (BuildContext context,
+                            ScrollController scrollController) {
+                          return Container(
+                            decoration: const BoxDecoration(
                                 borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(33.0),
-                                  topRight: Radius.circular(33.0),
+                                  topRight: Radius.circular(30),
+                                  topLeft: Radius.circular(30),
                                 ),
-                              ),
-                              child: Padding(
-                                padding:
-                                EdgeInsets.symmetric(
-                                    horizontal: Get.width * .07),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(
-                                      height: Get.height * .02,
-                                    ),
-                                    Obx(() => seekerChoosePositionController.errorMessage.value.isEmpty ?
-                                    const SizedBox() : Text(seekerChoosePositionController.errorMessage.value,
-                                    style: const TextStyle(color: Colors.red),)
-                                    ) ,
-                                    SizedBox(
-                                      height: Get.height * .03,
-                                    ),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: Get.width * .05,
-                                          vertical: Get.height * .010),
-                                      decoration: BoxDecoration(
-                                        color: const Color(0xff373737),
-                                        borderRadius: BorderRadius.circular(
-                                            33.0),
+                                color: Colors.black),
+                            // color: Colors.black,
+                            child: SingleChildScrollView(
+                              // controller: scrollController,
+                              physics: const NeverScrollableScrollPhysics(),
+                              child: Container(
+                                height: Get.height,
+                                width: Get.width,
+                                decoration: const BoxDecoration(
+                                  color: Color(0xff000000),
+                                  borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(33.0),
+                                    topRight: Radius.circular(33.0),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding:
+                                  EdgeInsets.symmetric(
+                                      horizontal: Get.width * .07),
+                                  child: Column(
+                                    // crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      SizedBox(
+                                        height: Get.height * .02,
                                       ),
-                                      child: Row(
-                                        children: [
-                                          const Icon(
-                                            Icons.search,
-                                            color: AppColors.blueThemeColor,
-                                            size: 30,
-                                          ),
-                                          SizedBox(width: Get.width * .03),
-                                          Expanded(
-                                            child:
-                                               TextFormField(
-                                                controller: searchController,
-                                                style: Theme.of(context).textTheme
-                                                    .bodyLarge?.copyWith(
-                                                    color: const Color(0xffCFCFCF),
-                                                    fontSize: 19),
-                                                onChanged: (query) {
-                                                  seekerChoosePositionGetControllerInstanse.filterList(query) ;
-                                                  // setState(() {
-                                                  //  filteredPositionNames = seekerChoosePositionGetControllerInstanse.
-                                                  //  seekerChoosePositionGetList.value.data?.where((element) =>
-                                                  //  element.positions!.toLowerCase().contains(query.toLowerCase())).toList() ;
-                                                  // }) ;
-                                                  // print(filteredPositionNames) ;
-                                                },
-                                                decoration: InputDecoration(
-                                                  hintText: 'Search',
-                                                  hintStyle: Theme
-                                                      .of(context)
-                                                      .textTheme
-                                                      .bodyLarge
-                                                      ?.copyWith(
-                                                      color: const Color(0xffCFCFCF)),
-                                                  border: InputBorder.none,
-                                                ),
-                                              ),
-                                          ),
-                                        ],
+                                      Obx(() => seekerChoosePositionController.errorMessage.value.isEmpty ?
+                                      const SizedBox() : Text(seekerChoosePositionController.errorMessage.value,
+                                      style: const TextStyle(color: Colors.red),)
+                                      ) ,
+                                      SizedBox(
+                                        height: Get.height * .03,
                                       ),
-                                    ),
-                                    SizedBox(
-                                      height: Get.height * .04,
-                                    ),
-
-                                    SizedBox(
-                                      height: Get.height*.35,
-                                      // padding: EdgeInsets.only(bottom: 12),
-                                      child:
-                                        Obx( () =>
-                                           ListView.builder(
-                                            //physics: const AlwaysScrollableScrollPhysics(),
-                                            itemCount: seekerChoosePositionGetControllerInstanse.positionsList?.value.length,
-                                            shrinkWrap: true,
-                                            itemBuilder:
-                                                (BuildContext context, int index) {
-                                              return Padding(
-                                                padding: EdgeInsets.symmetric(
-                                                    vertical: Get.height * .002),
-                                                child: GestureDetector(
-                                                  onTap: () {
-                                                    id= seekerChoosePositionGetControllerInstanse.positionsList?[index]
-                                                        .id.toString();
-
-                                                    print("***********************"+'$id');
-                                                    setState(() {
-                                                      if (_selectedPositionIndex ==
-                                                          index) {
-                                                      } else {
-                                                        _selectedPositionIndex =
-                                                            index;
-                                                      }
-                                                      print(index);
-                                                    });
+                                      Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Get.width * .05,
+                                            vertical: Get.height * .010),
+                                        decoration: BoxDecoration(
+                                          color: const Color(0xff373737),
+                                          borderRadius: BorderRadius.circular(
+                                              33.0),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.search,
+                                              color: AppColors.blueThemeColor,
+                                              size: 30,
+                                            ),
+                                            SizedBox(width: Get.width * .03),
+                                            Expanded(
+                                              child:
+                                                 TextFormField(
+                                                  controller: searchController,
+                                                  style: Theme.of(context).textTheme
+                                                      .bodyLarge?.copyWith(
+                                                      color: const Color(0xffCFCFCF),
+                                                      fontSize: 19),
+                                                  onChanged: (query) {
+                                                    seekerChoosePositionGetControllerInstanse.filterList(query) ;
+                                                    // setState(() {
+                                                    //  filteredPositionNames = seekerChoosePositionGetControllerInstanse.
+                                                    //  seekerChoosePositionGetList.value.data?.where((element) =>
+                                                    //  element.positions!.toLowerCase().contains(query.toLowerCase())).toList() ;
+                                                    // }) ;
+                                                    // print(filteredPositionNames) ;
                                                   },
-                                                  child: Row(
-                                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                                    children: [
-                                                      Flexible(
-                                                        child: Text(
-                                                          "${ seekerChoosePositionGetControllerInstanse.positionsList?[index].positions}",
-                                                         overflow: TextOverflow.ellipsis,
-                                                          style: Theme
-                                                              .of(context)
-                                                              .textTheme
-                                                              .headlineSmall
-                                                              ?.copyWith(
-                                                            fontWeight:
-                                                            FontWeight.w500,
-                                                            color: const Color(0xffFFFFFF)),
-                                                        ),
-                                                      ),
-
-                                                      Stack(
-                                                        alignment: Alignment.center,
-                                                        children: [
-                                                          Container(
-                                                            width: Get.width * .06,
-                                                            height: Get.height *
-                                                                .05,
-                                                            decoration: const BoxDecoration(
-                                                              shape: BoxShape
-                                                                  .circle,
-                                                              // gradient: LinearGradient(
-                                                              //   colors: [
-                                                              //     Color(0xff56B6F6),
-                                                              //     Color(0xff4D6FED)
-                                                              //   ],
-                                                              //   begin:
-                                                              //   Alignment.topLeft,
-                                                              //   end: Alignment
-                                                              //       .bottomRight,
-                                                              // ),
-                                                                color: AppColors.blueThemeColor
-                                                            ),
-                                                            child: const Icon(
-                                                              Icons.check,
-                                                              color: Color(
-                                                                  0xffFFFFFF),
-                                                              size: 15,
-                                                            ),
-                                                          ),
-                                                          if (_selectedPositionIndex !=
-                                                              index)
-                                                            Center(
-                                                              child: Container(
-                                                                width: Get.width *
-                                                                    .05,
-                                                                height: Get.width *
-                                                                    .05,
-                                                                decoration:
-                                                                const BoxDecoration(
-                                                                  color:
-                                                                  Color(0xff000000),
-                                                                  shape:
-                                                                  BoxShape.circle,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                        ],
-                                                      ),
-                                                    ],
+                                                  decoration: InputDecoration(
+                                                    hintText: 'Search',
+                                                    hintStyle: Theme
+                                                        .of(context)
+                                                        .textTheme
+                                                        .bodyLarge
+                                                        ?.copyWith(
+                                                        color: const Color(0xffCFCFCF)),
+                                                    border: InputBorder.none,
                                                   ),
                                                 ),
-                                              );
-                                            },
-                                          ),
+                                            ),
+                                          ],
                                         ),
-                                    ),
-
-                                    SizedBox(
-                                      height: Get.height * .05,
-                                    ),
-
-                                  Obx(() =>  Center(
-                                    child: MyButton(
-                                      width:Get.width*.77,
-                                      loading: seekerChoosePositionController.loading.value,
-                                      title: "CONTINUE",
-                                      onTap1: () {
-                                        seekerChoosePositionController.errorMessage.value = "" ;
-                                        if(id == null) {
-                                          // Utils.snackBar("Failed", "Please select a field") ;
-                                          seekerChoosePositionController.errorMessage.value = "Please select a field" ;
-                                        }
-                                        else {
-                                          print(seekerChoosePositionController
-                                              .loading.value);
-                                          seekerChoosePositionController
-                                              .seekerChoosePositionApiHit(id,context);
-                                        }
-                                        // Get.to(() => ChooseSkills());
-
-
-                                        },
                                       ),
-                                    ),) ,
+                                      SizedBox(
+                                        height: Get.height * .04,
+                                      ),
 
-                                    SizedBox(
-                                      height: Get.height * .04,
-                                    ),
-                                  ],
+                                      SizedBox(
+                                        height: Get.height*.35,
+                                        // padding: EdgeInsets.only(bottom: 12),
+                                        child:
+                                          Obx( () =>
+                                             ListView.builder(
+                                              //physics: const AlwaysScrollableScrollPhysics(),
+                                              itemCount: seekerChoosePositionGetControllerInstanse.positionsList?.value.length,
+                                              shrinkWrap: true,
+                                              itemBuilder:
+                                                  (BuildContext context, int index) {
+                                                return Padding(
+                                                  padding: EdgeInsets.symmetric(
+                                                      vertical: Get.height * .002),
+                                                  child: GestureDetector(
+                                                    onTap: () {
+                                                      id= seekerChoosePositionGetControllerInstanse.positionsList?[index]
+                                                          .id.toString();
+
+                                                      print("***********************"+'$id');
+                                                      setState(() {
+                                                        if (_selectedPositionIndex ==
+                                                            index) {
+                                                        } else {
+                                                          _selectedPositionIndex =
+                                                              index;
+                                                        }
+                                                        print(index);
+                                                      });
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                      children: [
+                                                        Flexible(
+                                                          child: Text(
+                                                            "${ seekerChoosePositionGetControllerInstanse.positionsList?[index].positions}",
+                                                           overflow: TextOverflow.ellipsis,
+                                                            style: Theme
+                                                                .of(context)
+                                                                .textTheme
+                                                                .headlineSmall
+                                                                ?.copyWith(
+                                                              fontWeight:
+                                                              FontWeight.w500,
+                                                              color: const Color(0xffFFFFFF)),
+                                                          ),
+                                                        ),
+
+                                                        Stack(
+                                                          alignment: Alignment.center,
+                                                          children: [
+                                                            Container(
+                                                              width: Get.width * .06,
+                                                              height: Get.height *
+                                                                  .05,
+                                                              decoration: const BoxDecoration(
+                                                                shape: BoxShape
+                                                                    .circle,
+                                                                // gradient: LinearGradient(
+                                                                //   colors: [
+                                                                //     Color(0xff56B6F6),
+                                                                //     Color(0xff4D6FED)
+                                                                //   ],
+                                                                //   begin:
+                                                                //   Alignment.topLeft,
+                                                                //   end: Alignment
+                                                                //       .bottomRight,
+                                                                // ),
+                                                                  color: AppColors.blueThemeColor
+                                                              ),
+                                                              child: const Icon(
+                                                                Icons.check,
+                                                                color: Color(
+                                                                    0xffFFFFFF),
+                                                                size: 15,
+                                                              ),
+                                                            ),
+                                                            if (_selectedPositionIndex !=
+                                                                index)
+                                                              Center(
+                                                                child: Container(
+                                                                  width: Get.width *
+                                                                      .05,
+                                                                  height: Get.width *
+                                                                      .05,
+                                                                  decoration:
+                                                                  const BoxDecoration(
+                                                                    color:
+                                                                    Color(0xff000000),
+                                                                    shape:
+                                                                    BoxShape.circle,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                          ],
+                                                        ),
+                                                      ],
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            ),
+                                          ),
+                                      ),
+
+                                      SizedBox(
+                                        height: Get.height * .05,
+                                      ),
+
+                                    Obx(() =>  Center(
+                                      child: MyButton(
+                                        width:Get.width*.77,
+                                        loading: seekerChoosePositionController.loading.value,
+                                        title: "CONTINUE",
+                                        onTap1: () {
+                                          seekerChoosePositionController.errorMessage.value = "" ;
+                                          if(id == null) {
+                                            // Utils.snackBar("Failed", "Please select a field") ;
+                                            seekerChoosePositionController.errorMessage.value = "Please select a field" ;
+                                          }
+                                          else {
+                                            print(seekerChoosePositionController
+                                                .loading.value);
+                                            seekerChoosePositionController
+                                                .seekerChoosePositionApiHit(id,context);
+                                          }
+                                          // Get.to(() => ChooseSkills());
+
+
+                                          },
+                                        ),
+                                      ),) ,
+
+                                      SizedBox(
+                                        height: Get.height * .04,
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
+                          );
+                        },
+                      ),
+                    ],
+                  ),
                 ),
               ),
 

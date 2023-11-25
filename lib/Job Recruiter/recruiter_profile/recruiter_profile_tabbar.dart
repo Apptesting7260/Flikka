@@ -111,7 +111,6 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                               ));
                         }
                     )
-
                   ],
                 ),
                 body: DefaultTabController(
