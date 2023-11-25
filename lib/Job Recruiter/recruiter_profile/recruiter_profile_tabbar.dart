@@ -142,45 +142,28 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                   children: [
                                     CachedNetworkImage(
                                       fit: BoxFit.cover,
-                                      height: Get.height * .18,
+                                      height: Get.height * .22,
                                       width: Get.width,
-                                      placeholder: (context, url) => const CircularProgressIndicator(),
+                                      placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                                         imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
                                     recruiterProfileDetails?.coverImg ??
                                         "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
-                                    // imageBuilder: (context, imageProvider) =>  Container(
-                                    //   height: Get.height * .18,
-                                    //   width: Get.width,
-                                    // ),
                                     ),
-                                    // Container(
-                                    //   height: Get.height * .18,
-                                    //   width: Get.width,
-                                    //   decoration: BoxDecoration(
-                                    //       image: DecorationImage(
-                                    //           image: NetworkImage(
-                                    //               viewRecruiterProfileController
-                                    //                   .viewRecruiterProfile
-                                    //                   .value
-                                    //                   .recruiterProfileDetails
-                                    //                   ?.coverImg ??
-                                    //                   "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png"),
-                                    //           fit: BoxFit.cover)),
-                                    // ),
                                     Positioned(
                                         bottom: -40,
                                         left: 10,
-                                        child: CircleAvatar(
-                                          radius: Get.width * .13,
-                                          backgroundImage: NetworkImage(
-                                            viewRecruiterProfileController
-                                                .viewRecruiterProfile.value
-                                                .recruiterProfileDetails
-                                                ?.profileImg ??
-                                                "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png",
-                                          ),
-                                        ))
-                                  ],
+                                        child: CachedNetworkImage(
+                                          placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                            imageUrl:  viewRecruiterProfileController.viewRecruiterProfile.value.
+                                        recruiterProfileDetails?.profileImg ??
+                                            "https://urlsdemo.xyz/flikka/public/images/seekers/defalt_profile.png" ,
+                                        imageBuilder: (context , imageProvider) => Container(
+                                          height: Get.width *.25,
+                                          width: Get.width *.25,
+                                          decoration: BoxDecoration(shape: BoxShape.circle,
+                                            image:  DecorationImage(image: imageProvider,fit: BoxFit.cover),),
+                                        ),) ,
+                                    )],
                                 ),
                               ),
                               const SizedBox(
@@ -272,7 +255,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                           .recruiterProfileDetails
                                           ?.companyLocation,
                                     ),
-                                    const Review(isSeeker: false,),
+                                    Review(isSeeker: false, reviews: viewRecruiterProfileController.viewRecruiterProfile.value.reviews,),
                                   ],
                                 ),
                               ),
@@ -456,7 +439,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                       location: seekerViewCompanyController.companyData.value.recruiterProfileDetails?.companyLocation,
                                       isSeeker: true,
                                     ),
-                                    const Review(isSeeker: true,),
+                                     Review(isSeeker: true,reviews: seekerViewCompanyController.companyData.value.reviews,),
                                   ],
                                 ),
                               ),

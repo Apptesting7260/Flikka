@@ -3,6 +3,7 @@ import 'package:flikka/models/EditAboutModel/EditAboutModel.dart';
 import 'package:flikka/models/RecruiterHomeModel/RecruiterHomeModel.dart';
 import 'package:flikka/models/RecuiterJobTitleModel/RecruiterJobTitleModel.dart';
 import 'package:flikka/models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
+import 'package:flikka/models/TalentPoolModel/TalentPoolModel.dart';
 import 'package:flikka/models/ViewParticularCandidateModel/ViewParticularCandidateModel.dart';
 import '../../models/ApplicantTrackingDataModel/ApplicantTrackingDataModel.dart';
 import '../../res/app_url.dart';
@@ -49,6 +50,11 @@ class RecruiterRepository {
   Future<RecruiterHomeModel> recruiterHomeApi() async{
     dynamic response = await apiServices.getApi2(AppUrl.recruiterHomePage);
     return RecruiterHomeModel.fromJson(response);
+  }
+
+  Future<TalentPoolModel> talentPoolApi() async{
+    dynamic response = await apiServices.getApi2(AppUrl.talentPoolList);
+    return TalentPoolModel.fromJson(response);
   }
 
 
