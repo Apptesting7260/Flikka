@@ -35,23 +35,34 @@ class _AddBankAccountDetailsState extends State<AddBankAccountDetails> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
+          // appBar: AppBar(
+          //   leading: GestureDetector(
+          //     onTap: () {
+          //       Get.back() ;
+          //     },
+          //       child: Image.asset("assets/images/icon_back_blue.png")),
+          //   toolbarHeight: 40,
+          // ),
           appBar: AppBar(
-            leading: GestureDetector(
-              onTap: () {
-                Get.back() ;
-              },
-                child: Image.asset("assets/images/icon_back_blue.png")),
-            toolbarHeight: 40,
+            toolbarHeight: 75,
+            leading: Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: GestureDetector(
+                  onTap: () {
+                    Get.back();
+                  },
+                  child: Image.asset('assets/images/icon_back_blue.png')),
+            ),
+            elevation: 0,
           ),
       body: Form(
         key: _formKey,
         child: SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(15.0),
+            padding: const EdgeInsets.symmetric(horizontal: 15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(height: Get.height*.015,),
                 Text("Add Bank account",style: Theme.of(context).textTheme.displaySmall,),
                 SizedBox(height: Get.height*.04,),
                 Text("Bank",style: Theme.of(context).textTheme.titleSmall,),
