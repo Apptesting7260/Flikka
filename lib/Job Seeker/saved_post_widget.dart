@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsListController.dart';
-import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -257,38 +256,37 @@ class _SavedPostState extends State<SavedPost> {
                                     topRight: Radius.circular(22)
                                 ),
                               ),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(data?.jobData?.jobPositions ?? "",
-                                    style: Theme.of(context).textTheme.displayLarge,
-                                    softWrap: true,),
-                                  SizedBox( height: Get.height * .005,),
-                                  Text(data?.jobData?.recruiterDetails?.companyName ?? "",
-                                    style: Theme.of(context).textTheme.bodySmall!
-                                        .copyWith( color: AppColors.ratingcommenttextcolor),),
-                                  SizedBox( height: Get.height * 0.03,),
-                                  Text( "Job Description",
-                                    style: Theme.of(context).textTheme.titleSmall!
-                                        .copyWith(color: AppColors.white),),
-                                  SizedBox( height: Get.height * .005,),
-                                  Flexible(
-                                    child: SizedBox(
-                                      height: Get.height*.1,
+                              child: SingleChildScrollView(
+                                physics: AlwaysScrollableScrollPhysics(),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(data?.jobData?.jobPositions ?? "",
+                                      style: Theme.of(context).textTheme.displayLarge,
+                                      softWrap: true,),
+                                    SizedBox( height: Get.height * .005,),
+                                    Text(data?.jobData?.recruiterDetails?.companyName ?? "",
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                          .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                    SizedBox( height: Get.height * 0.03,),
+                                    Text( "Job Description",
+                                      style: Theme.of(context).textTheme.titleSmall!
+                                          .copyWith(color: AppColors.white),),
+                                    SizedBox( height: Get.height * .005,),
+                                    SizedBox(
+                                      height: Get.height*.45,
                                       child: HtmlWidget(data?.jobData?.description ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
                                           .copyWith( color: AppColors.ratingcommenttextcolor),),
                                       // Text(CommonFunctions.parse(data?.jobData?.description ?? '') ?? "" ,
                                       //   style: Theme.of(context).textTheme.bodySmall!
                                       //       .copyWith( color: AppColors.ratingcommenttextcolor),),
                                     ),
-                                  ),
-                                  SizedBox( height: Get.height * 0.03,),
-                                  Text( "Requirements",
-                                    style: Theme.of(context).textTheme.titleSmall!
-                                        .copyWith(color: AppColors.white),),
-                                  SizedBox( height: Get.height * 0.012,),
-                                  Flexible(
-                                    child: SizedBox(
+                                    SizedBox( height: Get.height * 0.03,),
+                                    // Text( "Requirements",
+                                    //   style: Theme.of(context).textTheme.titleSmall!
+                                    //       .copyWith(color: AppColors.white),),
+                                   SizedBox( height: Get.height * 0.012,),
+                                    SizedBox(
                                       height: Get.height*.1,
                                       width: Get.width,
                                       child: HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
@@ -296,9 +294,10 @@ class _SavedPostState extends State<SavedPost> {
                                       // Text(CommonFunctions.parseHTML(data?.jobData?.requirements ?? '')  ?? "",
                                       //   style: Theme.of(context).textTheme.bodySmall!
                                       //       .copyWith(color: AppColors.ratingcommenttextcolor),),
-                                    ),
-                                  )
-                                ],
+                                    ) ,
+                                    SizedBox(height: Get.height*.03,) ,
+                                  ],
+                                ),
                               ),
                             ),
                           ),
