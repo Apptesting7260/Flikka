@@ -9,6 +9,7 @@ import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../res/components/general_expection.dart';
@@ -29,6 +30,24 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   final CardSwiperController controller = CardSwiperController();
 
   List<CardSwiperDirection> allDirections = CardSwiperDirection.values;
+
+  //////refresh//////
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    await getJobsListingController.seekerGetAllJobsApi;
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    await getJobsListingController.seekerGetAllJobsApi;
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+  /////refresh/////
 
 
   @override
@@ -98,61 +117,82 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
             location: '${seekerProfileController.viewSeekerData.value.seekerInfo?.location}',
             jobTitle: '${seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? ''}',
           profileImage: '${seekerProfileController.viewSeekerData.value.seekerInfo?.profileImg}',),
-           body: SafeArea(
-            child:
-              GestureDetector(
-                onTap: () {
-                  if (Scaffold.of(context).isEndDrawerOpen) {
-                    Navigator.of(context).pop();
-                  }
-                },
-                child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 25.0),
-                        child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.032, ),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: Get.height*.03,),
-                          Text(
-                            "Find Job",
-                            style:Theme.of(context).textTheme.displaySmall,
-                          ),
-                          Text(
-                              seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No Data",
-                             overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.graySilverColor)
-                          )
-                        ],
-                      ),
-                      Builder(
-                          builder: (context) {
-                            return InkWell(
-                                onTap: ()=> Scaffold.of(context).openEndDrawer(),
-                                child: Padding(
-                                  padding: const EdgeInsets.only(top: 25.0),
-                                  child: Image.asset('assets/images/inactive.png',height: Get.height*.05,),
-                                ));
-                          }
-                      ),
-                    ],
-                  ),
-                  Flexible(
-                    child:
-                    last ? const SeekerNoJobAvailable() :
-                    getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
-                        getJobsListingController.getJobsListing.value.jobs == null ?
-                    const SeekerNoJobAvailable() :  Obx( () =>
-                    jobFilterController.reset.value ?
-                    CardSwiper(
+           body: SmartRefresher(
+             controller: _refreshController,
+             onRefresh: _onRefresh,
+             onLoading: _onLoading,
+             child: SafeArea(
+              child:
+                GestureDetector(
+                  onTap: () {
+                    if (Scaffold.of(context).isEndDrawerOpen) {
+                      Navigator.of(context).pop();
+                    }
+                  },
+                  child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 25.0),
+                          child: Image.asset('assets/images/icon_flikka_logo.png',height: Get.height*.032, ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: Get.height*.03,),
+                            Text(
+                              "Find Job",
+                              style:Theme.of(context).textTheme.displaySmall,
+                            ),
+                            Text(
+                                seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No Data",
+                               overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.graySilverColor)
+                            )
+                          ],
+                        ),
+                        Builder(
+                            builder: (context) {
+                              return InkWell(
+                                  onTap: ()=> Scaffold.of(context).openEndDrawer(),
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(top: 25.0),
+                                    child: Image.asset('assets/images/inactive.png',height: Get.height*.05,),
+                                  ));
+                            }
+                        ),
+                      ],
+                    ),
+                    Flexible(
+                      child:
+                      last ? const SeekerNoJobAvailable() :
+                      getJobsListingController.getJobsListing.value.jobs?.length == 0 ||
+                          getJobsListingController.getJobsListing.value.jobs == null ?
+                      const SeekerNoJobAvailable() :  Obx( () =>
+                      jobFilterController.reset.value ?
+                      CardSwiper(
+                          controller: controller,
+                          cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
+                          numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
+                          // isLoop: false,
+                          backCardOffset: const Offset(40, 40),
+                          padding: const EdgeInsets.all(24.0),
+                          allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
+                          onSwipe: _onSwipe,
+                          cardBuilder: (context, index,
+                              horizontalThresholdPercentage, verticalThresholdPercentage,) {
+                            debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
+                            return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+                          },
+                        )
+                        : jobFilterController.jobsData.value.jobs?.length == 0 ||
+                          jobFilterController.jobsData.value.jobs == null ?
+                      const SeekerNoJobAvailable() : CardSwiper(
                         controller: controller,
-                        cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
-                        numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
+                        cardsCount: jobFilterController.jobsData.value.jobs?.length ?? 0 ,
+                        numberOfCardsDisplayed: jobFilterController.jobsData.value.jobs?.length == 1 ? 1 : 2,
                         // isLoop: false,
                         backCardOffset: const Offset(40, 40),
                         padding: const EdgeInsets.all(24.0),
@@ -160,36 +200,20 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                         onSwipe: _onSwipe,
                         cardBuilder: (context, index,
                             horizontalThresholdPercentage, verticalThresholdPercentage,) {
-                          debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
-                          return  HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+                          debugPrint("inside filter jobs") ;
+                          debugPrint(jobFilterController.jobsData.value.jobs?.length.toString()) ;
+                          return  HomeSwiperWidget(jobData: jobFilterController.jobsData.value.jobs?[index],);
+
                         },
-                      )
-                      : jobFilterController.jobsData.value.jobs?.length == 0 ||
-                        jobFilterController.jobsData.value.jobs == null ?
-                    const SeekerNoJobAvailable() : CardSwiper(
-                      controller: controller,
-                      cardsCount: jobFilterController.jobsData.value.jobs?.length ?? 0 ,
-                      numberOfCardsDisplayed: jobFilterController.jobsData.value.jobs?.length == 1 ? 1 : 2,
-                      // isLoop: false,
-                      backCardOffset: const Offset(40, 40),
-                      padding: const EdgeInsets.all(24.0),
-                      allowedSwipeDirection: AllowedSwipeDirection.only(left: true,right: true , up : true),
-                      onSwipe: _onSwipe,
-                      cardBuilder: (context, index,
-                          horizontalThresholdPercentage, verticalThresholdPercentage,) {
-                        debugPrint("inside filter jobs") ;
-                        debugPrint(jobFilterController.jobsData.value.jobs?.length.toString()) ;
-                        return  HomeSwiperWidget(jobData: jobFilterController.jobsData.value.jobs?[index],);
-
-                      },
+                      ),
+                      ),
                     ),
-                    ),
-                  ),
 
-                ],
-            ),
+                  ],
               ),
+                ),
           ),
+           ),
         );
       }
    }
