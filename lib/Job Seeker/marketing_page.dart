@@ -7,9 +7,12 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
+
+import '../controllers/GetJobsListingController/GetJobsListingController.dart';
 
 class MarketingIntern extends StatefulWidget {
-  final dynamic jobData ;
+   final dynamic jobData ;
   const MarketingIntern({super.key, this.jobData});
 
   @override
@@ -19,6 +22,44 @@ class MarketingIntern extends StatefulWidget {
 class _MarketingInternState extends State<MarketingIntern> {
 
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+  GetJobsListingController getJobsListingController = GetJobsListingController() ;
+
+  late dynamic _jobData;
+
+  @override
+  void initState() {
+    super.initState();
+    _jobData = widget.jobData;
+  }
+
+  Future<void> _refreshData() async {
+    // Fetch new jobData here
+    dynamic newJobData = await widget.jobData(); // Replace with your actual data-fetching function
+
+    // Update the UI with the new jobData
+    setState(() {
+      _jobData = newJobData;
+    });
+  }
+
+  //////refresh//////
+  // RefreshController _refreshController = RefreshController(initialRefresh: false);
+  //
+  // void _onRefresh() async{
+  //   widget.jobData;
+  //   _refreshController.refreshCompleted();
+  // }
+  //
+  // void _onLoading() async{
+  //    widget.jobData;
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
+  /////refresh/////
+
 
   @override
   Widget build(BuildContext context) {

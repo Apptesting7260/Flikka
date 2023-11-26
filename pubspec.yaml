@@ -70,6 +70,7 @@ dependencies:
   video_compress: ^3.1.2
   flutter_rating_bar: ^4.0.1
 
+
 #  table_calendar: ^2.3.3
 
 dev_dependencies:
