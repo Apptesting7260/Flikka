@@ -3,6 +3,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../controllers/ApplyJobController/ApplyJobController.dart';
 import '../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -22,10 +23,29 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
   TextEditingController commentController = TextEditingController();
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
 
+  // //////refresh//////
+  // RefreshController _refreshController = RefreshController(initialRefresh: false);
+  //
+  // void _onRefresh() async{
+  //   await RecruiterJobsData.getJobsApi();
+  //   _refreshController.refreshCompleted();
+  // }
+  //
+  // void _onLoading() async{
+  //   await jobsController.getJobsApi();
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
+  // /////refresh/////
+
   @override
   Widget build(BuildContext context) {
     print(widget.recruiterJobsData?.description) ;
     return SafeArea(
+
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 75,
