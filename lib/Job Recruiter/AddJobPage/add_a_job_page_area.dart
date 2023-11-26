@@ -57,6 +57,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
     'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm.phil'
   ];
   String? qualificatonType;
+  List<String> years = ["00","01","02","03","04","05","06","07","08","09","10",
+    "11","12","13","14","15","16","17","18","19","20"] ;
+
+  List<String> months = ["00","01","02","03","04","05","06","07","08","09","10", "11"] ;
 
   List? languageList = [];
   String? yearValue ;
@@ -481,7 +485,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       //   return null;
                       // },
                     ),
-
                     SizedBox(height: Get.height*0.03,),
                     Text('Requirements',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -522,7 +525,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       //   return null;
                       // },
                     ),
-                    //********************************************
                     SizedBox(height: Get.height*0.03,),
                     Text('Job Type',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -591,10 +593,6 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    // Obx(() => addJobController.jobTypeErrorMessage.value.isEmpty ?
-                    // const SizedBox() :
-                    // Text(addJobController.jobTypeErrorMessage.value,style: TextStyle(color: Colors.red),)
-                    // ) ,
                     SizedBox(height: Get.height*0.042,),
                     Text('Type of workplace',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -663,84 +661,131 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    // Obx(() => addJobController.typeOfWorkPlaceErrorMessage.value.isEmpty ?
-                    // const SizedBox() :
-                    // Text(addJobController.typeOfWorkPlaceErrorMessage.value,style: TextStyle(color: Colors.red),)
-                    // ) ,
                     SizedBox(height: Get.height*0.042,),
                     Text('Work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        value: yearValue,
-                        onChanged: ( newValue) {
-                          setState(() {
-                            yearValue = newValue!.toString();
-                          });
-                        },
-                        items: List.generate(
-                          20,
-                              (index) => DropdownMenuItem(
-                            value: index + 1,
-                            child: Text((index + 1).toString().padLeft(2,'0')),
-                          ),
-                        ),
-                        hint: Text('Select years',  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
-                        buttonStyleData: ButtonStyleData(
-                          height: Get.height*0.08,
-                          width: double.infinity,
-                          padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(30),
+                    Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            hint:  Text(
+                              'years',
+                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            items: years.map((String item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )).toList(),
+                            value: yearValue,
+                            onChanged: (String? value) {
+                              setState(() {
+                                yearValue = value;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              height: Get.height*0.08,
+                              width: Get.width*0.4,
+                              padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
 
-                            color: Color(0xff353535),
-                          ),
-                          elevation: 2,
-                        ),
-                        iconStyleData:  IconStyleData(
-                          icon: Image.asset('assets/images/arrowdown.png'),
-                          iconSize: 14,
-                          iconEnabledColor: Colors.yellow,
-                          iconDisabledColor: Colors.grey,
-                        ),
-                        dropdownStyleData: DropdownStyleData(
-                          maxHeight: Get.height*0.35,
-                          width: Get.width*0.902,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(14),
-                            color: const Color(0xff353535),
-                          ),
-                          offset: const Offset(5, 0),
-                          scrollbarTheme: ScrollbarThemeData(
-                            radius:  const Radius.circular(40),
-                            thickness: MaterialStateProperty.all<double>(6),
-                            thumbVisibility: MaterialStateProperty.all<bool>(true),
-                          ),
-                        ),
-                        menuItemStyleData: const MenuItemStyleData(
-                          height: 40,
-                          padding: EdgeInsets.only(left: 14, right: 14),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: Get.height*0.01,),
-                    DropdownButtonHideUnderline(
-                      child: DropdownButton2(
-                        value: monthsValue,
-                        onChanged: ( newValue) {
-                          setState(() {
-                            monthsValue = newValue!.toString().padLeft(2,'0');
-                          });
-                        },
-                        items: List.generate(12, (index) => DropdownMenuItem(
-                            value: index + 1,
-                            child: Text((index + 1).toString().padLeft(2,'0')),
+                                color: const Color(0xff353535),
+                              ),
+                              elevation: 2,
+                            ),
+                            iconStyleData:  IconStyleData(
+                              icon: Image.asset('assets/images/arrowdown.png'),
+                              iconSize: 14,
+                              iconEnabledColor: Colors.yellow,
+                              iconDisabledColor: Colors.grey,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: Get.height*0.35,
+                              width: Get.width*0.35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: const Color(0xff353535),
+                              ),
+                              offset: const Offset(5, 0),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius:  const Radius.circular(40),
+                                thickness: MaterialStateProperty.all<double>(6),
+                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 14, right: 14),
+                            ),
                           ),
                         ),
-                        hint: Text('Select months',  style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),),
-                      ),
-                    ),
+                        DropdownButtonHideUnderline(
+                          child: DropdownButton2<String>(
+                            isExpanded: true,
+                            hint:  Text(
+                              'months',
+                              style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            items: months.map((String item) => DropdownMenuItem<String>(
+                              value: item,
+                              child: Text(
+                                item,
+                                style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            )).toList(),
+                            value: monthsValue,
+                            onChanged: (String? value) {
+                              setState(() {
+                                monthsValue = value;
+                              });
+                            },
+                            buttonStyleData: ButtonStyleData(
+                              height: Get.height*0.08,
+                              width: Get.width*0.4,
+                              padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(30),
 
+                                color: const Color(0xff353535),
+                              ),
+                              elevation: 2,
+                            ),
+                            iconStyleData:  IconStyleData(
+                              icon: Image.asset('assets/images/arrowdown.png'),
+                              iconSize: 14,
+                              iconEnabledColor: Colors.yellow,
+                              iconDisabledColor: Colors.grey,
+                            ),
+                            dropdownStyleData: DropdownStyleData(
+                              maxHeight: Get.height*0.35,
+                              width: Get.width*0.35,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14),
+                                color: const Color(0xff353535),
+                              ),
+                              offset: const Offset(5, 0),
+                              scrollbarTheme: ScrollbarThemeData(
+                                radius:  const Radius.circular(40),
+                                thickness: MaterialStateProperty.all<double>(6),
+                                thumbVisibility: MaterialStateProperty.all<bool>(true),
+                              ),
+                            ),
+                            menuItemStyleData: const MenuItemStyleData(
+                              height: 40,
+                              padding: EdgeInsets.only(left: 14, right: 14),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: Get.height*0.042,),
                     Text('Preferred work experience',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -782,13 +827,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
                       // },
 
                     ),
-
                     SizedBox(height: Get.height*0.042,),
                     Text('Qualification',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     Center(
-                      child:
-                      DropdownButtonHideUnderline(
+                      child: DropdownButtonHideUnderline(
                         child: DropdownButton2<String>(
                           isExpanded: true,
                           hint:  Text(
@@ -850,18 +893,10 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         ),
                       ),
                     ),
-                    // Obx(() => addJobController.qualificationErrorMessage.value.isEmpty ?
-                    // const SizedBox():
-                    //     Text(addJobController.qualificationErrorMessage.value,style: TextStyle(color: Colors.red),) ,
-                    // ),
                     SizedBox(height: Get.height*0.042,),
                     Text('Language',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
                     LanguageSelector(selectedLanguageList: languageList,languageList: viewLanguageController.viewLanguageData.value.languages,),
-                   // Obx(() => addJobController.languageErrorMessage.value.isEmpty ?
-                   // const SizedBox():
-                   //     Text(addJobController.languageErrorMessage.value,style: const TextStyle(color: Colors.red),),
-                   // ),
                     SizedBox(height: Get.height*0.065,),
 
                     Obx( () =>

@@ -16,7 +16,6 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../bottom_bar/tab_bar.dart';
-import 'benchmark.dart';
 
 class RecruiterProfileTabBar extends StatefulWidget {
  final int? index; final bool? isSeeker ; final String? recruiterID ;
@@ -452,7 +451,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                       location: seekerViewCompanyController.companyData.value.recruiterProfileDetails?.companyLocation,
                                       isSeeker: true,
                                     ),
-                                     Review(isSeeker: true,reviews: seekerViewCompanyController.companyData.value.reviews,),
+                                     Review(isSeeker: true,reviews: seekerViewCompanyController.companyData.value.reviews,recruiterID: widget.recruiterID,),
                                   ],
                                 ),
                               ),

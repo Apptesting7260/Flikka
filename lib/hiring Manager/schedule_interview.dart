@@ -1061,14 +1061,11 @@
 
 import 'package:flikka/Job%20Recruiter/Schedule_meeting_calendar/meeting_calendar.dart';
 import 'package:flikka/controllers/ViewParticularCandidateController/ViewParticularCandidateController.dart';
-import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
-import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
@@ -1079,7 +1076,8 @@ import '../res/components/unauthorised_request_widget.dart';
 class ScheduleInterview extends StatefulWidget {
  final String seekerID ;
  final String requestID ;
-  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID}) : super(key: key);
+ final bool? talentPool ;
+  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool}) : super(key: key);
 
 
   @override
@@ -1673,12 +1671,17 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                           }
                                       ),
                                       SizedBox(height: Get.height * 0.05,),
-                                      MyButton(title: 'SCHEDULE MEETING',
-                                        onTap1: () {
-                                          Get.to(() => CalendarScreen(requestID: widget.requestID));
-                                        },
+                                      widget.talentPool == true ? const SizedBox() :
+                                      Column(
+                                        children: [
+                                          MyButton(title: 'SCHEDULE MEETING',
+                                            onTap1: () {
+                                              Get.to(() => CalendarScreen(requestID: widget.requestID));
+                                            },
+                                          ),
+                                          SizedBox(height: Get.height * 0.03,),
+                                        ],
                                       ),
-                                      SizedBox(height: Get.height * 0.03,),
                                     ],
                                   )
                               ),

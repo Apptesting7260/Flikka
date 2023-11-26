@@ -173,7 +173,6 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: Get.height * .027),
                             child: Container(
-                              height: Get.height * .45,
                               width: Get.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(22),
@@ -218,20 +217,13 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                               .labelLarge
                                               ?.copyWith(
                                               fontWeight: FontWeight.w400,
-                                              color: Color(0xffCFCFCF)),),
+                                              color: const Color(0xffCFCFCF)),),
                                         ],
                                       ),
-                                      // trailing: Image.asset(
-                                      //   "assets/images/Edit.png",
-                                      //   height: Get.height * .028,),
                                     ),
                                     SizedBox(height: Get.height * .025,),
                                     HtmlWidget(data?.seekerData?.aboutMe ?? "",textStyle: Theme.of(context).textTheme
                                         .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                    // Text( CommonFunctions.parseHTML(data?.seekerData?.aboutMe ?? ""), style: Theme.of(context).textTheme
-                                    //       .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),
-                                    //   overflow: TextOverflow.ellipsis,
-                                    // ),
                                     SizedBox(height: Get.height * .03,),
                                     Row(
                                       children: [

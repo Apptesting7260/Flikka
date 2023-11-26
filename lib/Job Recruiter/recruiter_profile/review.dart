@@ -12,7 +12,8 @@ import '../../widgets/app_colors.dart';
 class Review extends StatefulWidget {
   final bool isSeeker ;
  final RxList<CompanyReviewsModel>? reviews ;
-  const Review({super.key, required this.isSeeker, this.reviews});
+ final String? recruiterID ;
+  const Review({super.key, required this.isSeeker, this.reviews, this.recruiterID});
 
   @override
   State<Review> createState() => _ReviewState();
@@ -37,7 +38,7 @@ class _ReviewState extends State<Review> {
                widget.isSeeker ? MyButton( width: Get.width *.5,
                     title: "ADD A REVIEW",
                     onTap1: () {
-                  Get.to( () => const AddReview() ) ;
+                  Get.to( () => AddReview(recruiterID: widget.recruiterID,) ) ;
                     }) :
                    const SizedBox()
               ],

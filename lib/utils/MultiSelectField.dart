@@ -1,7 +1,6 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../models/ViewLanguageModel/VIewLanguageModel.dart';
 
 class LanguageSelector extends StatefulWidget {
@@ -33,42 +32,49 @@ class LanguageSelectorState extends State<LanguageSelector> {
   Widget build(BuildContext context) {
     return Column( mainAxisSize: MainAxisSize.min,
       children: [
-        Container(
-          alignment: Alignment.center,
-          margin: const EdgeInsets.only(bottom: 12),
-          padding:  EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027),
-          decoration: BoxDecoration(
-            color: const Color(0xff373737),
-            borderRadius: BorderRadius.circular(35),
-          ),
-          height: Get.height * 0.076,
-          child:  DropdownButtonHideUnderline(
-              child: DropdownButton(
-                isExpanded: true,
-                hint:  Text( "select language"  ,style: Theme.of(context)
-                    .textTheme
-                    .labelLarge
-                    ?.copyWith(color: const Color(0xffCFCFCF)),),
-                onChanged: ( language) {
+        DropdownButtonHideUnderline(
+            child: DropdownButton2(
+              isExpanded: true,
+              hint:  Text( "select language"  ,style: Theme.of(context)
+                  .textTheme
+                  .labelLarge
+                  ?.copyWith(color: const Color(0xffCFCFCF)),),
+              onChanged: ( language) {
 
-                },
-                items: widget.languageList?.map(( language) {
-                  return DropdownMenuItem(
-                    value: language.languages,
-                    onTap: () {
-                      setState(() {
-                        if(languages.contains(language.id.toString())) {
-                        }else {
-                          languages.add(language.id.toString());
-                          selectedLanguages?.add(language.languages) ;
-                          widget.selectedLanguageList = languages ;
-                          debugPrint(languages.toString());
-                        }
-                      });
-                    },
-                    child: Text("${language.languages}",style :Theme.of(context).textTheme.bodyMedium),
-                  );
-                }).toList(),
+              },
+              items: widget.languageList?.map(( language) {
+                return DropdownMenuItem(
+                  value: language.languages,
+                  onTap: () {
+                    setState(() {
+                      if(languages.contains(language.id.toString())) {
+                      }else {
+                        languages.add(language.id.toString());
+                        selectedLanguages?.add(language.languages) ;
+                        widget.selectedLanguageList = languages ;
+                        debugPrint(languages.toString());
+                      }
+                    });
+                  },
+                  child: Text("${language.languages}",style :Theme.of(context).textTheme.bodyMedium),
+                );
+              }).toList(),
+              buttonStyleData: ButtonStyleData(
+                height: Get.height*0.08,
+                width: double.infinity,
+                padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+
+                  color: const Color(0xff353535),
+                ),
+                elevation: 2,
+              ),
+              iconStyleData:  IconStyleData(
+                icon: Image.asset('assets/images/arrowdown.png'),
+                iconSize: 14,
+                iconEnabledColor: Colors.yellow,
+                iconDisabledColor: Colors.grey,
               ),
             ),
           ),
