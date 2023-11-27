@@ -199,18 +199,18 @@ class _DrawerClassState extends State<DrawerClass> {
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                     ),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    onTap: () {
-                                      Get.to( () => const SeekerRequestedJobs()) ;
-                                    },
-                                    leading: drawerIcon(appliedJobsIcon) ,
-                                    title: Text(
-                                      "Requested jobs",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                    ),
-                                  ),
+                                  // ListTile(
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   onTap: () {
+                                  //     Get.to( () => const SeekerRequestedJobs()) ;
+                                  //   },
+                                  //   leading: drawerIcon(appliedJobsIcon) ,
+                                  //   title: Text(
+                                  //     "Requested jobs",
+                                  //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //   ),
+                                  // ),
                                   ListTile(
                                     horizontalTitleGap:0,
                                     onTap: (){
