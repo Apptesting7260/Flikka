@@ -287,6 +287,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
     socialValue = widget.profileModel?.recruiterProfileDetails?.industry  ;
     companySize = widget.profileModel?.recruiterProfileDetails?.companySize  ;
     foundedText = widget.profileModel?.recruiterProfileDetails?.founded ?? 'Select Date'  ;
+    selectedDateString = widget.profileModel?.recruiterProfileDetails?.founded ;
     industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
     super.initState();
   }
@@ -397,18 +398,11 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                             fit: BoxFit.cover,
                                           ),
                                     if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
-                                      SizedBox(
-                                        width: Get.width * .04,
-                                      ),
+                                      SizedBox(width: Get.width * .04,),
                                     if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
-                                      Text(
-                                        "Upload Cover Image",
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .labelLarge
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w400,
-                                                color: const Color(0xffFFFFFF)),
+                                      Text("Upload Cover Image",
+                                        style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                                            fontWeight: FontWeight.w400, color: const Color(0xffFFFFFF)),
                                       )
                                   ],
                                 ),

@@ -1657,7 +1657,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                                             Center(
                                               child: Obx( () =>
                                              MyButton(
-                                                  title: "Post",
+                                                  title: widget.recruiterJobsData != null ? "Update" : "Post",
                                                   loading: requiredSkillsController.loading.value,
                                                   onTap1: () {
                                                     selectedSalary = "${RangePicker.minValue.toInt()} - ${RangePicker.maxValue.toInt()}" ;

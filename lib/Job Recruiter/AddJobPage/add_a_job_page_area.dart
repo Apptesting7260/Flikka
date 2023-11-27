@@ -39,11 +39,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
   bool submitted = false ;
   var qualification ;
 
-  final List<String> itemsEmp = [
-    'full-time','part-time','contract','temporary', 'internship', 'fresher' ,
-  ];
+  final List<String> itemsEmp = ['full-time','part-time','contract','temporary', 'internship', 'fresher' ,];
   String? employmentType;
-
 
   var jobTypeTitle;
   String? jobPosition ;
@@ -67,8 +64,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   String? monthsValue ;
 
  AddJobController addJobController = Get.put(AddJobController()) ;
-  SeekerChoosePositionGetController seekerChoosePositionGetController =
-  Get.put(SeekerChoosePositionGetController());
+  SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
 
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
 
@@ -169,7 +165,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                   child: Image.asset('assets/images/icon_back_blue.png')),
             ),
             elevation: 0,
-            title: Text("Add A Job",style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
+            title: Text( widget.recruiterJobsData != null ? "Edit" : "Add A Job",style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
             // actions: [
             //   TextButton(onPressed: (){}, child: Text('Post',style: Get.theme.textTheme.labelMedium!.copyWith(color: Color(0xff56B8F6)),))
             // ],
@@ -903,7 +899,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                        Center(
                         child: MyButton(
                           loading: addJobController.loading.value,
-                            title: 'Continue', onTap1: addJobController.submitted.value ? () {} : (){
+                            title: widget.recruiterJobsData != null ? "Update" : 'Continue', onTap1: addJobController.submitted.value ? () {} : (){
                           addJobController.featureImageError.value = "" ;
                           addJobController.jobTypeErrorMessage.value = "" ;
                           addJobController.typeOfWorkPlaceErrorMessage.value = "" ;

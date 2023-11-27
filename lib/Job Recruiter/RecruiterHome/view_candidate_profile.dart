@@ -1,6 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
-import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -91,19 +90,16 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     Text( widget.recruiterData?.seekerData?.positions ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.005,),
                     HtmlWidget(widget.recruiterData?.location ?? "",textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
-                    // Text( CommonFunctions.parseHTML(widget.recruiterData?.location ?? ""),style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.01,),
                     Row(
                       children: [
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: AppColors.white
-                            ),
+                                color: AppColors.white ),
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){},icon: Image.asset('assets/images/messagepng.png')),
-
                               ],
                             )
                         ),
@@ -120,17 +116,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             )
                         ),
                         SizedBox(width: Get.width*0.045,),
-                        // Container(
-                        //     decoration: BoxDecoration(
-                        //         borderRadius: BorderRadius.circular(50),
-                        //         color: AppColors.white
-                        //     ),
-                        //     child: Row(
-                        //       children: [
-                        //         IconButton(onPressed: (){},icon: Image.asset('assets/images/videocall.png',scale: 0.7)),
-                        //       ],
-                        //     )
-                        // ),
                       ],
                     ),
                     SizedBox(height: Get.height*0.02,),
