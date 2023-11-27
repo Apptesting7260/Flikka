@@ -188,7 +188,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                 _openImagePickerDialog();
                               },
                               child: Container(
-                                height: Get.height*0.20,
+                                height: Get.height*0.30,
                                 width: Get.width,
                                 decoration: BoxDecoration(
                                     color: const Color(0xff353535),
