@@ -5,6 +5,7 @@ import 'package:flikka/controllers/RecruiterHomeController/RecruiterHomeControll
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../Job Seeker/SeekerJobs/no_job_available.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
@@ -30,6 +31,24 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   RecruiterHomeController homeController = Get.put(RecruiterHomeController()) ;
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+
+  //////refresh//////
+  RefreshController _refreshController = RefreshController(initialRefresh: false);
+
+  void _onRefresh() async{
+    homeController.recruiterHomeApi();
+    _refreshController.refreshCompleted();
+  }
+
+  void _onLoading() async{
+    homeController.recruiterHomeApi();
+    if(mounted)
+      setState(() {
+
+      });
+    _refreshController.loadComplete();
+  }
+  /////refresh/////
 
   @override
   void initState() {
@@ -67,75 +86,80 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
           return SafeArea(
             child: Scaffold(
               endDrawer: const DrawerRecruiter(),
-              body: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: Get.height * .032),
-                        child: Image.asset('assets/images/icon_flikka_logo.png',
-                          height: Get.height * .032,),
-                      ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          SizedBox(height: Get.height * .03,),
-                          Text(
-                            "Find Candidate",
-                            style: Theme
-                                .of(context)
-                                .textTheme
-                                .displaySmall,
-                          ),
-                          Text(
-                              "California USA",
+              body: SmartRefresher(
+                controller: _refreshController,
+                onRefresh: _onRefresh,
+                onLoading: _onLoading,
+                child: Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: Get.height * .032),
+                          child: Image.asset('assets/images/icon_flikka_logo.png',
+                            height: Get.height * .032,),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(height: Get.height * .03,),
+                            Text(
+                              "Find Candidate",
                               style: Theme
                                   .of(context)
                                   .textTheme
-                                  .labelLarge!
-                                  .copyWith(color: Color(0xffCFCFCF),
-                                  fontWeight: FontWeight.w400)
-                          )
-                        ],
-                      ),
-                      Builder(
-                          builder: (context) {
-                            return InkWell(
-                                onTap: () =>
-                                    Scaffold.of(context).openEndDrawer(),
-                                child: Padding(
-                                  padding: EdgeInsets.only(
-                                      top: Get.height * .032),
-                                  child: Image.asset(
-                                    'assets/images/inactive.png',
-                                    height: Get.height * .05,),
-                                ));
-                          }
-                      ),
-                    ],
-                  ),
-                  Flexible(
-                    child: homeController.homeData.value.data == null ||
-                        homeController.homeData.value.data?.length == 0 ?
-                    const SeekerNoJobAvailable(message: "No Data Available",) :
-                    CardSwiper(
-                      controller: controller,
-                      cardsCount: homeController.homeData.value.data?.length ?? 0,
-                      numberOfCardsDisplayed: homeController.homeData.value.data?.length == 1 ? 1 : 2,
-                      backCardOffset: const Offset(40, 40),
-                      padding: const EdgeInsets.all(24.0),
-                      onSwipe: _onSwipe,
-                      cardBuilder: (context, index,
-                          horizontalThresholdPercentage,
-                          verticalThresholdPercentage,) {
-                        return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.data?[index],);
-                      },
+                                  .displaySmall,
+                            ),
+                            Text(
+                                "California USA",
+                                style: Theme
+                                    .of(context)
+                                    .textTheme
+                                    .labelLarge!
+                                    .copyWith(color: Color(0xffCFCFCF),
+                                    fontWeight: FontWeight.w400)
+                            )
+                          ],
+                        ),
+                        Builder(
+                            builder: (context) {
+                              return InkWell(
+                                  onTap: () =>
+                                      Scaffold.of(context).openEndDrawer(),
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                        top: Get.height * .032),
+                                    child: Image.asset(
+                                      'assets/images/inactive.png',
+                                      height: Get.height * .05,),
+                                  ));
+                            }
+                        ),
+                      ],
                     ),
-                  ),
+                    Flexible(
+                      child: homeController.homeData.value.data == null ||
+                          homeController.homeData.value.data?.length == 0 ?
+                      const SeekerNoJobAvailable(message: "No Data Available",) :
+                      CardSwiper(
+                        controller: controller,
+                        cardsCount: homeController.homeData.value.data?.length ?? 0,
+                        numberOfCardsDisplayed: homeController.homeData.value.data?.length == 1 ? 1 : 2,
+                        backCardOffset: const Offset(40, 40),
+                        padding: const EdgeInsets.all(24.0),
+                        onSwipe: _onSwipe,
+                        cardBuilder: (context, index,
+                            horizontalThresholdPercentage,
+                            verticalThresholdPercentage,) {
+                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.data?[index],);
+                        },
+                      ),
+                    ),
 
-                ],
+                  ],
+                ),
               ),
             ),
           );
