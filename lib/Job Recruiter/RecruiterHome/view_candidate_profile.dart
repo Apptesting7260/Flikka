@@ -64,7 +64,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             children: [
                                CircleAvatar(
                                 radius: 40,
-                                // backgroundImage: NetworkImage( widget.recruiterData?.profileImg ?? ''),
                                  child: CachedNetworkImage(
                                    imageUrl: widget.recruiterData?.profileImg ?? '',
                                    imageBuilder: (context, imageProvider) => Container(
@@ -72,9 +71,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                        shape: BoxShape.circle,
                                        image: DecorationImage(
                                          image: imageProvider,
-                                         fit: BoxFit.cover
-                                       )
-                                     ),
+                                         fit: BoxFit.cover ) ),
                                    ),
                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                                  ),
@@ -85,7 +82,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     ),
                     SizedBox(height: Get.height*0.01,),
                     HtmlWidget(widget.recruiterData?.fullname ?? "",textStyle: Get.theme.textTheme.displayLarge),
-                    // Text( CommonFunctions.parseHTML(widget.recruiterData?.fullname ?? ""),style: Get.theme.textTheme.displayLarge),
                     SizedBox(height: Get.height*0.005,),
                     Text( widget.recruiterData?.seekerData?.positions ?? "",style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white)),
                     SizedBox(height: Get.height*0.005,),
@@ -104,11 +100,13 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             )
                         ),
                         SizedBox(width: Get.width*0.045,),
+                        widget.recruiterData?.mobile == null ||
+                            widget.recruiterData?.mobile.toString().length == 0 ?
+                            const SizedBox() :
                         Container(
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(50),
-                                color: AppColors.white
-                            ),
+                                color: AppColors.white ),
                             child: Row(
                               children: [
                                 IconButton(onPressed: (){},icon: Image.asset('assets/images/call.png',scale: 0.7,)),
@@ -144,7 +142,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
             DraggableScrollableSheet(
               initialChildSize: 0.42, // half screen
               minChildSize: 0.42, // half screen
-              maxChildSize: 1, // full screen
+              maxChildSize: .9, // full screen
               builder: (BuildContext context, ScrollController scrollController) {
                 return
                   Container(
@@ -184,10 +182,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                 const Divider(thickness: 0.2,color: AppColors.white,),
                                 SizedBox(height: Get.height*0.02,),
                                 HtmlWidget(widget.recruiterData?.aboutMe ?? "No Data",textStyle: Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
-                                // Text( CommonFunctions.parseHTML(widget.recruiterData?.aboutMe ?? "No Data") ,
-                                //   style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
-
-                                //********************* for work ex ***************************
                                 SizedBox(height: Get.height*0.025,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
@@ -347,29 +341,61 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                                   .w400),),
                                       );
                                     }),
-
-                                //********************* for Language ***************************
-                                // SizedBox(height: Get.height*0.04,),
-                                // Row(
-                                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //   children: [
-                                //     Row(
-                                //       mainAxisAlignment: MainAxisAlignment.start,
-                                //       children: [
-                                //         InkWell(
-                                //             child: Image.asset('assets/images/appreciation.png',height: Get.height*.03,)),
-                                //         SizedBox(width: Get.width*0.02,),
-                                //         Padding(
-                                //           padding: const EdgeInsets.only(top: 2.0),
-                                //           child:
-                                //           Text('Language',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
-                                //         ),
-                                //       ],
-                                //     ),
-                                //   ],
-                                // ),
-                                // SizedBox(height: Get.height*0.02,),
-                                // const Divider(thickness: 0.2,color: AppColors.white,),
+                                SizedBox(height: Get.height*0.04,),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      children: [
+                                        InkWell(
+                                            child: Image.asset('assets/images/appreciation.png',height: Get.height*.03,)),
+                                        SizedBox(width: Get.width*0.02,),
+                                        Padding(
+                                          padding: const EdgeInsets.only(top: 2.0),
+                                          child:
+                                          Text('Language',style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: Get.height*0.02,),
+                                const Divider(thickness: 0.2,color: AppColors.white,),
+                                SizedBox(height: Get.height*0.02,),
+                                widget.recruiterData?.seekerData?.languageName == null ||
+                                    widget.recruiterData?.seekerData?.languageName?.length == 0 ?
+                                const Text("No Data") :
+                                GridView.builder(gridDelegate:
+                                SliverGridDelegateWithMaxCrossAxisExtent(
+                                    mainAxisExtent: 36,
+                                    maxCrossAxisExtent: Get.width * 0.4,
+                                    mainAxisSpacing: 8,
+                                    crossAxisSpacing: 8),
+                                    itemCount: widget.recruiterData?.seekerData?.skillName?.length,
+                                    shrinkWrap: true,
+                                    physics: const NeverScrollableScrollPhysics(),
+                                    itemBuilder: (context, index) {
+                                      var data = widget.recruiterData?.seekerData?.skillName?[index];
+                                      return Container(
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius
+                                              .circular(12),
+                                          color: AppColors.blackdown,
+                                        ),
+                                        padding: const EdgeInsets.all(
+                                            8),
+                                        child: Text('${data?.skills}',
+                                          overflow: TextOverflow
+                                              .ellipsis,
+                                          style: Get.theme.textTheme
+                                              .bodySmall!.copyWith(
+                                              color: AppColors.white,
+                                              fontWeight: FontWeight
+                                                  .w400),),
+                                      );
+                                    }),
                                 SizedBox(height: Get.height*0.03,),
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

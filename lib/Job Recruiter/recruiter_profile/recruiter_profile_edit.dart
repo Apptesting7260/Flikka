@@ -387,16 +387,11 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
+                                    coverImage != null ? Image.file(coverImage!, height: Get.height, width: Get.width, fit: BoxFit.cover,) :
                                     widget.profileModel?.recruiterProfileDetails?.coverImg != null ?
                                     Image.network(widget.profileModel?.recruiterProfileDetails?.coverImg ?? "", width: Get.width, fit : BoxFit.cover,) :
-                                     widget.profileModel?.recruiterProfileDetails?.coverImg == null && coverImage == null ?
-                                    Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,)
-                                        : Image.file(
-                                            coverImage!,
-                                            height: Get.height,
-                                            width: Get.width,
-                                            fit: BoxFit.cover,
-                                          ),
+                                    Image.asset("assets/images/icon_upload_cv.png", height: Get.height * .05,) ,
+
                                     if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
                                       SizedBox(width: Get.width * .04,),
                                     if (coverImage == null && widget.profileModel?.recruiterProfileDetails?.coverImg == null)
@@ -482,29 +477,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                       SizedBox(
                         height: Get.height * .01,
                       ),
-                      // Obx(() =>
-                      // CreateUpdateRecruiterProfileControllerInstanse
-                      //     .profileImageError.value.isEmpty ?
-                      // const SizedBox() :
-                      // Text(
-                      //   CreateUpdateRecruiterProfileControllerInstanse
-                      //       .profileImageError.value,
-                      //   style: TextStyle(color: Colors.red),)
-                      // ),
-                      // Obx(() =>
-                      // CreateUpdateRecruiterProfileControllerInstanse
-                      //     .coverImageError.value.isEmpty ?
-                      // const SizedBox() :
-                      // Text(
-                      //   CreateUpdateRecruiterProfileControllerInstanse
-                      //       .coverImageError.value,
-                      //   style: TextStyle(color: Colors.red),)
-                      // ),
-                      SizedBox(
-                        height: Get.height * .02,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      SizedBox(height: Get.height * .02,),
+                      Padding( padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Text(
                           "Select Profile image",
                           style: Theme.of(context)

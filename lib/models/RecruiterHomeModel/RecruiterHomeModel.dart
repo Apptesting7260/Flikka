@@ -34,7 +34,9 @@ class RecruiterHomeModel {
 class RecruiterHomeData {
   dynamic id;
   dynamic profileImg;
+  dynamic video ;
   dynamic fullname;
+  dynamic mobile;
   dynamic email;
   dynamic location;
   dynamic aboutMe;
@@ -49,6 +51,8 @@ class RecruiterHomeData {
   RecruiterHomeData({
     this.id,
     this.profileImg,
+    this.video,
+    this.mobile,
     this.fullname,
     this.email,
     this.location,
@@ -65,6 +69,8 @@ class RecruiterHomeData {
   factory RecruiterHomeData.fromJson(Map<String, dynamic> json) => RecruiterHomeData(
     id: json["id"],
     profileImg: json["profile_img"],
+    video: json["short_video"],
+    mobile: json["mobile"],
     fullname: json["fullname"],
     email: json["email"],
     location: json["location"],
@@ -104,14 +110,13 @@ class RecruiterHomeSeekerData {
   dynamic fresher;
   List<WorkExpJob>? workExpJob;
   List<EducationLevel>? educationLevel;
-  dynamic language;
   List<Appreciation>? appreciation;
   dynamic positions;
   List<SkillName>? skillName;
   List<PassionName>? passionName;
   List<IndustryPreferenceName>? industryPreferenceName;
   List<StrengthsName>? strengthsName;
-  // List<LanguageModel>? languageName;
+  List<LanguageModel>? languageName;
   List<StartWorkName>? startWorkName;
   List<AvailabityName>? availabityName;
 
@@ -124,14 +129,13 @@ class RecruiterHomeSeekerData {
     this.fresher,
     this.workExpJob,
     this.educationLevel,
-    this.language,
     this.appreciation,
     this.positions,
     this.skillName,
     this.passionName,
     this.industryPreferenceName,
     this.strengthsName,
-    // this.languageName,
+    this.languageName,
     this.startWorkName,
     this.availabityName,
   });
@@ -145,14 +149,13 @@ class RecruiterHomeSeekerData {
     fresher: json["fresher"],
     workExpJob: json["work_exp_job"] == null ? json["work_exp_job"] : List<WorkExpJob>.from(json["work_exp_job"].map((x) => WorkExpJob.fromJson(x))),
     educationLevel: json["education_level"] == null ? json["education_level"] : List<EducationLevel>.from(json["education_level"].map((x) => EducationLevel.fromJson(x))),
-    language: json["language"],
     appreciation: json["appreciation"] == null ? json["appreciation"] : List<Appreciation>.from(json["appreciation"].map((x) => Appreciation.fromJson(x))),
     positions: json["positions"],
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SkillName>.from(json["skill_name"].map((x) => SkillName.fromJson(x))),
     passionName: json["passion_name"] == null ? json["passion_name"] : List<PassionName>.from(json["passion_name"].map((x) => PassionName.fromJson(x))),
     industryPreferenceName: json["industry_preference_name"] == null ? json["industry_preference_name"] : List<IndustryPreferenceName>.from(json["industry_preference_name"].map((x) => IndustryPreferenceName.fromJson(x))),
     strengthsName: json["strengths_name"] == null ? json["strengths_name"] : List<StrengthsName>.from(json["strengths_name"].map((x) => StrengthsName.fromJson(x))),
-    // languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
+    languageName: json["language"] == null ? json["language"] : List<LanguageModel>.from(json["language"].map((x) => LanguageModel.fromJson(x))),
     startWorkName: json["start_work_name"] == null ? json["start_work_name"] : List<StartWorkName>.from(json["start_work_name"].map((x) => StartWorkName.fromJson(x))),
     availabityName: json["availabity_name"] == null ? json["availabity_name"] : List<AvailabityName>.from(json["availabity_name"].map((x) => AvailabityName.fromJson(x))),
   );
@@ -166,7 +169,6 @@ class RecruiterHomeSeekerData {
     "fresher": fresher,
     "work_exp_job": List<dynamic>.from(workExpJob!.map((x) => x.toJson())),
     "education_level": List<dynamic>.from(educationLevel!.map((x) => x.toJson())),
-    "language": language,
     "appreciation": List<dynamic>.from(appreciation!.map((x) => x.toJson())),
     "positions": positions,
     "skill_name": List<dynamic>.from(skillName!.map((x) => x.toJson())),
