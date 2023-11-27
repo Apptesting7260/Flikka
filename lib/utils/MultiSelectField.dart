@@ -78,6 +78,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
               ),
             ),
           ),
+        SizedBox(height: Get.height*.015,) ,
         GridView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),

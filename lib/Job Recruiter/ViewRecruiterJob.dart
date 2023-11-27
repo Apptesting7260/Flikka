@@ -45,7 +45,6 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
   Widget build(BuildContext context) {
     print(widget.recruiterJobsData?.description) ;
     return SafeArea(
-
       child: Scaffold(
           appBar: AppBar(
             toolbarHeight: 75,

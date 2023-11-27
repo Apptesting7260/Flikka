@@ -121,7 +121,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     textStyle: Get.theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.white)),
                 SizedBox(
-                  height: Get.height * 0.01,
+                  height: Get.height * 0.025,
                 ),
                 Row(
                   children: [
@@ -217,7 +217,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
         DraggableScrollableSheet(
           initialChildSize: 0.42, // half screen
           minChildSize: 0.42, // half screen
-          maxChildSize: .9, // full screen
+          maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
               decoration: const BoxDecoration(
@@ -257,7 +257,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           ),
                           Text(widget.recruiterData?.mobile ?? "No Data") ,
                           SizedBox(
-                            height: Get.height * 0.015,
+                            height: Get.height * 0.04,
                           ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
