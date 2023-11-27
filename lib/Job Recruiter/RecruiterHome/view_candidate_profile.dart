@@ -30,6 +30,22 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blueThemeColor,
+        toolbarHeight: 75,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: SvgPicture.asset('assets/images/backiconsvg.svg')),
+        ),
+        elevation: 0,
+        title: Text(widget.recruiterData?.fullname ?? "",
+              style: Get.theme.textTheme.headlineSmall!
+                  .copyWith(fontWeight: FontWeight.w700)),
+      ),
       body: Stack(children: [
         Container(
           decoration: const BoxDecoration(color: AppColors.blueThemeColor),
@@ -40,31 +56,31 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: Get.height * .01,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 24.0),
-                  child: Row(
-                    children: [
-                      InkWell(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: SvgPicture.asset(
-                              'assets/images/backiconsvg.svg')),
-                      SizedBox(
-                        width: Get.width * 0.035,
-                      ),
-                      Text(widget.recruiterData?.fullname ?? "",
-                          style: Get.theme.textTheme.headlineSmall!
-                              .copyWith(fontWeight: FontWeight.w700)),
-                    ],
-                  ),
-                ),
-                SizedBox(
-                  height: Get.height * 0.02,
-                ),
+                // SizedBox(
+                //   height: Get.height * .01,
+                // ),
+                // Padding(
+                //   padding: const EdgeInsets.only(top: 24.0),
+                //   child: Row(
+                //     children: [
+                //       InkWell(
+                //           onTap: () {
+                //             Get.back();
+                //           },
+                //           child: SvgPicture.asset(
+                //               'assets/images/backiconsvg.svg')),
+                //       SizedBox(
+                //         width: Get.width * 0.035,
+                //       ),
+                //       Text(widget.recruiterData?.fullname ?? "",
+                //           style: Get.theme.textTheme.headlineSmall!
+                //               .copyWith(fontWeight: FontWeight.w700)),
+                //     ],
+                //   ),
+                // ),
+                // SizedBox(
+                //   height: Get.height * 0.02,
+                // ),
                 Column(
                   children: [
                     Stack(children: [
@@ -115,8 +131,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           children: [
                             IconButton(
                                 onPressed: () {},
-                                icon:
-                                    Image.asset('assets/images/icon_msg.png')),
+                                icon: Image.asset(
+                                    'assets/images/icon_msg.png')),
                           ],
                         )),
                     SizedBox(
@@ -125,26 +141,30 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     widget.recruiterData?.mobile == null ||
                             widget.recruiterData?.mobile.toString().length == 0
                         ? const SizedBox()
-                        : Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50),
-                                color: AppColors.white),
-                            child: Row(
-                              children: [
-                                IconButton(
+                        : Row(
+                          children: [
+                            Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(50),
+                                    color: AppColors.white),
+                                child: IconButton(
                                     onPressed: () {},
                                     icon: Image.asset(
-                                        'assets/images/icon_call.png')),
-                                SizedBox(
-                                  width: Get.width * 0.045,
-                                ),
-                              ],
-                            )),
-
-                    Container(
+                                      'assets/images/icon_call.png',
+                                      scale: 0.7,
+                                    ))),
+                            SizedBox(
+                              width: Get.width * 0.045,
+                            ),
+                          ],
+                        ),
+                    widget.recruiterData?.video == null ||
+                        widget.recruiterData?.video.toString().length == 0
+                        ? const SizedBox()
+                   : Container(
                       alignment: Alignment.center,
-                      height: 42,
-                      width: 42,
+                      height: 45,
+                      width: 45,
                       decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           color: AppColors.white
@@ -160,14 +180,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
-                widget.recruiterData?.seekerData?.startWorkName?[0].startWork ==
-                            null ||
-                        widget.recruiterData?.seekerData?.startWorkName?[0]
-                                .startWork
-                                .toString()
-                                .length ==
-                            0
-                    ? const SizedBox()
+                widget.recruiterData?.seekerData?.startWorkName == null ||
+                    widget.recruiterData?.seekerData?.startWorkName?.length == 0 ? const SizedBox()
                     : SizedBox(
                         height: Get.height * 0.072,
                         width: Get.width * 0.69,
@@ -192,7 +206,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
             ),
           ),
         ),
-        //************** scrollable functionality *******************
+        //************* scrollable functionality ******************
         DraggableScrollableSheet(
           initialChildSize: 0.42, // half screen
           minChildSize: 0.42, // half screen
@@ -347,7 +361,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     );
                                   }),
 
-                          //********************* for Education ***************************
+                          //******************** for Education **************************
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
@@ -442,7 +456,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     );
                                   }),
 
-                          //********************* for Skill ***************************
+                          //******************** for Skill **************************
                           SizedBox(
                             height: Get.height * 0.04,
                           ),

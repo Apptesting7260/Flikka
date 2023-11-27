@@ -24,7 +24,7 @@ class ApplicantTrackingDataController extends GetxController {
   async{
     setRxRequestStatus(Status.LOADING);
     var data =  {};
-    data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title", jobTitle) ;
+    data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title_id", jobTitle) ;
     data.addIf(status != null && status.toString().isNotEmpty, "candidate_status_type", status) ;
 
 

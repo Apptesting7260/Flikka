@@ -136,7 +136,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                               ),
                               dropdownStyleData: DropdownStyleData(
                                 maxHeight: Get.height * 0.35,
-                                width: Get.width * 0.902,
+                                width: Get.width * 0.35,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(14),
                                   color: Color(0xff353535),

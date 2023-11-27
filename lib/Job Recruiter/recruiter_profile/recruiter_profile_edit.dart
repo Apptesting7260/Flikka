@@ -367,7 +367,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                         height: Get.height * .05,
                       ),
                       Container(
-                        height: Get.height * .19 + 50,
+                        height: Get.height * .30 + 50,
                         child: Stack(
                           clipBehavior: Clip.none,
                           children: [
@@ -379,7 +379,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                 return;
                               },
                               child: Container(
-                                height: Get.height * .19,
+                                height: Get.height * .30,
                                 width: Get.width,
                                 decoration: const BoxDecoration(
                                   color: Color(0xff454545),
@@ -1011,7 +1011,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                           () => Center(
                             child: MyButton(
                                 loading: CreateUpdateRecruiterProfileControllerInstanse.loading.value,
-                                title: "CONTINUE",
+                                title: widget.profileModel != null ? "UPDATE" : "CONTINUE",
                                 onTap1: () {
                                   CreateUpdateRecruiterProfileControllerInstanse.industryError.value = "";
                                   CreateUpdateRecruiterProfileControllerInstanse.companySizeError.value = "";
