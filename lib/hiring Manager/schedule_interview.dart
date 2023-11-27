@@ -1076,6 +1076,7 @@ import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
 import '../res/components/request_timeout_widget.dart';
 import '../res/components/unauthorised_request_widget.dart';
+import '../utils/VideoPlayerScreen.dart';
 
 
 class ScheduleInterview extends StatefulWidget {
@@ -1230,46 +1231,59 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                 Container(
                                     decoration: BoxDecoration(
                                         borderRadius: BorderRadius.circular(50),
-                                        color: AppColors.white
-                                    ),
+                                        color: AppColors.white),
                                     child: Row(
                                       children: [
-                                        IconButton(onPressed: () {},
+                                        IconButton(
+                                            onPressed: () {},
                                             icon: Image.asset(
-                                                'assets/images/messagepng.png')),
-
+                                                'assets/images/icon_msg.png')),
                                       ],
-                                    )
+                                    )),
+                                SizedBox(
+                                  width: Get.width * 0.045,
                                 ),
-                                SizedBox(width: Get.width * 0.045,),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
-                                        color: AppColors.white
-                                    ),
-                                    child: Row(
-                                      children: [
-                                        IconButton(onPressed: () {},
+                                candidateController.candidateData.value.seekerDetails?.mobile == null ||
+                                    candidateController.candidateData.value.seekerDetails?.mobile.toString().length == 0
+                                    ? const SizedBox()
+                                    : Row(
+                                  children: [
+                                    Container(
+                                        decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(50),
+                                            color: AppColors.white),
+                                        child: IconButton(
+                                            onPressed: () {},
                                             icon: Image.asset(
-                                              'assets/images/call.png',
-                                              scale: 0.7,)),
-                                      ],
-                                    )
+                                              'assets/images/icon_call.png',
+                                              scale: 0.7,
+                                            ))),
+                                    SizedBox(
+                                      width: Get.width * 0.045,
+                                    ),
+                                  ],
                                 ),
-                                SizedBox(width: Get.width * 0.045,),
-                                Container(
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(50),
+                                candidateController.candidateData.value.seekerDetails?.video == null ||
+                                    candidateController.candidateData.value.seekerDetails?.video.toString().length == 0
+                                    ? const SizedBox()
+                                    : GestureDetector(
+                                  onTap: () {
+                                    Get.to(() => VideoPlayerScreen(videoPath: candidateController.candidateData.value.seekerDetails?.video ?? "")) ;
+                                  },
+                                  child: Container(
+                                    alignment: Alignment.center,
+                                    height: 45,
+                                    width: 45,
+                                    decoration: const BoxDecoration(
+                                        shape: BoxShape.circle,
                                         color: AppColors.white
                                     ),
-                                    child: Row(
-                                      children: [
-                                        IconButton(onPressed: () {},
-                                            icon: Image.asset(
-                                                'assets/images/videocall.png',
-                                                scale: 0.7)),
-                                      ],
-                                    )
+                                    child: Image.asset(
+                                      "assets/images/icon_video.png",color: AppColors.blueThemeColor,
+                                      height: 18,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
                                 ),
                               ],
                             ),
