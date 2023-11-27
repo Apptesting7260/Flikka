@@ -197,7 +197,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                       DropdownButtonHideUnderline(
                         child: DropdownButton2(
                           isExpanded: true,
-                          hint: Text('Select Title',
+                          hint: Text( jobTitleValue ?? 'Select Title',
                             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontSize: 12),
                             overflow: TextOverflow.ellipsis,),
                           items: jobTitleController.getJobTitleDetails.value.jobTitleList?.map((item) =>
@@ -215,7 +215,6 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                     errorMessage.value = "" ;
                                   });
                                 },)).toList(),
-                          value: jobTitleValue,
                           onChanged: (value) {},
                           buttonStyleData: ButtonStyleData(
                             height: Get.height * 0.06,

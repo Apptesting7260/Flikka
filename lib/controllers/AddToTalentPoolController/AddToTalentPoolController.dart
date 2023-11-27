@@ -14,9 +14,7 @@ class AddToTalentPoolController extends GetxController {
   RxString error = ''.obs;
   RxBool loading = false.obs ;
 
-  void poolSeeker( String? description , String? seekerID , {
-    dynamic jobTitle , dynamic status
-  } ){
+  void poolSeeker( String? description , String? seekerID ){
     var data = {} ;
     data.addIf(seekerID != null && seekerID.length != 0 , "seeker_id" , seekerID) ;
     data.addIf(description != null && description.length != 0 , "discription" , description) ;
@@ -24,6 +22,7 @@ class AddToTalentPoolController extends GetxController {
     _api.addToPool(data).then((value){
       loading(false) ;
       response(value) ;
+      Get.back() ;
       Utils.toastMessage("Added to talent pool") ;
       debugPrint(value.toString());
     }).onError((error, stackTrace){

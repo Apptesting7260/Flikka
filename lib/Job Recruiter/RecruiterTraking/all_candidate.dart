@@ -4,6 +4,7 @@ import 'package:flikka/controllers/AddToTalentPoolController/AddToTalentPoolCont
 import 'package:flikka/controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -39,6 +40,7 @@ class _AllCandidateState extends State<AllCandidate> {
 
 @override
   void initState() {
+  jobTitleValue=null;
    jobTitleController.recruiterJobTitleApi() ;
    trackingDataController.applicantTrackingApi(jobTitleValue ,statusValue ) ;
     super.initState();
@@ -139,25 +141,26 @@ class _AllCandidateState extends State<AllCandidate> {
                               child: DropdownButton2(
                                 isExpanded: true,
                                 hint: Text(
-                                  'Select Title',
+                                  jobTitleValue==null? 'Select Title':jobTitleValue.toString(),
                                   style: Get.theme.textTheme.bodyLarge!.copyWith(
                                       color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
                                 items: jobTitleController.getJobTitleDetails.value.jobTitleList?.map((item) =>
                                     DropdownMenuItem(
                                       value: item.id,
-                                      child: Text(item.jobTitle.toString(),
+                                      child: Text(item.jobTitle.toString() ,
                                         style: Get.theme.textTheme.bodyLarge!
                                             .copyWith(color: AppColors.white,
                                             fontSize: 12),
                                         overflow: TextOverflow.ellipsis,),
                                       onTap: () {
                                         setState(() {
-                                          jobTitleValue = item.id.toString();
-                                          trackingDataController.applicantTrackingApi(jobTitleValue, statusValue) ;
+                                          jobTitleValue=null;
+                                          jobTitleValue = item.jobTitle.toString();
+                                          trackingDataController.applicantTrackingApi(item.id.toString(), statusValue) ;
                                         });
                                       },
                                     )).toList(),
-                                value: jobTitleValue,
+                                // value: jobTitleValue,
                                 onChanged: (value) {},
                                 buttonStyleData: ButtonStyleData(
                                   height: Get.height * 0.06,
@@ -366,14 +369,14 @@ class _AllCandidateState extends State<AllCandidate> {
                                             height: Get.height * .066,
                                             width: Get.width*.75,
                                             title: "TALENT POOL", onTap1: () {
-                                              talentPool("${data?.seekerData}") ;
+                                              talentPool("${data?.seekerId}") ;
                                           },),
                                           SizedBox(height: Get.height * .027,),
                                           MyButton(
                                             height: Get.height * .066,
                                             width: Get.width*.75,
                                             title: "VIEW PROFILE", onTap1: () {
-                                              Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',) ) ;
+                                              Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',accepted: "${data?.status}".toLowerCase() == "accepted" ? true : false,) ) ;
                                           },),
                                           SizedBox(height: Get.height * .018,),
                                         ],
@@ -406,21 +409,13 @@ class _AllCandidateState extends State<AllCandidate> {
             "Add note",
             style: Theme.of(context).textTheme.displayLarge,
           ),
-          content: Column(
+          content: Column( mainAxisSize: MainAxisSize.min,
             children: [
-              TextField(
-                style: const TextStyle(color: AppColors.white, fontSize: 23),
-                controller: controller,
-                decoration: InputDecoration(
-                  hintText: 'Add note',
-                  hintStyle: Theme.of(context).textTheme.bodySmall!
-                      .copyWith(color: AppColors.white, fontSize: 16),
-                ),
-              ),
+            CommonWidgets.textFieldMaxLines(context, controller, "Add note", onFieldSubmitted: (value) {}),
               SizedBox(height: Get.height * .02,),
               Obx( () => MyButton(loading: poolController.loading.value,
                     title: "Save", onTap1: () {
-                  poolController.poolSeeker(controller.text, seekerID) ;
+                  poolController.poolSeeker(CommonFunctions.changeToHTML(controller.text), seekerID) ;
                 }),
               )
             ],
