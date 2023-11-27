@@ -1,13 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
-import 'package:flikka/controllers/AddToTalentPoolController/AddToTalentPoolController.dart';
 import 'package:flikka/controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
-import 'package:flikka/utils/CommonFunctions.dart';
-import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../controllers/ApplicantTrackingController/ApplicantTrackingController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
 import '../../data/response/status.dart';
@@ -36,7 +32,6 @@ class _AllCandidateState extends State<AllCandidate> {
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
   CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
-  AddToTalentPoolController poolController = Get.put(AddToTalentPoolController()) ;
 
 @override
   void initState() {
@@ -362,16 +357,6 @@ class _AllCandidateState extends State<AllCandidate> {
                                             ),
                                           ),
                                           SizedBox(height: Get.height * .010,),
-                                          "${data?.status}".toLowerCase() == "accepted" ||
-                                              "${data?.status}".toLowerCase() == "rejected" ?
-                                              const SizedBox() :
-                                          MyButton(
-                                            height: Get.height * .066,
-                                            width: Get.width*.75,
-                                            title: "TALENT POOL", onTap1: () {
-                                              talentPool("${data?.seekerId}") ;
-                                          },),
-                                          SizedBox(height: Get.height * .027,),
                                           MyButton(
                                             height: Get.height * .066,
                                             width: Get.width*.75,
@@ -396,32 +381,6 @@ class _AllCandidateState extends State<AllCandidate> {
         }
       }
       ),
-    );
-  }
-  
-  void talentPool(String seekerID) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        TextEditingController controller = TextEditingController();
-        return AlertDialog(
-          title: Text(
-            "Add note",
-            style: Theme.of(context).textTheme.displayLarge,
-          ),
-          content: Column( mainAxisSize: MainAxisSize.min,
-            children: [
-            CommonWidgets.textFieldMaxLines(context, controller, "Add note", onFieldSubmitted: (value) {}),
-              SizedBox(height: Get.height * .02,),
-              Obx( () => MyButton(loading: poolController.loading.value,
-                    title: "Save", onTap1: () {
-                  poolController.poolSeeker(CommonFunctions.changeToHTML(controller.text), seekerID) ;
-                }),
-              )
-            ],
-          ),
-        );
-      },
     );
   }
 

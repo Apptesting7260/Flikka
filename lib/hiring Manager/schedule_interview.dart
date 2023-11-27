@@ -1071,11 +1071,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../controllers/AddToTalentPoolController/AddToTalentPoolController.dart';
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
 import '../res/components/request_timeout_widget.dart';
 import '../res/components/unauthorised_request_widget.dart';
+import '../utils/CommonWidgets.dart';
 import '../utils/VideoPlayerScreen.dart';
 
 
@@ -1109,6 +1111,8 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
     _refreshController.loadComplete();
   }
   /////refresh/////
+
+  AddToTalentPoolController poolController = Get.put(AddToTalentPoolController()) ;
 
   @override
   void initState() {
@@ -1723,11 +1727,12 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                           children: [
                                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                              MyButton(title: "ACCEPT",
+                                              MyButton(title: widget.accepted == true ? "ACCEPTED" : "ACCEPT",
                                                   width: Get.width *.4,
                                                   onTap1: () {
+                                                    if(widget.accepted == true) {} else {
                                                 CommonFunctions.showLoadingDialog(context, "Updating...") ;
-                                                statusController.jobStatus("Accepted", widget.requestID) ;
+                                                statusController.jobStatus("Accepted", widget.requestID) ; }
                                               }),
                                               MyButton(title: "REJECT",
                                                   width: Get.width *.4,
@@ -1743,7 +1748,12 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
                                                 },
                                               ),
-                                            ) : const SizedBox(),
+                                            ) :  MyButton(
+                                            height: Get.height * .066,
+                                            width: Get.width*.75,
+                                            title: "TALENT POOL", onTap1: () {
+                                            talentPool(widget.seekerID) ;
+                                          },),
                                             SizedBox(height: Get.height * 0.03,),
                                           ],
                                         ),
@@ -1761,6 +1771,32 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
         }
       }
       ),
+    );
+  }
+
+  void talentPool(String seekerID) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        TextEditingController controller = TextEditingController();
+        return AlertDialog(
+          title: Text(
+            "Add note",
+            style: Theme.of(context).textTheme.displayLarge,
+          ),
+          content: Column( mainAxisSize: MainAxisSize.min,
+            children: [
+              CommonWidgets.textFieldMaxLines(context, controller, "Add note", onFieldSubmitted: (value) {}),
+              SizedBox(height: Get.height * .02,),
+              Obx( () => MyButton(loading: poolController.loading.value,
+                  title: "Save", onTap1: () {
+                    poolController.poolSeeker(CommonFunctions.changeToHTML(controller.text), seekerID) ;
+                  }),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }
