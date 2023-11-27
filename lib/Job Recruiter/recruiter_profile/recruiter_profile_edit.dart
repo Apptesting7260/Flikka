@@ -1011,7 +1011,7 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                           () => Center(
                             child: MyButton(
                                 loading: CreateUpdateRecruiterProfileControllerInstanse.loading.value,
-                                title: "CONTINUE",
+                                title: widget.profileModel != null ? "UPDATE" : "CONTINUE",
                                 onTap1: () {
                                   CreateUpdateRecruiterProfileControllerInstanse.industryError.value = "";
                                   CreateUpdateRecruiterProfileControllerInstanse.companySizeError.value = "";

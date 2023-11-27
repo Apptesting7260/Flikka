@@ -75,9 +75,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                    ),
                                    placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                                  ),
-                              ),
-                            ]
-                        )
+                              ),])
                       ],
                     ),
                     SizedBox(height: Get.height*0.01,),

@@ -15,10 +15,10 @@ class OtpScreen extends StatefulWidget {
   const OtpScreen({Key? key, required this.register}) : super(key: key);
 
   @override
-  State<OtpScreen> createState() => _OtpScreenState();
+  State<OtpScreen> createState() => OtpScreenState();
 }
 
-class _OtpScreenState extends State<OtpScreen> {
+class OtpScreenState extends State<OtpScreen> {
   VerifyOtpController VerifyOtpControllerInstanse=Get.put(VerifyOtpController());
   ForgotPasswordController ForgotPasswordControllerInstanse=Get.put(ForgotPasswordController());
   CheckEmailSignUpController emailSignUpController = Get.put(CheckEmailSignUpController()) ;

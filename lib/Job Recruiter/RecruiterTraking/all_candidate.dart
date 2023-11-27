@@ -140,15 +140,11 @@ class _AllCandidateState extends State<AllCandidate> {
                                 isExpanded: true,
                                 hint: Text(
                                   'Select Title',
-                                  style: Get.theme.textTheme.bodyLarge!
-                                      .copyWith(
-                                      color: AppColors.white, fontSize: 12),
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                items: jobTitleController.getJobTitleDetails
-                                    .value.jobTitleList?.map((item) =>
+                                  style: Get.theme.textTheme.bodyLarge!.copyWith(
+                                      color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
+                                items: jobTitleController.getJobTitleDetails.value.jobTitleList?.map((item) =>
                                     DropdownMenuItem(
-                                      value: item.jobTitle,
+                                      value: item.id,
                                       child: Text(item.jobTitle.toString(),
                                         style: Get.theme.textTheme.bodyLarge!
                                             .copyWith(color: AppColors.white,
@@ -156,12 +152,11 @@ class _AllCandidateState extends State<AllCandidate> {
                                         overflow: TextOverflow.ellipsis,),
                                       onTap: () {
                                         setState(() {
-                                          jobTitleValue = item.jobTitle;
+                                          jobTitleValue = item.id.toString();
                                           trackingDataController.applicantTrackingApi(jobTitleValue, statusValue) ;
                                         });
                                       },
-                                    ))
-                                    .toList(),
+                                    )).toList(),
                                 value: jobTitleValue,
                                 onChanged: (value) {},
                                 buttonStyleData: ButtonStyleData(
