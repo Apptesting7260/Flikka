@@ -31,6 +31,7 @@ class CandidateJobStatusController extends GetxController {
     loading(true) ;
     _api.candidateJobStatus(data).then((value){
       Get.back() ;
+      Get.back() ;
       setRxRequestStatus(Status.COMPLETED);
       loading(false) ;
       response(value) ;

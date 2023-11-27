@@ -107,12 +107,12 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                           .copyWith(color: AppColors.white),
                                       overflow: TextOverflow.ellipsis,
                                     ),
-                                  ))
-                                  .toList(),
+                                  )).toList(),
                               value: jobTypeValues,
                               onChanged: (String? value) {
                                 setState(() {
                                   jobTypeValues = value;
+                                  interviewListController.interviewListApi(filter: jobTypeValues);
                                 });
                               },
                               buttonStyleData: ButtonStyleData(

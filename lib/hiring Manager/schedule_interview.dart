@@ -1061,11 +1061,14 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/Schedule_meeting_calendar/meeting_calendar.dart';
+import 'package:flikka/controllers/CandidateJobStatusController/CandidateJobStatusController.dart';
 import 'package:flikka/controllers/ViewParticularCandidateController/ViewParticularCandidateController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../data/response/status.dart';
@@ -1076,10 +1079,8 @@ import '../res/components/unauthorised_request_widget.dart';
 
 
 class ScheduleInterview extends StatefulWidget {
- final String seekerID ;
- final String requestID ;
- final bool? talentPool ;
-  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool}) : super(key: key);
+ final String seekerID ; final String requestID ; final bool? talentPool ; final bool? accepted ;
+  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.accepted}) : super(key: key);
 
   @override
   State<ScheduleInterview> createState() => _ScheduleInterviewState();
@@ -1088,6 +1089,7 @@ class ScheduleInterview extends StatefulWidget {
 class _ScheduleInterviewState extends State<ScheduleInterview> {
 
   ViewParticularCandidateController candidateController = Get.put(ViewParticularCandidateController()) ;
+  CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
 
   //////refresh//////
   RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -1272,6 +1274,9 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                               ],
                             ),
                             SizedBox(height: Get.height * 0.035,),
+                            candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName == null ||
+                                candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName?.length == 0 ?
+                                const SizedBox() :
                             SizedBox(
                               height: Get.height * 0.072,
                               width: Get.width * 0.69,
@@ -1282,8 +1287,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         borderRadius: BorderRadius.circular(35)
                                     )
                                 ),
-                                onPressed: () {}, child: Text(
-                                'AVAILABLE IMMEDIATELY',
+                                onPressed: () {}, child: Text(candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName?[0].startWork ?? '',
                                 style: Theme
                                     .of(context)
                                     .textTheme
@@ -1348,9 +1352,8 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         const Divider(thickness: 0.2,
                                           color: AppColors.white,),
                                         SizedBox(height: Get.height * 0.02,),
-                                        Text(candidateController.candidateData.value.seekerDetails?.aboutMe ?? "No Data", style: Theme
+                                        HtmlWidget(candidateController.candidateData.value.seekerDetails?.aboutMe ?? "No Data",textStyle: Theme
                                             .of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
-
                                         //********************* for work ex ***************************
                                         SizedBox(height: Get.height * 0.04,),
                                         Row(mainAxisAlignment: MainAxisAlignment.start,
@@ -1514,7 +1517,6 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                               );
                                             }
                                         ),
-
                                         //********************* for Skill ***************************
                                         SizedBox(height: Get.height * 0.04,),
                                         Row(
@@ -1582,7 +1584,6 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                           .w400),),
                                               );
                                             }),
-
                                         //********************* for Language ***************************
                                         SizedBox(height: Get.height * 0.04,),
                                         Row(
@@ -1616,35 +1617,30 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         const Divider(thickness: 0.2,
                                           color: AppColors.white,),
                                         SizedBox(height: Get.height * 0.02,),
-                                        // widget.recruiterData?.seekerData?.language == null ||
-                                        //     seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                        // const Text("No Data") :
-                                        // GridView.builder(gridDelegate:
-                                        // SliverGridDelegateWithMaxCrossAxisExtent(
-                                        //     mainAxisExtent: 36,
-                                        //     maxCrossAxisExtent: Get.width * 0.4,
-                                        //     mainAxisSpacing: 8,
-                                        //     crossAxisSpacing: 8),
-                                        //     itemCount: seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length,
-                                        //     shrinkWrap: true,
-                                        //     physics: const NeverScrollableScrollPhysics(),
-                                        //     itemBuilder: (context, index) {
-                                        //       var data = seekerProfileController
-                                        //           .viewSeekerData.value
-                                        //           .seekerDetails
-                                        //           ?.language?[index];
-                                        //       return Container( alignment: Alignment.center,
-                                        //         decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
-                                        //           color: AppColors.blackdown,),
-                                        //         padding: const EdgeInsets.all(8),
-                                        //         child: Text('${data?.languages}',
-                                        //           style: Get.theme.textTheme.bodySmall!.copyWith(
-                                        //               color: AppColors.white, fontWeight: FontWeight.w400),),
-                                        //       );
-                                        //     }),
-
-                                        //********************* for appreciation ***************************
-                                        // SizedBox(height: Get.height*0.04,),
+                                       candidateController.candidateData.value.seekerDetails?.seekerData?.languageName == null ||
+                                           candidateController.candidateData.value.seekerDetails?.seekerData?.languageName?.length == 0 ?
+                                        const Text("No Data") :
+                                        GridView.builder(gridDelegate:
+                                        SliverGridDelegateWithMaxCrossAxisExtent(
+                                            mainAxisExtent: 36,
+                                            maxCrossAxisExtent: Get.width * 0.4,
+                                            mainAxisSpacing: 8,
+                                            crossAxisSpacing: 8),
+                                            itemCount: candidateController.candidateData.value.seekerDetails?.seekerData?.languageName?.length,
+                                            shrinkWrap: true,
+                                            physics: const NeverScrollableScrollPhysics(),
+                                            itemBuilder: (context, index) {
+                                              var data = candidateController.candidateData.value.seekerDetails?.seekerData?.languageName?[index];
+                                              return Container( alignment: Alignment.center,
+                                                decoration: BoxDecoration(borderRadius: BorderRadius.circular(12),
+                                                  color: AppColors.blackdown,),
+                                                padding: const EdgeInsets.all(8),
+                                                child: Text('${data?.languages}',
+                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                      color: AppColors.white, fontWeight: FontWeight.w400),),
+                                              );
+                                            }),
+                                        SizedBox(height: Get.height*0.04,),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
@@ -1711,13 +1707,29 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         widget.talentPool == true ? const SizedBox() :
                                         Column(
                                           children: [
-                                            Center(
+                                            Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                              children: [
+                                              MyButton(title: "ACCEPT",
+                                                  width: Get.width *.4,
+                                                  onTap1: () {
+                                                CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                                statusController.jobStatus("Accepted", widget.requestID) ;
+                                              }),
+                                              MyButton(title: "REJECT",
+                                                  width: Get.width *.4,
+                                                  onTap1: () {
+                                                CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                                statusController.jobStatus("Rejected", widget.requestID) ;
+                                              }),
+                                            ],),
+                                            SizedBox(height: Get.height * 0.03,),
+                                          widget.accepted == true ?  Center(
                                               child: MyButton(title: 'SCHEDULE MEETING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
                                                 },
                                               ),
-                                            ),
+                                            ) : const SizedBox(),
                                             SizedBox(height: Get.height * 0.03,),
                                           ],
                                         ),
