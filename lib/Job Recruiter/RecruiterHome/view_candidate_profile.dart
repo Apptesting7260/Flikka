@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/utils/CommonWidgets.dart';
+import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
@@ -161,20 +163,25 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     widget.recruiterData?.video == null ||
                         widget.recruiterData?.video.toString().length == 0
                         ? const SizedBox()
-                   : Container(
-                      alignment: Alignment.center,
-                      height: 45,
-                      width: 45,
-                      decoration: const BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: AppColors.white
+                   : GestureDetector(
+                      onTap: () {
+                        Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.video ?? "")) ;
+                      },
+                     child: Container(
+                        alignment: Alignment.center,
+                        height: 45,
+                        width: 45,
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.white
+                        ),
+                        child: Image.asset(
+                          "assets/images/icon_video.png",color: AppColors.blueThemeColor,
+                          height: 18,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      child: Image.asset(
-                        "assets/images/icon_video.png",color: AppColors.blueThemeColor,
-                        height: 18,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
+                   ),
                   ],
                 ),
                 SizedBox(
@@ -232,6 +239,26 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Row(
+                            children: [
+                              Image.asset("assets/images/icon_phone_call.png",height: Get.height*.03,),
+                              SizedBox(
+                                width: Get.width * 0.02,
+                              ),
+                              Text("Phone Number",style: Theme.of(context).textTheme.titleSmall,)
+                            ],
+                          ) ,
+                          SizedBox(
+                            height: Get.height * 0.015,
+                          ),
+                          const Divider(
+                            thickness: 0.2,
+                            color: AppColors.white,
+                          ),
+                          Text(widget.recruiterData?.mobile ?? "No Data") ,
+                          SizedBox(
+                            height: Get.height * 0.015,
+                          ),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
