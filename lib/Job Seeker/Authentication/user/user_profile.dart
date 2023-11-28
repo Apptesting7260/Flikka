@@ -235,6 +235,20 @@ class _UserProfileState extends State<UserProfile> {
                                 vertical: Get.height * .01),
                             child: GestureDetector(
                               onTap: () {
+                                if (number == 5) {
+                                  setState(() {
+                                    if (selectedChooseSkillsIndices
+                                        .contains("${data?.id.toString()}")) {
+                                      selectedChooseSkillsIndices
+                                          .remove("${data?.id.toString()}");
+                                    } else {
+                                      selectedChooseSkillsIndices.clear() ;
+                                      selectedChooseSkillsIndices
+                                          .add("${data?.id.toString()}");
+                                    }
+                                    print(index);
+                                  });
+                                } else {
                                 setState(() {
                                   if (selectedChooseSkillsIndices.contains("${data?.id.toString()}")) {
                                     selectedChooseSkillsIndices.remove("${data?.id.toString()}");
@@ -242,7 +256,7 @@ class _UserProfileState extends State<UserProfile> {
                                     selectedChooseSkillsIndices.add("${data?.id.toString()}");
                                   }
                                   print(index);
-                                });
+                                });}
                               },
                               child: Container(
                                 decoration: BoxDecoration(

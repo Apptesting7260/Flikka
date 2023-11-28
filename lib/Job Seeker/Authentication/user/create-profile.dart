@@ -584,7 +584,6 @@ class _CreateProfileState extends State<CreateProfile> {
                               ),
                             ),
                             languageCode: "en",
-                            disableLengthCheck: true,
                             onChanged: (phone) {
                               phoneNumber = phone.completeNumber;
                               if (phone.isValidNumber()) {

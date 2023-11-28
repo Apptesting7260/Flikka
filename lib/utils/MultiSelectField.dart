@@ -91,7 +91,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
             itemCount: selectedLanguages?.length,
             itemBuilder: (context , index){
               return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 8),
+                padding: const EdgeInsets.only(right: 8,left: 18),
                 decoration: BoxDecoration(
                   color: const Color(0xff373737),
                     borderRadius: BorderRadius.circular(35),
@@ -99,7 +99,7 @@ class LanguageSelectorState extends State<LanguageSelector> {
                 height: Get.height * 0.6,
                 child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                  Text(selectedLanguages?[index]) ,
+                  Flexible(child: Text(selectedLanguages?[index],overflow: TextOverflow.ellipsis,)) ,
                   IconButton(onPressed: (){
                     setState(() {
                       languages.removeAt(index) ;
