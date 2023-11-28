@@ -6,7 +6,6 @@ import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flikka/utils/Constants.dart';
 import 'package:flikka/utils/MultiSelectField.dart';
-import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -19,7 +18,6 @@ import 'package:file_picker/file_picker.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:open_file/open_file.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:video_compress/video_compress.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
@@ -184,6 +182,7 @@ class _CreateProfileState extends State<CreateProfile> {
     _addAppreciation();
     viewLanguageController.viewLanguageApi();
     LanguageSelectorState.languages = [];
+    locationController.text = Constants.address ;
   }
 
   List selectedFields = [];
