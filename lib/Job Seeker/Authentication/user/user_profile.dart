@@ -1927,6 +1927,9 @@ class _UserProfileState extends State<UserProfile> {
                                             Row(
                                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
+                                                seekerProfileController.viewSeekerData.value.seekerInfo?.phone == null ||
+                                                    seekerProfileController.viewSeekerData.value.seekerInfo?.phone?.length == 0 ?
+                                                const Text("No Data") :
                                                 Text(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ??"No Data",style: Theme.of(context).textTheme.bodyLarge!
                                                     .copyWith(color: AppColors.ratingcommenttextcolor),)
                                                 // Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)

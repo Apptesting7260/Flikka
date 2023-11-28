@@ -12,7 +12,6 @@ class VideoPlayerScreen extends StatefulWidget {
 
 class VideoPlayerScreenState extends State<VideoPlayerScreen> {
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,8 +33,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
 class PlayerWidget extends StatefulWidget {
   final VideoPlayerController videoPlayerController;
   final bool looping;
-
-  const PlayerWidget({super.key,  required this.videoPlayerController, this.looping = false,});
+  const PlayerWidget({super.key,  required this.videoPlayerController, this.looping = false, });
 
   @override
   PlayerWidgetState createState() => PlayerWidgetState();
@@ -51,7 +49,7 @@ class PlayerWidgetState extends State<PlayerWidget> {
       placeholder: const Center(child: CircularProgressIndicator()),
       videoPlayerController: widget.videoPlayerController,
       autoInitialize: true,
-      aspectRatio: 9/16,
+      aspectRatio: widget.videoPlayerController.value.aspectRatio,
       showControlsOnInitialize: false,
       looping: widget.looping,
       // Other customization options can be added here
