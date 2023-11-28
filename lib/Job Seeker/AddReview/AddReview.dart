@@ -75,14 +75,18 @@ class _AddReviewState extends State<AddReview> {
                 MyButton(title: "SUBMIT REVIEW",
                     loading: reviewController.loading.value,
                     onTap1: (){
-                      if(ratingValue == 0) {
-                        Utils.showMessageDialog(context, "Please add rating to submit your review") ;
-                      } else {
-                  if(formKey.currentState!.validate()) {
-                  var review = CommonFunctions.changeToHTML(controller.text) ;
-                      reviewController.postReview(widget.recruiterID, review, ratingValue.toString()) ;
-                    }
+                  if(reviewController.loading.value){}else {
+                    if (ratingValue == 0) {
+                      Utils.showMessageDialog(context, "Please add rating to submit your review");
+                    } else {
+                      if (formKey.currentState!.validate()) {
+                        var review = CommonFunctions.changeToHTML(
+                            controller.text);
+                        reviewController.postReview(widget.recruiterID, review,
+                            ratingValue.toString());
                       }
+                    }
+                  }
                     })),)
           ],
         ),

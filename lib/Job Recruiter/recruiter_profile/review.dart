@@ -4,6 +4,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
 import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -88,9 +89,8 @@ class _ReviewState extends State<Review> {
                         subtitle: Text(data?.seekerDetailsInfo?[0].positions ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge?.
                         copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)),
                       ) ,
-                       Text(data?.description ?? "",
-                          style: Theme.of(context).textTheme.labelLarge?.
-                          copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)) ,
+                       HtmlWidget(data?.description ?? "",textStyle:Theme.of(context).textTheme.labelLarge?.
+                       copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400),),
                       SizedBox(height: Get.height * 0.02,)
                     ],);
                   }),

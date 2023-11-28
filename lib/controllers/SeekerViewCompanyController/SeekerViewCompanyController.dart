@@ -21,7 +21,7 @@ class SeekerViewCompanyController extends GetxController {
   void setError(String _value) => error.value = _value ;
 
 
-  void viewCompany(
+  Future<void> viewCompany(
      String? recruiterID
       ) async{
     setRxRequestStatus(Status.LOADING) ;
