@@ -391,9 +391,9 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                Get.to(() => MarketingIntern(
-                      jobData: widget.jobData,
-                    ));
+                // Get.to(() => MarketingIntern(
+                //       jobData: widget.jobData,
+                //     ));
               },
               child: Container(
                 height: Get.height * 0.35,

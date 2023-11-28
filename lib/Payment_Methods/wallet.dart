@@ -16,7 +16,6 @@ import '../res/components/server_error_widget.dart';
 import '../res/components/unauthorised_request_widget.dart';
 import 'request_withdraw.dart';
 
-
 class Wallet extends StatefulWidget {
   const Wallet({super.key});
 
@@ -25,14 +24,13 @@ class Wallet extends StatefulWidget {
 }
 
 class _WalletState extends State<Wallet> {
-
   // Initial Selected Value
   String? selectedValue;
 
-  bool employee = true ;
-  bool employer = false ;
+  bool employee = true;
+  bool employer = false;
 
-  var requstedWitharwal ;
+  var requstedWitharwal;
 
   var items = [
     'Latest',
@@ -42,65 +40,82 @@ class _WalletState extends State<Wallet> {
     'Latest5',
   ];
 
-  SeekerEarningController seekerEarningController = Get.put(SeekerEarningController()) ;
+  SeekerEarningController seekerEarningController =
+      Get.put(SeekerEarningController());
 
-  final List<String> emails = ['johndue123@gmail.com', 'mailto:johndue124@gmail.com', 'mailto:johndue125@gmail.com',];
-  final List<String> amount = <String>['342.00', '868.00', '456.00', ];
-  final List<String> time = <String>['Today 10:40 AM', 'Today 10:40 AM', 'Today 10:40 AM', ];
+  final List<String> emails = [
+    'johndue123@gmail.com',
+    'mailto:johndue124@gmail.com',
+    'mailto:johndue125@gmail.com',
+  ];
+  final List<String> amount = <String>[
+    '342.00',
+    '868.00',
+    '456.00',
+  ];
+  final List<String> time = <String>[
+    'Today 10:40 AM',
+    'Today 10:40 AM',
+    'Today 10:40 AM',
+  ];
 
   //////refresh//////
-  RefreshController _refreshController = RefreshController(initialRefresh: false);
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
-  void _onRefresh() async{
-     seekerEarningController.seekerEarningApi();
+  void _onRefresh() async {
+    seekerEarningController.seekerEarningApi();
     _refreshController.refreshCompleted();
   }
 
-  void _onLoading() async{
-     seekerEarningController.seekerEarningApi();
-    if(mounted)
-      setState(() {
-
-      });
+  void _onLoading() async {
+    seekerEarningController.seekerEarningApi();
+    if (mounted) setState(() {});
     _refreshController.loadComplete();
   }
 /////refresh/////
 
   @override
   void initState() {
-  seekerEarningController.seekerEarningApi() ;
+    seekerEarningController.seekerEarningApi();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      switch (seekerEarningController
-          .rxRequestStatus.value) {
+      switch (seekerEarningController.rxRequestStatus.value) {
         case Status.LOADING:
           return const Scaffold(
-            body: Center(
-                child: CircularProgressIndicator()),
+            body: Center(child: CircularProgressIndicator()),
           );
 
         case Status.ERROR:
-          if (seekerEarningController
-              .error.value ==
-              'No internet') {
-            return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {},
-            ),);
-          } else if (seekerEarningController
-              .error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {}),);
-          } else if (seekerEarningController
-              .error.value == "Internal server error") {
-            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
-          } else if (seekerEarningController.
-          error.value == "Unauthorised Request") {
-            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
+          if (seekerEarningController.error.value == 'No internet') {
+            return Scaffold(
+              body: InterNetExceptionWidget(
+                onPress: () {},
+              ),
+            );
+          } else if (seekerEarningController.error.value ==
+              'Request Time out') {
+            return Scaffold(
+              body: RequestTimeoutWidget(onPress: () {}),
+            );
+          } else if (seekerEarningController.error.value ==
+              "Internal server error") {
+            return Scaffold(
+              body: ServerErrorWidget(onPress: () {}),
+            );
+          } else if (seekerEarningController.error.value ==
+              "Unauthorised Request") {
+            return Scaffold(
+              body: UnauthorisedRequestWidget(onPress: () {}),
+            );
           } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}),);
+            return Scaffold(
+              body: GeneralExceptionWidget(onPress: () {}),
+            );
           }
         case Status.COMPLETED:
           return SafeArea(
@@ -116,7 +131,13 @@ class _WalletState extends State<Wallet> {
                       child: Image.asset('assets/images/icon_back_blue.png')),
                 ),
                 elevation: 0,
-                title: Text("Wallet",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                title: Text(
+                  "Wallet",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.w700),
+                ),
                 // actions: [
                 //   Padding(
                 //     padding: const EdgeInsets.only(right: 15, top: 30),
@@ -136,106 +157,155 @@ class _WalletState extends State<Wallet> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(() => seekerEarningController.refreshLoading.value ?
-                        const Center(
-                          child: CircularProgressIndicator(
-                            color: Colors.white,
-                          ),
-                        ): const SizedBox()
+                        Obx(() => seekerEarningController.refreshLoading.value
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                  color: Colors.white,
+                                ),
+                              )
+                            : const SizedBox()),
+                        SizedBox(
+                          height: Get.height * 0.1,
                         ),
-                        SizedBox(height: Get.height * 0.1,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text("Earnings",
+                            Text(
+                              "Earnings",
                               style: Theme.of(context).textTheme.displayLarge,
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.to(() =>AddBankAccountDetails());
+                                Get.to(() => AddBankAccountDetails());
                               },
-                              child: Text("Add bank account details",style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.blueThemeColor),
+                              child: Text(
+                                "Add bank account details",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyLarge
+                                    ?.copyWith(color: AppColors.blueThemeColor),
                               ),
                             ),
                           ],
                         ),
-                        Text("How do I earn",
-                          style: Theme.of(context).textTheme.titleSmall?.copyWith(color: AppColors.blueThemeColor,fontWeight: FontWeight.w500,decoration: TextDecoration.underline),
+                        Text(
+                          "How do I earn",
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(
+                                  color: AppColors.blueThemeColor,
+                                  fontWeight: FontWeight.w500,
+                                  decoration: TextDecoration.underline),
                         ),
-                        SizedBox(height: Get.height * 0.02,),
+                        SizedBox(
+                          height: Get.height * 0.02,
+                        ),
                         Center(
-                            child: Text("£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
-                                style: Theme.of(context).textTheme.displayLarge?.copyWith(fontSize: 30,color: AppColors.blueThemeColor)
-                            )
+                            child: Text(
+                                "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayLarge
+                                    ?.copyWith(
+                                        fontSize: 30,
+                                        color: AppColors.blueThemeColor))),
+                        SizedBox(
+                          height: Get.height * 0.035,
                         ),
-                        SizedBox(height: Get.height * 0.035,),
                         Center(
                           child: MyButton(
-                              title: "Request Withdraw", onTap1: () {
-                            seekerEarningController.getEarningDetails.value.bankAccount ?
-                            Get.to(() =>  const RequestWithdraw()) :
-                            Utils.showMessageDialog(context, "Please add bank account details") ;
-                          }),
+                              title: "Request Withdraw",
+                              onTap1: () {
+                                seekerEarningController
+                                        .getEarningDetails.value.bankAccount
+                                    ? Get.to(() => const RequestWithdraw())
+                                    : Utils.showMessageDialog(context,
+                                        "Please add bank account details");
+                              }),
                         ),
-                        SizedBox(height: Get.height * 0.025,),
+                        SizedBox(
+                          height: Get.height * 0.025,
+                        ),
                         Center(
                           child: GestureDetector(
                             onTap: () {
                               _dialogBuilder(context);
                             },
                             child: Container(
-                              height: Get.height*.075,
+                              height: Get.height * .075,
                               width: 295,
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                   color: Colors.white,
-                                  borderRadius: BorderRadius.circular(60)
-                              ),
-                              child: Text('See Referral Code', style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .bodyMedium
-                                  ?.copyWith(fontWeight: FontWeight.w700,
-                                  fontSize: 16,
-                                  color: Colors.black)),),
+                                  borderRadius: BorderRadius.circular(60)),
+                              child: Text('See Referral Code',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 16,
+                                          color: Colors.black)),
+                            ),
                           ),
                         ),
-                        SizedBox(height: Get.height * 0.04,),
-                        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        SizedBox(
+                          height: Get.height * 0.04,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('All Referral', style: Theme.of(context).textTheme.labelMedium,
+                            Text(
+                              'Transactions',
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
-                            SizedBox(width: Get.width * 0.18,),
-                            Text('Sort by', style: Theme.of(context).textTheme.bodyMedium,
+                            SizedBox(
+                              width: Get.width * 0.18,
                             ),
-                            SizedBox(width: Get.width * 0.02,),
+                            Text(
+                              'Sort by',
+                              style: Theme.of(context).textTheme.bodyMedium,
+                            ),
+                            SizedBox(
+                              width: Get.width * 0.02,
+                            ),
                             Container(
                               height: 40,
                               width: Get.width * 0.26,
                               decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(60)),
-                                border: Border.all(
-                                    width: 1, color: Colors.white),),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(60)),
+                                border:
+                                    Border.all(width: 1, color: Colors.white),
+                              ),
                               child: DropdownButtonHideUnderline(
                                 child: DropdownButton2<String>(
                                   //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                   isExpanded: true,
                                   hint: Text(
                                     'Select',
-                                    style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(fontWeight: FontWeight.w400),
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                   items: items
                                       .map((String item) =>
-                                      DropdownMenuItem<String>(
-                                        value: item,
-                                        child: Text(
-                                          item,
-                                          style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                      ))
+                                          DropdownMenuItem<String>(
+                                            value: item,
+                                            child: Text(
+                                              item,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w400),
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ))
                                       .toList(),
                                   value: selectedValue,
                                   onChanged: (String? value) {
@@ -255,12 +325,17 @@ class _WalletState extends State<Wallet> {
 
                                   menuItemStyleData: const MenuItemStyleData(
                                     height: 40,
-                                    padding: EdgeInsets.only(left: 5, right: 14),
+                                    padding:
+                                        EdgeInsets.only(left: 5, right: 14),
                                   ),
                                 ),
-                              ),)
-                          ],),
-                        const SizedBox(height: 20,),
+                              ),
+                            )
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         // Row(mainAxisAlignment: MainAxisAlignment.center,
                         //   children: [
                         //     GestureDetector(
@@ -399,46 +474,101 @@ class _WalletState extends State<Wallet> {
                         //   ),
                         // ),
                         Container(
+                          height: Get.height*.3,
                           padding: const EdgeInsets.symmetric(horizontal: 30),
-                          height: Get.height*.2,
-                          child: DefaultTabController(
-                            length: 2,
+                          child:  DefaultTabController(
+                            length: 4,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                const TabBar(
+                                TabBar(
                                   tabs: [
                                     Tab(
-                                      text: "EMPLOYEE",
+                                      text: "APP REFERRAL",
                                     ),
                                     Tab(
-                                      text: "EMPLOYER",
+                                      text: "SUBSCRIPTION REFERRAL",
+                                    ),
+                                    Tab(
+                                      text: "EMPLOYMENT REFERRAL",
+                                    ),
+                                    Tab(
+                                      text: "REQUIREMENT REFERRAL",
                                     ),
                                   ],
                                   labelColor: AppColors.blueThemeColor,
                                   unselectedLabelColor: Color(0xffCFCFCF),
                                   indicatorColor: AppColors.blueThemeColor,
-                                  indicatorPadding: EdgeInsets.symmetric(horizontal: 20),
+                                  indicatorPadding:
+                                      EdgeInsets.symmetric(horizontal: 20),
                                 ),
-                                const SizedBox(height: 20),
+                                SizedBox(height: 20),
                                 Expanded(
                                   child: TabBarView(
                                     children: [
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        physics: const BouncingScrollPhysics(),
-                                        itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          // Employee view logic
-                                        },
+                                      const SingleChildScrollView(
+                                        child: Column(children: [
+                                          Text(
+                                            "It is a long established fact that a "
+                                            "reader will be distracted by the readable content of a page when looking at its l"
+                                            "ayout. The point of using Lorem Ipsum is that it has a"
+                                            " more-or-less normal distribution of letters",
+                                          )
+                                        ]),
                                       ),
-                                      ListView.builder(
-                                        shrinkWrap: true,
-                                        itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
-                                        itemBuilder: (BuildContext context, int index) {
-                                          // Employer view logic
-                                        },
-                                      ),
+                                      const Column(children: [
+                                        Text(
+                                          "It is a long established fact that a "
+                                          "reader will be distracted by the readable content of a page when looking at its l"
+                                          "ayout. The point of using Lorem Ipsum is that it has a"
+                                          " more-or-less normal distribution of letters",
+                                        )
+                                      ]),
+                                      const Column(children: [
+                                        Text(
+                                          "It is a long established fact that a "
+                                          "reader will be distracted by the readable content of a page when looking at its l"
+                                          "ayout. The point of using Lorem Ipsum is that it has a"
+                                          " more-or-less normal distribution of letters",
+                                        )
+                                      ]),
+                                      Column(children: [
+                                        Container(
+                                          height: Get.height*.2,
+                                          width: Get.width,
+                                          decoration:  BoxDecoration(
+                                            color: AppColors.textFieldFilledColor,
+                                            borderRadius: BorderRadius.circular(15)
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              SizedBox(height: Get.height*.03,) ,
+                                              Text("Contact Us",style: Theme.of(context).textTheme.titleSmall,),
+                                              TextFormField(
+                                                decoration: InputDecoration(
+
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                        )
+                                      ]),
+
+                                      // ListView.builder(
+                                      //   shrinkWrap: true,
+                                      //   physics: const BouncingScrollPhysics(),
+                                      //   itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
+                                      //   itemBuilder: (BuildContext context, int index) {
+                                      //     // Employee view logic
+                                      //   },
+                                      // ),
+                                      // ListView.builder(
+                                      //   shrinkWrap: true,
+                                      //   itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
+                                      //   itemBuilder: (BuildContext context, int index) {
+                                      //     // Employer view logic
+                                      //   },
+                                      // ),
                                     ],
                                   ),
                                 ),
@@ -446,15 +576,15 @@ class _WalletState extends State<Wallet> {
                             ),
                           ),
                         )
-                      ],),
+                      ],
+                    ),
                   ),
                 ),
               ),
             ),
           );
       }
-    }
-    );
+    });
   }
 
   Future<void> _dialogBuilder(BuildContext context) {
@@ -463,93 +593,123 @@ class _WalletState extends State<Wallet> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-
-          insetPadding: EdgeInsets.only(top: Get.height * .2,left: Get.width * .05 , right: Get.width * .05),
+          insetPadding: EdgeInsets.only(
+              top: Get.height * .2,
+              left: Get.width * .05,
+              right: Get.width * .05),
           backgroundColor: Colors.transparent,
           elevation: 0,
           content: Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),),
+              borderRadius: BorderRadius.circular(12),
+            ),
             // height: Get.height*0.4,
             // width: Get.width*.3,
-            child:  Center(
+            child: Center(
               child: Column(
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       GestureDetector(
-                      onTap: () => Get.back(),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          // gradient: const LinearGradient(
-                          //     colors: [
-                          //       Color(0xff56B8F6),
-                          //       Color(0xff4D6FED)
-                          //     ],begin: Alignment.topCenter,
-                          //     end: Alignment.bottomCenter
-                          //
-                          // ),
-                          color: AppColors.blueThemeColor,
-                          borderRadius: BorderRadius.circular(12),),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        ),),
-                    )],),
-                  SizedBox(height: Get.height*0.002,),
-                  Container(
-                    height: Get.height*0.33,
-                    width: Get.width*1,
-                    decoration: BoxDecoration(color: Color.fromRGBO(52, 52, 52, 1), borderRadius: BorderRadius.circular(12),),
-                    child: Column(children: [
-                      SizedBox(height: Get.height*0.03,),
-                      const Text("Referral Code",style: TextStyle(fontSize: 22,fontWeight:   FontWeight.w700,color: Colors.white )),
-                      SizedBox(height: Get.height*0.03,),
-                      Container(
-                        height: Get.height*0.06,
-                        width: Get.width*0.65,
-                        decoration: BoxDecoration(
-                            color: const Color.fromRGBO(69, 69, 69, 1),
-                            borderRadius: BorderRadius.circular(60)
-                        ),
-                        child:  Center(
-                          child: Text("${seekerEarningController.getEarningDetails.value.referralCode}",style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w500,color: Colors.white )),
-                        ),),
-                      SizedBox(height: Get.height*0.03,),
-                      GestureDetector(
-                        onTap: () {
-                          _copyToClipboard("${seekerEarningController.getEarningDetails.value.referralCode}") ;
-                          Get.back() ;
-                        },
+                        onTap: () => Get.back(),
                         child: Container(
-                          height: Get.height*0.06,
-                          width: Get.width*0.6,
-                          alignment: Alignment.center,
                           decoration: BoxDecoration(
-                              // gradient: const LinearGradient(
-                              //     colors: [
-                              //       Color(0xff56B8F6),
-                              //       Color(0xff4D6FED)
-                              //     ],begin: Alignment.topCenter,
-                              //     end: Alignment.bottomCenter
-                              //
-                              // ),
+                            // gradient: const LinearGradient(
+                            //     colors: [
+                            //       Color(0xff56B8F6),
+                            //       Color(0xff4D6FED)
+                            //     ],begin: Alignment.topCenter,
+                            //     end: Alignment.bottomCenter
+                            //
+                            // ),
                             color: AppColors.blueThemeColor,
-                              borderRadius: BorderRadius.circular(60)
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          child:  const Text('Copy',style: TextStyle(fontSize: 16,fontWeight:   FontWeight.w700,color: Colors.white )),),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          ),
+                        ),
                       )
-                      //  Icon(Icons.close,color: Colors.white,),
-
-
-
-
-                    ],),),
+                    ],
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.002,
+                  ),
+                  Container(
+                    height: Get.height * 0.33,
+                    width: Get.width * 1,
+                    decoration: BoxDecoration(
+                      color: Color.fromRGBO(52, 52, 52, 1),
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: Get.height * 0.03,
+                        ),
+                        const Text("Referral Code",
+                            style: TextStyle(
+                                fontSize: 22,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white)),
+                        SizedBox(
+                          height: Get.height * 0.03,
+                        ),
+                        Container(
+                          height: Get.height * 0.06,
+                          width: Get.width * 0.65,
+                          decoration: BoxDecoration(
+                              color: const Color.fromRGBO(69, 69, 69, 1),
+                              borderRadius: BorderRadius.circular(60)),
+                          child: Center(
+                            child: Text(
+                                "${seekerEarningController.getEarningDetails.value.referralCode}",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.white)),
+                          ),
+                        ),
+                        SizedBox(
+                          height: Get.height * 0.03,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            _copyToClipboard(
+                                "${seekerEarningController.getEarningDetails.value.referralCode}");
+                            Get.back();
+                          },
+                          child: Container(
+                            height: Get.height * 0.06,
+                            width: Get.width * 0.6,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                // gradient: const LinearGradient(
+                                //     colors: [
+                                //       Color(0xff56B8F6),
+                                //       Color(0xff4D6FED)
+                                //     ],begin: Alignment.topCenter,
+                                //     end: Alignment.bottomCenter
+                                //
+                                // ),
+                                color: AppColors.blueThemeColor,
+                                borderRadius: BorderRadius.circular(60)),
+                            child: const Text('Copy',
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white)),
+                          ),
+                        )
+                        //  Icon(Icons.close,color: Colors.white,),
+                      ],
+                    ),
+                  ),
                 ],
               ),
             ),
-
           ),
         );
       },
@@ -560,7 +720,7 @@ class _WalletState extends State<Wallet> {
     Clipboard.setData(ClipboardData(text: textToCopy));
     // Show a snackbar or any other feedback to inform the user that the text has been copied.
     ScaffoldMessenger.of(context).showSnackBar(
-       const SnackBar(
+      const SnackBar(
         shape: StadiumBorder(),
         behavior: SnackBarBehavior.floating,
         elevation: 10,
@@ -590,6 +750,4 @@ class _WalletState extends State<Wallet> {
       }
     }
   }
-
 }
-
