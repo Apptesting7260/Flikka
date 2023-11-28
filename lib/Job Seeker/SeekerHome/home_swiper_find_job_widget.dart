@@ -409,8 +409,18 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data?.jobPositions ?? "",
+                        data?.jobTitle ?? "",
                         style: Theme.of(context).textTheme.displayLarge,
+                      ),
+                      SizedBox(
+                        height: Get.height * .003,
+                      ),
+                      Text(
+                        data?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyMedium!
+                            .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                         softWrap: true,
                       ),
                       SizedBox(

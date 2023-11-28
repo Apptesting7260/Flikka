@@ -73,7 +73,7 @@ class _MarketingInternState extends State<MarketingIntern> {
               },
               child: Image.asset('assets/images/icon_back_blue.png',scale: 4,)),
           elevation: 0,
-          title: Text("${widget.jobData?.jobPositions ?? "Title"}",style: Get.theme.textTheme.displayLarge),
+          title: Text("${widget.jobData?.jobPositions ?? " Title"}",overflow: TextOverflow.ellipsis,style: Get.theme.textTheme.displayLarge),
 
         ),
         body: Padding(
@@ -112,8 +112,15 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.025,
                   ),
                   Text(
-                    "${widget.jobData?.jobPositions}",
+                    "${widget.jobData?.jobTitle}",
                     style:  Get.theme.textTheme.displayLarge,
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.015,
+                  ),
+                  Text(
+                    "${widget.jobData?.jobPositions}",overflow: TextOverflow.ellipsis,
+                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
                     height: Get.height * 0.015,
