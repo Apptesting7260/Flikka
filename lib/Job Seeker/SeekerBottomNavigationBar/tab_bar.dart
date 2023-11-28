@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/bottom_navigation_
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
+import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -55,7 +56,7 @@ class _TabScreenState extends State<TabScreen> {
             onPageChanged: (index) => pageChanged(index),
             children: const [
               FindJobHomeScreen(),
-              Location(),
+              GoogleMapIntegration(),
               CompanySeekerPage(),
               ForumFirstPage(),
               UserProfile(),
