@@ -474,26 +474,27 @@ class _WalletState extends State<Wallet> {
                         //   ),
                         // ),
                         Container(
-                          height: Get.height*.3,
-                          padding: const EdgeInsets.symmetric(horizontal: 30),
+                          height: Get.height*.9,
+                          // padding: const EdgeInsets.symmetric(horizontal: 30),
                           child:  DefaultTabController(
                             length: 4,
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                TabBar(
+                                const TabBar(
+                                  isScrollable: true,
                                   tabs: [
                                     Tab(
-                                      text: "APP REFERRAL",
+                                      child: Text("APP\nREFERRAL",textAlign: TextAlign.center,)
                                     ),
                                     Tab(
-                                      text: "SUBSCRIPTION REFERRAL",
+                                      child: Text("SUBSCRIPTION\nREFERRAL",textAlign: TextAlign.center,)
                                     ),
                                     Tab(
-                                      text: "EMPLOYMENT REFERRAL",
+                                      child: Text("EMPLOYMENT\nREFERRAL",textAlign: TextAlign.center,)
                                     ),
                                     Tab(
-                                      text: "REQUIREMENT REFERRAL",
+                                      child: Text("REQUIREMENT\nREFERRAL",textAlign: TextAlign.center,)
                                     ),
                                   ],
                                   labelColor: AppColors.blueThemeColor,
@@ -534,22 +535,130 @@ class _WalletState extends State<Wallet> {
                                       ]),
                                       Column(children: [
                                         Container(
-                                          height: Get.height*.2,
+                                          height: Get.height*.7,
                                           width: Get.width,
+                                          padding: EdgeInsets.symmetric(horizontal: 10),
                                           decoration:  BoxDecoration(
-                                            color: AppColors.textFieldFilledColor,
+                                            color: Color(0xff353535),
                                             borderRadius: BorderRadius.circular(15)
                                           ),
-                                          child: Column(
-                                            children: [
-                                              SizedBox(height: Get.height*.03,) ,
-                                              Text("Contact Us",style: Theme.of(context).textTheme.titleSmall,),
-                                              TextFormField(
-                                                decoration: InputDecoration(
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(8.0),
+                                            child: Column(
+                                              children: [
+                                                SizedBox(height: Get.height*.03,) ,
+                                                Text("Contact Us",style: Theme.of(context).textTheme.titleSmall,),
+                                                SizedBox(height: Get.height*.03,) ,
+                                                TextFormField(
+                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                  // controller: accountHolderController,
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  decoration: InputDecoration(
+                                                      border:OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(35),
+                                                          borderSide: BorderSide.none,
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Color(0xff454545),
+                                                      hintText: "Name",
 
+                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                  ),
+                                                  onFieldSubmitted: (value) {
+
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null || value.isEmpty) {
+                                                      return 'This field is empty';
+                                                    }
+                                                    return null ;
+                                                  },
                                                 ),
-                                              )
-                                            ],
+                                                SizedBox(height: Get.height*.02,) ,
+                                                TextFormField(
+                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                  // controller: accountHolderController,
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  decoration: InputDecoration(
+                                                      border:OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(35),
+                                                          borderSide: BorderSide.none
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Color(0xff454545),
+                                                      hintText: "Email",
+                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                  ),
+                                                  onFieldSubmitted: (value) {
+
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null || value.isEmpty) {
+                                                      return 'This field is empty';
+                                                    }
+                                                    return null ;
+                                                  },
+                                                ),
+                                                SizedBox(height: Get.height*.02,) ,
+                                                TextFormField(
+                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                  // controller: accountHolderController,
+                                                  style: Theme.of(context).textTheme.bodyMedium,
+                                                  decoration: InputDecoration(
+                                                      border:OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(35),
+                                                          borderSide: BorderSide.none
+                                                      ),
+                                                      filled: true,
+                                                      fillColor: Color(0xff454545),
+                                                      hintText: "Phone",
+                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                  ),
+                                                  onFieldSubmitted: (value) {
+
+                                                  },
+                                                  validator: (value) {
+                                                    if (value == null || value.isEmpty) {
+                                                      return 'This field is empty';
+                                                    }
+                                                    return null ;
+                                                  },
+                                                ),
+                                                SizedBox(height: Get.height*.02,) ,
+                                                TextFormField(maxLines: 5,
+                                                    style: Theme.of(context).textTheme.bodyMedium,
+                                                    decoration: InputDecoration(
+                                                      filled: true,
+                                                      fillColor: Color(0xff454545),
+                                                      hintText: "Message",
+                                                      hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                      contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.06),
+                                                      border: OutlineInputBorder(
+                                                        borderSide: BorderSide.none,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                      ),
+                                                      focusedBorder: OutlineInputBorder(
+                                                        borderSide:BorderSide.none,
+                                                        borderRadius: BorderRadius.circular(15),
+                                                      ),
+                                                      enabledBorder:  OutlineInputBorder(
+                                                        borderRadius: BorderRadius.circular(15),
+                                                        borderSide: BorderSide.none,
+                                                      ),
+                                                    )
+                                                ),
+                                                SizedBox(height: Get.height*.04,) ,
+                                                MyButton(
+                                                  width: Get.width*.45,
+                                                  height: Get.height*.06,
+                                                  title: "Submit", onTap1: () {
+
+                                                },)
+                                              ],
+                                            ),
                                           ),
                                         )
                                       ]),
