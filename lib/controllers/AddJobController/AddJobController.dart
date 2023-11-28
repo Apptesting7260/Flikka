@@ -56,8 +56,8 @@ class AddJobController extends GetxController {
       formData.addIf(jobType != null || jobType.toString().length != 0, "employment_type", jobType) ;
       formData.addIf(workplace != null || workplace.toString().length != 0, "type_of_workplace", workplace) ;
       formData.addIf(requirements != null || requirements.toString().length != 0, "requirements", requirements) ;
-      formData.addIf(yearExperience != null || yearExperience.toString().length != 0, "year_experience", yearExperience) ;
-      formData.addIf(monthExperience != null || monthExperience.toString().length != 0, "month_experience", monthExperience) ;
+      formData.addIf(yearExperience != null || yearExperience.toString().length != 0, "year_experience", yearExperience.toString()) ;
+      formData.addIf(monthExperience != null || monthExperience.toString().length != 0, "month_experience", monthExperience.toString()) ;
       formData.addIf(preferredExperience != null || preferredExperience.toString().length != 0, "preferred_work_experience", preferredExperience) ;
       formData.addIf(qualification != null || qualification.toString().length != 0, "education", qualification) ;
       formData.addIf(language != null || language.toString().length != 0, "language", jsonEncode(language)) ;

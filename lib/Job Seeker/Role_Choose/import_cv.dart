@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 
 class ImportCv extends StatefulWidget {
   final int role ;
-  const ImportCv({Key? key, required this.role}) : super(key: key);
+  const ImportCv({Key? key, required this.role,}) : super(key: key);
 
   @override
   State<ImportCv> createState() => _ImportCvState();
