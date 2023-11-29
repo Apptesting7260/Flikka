@@ -321,6 +321,20 @@ class _AllCandidateState extends State<AllCandidate> {
                                                 SizedBox(
                                                   height: Get.height * .003,),
                                                 Text(candidateStatusData
+                                                    ?.jobTitle ?? "",
+                                                    style: Theme
+                                                        .of(context)
+                                                        .textTheme
+                                                        .bodySmall
+                                                        ?.copyWith(
+                                                        color: const Color(
+                                                            0xffCFCFCF),
+                                                        fontWeight: FontWeight
+                                                            .w600)
+                                                ),
+                                                SizedBox(
+                                                  height: Get.height * .003,),
+                                                Text(candidateStatusData
                                                     ?.jobPositions ?? "",
                                                     style: Theme
                                                         .of(context)

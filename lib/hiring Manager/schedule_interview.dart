@@ -1129,6 +1129,22 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColors.blueThemeColor,
+        toolbarHeight: 75,
+        leading: Padding(
+          padding: const EdgeInsets.only(left: 15.0),
+          child: GestureDetector(
+              onTap: () {
+                Get.back();
+              },
+              child: SvgPicture.asset('assets/images/backiconsvg.svg')),
+        ),
+        elevation: 0,
+        title:  Text(candidateController.candidateData.value.seekerDetails?.fullname ?? "",
+              style: Get.theme.textTheme.headlineSmall!
+                  .copyWith(fontWeight: FontWeight.w700)),
+      ),
       body: Obx(() {
         switch (candidateController.rxRequestStatus.value) {
           case Status.LOADING:
@@ -1170,29 +1186,29 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                       ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 14.0, vertical: 15),
+                            horizontal: 14.0, ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 24.0),
-                              child: Row(
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        Get.back();
-                                      },
-                                      child: SvgPicture.asset(
-                                          'assets/images/backiconsvg.svg')),
-                                  SizedBox(width: Get.width * 0.035,),
-                                  Text(candidateController.candidateData.value.seekerDetails?.fullname ?? "",
-                                      style: Get.theme.textTheme.headlineSmall!
-                                          .copyWith(fontWeight: FontWeight.w700)),
-
-                                ],
-                              ),
-                            ),
-                            SizedBox(height: Get.height * 0.0395,),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(top: 24.0),
+                            //   child: Row(
+                            //     children: [
+                            //       InkWell(
+                            //           onTap: () {
+                            //             Get.back();
+                            //           },
+                            //           child: SvgPicture.asset(
+                            //               'assets/images/backiconsvg.svg')),
+                            //       SizedBox(width: Get.width * 0.035,),
+                            //       Text(candidateController.candidateData.value.seekerDetails?.fullname ?? "",
+                            //           style: Get.theme.textTheme.headlineSmall!
+                            //               .copyWith(fontWeight: FontWeight.w700)),
+                            //
+                            //     ],
+                            //   ),
+                            // ),
+                            SizedBox(height: Get.height * 0.0200,),
                             Column(
                               children: [
                                 Stack(

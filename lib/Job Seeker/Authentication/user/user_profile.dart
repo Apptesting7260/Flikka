@@ -1929,11 +1929,17 @@ class _UserProfileState extends State<UserProfile> {
                                                         child: Image.asset('assets/images/icon_phone_call.png',height: Get.height*.03,)),
                                                     SizedBox(width: Get.width * 0.02,),
                                                     Text('Phone Number', style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.white),),
+
                                                   ],
                                                 ),
-                                                // Image.asset(
-                                                //   "assets/images/icon_edit_phone_number.png",
-                                                //   height: 18,)
+                                                GestureDetector(
+                                                  onTap: () {
+
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/images/icon_edit_phone_number.png",
+                                                    height: 18,),
+                                                )
                                               ],
                                             ),
                                             CommonWidgets.divider() ,
