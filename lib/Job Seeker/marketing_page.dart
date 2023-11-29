@@ -13,7 +13,8 @@ import '../controllers/GetJobsListingController/GetJobsListingController.dart';
 
 class MarketingIntern extends StatefulWidget {
    final dynamic jobData ;
-  const MarketingIntern({super.key, this.jobData});
+   final bool appliedJobScreen ;
+  const MarketingIntern({super.key, this.jobData, required this.appliedJobScreen});
 
   @override
   State<MarketingIntern> createState() => _MarketingInternState();
@@ -270,7 +271,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.055,
                   ),
-
+                  widget.appliedJobScreen ? const SizedBox() :
                   Obx( () => MyButton(
                       loading: applyJobController.loading.value,
                       title: "APPLY NOW",

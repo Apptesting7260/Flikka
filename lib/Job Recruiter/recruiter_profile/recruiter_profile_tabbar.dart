@@ -252,7 +252,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                               Tab(text: "HOME"),
                               Tab(text: "ABOUT",),
                               Tab(text: "JOBS",),
-                              Tab(text: "Review",),
+                              Tab(text: "REVIEW",),
                             ],
                           ),
                           Flexible(
@@ -441,7 +441,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                               Tab(text: "HOME"),
                               Tab(text: "ABOUT",),
                               Tab(text: "JOBS",),
-                              Tab(text: "Review",),
+                              Tab(text: "REVIEW",),
                             ],
                           ),
                           Flexible(

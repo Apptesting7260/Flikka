@@ -287,7 +287,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-              Get.to(() => MarketingIntern(jobData: widget.jobData,));
+              Get.to(() => MarketingIntern(jobData: widget.jobData, appliedJobScreen: false,));
             },
             child: Container(
               decoration:

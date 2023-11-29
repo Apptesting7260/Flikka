@@ -22,6 +22,8 @@ import '../../utils/Constants.dart';
 import '../../utils/MultiSelectField.dart';
 import 'package:http/http.dart' as http;
 
+import '../RecruiterRequiredSkills/required_skills.dart';
+
 
 class AddAJobPage extends StatefulWidget {
   final RecruiterJobsData? recruiterJobsData ;
@@ -166,9 +168,12 @@ class _AddAJobPageState extends State<AddAJobPage> {
             ),
             elevation: 0,
             title: Text( widget.recruiterJobsData != null ? "Edit" : "Add A Job",style: Get.theme.textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700)),
-            // actions: [
-            //   TextButton(onPressed: (){}, child: Text('Post',style: Get.theme.textTheme.labelMedium!.copyWith(color: Color(0xff56B8F6)),))
-            // ],
+            actions: [
+              widget.recruiterJobsData != null ?
+            TextButton(onPressed: (){
+              Get.to( () => RequiredSkills(recruiterJobsData: widget.recruiterJobsData,) , arguments: {"job_id" :widget.recruiterJobsData?.id  });
+            }, child: Text('Skip',style: Get.theme.textTheme.labelMedium!.copyWith(color: AppColors.blueThemeColor),))
+         : const SizedBox() ],
           ),
           body: Form(
             key: _formKey,

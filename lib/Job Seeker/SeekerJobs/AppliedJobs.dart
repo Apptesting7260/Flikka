@@ -110,7 +110,7 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Get.to(() => MarketingIntern(jobData: jobsController.jobsList.value.job?[index],)) ;
+                                Get.to(() => MarketingIntern(jobData: jobsController.jobsList.value.job?[index], appliedJobScreen: true,)) ;
                               },
                               child: ListTile(
                                 leading: CachedNetworkImage(
