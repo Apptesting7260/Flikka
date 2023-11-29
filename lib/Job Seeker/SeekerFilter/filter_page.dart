@@ -7,7 +7,6 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
@@ -194,10 +193,13 @@ class _FilterPageState extends State<FilterPage> {
                             items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
                                 DropdownMenuItem(
                                   value: item.positions,
-                                  child: Text(item.positions ?? '',
-                                    style: Get.theme.textTheme.bodyLarge!
-                                        .copyWith(color: AppColors.white),
-                                    overflow: TextOverflow.ellipsis,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(left: 20),
+                                    child: Text(item.positions ?? '',
+                                      style: Get.theme.textTheme.bodyLarge!
+                                          .copyWith(color: AppColors.white),
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
                                   onTap: () {
                                     setState(() {

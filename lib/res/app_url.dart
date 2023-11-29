@@ -67,5 +67,5 @@ class AppUrl {
   static const String talentPoolList = '$baseUrl/seeker-show-talent-pool' ;
   static const String talentPoolSeeker = '$baseUrl/seeker-talent-pool' ;
   static const String requestedSeekers = '$baseUrl/requested-data' ;
-
+  static const String editMobileNumberSeeker = '$baseUrl/seeker-moblie-update-api' ;
 }

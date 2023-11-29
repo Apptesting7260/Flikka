@@ -23,46 +23,21 @@ class _MarketingInternState extends State<MarketingIntern> {
 
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
   GetJobsListingController getJobsListingController = GetJobsListingController() ;
-
-  late dynamic _jobData;
-
-  @override
-  void initState() {
-    super.initState();
-    _jobData = widget.jobData;
-  }
-
-  Future<void> _refreshData() async {
-    // Fetch new jobData here
-    dynamic newJobData = await widget.jobData(); // Replace with your actual data-fetching function
-
-    // Update the UI with the new jobData
-    setState(() {
-      _jobData = newJobData;
-    });
-  }
-
-  //////refresh//////
-  // RefreshController _refreshController = RefreshController(initialRefresh: false);
-  //
-  // void _onRefresh() async{
-  //   widget.jobData;
-  //   _refreshController.refreshCompleted();
-  // }
-  //
-  // void _onLoading() async{
-  //    widget.jobData;
-  //   if(mounted)
-  //     setState(() {
-  //
-  //     });
-  //   _refreshController.loadComplete();
-  // }
-  /////refresh/////
-
-
+  var years ;
+  var months ;
   @override
   Widget build(BuildContext context) {
+    if( widget.jobData?.workExperience != null &&  widget.jobData?.workExperience.toString().length != 0) {
+      var experience = widget.jobData?.workExperience.toString().split(".");
+      if(experience?.length == 2) {
+       if( experience?[0] != null && experience?[0].length != 0) {
+          years = "${experience?[0]} year";
+        }
+       if( experience?[1] != null && experience?[1].length != 0) {
+          months = "${experience?[1]} month";
+        }
+      }
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
       child: Scaffold(
@@ -116,14 +91,14 @@ class _MarketingInternState extends State<MarketingIntern> {
                     style:  Get.theme.textTheme.displayLarge,
                   ),
                   SizedBox(
-                    height: Get.height * 0.015,
+                    height: Get.height * 0.004,
                   ),
                   Text(
                     "${widget.jobData?.jobPositions}",overflow: TextOverflow.ellipsis,
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
-                    height: Get.height * 0.015,
+                    height: Get.height * 0.004,
                   ),
                   Text(
                     "${widget.jobData?.recruiterDetails?.companyName}",
@@ -155,7 +130,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height * 0.025,),
                   Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text("${widget.jobData?.jobLocation}", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  Text("${widget.jobData?.jobLocation}",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.015,),
                   InkWell(
                       onTap: ()=>Get.to(const GoogleMapIntegration()),
@@ -199,10 +174,10 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  Text(
-                    "${widget.jobData?.workExperience}",
+                  years != null || months != null ?
+                  Text("${years ?? ""} ${ months ?? ""}",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
+                  ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.2,
@@ -216,7 +191,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.typeOfWorkplace}",
+                    "${widget.jobData?.employmentType}",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(
@@ -295,6 +270,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.055,
                   ),
+
                   Obx( () => MyButton(
                       loading: applyJobController.loading.value,
                       title: "APPLY NOW",

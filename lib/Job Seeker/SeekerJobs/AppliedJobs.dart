@@ -1,15 +1,19 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../widgets/app_colors.dart';
+import '../marketing_page.dart';
 
 class SeekerAppliedJobs extends StatefulWidget {
+
   const SeekerAppliedJobs({super.key});
 
   @override
@@ -105,7 +109,9 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                         return Column(
                           children: [
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.to(() => MarketingIntern(jobData: jobsController.jobsList.value.job?[index],)) ;
+                              },
                               child: ListTile(
                                 leading: CachedNetworkImage(
                                   imageUrl: "${data?.featureImg}",
@@ -126,15 +132,19 @@ class _SeekerAppliedJobsState extends State<SeekerAppliedJobs> {
                                 //     radius: 26,
                                 //     backgroundImage: NetworkImage("${data?.featureImg}")
                                 // ),
-                                title: Text(data?.jobPositions ?? '',
+                                title:   Text(data?.jobTitle ?? '',
                                     style: Get.theme.textTheme.labelMedium!
                                         .copyWith(color: AppColors.white)),
+
                                 subtitle: Column( crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    Text(data?.jobPositions ?? '',
+                                        style: Get.theme.textTheme.bodySmall!
+                                            .copyWith(color: Color(0xffCFCFCF))),
                                     Text("${data?.recruiterDetails?.companyName}",
                                         style: Get.theme.textTheme.bodySmall!
                                             .copyWith(color: Color(0xffCFCFCF))),
-                                    Text("${data?.recruiterDetails?.companyLocation}",
+                                    Text("${data?.recruiterDetails?.companyLocation}",overflow: TextOverflow.ellipsis,
                                         style: Get.theme.textTheme.bodySmall!
                                             .copyWith(color: Color(0xffCFCFCF))),
                                   ],

@@ -147,9 +147,12 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                               "Find Job",
                               style:Theme.of(context).textTheme.displaySmall,
                             ),
-                            Text(
-                                seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No Data",
-                               overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.graySilverColor)
+                            SizedBox(
+                              width: Get.width*.35,
+                              child: Text(
+                                  seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No Data",
+                                 overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge!.copyWith(color: AppColors.graySilverColor)
+                              ),
                             )
                           ],
                         ),
