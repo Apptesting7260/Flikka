@@ -20,6 +20,7 @@ import 'package:flikka/models/SkipStepModel/SkipStepModel.dart';
 import 'package:flikka/models/ViewLanguageModel/VIewLanguageModel.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
 import 'package:flikka/res/app_url.dart';
+import '../models/EditMobileNumberModel.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
@@ -193,6 +194,12 @@ class AuthRepository {
     dynamic response = await _apiService.getApi2(AppUrl.showBankDetailsUrl);
     return ShowBankDetailsModel.fromJson(response);
 
+  }
+
+  Future<EditMobileNumberModel> editSeekerMobileNumberApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.editMobileNumberSeeker);
+    return EditMobileNumberModel.fromJson(response);
   }
 
 }

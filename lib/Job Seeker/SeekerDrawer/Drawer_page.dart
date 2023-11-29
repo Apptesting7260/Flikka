@@ -105,7 +105,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                           height: Get.height*.002,
                                         ),
                                         Text(
-                                          "${widget.location}",
+                                          "${widget.location}",overflow: TextOverflow.ellipsis,
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                           textAlign: TextAlign.center,
                                         ),

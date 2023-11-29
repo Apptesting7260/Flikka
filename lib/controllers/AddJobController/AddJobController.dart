@@ -29,8 +29,8 @@ class AddJobController extends GetxController {
       var  requirements ,
       var  jobType ,
       var  workplace ,
-      var  yearExperience ,
-      var  monthExperience ,
+      String?  yearExperience ,
+      String?  monthExperience ,
       var  preferredExperience ,
       var  qualification ,
       var  language ,
@@ -48,20 +48,20 @@ class AddJobController extends GetxController {
       var request = http.MultipartRequest('POST' , url ) ;
 
       var formData = {} ;
-      formData.addIf(jobTitle != null || jobTitle.toString().length != 0, "job_title", jobTitle) ;
-      formData.addIf(position != null || position.toString().length != 0, "job_position", position) ;
-      formData.addIf(specialization != null || specialization.toString().length != 0, "specialization", specialization) ;
-      formData.addIf(location != null || location.toString().length != 0, "job_location", location) ;
-      formData.addIf(description != null || description.toString().length != 0, "description", description) ;
-      formData.addIf(jobType != null || jobType.toString().length != 0, "employment_type", jobType) ;
-      formData.addIf(workplace != null || workplace.toString().length != 0, "type_of_workplace", workplace) ;
-      formData.addIf(requirements != null || requirements.toString().length != 0, "requirements", requirements) ;
-      formData.addIf(yearExperience != null || yearExperience.toString().length != 0, "year_experience", yearExperience.toString()) ;
-      formData.addIf(monthExperience != null || monthExperience.toString().length != 0, "month_experience", monthExperience.toString()) ;
-      formData.addIf(preferredExperience != null || preferredExperience.toString().length != 0, "preferred_work_experience", preferredExperience) ;
-      formData.addIf(qualification != null || qualification.toString().length != 0, "education", qualification) ;
-      formData.addIf(language != null || language.toString().length != 0, "language", jsonEncode(language)) ;
-      formData.addIf(jobId != null || jobId.toString().length != 0, "job_id", jobId) ;
+      formData.addIf(jobTitle != null && jobTitle.toString().length != 0, "job_title", jobTitle) ;
+      formData.addIf(position != null && position.toString().length != 0, "job_position", position) ;
+      formData.addIf(specialization != null && specialization.toString().length != 0, "specialization", specialization) ;
+      formData.addIf(location != null && location.toString().length != 0, "job_location", location) ;
+      formData.addIf(description != null && description.toString().length != 0, "description", description) ;
+      formData.addIf(jobType != null && jobType.toString().length != 0, "employment_type", jobType) ;
+      formData.addIf(workplace != null && workplace.toString().length != 0, "type_of_workplace", workplace) ;
+      formData.addIf(requirements != null && requirements.toString().length != 0, "requirements", requirements) ;
+      formData.addIf(yearExperience != null && yearExperience.length != 0, "year_experience", yearExperience) ;
+      formData.addIf(monthExperience != null && monthExperience.length != 0, "month_experience", monthExperience) ;
+      formData.addIf(preferredExperience != null && preferredExperience.toString().length != 0, "preferred_work_experience", preferredExperience) ;
+      formData.addIf(qualification != null && qualification.toString().length != 0, "education", qualification) ;
+      formData.addIf(language != null && language.toString().length != 0, "language", jsonEncode(language)) ;
+      formData.addIf(jobId != null && jobId.toString().length != 0, "job_id", jobId) ;
 
       formData.forEach((key, value) {
         request.fields[key] = value.toString();

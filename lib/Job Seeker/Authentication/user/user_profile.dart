@@ -24,17 +24,21 @@ import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart' as i;
+import 'package:intl_phone_field/country_picker_dialog.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../controllers/EditMobileNumberController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
@@ -56,6 +60,11 @@ class UserProfile extends StatefulWidget {
 class _UserProfileState extends State<UserProfile> {
 
   SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
+
+  Key myIntlPhoneFieldKey = GlobalKey();
+  String? phoneNumber;
+  bool validPhone = false;
+  var phoneController = TextEditingController();
 
   //////refresh//////
   RefreshController _refreshController =
@@ -167,6 +176,7 @@ class _UserProfileState extends State<UserProfile> {
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
   SeekerGetAllSkillsController seekerGetAllSkillsController = Get.put(SeekerGetAllSkillsController()) ;
+  EditMobileNumberControllerSeeker editMobileNumberController = Get.put(EditMobileNumberControllerSeeker()) ;
 
   final seekerGetAllSkillsData =  SeekerGetAllSkillsModel().obs ;
   String _documentTypeFilePath = '';
@@ -414,6 +424,138 @@ class _UserProfileState extends State<UserProfile> {
       },
     );
   }
+
+  ////mobile number////
+  mobileNumberSection(String? mobile) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        editMobileNumberController.loading.value = false;
+        TextEditingController mobileNumberSectionController = TextEditingController();
+        // mobileNumberSectionController.text = mobile ?? "";
+        return Dialog(
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(22)),
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(height: Get.height * 0.02,),
+                CommonWidgets.textFieldHeading(context, "Phone number"),
+                SizedBox(height: Get.height * 0.01,),
+                // TextField(
+                //
+                //   style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
+                //   onChanged: (String value) {},
+                //   controller: mobileNumberSectionController,
+                //   keyboardType: TextInputType.number,
+                //   // maxLines: 4,
+                //   decoration: InputDecoration(
+                //     filled: true,
+                //     fillColor: const Color(0xff373737),
+                //     border: OutlineInputBorder(
+                //         borderRadius: BorderRadius.circular(33),
+                //         borderSide: BorderSide.none
+                //     ),
+                //     // hintText: 'Mobile number',
+                //     hintStyle: Theme
+                //         .of(context)
+                //         .textTheme
+                //         .bodySmall!
+                //         .copyWith(color: AppColors.white, fontSize: 12),
+                //   ),
+                // ),
+                IntlPhoneField(
+                  flagsButtonPadding:
+                  const EdgeInsets.only(bottom: 3),
+                  autovalidateMode: AutovalidateMode.disabled,
+                  key: myIntlPhoneFieldKey,
+                  controller: mobileNumberSectionController,
+                   initialValue:mobile ,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                  pickerDialogStyle: PickerDialogStyle(
+                    countryNameStyle:
+                    Theme.of(context).textTheme.bodyMedium,
+                  ),
+                  decoration: InputDecoration(
+                    filled: true,
+                    fillColor: const Color(0xff373737),
+                    hintText: "Enter Phone number",
+                    hintStyle: Theme.of(context)
+                        .textTheme
+                        .labelLarge
+                        ?.copyWith(color: const Color(0xffCFCFCF)),
+                    contentPadding: EdgeInsets.symmetric(
+                        vertical: Get.height * .025,
+                        horizontal: Get.width * .07),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(30),
+                        borderSide:  BorderSide.none,
+                    ),
+                  ),
+                  languageCode: "en",
+                  onChanged: (phone) {
+                    phoneNumber = phone.completeNumber;
+                    if (phone.isValidNumber()) {
+                      validPhone = true;
+                    }
+                    debugPrint("this is ========= $phoneNumber");
+                  },
+                  validator: (p0) {
+                    if (p0 != null) {
+                      if (!p0.isValidNumber()) {
+                        return "Invalid number" ;
+                      }
+                    }
+                  },
+                  onCountryChanged: (country) {
+                    print('Country changed to: ${country.name}');
+                    print(country.dialCode + phoneController.text);
+                  },
+                  inputFormatters: [
+                    FilteringTextInputFormatter.digitsOnly
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.02,),
+                Row(mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyButton(
+                      width: 100,
+                      height: 40,
+                      onTap1: () {
+                        Navigator.of(context).pop();
+                      }, title: 'Cancel',
+                    ),
+                    const SizedBox(width: 20,),
+                    Obx(() =>
+                        MyButton(
+                          width: 100,
+                          height: 40,
+                          loading: editMobileNumberController.loading.value,
+                          onTap1: () {
+                            var mobile = mobileNumberSectionController.text ?? "" ;
+                            editMobileNumberController.mobileNumberApi(mobile!, context) ;
+                            // var aboutText = CommonFunctions.changeToHTML(aboutSectionController.text ?? "") ;
+                            // editAboutController.aboutApi(aboutText, context);
+                          },
+                          title: 'Submit',
+                        ),
+                    ),
+                  ],
+                ),
+                SizedBox(height: Get.height * 0.02,),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+  ////mobile number////
+
 
   introSection(String? name,
       String? location,
@@ -1890,7 +2032,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       ),
                                                       SizedBox(height: Get.height * .003,),
                                                       Text(
-                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",
+                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",overflow: TextOverflow.ellipsis,
                                                         style: Theme
                                                             .of(context)
                                                             .textTheme
@@ -1934,7 +2076,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-
+                                                    mobileNumberSection(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ?? "") ;
                                                   },
                                                   child: Image.asset(
                                                     "assets/images/icon_edit_phone_number.png",
