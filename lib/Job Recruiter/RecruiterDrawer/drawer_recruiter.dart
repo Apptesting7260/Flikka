@@ -89,7 +89,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         ),
                                         Text(
                                           viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyLocation ?? "No Data",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                         overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
                                           textAlign: TextAlign.center,
                                         ),
                                       ],
