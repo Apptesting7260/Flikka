@@ -26,6 +26,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _videoPlayerController = VideoPlayerController.network(widget.videoPath);
     await _videoPlayerController.initialize();
     _videoPlayerController.setLooping(true);
+    setState(() {});
   }
 
   void _initializeChewieController() {
@@ -37,6 +38,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
       looping: true,
       // Other customization options can be added here
     );
+    setState(() {});
   }
 
   @override

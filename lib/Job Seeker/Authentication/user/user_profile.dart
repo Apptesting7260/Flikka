@@ -14,6 +14,7 @@ import 'package:flikka/controllers/EditSeekerSoftSkillsController/EditSeekerSoft
 import 'package:flikka/controllers/EditSeekerWorkExperience/EditSeekerWorkExperience.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
+import 'package:flikka/controllers/SeekerUpdateVideoController/SeekerUpdateVideoController.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/models/ViewSeekerProfileModel/ViewSeekerProfileModel.dart';
@@ -23,6 +24,7 @@ import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -36,10 +38,10 @@ import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 import 'package:intl_phone_field/phone_number.dart';
 import 'package:open_file/open_file.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:video_compress/video_compress.dart';
 import '../../../controllers/EditMobileNumberController.dart';
 import '../../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../../models/SearchPlaceModel/SearchPlaceModel.dart';
@@ -1792,6 +1794,7 @@ class _UserProfileState extends State<UserProfile> {
   bool isResume = false;
 
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+  SeekerUpdateVideoController updateVideoController = Get.put(SeekerUpdateVideoController()) ;
 
   @override
   void initState() {
@@ -1949,7 +1952,21 @@ class _UserProfileState extends State<UserProfile> {
                                       const SizedBox() :
                                   GestureDetector(
                                     onTap: () {
-                                   Get.to(() => VideoPlayerScreen(videoPath: seekerProfileController.viewSeekerData.value.seekerInfo!.video!));
+                                      if(seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
+                                          seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0) {
+                                        _startRecording() ;
+                                      } else {
+                                        CommonFunctions.doubleButtonDialog(context,
+                                            message: "Upload or play introduction video",
+                                            onTap1: () {
+                                              Get.to(() => VideoPlayerScreen(videoPath: seekerProfileController.viewSeekerData.value.seekerInfo!.video!));
+                                            },
+                                            onTap2: () {
+                                          _startRecording() ;
+                                            },
+                                            title1: "Play",
+                                            title2: "Upload") ;
+                                      }
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -3196,10 +3213,33 @@ class _UserProfileState extends State<UserProfile> {
     }
   }
 
-  Future<String?> getLocalDownloadDir() async {
-    final directory = await getExternalStorageDirectory();
-    return directory?.path;
+  String videoFilePath = '';
+
+  Future<void> _startRecording() async {
+    final video = await i.ImagePicker().pickVideo(source: i.ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
+    if(video != null) {
+      await compressVideo(video.path);
+    }
   }
 
+  Future<void> compressVideo(String inputPath) async {
+    final MediaInfo? info = await VideoCompress.compressVideo(
+      inputPath,
+      quality: VideoQuality.MediumQuality,
+      deleteOrigin: false,
+    );
 
+    if (kDebugMode) {
+      print('Compressed video path: ${info?.path}');
+    }
+    if(info?.path != null && info?.path?.length != 0 ) {
+      setState(() {
+        videoFilePath = info!.path! ;
+        if (kDebugMode) {
+          print("this is file size ================== ${info.filesize}") ;
+        }
+      });
+      updateVideoController.updateVideo(context,videoFilePath) ;
+    }
+  }
 }

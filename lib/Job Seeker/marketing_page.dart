@@ -28,6 +28,7 @@ class _MarketingInternState extends State<MarketingIntern> {
   var months ;
   @override
   Widget build(BuildContext context) {
+
     if( widget.jobData?.workExperience != null &&  widget.jobData?.workExperience.toString().length != 0) {
       var experience = widget.jobData?.workExperience.toString().split(".");
       if(experience?.length == 2) {
@@ -39,6 +40,7 @@ class _MarketingInternState extends State<MarketingIntern> {
         }
       }
     }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0,vertical: 10),
       child: Scaffold(

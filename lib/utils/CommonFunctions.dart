@@ -123,4 +123,54 @@ class CommonFunctions {
     return parseHTML(formattedParagraphs.join('\n'));
   }
 
+  static doubleButtonDialog (BuildContext context ,
+      { required String message ,
+        required  Function() onTap1 ,
+        required  Function() onTap2 ,
+        required String title1,
+        required String title2,
+      }
+      ) {
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: const Color(0xff373737),
+          shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),
+              borderSide: BorderSide.none),
+          title: Center(
+            child: Text(message,
+              style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w600,fontSize: 13),
+            ),
+          ),
+          content: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                      width: Get.width*.25,
+                      height: Get.height*.05,
+                      // loading: loading,
+                      title: title1,
+                      onTap1: onTap1 ),
+                ],
+              ),
+              Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  MyButton(
+                    width: Get.width*.25,
+                    height: Get.height*.05,
+                    title: title2,
+                    onTap1: onTap2)
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
 }
