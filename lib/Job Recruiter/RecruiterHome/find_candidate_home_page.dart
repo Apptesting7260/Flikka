@@ -50,6 +50,9 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   }
   /////refresh/////
 
+  final List<String> itemsEmp = ['marketing intern','software developer','web developer', 'internship', 'fresher' ,];
+  String? employmentType;
+
   @override
   void initState() {
     homeController.recruiterHomeApi() ;
@@ -120,7 +123,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                     .labelLarge!
                                     .copyWith(color: Color(0xffCFCFCF),
                                     fontWeight: FontWeight.w400)
-                            )
+                            ),
                           ],
                         ),
                         Builder(
@@ -139,6 +142,76 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: Get.height*.03,) ,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                     children: [
+                       Text("Sort By",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14),) ,
+                       const SizedBox(width: 12,) ,
+                       DropdownButtonHideUnderline(
+                         child: DropdownButton2<String>(
+                           // focusNode: jobTypeFocus ,
+                           isExpanded: true,
+                           hint:  Text(
+                             'Select',
+                             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                             overflow: TextOverflow.ellipsis,
+                           ),
+                           items: itemsEmp
+                               .map((String item) => DropdownMenuItem<String>(
+                             value: item,
+                             child: Text(
+                               item,
+                               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
+                               overflow: TextOverflow.ellipsis,
+                             ),
+                           ))
+                               .toList(),
+                           value: employmentType,
+                           onChanged: (String? value) {
+                             setState(() {
+                               employmentType = value;
+                             });
+                           },
+                           buttonStyleData: ButtonStyleData(
+                             height: Get.height*0.06,
+                             width: Get.width*.5,
+                             padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(30),
+
+                               color: Color(0xff353535),
+                             ),
+                             elevation: 2,
+                           ),
+                           iconStyleData:  IconStyleData(
+                             icon: Image.asset('assets/images/arrowdown.png'),
+                             iconSize: 14,
+                             iconEnabledColor: Colors.yellow,
+                             iconDisabledColor: Colors.grey,
+                           ),
+                           dropdownStyleData: DropdownStyleData(
+                             maxHeight: Get.height*0.35,
+                             width: Get.width*0.902,
+                             decoration: BoxDecoration(
+                               borderRadius: BorderRadius.circular(14),
+                               color: const Color(0xff353535),
+                             ),
+                             offset: const Offset(5, 0),
+                             scrollbarTheme: ScrollbarThemeData(
+                               radius:  const Radius.circular(40),
+                               thickness: MaterialStateProperty.all<double>(6),
+                               thumbVisibility: MaterialStateProperty.all<bool>(true),
+                             ),
+                           ),
+                           menuItemStyleData: const MenuItemStyleData(
+                             height: 40,
+                             padding: EdgeInsets.only(left: 14, right: 14),
+                           ),
+                         ),
+                       ),
+                     ],
+                   ) ,
                     Flexible(
                       child: homeController.homeData.value.data == null ||
                           homeController.homeData.value.data?.length == 0 ?

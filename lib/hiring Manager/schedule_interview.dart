@@ -1444,10 +1444,10 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                             .w400),
                                                   ),
                                                   Text("${data?.jobStartDate
-                                                      ?.year}-${data?.jobStartDate
-                                                      ?.month}-${data
+                                                      ?.month}-${data?.jobStartDate
+                                                      ?.day}-${data
                                                       ?.jobStartDate
-                                                      ?.day} - ${data
+                                                      ?.year} - ${data
                                                       ?.jobEndDate}",
                                                     style: Theme
                                                         .of(context)
@@ -1531,11 +1531,11 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                             .w400),
                                                   ),
                                                   Text("${data?.educationStartDate
-                                                      ?.year}-${data
-                                                      ?.educationStartDate
                                                       ?.month}-${data
                                                       ?.educationStartDate
-                                                      ?.day} - ${data
+                                                      ?.day}-${data
+                                                      ?.educationStartDate
+                                                      ?.year} - ${data
                                                       ?.educationEndDate}",
                                                     style: Theme
                                                         .of(context)

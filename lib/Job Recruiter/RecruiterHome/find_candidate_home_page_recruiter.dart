@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterHome/view_candidate_profile.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -220,7 +221,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                     ),
                     Text( widget.recruiterData?.seekerData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
                     SizedBox(height: Get.height * 0.010,),
-                    Text(widget.recruiterData?.location ?? "",
+                    Text(widget.recruiterData?.location ?? "",overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                     SizedBox(
                       height: Get.height * 0.03,
@@ -379,6 +380,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
               ),
             ),
           ),
+
         ],
       ),
     );
