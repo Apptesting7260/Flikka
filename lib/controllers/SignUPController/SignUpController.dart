@@ -150,6 +150,7 @@ class SignUpController extends GetxController {
   void showReferralSubmissionDialog(BuildContext context) {
     SeekerReferralController seekerReferralController = Get.put(SeekerReferralController()) ;
     var controller = TextEditingController() ;
+    var _formKey = GlobalKey<FormState>();
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -159,83 +160,88 @@ class SignUpController extends GetxController {
           contentPadding: EdgeInsets.zero,
           //********** you can't define any value because this is auto value padding added *********
           //insetPadding: EdgeInsets.all(20),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  GestureDetector(
-                    onTap: () => Get.back(),
-                    child: Stack(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.blueThemeColor,
-                          borderRadius: BorderRadius.circular(12),),
-                        child: const Icon(
-                          Icons.close,
-                          color: Colors.white,
-                        ),),
-                    ],
-                    ),
-                  )],),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(color: Color.fromRGBO(52, 52, 52, 1), borderRadius: BorderRadius.circular(12),),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
+          content: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Referral Code',
-                      style: Get.theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700),
-                    ),
-                    SizedBox(height: Get.height * 0.02),
-                    TextFormField(
-                      controller: controller,
-                      style: Theme.of(context).textTheme.bodyMedium,
-                      decoration: InputDecoration(
-                          border:OutlineInputBorder(
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Stack(
+                      children: [
+                        Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.blueThemeColor,
+                            borderRadius: BorderRadius.circular(12),),
+                          child: const Icon(
+                            Icons.close,
+                            color: Colors.white,
+                          ),),
+                      ],
+                      ),
+                    )],),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(color: Color.fromRGBO(52, 52, 52, 1), borderRadius: BorderRadius.circular(12),),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'Referral Code',
+                        style: Get.theme.textTheme.headlineSmall!.copyWith(fontWeight: FontWeight.w700),
+                      ),
+                      SizedBox(height: Get.height * 0.02),
+                      TextFormField(
+                        controller: controller,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                        decoration: InputDecoration(
+                            border:OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(35),
+                                borderSide: BorderSide.none
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xff454545),
+                            hintText: "Enter Referral Code",
+                            focusedBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Color(0xff353535)),
+                            ),
+                            enabledBorder:  OutlineInputBorder(
                               borderRadius: BorderRadius.circular(35),
-                              borderSide: BorderSide.none
-                          ),
-                          filled: true,
-                          fillColor: const Color(0xff454545),
-                          hintText: "Enter Referral Code",
-                          focusedBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff353535)),
-                          ),
-                          enabledBorder:  OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(35),
-                            borderSide: const BorderSide(color: Color(0xff353535)),
-                          ),
-                          errorBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff353535)),
-                          ),
-                          disabledBorder: const OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(35.0)),
-                            borderSide: BorderSide(color: Color(0xff353535)),
-                          ),
-                          hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: const Color(0xffCFCFCF)),
-                          contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                              borderSide: const BorderSide(color: Color(0xff353535)),
+                            ),
+                            errorBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Color(0xff353535)),
+                            ),
+                            disabledBorder: const OutlineInputBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(35.0)),
+                              borderSide: BorderSide(color: Color(0xff353535)),
+                            ),
+                            hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: const Color(0xffCFCFCF)),
+                            contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                        ),
                       ),
-                    ),
-                    SizedBox(height: Get.height * 0.04),
-                    Obx( () => Center(
-                        child: MyButton(title: "SUBMIT",
-                          loading: seekerReferralController.loading.value,
-                          onTap1: () {
-                          seekerReferralController.referralApi(controller.text, role,) ;
-                        },),
+                      SizedBox(height: Get.height * 0.04),
+                      Obx( () => Center(
+                          child: MyButton(title: "SUBMIT",
+                            loading: seekerReferralController.loading.value,
+                            onTap1: () {
+                            if(_formKey.currentState!.validate()) {
+                              seekerReferralController.referralApi(controller.text, role,context) ;
+                            }
+                          },),
+                        ),
                       ),
-                    ),
-                    SizedBox(height: Get.height * 0.02),
-                  ],
+                      SizedBox(height: Get.height * 0.02),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15),

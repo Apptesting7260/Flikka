@@ -16,7 +16,7 @@ class SeekerReferralController extends GetxController {
    referralApi(
       var referralCode ,
       var role ,
-
+       context
       )  {
     loading.value = true ;
     Map data = {
@@ -26,8 +26,10 @@ class SeekerReferralController extends GetxController {
     _api.seekerReferral(data).then((value){
       loading.value = false ;
       print(value);
-      if(value.status!){
+      if(value.status == true){
         Get.off(() => role == 0 ? const LocationPopUp() : ImportCv(role: role)) ;
+      } else if(value.status == false) {
+        Utils.showMessageDialog(context, "Something went wrong") ;
       }
       // Utils.snackBar( "Message",value.message.toString());
     }).onError((error, stackTrace){
