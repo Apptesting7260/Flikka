@@ -1,4 +1,3 @@
-
 import 'package:flikka/utils/Constants.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +10,7 @@ import 'import_cv.dart';
 
 class LocationPopUp extends StatefulWidget {
 
-   const LocationPopUp({Key? key}) : super(key: key);
+  const LocationPopUp({Key? key}) : super(key: key);
 
   @override
   State<LocationPopUp> createState() => _LocationPopUpState();
@@ -31,8 +30,8 @@ class _LocationPopUpState extends State<LocationPopUp> {
                 height: Get.height*.4,
                 width: Get.width,
                 decoration: BoxDecoration(
-                  color: Color(0xff353535),
-                  borderRadius: BorderRadius.circular(22)
+                    color: Color(0xff353535),
+                    borderRadius: BorderRadius.circular(22)
                 ),
                 child: Column(
                   children: [
@@ -68,7 +67,16 @@ class _LocationPopUpState extends State<LocationPopUp> {
                             child: ElevatedButton(
                               onPressed: () async {
                                 var status = await Permission.location.request();
-                                if (status == PermissionStatus.granted) {
+                                LocationPermission permission = await Geolocator.checkPermission();
+                                if (permission == LocationPermission.denied) {
+                                  permission = await Geolocator.requestPermission();
+                                  if (permission == LocationPermission.denied) {
+                                    // Permissions are denied, next steps are up to you.
+                                    return;
+                                  }
+                                }
+
+                                if (permission == LocationPermission.whileInUse || permission == LocationPermission.always ) {
                                   // Get the location
                                   await _getLocation();
                                   // Navigate to the next screen
