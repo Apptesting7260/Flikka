@@ -32,10 +32,10 @@ class _MarketingInternState extends State<MarketingIntern> {
     if( widget.jobData?.workExperience != null &&  widget.jobData?.workExperience.toString().length != 0) {
       var experience = widget.jobData?.workExperience.toString().split(".");
       if(experience?.length == 2) {
-       if( experience?[0] != null && experience?[0].length != 0) {
+       if( experience?[0] != null && experience?[0].length != 0 && experience?[0].toString() != "0") {
           years = "${experience?[0]} year";
         }
-       if( experience?[1] != null && experience?[1].length != 0) {
+       if( experience?[1] != null && experience?[1].length != 0 && experience?[1].toString() != "00") {
           months = "${experience?[1]} month";
         }
       }
