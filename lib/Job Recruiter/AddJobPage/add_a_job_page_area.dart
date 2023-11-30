@@ -53,7 +53,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   String? workplaceType;
 
   final List<String> itemQualificaton = [
-    'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm.phil'
+    'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm. phil'
   ];
   String? qualificatonType;
   List<String> years = ["1","2","3","4","5","6","7","8","9","10",
