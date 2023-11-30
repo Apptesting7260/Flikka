@@ -125,6 +125,17 @@ class _AddAJobPageState extends State<AddAJobPage> {
         languageList = widget.recruiterJobsData?.language?.map((e) => e.languages).toList() ?? [];
         LanguageSelectorState.languages = widget.recruiterJobsData?.language?.map((e) => e.id.toString()).toList() ?? [];
       }
+      if(widget.recruiterJobsData?.workExperience != null && widget.recruiterJobsData?.workExperience?.length != 0){
+          var experience = widget.recruiterJobsData?.workExperience?.split(".");
+          if(experience?.length == 2) {
+            if( experience?[0] != null && experience?[0].length != 0 && experience?[0].toString() != "0") {
+              yearValue = experience?[0];
+            }
+            if( experience?[1] != null && experience?[1].length != 0 && experience?[1].toString() != "00") {
+              monthsValue = experience?[1] ;
+            }
+        }
+      }
 
     }
     super.initState();

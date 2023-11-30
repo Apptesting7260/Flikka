@@ -41,8 +41,24 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
   // }
   // /////refresh/////
 
+  var years ;
+  var months ;
+
   @override
   Widget build(BuildContext context) {
+
+    if( widget.recruiterJobsData?.workExperience != null &&  widget.recruiterJobsData?.workExperience.toString().length != 0) {
+      var experience = widget.recruiterJobsData?.workExperience.toString().split(".");
+      if(experience?.length == 2) {
+        if( experience?[0] != null && experience?[0].length != 0 && experience?[0].toString() != "0") {
+          years = "${experience?[0]} year";
+        }
+        if( experience?[1] != null && experience?[1].length != 0 && experience?[1].toString() != "00") {
+          months = "${experience?[1]} month";
+        }
+      }
+    }
+
     print(widget.recruiterJobsData?.description) ;
     return SafeArea(
       child: Scaffold(
@@ -181,13 +197,14 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.workExperience ?? "",
+                                       years != null || months != null ?
+                                       Text( "${years ?? ""} ${months ?? ""}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
                                               .copyWith(
                                               color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                        ),
+                                        ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Education",
