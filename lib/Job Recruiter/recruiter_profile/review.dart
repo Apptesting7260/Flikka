@@ -14,7 +14,9 @@ class Review extends StatefulWidget {
   final bool isSeeker ;
  final RxList<CompanyReviewsModel>? reviews ;
  final String? recruiterID ;
-  const Review({super.key, required this.isSeeker, this.reviews, this.recruiterID});
+ final String? avgReview ;
+ final String? totalReviews ;
+  const Review({super.key, required this.isSeeker, this.reviews, this.recruiterID, this.avgReview, this.totalReviews});
 
   @override
   State<Review> createState() => _ReviewState();
@@ -23,6 +25,15 @@ class Review extends StatefulWidget {
 class _ReviewState extends State<Review> {
   double ratingValue = 1 ;
   String? totalReviews = "256" ;
+
+  @override
+  void initState() {
+    totalReviews = widget.totalReviews ;
+    if(widget.avgReview != null && widget.avgReview.toString().length != 0) {
+      ratingValue = double.tryParse(widget.avgReview.toString()) ?? 1 ;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,7 +64,6 @@ class _ReviewState extends State<Review> {
                   ignoreGestures: true,
                   initialRating: ratingValue,
                   minRating: 1,
-                  maxRating: ratingValue,
                   direction: Axis.horizontal,
                   itemCount: 5,
                   itemSize: 40.0,

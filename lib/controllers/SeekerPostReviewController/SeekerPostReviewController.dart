@@ -1,13 +1,17 @@
 
+import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:get/get.dart';
+
+import '../SeekerViewCompanyController/SeekerViewCompanyController.dart';
 
 class SeekerPostReviewController extends GetxController {
 
   final _api = SeekerRepository();
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
+  SeekerViewCompanyController seekerViewCompanyController = Get.put(SeekerViewCompanyController()) ;
 
   postReview( String? recruiterID , String? review , String? rating) async{
     loading(true) ;
@@ -20,7 +24,8 @@ class SeekerPostReviewController extends GetxController {
     _api.seekerPostReview(data).then((value){
       loading(false) ;
       if(value.status!){
-        Get.back() ;
+        Get.off(RecruiterProfileTabBar(index: 0,isSeeker: true,recruiterID: recruiterID,)) ;
+        seekerViewCompanyController.viewCompany(recruiterID) ;
         Utils.toastMessage('Post saved') ;
       }
     }).onError((error, stackTrace){

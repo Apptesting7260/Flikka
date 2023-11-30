@@ -58,31 +58,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // SizedBox(
-                //   height: Get.height * .01,
-                // ),
-                // Padding(
-                //   padding: const EdgeInsets.only(top: 24.0),
-                //   child: Row(
-                //     children: [
-                //       InkWell(
-                //           onTap: () {
-                //             Get.back();
-                //           },
-                //           child: SvgPicture.asset(
-                //               'assets/images/backiconsvg.svg')),
-                //       SizedBox(
-                //         width: Get.width * 0.035,
-                //       ),
-                //       Text(widget.recruiterData?.fullname ?? "",
-                //           style: Get.theme.textTheme.headlineSmall!
-                //               .copyWith(fontWeight: FontWeight.w700)),
-                //     ],
-                //   ),
-                // ),
-                // SizedBox(
-                //   height: Get.height * 0.02,
-                // ),
                 Column(
                   children: [
                     Stack(children: [
