@@ -4,13 +4,40 @@ import 'package:video_player/video_player.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoPath;
-  const VideoPlayerScreen({  Key? key, required this.videoPath}) : super(key: key);
+
+  const VideoPlayerScreen({Key? key, required this.videoPath}) : super(key: key);
 
   @override
   VideoPlayerScreenState createState() => VideoPlayerScreenState();
 }
 
 class VideoPlayerScreenState extends State<VideoPlayerScreen> {
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _chewieController;
+
+  @override
+  void initState() {
+    super.initState();
+    _initializeVideoPlayer();
+    _initializeChewieController();
+  }
+
+  Future<void> _initializeVideoPlayer() async {
+    _videoPlayerController = VideoPlayerController.network(widget.videoPath);
+    await _videoPlayerController.initialize();
+    _videoPlayerController.setLooping(true);
+  }
+
+  void _initializeChewieController() {
+    _chewieController = ChewieController(
+      videoPlayerController: _videoPlayerController,
+      autoInitialize: true,
+      aspectRatio: _videoPlayerController.value.aspectRatio,
+      showControlsOnInitialize: false,
+      looping: true,
+      // Other customization options can be added here
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -18,51 +45,17 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
       appBar: AppBar(
         title: const Text('Video Player Screen'),
       ),
-      body: Center(
-        child: PlayerWidget(
-          videoPlayerController: VideoPlayerController.networkUrl(
-            Uri.parse(widget.videoPath),
-          ),
-          looping: true,
-        ),
-      ),
-    );
-  }
-}
-
-class PlayerWidget extends StatefulWidget {
-  final VideoPlayerController videoPlayerController;
-  final bool looping;
-  const PlayerWidget({super.key,  required this.videoPlayerController, this.looping = false, });
-
-  @override
-  PlayerWidgetState createState() => PlayerWidgetState();
-}
-
-class PlayerWidgetState extends State<PlayerWidget> {
-  late ChewieController _chewieController;
-
-  @override
-  void initState() {
-    super.initState();
-    _chewieController = ChewieController(
-      placeholder: const Center(child: CircularProgressIndicator()),
-      videoPlayerController: widget.videoPlayerController,
-      autoInitialize: true,
-      aspectRatio: widget.videoPlayerController.value.aspectRatio,
-      showControlsOnInitialize: false,
-      looping: widget.looping,
-      // Other customization options can be added here
-    );
-  }
-
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Chewie(
-        controller:_chewieController
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return Center(
+            child: _chewieController != null &&
+                _chewieController.videoPlayerController.value.isInitialized
+                ? Chewie(
+              controller: _chewieController,
+            )
+                : const CircularProgressIndicator(),
+          );
+        },
       ),
     );
   }
@@ -70,7 +63,7 @@ class PlayerWidgetState extends State<PlayerWidget> {
   @override
   void dispose() {
     super.dispose();
-    widget.videoPlayerController.dispose();
+    _videoPlayerController.dispose();
     _chewieController.dispose();
   }
 }

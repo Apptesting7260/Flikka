@@ -31,8 +31,10 @@ import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart' as i;
+import 'package:intl_phone_field/countries.dart';
 import 'package:intl_phone_field/country_picker_dialog.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
+import 'package:intl_phone_field/phone_number.dart';
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
@@ -63,7 +65,6 @@ class _UserProfileState extends State<UserProfile> {
 
   Key myIntlPhoneFieldKey = GlobalKey();
   String? phoneNumber;
-  bool validPhone = false;
   var phoneController = TextEditingController();
 
   //////refresh//////
@@ -185,6 +186,7 @@ class _UserProfileState extends State<UserProfile> {
     'passport',
     'id_card',
   ];
+
   skillSection(
       List? list ,
       int number
@@ -432,122 +434,106 @@ class _UserProfileState extends State<UserProfile> {
       builder: (BuildContext context) {
         editMobileNumberController.loading.value = false;
         TextEditingController mobileNumberSectionController = TextEditingController();
-        // mobileNumberSectionController.text = mobile ?? "";
+        var phone = mobile ;
+        bool validPhone = true ;
+        Country? selectedCountry ;
         return Dialog(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(22)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                SizedBox(height: Get.height * 0.02,),
-                CommonWidgets.textFieldHeading(context, "Phone number"),
-                SizedBox(height: Get.height * 0.01,),
-                // TextField(
-                //
-                //   style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 13),
-                //   onChanged: (String value) {},
-                //   controller: mobileNumberSectionController,
-                //   keyboardType: TextInputType.number,
-                //   // maxLines: 4,
-                //   decoration: InputDecoration(
-                //     filled: true,
-                //     fillColor: const Color(0xff373737),
-                //     border: OutlineInputBorder(
-                //         borderRadius: BorderRadius.circular(33),
-                //         borderSide: BorderSide.none
-                //     ),
-                //     // hintText: 'Mobile number',
-                //     hintStyle: Theme
-                //         .of(context)
-                //         .textTheme
-                //         .bodySmall!
-                //         .copyWith(color: AppColors.white, fontSize: 12),
-                //   ),
-                // ),
-                IntlPhoneField(
-                  flagsButtonPadding:
-                  const EdgeInsets.only(bottom: 3),
-                  autovalidateMode: AutovalidateMode.disabled,
-                  key: myIntlPhoneFieldKey,
-                  controller: mobileNumberSectionController,
-                   initialValue:mobile ,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                  pickerDialogStyle: PickerDialogStyle(
-                    countryNameStyle:
-                    Theme.of(context).textTheme.bodyMedium,
-                  ),
-                  decoration: InputDecoration(
-                    filled: true,
-                    fillColor: const Color(0xff373737),
-                    hintText: "Enter Phone number",
-                    hintStyle: Theme.of(context)
-                        .textTheme
-                        .labelLarge
-                        ?.copyWith(color: const Color(0xffCFCFCF)),
-                    contentPadding: EdgeInsets.symmetric(
-                        vertical: Get.height * .025,
-                        horizontal: Get.width * .07),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(30),
-                        borderSide:  BorderSide.none,
-                    ),
-                  ),
-                  languageCode: "en",
-                  onChanged: (phone) {
-                    phoneNumber = phone.completeNumber;
-                    if (phone.isValidNumber()) {
-                      validPhone = true;
-                    }
-                    debugPrint("this is ========= $phoneNumber");
-                  },
-                  validator: (p0) {
-                    if (p0 != null) {
-                      if (!p0.isValidNumber()) {
-                        return "Invalid number" ;
-                      }
-                    }
-                  },
-                  onCountryChanged: (country) {
-                    print('Country changed to: ${country.name}');
-                    print(country.dialCode + phoneController.text);
-                  },
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly
-                  ],
-                ),
-                SizedBox(height: Get.height * 0.02,),
-                Row(mainAxisAlignment: MainAxisAlignment.center,
+            child: StatefulBuilder(
+              builder: (context , setState) {
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    MyButton(
-                      width: 100,
-                      height: 40,
-                      onTap1: () {
-                        Navigator.of(context).pop();
-                      }, title: 'Cancel',
+                    SizedBox(height: Get.height * 0.02,),
+                    CommonWidgets.textFieldHeading(context, "Phone number"),
+                    SizedBox(height: Get.height * 0.01,),
+                    IntlPhoneField(
+                      flagsButtonPadding:
+                      const EdgeInsets.only(bottom: 3),
+                      autovalidateMode: AutovalidateMode.onUserInteraction,
+                      key: myIntlPhoneFieldKey,
+                      controller: mobileNumberSectionController,
+                       initialValue:mobile ,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      pickerDialogStyle: PickerDialogStyle(
+                        countryNameStyle:
+                        Theme.of(context).textTheme.bodyMedium,
+                      ),
+                      decoration: InputDecoration(
+                        filled: true,
+                        fillColor: const Color(0xff373737),
+                        hintText: "Enter Phone number",
+                        hintStyle: Theme.of(context)
+                            .textTheme
+                            .labelLarge
+                            ?.copyWith(color: const Color(0xffCFCFCF)),
+                        contentPadding: EdgeInsets.symmetric(
+                            vertical: Get.height * .025,
+                            horizontal: Get.width * .07),
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30),
+                            borderSide:  BorderSide.none,
+                        ),
+                      ),
+                      languageCode: "en",
+                      onChanged: (PhoneNumber value) {
+                        if(!value.isValidNumber()) {
+                          validPhone = false ;
+                        }else {
+                          validPhone = true ;
+                        }
+                          phone = value.completeNumber;
+                          debugPrint("this is ========= $validPhone");
+
+                          setState(() {});
+                      },
+                      onCountryChanged: (country) {
+                        setState(() {
+                          selectedCountry = country ;
+                        });
+                        print('Country changed to: ${country.name}');
+                        print(country.dialCode + phoneController.text);
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                     ),
-                    const SizedBox(width: 20,),
-                    Obx(() =>
+                    SizedBox(height: Get.height * 0.02,),
+                    Row(mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
                         MyButton(
                           width: 100,
                           height: 40,
-                          loading: editMobileNumberController.loading.value,
                           onTap1: () {
-                            var mobile = mobileNumberSectionController.text ?? "" ;
-                            editMobileNumberController.mobileNumberApi(mobile!, context) ;
-                            // var aboutText = CommonFunctions.changeToHTML(aboutSectionController.text ?? "") ;
-                            // editAboutController.aboutApi(aboutText, context);
-                          },
-                          title: 'Submit',
+                            Navigator.of(context).pop();
+                          }, title: 'Cancel',
                         ),
+                        const SizedBox(width: 20,),
+                        Obx(() =>
+                            MyButton(
+                              width: 100,
+                              height: 40,
+                              loading: editMobileNumberController.loading.value,
+                              onTap1: () {
+                                if(validPhone) {
+                                  editMobileNumberController.mobileNumberApi(phone ?? "", context) ;
+                                }
+
+                              },
+                              title: 'Submit',
+                            ),
+                        ),
+                      ],
                     ),
+                    SizedBox(height: Get.height * 0.02,),
                   ],
-                ),
-                SizedBox(height: Get.height * 0.02,),
-              ],
+                );
+              }
             ),
           ),
         );
