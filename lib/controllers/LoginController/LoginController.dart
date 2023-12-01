@@ -39,6 +39,7 @@ class LoginController extends GetxController {
       print(sp.getString("BarrierToken"));
 
       if (value.status == true) {
+        sp.setInt("step", value.role) ;
         if (value.role == 0) {
           value.step == 1
               ? Get.offAll(() => const ChoosePosition())

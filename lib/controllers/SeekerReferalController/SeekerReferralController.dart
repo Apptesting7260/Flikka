@@ -27,7 +27,7 @@ class SeekerReferralController extends GetxController {
       loading.value = false ;
       print(value);
       if(value.status == true){
-        Get.off(() => role == 0 ? const LocationPopUp() : ImportCv(role: role)) ;
+        Get.off(() => LocationPopUp(role: role )) ;
       } else if(value.status == false) {
         Utils.showMessageDialog(context, "Something went wrong") ;
       }

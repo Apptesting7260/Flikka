@@ -29,7 +29,6 @@ class _LoginState extends State<Login> {
     return emailRegex.hasMatch(email);
   }
   bool _isPasswordVisible = false;
-  bool _isRememberMe = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +59,7 @@ class _LoginState extends State<Login> {
                       borderRadius: BorderRadius.circular(35),
                     ),
                     filled: true,
-                    fillColor: Color(0xffFFFFFF),
+                    fillColor: const Color(0xffFFFFFF),
                     hintText: "Enter your email",
                     hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Color(0xff000000),fontWeight: FontWeight.w500),
                   ),
@@ -92,7 +91,6 @@ class _LoginState extends State<Login> {
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(35),
                       ),
-
                       filled: true,
                       fillColor: Color(0xffFFFFFF),
                       hintText: "Enter your password",

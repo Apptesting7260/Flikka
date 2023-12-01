@@ -31,6 +31,8 @@ class LogoutController extends GetxController {
       if(logoutModel.status == true) {
         sp.remove("BarrierToken") ;
         sp.remove("loggedIn") ;
+        sp.remove("step") ;
+        sp.clear() ;
         Get.offAll( () => const Login()) ;
       }
     }catch(e){

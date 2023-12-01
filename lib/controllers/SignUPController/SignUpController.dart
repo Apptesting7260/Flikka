@@ -56,6 +56,7 @@ class SignUpController extends GetxController {
        id = value.id.toString();
        if(value.status){
          sp.setString("BarrierToken", value.token) ;
+         sp.setInt("step", 1) ;
          showReferralCodeDialog(context) ;
        }else{
          errorMessage.value = value.message.toString() ;
@@ -122,7 +123,7 @@ class SignUpController extends GetxController {
                               ),
                             ),
                             onPressed: () {
-                             Get.off(() => role == 0 ?  const LocationPopUp() : ImportCv(role: role,)) ;
+                             Get.off(() => LocationPopUp( role: role )) ;
                             },
                             child: Text(
                               'NO',
