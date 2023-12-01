@@ -179,7 +179,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                              padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
                              decoration: BoxDecoration(
                                borderRadius: BorderRadius.circular(30),
-
+                               border: Border.all(color: Color(0xff686868)),
                                color: Color(0xff353535),
                              ),
                              elevation: 2,

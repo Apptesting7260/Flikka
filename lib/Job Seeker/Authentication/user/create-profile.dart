@@ -1913,11 +1913,15 @@ class _CreateProfileState extends State<CreateProfile> {
                                             width: Get.width * .07,
                                             height: Get.height * .06,
                                           )
-                                        : Image.asset(
+                                        : _filePath.contains(".pdf") ? Image.asset(
                                             "assets/images/icon_uploded_cv.png",
                                             width: Get.width * .07,
                                             height: Get.height * .06,
-                                          ),
+                                          ) : Image.asset(
+                                      "assets/images/icon_document_uploded.png",
+                                      width: Get.width * .07,
+                                      height: Get.height * .06,
+                                    ),
                                     SizedBox(width: Get.width * .04),
                                     if (_filePath.isNotEmpty)
                                       SizedBox(

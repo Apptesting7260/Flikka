@@ -350,7 +350,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                                   height: Get.height * .003,),
                                                 Text(
                                                   data?.seekerData?.location ??
-                                                      "", style: Theme
+                                                      "",overflow: TextOverflow.ellipsis, style: Theme
                                                     .of(context)
                                                     .textTheme
                                                     .labelLarge

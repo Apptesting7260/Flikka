@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar_null_safe/table_calendar_null_safe.dart';
 
+import '../../utils/CommonWidgets.dart';
+
 class CalendarScreen extends StatefulWidget {
  final String? requestID ;
   const CalendarScreen({super.key, this.requestID});
@@ -150,6 +152,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                   ],
                 ),
               ),
+
               SizedBox(height: Get.height*.035,),
               Container(
                 decoration: BoxDecoration(
@@ -240,6 +243,32 @@ class CalendarScreenState extends State<CalendarScreen> {
               //     ),
               //   ],
               // ),
+              TextFormField(
+
+                // controller: SignUpControllerInstanse.nameController.value,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),
+                decoration: InputDecoration(
+                    border:OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(35),
+                      borderSide: BorderSide.none
+                    ),
+                    filled: true,
+                    fillColor: const Color(0xff373737),
+                    hintText: "Enter your link",
+                    hintStyle: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w500),
+                    contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                ),
+                // onFieldSubmitted: (value) {
+                //
+                // },
+                // validator: (value) {
+                //   if (value == null || value.isEmpty) {
+                //     return 'Please enter your link';
+                //   }
+                //   return null;
+                // },
+              ),
               const SizedBox(height: 25,) ,
               Obx( () => MyButton(
                   width: Get.width*.7,
