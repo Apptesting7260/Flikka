@@ -2,6 +2,7 @@
 import 'dart:convert';
 
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../Job Seeker/Authentication/user/create-profile.dart';
 import '../../repository/Auth_Repository.dart';
 import '../../utils/utils.dart';
@@ -21,12 +22,11 @@ class SeekerChooseSkillsController extends GetxController {
       var maxSalaryExpectation  ,
       List? startWork ,
       List? availability
-     ) {
+     ) async {
 
     loading(true) ;
 
     var data = {
-
       "skill_id" : jsonEncode(skills) ,
       "strength_id" : jsonEncode(strengths),
       "passion_id" : jsonEncode(passion),
@@ -37,13 +37,10 @@ class SeekerChooseSkillsController extends GetxController {
       "availabity_id" : jsonEncode(availability),
     };
     print(skills.toString());
-
+    SharedPreferences sp = await SharedPreferences.getInstance() ;
     _api.seekerChooseSkillsApi(data).then((value){
       loading(false) ;
-      // print(value);
-
-      // Utils.snackBar( "Message",value.message.toString());
-
+      sp.setInt("step", 3) ;
       Get.to(() => const CreateProfile());
 
     }).onError((error, stackTrace){

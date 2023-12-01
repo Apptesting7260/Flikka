@@ -9,8 +9,8 @@ import 'package:permission_handler/permission_handler.dart';
 import 'import_cv.dart';
 
 class LocationPopUp extends StatefulWidget {
-
-  const LocationPopUp({Key? key}) : super(key: key);
+ final int role ;
+  const LocationPopUp({Key? key, required this.role}) : super(key: key);
 
   @override
   State<LocationPopUp> createState() => _LocationPopUpState();
@@ -52,7 +52,7 @@ class _LocationPopUpState extends State<LocationPopUp> {
                             width: Get.width*.37,
                             child: ElevatedButton(
                               onPressed: () {
-                                Get.to(() =>  ImportCv(role: role,));
+                                Get.to(() =>  ImportCv(role: widget.role,));
                               },
                               style: ElevatedButton.styleFrom(
                                   primary: Color(0xff353535),
@@ -80,7 +80,7 @@ class _LocationPopUpState extends State<LocationPopUp> {
                                   // Get the location
                                   await _getLocation();
                                   // Navigate to the next screen
-                                  Get.to(() => ImportCv(role: role,));
+                                  Get.to(() => ImportCv(role: widget.role,));
                                 } else {
                                   // Handle the case when location permission is denied
                                   // You can show a message or take other actions here

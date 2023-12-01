@@ -2,13 +2,16 @@ class SeekerChoosePositionModel {
   SeekerChoosePositionModel({
      this.status,
      this.message,
+    this.step
   });
    bool ?status;
    String ?message;
+   int? step ;
 
   SeekerChoosePositionModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
+    step = json["step"] ;
   }
 
   Map<String, dynamic> toJson() {

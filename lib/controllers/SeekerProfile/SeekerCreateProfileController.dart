@@ -78,6 +78,7 @@ class SeekerCreateProfileController extends GetxController {
       if(response.statusCode == 200) {
         print(responseData) ;
         sp.setString("loggedIn", "seeker") ;
+        sp.setInt("step", 4) ;
         Get.offAll(const TabScreen(index: 4));
       }
      else {

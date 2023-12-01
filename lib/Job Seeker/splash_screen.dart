@@ -1,9 +1,13 @@
 import 'dart:async';
 import 'package:flikka/Job%20Seeker/Authentication/login.dart';
+import 'package:flikka/Job%20Seeker/Role_Choose/location_pop_up.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../Job Recruiter/bottom_bar/tab_bar.dart';
+import 'Authentication/user/create-profile.dart';
+import 'Role_Choose/choose_position.dart';
+import 'Role_Choose/choose_skills.dart';
 import 'SeekerBottomNavigationBar/tab_bar.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -22,9 +26,19 @@ class _SplashScreenState extends State<SplashScreen> {
         () async {
           SharedPreferences sp = await SharedPreferences.getInstance();
           if(sp.getString("loggedIn") == "recruiter") {
-            Get.offAll( () => TabScreenEmployer(index: 0,)) ;
+            if(  sp.getInt("step") == 1) {
+              Get.offAll(() => const LocationPopUp(role: 1)) ;
+            } else {
+            Get.offAll( () => TabScreenEmployer(index: 0,)) ; }
           } else if (sp.getString("loggedIn") == "seeker") {
-            Get.offAll(const TabScreen(index: 0)) ;
+            if(  sp.getInt("step") == 1) {
+              Get.offAll(() => const LocationPopUp(role: 0)) ;
+            } else if (sp.getInt("step") == 2) {
+              Get.offAll(() => const ChooseSkills()) ;
+            } else if(sp.getInt("step") == 3) {
+              Get.offAll(() => const CreateProfile()) ;
+            } else {
+            Get.offAll(const TabScreen(index: 0)) ; }
           } else {
             Get.off(() => const Login());
           }

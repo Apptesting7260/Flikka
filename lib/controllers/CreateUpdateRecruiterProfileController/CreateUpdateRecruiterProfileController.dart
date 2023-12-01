@@ -53,7 +53,7 @@ class CreateUpdateRecruiterProfileController extends GetxController {
       if(coverPath != null && coverPath.length != 0) {
         request.files.add(await http.MultipartFile.fromPath("cover_img" , coverPath )) ;
       }
-      SharedPreferences sp=await SharedPreferences.getInstance();
+      SharedPreferences sp = await SharedPreferences.getInstance();
       request.headers["Authorization"] =" Bearer ${sp.getString("BarrierToken")}";
       var response = await request.send() ;
       print(response.statusCode) ;
@@ -64,6 +64,7 @@ class CreateUpdateRecruiterProfileController extends GetxController {
       if(response.statusCode == 200) {
         print(responseData) ;
         sp.setString("loggedIn", "recruiter") ;
+        sp.setInt("step", 2) ;
         Get.offAll(TabScreenEmployer(index: 4,));
       }
       else {

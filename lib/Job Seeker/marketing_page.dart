@@ -186,53 +186,22 @@ class _MarketingInternState extends State<MarketingIntern> {
                     color: Colors.grey,
                     thickness: 0.2,
                   ),
-
-                  const Text(
-                    "Job Type",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                    "${widget.jobData?.employmentType}",
-                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0.2,
-                  ),
-
-                  const Text(
-                    "Specialization",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                    "${widget.jobData?.specialization}",
-                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0.2,
-                  ),
-                  const Text(
-                    "Type of workplace",
-                    style: TextStyle(color: Colors.white, fontSize: 14),
-                  ),
-                  SizedBox(
-                    height: Get.height * 0.015,
-                  ),
-                  Text(
-                    "${widget.jobData?.typeOfWorkplace}",
-                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
-                  const Divider(
-                    color: Colors.grey,
-                    thickness: 0.2,
-                  ),
+                  const Text("Job Type", style: TextStyle(color: Colors.white, fontSize: 14),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text("${widget.jobData?.employmentType}",
+                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  const Divider(color: Colors.grey, thickness: 0.2,),
+                  const Text("Specialization", style: TextStyle(color: Colors.white, fontSize: 14),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text("${widget.jobData?.specialization}",
+                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  const Divider(color: Colors.grey, thickness: 0.2,),
+                  const Text("Type of workplace",
+                    style: TextStyle(color: Colors.white, fontSize: 14),),
+                  SizedBox(height: Get.height * 0.015,),
+                  Text("${widget.jobData?.typeOfWorkplace}",
+                    style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text(
                     "Preferred work experience",
                     style: TextStyle(color: Colors.white, fontSize: 14),
