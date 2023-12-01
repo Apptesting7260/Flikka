@@ -215,10 +215,16 @@ class _CreateProfileState extends State<CreateProfile> {
         case Status.ERROR:
           if (viewLanguageController.error.value == 'No internet') {
             return InterNetExceptionWidget(
-              onPress: () {},
+              onPress: () {
+                viewLanguageController.viewLanguageApi();
+                LanguageSelectorState.languages = [];
+              },
             );
           } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {}));
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              viewLanguageController.viewLanguageApi();
+              LanguageSelectorState.languages = [];
+            }));
           }
         case Status.COMPLETED:
           return SafeArea(

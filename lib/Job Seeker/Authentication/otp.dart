@@ -135,6 +135,7 @@ class OtpScreenState extends State<OtpScreen> {
                                        textDirection: TextDirection.ltr,
                                        child: Flexible(
                                          child: Pinput(
+                                           keyboardType: TextInputType.number,
                                            length: 6,
                                            controller: VerifyOtpControllerInstanse.otpController.value,
                                            focusNode: focusNode,
