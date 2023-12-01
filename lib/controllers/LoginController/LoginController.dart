@@ -48,15 +48,11 @@ class LoginController extends GetxController {
                   : value.step == 3
                       ? Get.offAll(() => const CreateProfile())
                       : Get.offAll(const TabScreen(index: 0)) ;
-          if(value.step == 4 || value.step != 1 || value.step != 2 || value.step != 3 ) {
             sp.setString("loggedIn", "seeker");
-          }
         } else if (value.role == 1) {
           value.step == 1 ? Get.offAll( () => const RecruiterProfileEdit()) :
               Get.offAll( () => TabScreenEmployer(index: 0,)) ;
-          if(value.step != 1) {
             sp.setString("loggedIn", "recruiter");
-          }
         }
       }
       else {

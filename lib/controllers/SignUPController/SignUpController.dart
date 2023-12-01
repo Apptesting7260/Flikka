@@ -56,6 +56,12 @@ class SignUpController extends GetxController {
        id = value.id.toString();
        if(value.status){
          sp.setString("BarrierToken", value.token) ;
+         if(role == 0) {
+           sp.setString("loggedIn" , "seeker") ;
+         }else{
+           sp.setString("loggedIn" , "recruiter") ;
+         }
+
          sp.setInt("step", 1) ;
          showReferralCodeDialog(context) ;
        }else{
