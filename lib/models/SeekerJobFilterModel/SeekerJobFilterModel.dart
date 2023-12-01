@@ -51,6 +51,8 @@ class SeekerFilteredJobsList {
   List<LanguageName>? languageName;
   JobsDetail? jobsDetail;
   RecruiterDetails? recruiterDetails;
+  dynamic lat ;
+  dynamic long ;
 
   SeekerFilteredJobsList({
     this.id,
@@ -75,6 +77,8 @@ class SeekerFilteredJobsList {
     this.languageName,
     this.jobsDetail,
     this.recruiterDetails,
+    this.lat,
+    this.long,
   });
 
   factory SeekerFilteredJobsList.fromJson(Map<String, dynamic> json) => SeekerFilteredJobsList(
@@ -100,6 +104,8 @@ class SeekerFilteredJobsList {
     languageName: json["language_name"] == null ? json["language_name"] : List<LanguageName>.from(json["language_name"].map((x) => LanguageName.fromJson(x))),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
+    lat: json["lat"],
+    long: json["long"],
   );
 
   Map<String, dynamic> toJson() => {

@@ -118,18 +118,10 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   HtmlWidget(widget.jobData?.description ?? '',textStyle:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)) ,),
-                  // Text(
-                  //  CommonFunctions.parseHTML( widget.jobData?.description ?? '' ) ?? '',
-                  //   style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
-                  // ),
-                  SizedBox(
-                    height: Get.height * 0.03,
-                  ),
+                  SizedBox(height: Get.height * 0.03,),
                   Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
                   HtmlWidget(widget.jobData?.requirements ?? '',textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
-                  // Text(CommonFunctions.parseHTML( widget.jobData?.requirements ?? '' ) ?? '',
-                  //   style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.025,),
                   Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
@@ -140,7 +132,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                       child: SizedBox( height: Get.height * 0.3,
                           child: const GoogleMapIntegration(jobPageView: true,))),
                   SizedBox(height: Get.height * 0.035,),
-                  Text("Informations", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
+                  Text("Information", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
                   Text("Position", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(

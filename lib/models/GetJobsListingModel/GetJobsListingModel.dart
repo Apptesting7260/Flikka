@@ -51,6 +51,8 @@ class SeekerJobsData {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
+  dynamic lat ;
+  dynamic long ;
   dynamic jobMatchPercentage ;
   List<LanguageModel>? languages ;
   RecruiterDetails? recruiterDetails;
@@ -77,6 +79,8 @@ class SeekerJobsData {
     this.recruiterDetails,
     this.jobsDetail,
     this.jobMatchPercentage ,
+    this.lat ,
+    this.long
   });
 
   factory SeekerJobsData.fromJson(Map<String, dynamic> json) => SeekerJobsData(
@@ -99,7 +103,9 @@ class SeekerJobsData {
     jobPositions: json["job_positions"],
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),
-    jobMatchPercentage: json["job_match_percentage"]
+    jobMatchPercentage: json["job_match_percentage"],
+      lat: json["lat"],
+      long: json["long"],
   );
 
   Map<String, dynamic> toJson() => {
