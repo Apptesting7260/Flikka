@@ -20,7 +20,6 @@ import '../../widgets/my_button.dart';
 class SignUpController extends GetxController {
 
   final _api = AuthRepository();
-
   final emailController=TextEditingController().obs;
   final passwordController=TextEditingController().obs;
   final nameController=TextEditingController().obs;

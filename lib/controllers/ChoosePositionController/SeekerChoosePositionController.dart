@@ -34,7 +34,6 @@ class SeekerChoosePositionController extends GetxController {
       loading.value = false ;
       print(value);
       print("dataaaaa");
-
       // Utils.snackBar( "Message",value.message.toString());
 
       Get.to(() => const ChooseSkills());

@@ -136,8 +136,9 @@ class _MarketingInternState extends State<MarketingIntern> {
                   Text("${widget.jobData?.jobLocation}",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.015,),
                   InkWell(
-                      onTap: ()=>Get.to(const GoogleMapIntegration()),
-                      child: Image.asset('assets/images/Map.png')),
+                      // onTap: ()=>Get.to(const GoogleMapIntegration()),
+                      child: SizedBox( height: Get.height * 0.3,
+                          child: const GoogleMapIntegration(jobPageView: true,))),
                   SizedBox(height: Get.height * 0.035,),
                   Text("Informations", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
@@ -179,7 +180,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   ),
                   years != null || months != null ?
                   Text("${years ?? ""} ${ months ?? ""}",
-                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
+                    style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
                   const Divider(
                     color: Colors.grey,

@@ -13,6 +13,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../bottom_bar/tab_bar.dart';
@@ -75,12 +76,17 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
       viewRecruiterProfileController.viewRecruiterProfileApi();
     } else {
       seekerViewCompanyController.viewCompany(widget.recruiterID) ;
-      name = Get.arguments["SeekerName"] ;
-      location = Get.arguments["seekerLocation"] ;
-      position =  Get.arguments["seekerPosition"] ;
-      profileImg =  Get.arguments["seekerProfileImg"] ;
+      initializeSeeker() ;
     }
     super.initState();
+  }
+
+  initializeSeeker () async {
+    SharedPreferences sp = await SharedPreferences.getInstance() ;
+    name = sp.getString("seekerName") ;
+    location = sp.getString("seekerLocation") ;
+    position = sp.getString("seekerPosition") ;
+    profileImg = sp.getString("seekerProfileImg") ;
   }
 
   @override

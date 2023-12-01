@@ -136,12 +136,6 @@ void showSkipDialog(BuildContext context) {
                         height: Get.height,
                         width: Get.width,
                         decoration: const BoxDecoration(
-                          // gradient: LinearGradient(
-                          //   // colors: [Color(0xff56B8F6), Color(0xff4D6FED)],
-                          //   colors: [Color(0xff2386C7), Color(0xff4D6FED)],
-                          //   begin: Alignment.topLeft,
-                          //   end: Alignment.bottomRight,
-                          // ),
                             color: AppColors.blueThemeColor
                         ),
                         child: Column(

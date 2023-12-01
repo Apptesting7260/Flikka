@@ -69,4 +69,5 @@ class AppUrl {
   static const String requestedSeekers = '$baseUrl/requested-data' ;
   static const String editMobileNumberSeeker = '$baseUrl/seeker-moblie-update-api' ;
   static const String seekerUpdateVideo = '$baseUrl/seeker-short_video-edit' ;
+  static const String seekerNearByJobs = '$baseUrl/nearby-jobs' ;
 }

@@ -67,6 +67,7 @@ class _ReviewState extends State<Review> {
                   direction: Axis.horizontal,
                   itemCount: 5,
                   itemSize: 40.0,
+                  allowHalfRating: true,
                   itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber,),
                   onRatingUpdate: (rating) {},
                 ),
@@ -98,6 +99,17 @@ class _ReviewState extends State<Review> {
                         textTheme.titleSmall?.copyWith(color: const Color(0xffFFFFFF),fontWeight: FontWeight.w700),),
                         subtitle: Text(data?.seekerDetailsInfo?[0].positions ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge?.
                         copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)),
+                        trailing:   RatingBar.builder(
+                          ignoreGestures: true,
+                          initialRating: double.tryParse("${data?.stars}") ?? 1,
+                          minRating: 1,
+                          direction: Axis.horizontal,
+                          itemCount: 5,
+                          itemSize: 12.0,
+                          allowHalfRating: true,
+                          itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber,),
+                          onRatingUpdate: (rating) {},
+                        ),
                       ) ,
                        HtmlWidget(data?.description ?? "",textStyle:Theme.of(context).textTheme.labelLarge?.
                        copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400),),
