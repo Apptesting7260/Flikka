@@ -327,7 +327,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                 markerId: MarkerId("${data?.id}"),
                 position: LatLng(double.parse("${data?.lat}"), double.parse("${data?.long}")) ,
                 infoWindow: InfoWindow(title: "${data?.recruiterDetails?.companyName}") ,
-                icon: await getMarkerIcon("${data?.featureImg}",40),
+                icon: await getMarkerIcon("assets/images/icon_map.png",5),
                 onTap: () async {
                   debugPrint("tapped") ;
                  Get.to( () => MarketingIntern( jobData: data,appliedJobScreen: false)) ;
@@ -341,33 +341,11 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     }
   }
 
-  Future<BitmapDescriptor> getMarkerIcon(String imageURL, double size) async {
-    final Completer<BitmapDescriptor> completer = Completer<BitmapDescriptor>();
+  Future<BitmapDescriptor> getMarkerIcon(String assetName, double size) async {
+    final ByteData data = await rootBundle.load(assetName);
+    final Uint8List bytes = data.buffer.asUint8List();
 
-    final ImageConfiguration configuration =  ImageConfiguration();
-    final ImageProvider<Object> provider = CachedNetworkImageProvider(imageURL, maxHeight: 50 , maxWidth: 50);
-
-    // Add a post-frame callback to capture the image when it's ready
-    WidgetsBinding.instance.addPostFrameCallback((_) async {
-      // Resolve the image
-      final ImageStreamListener listener = ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) async {
-        // Convert the image to bytes
-        final ByteData? data = await imageInfo.image.toByteData(format: ui.ImageByteFormat.png);
-        final Uint8List? bytes = data?.buffer.asUint8List();
-
-        // Create a BitmapDescriptor from the bytes with a specific size
-        final BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(bytes!, size: Size.square(size));
-
-        // Complete the completer with the BitmapDescriptor
-        completer.complete(bitmapDescriptor);
-      });
-
-      // Listen for the image resolution
-      final ImageStream stream = provider.resolve(configuration);
-      stream.addListener(listener);
-    });
-
-    return completer.future;
+    return BitmapDescriptor.fromBytes(bytes, size: const Size(20,20));
   }
 
   updateUserLocation () {
