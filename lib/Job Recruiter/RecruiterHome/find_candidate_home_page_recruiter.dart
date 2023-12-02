@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterHome/view_candidate_profile.dart';
+import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,7 +10,7 @@ import 'package:share_plus/share_plus.dart';
 import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
 
 class FindCandidateHomePageRecruiter extends StatefulWidget {
-  final RecruiterHomeData? recruiterData ;
+  final RecruiterHomePageSeekerDetail? recruiterData ;
   const FindCandidateHomePageRecruiter({super.key, this.recruiterData});
 
   @override
@@ -113,7 +114,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: CachedNetworkImage(
-                  imageUrl: "${widget.recruiterData?.profileImg}",
+                  imageUrl: "${widget.recruiterData?.seeker?.profileImg}",
                   imageBuilder: (context, imageProvider) => Container(
                     decoration: BoxDecoration(
                       image: DecorationImage(
@@ -210,7 +211,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Flexible(
-                          child: Text( widget.recruiterData?.fullname ?? "" ,
+                          child: Text(widget.recruiterData?.seeker?.fullname ?? "" ,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.displayLarge,
                             softWrap: true,
@@ -219,9 +220,9 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                         const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
                       ],
                     ),
-                    Text( widget.recruiterData?.seekerData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
+                    Text( widget.recruiterData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
                     SizedBox(height: Get.height * 0.010,),
-                    Text(widget.recruiterData?.location ?? "",overflow: TextOverflow.ellipsis,
+                    Text(widget.recruiterData?.seeker?.location ?? "",overflow: TextOverflow.ellipsis,
                       style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
                     SizedBox(
                       height: Get.height * 0.03,
@@ -234,15 +235,15 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                    ],
                  ),
                     SizedBox(height: Get.height*.004,),
-                    widget.recruiterData?.seekerData?.workExpJob?.length == 0 ||
-                        widget.recruiterData?.seekerData?.workExpJob == null ?
+                    widget.recruiterData?.workExpJob?.length == 0 ||
+                        widget.recruiterData?.workExpJob == null ?
                         const SizedBox() :
                     ListView.builder(
-                      itemCount: widget.recruiterData?.seekerData?.workExpJob?.length,
+                      itemCount: widget.recruiterData?.workExpJob?.length,
                         physics: const NeverScrollableScrollPhysics(),
                         shrinkWrap: true,
                         itemBuilder: (context , index) {
-                        var data = widget.recruiterData?.seekerData?.workExpJob?[index] ;
+                        var data = widget.recruiterData?.workExpJob?[index] ;
                           return Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -252,7 +253,8 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                               Text( data?.companyName ?? "",
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                               ),
-                              Text( "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
+                              Text("${data?.jobStartDate}- ${data?.jobEndDate}",
+                                // "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                               ),
                             ],
@@ -268,15 +270,15 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       ],
                     ),
                     SizedBox(height: Get.height*.004,),
-                    widget.recruiterData?.seekerData?.educationLevel?.length == 0 ||
-                        widget.recruiterData?.seekerData?.educationLevel == null ?
+                    widget.recruiterData?.educationLevel?.length == 0 ||
+                        widget.recruiterData?.educationLevel == null ?
                         const SizedBox() :
                     ListView.builder(
                       shrinkWrap: true,
                         physics: const NeverScrollableScrollPhysics(),
-                      itemCount: widget.recruiterData?.seekerData?.educationLevel?.length,
+                      itemCount: widget.recruiterData?.educationLevel?.length,
                         itemBuilder: (context , index) {
-                        var data = widget.recruiterData?.seekerData?.educationLevel?[index] ;
+                        var data = widget.recruiterData?.educationLevel?[index] ;
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -286,7 +288,8 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                           Text( data?.institutionName ?? "",
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                           ),
-                          Text( "${data?.educationStartDate?.year}-${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')} - ${data?.educationEndDate}"  ,
+                          Text( "${data?.educationStartDate} - ${data?.educationEndDate}",
+                            // "${data?.educationStartDate?.year}-${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')} - ${data?.educationEndDate}"  ,
                             style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                           ),
                         ],
