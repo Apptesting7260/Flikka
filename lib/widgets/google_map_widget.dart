@@ -145,7 +145,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
   Set<Marker> markers = Set();
 
-  var selectedRadius = 10; // Default radius
+  var selectedRadius ; // Default radius
    double lat = 20.427 ;
    double long = 80.885 ;
 
@@ -241,6 +241,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton(
                     dropdownColor: AppColors.black,
+                    hint: const Text("Select"),
                     value: selectedRadius,
                     items: radiusList.map<DropdownMenuItem>((value) {
                       return DropdownMenuItem(
@@ -288,15 +289,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   void updateMap(int radius) async {
     // Clear existing markers
     markers.clear();
-    markers.add(
-      Marker(
-        markerId: const MarkerId("1"),
-        position: LatLng(lat, long),
-        infoWindow: const InfoWindow(
-          title: 'My Current Location',
-        ),
-      ),
-    );
+
     Position currentPosition = await Geolocator.getCurrentPosition();
 
     if(jobsController.jobsData.value.jobs != null && jobsController.jobsData.value.jobs?.length != 0) {
@@ -338,9 +331,18 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           ) ;
         }
         // Trigger a rebuild to update the markers on the map
-        setState(() {});
       }
     }
+    markers.add(
+      Marker(
+        markerId: const MarkerId("My location"),
+        position: LatLng(lat, long),
+        infoWindow: const InfoWindow(
+          title: 'My Current Location',
+        ),
+      ),
+    );
+    setState(() {});
   }
 
   Future<BitmapDescriptor> getMarkerIcon(String assetName, double size) async {
