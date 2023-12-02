@@ -121,6 +121,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
@@ -225,18 +226,24 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         case Status.COMPLETED:
           return Scaffold(
             appBar: AppBar(
-              backgroundColor: AppColors.white,
-              title: const Text("Choose Location"),
-              centerTitle: true,
+              toolbarHeight: 65,
+              leading: IconButton(
+                  onPressed: () { Get.offAll(const TabScreen(index: 0)) ;}, icon:
+              Image.asset("assets/images/icon_back_blue.png",
+                height: Get.height * .06,)) ,
+              backgroundColor: AppColors.black,
+              title: Text("Map",style: Theme.of(context).textTheme.displaySmall?.copyWith(color: AppColors.white),),
+              // centerTitle: true,
               actions: [
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: DropdownButton(
+                    dropdownColor: AppColors.black,
                     value: selectedRadius,
                     items: radiusList.map<DropdownMenuItem>((value) {
                       return DropdownMenuItem(
                         value: value,
-                        child: Text('$value miles'),
+                        child: Text('$value miles',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),),
                       );
                     }).toList(),
                     onChanged: (newValue) {
