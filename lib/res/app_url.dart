@@ -70,4 +70,6 @@ class AppUrl {
   static const String editMobileNumberSeeker = '$baseUrl/seeker-moblie-update-api' ;
   static const String seekerUpdateVideo = '$baseUrl/seeker-short_video-edit' ;
   static const String seekerNearByJobs = '$baseUrl/nearby-jobs' ;
+  static const String newRecruiterHomePage = '$baseUrl/home-page-seeker-percentage-api' ;
+  static const String newRecruiterHomePageJobs = '$baseUrl/home-page-job-position-api' ;
 }

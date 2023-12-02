@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
+import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -12,7 +13,7 @@ import 'package:get/get.dart';
 import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
 
 class ViewCandidateProfile extends StatefulWidget {
-  final RecruiterHomeData? recruiterData;
+  final RecruiterHomePageSeekerDetail? recruiterData;
   const ViewCandidateProfile({Key? key, this.recruiterData}) : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
               child: SvgPicture.asset('assets/images/backiconsvg.svg')),
         ),
         elevation: 0,
-        title: Text(widget.recruiterData?.fullname ?? "",
+        title: Text(widget.recruiterData?.seeker?.fullname ?? "",
               style: Get.theme.textTheme.headlineSmall!
                   .copyWith(fontWeight: FontWeight.w700)),
       ),
@@ -64,7 +65,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                       CircleAvatar(
                         radius: 40,
                         child: CachedNetworkImage(
-                          imageUrl: widget.recruiterData?.profileImg ?? '',
+                          imageUrl: widget.recruiterData?.seeker?.profileImg ?? '',
                           imageBuilder: (context, imageProvider) => Container(
                             decoration: BoxDecoration(
                                 shape: BoxShape.circle,
@@ -81,18 +82,18 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 SizedBox(
                   height: Get.height * 0.01,
                 ),
-                HtmlWidget(widget.recruiterData?.fullname ?? "",
+                HtmlWidget(widget.recruiterData?.seeker?.fullname ?? "",
                     textStyle: Get.theme.textTheme.displayLarge),
                 SizedBox(
                   height: Get.height * 0.005,
                 ),
-                Text(widget.recruiterData?.seekerData?.positions ?? "",
+                Text(widget.recruiterData?.positions ?? "",
                     style: Get.theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.white)),
                 SizedBox(
                   height: Get.height * 0.005,
                 ),
-                HtmlWidget(widget.recruiterData?.location ?? "",
+                HtmlWidget(widget.recruiterData?.seeker?.location ?? "",
                     textStyle: Get.theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.white)),
                 SizedBox(
@@ -115,8 +116,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                     SizedBox(
                       width: Get.width * 0.045,
                     ),
-                    widget.recruiterData?.mobile == null ||
-                            widget.recruiterData?.mobile.toString().length == 0
+                    widget.recruiterData?.seeker?.mobile == null ||
+                        widget.recruiterData?.seeker?.mobile.toString().length == 0
                         ? const SizedBox()
                         : Row(
                           children: [
@@ -135,12 +136,12 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             ),
                           ],
                         ),
-                    widget.recruiterData?.video == null ||
-                        widget.recruiterData?.video.toString().length == 0
+                    widget.recruiterData?.seeker?.shortVideo == null ||
+                        widget.recruiterData?.seeker?.shortVideo.toString().length == 0
                         ? const SizedBox()
                    : GestureDetector(
                       onTap: () {
-                        Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.video ?? "")) ;
+                        Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.seeker?.shortVideo ?? "")) ;
                       },
                      child: Container(
                         alignment: Alignment.center,
@@ -162,8 +163,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 SizedBox(
                   height: Get.height * 0.02,
                 ),
-                widget.recruiterData?.seekerData?.startWorkName == null ||
-                    widget.recruiterData?.seekerData?.startWorkName?.length == 0 ? const SizedBox()
+                widget.recruiterData?.startWorkName == null ||
+                    widget.recruiterData?.startWorkName?.length == 0 ? const SizedBox()
                     : SizedBox(
                         height: Get.height * 0.072,
                         width: Get.width * 0.69,
@@ -174,7 +175,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   borderRadius: BorderRadius.circular(35))),
                           onPressed: () {},
                           child: Text(
-                            widget.recruiterData?.seekerData?.startWorkName?[0]
+                            widget.recruiterData?.startWorkName?[0]
                                     .startWork ??
                                 "",
                             style:
@@ -230,7 +231,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             thickness: 0.2,
                             color: AppColors.white,
                           ),
-                          Text(widget.recruiterData?.mobile ?? "No Data") ,
+                          Text(widget.recruiterData?.seeker?.mobile ?? "No Data") ,
                           SizedBox(
                             height: Get.height * 0.04,
                           ),
@@ -263,7 +264,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             height: Get.height * 0.02,
                           ),
                           HtmlWidget(
-                            widget.recruiterData?.aboutMe ?? "No Data",
+                            widget.recruiterData?.seeker?.aboutMe ?? "No Data",
                             textStyle: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -303,20 +304,18 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
-                          widget.recruiterData?.seekerData?.workExpJob ==
+                          widget.recruiterData?.workExpJob ==
                                       null ||
-                                  widget.recruiterData?.seekerData?.workExpJob
+                                  widget.recruiterData?.workExpJob
                                           ?.length ==
                                       0
                               ? const Text("No Data")
                               : ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: widget.recruiterData?.seekerData
-                                      ?.workExpJob?.length,
+                                  itemCount: widget.recruiterData?.workExpJob?.length,
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.seekerData
-                                        ?.workExpJob?[index];
+                                    var data = widget.recruiterData?.workExpJob?[index];
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -403,20 +402,18 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
-                          widget.recruiterData?.seekerData?.educationLevel ==
+                          widget.recruiterData?.educationLevel ==
                                       null ||
-                                  widget.recruiterData?.seekerData
+                                  widget.recruiterData
                                           ?.educationLevel?.length ==
                                       0
                               ? const Text("No Data")
                               : ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
-                                  itemCount: widget.recruiterData?.seekerData
-                                      ?.educationLevel?.length,
+                                  itemCount: widget.recruiterData?.educationLevel?.length,
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.seekerData
-                                        ?.educationLevel?[index];
+                                    var data = widget.recruiterData?.educationLevel?[index];
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -498,10 +495,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
-                          widget.recruiterData?.seekerData?.skillName == null ||
-                                  widget.recruiterData?.seekerData?.skillName
-                                          ?.length ==
-                                      0
+                          widget.recruiterData?.skillName == null ||
+                                  widget.recruiterData?.skillName?.length == 0
                               ? const Text("No Data")
                               : GridView.builder(
                                   gridDelegate:
@@ -510,13 +505,11 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                           maxCrossAxisExtent: Get.width * 0.4,
                                           mainAxisSpacing: 8,
                                           crossAxisSpacing: 8),
-                                  itemCount: widget.recruiterData?.seekerData
-                                      ?.skillName?.length,
+                                  itemCount: widget.recruiterData?.skillName?.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.seekerData
-                                        ?.skillName?[index];
+                                    var data = widget.recruiterData?.skillName?[index];
                                     return Container(
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -573,11 +566,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
-                          widget.recruiterData?.seekerData?.languageName ==
-                                      null ||
-                                  widget.recruiterData?.seekerData?.languageName
-                                          ?.length ==
-                                      0
+                          widget.recruiterData?.language == null ||
+                                  widget.recruiterData?.language?.length == 0
                               ? const Text("No Data")
                               : GridView.builder(
                                   gridDelegate:
@@ -586,13 +576,11 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                           maxCrossAxisExtent: Get.width * 0.4,
                                           mainAxisSpacing: 8,
                                           crossAxisSpacing: 8),
-                                  itemCount: widget.recruiterData?.seekerData
-                                      ?.skillName?.length,
+                                  itemCount: widget.recruiterData?.skillName?.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.seekerData
-                                        ?.skillName?[index];
+                                    var data = widget.recruiterData?.skillName?[index];
                                     return Container(
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -646,20 +634,15 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(
                             height: Get.height * 0.02,
                           ),
-                          widget.recruiterData?.seekerData?.appreciation ==
-                                      null ||
-                                  widget.recruiterData?.seekerData?.appreciation
-                                          ?.length ==
-                                      0
+                          widget.recruiterData?.appreciation == null ||
+                                  widget.recruiterData?.appreciation?.length == 0
                               ? const Text("No Data")
                               : ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
-                                  itemCount: widget.recruiterData?.seekerData
-                                      ?.appreciation?.length,
+                                  itemCount: widget.recruiterData?.appreciation?.length,
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.seekerData
-                                        ?.appreciation?[index];
+                                    var data = widget.recruiterData?.appreciation?[index];
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,

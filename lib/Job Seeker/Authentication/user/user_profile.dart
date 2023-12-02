@@ -168,7 +168,6 @@ class _UserProfileState extends State<UserProfile> {
 
   String uri = '';
 
-  //********************* for aboutsectionedition *************
   EditAboutController editAboutController = Get.put(EditAboutController());
   EditSeekerLanguageController editSeekerLanguageController = Get.put(EditSeekerLanguageController()) ;
   EditSeekerProfileController editSeekerProfileController = Get.put(EditSeekerProfileController());

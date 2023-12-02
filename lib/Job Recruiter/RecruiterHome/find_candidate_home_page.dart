@@ -2,6 +2,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterDrawer/drawer_recruiter.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterHome/find_candidate_home_page_recruiter.dart';
 import 'package:flikka/controllers/RecruiterHomeController/RecruiterHomeController.dart';
+import 'package:flikka/controllers/RecruiterHomePageJobsController/RecruiterHomePageJobsController.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:get/get.dart';
@@ -31,6 +32,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   RecruiterHomeController homeController = Get.put(RecruiterHomeController()) ;
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+  RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
 
   //////refresh//////
   RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -56,7 +58,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   @override
   void initState() {
     homeController.recruiterHomeApi() ;
-    jobTitleController.recruiterJobTitleApi() ;
+   jobsController.recruiterJobsApi() ;
     super.initState();
   }
 
@@ -74,15 +76,18 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               body: InterNetExceptionWidget(
                 onPress: () {
                   homeController.recruiterHomeApi();
+                  jobsController.recruiterJobsApi() ;
                 },
               ),);
           } else if (homeController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {
               homeController.recruiterHomeApi();
+              jobsController.recruiterJobsApi() ;
             }),);
           } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
               homeController.recruiterHomeApi();
+              jobsController.recruiterJobsApi() ;
             }),);
           }
         case Status.COMPLETED:
@@ -149,84 +154,78 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                        Text("Sort By",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 14),) ,
                        const SizedBox(width: 12,) ,
                        DropdownButtonHideUnderline(
-                         child: DropdownButton2<String>(
-                           // focusNode: jobTypeFocus ,
+                         child: DropdownButton2(
                            isExpanded: true,
-                           hint:  Text(
-                             'Select',
-                             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                             overflow: TextOverflow.ellipsis,
-                           ),
-                           items: itemsEmp
-                               .map((String item) => DropdownMenuItem<String>(
-                             value: item,
-                             child: Text(
-                               item,
-                               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
-                               overflow: TextOverflow.ellipsis,
-                             ),
-                           ))
-                               .toList(),
-                           value: employmentType,
-                           onChanged: (String? value) {
-                             setState(() {
-                               employmentType = value;
-                             });
-                           },
+                           hint: Text(
+                             employmentType ?? homeController.homeData.value.seekerDetails?[0].positions  ?? "No positions",
+                             style: Get.theme.textTheme.bodyLarge!.copyWith(
+                                 color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
+                           items: jobsController.getJobsDetails.value.jobPositionList?.map((item) =>
+                               DropdownMenuItem(
+                                 value: item.id,
+                                 child: Text(item.positions.toString() ,
+                                   style: Get.theme.textTheme.bodyLarge!
+                                       .copyWith(color: AppColors.white,
+                                       fontSize: 12),
+                                   overflow: TextOverflow.ellipsis,),
+                                 onTap: () {
+                                   setState(() {
+                                    homeController.recruiterHomeApi(jobPosition: item.id) ;
+                                   });
+                                 },
+                               )).toList(),
+                           // value: jobTitleValue,
+                           onChanged: (value) {},
                            buttonStyleData: ButtonStyleData(
-                             height: Get.height*0.06,
-                             width: Get.width*.5,
-                             padding:  EdgeInsets.symmetric(horizontal: Get.width*.04, ),
+                             height: Get.height * 0.06,
+                             width: Get.width * .45,
+                             padding: const EdgeInsets.only(
+                                 left: 10, right: 5),
                              decoration: BoxDecoration(
-                               borderRadius: BorderRadius.circular(30),
-                               border: Border.all(color: Color(0xff686868)),
-                               color: Color(0xff353535),
+                                 borderRadius: BorderRadius.circular(35),
+                                 border: Border.all(
+                                     color: const Color(0xff686868))
+                               // color: Color(0xff353535),
                              ),
                              elevation: 2,
                            ),
-                           iconStyleData:  IconStyleData(
-                             icon: Image.asset('assets/images/arrowdown.png'),
-                             iconSize: 14,
-                             iconEnabledColor: Colors.yellow,
-                             iconDisabledColor: Colors.grey,
-                           ),
+
                            dropdownStyleData: DropdownStyleData(
-                             maxHeight: Get.height*0.35,
-                             width: Get.width*0.902,
+                             maxHeight: Get.height * 0.35,
+                             width: Get.width * .45,
                              decoration: BoxDecoration(
                                borderRadius: BorderRadius.circular(14),
                                color: const Color(0xff353535),
                              ),
                              offset: const Offset(5, 0),
                              scrollbarTheme: ScrollbarThemeData(
-                               radius:  const Radius.circular(40),
-                               thickness: MaterialStateProperty.all<double>(6),
-                               thumbVisibility: MaterialStateProperty.all<bool>(true),
+                               radius: const Radius.circular(40),
+                               thickness: MaterialStateProperty.all<
+                                   double>(6),
+                               thumbVisibility: MaterialStateProperty.all<
+                                   bool>(true),
                              ),
                            ),
-                           menuItemStyleData: const MenuItemStyleData(
-                             height: 40,
-                             padding: EdgeInsets.only(left: 14, right: 14),
-                           ),
+
                          ),
                        ),
                      ],
                    ) ,
                     Flexible(
-                      child: homeController.homeData.value.data == null ||
-                          homeController.homeData.value.data?.length == 0 ?
+                      child: homeController.homeData.value.seekerDetails == null ||
+                          homeController.homeData.value.seekerDetails?.length == 0 ?
                       const SeekerNoJobAvailable(message: "No Data Available",) :
                       CardSwiper(
                         controller: controller,
-                        cardsCount: homeController.homeData.value.data?.length ?? 0,
-                        numberOfCardsDisplayed: homeController.homeData.value.data?.length == 1 ? 1 : 2,
+                        cardsCount: homeController.homeData.value.seekerDetails?.length ?? 0,
+                        numberOfCardsDisplayed: homeController.homeData.value.seekerDetails?.length == 1 ? 1 : 2,
                         backCardOffset: const Offset(40, 40),
                         padding: const EdgeInsets.all(24.0),
                         onSwipe: _onSwipe,
                         cardBuilder: (context, index,
                             horizontalThresholdPercentage,
                             verticalThresholdPercentage,) {
-                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.data?[index],);
+                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.seekerDetails?[index],);
                         },
                       ),
                     ),
@@ -261,65 +260,12 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               builder: (context , setState) {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: Get.height *.02, horizontal: Get.width * .04),
-                  child: homeController.homeData.value.postedJob! ? Column(
+                  child:  Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text("Select the job for this profile") ,
+                      const Text("Select this profile") ,
                       SizedBox(height: Get.height *.02,) ,
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          isExpanded: true,
-                          hint: Text( jobTitleValue ?? 'Select Title',
-                            style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white, fontSize: 12),
-                            overflow: TextOverflow.ellipsis,),
-                          items: jobTitleController.getJobTitleDetails.value.jobTitleList?.map((item) =>
-                              DropdownMenuItem(
-                                value: item.jobTitle,
-                                child: Text(item.jobTitle.toString(),
-                                  style: Get.theme.textTheme.bodyLarge!
-                                      .copyWith(color: AppColors.white,
-                                      fontSize: 12),
-                                  overflow: TextOverflow.ellipsis,),
-                                onTap: () {
-                                  setState(() {
-                                    jobTitleValue = item.jobTitle;
-                                    jobTitleID = item.id.toString() ;
-                                    errorMessage.value = "" ;
-                                  });
-                                },)).toList(),
-                          onChanged: (value) {},
-                          buttonStyleData: ButtonStyleData(
-                            height: Get.height * 0.06,
-                            padding: const EdgeInsets.only(
-                                left: 10, right: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(35),
-                                border: Border.all(
-                                    color: const Color(0xff686868))
-                              // color: Color(0xff353535),
-                            ),
-                            elevation: 2,
-                          ),
-
-                          dropdownStyleData: DropdownStyleData(
-                            maxHeight: Get.height * 0.35,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(14),
-                              color: const Color(0xff353535),
-                            ),
-                            offset: const Offset(5, 0),
-                            scrollbarTheme: ScrollbarThemeData(
-                              radius: const Radius.circular(40),
-                              thickness: MaterialStateProperty.all<
-                                  double>(6),
-                              thumbVisibility: MaterialStateProperty.all<
-                                  bool>(true),
-                            ),
-                          ),
-
-                        ),
-                      ),
                       Obx(() => errorMessage.isEmpty ? const SizedBox() :
                       Text(errorMessage.value , style: const TextStyle(color: AppColors.red),)),
                       SizedBox(height: Get.height *.02,) ,
@@ -334,7 +280,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                 title: "Select",
                                 onTap1: () {
                                   if(jobTitleID != null) {
-                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.data?[previousIndex].id.toString(),) ;
+                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.seekerDetails?[previousIndex].id.toString(),) ;
                                   }else {
                                     errorMessage.value = "Select Job before selecting" ;
                                   }
@@ -350,20 +296,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                         ],
                       )
                     ],
-                  ) :
-                  Column( mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const Text("Post any job to select candidates"),
-                  SizedBox(height: Get.height *.02,) ,
-                  MyButton(
-                    width: Get.width*.25,
-                    height: Get.height*.05,
-                    title: "Ok",
-                    onTap1: () {
-                      Get.back();
-                    },),
-                    ],
-                  ),
+                  )
                 );
               }
             ),
