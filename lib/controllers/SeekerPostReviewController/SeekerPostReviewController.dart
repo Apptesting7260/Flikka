@@ -24,7 +24,7 @@ class SeekerPostReviewController extends GetxController {
     _api.seekerPostReview(data).then((value){
       loading(false) ;
       if(value.status!){
-        Get.off(RecruiterProfileTabBar(index: 0,isSeeker: true,recruiterID: recruiterID,)) ;
+        Get.back() ;
         seekerViewCompanyController.viewCompany(recruiterID) ;
         Utils.toastMessage('Post saved') ;
       }

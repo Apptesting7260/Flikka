@@ -1954,17 +1954,20 @@ class _UserProfileState extends State<UserProfile> {
                                       if(seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0) {
                                         _startRecording() ;
+
                                       } else {
                                         CommonFunctions.doubleButtonDialog(context,
                                             message: "Upload or play introduction video",
                                             onTap1: () {
+                                              Get.back() ;
                                               Get.to(() => VideoPlayerScreen(videoPath: seekerProfileController.viewSeekerData.value.seekerInfo!.video!));
                                             },
                                             onTap2: () {
+                                              Get.back() ;
                                           _startRecording() ;
                                             },
                                             title1: "Play",
-                                            title2: "Upload") ;
+                                            title2: "Edit") ;
                                       }
                                     },
                                     child: Container(

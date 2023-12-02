@@ -1,6 +1,10 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:video_player/video_player.dart';
+
+import '../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoPath;
@@ -45,6 +49,13 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 65,
+        leading: IconButton(
+            onPressed: () {
+              Get.back() ;
+              }, icon:
+        Image.asset("assets/images/icon_back_blue.png",
+          height: Get.height * .06,)) ,
         title: const Text('Video Player Screen'),
       ),
       body: OrientationBuilder(

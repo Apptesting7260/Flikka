@@ -183,6 +183,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.lat ?? lat ,widget.long ?? long ),
           zoom: 5,),
+
         markers: <Marker>{
           Marker(
             markerId: const MarkerId("1"),
@@ -192,6 +193,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
             ),
           ),
         },
+
         mapType: MapType.normal,
         myLocationEnabled: true,
         compassEnabled: true,

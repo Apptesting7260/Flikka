@@ -90,7 +90,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.025,
                   ),
                   Text(
-                    "${widget.jobData?.jobTitle}",
+                    "${widget.jobData?.jobTitle}", overflow: TextOverflow.ellipsis,
                     style:  Get.theme.textTheme.displayLarge,
                   ),
                   SizedBox(
@@ -104,9 +104,10 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.004,
                   ),
                   Text(
-                    "${widget.jobData?.recruiterDetails?.companyName}",
+                    "${widget.jobData?.recruiterDetails?.companyName}", overflow: TextOverflow.ellipsis,
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
+
                   SizedBox(
                     height: Get.height * 0.03,
                   ),
@@ -130,7 +131,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   InkWell(
                       // onTap: ()=>Get.to(const GoogleMapIntegration()),
                       child: SizedBox( height: Get.height * 0.3,
-                          child: const GoogleMapIntegration(jobPageView: true,))),
+                          child: GoogleMapIntegration(jobPageView: true,lat: widget.jobData?.lat,long:  widget.jobData?.long,))),
                   SizedBox(height: Get.height * 0.035,),
                   Text("Information", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
