@@ -29,10 +29,11 @@ class SeekerReferralController extends GetxController {
       if(value.status == true){
         Get.off(() => LocationPopUp(role: role )) ;
       } else if(value.status == false) {
-        Utils.showMessageDialog(context, "Something went wrong") ;
+        Utils.showMessageDialog(context, value.message.toString()) ;
       }
       // Utils.snackBar( "Message",value.message.toString());
     }).onError((error, stackTrace){
+      Utils.showMessageDialog(context, "Something went wrong") ;
       print(error);
       loading.value = false ;
       // Utils.snackBar('Failed',error.toString());

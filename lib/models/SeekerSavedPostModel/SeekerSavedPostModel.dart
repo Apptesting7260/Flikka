@@ -32,9 +32,9 @@ class SeekerSavedJobsListModel {
 
 class SeekerSavedJobsDatum {
   dynamic id;
-  String? seekerId;
-  String? jobId;
-  String? type;
+  dynamic seekerId;
+  dynamic jobId;
+  dynamic type;
   DateTime? createdAt;
   DateTime? updatedAt;
   SeekerSavedJobsData? jobData;

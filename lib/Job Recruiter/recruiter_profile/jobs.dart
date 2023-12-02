@@ -72,6 +72,7 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                   itemBuilder: (context, index) {
                     var data = widget.recruiterJobsData?.value[index] ;
                     String uploadingTime = formatDateTime(data?.createdAt) ;
+                    print("${data?.featureImg}") ;
                   return Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
@@ -104,11 +105,13 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                           ),
                           placeholder: (context, url) => const CircularProgressIndicator(),
                         ),
-                        title: Text(data?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
+                        title: Text(data?.jobTitle ?? "",overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.titleSmall?.copyWith(color: Color(0xffFFFFFF),fontWeight: FontWeight.w700),),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(data?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,color: const Color(0xffCFCFCF)),),
                             SizedBox(height: Get.height*.001,),
                             Text(widget.company ?? "",overflow: TextOverflow.ellipsis,
                                 style: Theme.of(context)

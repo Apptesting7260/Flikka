@@ -22,9 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+
     Timer( const Duration(seconds: 5),
         () async {
           SharedPreferences sp = await SharedPreferences.getInstance();
+          print(sp.getInt("step") ) ;
+          print("this is role ${sp.getString("loggedIn")}" ) ;
           if(sp.getString("loggedIn") == "recruiter") {
             if(  sp.getInt("step") == 1) {
               Get.offAll(() => const LocationPopUp(role: 1)) ;

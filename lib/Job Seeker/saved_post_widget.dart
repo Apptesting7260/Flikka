@@ -169,86 +169,89 @@ class _SavedPostState extends State<SavedPost> {
                   itemBuilder: (context, index){
                     var data = jobsListController.savedPosts.value.data?[index] ;
                     return Container(
+                      height: Get.height *.75,
                       margin: const EdgeInsets.only(top: 15),
                       decoration: BoxDecoration(
                           color: AppColors.blackdown,
                           borderRadius: BorderRadius.circular(40)
+
                       ),
-                      height: Get.height,
-                      width: Get.width,
                       child: Stack(
                         children: [
-                          // Obx(() => jobsListController.refreshLoading.value ?
-                          // const Center(
-                          //   child: CircularProgressIndicator(color: Colors.white,),
-                          // ) : SizedBox() ,
-                          // )  ,
-                          CachedNetworkImage(
-                              fit: BoxFit.cover,
-                              width: Get.width,
-                              placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
-                              imageBuilder: (context, imageProvider) => Container(
+                          Column(
+                            children: [
+                              SizedBox(
                                 height: Get.height*.5,
-                                width: Get.width,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(40),
-                                    image: DecorationImage(fit: BoxFit.cover,image: NetworkImage("${data?.jobData?.featureImg}"))
+                                child: Stack(
+                                  children: [
+                                    CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        width: Get.width,
+                                        placeholder: (context, url) => const Center(child:CircularProgressIndicator()),
+                                        imageBuilder: (context, imageProvider) => Container(
+                                          height: Get.height*.5,
+                                          width: Get.width,
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(40),
+                                              image: DecorationImage(fit: BoxFit.cover,image: NetworkImage("${data?.jobData?.featureImg}"))
+                                          ),
+                                        ),
+                                        imageUrl:  "${data?.jobData?.featureImg}"
+                                    ),
+                                    Positioned(
+                                      right: 20,
+                                      top: 10,
+                                      child: Stack(
+                                        children: [
+                                          Container(
+                                            decoration: BoxDecoration(
+                                                borderRadius: BorderRadius.circular(40),
+                                                border: Border.all(color: AppColors.white, width: 2)),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(3.0),
+                                              child: Container(
+                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                                  child: CircleAvatar(
+                                                      radius: 23,
+                                                      backgroundColor: AppColors.blueThemeColor,
+                                                      child: Center(
+                                                        child: Column( mainAxisAlignment: MainAxisAlignment.center,
+                                                          children: [
+                                                            Text('50%',
+                                                                style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                                    color: AppColors.white)),
+                                                            Text('match',
+                                                                style: Get.theme.textTheme.bodySmall!.copyWith(
+                                                                    color: AppColors.white, fontSize: 7)),
+                                                          ],
+                                                        ),
+                                                      ))),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                    //*************** for bookmarks **************
+                                    Positioned(
+                                      left: 12,
+                                      top: 15,
+                                      child: Stack(
+                                        children: [
+                                          Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                              imageUrl:  "${data?.jobData?.featureImg}"
+                            ],
                           ),
                           Positioned(
-                            right: 20,
-                            top: 10,
-                            child: Stack(
-                              children: [
-                                Container(
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(40),
-                                      border: Border.all(color: AppColors.white, width: 2)),
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(3.0),
-                                    child: Container(
-                                        decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                        child: CircleAvatar(
-                                            radius: 23,
-                                            backgroundColor: AppColors.blueThemeColor,
-                                            child: Center(
-                                              child: Column( mainAxisAlignment: MainAxisAlignment.center,
-                                                children: [
-                                                  Text('50%',
-                                                      style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                          color: AppColors.white)),
-                                                  Text('match',
-                                                      style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                          color: AppColors.white, fontSize: 7)),
-                                                ],
-                                              ),
-                                            ))),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                          //*************** for bookmarks **************
-                          Positioned(
-                            left: 12,
-                            top: 15,
-                            child: Stack(
-                              children: [
-                                Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,),
-                              ],
-                            ),
-                          ),
-                          //*************** for marketing intern text  **************
-                          Positioned(
-                            //height: Get.height / 2.5-Get.height*0.12 ,
-                            bottom: Get.height * 0.10,
-                            left: 0,
-                            right: 0,
+                            bottom: Get.height*.03,
                             child: Container(
-                              height: Get.height*.5,
-                              padding: const EdgeInsets.all(25),
+                              height: Get.height*.4,
+                              width: Get.width,
+                              padding: const EdgeInsets.all(15),
                               decoration: const BoxDecoration(
                                 color: AppColors.blackdown,
                                 borderRadius: BorderRadius.only(
@@ -258,11 +261,16 @@ class _SavedPostState extends State<SavedPost> {
                               ),
                               child: SingleChildScrollView(
                                 physics: AlwaysScrollableScrollPhysics(),
+                                padding: EdgeInsets.only(right: 0),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data?.jobData?.jobPositions ?? "",
+                                    Text(data?.jobData?.jobTitle ?? "",
                                       style: Theme.of(context).textTheme.displayLarge,
+                                      softWrap: true,),
+                                    Text(data?.jobData?.jobPositions ?? "",
+                                      style: Theme.of(context).textTheme.bodySmall!
+                                          .copyWith( color: AppColors.ratingcommenttextcolor) ,
                                       softWrap: true,),
                                     SizedBox( height: Get.height * .005,),
                                     Text(data?.jobData?.recruiterDetails?.companyName ?? "",
@@ -273,28 +281,15 @@ class _SavedPostState extends State<SavedPost> {
                                       style: Theme.of(context).textTheme.titleSmall!
                                           .copyWith(color: AppColors.white),),
                                     SizedBox( height: Get.height * .005,),
-                                    SizedBox(
-                                      height: Get.height*.45,
-                                      child: HtmlWidget(data?.jobData?.description ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
-                                          .copyWith( color: AppColors.ratingcommenttextcolor),),
-                                      // Text(CommonFunctions.parse(data?.jobData?.description ?? '') ?? "" ,
-                                      //   style: Theme.of(context).textTheme.bodySmall!
-                                      //       .copyWith( color: AppColors.ratingcommenttextcolor),),
-                                    ),
-                                    SizedBox( height: Get.height * 0.03,),
-                                    // Text( "Requirements",
-                                    //   style: Theme.of(context).textTheme.titleSmall!
-                                    //       .copyWith(color: AppColors.white),),
-                                   SizedBox( height: Get.height * 0.012,),
-                                    SizedBox(
-                                      height: Get.height*.1,
-                                      width: Get.width,
-                                      child: HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
-                                          .copyWith(color: AppColors.ratingcommenttextcolor),)
-                                      // Text(CommonFunctions.parseHTML(data?.jobData?.requirements ?? '')  ?? "",
-                                      //   style: Theme.of(context).textTheme.bodySmall!
-                                      //       .copyWith(color: AppColors.ratingcommenttextcolor),),
-                                    ) ,
+                                    HtmlWidget(data?.jobData?.description ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
+                                        .copyWith( color: AppColors.ratingcommenttextcolor),),
+                                    SizedBox( height: Get.height * .005,),
+                                    Text( "Requirements",
+                                      style: Theme.of(context).textTheme.titleSmall!
+                                          .copyWith(color: AppColors.white),),
+                                    SizedBox( height: Get.height * 0.012,),
+                                    HtmlWidget(data?.jobData?.requirements ?? '',textStyle: Theme.of(context).textTheme.bodySmall!
+                                        .copyWith(color: AppColors.ratingcommenttextcolor),) ,
                                     SizedBox(height: Get.height*.03,) ,
                                   ],
                                 ),
