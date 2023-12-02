@@ -183,7 +183,6 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         initialCameraPosition: CameraPosition(
           target: LatLng(widget.lat ?? lat ,widget.long ?? long ),
           zoom: 5,),
-        markers: Set<Marker>.of(markers),
         mapType: MapType.normal,
         myLocationEnabled: true,
         compassEnabled: true,

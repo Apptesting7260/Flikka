@@ -97,8 +97,8 @@ class _ReviewState extends State<Review> {
                           placeholder: (context, url) => const CircularProgressIndicator(),),
                         title: Text(data?.seekerInfo?[0].fullname ?? "",overflow: TextOverflow.ellipsis,style: Theme.of(context).
                         textTheme.titleSmall?.copyWith(color: const Color(0xffFFFFFF),fontWeight: FontWeight.w700),),
-                        subtitle: Text(data?.seekerDetailsInfo?[0].positions ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge?.
-                        copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)),
+                        // subtitle: Text(data?.seekerDetailsInfo?[0].positions ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelLarge?.
+                        // copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400)),
                         trailing:   RatingBar.builder(
                           ignoreGestures: true,
                           initialRating: double.tryParse("${data?.stars}") ?? 1,
