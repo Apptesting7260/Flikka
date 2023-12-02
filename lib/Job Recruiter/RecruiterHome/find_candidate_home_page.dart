@@ -59,6 +59,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   void initState() {
     homeController.recruiterHomeApi() ;
    jobsController.recruiterJobsApi() ;
+   jobTitleController.recruiterJobTitleApi() ;
     super.initState();
   }
 
@@ -77,17 +78,20 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                 onPress: () {
                   homeController.recruiterHomeApi();
                   jobsController.recruiterJobsApi() ;
+                  jobTitleController.recruiterJobTitleApi() ;
                 },
               ),);
           } else if (homeController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {
               homeController.recruiterHomeApi();
               jobsController.recruiterJobsApi() ;
+              jobTitleController.recruiterJobTitleApi() ;
             }),);
           } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
               homeController.recruiterHomeApi();
               jobsController.recruiterJobsApi() ;
+              jobTitleController.recruiterJobTitleApi() ;
             }),);
           }
         case Status.COMPLETED:
@@ -261,11 +265,68 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                 return Padding(
                   padding: EdgeInsets.symmetric(vertical: Get.height *.02, horizontal: Get.width * .04),
                   child:  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text("Select this profile") ,
+                      const Text("Select job for this profile") ,
                       SizedBox(height: Get.height *.02,) ,
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          hint: Text(
+                            jobTitleValue ??  "Select job",
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(
+                                color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
+                          items: jobTitleController.getJobTitleDetails.value.jobTitleList?.map((item) =>
+                              DropdownMenuItem(
+                                value: item.id,
+                                child: Text(item.jobTitle.toString() ,
+                                  style: Get.theme.textTheme.bodyLarge!
+                                      .copyWith(color: AppColors.white,
+                                      fontSize: 12),
+                                  overflow: TextOverflow.ellipsis,),
+                                onTap: () {
+                                  setState(() {
+                                    jobTitleID = item.id.toString() ;
+                                    jobTitleValue = item.jobTitle ;
+                                  });
+                                },
+                              )).toList(),
+                          // value: jobTitleValue,
+                          onChanged: (value) {},
+                          buttonStyleData: ButtonStyleData(
+                            height: Get.height * 0.06,
+                            width: Get.width * .55,
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(35),
+                                border: Border.all(
+                                    color: const Color(0xff686868))
+                              // color: Color(0xff353535),
+                            ),
+                            elevation: 2,
+                          ),
+
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: Get.height * 0.35,
+                            width: Get.width * .5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: const Color(0xff353535),
+                            ),
+                            offset: const Offset(5, 0),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: MaterialStateProperty.all<
+                                  double>(6),
+                              thumbVisibility: MaterialStateProperty.all<
+                                  bool>(true),
+                            ),
+                          ),
+
+                        ),
+                      ),
                       Obx(() => errorMessage.isEmpty ? const SizedBox() :
                       Text(errorMessage.value , style: const TextStyle(color: AppColors.red),)),
                       SizedBox(height: Get.height *.02,) ,
@@ -280,7 +341,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                 title: "Select",
                                 onTap1: () {
                                   if(jobTitleID != null) {
-                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.seekerDetails?[previousIndex].id.toString(),) ;
+                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.seekerDetails?[previousIndex].seekerId.toString(),) ;
                                   }else {
                                     errorMessage.value = "Select Job before selecting" ;
                                   }
