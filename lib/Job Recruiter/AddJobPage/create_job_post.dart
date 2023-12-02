@@ -18,6 +18,7 @@ class _CreateJobPostState extends State<CreateJobPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 70,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: GestureDetector(

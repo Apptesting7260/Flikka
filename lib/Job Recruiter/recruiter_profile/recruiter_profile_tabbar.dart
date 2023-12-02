@@ -117,6 +117,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
             return Scaffold(
                 endDrawer: const DrawerRecruiter(),
                 appBar: AppBar(
+                  toolbarHeight: 70,
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: InkWell(
@@ -151,6 +152,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                     )
                   ],
                 ),
+
                 body: SmartRefresher(
                   controller: _refreshController,
                   onRefresh: _onRefresh,

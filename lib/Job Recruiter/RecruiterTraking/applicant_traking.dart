@@ -30,7 +30,7 @@ class _ApplicantTrackingState extends State<ApplicantTracking> {
         child: Scaffold(
           backgroundColor: AppColors.black,
           appBar: AppBar(
-            toolbarHeight: 60,
+            toolbarHeight: 70,
             automaticallyImplyLeading: false,
             backgroundColor: const Color(0xff000),
             title: Text(

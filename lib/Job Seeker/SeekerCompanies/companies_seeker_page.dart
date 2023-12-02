@@ -159,7 +159,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                        overflow: TextOverflow.ellipsis, style:  Get.theme.textTheme.labelMedium!
                                             .copyWith(color: AppColors.white)),
                                     subtitle: Text(data?.companyLocation ?? "",
-                                        style: Get.theme.textTheme.bodySmall!
+                                      overflow: TextOverflow.ellipsis,  style: Get.theme.textTheme.bodySmall!
                                             .copyWith(color: const Color(0xffCFCFCF))),
                                     trailing: TextButton(onPressed: () async {
                                       SharedPreferences sp = await SharedPreferences.getInstance() ;

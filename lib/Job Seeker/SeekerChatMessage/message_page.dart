@@ -17,6 +17,7 @@ class _MessagePageState extends State<MessagePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
+          toolbarHeight: 70,
           title: Text("Message",style: Get.theme.textTheme.displayLarge),
           leading: Padding(
             padding: const EdgeInsets.only(left: 15.0),
