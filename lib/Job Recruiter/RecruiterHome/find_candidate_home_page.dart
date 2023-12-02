@@ -170,7 +170,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                    overflow: TextOverflow.ellipsis,),
                                  onTap: () {
                                    setState(() {
-                                    homeController.recruiterHomeApi(jobPosition: item.id) ;
+                                    homeController.recruiterHomeApi(jobPosition: item.id.toString()) ;
                                    });
                                  },
                                )).toList(),

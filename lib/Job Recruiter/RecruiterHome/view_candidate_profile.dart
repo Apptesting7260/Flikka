@@ -175,8 +175,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   borderRadius: BorderRadius.circular(35))),
                           onPressed: () {},
                           child: Text(
-                            widget.recruiterData?.startWorkName?[0]
-                                    .startWork ??
+                            widget.recruiterData?.startWorkName?[0].startWork ??
                                 "",
                             style:
                                 Theme.of(context).textTheme.bodyLarge?.copyWith(
@@ -191,8 +190,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
         ),
         //************* scrollable functionality ******************
         DraggableScrollableSheet(
-          initialChildSize: 0.42, // half screen
-          minChildSize: 0.42, // half screen
+          initialChildSize:  widget.recruiterData?.startWorkName?[0].startWork == null ? 0.48 : 0.42, // half screen
+          minChildSize: widget.recruiterData?.startWorkName?[0].startWork == null ? 0.48 : 0.42,// half screen
           maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
@@ -346,7 +345,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                         //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         // ),
                                         Text(
-                                          "${data?.jobStartDate?.year}-${data?.jobStartDate?.month}-${data?.jobStartDate?.day} - ${data?.jobEndDate}",
+                                          "${data?.jobStartDate} - ${data?.jobEndDate}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -439,7 +438,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                                   fontWeight: FontWeight.w400),
                                         ),
                                         Text(
-                                          "${data?.educationStartDate?.year}-${data?.educationStartDate?.month}-${data?.educationStartDate?.day} - ${data?.educationEndDate}",
+                                          "${data?.educationStartDate} - ${data?.educationEndDate}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
