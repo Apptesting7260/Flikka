@@ -5,6 +5,7 @@ import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
 import '../../Job Seeker/Authentication/sign_up.dart';
@@ -43,7 +44,9 @@ class ForgotPasswordController extends GetxController {
         forgotPasswordErrorMessage.value = value.message.toString() ;
       }
     }).onError((error, stackTrace){
-      print(error);
+      if (kDebugMode) {
+        print(error);
+      }
       loading.value = false ;
       // Utils.snackBar('Failed',error.toString());
     });

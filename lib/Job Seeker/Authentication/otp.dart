@@ -183,7 +183,7 @@ class OtpScreenState extends State<OtpScreen> {
                                
                                Obx(() => Center(
                                  child: Text(
-                                   '${secondsRemaining.value} seconds remaining',
+                                   '${emailSignUpController.secondsRemaining.value} seconds remaining',
                                  ),
                                ))
                                ,
