@@ -85,15 +85,15 @@ class _VideoAudioCallingPageState extends State<VideoAudioCallingPage> {
                       SizedBox(
                         width: Get.width * 0.018,
                       ),
-                      CircleAvatar(
-                        backgroundColor: Colors.white,
-                        radius: 15,
-                        child: IconButton(
-                            padding: EdgeInsets.only(top: 1),
-                            onPressed: (){
-                              Get.to(() =>VideoCallingLivePage());
-                            }, icon: Image.asset('assets/images/videocall.png')),
-                      ),
+                      // CircleAvatar(
+                      //   backgroundColor: Colors.white,
+                      //   radius: 15,
+                      //   child: IconButton(
+                      //       padding: EdgeInsets.only(top: 1),
+                      //       onPressed: (){
+                      //         // Get.to(() =>VideoCallingLivePage());
+                      //       }, icon: Image.asset('assets/images/videocall.png')),
+                      // ),
                       SizedBox(
                         width: Get.width * 0.018,
                       ),
@@ -308,7 +308,7 @@ class _VideoAudioCallingPageState extends State<VideoAudioCallingPage> {
                               suffixIcon: IconButton(
                                 icon: GestureDetector(
                                     onTap: () {
-                                      Get.to(() =>const SettingPage());
+
                                     },
                                     child: Image.asset('assets/images/sendme.png')),
                                 onPressed: _submitComment,

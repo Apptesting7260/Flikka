@@ -23,7 +23,8 @@ class _MessagePageState extends State<MessagePage> {
             padding: const EdgeInsets.only(left: 15.0),
             child: InkWell(
                 onTap: (){
-                  Get.offAll(TabScreenEmployer(index: 0)) ;
+                  Get.back() ;
+                  // Get.offAll(TabScreenEmployer(index: 0)) ;
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),
