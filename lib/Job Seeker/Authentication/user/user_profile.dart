@@ -2189,7 +2189,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       SizedBox(height: Get.height * 0.02,),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          Text('${data?.workExpJob}+"juhgfghfghfgbhfgbhfgbhhghbhfgj"',
+                                                          Text('${data?.workExpJob}',
                                                            overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyMedium!.copyWith(
                                                                 color: AppColors.white, fontWeight: FontWeight.w700),),
                                                           Row(
@@ -2213,7 +2213,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text("${data?.companyName}",
-                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                           overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                           data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
                                                               ? const SizedBox()
@@ -2305,7 +2305,7 @@ class _UserProfileState extends State<UserProfile> {
                                                       Column( crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
                                                           Text("${data?.institutionName}",
-                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                           overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                           data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
                                                               ? const SizedBox()
