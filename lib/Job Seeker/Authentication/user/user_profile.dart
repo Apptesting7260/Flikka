@@ -3232,6 +3232,7 @@ class _UserProfileState extends State<UserProfile> {
   }
 
   Future<void> compressVideo(String inputPath) async {
+    CommonFunctions.showLoadingDialog(context, "Uploading") ;
     final MediaInfo? info = await VideoCompress.compressVideo(
       inputPath,
       quality: VideoQuality.MediumQuality,
