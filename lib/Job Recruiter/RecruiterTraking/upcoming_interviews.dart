@@ -249,7 +249,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                           height: Get.height * .026,
                                           color: const Color(0xff56B8F6),),
                                         SizedBox(width: Get.width * .02,),
-                                        Text("${data?.interviewScheduleTime?.hour}:${data?.interviewScheduleTime?.minute}", style: Theme
+                                        Text("${data?.interviewScheduleTime?.hour.toString().padLeft(2,"0")} : ${data?.interviewScheduleTime?.minute.toString().padLeft(2,"0")}", style: Theme
                                             .of(context)
                                             .textTheme
                                             .bodyMedium
@@ -258,6 +258,14 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                             color: Color(0xffCFCFCF)),),
                                       ],
                                     ),
+                                    SizedBox(height: Get.height * .03,),
+                                  Text(data?.interviewLink ?? "No Data",style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                      fontWeight: FontWeight.w400,
+                                      color: AppColors.blueThemeColor)) ,
                                     SizedBox(height: Get.height * .031,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment
