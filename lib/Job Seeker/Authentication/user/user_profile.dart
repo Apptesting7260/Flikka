@@ -2196,7 +2196,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate , data?.jobEndDate ,index);
+                                                                    workExperienceSection(true,data?.workExpJob,data?.companyName , data?.jobStartDate.toString() , data?.jobEndDate.toString() ,index);
                                                                   },
                                                                   child:  Image.asset("assets/images/icon_edit.png",height: 18)),
                                                               const SizedBox(width: 16,),
@@ -2217,8 +2217,12 @@ class _UserProfileState extends State<UserProfile> {
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                           data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
                                                               ? const SizedBox()
-                                                              : Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
-                                                            // "${data?.jobStartDate?.month}/${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}/${data?.jobEndDate?.year}",
+                                                              : data?.jobEndDate.toString().toLowerCase() == "present" ?
+                                                          Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate}',
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                          ):
+                                                          Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
                                                           ),
@@ -2281,7 +2285,7 @@ class _UserProfileState extends State<UserProfile> {
                                                             children: [
                                                               InkWell(
                                                                   onTap: () {
-                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate, data?.educationEndDate, index);
+                                                                    workExperienceSection(false,data?.educationLevel, data?.institutionName, data?.educationStartDate.toString(), data?.educationEndDate.toString(), index);
                                                                   },
                                                                   child: Image.asset("assets/images/icon_edit.png",height: 18)),
 
@@ -2305,7 +2309,12 @@ class _UserProfileState extends State<UserProfile> {
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                           data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
                                                               ? const SizedBox()
-                                                              : Text('${data?.educationStartDate} - ${data?.educationEndDate}',
+                                                              : data?.educationEndDate.toString().toLowerCase() == "present" ?
+                                                          Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate}',
+                                                            // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
+                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),):
+                                                          Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}-${data?.educationEndDate?.day}-${data?.educationEndDate?.year}',
                                                             // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
