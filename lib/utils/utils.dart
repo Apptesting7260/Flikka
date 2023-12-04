@@ -92,7 +92,7 @@ class Utils {
               mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Center(child: Text(message,style: Theme.of(context).textTheme.titleSmall,)) ,
+                Center(child: Text(message,style: Theme.of(context).textTheme.bodySmall,)) ,
                 const SizedBox(height: 15,) ,
                 Center(
                   child: MyButton(

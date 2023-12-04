@@ -77,7 +77,7 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                     padding: const EdgeInsets.all(10.0),
                     child: Container(
                       alignment: Alignment.center,
-                      height: Get.height*.18,
+                      // height: Get.height*.18,
                       width: Get.width,
                       decoration: BoxDecoration(
                         color: const Color(0xff353535),

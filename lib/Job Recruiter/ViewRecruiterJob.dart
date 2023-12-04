@@ -71,7 +71,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                   child: Image.asset('assets/images/icon_back_blue.png')),
             ),
             elevation: 0,
-            title: Text(widget.company ?? "",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+            title: Text(widget.company ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height *.01),
@@ -124,14 +124,30 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
-                                        Text( widget.recruiterJobsData?.jobPositions ?? "",
+                                        Text( widget.recruiterJobsData?.jobTitle ?? "",overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayLarge,
                                           softWrap: true,
                                         ),
+                                        Text( widget.recruiterJobsData?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
+                                              color: const Color(0xffCFCFCF)),
+                                          softWrap: true,
+                                        ),
                                         SizedBox(height: Get.height * 0.010,),
                                         Text( widget.company ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyLarge!
+                                              .copyWith(
+                                              color: const Color(0xffCFCFCF)),
+                                        ),
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.jobLocation ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!

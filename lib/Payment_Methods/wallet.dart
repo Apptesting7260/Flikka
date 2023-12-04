@@ -59,6 +59,11 @@ class _WalletState extends State<Wallet> {
     'Today 10:40 AM',
   ];
 
+  bool _isValidEmail(String email) {
+    final RegExp emailRegex = RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
+    return emailRegex.hasMatch(email);
+  }
+
   //////refresh//////
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
@@ -74,6 +79,8 @@ class _WalletState extends State<Wallet> {
     _refreshController.loadComplete();
   }
 /////refresh/////
+
+  var _formKey = GlobalKey<FormState>() ;
 
   @override
   void initState() {
@@ -154,145 +161,149 @@ class _WalletState extends State<Wallet> {
                 child: SingleChildScrollView(
                   child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: Get.width * 0.04),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Obx(() => seekerEarningController.refreshLoading.value
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                  color: Colors.white,
-                                ),
-                              )
-                            : const SizedBox()),
-                        SizedBox(
-                          height: Get.height * 0.1,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "Earnings",
-                              style: Theme.of(context).textTheme.displayLarge,
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                Get.to(() => AddBankAccountDetails());
-                              },
-                              child: Text(
-                                "Add bank account details",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyLarge
-                                    ?.copyWith(color: AppColors.blueThemeColor),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Obx(() => seekerEarningController.refreshLoading.value
+                              ? const Center(
+                                  child: CircularProgressIndicator(
+                                    color: Colors.white,
+                                  ),
+                                )
+                              : const SizedBox()),
+                          SizedBox(
+                            height: Get.height * 0.1,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "Earnings",
+                                style: Theme.of(context).textTheme.displayLarge,
                               ),
-                            ),
-                          ],
-                        ),
-                        Text(
-                          "How do I earn",
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(
-                                  color: AppColors.blueThemeColor,
-                                  fontWeight: FontWeight.w500,
-                                  decoration: TextDecoration.underline),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.02,
-                        ),
-                        Center(
-                            child: Text(
-                                "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayLarge
-                                    ?.copyWith(
-                                        fontSize: 30,
-                                        color: AppColors.blueThemeColor))),
-                        SizedBox(
-                          height: Get.height * 0.035,
-                        ),
-                        Center(
-                          child: MyButton(
-                              title: "Request Withdraw",
-                              onTap1: () {
-                                seekerEarningController
-                                        .getEarningDetails.value.bankAccount
-                                    ? Get.to(() => const RequestWithdraw())
-                                    : Utils.showMessageDialog(context,
-                                        "Please add bank account details");
-                              }),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.025,
-                        ),
-                        Center(
-                          child: GestureDetector(
-                            onTap: () {
-                              _dialogBuilder(context);
-                            },
-                            child: Container(
-                              height: Get.height * .075,
-                              width: 295,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(60)),
-                              child: Text('See Referral Code',
+                              GestureDetector(
+                                onTap: () {
+                                  Get.to(() => AddBankAccountDetails());
+                                },
+                                child: Text(
+                                  "Add bank account details",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                          fontWeight: FontWeight.w700,
-                                          fontSize: 16,
-                                          color: Colors.black)),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: Get.height * 0.04,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'Transactions',
-                              style: Theme.of(context).textTheme.labelMedium,
-                            ),
-                            SizedBox(
-                              width: Get.width * 0.18,
-                            ),
-                            Text(
-                              'Sort by',
-                              style: Theme.of(context).textTheme.bodyMedium,
-                            ),
-                            SizedBox(
-                              width: Get.width * 0.02,
-                            ),
-                            Container(
-                              height: 40,
-                              width: Get.width * 0.26,
-                              decoration: BoxDecoration(
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(60)),
-                                border:
-                                    Border.all(width: 1, color: Colors.white),
+                                      .bodyLarge
+                                      ?.copyWith(color: AppColors.blueThemeColor),
+                                ),
                               ),
-                              child: DropdownButtonHideUnderline(
-                                child: DropdownButton2<String>(
-                                  //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
-                                  isExpanded: true,
-                                  hint: Text(
-                                    'Select',
+                            ],
+                          ),
+                          Text(
+                            "How do I earn",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall
+                                ?.copyWith(
+                                    color: AppColors.blueThemeColor,
+                                    fontWeight: FontWeight.w500,
+                                    decoration: TextDecoration.underline),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.02,
+                          ),
+                          Center(
+                              child: Text(
+                                  "£ ${seekerEarningController.getEarningDetails.value.totalAmount ?? 0} ",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge
+                                      ?.copyWith(
+                                          fontSize: 30,
+                                          color: AppColors.blueThemeColor))),
+                          SizedBox(
+                            height: Get.height * 0.035,
+                          ),
+                          Center(
+                            child: MyButton(
+                                title: "Request Withdraw",
+                                onTap1: () {
+                                  seekerEarningController
+                                          .getEarningDetails.value.bankAccount
+                                      ? Get.to(() => const RequestWithdraw())
+                                      : Utils.showMessageDialog(context,
+                                          "Please add bank account details");
+                                }),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.025,
+                          ),
+                          Center(
+                            child: GestureDetector(
+                              onTap: () {
+                                _dialogBuilder(context);
+                              },
+                              child: Container(
+                                height: Get.height * .075,
+                                width: 295,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(60)),
+                                child: Text('See Referral Code',
                                     style: Theme.of(context)
                                         .textTheme
-                                        .labelLarge
-                                        ?.copyWith(fontWeight: FontWeight.w400),
-                                    overflow: TextOverflow.ellipsis,
+                                        .bodyMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Colors.black)),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: Get.height * 0.04,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                'Transactions',
+                                style: Theme.of(context).textTheme.labelMedium,
+                              ),
+                              // SizedBox(
+                              //   width: Get.width * 0.18,
+                              // ),
+                            Row(
+                              children: [
+                                Text(
+                                  'Sort by',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                SizedBox(
+                                  width: Get.width * 0.02,
+                                ),
+                                Container(
+                                  height: 40,
+                                  width: Get.width * 0.26,
+                                  decoration: BoxDecoration(
+                                    borderRadius:
+                                    const BorderRadius.all(Radius.circular(60)),
+                                    border:
+                                    Border.all(width: 1, color: Colors.white),
                                   ),
-                                  items: items
-                                      .map((String item) =>
+                                  child: DropdownButtonHideUnderline(
+                                    child: DropdownButton2<String>(
+                                      //style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400),
+                                      isExpanded: true,
+                                      hint: Text(
+                                        'Select',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .labelLarge
+                                            ?.copyWith(fontWeight: FontWeight.w400),
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      items: items
+                                          .map((String item) =>
                                           DropdownMenuItem<String>(
                                             value: item,
                                             child: Text(
@@ -301,214 +312,225 @@ class _WalletState extends State<Wallet> {
                                                   .textTheme
                                                   .labelLarge
                                                   ?.copyWith(
-                                                      fontWeight:
-                                                          FontWeight.w400),
+                                                  fontWeight:
+                                                  FontWeight.w400),
                                               overflow: TextOverflow.ellipsis,
                                             ),
                                           ))
-                                      .toList(),
-                                  value: selectedValue,
-                                  onChanged: (String? value) {
-                                    setState(() {
-                                      selectedValue = value;
-                                    });
-                                  },
+                                          .toList(),
+                                      value: selectedValue,
+                                      onChanged: (String? value) {
+                                        setState(() {
+                                          selectedValue = value;
+                                        });
+                                      },
 
-                                  // iconStyleData: const IconStyleData(
-                                  //   icon: Icon(
-                                  //     Icons.arrow_forward_ios_outlined,
-                                  //   ),
-                                  //   iconSize: 14,
-                                  //   iconEnabledColor: Colors.white,
-                                  //   iconDisabledColor: Colors.grey,
-                                  // ),
+                                      // iconStyleData: const IconStyleData(
+                                      //   icon: Icon(
+                                      //     Icons.arrow_forward_ios_outlined,
+                                      //   ),
+                                      //   iconSize: 14,
+                                      //   iconEnabledColor: Colors.white,
+                                      //   iconDisabledColor: Colors.grey,
+                                      // ),
 
-                                  menuItemStyleData: const MenuItemStyleData(
-                                    height: 40,
-                                    padding:
+                                      menuItemStyleData: const MenuItemStyleData(
+                                        height: 40,
+                                        padding:
                                         EdgeInsets.only(left: 5, right: 14),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        // Row(mainAxisAlignment: MainAxisAlignment.center,
-                        //   children: [
-                        //     GestureDetector(
-                        //       onTap: () {
-                        //         setState(() {
-                        //           employee = true ;
-                        //           employer = false ;
-                        //         });
-                        //       },
-                        //       child: Container(
-                        //           height: 40,
-                        //           width: 120,
-                        //           alignment: Alignment.center,
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(60.0),
-                        //             color: employee ? AppColors.blueThemeColor : Color(0xff353535),
-                        //           ),
-                        //           child :  Text(
-                        //             "Employee",
-                        //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        //               fontWeight: FontWeight.w700,
-                        //               color: const Color(0xffFFFFFF),
-                        //             ),
-                        //           )
-                        //       ),
-                        //     ) ,
-                        //     const SizedBox(width:20,),
-                        //     GestureDetector(
-                        //       onTap: () {
-                        //         setState(() {
-                        //           employer = true ;
-                        //           employee = false ;
-                        //         });
-                        //       },
-                        //       child: Container(
-                        //           height: 40,
-                        //           width: 120,
-                        //           alignment: Alignment.center,
-                        //           decoration: BoxDecoration(
-                        //             borderRadius: BorderRadius.circular(60.0),
-                        //             color: employer ? AppColors.blueThemeColor : Color(0xff353535),
-                        //           ),
-                        //           child :  Text(
-                        //             "Employer",
-                        //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        //               fontWeight: FontWeight.w700,
-                        //               color: const Color(0xffFFFFFF),
-                        //             ),
-                        //           )
-                        //       ),
-                        //     ) ,
-                        //   ],
-                        // ) ,
-                        // const SizedBox(height: 20,),
-                        //
-                        // Container(
-                        //   child: employee ?   ListView.builder(
-                        //       shrinkWrap: true,
-                        //       physics: const BouncingScrollPhysics(),
-                        //       itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
-                        //       itemBuilder: (BuildContext context, int index) {
-                        //         var data = seekerEarningController.getEarningDetails.value.seeker?[index] ;
-                        //         String? formattedDate = formatDateTime(data?.createdAt);
-                        //         return Container(
-                        //           margin: const EdgeInsets.only(bottom: 10),
-                        //           height: Get.height * .1,
-                        //           decoration: BoxDecoration(
-                        //             color: const Color(0xff353535),
-                        //             borderRadius: BorderRadius.circular(
-                        //                 18),
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               "${data?.email}", style: Theme
-                        //                 .of(context)
-                        //                 .textTheme
-                        //                 .bodyLarge
-                        //                 ?.copyWith(
-                        //                 fontWeight: FontWeight.w600,
-                        //                 color: Colors.white),),
-                        //             subtitle: Text(
-                        //               "$formattedDate", style: Theme
-                        //                 .of(context)
-                        //                 .textTheme
-                        //                 .bodySmall
-                        //                 ?.copyWith(
-                        //                 fontWeight: FontWeight.w400,
-                        //                 color: const Color(0xffCFCFCF)),),
-                        //             trailing: const Text("View",
-                        //                 style: TextStyle(fontSize: 16,
-                        //                     fontWeight: FontWeight.w600,
-                        //                     color: Color(0xff56B8F6))),
-                        //           ),
-                        //         );
-                        //       }
-                        //   ) :
-                        //   ListView.builder(
-                        //       shrinkWrap: true,
-                        //       itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
-                        //       itemBuilder: (BuildContext context,
-                        //           int index) {
-                        //         var data = seekerEarningController.getEarningDetails.value.recruiter?[index] ;
-                        //         String? formattedDate = formatDateTime(data?.createdAt);
-                        //         return Container(
-                        //           margin: const EdgeInsets.only(bottom: 10),
-                        //           height: Get.height * .1,
-                        //           decoration: BoxDecoration(
-                        //             color: const Color(0xff353535),
-                        //             borderRadius: BorderRadius.circular(
-                        //                 18),
-                        //           ),
-                        //           child: ListTile(
-                        //             title: Text(
-                        //               "${data?.email}", style: Theme
-                        //                 .of(context)
-                        //                 .textTheme
-                        //                 .bodyLarge
-                        //                 ?.copyWith(
-                        //                 fontWeight: FontWeight.w600,
-                        //                 color: Colors.white),),
-                        //             subtitle: Text(
-                        //               "$formattedDate", style: Theme
-                        //                 .of(context)
-                        //                 .textTheme
-                        //                 .bodySmall
-                        //                 ?.copyWith(
-                        //                 fontWeight: FontWeight.w400,
-                        //                 color: const Color(0xffCFCFCF)),),
-                        //             trailing: const Text("View",
-                        //                 style: TextStyle(fontSize: 16,
-                        //                     fontWeight: FontWeight.w600,
-                        //                     color: Color(0xff56B8F6))),
-                        //           ),
-                        //         );
-                        //       }
-                        //   ),
-                        // ),
-                        Container(
-                          height: Get.height*.9,
-                          // padding: const EdgeInsets.symmetric(horizontal: 30),
-                          child:  DefaultTabController(
-                            length: 4,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.stretch,
-                              children: [
-                                const TabBar(
-                                  isScrollable: true,
-                                  tabs: [
-                                    Tab(
-                                      child: Text("APP\nREFERRAL",textAlign: TextAlign.center,)
-                                    ),
-                                    Tab(
-                                      child: Text("SUBSCRIPTION\nREFERRAL",textAlign: TextAlign.center,)
-                                    ),
-                                    Tab(
-                                      child: Text("EMPLOYMENT\nREFERRAL",textAlign: TextAlign.center,)
-                                    ),
-                                    Tab(
-                                      child: Text("REQUIREMENT\nREFERRAL",textAlign: TextAlign.center,)
-                                    ),
-                                  ],
-                                  labelColor: AppColors.blueThemeColor,
-                                  unselectedLabelColor: Color(0xffCFCFCF),
-                                  indicatorColor: AppColors.blueThemeColor,
-                                  indicatorPadding:
-                                      EdgeInsets.symmetric(horizontal: 20),
-                                ),
-                                SizedBox(height: 20),
-                                Expanded(
-                                  child: TabBarView(
-                                    children: [
-                                      const SingleChildScrollView(
-                                        child: Column(children: [
+                                )
+                              ],
+                            ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          // Row(mainAxisAlignment: MainAxisAlignment.center,
+                          //   children: [
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         setState(() {
+                          //           employee = true ;
+                          //           employer = false ;
+                          //         });
+                          //       },
+                          //       child: Container(
+                          //           height: 40,
+                          //           width: 120,
+                          //           alignment: Alignment.center,
+                          //           decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(60.0),
+                          //             color: employee ? AppColors.blueThemeColor : Color(0xff353535),
+                          //           ),
+                          //           child :  Text(
+                          //             "Employee",
+                          //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          //               fontWeight: FontWeight.w700,
+                          //               color: const Color(0xffFFFFFF),
+                          //             ),
+                          //           )
+                          //       ),
+                          //     ) ,
+                          //     const SizedBox(width:20,),
+                          //     GestureDetector(
+                          //       onTap: () {
+                          //         setState(() {
+                          //           employer = true ;
+                          //           employee = false ;
+                          //         });
+                          //       },
+                          //       child: Container(
+                          //           height: 40,
+                          //           width: 120,
+                          //           alignment: Alignment.center,
+                          //           decoration: BoxDecoration(
+                          //             borderRadius: BorderRadius.circular(60.0),
+                          //             color: employer ? AppColors.blueThemeColor : Color(0xff353535),
+                          //           ),
+                          //           child :  Text(
+                          //             "Employer",
+                          //             style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          //               fontWeight: FontWeight.w700,
+                          //               color: const Color(0xffFFFFFF),
+                          //             ),
+                          //           )
+                          //       ),
+                          //     ) ,
+                          //   ],
+                          // ) ,
+                          // const SizedBox(height: 20,),
+                          //
+                          // Container(
+                          //   child: employee ?   ListView.builder(
+                          //       shrinkWrap: true,
+                          //       physics: const BouncingScrollPhysics(),
+                          //       itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
+                          //       itemBuilder: (BuildContext context, int index) {
+                          //         var data = seekerEarningController.getEarningDetails.value.seeker?[index] ;
+                          //         String? formattedDate = formatDateTime(data?.createdAt);
+                          //         return Container(
+                          //           margin: const EdgeInsets.only(bottom: 10),
+                          //           height: Get.height * .1,
+                          //           decoration: BoxDecoration(
+                          //             color: const Color(0xff353535),
+                          //             borderRadius: BorderRadius.circular(
+                          //                 18),
+                          //           ),
+                          //           child: ListTile(
+                          //             title: Text(
+                          //               "${data?.email}", style: Theme
+                          //                 .of(context)
+                          //                 .textTheme
+                          //                 .bodyLarge
+                          //                 ?.copyWith(
+                          //                 fontWeight: FontWeight.w600,
+                          //                 color: Colors.white),),
+                          //             subtitle: Text(
+                          //               "$formattedDate", style: Theme
+                          //                 .of(context)
+                          //                 .textTheme
+                          //                 .bodySmall
+                          //                 ?.copyWith(
+                          //                 fontWeight: FontWeight.w400,
+                          //                 color: const Color(0xffCFCFCF)),),
+                          //             trailing: const Text("View",
+                          //                 style: TextStyle(fontSize: 16,
+                          //                     fontWeight: FontWeight.w600,
+                          //                     color: Color(0xff56B8F6))),
+                          //           ),
+                          //         );
+                          //       }
+                          //   ) :
+                          //   ListView.builder(
+                          //       shrinkWrap: true,
+                          //       itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
+                          //       itemBuilder: (BuildContext context,
+                          //           int index) {
+                          //         var data = seekerEarningController.getEarningDetails.value.recruiter?[index] ;
+                          //         String? formattedDate = formatDateTime(data?.createdAt);
+                          //         return Container(
+                          //           margin: const EdgeInsets.only(bottom: 10),
+                          //           height: Get.height * .1,
+                          //           decoration: BoxDecoration(
+                          //             color: const Color(0xff353535),
+                          //             borderRadius: BorderRadius.circular(
+                          //                 18),
+                          //           ),
+                          //           child: ListTile(
+                          //             title: Text(
+                          //               "${data?.email}", style: Theme
+                          //                 .of(context)
+                          //                 .textTheme
+                          //                 .bodyLarge
+                          //                 ?.copyWith(
+                          //                 fontWeight: FontWeight.w600,
+                          //                 color: Colors.white),),
+                          //             subtitle: Text(
+                          //               "$formattedDate", style: Theme
+                          //                 .of(context)
+                          //                 .textTheme
+                          //                 .bodySmall
+                          //                 ?.copyWith(
+                          //                 fontWeight: FontWeight.w400,
+                          //                 color: const Color(0xffCFCFCF)),),
+                          //             trailing: const Text("View",
+                          //                 style: TextStyle(fontSize: 16,
+                          //                     fontWeight: FontWeight.w600,
+                          //                     color: Color(0xff56B8F6))),
+                          //           ),
+                          //         );
+                          //       }
+                          //   ),
+                          // ),
+                          Container(
+                            height: Get.height*.9,
+                            // padding: const EdgeInsets.symmetric(horizontal: 30),
+                            child:  DefaultTabController(
+                              length: 4,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                children: [
+                                  const TabBar(
+                                    isScrollable: true,
+                                    tabs: [
+                                      Tab(
+                                        child: Text("APP\nREFERRAL",textAlign: TextAlign.center,)
+                                      ),
+                                      Tab(
+                                        child: Text("SUBSCRIPTION\nREFERRAL",textAlign: TextAlign.center,)
+                                      ),
+                                      Tab(
+                                        child: Text("EMPLOYMENT\nREFERRAL",textAlign: TextAlign.center,)
+                                      ),
+                                      Tab(
+                                        child: Text("REQUIREMENT\nREFERRAL",textAlign: TextAlign.center,)
+                                      ),
+                                    ],
+                                    labelColor: AppColors.blueThemeColor,
+                                    unselectedLabelColor: Color(0xffCFCFCF),
+                                    indicatorColor: AppColors.blueThemeColor,
+                                    indicatorPadding:
+                                        EdgeInsets.symmetric(horizontal: 20),
+                                  ),
+                                  SizedBox(height: 20),
+                                  Expanded(
+                                    child: TabBarView(
+                                      children: [
+                                        const SingleChildScrollView(
+                                          child: Column(children: [
+                                            Text(
+                                              "It is a long established fact that a "
+                                              "reader will be distracted by the readable content of a page when looking at its l"
+                                              "ayout. The point of using Lorem Ipsum is that it has a"
+                                              " more-or-less normal distribution of letters",
+                                            )
+                                          ]),
+                                        ),
+                                        const Column(children: [
                                           Text(
                                             "It is a long established fact that a "
                                             "reader will be distracted by the readable content of a page when looking at its l"
@@ -516,176 +538,181 @@ class _WalletState extends State<Wallet> {
                                             " more-or-less normal distribution of letters",
                                           )
                                         ]),
-                                      ),
-                                      const Column(children: [
-                                        Text(
-                                          "It is a long established fact that a "
-                                          "reader will be distracted by the readable content of a page when looking at its l"
-                                          "ayout. The point of using Lorem Ipsum is that it has a"
-                                          " more-or-less normal distribution of letters",
-                                        )
-                                      ]),
-                                      const Column(children: [
-                                        Text(
-                                          "It is a long established fact that a "
-                                          "reader will be distracted by the readable content of a page when looking at its l"
-                                          "ayout. The point of using Lorem Ipsum is that it has a"
-                                          " more-or-less normal distribution of letters",
-                                        )
-                                      ]),
-                                      Column(children: [
-                                        Container(
-                                          height: Get.height*.7,
-                                          width: Get.width,
-                                          padding: EdgeInsets.symmetric(horizontal: 10),
-                                          decoration:  BoxDecoration(
-                                            color: Color(0xff353535),
-                                            borderRadius: BorderRadius.circular(15)
-                                          ),
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              children: [
-                                                SizedBox(height: Get.height*.03,) ,
-                                                Text("Contact Us",style: Theme.of(context).textTheme.titleSmall,),
-                                                SizedBox(height: Get.height*.03,) ,
-                                                TextFormField(
-                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                  // controller: accountHolderController,
-                                                  style: Theme.of(context).textTheme.bodyMedium,
-                                                  decoration: InputDecoration(
-                                                      border:OutlineInputBorder(
-                                                          borderRadius: BorderRadius.circular(35),
-                                                          borderSide: BorderSide.none,
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Color(0xff454545),
-                                                      hintText: "Name",
-
-                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
-                                                  ),
-                                                  onFieldSubmitted: (value) {
-
-                                                  },
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return 'This field is empty';
-                                                    }
-                                                    return null ;
-                                                  },
-                                                ),
-                                                SizedBox(height: Get.height*.02,) ,
-                                                TextFormField(
-                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                  // controller: accountHolderController,
-                                                  style: Theme.of(context).textTheme.bodyMedium,
-                                                  decoration: InputDecoration(
-                                                      border:OutlineInputBorder(
-                                                          borderRadius: BorderRadius.circular(35),
-                                                          borderSide: BorderSide.none
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Color(0xff454545),
-                                                      hintText: "Email",
-                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
-                                                  ),
-                                                  onFieldSubmitted: (value) {
-
-                                                  },
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return 'This field is empty';
-                                                    }
-                                                    return null ;
-                                                  },
-                                                ),
-                                                SizedBox(height: Get.height*.02,) ,
-                                                TextFormField(
-                                                  autovalidateMode: AutovalidateMode.onUserInteraction,
-                                                  // controller: accountHolderController,
-                                                  style: Theme.of(context).textTheme.bodyMedium,
-                                                  decoration: InputDecoration(
-                                                      border:OutlineInputBorder(
-                                                          borderRadius: BorderRadius.circular(35),
-                                                          borderSide: BorderSide.none
-                                                      ),
-                                                      filled: true,
-                                                      fillColor: Color(0xff454545),
-                                                      hintText: "Phone",
-                                                      hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                                      contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
-                                                  ),
-                                                  onFieldSubmitted: (value) {
-
-                                                  },
-                                                  validator: (value) {
-                                                    if (value == null || value.isEmpty) {
-                                                      return 'This field is empty';
-                                                    }
-                                                    return null ;
-                                                  },
-                                                ),
-                                                SizedBox(height: Get.height*.02,) ,
-                                                TextFormField(maxLines: 5,
+                                        const Column(children: [
+                                          Text(
+                                            "It is a long established fact that a "
+                                            "reader will be distracted by the readable content of a page when looking at its l"
+                                            "ayout. The point of using Lorem Ipsum is that it has a"
+                                            " more-or-less normal distribution of letters",
+                                          )
+                                        ]),
+                                        Column(
+                                            children: [
+                                          Container(
+                                            width: Get.width,
+                                            padding: EdgeInsets.symmetric(horizontal: 10,vertical: 15),
+                                            decoration:  BoxDecoration(
+                                              color: Color(0xff353535),
+                                              borderRadius: BorderRadius.circular(15)
+                                            ),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Column(
+                                                children: [
+                                                  SizedBox(height: Get.height*.01,) ,
+                                                  Text("Contact Us",style: Theme.of(context).textTheme.titleSmall,),
+                                                  SizedBox(height: Get.height*.03,) ,
+                                                  TextFormField(
+                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                    // controller: accountHolderController,
                                                     style: Theme.of(context).textTheme.bodyMedium,
                                                     decoration: InputDecoration(
-                                                      filled: true,
-                                                      fillColor: Color(0xff454545),
-                                                      hintText: "Message",
-                                                      hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                                      contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.06),
-                                                      border: OutlineInputBorder(
-                                                        borderSide: BorderSide.none,
-                                                        borderRadius: BorderRadius.circular(15),
-                                                      ),
-                                                      focusedBorder: OutlineInputBorder(
-                                                        borderSide:BorderSide.none,
-                                                        borderRadius: BorderRadius.circular(15),
-                                                      ),
-                                                      enabledBorder:  OutlineInputBorder(
-                                                        borderRadius: BorderRadius.circular(15),
-                                                        borderSide: BorderSide.none,
-                                                      ),
-                                                    )
-                                                ),
-                                                SizedBox(height: Get.height*.04,) ,
-                                                MyButton(
-                                                  width: Get.width*.45,
-                                                  height: Get.height*.06,
-                                                  title: "Submit", onTap1: () {
+                                                        border:OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(35),
+                                                            borderSide: BorderSide.none,
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Color(0xff454545),
+                                                        hintText: "Name",
+                                                        hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                    ),
+                                                    // onFieldSubmitted: (value) {
+                                                    //
+                                                    // },
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'This field is empty';
+                                                    //   }
+                                                    //   return null ;
+                                                    // },
+                                                  ),
+                                                  SizedBox(height: Get.height*.02,) ,
+                                                  TextFormField(
+                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                    // controller: accountHolderController,
+                                                    style: Theme.of(context).textTheme.bodyMedium,
+                                                    decoration: InputDecoration(
+                                                        border:OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(35),
+                                                            borderSide: BorderSide.none
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Color(0xff454545),
+                                                        hintText: "Email",
+                                                        hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                    ),
+                                                    onFieldSubmitted: (value) {
 
-                                                },)
-                                              ],
+                                                    },
+                                                    validator: (value) {
+                                                      if (value == null || value.isEmpty) {
+                                                        return 'Please enter an email address';
+                                                      } else if (!_isValidEmail(value)) {
+                                                        return 'Please enter a valid email address';
+                                                      }
+                                                      return null;
+                                                    },
+                                                  ),
+                                                  SizedBox(height: Get.height*.02,) ,
+                                                  TextFormField(
+                                                    autovalidateMode: AutovalidateMode.onUserInteraction,
+                                                    // controller: accountHolderController,
+                                                    style: Theme.of(context).textTheme.bodyMedium,
+                                                    decoration: InputDecoration(
+                                                        border:OutlineInputBorder(
+                                                            borderRadius: BorderRadius.circular(35),
+                                                            borderSide: BorderSide.none
+                                                        ),
+                                                        filled: true,
+                                                        fillColor: Color(0xff454545),
+                                                        hintText: "Phone",
+                                                        hintStyle: Theme.of(context).textTheme.labelLarge?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                        contentPadding: EdgeInsets.symmetric(horizontal: Get.width*.06,vertical: Get.height*.027)
+                                                    ),
+                                                    // onFieldSubmitted: (value) {
+                                                    //
+                                                    // },
+                                                    // validator: (value) {
+                                                    //   if (value == null || value.isEmpty) {
+                                                    //     return 'This field is empty';
+                                                    //   }
+                                                    //   return null ;
+                                                    // },
+                                                  ),
+                                                  SizedBox(height: Get.height*.02,) ,
+                                                  TextFormField(maxLines: 5,
+                                                      style: Theme.of(context).textTheme.bodyMedium,
+                                                      decoration: InputDecoration(
+                                                        filled: true,
+                                                        fillColor: Color(0xff454545),
+                                                        hintText: "Message",
+                                                        hintStyle: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                                        contentPadding: EdgeInsets.symmetric(vertical: Get.height*.03,horizontal: Get.width*.06),
+                                                        border: OutlineInputBorder(
+                                                          borderSide: BorderSide.none,
+                                                          borderRadius: BorderRadius.circular(15),
+                                                        ),
+                                                        focusedBorder: OutlineInputBorder(
+                                                          borderSide:BorderSide.none,
+                                                          borderRadius: BorderRadius.circular(15),
+                                                        ),
+                                                        enabledBorder:  OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(15),
+                                                          borderSide: BorderSide.none,
+                                                        ),
+                                                      ) ,
+                                                    onFieldSubmitted: (value) {
+
+                                                    },
+                                                    validator: (value) {
+                                                      if (value == null || value.isEmpty) {
+                                                        return 'This field is empty';
+                                                      }
+                                                      return null ;
+                                                    },
+                                                  ),
+                                                   SizedBox(height: Get.height*.02,) ,
+                                                  MyButton(
+                                                    width: Get.width*.45,
+                                                    height: Get.height*.06,
+                                                    title: "Submit", onTap1: () {
+                                                      if(_formKey.currentState!.validate()) {
+
+                                                      }
+                                                  },),
+                                                  SizedBox(height: Get.height*.02,) ,
+                                                ],
+                                              ),
                                             ),
-                                          ),
-                                        )
-                                      ]),
+                                          )
+                                        ]),
 
-                                      // ListView.builder(
-                                      //   shrinkWrap: true,
-                                      //   physics: const BouncingScrollPhysics(),
-                                      //   itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
-                                      //   itemBuilder: (BuildContext context, int index) {
-                                      //     // Employee view logic
-                                      //   },
-                                      // ),
-                                      // ListView.builder(
-                                      //   shrinkWrap: true,
-                                      //   itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
-                                      //   itemBuilder: (BuildContext context, int index) {
-                                      //     // Employer view logic
-                                      //   },
-                                      // ),
-                                    ],
+                                        // ListView.builder(
+                                        //   shrinkWrap: true,
+                                        //   physics: const BouncingScrollPhysics(),
+                                        //   itemCount: seekerEarningController.getEarningDetails.value.seeker?.length,
+                                        //   itemBuilder: (BuildContext context, int index) {
+                                        //     // Employee view logic
+                                        //   },
+                                        // ),
+                                        // ListView.builder(
+                                        //   shrinkWrap: true,
+                                        //   itemCount: seekerEarningController.getEarningDetails.value.recruiter?.length,
+                                        //   itemBuilder: (BuildContext context, int index) {
+                                        //     // Employer view logic
+                                        //   },
+                                        // ),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                      ],
+                          )
+                        ],
+                      ),
                     ),
                   ),
                 ),
