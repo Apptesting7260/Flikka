@@ -73,4 +73,5 @@ class AppUrl {
   static const String newRecruiterHomePage = '$baseUrl/home-page-seeker-percentage-api' ;
   static const String newRecruiterHomePageJobs = '$baseUrl/home-page-job-position-api' ;
   static const String recruiterReportApi = '$baseUrl/recruiter-report-api' ;
+  static const String deleteUser = '$baseUrl/delete-user' ;
 }

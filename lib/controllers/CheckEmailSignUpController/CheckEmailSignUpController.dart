@@ -1,4 +1,6 @@
 
+import 'dart:async';
+
 import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
@@ -12,12 +14,25 @@ class CheckEmailSignUpController extends GetxController {
 
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
+
+   RxInt secondsRemaining = 60.obs;
+  late Timer timer;
+  void startTimer() {
+    const oneSecond = Duration(seconds: 1);
+    timer = Timer.periodic(oneSecond, (Timer timer) {
+      if (secondsRemaining.value == 0) {
+        timer.cancel();
+        // You can add additional actions here when the timer completes
+      } else {
+        secondsRemaining.value--;
+      }
+    });
+  }
   void checkEmailSignUpApiHit(
       String email,
       BuildContext context
       ) async{
     loading.value = true ;
-
     Map data = { 'email' : email,};
     if (kDebugMode) {
       print(data);
@@ -28,6 +43,8 @@ class CheckEmailSignUpController extends GetxController {
         print(value);
       }
       if(value.status!){
+        secondsRemaining.value = 60 ;
+        startTimer() ;
        Utils.toastMessage("otp sent successfully") ;
         Get.to(() => const OtpScreen(register: true) , arguments: {"email": email}) ;
       }

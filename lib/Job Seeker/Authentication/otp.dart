@@ -30,7 +30,7 @@ class OtpScreenState extends State<OtpScreen> {
   var email = Get.arguments["email"] ;
 
   ///Timer///////
-  RxInt secondsRemaining = 60.obs;
+ static RxInt secondsRemaining = 60.obs;
   late Timer timer;
 
   void startTimer() {
@@ -214,14 +214,14 @@ class OtpScreenState extends State<OtpScreen> {
                                        children: [
                                          TextSpan(
                                            recognizer: TapGestureRecognizer()..onTap=(){
-                                             if(secondsRemaining.value == 0) {
+                                             if(emailSignUpController.secondsRemaining.value == 0) {
                                                if(widget.register) {
                                                  emailSignUpController.checkEmailSignUpApiHit(email, context) ;
                                                }else {
                                                  ForgotPasswordControllerInstanse.forgotPasswordApiHit();
                                                }
-                                               secondsRemaining.value = 60 ;
-                                              startTimer();
+                                               // secondsRemaining.value = 60 ;
+                                              // startTimer();
                                              }
                                            } ,
                                            text: "Resend",

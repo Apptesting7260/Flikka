@@ -1,5 +1,6 @@
 
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flikka/controllers/CheckEmailSignUpController/CheckEmailSignUpController.dart';
 import 'package:flikka/repository/Auth_Repository.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flikka/Job%20Seeker/Authentication/otp.dart';
@@ -12,8 +13,9 @@ class ForgotPasswordController extends GetxController {
 
   final _api = AuthRepository();
 
-  final emailController=TextEditingController().obs;
+  final emailController = TextEditingController().obs;
 
+  CheckEmailSignUpController checkEmailSignUpController = Get.put(CheckEmailSignUpController());
   var forgotPasswordErrorMessage = ''.obs ;
 
   RxBool loading = false.obs;
@@ -31,6 +33,9 @@ class ForgotPasswordController extends GetxController {
       verifyEmail =  emailController.value.text;
 
       if(value.status == true ) {
+        Utils.toastMessage("otp sent successfully") ;
+        checkEmailSignUpController.secondsRemaining.value = 60 ;
+        checkEmailSignUpController.startTimer() ;
         Get.to(() => const OtpScreen(register: false,), arguments: {"email": verifyEmail});
       } else {
         loading.value = false ;
