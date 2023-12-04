@@ -181,7 +181,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.employmentType ??"",
+                                        Text( widget.recruiterJobsData?.employmentType ?? "No Data",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -213,7 +213,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.typeOfWorkplace ?? "",
+                                        Text( widget.recruiterJobsData?.typeOfWorkplace ?? "No Data",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!

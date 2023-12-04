@@ -243,40 +243,40 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                         )),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-
-                                        },
-                                        icon: Image.asset('assets/images/icon_saved_post_drawer.png',scale: 2.8,fit: BoxFit.cover,)),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.to((SavedPostRecuiter()));
-                                        } ,
-                                        child: Text(
-                                          "Save Post",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                        )),
-                                  ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((ResetPassword()));
-                                        },
-                                        icon: Image.asset('assets/images/icon_request.png',scale: 2.8,fit: BoxFit.cover,)),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.to(() =>Request());
-                                        } ,
-                                        child: Text(
-                                          "Request",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                        )),
-                                  ),
+                                  // ListTile(
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: IconButton(
+                                  //       onPressed: () {
+                                  //
+                                  //       },
+                                  //       icon: Image.asset('assets/images/icon_saved_post_drawer.png',scale: 2.8,fit: BoxFit.cover,)),
+                                  //   title: InkWell(
+                                  //       onTap: (){
+                                  //         Get.to((SavedPostRecuiter()));
+                                  //       } ,
+                                  //       child: Text(
+                                  //         "Save Post",
+                                  //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //       )),
+                                  // ),
+                                  // ListTile(
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: IconButton(
+                                  //       onPressed: () {
+                                  //         //Get.to((ResetPassword()));
+                                  //       },
+                                  //       icon: Image.asset('assets/images/icon_request.png',scale: 2.8,fit: BoxFit.cover,)),
+                                  //   title: InkWell(
+                                  //       onTap: (){
+                                  //         Get.to(() =>Request());
+                                  //       } ,
+                                  //       child: Text(
+                                  //         "Request",
+                                  //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //       )),
+                                  // ),
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,

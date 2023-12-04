@@ -1,7 +1,10 @@
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
+import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/LogoutController/LogoutController.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -11,12 +14,49 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
+
+  LogoutController logoutController  = Get.put( LogoutController()) ;
+
+  void showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.zero,
+          content: Padding(
+            padding: const EdgeInsets.all(15.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    const SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: CircularProgressIndicator(backgroundColor: Color(0xff353535),)) ,
+                    SizedBox(width: Get.width*.1,),
+                    Text("Logging out...",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontSize: 12),) ,
+                  ],
+                )
+              ],
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        );
+      },
+    );
+  }
+
   final _controller = ValueNotifier<bool>(false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 75,
         leading: Padding(
           padding: const EdgeInsets.only(left: 15.0),
           child: GestureDetector(
@@ -26,7 +66,6 @@ class _SettingPageState extends State<SettingPage> {
               child: Image.asset('assets/images/icon_back_blue.png')),
         ),
         elevation: 0,
-        backgroundColor: Colors.black,
         title: Text("Settings",style: Get.theme.textTheme.displayLarge),
 
       ),
@@ -47,7 +86,7 @@ class _SettingPageState extends State<SettingPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(children: [
-                    IconButton(onPressed: (){} ,icon: Image.asset('assets/images/notificationfull.png')),
+                    IconButton(onPressed: (){} ,icon: Image.asset('assets/images/notificationfull.png',color: AppColors.blueThemeColor,)),
                     Text("Notifications",style: Get.theme.textTheme.bodyMedium),
                   ],),
                   Padding(
@@ -85,12 +124,37 @@ class _SettingPageState extends State<SettingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/lockicon.png')),
+                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/lockicon.png',color: AppColors.blueThemeColor,)),
                       Text("Password",style: Get.theme.textTheme.bodyMedium),
                     ],),
                     IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
                   ],
                 )
+            ),
+            SizedBox(height: Get.height*0.022,),
+            GestureDetector(
+              onTap: () {
+                logoutController.logout() ;
+                showLogoutDialog(context)  ;
+              },
+              child: Container(
+                  height: Get.height*0.08,
+                  width: Get.width*0.9,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        IconButton(onPressed: (){} ,icon: Image.asset('assets/images/logout.png',color: AppColors.blueThemeColor,)),
+                        Text("Logout",style: Get.theme.textTheme.bodyMedium),
+                      ],),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
+                    ],
+                  )
+              ),
             ),
             SizedBox(height: Get.height*0.022,),
             Container(
@@ -104,8 +168,8 @@ class _SettingPageState extends State<SettingPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Row(children: [
-                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/logout.png')),
-                      Text("Logout",style: Get.theme.textTheme.bodyMedium),
+                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/logout.png',color: AppColors.blueThemeColor,)),
+                      Text("Delete account",style: Get.theme.textTheme.bodyMedium),
                     ],),
                     IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
                   ],

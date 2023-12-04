@@ -1,10 +1,9 @@
-import 'package:cached_network_image/cached_network_image.dart';
+
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/Authentication/user/user_profile.dart';
 import 'package:flikka/Job%20Seeker/SeekerJobs/AppliedJobs.dart';
-import 'package:flikka/Job%20Seeker/SeekerJobs/SeekerRequestedJobs.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

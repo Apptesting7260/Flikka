@@ -5,6 +5,7 @@ import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
@@ -259,13 +260,21 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                       ],
                                     ),
                                     SizedBox(height: Get.height * .03,),
-                                  Text(data?.interviewLink ?? "No Data",style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .bodyMedium
-                                      ?.copyWith(
-                                      fontWeight: FontWeight.w400,
-                                      color: AppColors.blueThemeColor)) ,
+                                  data?.interviewLink == null || data?.interviewLink?.length == 0 ?
+                                      const SizedBox() :
+                                  GestureDetector(
+                                    onTap: () {
+                                      launchUrl(Uri.parse("${data?.interviewLink}"),
+                                      mode: LaunchMode.externalApplication) ;
+                                    },
+                                    child: Text(data?.interviewLink ?? "No Data",style: Theme
+                                        .of(context)
+                                        .textTheme
+                                        .bodyMedium
+                                        ?.copyWith(
+                                        fontWeight: FontWeight.w400,
+                                        color: AppColors.blueThemeColor)),
+                                  ) ,
                                     SizedBox(height: Get.height * .031,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment
