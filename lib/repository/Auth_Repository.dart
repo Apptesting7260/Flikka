@@ -202,4 +202,9 @@ class AuthRepository {
     return EditMobileNumberModel.fromJson(response);
   }
 
+  Future<EditAboutModel> deleteUser(var data) async {
+    dynamic response = await _apiService.postApi2(data, AppUrl.deleteUser);
+    return EditAboutModel.fromJson(response);
+  }
+
 }

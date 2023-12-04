@@ -19,17 +19,21 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
   late VideoPlayerController _videoPlayerController;
   late ChewieController _chewieController;
 
+  bool chewieInitialized = false ;
   @override
   void initState() {
     super.initState();
     _initializeVideoPlayer();
-    _initializeChewieController();
+    // Do not initialize ChewieController here, wait for VideoPlayerController to be initialized
   }
 
   Future<void> _initializeVideoPlayer() async {
     _videoPlayerController = VideoPlayerController.network(widget.videoPath);
     await _videoPlayerController.initialize();
     _videoPlayerController.setLooping(true);
+   if(_videoPlayerController.value.isInitialized) {
+     _initializeChewieController();
+   }
     setState(() {});
   }
 
@@ -42,7 +46,9 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
       looping: true,
       // Other customization options can be added here
     );
-    setState(() {});
+    setState(() {
+      chewieInitialized = true ;
+    });
   }
 
   @override
@@ -51,23 +57,28 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
       appBar: AppBar(
         toolbarHeight: 65,
         leading: IconButton(
-            onPressed: () {
-              Get.back() ;
-              }, icon:
-        Image.asset("assets/images/icon_back_blue.png",
-          height: Get.height * .06,)) ,
+          onPressed: () {
+            Get.back();
+          },
+          icon: Image.asset(
+            "assets/images/icon_back_blue.png",
+            height: Get.height * .06,
+          ),
+        ),
         title: const Text('Video Player Screen'),
       ),
       body: OrientationBuilder(
         builder: (context, orientation) {
-          return Center(
-            child: _chewieController != null &&
-                _chewieController.videoPlayerController.value.isInitialized
-                ? Chewie(
+          if (chewieInitialized == true) {
+            return Chewie(
               controller: _chewieController,
-            )
-                : const CircularProgressIndicator(),
-          );
+            );
+          } else {
+            // Show a loading indicator or return an empty container
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
         },
       ),
     );
@@ -80,3 +91,4 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _chewieController.dispose();
   }
 }
+
