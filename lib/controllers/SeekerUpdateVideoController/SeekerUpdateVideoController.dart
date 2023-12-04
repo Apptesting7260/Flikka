@@ -37,6 +37,7 @@ class SeekerUpdateVideoController extends GetxController {
       if(response.statusCode == 200) {
         debugPrint(responseData.toString()) ;
         Get.back() ;
+
       loading(false) ; }
       Get.back() ;
     } catch ( e, stackTrace) {

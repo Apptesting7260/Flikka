@@ -1,6 +1,7 @@
 
 import 'dart:convert';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -76,7 +77,9 @@ class SeekerCreateProfileController extends GetxController {
       print(response.statusCode) ;
       var responseData = jsonDecode(responded.body) ;
       if(response.statusCode == 200) {
-        print(responseData) ;
+        if (kDebugMode) {
+          print(responseData) ;
+        }
         sp.setString("loggedIn", "seeker") ;
         sp.setInt("step", 4) ;
         Get.offAll(const TabScreen(index: 4));
@@ -87,8 +90,10 @@ class SeekerCreateProfileController extends GetxController {
       loading(false) ;
     } catch ( e, stackTrace) {
       loading(false) ;
-      print(e.toString()) ;
-      print(stackTrace) ;
+      if (kDebugMode) {
+        print(e.toString()) ;
+        print(stackTrace) ;
+      }
     }
   }
 
