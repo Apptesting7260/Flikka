@@ -17,27 +17,21 @@ class ChartReport extends StatefulWidget {
 }
 
 class _ChartReportState extends State<ChartReport> {
-
-  final List<String> itemsWeekly = [
-    'Sunday','Monday','Tuesdat'
-  ];
+  final List<String> itemsWeekly = ['Sunday', 'Monday', 'Tuesdat'];
   String? weeklyValues;
 
-  final List<String> itemsMonthly = [
-    'January','February','March'
-  ];
+  final List<String> itemsMonthly = ['January', 'February', 'March'];
   String? monthlyValues;
 
-  final List<String> itemsYearly = [
-    '2000','2001','2002'
-  ];
+  final List<String> itemsYearly = ['2000', '2001', '2002'];
   String? yearlyValues;
 
-  RecruiterReportController reportController = Get.put(RecruiterReportController()) ;
+  RecruiterReportController reportController =
+      Get.put(RecruiterReportController());
 
   @override
   void initState() {
-   reportController.reportApi() ;
+    reportController.reportApi();
     super.initState();
   }
 
@@ -45,22 +39,22 @@ class _ChartReportState extends State<ChartReport> {
   Widget build(BuildContext context) {
     return Obx(() {
       switch (reportController.rxRequestStatus.value) {
-        case Status.LOADING :
+        case Status.LOADING:
           return const Scaffold(
-            body: Center(child: CircularProgressIndicator()),);
+            body: Center(child: CircularProgressIndicator()),
+          );
 
         case Status.ERROR:
           if (reportController.error.value == 'No internet') {
             return InterNetExceptionWidget(
               onPress: () {
-                reportController.reportApi() ;
+                reportController.reportApi();
               },
             );
           } else {
-            return Scaffold(body: GeneralExceptionWidget(
-                onPress: () {
-                  reportController.reportApi() ;
-                }));
+            return Scaffold(body: GeneralExceptionWidget(onPress: () {
+              reportController.reportApi();
+            }));
           }
         case Status.COMPLETED:
           return MaterialApp(
@@ -74,7 +68,9 @@ class _ChartReportState extends State<ChartReport> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: Get.height * .02,),
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
                         Row(
                           children: [
                             GestureDetector(
@@ -83,22 +79,33 @@ class _ChartReportState extends State<ChartReport> {
                                 },
                                 child: Image.asset(
                                   "assets/images/icon_back_blue.png",
-                                  height: Get.height * .055,)),
-                            SizedBox(width: Get.width * .04,),
-                            Text("Report", style: Theme
-                                .of(context)
-                                .textTheme
-                                .headlineSmall
-                                ?.copyWith(fontWeight: FontWeight.w700),)
+                                  height: Get.height * .055,
+                                )),
+                            SizedBox(
+                              width: Get.width * .04,
+                            ),
+                            Text(
+                              "Report",
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headlineSmall
+                                  ?.copyWith(fontWeight: FontWeight.w700),
+                            )
                           ],
                         ),
-                        SizedBox(height: Get.height * .02,),
-                        Text("Report", style: Theme
-                            .of(context)
-                            .textTheme
-                            .displayLarge
-                            ?.copyWith(fontWeight: FontWeight.w700),),
-                        SizedBox(height: Get.height * .027,),
+                        SizedBox(
+                          height: Get.height * .02,
+                        ),
+                        Text(
+                          "Report",
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                        SizedBox(
+                          height: Get.height * .027,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -107,22 +114,24 @@ class _ChartReportState extends State<ChartReport> {
                               width: Get.width * .28,
                               decoration: BoxDecoration(
                                   border: Border.all(color: Color(0xffFFFFFF)),
-                                  borderRadius: BorderRadius.circular(35)
-                              ),
+                                  borderRadius: BorderRadius.circular(35)),
                               child: Center(
-                                child:
-                                DropdownButtonHideUnderline(
+                                child: DropdownButtonHideUnderline(
                                   child: DropdownButton2<String>(
                                     isExpanded: true,
                                     hint: Row(
                                       children: [
-                                        const SizedBox(width: 4,),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
                                         Expanded(
                                           child: Text(
                                             'Weekly',
-                                            style: Get.theme.textTheme
-                                                .labelLarge?.copyWith(
-                                                fontWeight: FontWeight.w700),
+                                            style: Get
+                                                .theme.textTheme.labelLarge
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -130,16 +139,17 @@ class _ChartReportState extends State<ChartReport> {
                                     ),
                                     items: itemsWeekly
                                         .map((String item) =>
-                                        DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: Get.theme.textTheme
-                                                .bodyLarge!.copyWith(
-                                                color: AppColors.white),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ))
+                                            DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: Get
+                                                    .theme.textTheme.bodyLarge!
+                                                    .copyWith(
+                                                        color: AppColors.white),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
                                         .toList(),
                                     value: weeklyValues,
                                     onChanged: (String? value) {
@@ -171,20 +181,21 @@ class _ChartReportState extends State<ChartReport> {
                                       offset: const Offset(5, 0),
                                       scrollbarTheme: ScrollbarThemeData(
                                         radius: Radius.circular(40),
-                                        thickness: MaterialStateProperty.all<
-                                            double>(6),
-                                        thumbVisibility: MaterialStateProperty
-                                            .all<bool>(true),
+                                        thickness:
+                                            MaterialStateProperty.all<double>(
+                                                6),
+                                        thumbVisibility:
+                                            MaterialStateProperty.all<bool>(
+                                                true),
                                       ),
                                     ),
                                     menuItemStyleData: const MenuItemStyleData(
                                       height: 40,
-                                      padding: EdgeInsets.only(
-                                          left: 14, right: 14),
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
                                     ),
                                   ),
                                 ),
-
                               ),
                             ),
                             Container(
@@ -192,11 +203,9 @@ class _ChartReportState extends State<ChartReport> {
                               width: Get.width * .28,
                               decoration: BoxDecoration(
                                   border: Border.all(color: Color(0xffFFFFFF)),
-                                  borderRadius: BorderRadius.circular(35)
-                              ),
+                                  borderRadius: BorderRadius.circular(35)),
                               child: Center(
-                                child:
-                                DropdownButtonHideUnderline(
+                                child: DropdownButtonHideUnderline(
                                   child: DropdownButton2<String>(
                                     isExpanded: true,
                                     hint: Row(
@@ -207,9 +216,11 @@ class _ChartReportState extends State<ChartReport> {
                                         Expanded(
                                           child: Text(
                                             'Monthly',
-                                            style: Get.theme.textTheme
-                                                .labelLarge?.copyWith(
-                                                fontWeight: FontWeight.w700),
+                                            style: Get
+                                                .theme.textTheme.labelLarge
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -217,16 +228,17 @@ class _ChartReportState extends State<ChartReport> {
                                     ),
                                     items: itemsMonthly
                                         .map((String item) =>
-                                        DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: Get.theme.textTheme
-                                                .bodyLarge!.copyWith(
-                                                color: AppColors.white),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ))
+                                            DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: Get
+                                                    .theme.textTheme.bodyLarge!
+                                                    .copyWith(
+                                                        color: AppColors.white),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
                                         .toList(),
                                     value: monthlyValues,
                                     onChanged: (String? value) {
@@ -263,20 +275,21 @@ class _ChartReportState extends State<ChartReport> {
                                       offset: const Offset(5, 0),
                                       scrollbarTheme: ScrollbarThemeData(
                                         radius: Radius.circular(40),
-                                        thickness: MaterialStateProperty.all<
-                                            double>(6),
-                                        thumbVisibility: MaterialStateProperty
-                                            .all<bool>(true),
+                                        thickness:
+                                            MaterialStateProperty.all<double>(
+                                                6),
+                                        thumbVisibility:
+                                            MaterialStateProperty.all<bool>(
+                                                true),
                                       ),
                                     ),
                                     menuItemStyleData: const MenuItemStyleData(
                                       height: 40,
-                                      padding: EdgeInsets.only(
-                                          left: 14, right: 14),
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
                                     ),
                                   ),
                                 ),
-
                               ),
                             ),
                             Container(
@@ -284,11 +297,9 @@ class _ChartReportState extends State<ChartReport> {
                               width: Get.width * .28,
                               decoration: BoxDecoration(
                                   border: Border.all(color: Color(0xffFFFFFF)),
-                                  borderRadius: BorderRadius.circular(35)
-                              ),
+                                  borderRadius: BorderRadius.circular(35)),
                               child: Center(
-                                child:
-                                DropdownButtonHideUnderline(
+                                child: DropdownButtonHideUnderline(
                                   child: DropdownButton2<String>(
                                     isExpanded: true,
                                     hint: Row(
@@ -299,9 +310,11 @@ class _ChartReportState extends State<ChartReport> {
                                         Expanded(
                                           child: Text(
                                             'Yearly',
-                                            style: Get.theme.textTheme
-                                                .labelLarge?.copyWith(
-                                                fontWeight: FontWeight.w700),
+                                            style: Get
+                                                .theme.textTheme.labelLarge
+                                                ?.copyWith(
+                                                    fontWeight:
+                                                        FontWeight.w700),
                                             overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
@@ -309,16 +322,17 @@ class _ChartReportState extends State<ChartReport> {
                                     ),
                                     items: itemsYearly
                                         .map((String item) =>
-                                        DropdownMenuItem<String>(
-                                          value: item,
-                                          child: Text(
-                                            item,
-                                            style: Get.theme.textTheme
-                                                .bodyLarge!.copyWith(
-                                                color: AppColors.white),
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        ))
+                                            DropdownMenuItem<String>(
+                                              value: item,
+                                              child: Text(
+                                                item,
+                                                style: Get
+                                                    .theme.textTheme.bodyLarge!
+                                                    .copyWith(
+                                                        color: AppColors.white),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ))
                                         .toList(),
                                     value: yearlyValues,
                                     onChanged: (String? value) {
@@ -355,25 +369,28 @@ class _ChartReportState extends State<ChartReport> {
                                       offset: const Offset(5, 0),
                                       scrollbarTheme: ScrollbarThemeData(
                                         radius: Radius.circular(40),
-                                        thickness: MaterialStateProperty.all<
-                                            double>(6),
-                                        thumbVisibility: MaterialStateProperty
-                                            .all<bool>(true),
+                                        thickness:
+                                            MaterialStateProperty.all<double>(
+                                                6),
+                                        thumbVisibility:
+                                            MaterialStateProperty.all<bool>(
+                                                true),
                                       ),
                                     ),
                                     menuItemStyleData: const MenuItemStyleData(
                                       height: 40,
-                                      padding: EdgeInsets.only(
-                                          left: 14, right: 14),
+                                      padding:
+                                          EdgeInsets.only(left: 14, right: 14),
                                     ),
                                   ),
                                 ),
-
                               ),
                             ),
                           ],
                         ),
-                        SizedBox(height: Get.height * .04,),
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
                         // GridView.builder(
                         //   physics: const NeverScrollableScrollPhysics(),
                         //   itemCount: 5,
@@ -409,131 +426,178 @@ class _ChartReportState extends State<ChartReport> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                          SizedBox(
-                          height: 20,
-                          width: Get.width * .1,
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
-                              .of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),),
-                          Text("Match Profile", style: Theme
-                              .of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w500,
-                          color: Color(0xffFFFFFF)),)
-                          ],
-                          ),
-                          ) ,
                             SizedBox(
-                              height: 20,
-                              width: Get.width * .1,
+                              width: Get.width * .44,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .displayLarge
-                                      ?.copyWith(fontSize: 30,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),),
-                                  Text("Match Profile", style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(fontWeight: FontWeight.w500,
-                                      color: Color(0xffFFFFFF)),)
+                                  Text(
+                                    reportController.reportData.value
+                                            .totalCountData?.matchProfile
+                                            .toString() ??
+                                        "No Data",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge
+                                        ?.copyWith(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "Match Profile",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: const Color(0xffFFFFFF)),
+                                  )
                                 ],
                               ),
-                            ) ,
-                          ],
-                        ),
-                        SizedBox(height: Get.height*.04,) ,
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                          SizedBox(
-                          height: 20,
-                          width: Get.width * .1,
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
-                              .of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),),
-                          Text("Match Profile", style: Theme
-                              .of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w500,
-                          color: Color(0xffFFFFFF)),)
-                          ],
-                          ),
-                          ) ,
+                            ),
                             SizedBox(
-                              height: 20,
-                              width: Get.width * .1,
+                              width: Get.width * .3,
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .displayLarge
-                                      ?.copyWith(fontSize: 30,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700),),
-                                  Text("Match Profile", style: Theme
-                                      .of(context)
-                                      .textTheme
-                                      .titleSmall
-                                      ?.copyWith(fontWeight: FontWeight.w500,
-                                      color: Color(0xffFFFFFF)),)
+                                  Text(
+                                    reportController.reportData.value
+                                            .totalCountData?.hired
+                                            .toString() ??
+                                        "No Data",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge
+                                        ?.copyWith(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "Hired",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xffFFFFFF)),
+                                  )
                                 ],
                               ),
-                            ) ,
+                            ),
                           ],
                         ),
-                        SizedBox(height: Get.height*.04,) ,
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                          SizedBox(
-                          height: 20,
-                          width: Get.width * .1,
-                          child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
-                              .of(context)
-                              .textTheme
-                              .displayLarge
-                              ?.copyWith(fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700),),
-                          Text("Match Profile", style: Theme
-                              .of(context)
-                              .textTheme
-                              .titleSmall
-                              ?.copyWith(fontWeight: FontWeight.w500,
-                          color: Color(0xffFFFFFF)),)
-                          ],
-                          ),
-                          ) ,
+                            SizedBox(
+                              width: Get.width * .44,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    reportController.reportData.value
+                                            .totalCountData?.applicantApplied
+                                            .toString() ??
+                                        "No Data",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge
+                                        ?.copyWith(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "Applicant Applied",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xffFFFFFF)),
+                                  )
+                                ],
+                              ),
+                            ),
+                            SizedBox(
+                              width: Get.width * .3,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    reportController.reportData.value
+                                            .totalCountData?.rejected
+                                            .toString() ??
+                                        "No Data",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayLarge
+                                        ?.copyWith(
+                                            fontSize: 30,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w700),
+                                  ),
+                                  Text(
+                                    "Rejected",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleSmall
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w500,
+                                            color: Color(0xffFFFFFF)),
+                                  )
+                                ],
+                              ),
+                            ),
                           ],
                         ),
-                        SizedBox(height: Get.height*.2,),
+                        SizedBox(
+                          height: Get.height * .04,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  reportController.reportData.value
+                                          .totalCountData?.interviewSchedule
+                                          .toString() ??
+                                      "No Data",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayLarge
+                                      ?.copyWith(
+                                          fontSize: 30,
+                                          color: Colors.white,
+                                          fontWeight: FontWeight.w700),
+                                ),
+                                Text(
+                                  "Interview Schedule",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.w500,
+                                          color: Color(0xffFFFFFF)),
+                                )
+                              ],
+                            ),
+                          ],
+                        ),
+                        SizedBox(
+                          height: Get.height * .06,
+                        ),
+                        reportController.reportData.value.percentData?.interviewSchedule == 0 &&
+                        reportController.reportData.value.percentData?.hired == 0 &&
+                        reportController.reportData.value.percentData?.rejected == 0 ?
+                            const SizedBox() :
                         Center(
                           child: SizedBox(
                             width: 200,
@@ -545,34 +609,69 @@ class _ChartReportState extends State<ChartReport> {
                                   size: const Size(200, 200),
                                   painter: CylinderPieChartPainter(
                                     segments: [
-                                      PieSegment(28, Color(0xff4D6FED)),
-                                      PieSegment(32, Color(0xff0F63A4)),
-                                      PieSegment(40, Color(0xff2B92DE)),
+                                      reportController.reportData.value
+                                                      .percentData?.interviewSchedule == null ||
+                                              reportController.reportData.value.percentData?.interviewSchedule.toString().length == 0
+                                          ? PieSegment(0, Color(0xff4D6FED))
+                                          : PieSegment(
+                                              double.parse(
+                                                  "${reportController.reportData.value.percentData?.interviewSchedule}"),
+                                              Color(0xff4D6FED)),
+                                      reportController.reportData.value.percentData?.hired == null ||
+                                              reportController.reportData.value.percentData?.hired.toString().length == 0
+                                          ? PieSegment(0, Color(0xff0F63A4))
+                                          : PieSegment(
+                                              double.parse(
+                                                  "${reportController.reportData.value.percentData?.hired}"),
+                                              Color(0xff0F63A4)),
+                                      reportController.reportData.value
+                                                      .percentData?.rejected ==
+                                                  null ||
+                                              reportController.reportData.value
+                                                      .percentData?.rejected
+                                                      .toString()
+                                                      .length ==
+                                                  0
+                                          ? PieSegment(0, Color(0xff2B92DE))
+                                          : PieSegment(
+                                              double.parse(
+                                                  "${reportController.reportData.value.percentData?.rejected}"),
+                                              Color(0xff2B92DE)),
                                     ],
                                   ),
                                 ),
-                                // Add Positioned widgets to display percentage boxes
-                                Positioned(
-                                  top: 60,
-                                  left: 20,
-                                  child: PercentageBox(40),
-                                ),
-                                Positioned(
-                                  top: 45,
-                                  right: 22,
-                                  child: PercentageBox(28),
-                                ),
-                                Positioned(
-                                  bottom: 50,
-                                  left: 100,
-                                  child: PercentageBox(
-                                      32), // Modified to match the segment value
-                                ),
+      Positioned(
+                                        top: 60,
+                                        left: 20,
+                                        child: PercentageBox(
+                                          double.parse(
+                                              "${reportController.reportData.value.percentData?.interviewSchedule}"),
+                                        )),
+                                        Positioned(
+                                    top: 60,
+                                    left: 20,
+                                    child: PercentageBox(
+                                      double.parse(
+                                          "${reportController.reportData.value.percentData?.hired}"),
+                                    )),
+      Positioned(
+                                    top: 60,
+                                    left: 20,
+                                    child: PercentageBox(
+                                      double.parse(
+                                          "${reportController.reportData.value.percentData?.rejected}"),
+                                    )),
                               ],
                             ),
                           ),
                         ),
-                        SizedBox(height: Get.height * .015,),
+                        SizedBox(
+                          height: Get.height * .015,
+                        ),
+                        reportController.reportData.value.percentData?.interviewSchedule == 0 &&
+                            reportController.reportData.value.percentData?.hired == 0 &&
+                            reportController.reportData.value.percentData?.rejected == 0 ?
+                        const SizedBox() :
                         Center(
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -582,41 +681,43 @@ class _ChartReportState extends State<ChartReport> {
                                 width: 18,
                                 decoration: BoxDecoration(
                                     color: Color(0xff4D6FED),
-                                    shape: BoxShape.circle
-                                ),
+                                    shape: BoxShape.circle),
                               ),
-                              Text("Interview", style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headlineSmall,),
+                              Text(
+                                "Interview",
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
                               Container(
                                 height: 18,
                                 width: 18,
                                 decoration: BoxDecoration(
                                     color: Color(0xff4D6FED),
-                                    shape: BoxShape.circle
-                                ),
+                                    shape: BoxShape.circle),
                               ),
-                              Text("Hired", style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headlineSmall,),
+                              Text(
+                                "Hired",
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
                               Container(
                                 height: 18,
                                 width: 18,
                                 decoration: BoxDecoration(
                                     color: Color(0xff4D6FED),
-                                    shape: BoxShape.circle
-                                ),
+                                    shape: BoxShape.circle),
                               ),
-                              Text("Rejected", style: Theme
-                                  .of(context)
-                                  .textTheme
-                                  .headlineSmall,),
+                              Text(
+                                "Rejected",
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
+                              ),
                             ],
                           ),
                         ),
-                        SizedBox(height: Get.height * .1,),
+                        SizedBox(
+                          height: Get.height * .1,
+                        ),
                       ],
                     ),
                   ),
@@ -625,8 +726,7 @@ class _ChartReportState extends State<ChartReport> {
             ),
           );
       }
-    }
-    );
+    });
   }
 }
 
@@ -707,7 +807,7 @@ class PercentageBox extends StatelessWidget {
       padding: const EdgeInsets.all(8),
       child: Text(
         '$percentage%', // Display the percentage value
-        style: TextStyle(
+        style: const TextStyle(
           color: Colors.white, // Text color is white
           fontWeight: FontWeight.bold,
         ),
@@ -715,5 +815,3 @@ class PercentageBox extends StatelessWidget {
     );
   }
 }
-
-
