@@ -150,7 +150,8 @@ class CalendarScreenState extends State<CalendarScreen> {
                         availableGestures: AvailableGestures.horizontalSwipe,
                         onDaySelected: (day, events, holidays) {
                           setState(() {
-                            selectedDate = "${day.year}-${day.month}-${day.day}" ;
+                            selectedDate = "${day.year.toString().padLeft(4,"0")}-${day.month.toString().padLeft(2,"0")}-${day.day.toString().padLeft(2,"0")}" ;
+                            debugPrint("this is selected ==== $selectedDate") ;
                           });
                         },
                       ),
@@ -285,11 +286,11 @@ class CalendarScreenState extends State<CalendarScreen> {
                     loading: interviewController.loading.value,
                     title: "SAVE", onTap1: () {
                       if(_formKey.currentState!.validate()) {
-                        selectedDate = "${_calendarController.selectedDay.year}-${_calendarController.selectedDay.month}-${_calendarController.selectedDay.day}";
+                        selectedDate = "${_calendarController.selectedDay.year.toString().padLeft(4,'0')}-${_calendarController.selectedDay.month.toString().padLeft(2,'0')}-${_calendarController.selectedDay.day.toString().padLeft(2,'0')}";
                         selectedHour = _hourController.selectedItem.toString().padLeft(2,'0') ;
                         selectedMin = _minuteController.selectedItem.toString().padLeft(2,'0') ;
-                        // Get.to(()=>const MettingListTabbar());
-                        interviewController.scheduleInterview("$selectedDate $selectedHour:$selectedMin", widget.requestID, interViewLinkController.text) ;
+                        String t = "T" ;
+                        interviewController.scheduleInterview("$selectedDate$t$selectedHour:$selectedMin", widget.requestID, interViewLinkController.text) ;
                       }
                   },),
                 ),
