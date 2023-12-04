@@ -1,17 +1,15 @@
-import 'package:flikka/Job%20Recruiter/RecruiterTraking/applicant_traking.dart';
 import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterRequest/request.dart';
-import 'package:flikka/Job%20Seeker/ChartReport/chart_report.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/hiring%20Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../../Job Seeker/SeekerNotification/notification.dart';
 import '../../Job Seeker/SeekerNotification/setting_page.dart';
+import '../ChartReport/chart_report.dart';
 import '../saved_post_recruiter.dart';
 
 class DrawerRecruiter extends StatefulWidget {
@@ -238,7 +236,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         icon: Image.asset('assets/images/icon_report.png',scale: 2.8,fit: BoxFit.cover,)),
                                     title: InkWell(
                                         onTap: (){
-                                          Get.to(() =>ChartReport());
+                                          Get.to(() => const ChartReport());
                                         } ,
                                         child: Text(
                                           "Report",
