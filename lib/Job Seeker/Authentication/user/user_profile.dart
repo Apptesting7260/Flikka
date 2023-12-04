@@ -2189,8 +2189,8 @@ class _UserProfileState extends State<UserProfile> {
                                                       SizedBox(height: Get.height * 0.02,),
                                                       Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                                         children: [
-                                                          Text('${data?.workExpJob}',
-                                                            style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                                          Text('${data?.workExpJob}+"juhgfghfghfgbhfgbhfgbhhghbhfgj"',
+                                                           overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyMedium!.copyWith(
                                                                 color: AppColors.white, fontWeight: FontWeight.w700),),
                                                           Row(
                                                             children: [
