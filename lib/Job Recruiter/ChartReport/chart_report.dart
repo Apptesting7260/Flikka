@@ -374,16 +374,64 @@ class _ChartReportState extends State<ChartReport> {
                           ],
                         ),
                         SizedBox(height: Get.height * .04,),
-                        GridView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 5,
-                          shrinkWrap: true,
-                          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: 40,
-                              mainAxisExtent: 70),
-                          itemBuilder: (context, index) {
-                            return SizedBox(
+                        // GridView.builder(
+                        //   physics: const NeverScrollableScrollPhysics(),
+                        //   itemCount: 5,
+                        //   shrinkWrap: true,
+                        //   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        //       crossAxisCount: 2,
+                        //       crossAxisSpacing: 40,
+                        //       mainAxisExtent: 70),
+                        //   itemBuilder: (context, index) {
+                        //     return SizedBox(
+                        //       height: 20,
+                        //       width: Get.width * .1,
+                        //       child: Column(
+                        //         crossAxisAlignment: CrossAxisAlignment.start,
+                        //         children: [
+                        //           Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
+                        //               .of(context)
+                        //               .textTheme
+                        //               .displayLarge
+                        //               ?.copyWith(fontSize: 30,
+                        //               color: Colors.white,
+                        //               fontWeight: FontWeight.w700),),
+                        //           Text("Match Profile", style: Theme
+                        //               .of(context)
+                        //               .textTheme
+                        //               .titleSmall
+                        //               ?.copyWith(fontWeight: FontWeight.w500,
+                        //               color: Color(0xffFFFFFF)),)
+                        //         ],
+                        //       ),
+                        //     );
+                        //   },),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                          SizedBox(
+                          height: 20,
+                          width: Get.width * .1,
+                          child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
+                              .of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),),
+                          Text("Match Profile", style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w500,
+                          color: Color(0xffFFFFFF)),)
+                          ],
+                          ),
+                          ) ,
+                            SizedBox(
                               height: 20,
                               width: Get.width * .1,
                               child: Column(
@@ -404,9 +452,88 @@ class _ChartReportState extends State<ChartReport> {
                                       color: Color(0xffFFFFFF)),)
                                 ],
                               ),
-                            );
-                          },),
-                        // SizedBox(height: Get.height*.2,),
+                            ) ,
+                          ],
+                        ),
+                        SizedBox(height: Get.height*.04,) ,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                          SizedBox(
+                          height: 20,
+                          width: Get.width * .1,
+                          child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
+                              .of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),),
+                          Text("Match Profile", style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w500,
+                          color: Color(0xffFFFFFF)),)
+                          ],
+                          ),
+                          ) ,
+                            SizedBox(
+                              height: 20,
+                              width: Get.width * .1,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .displayLarge
+                                      ?.copyWith(fontSize: 30,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w700),),
+                                  Text("Match Profile", style: Theme
+                                      .of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(fontWeight: FontWeight.w500,
+                                      color: Color(0xffFFFFFF)),)
+                                ],
+                              ),
+                            ) ,
+                          ],
+                        ),
+                        SizedBox(height: Get.height*.04,) ,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                          SizedBox(
+                          height: 20,
+                          width: Get.width * .1,
+                          child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                          Text(reportController.reportData.value.percentData?.matchProfile ?? "No Data", style: Theme
+                              .of(context)
+                              .textTheme
+                              .displayLarge
+                              ?.copyWith(fontSize: 30,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),),
+                          Text("Match Profile", style: Theme
+                              .of(context)
+                              .textTheme
+                              .titleSmall
+                              ?.copyWith(fontWeight: FontWeight.w500,
+                          color: Color(0xffFFFFFF)),)
+                          ],
+                          ),
+                          ) ,
+                          ],
+                        ),
+                        SizedBox(height: Get.height*.2,),
                         Center(
                           child: SizedBox(
                             width: 200,
