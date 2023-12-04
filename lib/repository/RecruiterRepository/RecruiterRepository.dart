@@ -8,6 +8,7 @@ import 'package:flikka/models/TalentPoolModel/TalentPoolModel.dart';
 import 'package:flikka/models/ViewParticularCandidateModel/ViewParticularCandidateModel.dart';
 import '../../models/ApplicantTrackingDataModel/ApplicantTrackingDataModel.dart';
 import '../../models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
+import '../../models/RecruiterReportModel/RecruiterReportModel.dart';
 import '../../res/app_url.dart';
 
 class RecruiterRepository {
@@ -74,4 +75,8 @@ class RecruiterRepository {
     return EditAboutModel.fromJson(response);
   }
 
+  Future<RecruiterReportModel> reportApi() async{
+    dynamic response = await apiServices.getApi2(AppUrl.recruiterReportApi);
+    return RecruiterReportModel.fromJson(response);
+  }
 }
