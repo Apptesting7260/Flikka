@@ -42,7 +42,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   var qualification ;
 
   final List<String> itemsEmp = ['full-time','part-time','contract','temporary', 'internship', 'fresher' ,];
-  String? employmentType;
+  dynamic employmentType;
 
   var jobTypeTitle;
   String? jobPosition ;
@@ -50,7 +50,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
   final List<String> itemsExp = [
     'on-site','remote','hybrid'
   ];
-  String? workplaceType;
+  dynamic workplaceType ;
 
   final List<String> itemQualificaton = [
     'bachelor degree','master degree','12th pass', 'diploma', 'doctoral degree', '10th pass', 'm. phil'
@@ -961,8 +961,8 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                   jobLocationController.text,
                                   formattedDescriptionText,
                                   formattedRequirementText,
-                                  employmentType.toString(),
-                                  workplaceType.toString(),
+                                  employmentType,
+                                  workplaceType,
                                   yearValue,
                                   monthsValue,
                                   preferredExperienceController.text,
