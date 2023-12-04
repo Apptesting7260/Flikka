@@ -9,13 +9,15 @@ import '../../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import '../../res/app_url.dart';
 import 'package:http/http.dart' as http;
 
+import '../ViewSeekerProfileController/ViewSeekerProfileController.dart';
+
 class SeekerUpdateVideoController extends GetxController {
 
 
   RxBool loading = false.obs;
+  ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
 
   updateVideo (BuildContext context,String? videoPath) async {
-    CommonFunctions.showLoadingDialog(context, "Uploading") ;
     try {
       debugPrint("this is profile path =================$videoPath");
       loading(true) ;
@@ -37,7 +39,8 @@ class SeekerUpdateVideoController extends GetxController {
       if(response.statusCode == 200) {
         debugPrint(responseData.toString()) ;
         Get.back() ;
-
+        seekerProfileController.viewSeekerProfileApi() ;
+        Utils.toastMessage('Profile updated') ;
       loading(false) ; }
       Get.back() ;
     } catch ( e, stackTrace) {

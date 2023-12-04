@@ -2654,6 +2654,7 @@ class _CreateProfileState extends State<CreateProfile> {
   }
 
   Future<void> compressVideo(String inputPath) async {
+    CommonFunctions.showLoadingDialog(context, "Uploading") ;
     final MediaInfo? info = await VideoCompress.compressVideo(
       inputPath,
       quality: VideoQuality.MediumQuality,
@@ -2670,6 +2671,7 @@ class _CreateProfileState extends State<CreateProfile> {
           print("this is file size ================== ${info.filesize}") ;
         }
       });
+      Get.back() ;
     }
   }
 }
