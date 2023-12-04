@@ -190,6 +190,22 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         ),
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
+                                          "Specialization",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(color: AppColors.white),
+                                        ),
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.specialization ??"",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                              color:Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
+                                        Text(
                                           "Type of workplace",
                                           style: Theme.of(context)
                                               .textTheme
@@ -223,7 +239,23 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
-                                          "Education",
+                                          "Preferred work experience",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .titleSmall!
+                                              .copyWith(color: AppColors.white),
+                                        ),
+                                        SizedBox(height: Get.height * 0.010,),
+                                        Text( widget.recruiterJobsData?.preferredWorkExperience ?? "",
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodySmall!
+                                              .copyWith(
+                                              color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
+                                        ),
+                                        SizedBox(height: Get.height * 0.03,),
+                                        Text(
+                                          "Qualification",
                                           style: Theme.of(context)
                                               .textTheme
                                               .titleSmall!
