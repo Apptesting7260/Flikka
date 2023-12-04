@@ -29,28 +29,14 @@ class OtpScreenState extends State<OtpScreen> {
   var isLoading = false;
   var email = Get.arguments["email"] ;
 
-  ///Timer///////
- static RxInt secondsRemaining = 60.obs;
-  late Timer timer;
-
-  void startTimer() {
-    const oneSecond = Duration(seconds: 1);
-    timer = Timer.periodic(oneSecond, (Timer timer) {
-      if (secondsRemaining.value == 0) {
-        timer.cancel();
-        // You can add additional actions here when the timer completes
-      } else {
-        secondsRemaining.value--;
-      }
-    });
-  }
 
   ////Timer//
 
   @override
   void initState(){
     super.initState();
-      startTimer();
+    emailSignUpController.secondsRemaining.value = 60 ;
+    emailSignUpController.startTimer() ;
     VerifyOtpControllerInstanse.otpController.value.text = "" ;
     }
 
