@@ -33,7 +33,8 @@ class Seeker {
   dynamic seekerId;
   dynamic jobId;
   String? status;
-  DateTime? interviewScheduleTime;
+  String? interviewLink;
+  dynamic interviewScheduleTime;
   String? interviewStatus;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -45,6 +46,7 @@ class Seeker {
     this.seekerId,
     this.jobId,
     this.status,
+    this.interviewLink ,
     this.interviewScheduleTime,
     this.interviewStatus,
     this.createdAt,
@@ -58,7 +60,9 @@ class Seeker {
     seekerId: json["seeker_id"],
     jobId: json["job_id"],
     status: json["status"],
-    interviewScheduleTime: json["interview_schedule_time"] == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
+    interviewLink: json["interview_link"],
+    interviewScheduleTime: json["interview_schedule_time"]
+        == null ? json["interview_schedule_time"] : DateTime.parse(json["interview_schedule_time"]),
     interviewStatus: json["interview_status"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),

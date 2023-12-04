@@ -13,14 +13,17 @@ class ScheduleInterviewController extends GetxController {
   RxString error = ''.obs;
   RxBool loading = false.obs ;
 
+  final interViewLinkController = TextEditingController().obs ;
   void getHomeData(EditAboutModel _value) => response.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void scheduleInterview( String? dateTime , String? requestID ){
-    var data = {} ;
-    data.addIf(requestID != null && requestID.length != 0 , "request_id" , requestID) ;
-    data.addIf(dateTime != null && dateTime.length != 0 , "date_time" , dateTime) ;
+  void scheduleInterview( String? dateTime , String? requestID , String? interviewLink ){
+    var data = {
+      'interview_link' : interViewLinkController.value.text ,
+    } ;
+    data.addIf(requestID != null && requestID.length != 0 , "request_id" , requestID!) ;
+    data.addIf(dateTime != null && dateTime.length != 0 , "date_time" , dateTime!) ;
 
     setRxRequestStatus(Status.LOADING);
     loading(true) ;
