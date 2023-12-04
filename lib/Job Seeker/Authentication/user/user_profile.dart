@@ -1946,15 +1946,13 @@ class _UserProfileState extends State<UserProfile> {
                                     ),
                                   ),
                                   SizedBox(width: Get.width * .04,),
-                                  seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
-                                      seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0 ?
-                                      const SizedBox() :
                                   GestureDetector(
                                     onTap: () {
                                       if(seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
                                           seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0) {
-                                        _startRecording() ;
-
+                                        CommonFunctions.confirmationDialog(context, message: "Do you want to upload video", onTap: () {
+                                          _startRecording() ;
+                                        },);
                                       } else {
                                         CommonFunctions.doubleButtonDialog(context,
                                             message: "Upload or play introduction video",
@@ -2219,7 +2217,7 @@ class _UserProfileState extends State<UserProfile> {
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                           data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
                                                               ? const SizedBox()
-                                                              : Text('${data?.jobStartDate} - ${data?.jobEndDate}',
+                                                              : Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
                                                             // "${data?.jobStartDate?.month}/${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}/${data?.jobEndDate?.year}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),

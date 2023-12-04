@@ -186,8 +186,8 @@ class EducationLevel {
     educationLevel: json["education_level"],
     institutionName: json["institution_name"],
     fieldOfStudy: json["field_of_study"],
-    educationStartDate: json["education_start_date"] == null ? json["education_start_date"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["education_start_date"])),
-    educationEndDate: json["education_end_date"] == null || json["education_end_date"].toString() == "present" ? json["education_end_date"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["education_end_date"])),
+    educationStartDate: json["education_start_date"] == null ? json["education_start_date"] : DateTime.tryParse(json["education_start_date"]),
+    educationEndDate: json["education_end_date"] == null || json["education_end_date"].toString() == "present" ? json["education_end_date"] : DateTime.tryParse(json["education_end_date"]),
     present : json["present"]
   );
 
@@ -338,8 +338,8 @@ class WorkExpJob {
   factory WorkExpJob.fromJson(Map<String, dynamic> json) => WorkExpJob(
     workExpJob: json["work_exp_job"],
     companyName: json["company_name"],
-    jobStartDate: json["job_start_date"] == null ? json["job_start_date"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["job_start_date"])),
-    jobEndDate: json["job_end_date"] == null || json["job_end_date"].toString() == "present" ? json["job_end_date"] : DateFormat('yyyy-MM-dd').format(DateTime.parse(json["job_end_date"])),
+    jobStartDate: json["job_start_date"] == null ? json["job_start_date"] : DateTime.tryParse(json["job_start_date"]),
+    jobEndDate: json["job_end_date"] == null || json["job_end_date"].toString() == "present" ? json["job_end_date"] : DateTime.tryParse(json["job_end_date"]),
     present: json["present"]
   );
 
