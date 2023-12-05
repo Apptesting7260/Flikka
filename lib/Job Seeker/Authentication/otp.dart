@@ -40,12 +40,6 @@ class OtpScreenState extends State<OtpScreen> {
     VerifyOtpControllerInstanse.otpController.value.text = "" ;
     }
 
-  @override
-  void dispose() {
-    timer.cancel(); // Cancel the timer to avoid memory leaks
-    super.dispose();
-  }
-
 
     @override
   Widget build(BuildContext context) {
