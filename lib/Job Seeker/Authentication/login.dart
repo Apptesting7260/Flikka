@@ -138,8 +138,9 @@ class _LoginState extends State<Login> {
                       onTap1: () {
                         loginController.errorMessage.value = "" ;
                         if(_formKey.currentState!.validate()) {
-                          print(loginController.loading.value);
-                          loginController.loginApiHit(context);
+                          if(loginController.loading.value){}else {
+                            loginController.loginApiHit(context);
+                          }
                         }
                       }
                   ),
@@ -177,7 +178,7 @@ class _LoginState extends State<Login> {
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),
                       children: [
                         TextSpan(
-                          recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>SignUp()),
+                          recognizer: TapGestureRecognizer()..onTap=()=>Get.to(()=>const SignUp()),
                           text: "Sign up",
                           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
                         ),

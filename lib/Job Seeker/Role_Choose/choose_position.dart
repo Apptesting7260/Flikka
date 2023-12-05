@@ -436,14 +436,14 @@ void showSkipDialog(BuildContext context) {
                                         onTap1: () {
                                           seekerChoosePositionController.errorMessage.value = "" ;
                                           if(id == null) {
-                                            // Utils.snackBar("Failed", "Please select a field") ;
                                             seekerChoosePositionController.errorMessage.value = "Please select a field" ;
                                           }
                                           else {
-                                            print(seekerChoosePositionController
-                                                .loading.value);
-                                            seekerChoosePositionController
-                                                .seekerChoosePositionApiHit(id,context);
+                                            print(seekerChoosePositionController.loading.value);
+                                            if(seekerChoosePositionController.loading.value){}
+                                            else {
+                                              seekerChoosePositionController.seekerChoosePositionApiHit(id,context);
+                                            }
                                           }
                                           // Get.to(() => ChooseSkills());
 

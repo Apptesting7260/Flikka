@@ -169,13 +169,20 @@ class _SignUpState extends State<SignUp> {
                       loading: checkEmailSignUpControllerInstanse.loading.value,
                       title: "CONTINUE",
                       onTap1: () async {
+                        if(checkEmailSignUpControllerInstanse.loading.value) {} else {
                         checkEmailSignUpControllerInstanse.errorMessage.value = "" ;
                         signUpController.errorMessage.value = "" ;
                         if(_formKey.currentState!.validate()) {
-                          checkEmailSignUpControllerInstanse.checkEmailSignUpApiHit(SignUpControllerInstanse.emailController.value.text,context);
-                          SharedPreferences sp = await SharedPreferences.getInstance() ;
-                          sp.setString("name", SignUpControllerInstanse.nameController.value.text) ;
-
+                          checkEmailSignUpControllerInstanse
+                              .checkEmailSignUpApiHit(
+                              SignUpControllerInstanse.emailController.value
+                                  .text, context);
+                          SharedPreferences sp = await SharedPreferences
+                              .getInstance();
+                          sp.setString("name",
+                              SignUpControllerInstanse.nameController.value
+                                  .text);
+                        }
                         }
                         // Get.to(ChooseRole());
                       }

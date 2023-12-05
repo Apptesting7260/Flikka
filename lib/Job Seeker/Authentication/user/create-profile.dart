@@ -2000,8 +2000,7 @@ class _CreateProfileState extends State<CreateProfile> {
                       () => Center(
                         child: MyButton(
                             title: "CONTINUE",
-                            loading:
-                                seekerCreateProfileController.loading.value,
+                            loading: seekerCreateProfileController.loading.value,
                             onTap1: () {
                               if (educationLevelController.text.isNotEmpty &&
                                   institutionNameController.text.isNotEmpty &&
@@ -2050,7 +2049,8 @@ class _CreateProfileState extends State<CreateProfile> {
                               debugPrint(educationList.toString());
                               if (introFormKey.currentState!.validate()) {
                                   var formattedAboutText = CommonFunctions.changeToHTML(aboutMeController.text ?? "");
-                                  seekerCreateProfileController
+                                  if(seekerCreateProfileController.loading.value) {} else {
+                                    seekerCreateProfileController
                                       .createProfileApi( videoFilePath ,
                                           imgFile?.path,
                                           _filePath,
@@ -2065,6 +2065,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                           appreciationList,
                                           DocumentType,
                                           fresher ? 1 : null);
+                                  }
                               } else {
                                 scrollController.animateTo(0,
                                     duration: const Duration(milliseconds: 100),
