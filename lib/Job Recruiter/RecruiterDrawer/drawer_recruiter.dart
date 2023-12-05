@@ -1,7 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/AddJobPage/create_job_post.dart';
 import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
-import 'package:flikka/Job%20Recruiter/RecruiterRequest/request.dart';
 import 'package:flikka/controllers/LogoutController/LogoutController.dart';
 import 'package:flikka/controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import 'package:flikka/hiring%20Manager/Applicant_Tracking/applicant_tracking_tabbar.dart';
@@ -11,7 +11,7 @@ import 'package:get/get.dart';
 import '../../Job Seeker/SeekerNotification/notification.dart';
 import '../../Job Seeker/SeekerNotification/setting_page.dart';
 import '../ChartReport/chart_report.dart';
-import '../saved_post_recruiter.dart';
+
 
 class DrawerRecruiter extends StatefulWidget {
   const DrawerRecruiter({super.key});
@@ -73,8 +73,21 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                         CircleAvatar(
                                           radius:45,
                                           backgroundColor: const Color(0xffE94D8A).withOpacity(0.3),
-                                          backgroundImage:  NetworkImage(viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ?? "assets/images/icon_recruiter_drawer.png"),
-                                          //backgroundImage: NetworkImage('https://images.unsplash.com/photo-1534528741775-53994a69daeb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=764&q=80'),
+                                          child: CachedNetworkImage(
+                                              imageUrl: viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ?? "assets/images/icon_recruiter_drawer.png",
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                height: 80,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                      image: imageProvider,
+                                                  fit: BoxFit.cover,
+                                                  ),
+                                                ),
+                                              ),placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white),
+                                          ),
+                                          //backgroundImage:  NetworkImage(viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.profileImg ?? "assets/images/icon_recruiter_drawer.png"),
                                         ),
                                         const SizedBox(
                                           height: 12,

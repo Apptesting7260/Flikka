@@ -5,6 +5,7 @@ import 'package:flikka/controllers/RecruiterJobTitleController/RecruiterJobTitle
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../bottom_bar/tab_bar.dart';
 import 'all_candidate.dart';
 import 'upcoming_interviews.dart';
@@ -17,6 +18,24 @@ class ApplicantTracking extends StatefulWidget {
 }
 
 class _ApplicantTrackingState extends State<ApplicantTracking> {
+
+  // //////refresh//////
+  // RefreshController _refreshController = RefreshController(initialRefresh: false);
+  //
+  // void _onRefresh() async{
+  //   await trackingDataController.applicantTrackingApi("jobTitle" ,"status");
+  //   _refreshController.refreshCompleted();
+  // }
+  //
+  // void _onLoading() async{
+  //   await trackingDataController.applicantTrackingApi("jobTitle", "status");
+  //   if(mounted)
+  //     setState(() {
+  //
+  //     });
+  //   _refreshController.loadComplete();
+  // }
+  // /////refresh/////
 
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
