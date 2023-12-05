@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flikka/controllers/CheckEmailSignUpController/CheckEmailSignUpController.dart';
 import 'package:flikka/controllers/ForgotPasswordController/ForgotPasswordController.dart';
 import 'package:flikka/controllers/VerifyOtpController/VerifyOtpController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -42,7 +43,7 @@ class OtpScreenState extends State<OtpScreen> {
 
   @override
   void dispose() {
-    timer.cancel(); // Cancel the timer to avoid memory leaks
+    emailSignUpController.timer.cancel(); // Cancel the timer to avoid memory leaks
     super.dispose();
   }
 
@@ -201,10 +202,11 @@ class OtpScreenState extends State<OtpScreen> {
                                          TextSpan(
                                            recognizer: TapGestureRecognizer()..onTap=(){
                                              if(emailSignUpController.secondsRemaining.value == 0) {
+                                               CommonFunctions.showLoadingDialog(context, "Sending...") ;
                                                if(widget.register) {
                                                  emailSignUpController.checkEmailSignUpApiHit(email, context) ;
                                                }else {
-                                                 ForgotPasswordControllerInstanse.forgotPasswordApiHit();
+                                                 ForgotPasswordControllerInstanse.forgotPasswordApiHit(context);
                                                }
                                                // secondsRemaining.value = 60 ;
                                               // startTimer();
@@ -219,29 +221,6 @@ class OtpScreenState extends State<OtpScreen> {
                                  ),
                                ),
 
-                               // Obx( () =>
-                               //   InkWell(
-                               //     child: ForgotPasswordControllerInstanse.loading.value== false ?  Row(
-                               //       mainAxisAlignment: MainAxisAlignment.center,
-                               //       children: [
-                               //         Text("Didn't receive a code?", style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),) ,
-                               //          const SizedBox(width: 7,) ,
-                               //         Text(
-                               //           "Resend" ,
-                               //           style: Theme.of(context).textTheme.bodySmall?.copyWith(fontWeight: FontWeight.w400,color: AppColors.blueThemeColor,decoration: TextDecoration.underline),
-                               //         ),
-                               //       ],
-                               //     ):  Center(
-                               //       child: LoadingAnimationWidget.fallingDot(
-                               //         color: Colors.white,
-                               //         size: 38,
-                               //       ),
-                               //     ),
-                               //     onTap: () {
-                               //       ForgotPasswordControllerInstanse.forgotPasswordApiHit() ;
-                               //     },
-                               //   ),
-                               // ),
                              ],
                             ),
                           ),

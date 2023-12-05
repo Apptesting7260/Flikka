@@ -21,7 +21,7 @@ class ForgotPasswordController extends GetxController {
 
   RxBool loading = false.obs;
   String ? verifyEmail;
-  void forgotPasswordApiHit(){
+  void forgotPasswordApiHit(BuildContext context){
     loading.value = true ;
     print(loading.value);
     Map data = {
@@ -37,6 +37,7 @@ class ForgotPasswordController extends GetxController {
         Utils.toastMessage("otp sent successfully") ;
         checkEmailSignUpController.secondsRemaining.value = 60 ;
         checkEmailSignUpController.startTimer() ;
+        Get.back() ;
         Get.to(() => const OtpScreen(register: false,), arguments: {"email": verifyEmail});
       } else {
         loading.value = false ;
@@ -47,8 +48,16 @@ class ForgotPasswordController extends GetxController {
       if (kDebugMode) {
         print(error);
       }
+      Get.back() ;
       loading.value = false ;
+      Utils.showApiErrorDialog(context, "oops! something went wrong") ;
       // Utils.snackBar('Failed',error.toString());
     });
+  }
+
+  @override
+  void dispose() {
+    checkEmailSignUpController.timer.cancel() ;
+    super.dispose();
   }
 }

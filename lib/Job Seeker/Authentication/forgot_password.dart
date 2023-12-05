@@ -139,7 +139,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                     if(_formKey.currentState!.validate()) {
 
                                       print(ForgotPasswordControllerInstanse.loading.value);
-                                      ForgotPasswordControllerInstanse.forgotPasswordApiHit();
+                                      ForgotPasswordControllerInstanse.forgotPasswordApiHit(context);
                                     }
                                   }
                               ),

@@ -10,6 +10,7 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import '../../Job Seeker/SeekerJobs/no_job_available.dart';
 import '../../controllers/ApplyJobController/ApplyJobController.dart';
 import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
+import '../../controllers/ViewRecruiterProfileController/ViewRecruiterProfileController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -33,6 +34,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
   RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
   RecruiterHomePageJobsController jobsController = Get.put(RecruiterHomePageJobsController()) ;
+  ViewRecruiterProfileGetController viewRecruiterProfileController = Get.put(ViewRecruiterProfileGetController());
 
   //////refresh//////
   RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -60,6 +62,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
     homeController.recruiterHomeApi() ;
    jobsController.recruiterJobsApi() ;
    jobTitleController.recruiterJobTitleApi() ;
+    viewRecruiterProfileController.viewRecruiterProfileApi() ;
     super.initState();
   }
 
@@ -79,6 +82,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                   homeController.recruiterHomeApi();
                   jobsController.recruiterJobsApi() ;
                   jobTitleController.recruiterJobTitleApi() ;
+                  viewRecruiterProfileController.viewRecruiterProfileApi() ;
                 },
               ),);
           } else if (homeController.error.value == 'Request Time out') {
@@ -86,12 +90,14 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               homeController.recruiterHomeApi();
               jobsController.recruiterJobsApi() ;
               jobTitleController.recruiterJobTitleApi() ;
+              viewRecruiterProfileController.viewRecruiterProfileApi() ;
             }),);
           } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
               homeController.recruiterHomeApi();
               jobsController.recruiterJobsApi() ;
               jobTitleController.recruiterJobTitleApi() ;
+              viewRecruiterProfileController.viewRecruiterProfileApi() ;
             }),);
           }
         case Status.COMPLETED:
