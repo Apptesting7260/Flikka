@@ -14,7 +14,8 @@ class SeekerAppliedJobsController extends GetxController {
   final jobsList = SeekerAppliedJobsModel().obs ;
   RxString error = ''.obs;
   var loading = false.obs ;
-
+  final appliedJobs = <AppliedJobsList?>[] ;
+  final requestedJobs = <AppliedJobsList?>[] ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
@@ -24,6 +25,17 @@ class SeekerAppliedJobsController extends GetxController {
     _api.appliedJobsApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
       jobsList(value);
+      if (value.job?.length != 0) {
+        requestedJobs.clear() ;
+        appliedJobs.clear() ;
+        for(int i = 0 ; i < value.job!.length ; i++){
+          if(value.job?[i].requestedStatus){
+            requestedJobs.add(value.job?[i]) ;
+          } else {
+                appliedJobs.add(value.job?[i]) ;
+          }
+        }
+      }
       print(value);
 
     }).onError((error, stackTrace){
@@ -34,10 +46,5 @@ class SeekerAppliedJobsController extends GetxController {
 
     });
   }
-
-  // filterList(String? query) {
-  //   companies?.value = getCompaniesList.value.companyList!.where((element) =>
-  //       element.companyName!.toLowerCase().contains(query!.toLowerCase())).toList()
-  // }
 
 }

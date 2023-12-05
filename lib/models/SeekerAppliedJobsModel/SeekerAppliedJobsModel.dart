@@ -49,6 +49,8 @@ class AppliedJobsList {
   DateTime? createdAt;
   DateTime? updatedAt;
   String? jobPositions;
+  dynamic requestedStatus;
+  dynamic applicantStatus;
   dynamic lat ;
   dynamic long ;
   List<LanguageModel>? languageName;
@@ -79,6 +81,8 @@ class AppliedJobsList {
     this.recruiterDetails,
     this.lat ,
     this.long ,
+    this.requestedStatus,
+    this.applicantStatus,
   });
 
   factory AppliedJobsList.fromJson(Map<String, dynamic> json) => AppliedJobsList(
@@ -99,6 +103,8 @@ class AppliedJobsList {
     language: json["language"],
     lat: json["lat"],
     long: json["long"],
+    requestedStatus: json["requested_status"],
+    applicantStatus: json["applicant_status"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],

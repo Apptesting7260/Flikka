@@ -81,4 +81,8 @@ class SeekerRepository {
     return SeekerMapJobsModel.fromJson(response);
   }
 
+  Future<EditAboutModel> seekerUpdateRequestedJobStatus(var data) async {
+    dynamic response = await apiServices.postApi2(data, AppUrl.seekerUpdateRequestedJobStatus);
+    return EditAboutModel.fromJson(response);
+  }
 }
