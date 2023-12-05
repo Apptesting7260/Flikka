@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.dart';
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -84,7 +85,10 @@ class AddJobController extends GetxController {
           Get.to( () => RequiredSkills(recruiterJobsData: recruiterJobsData,) , arguments: {"job_id" : responseData["job_id"] });
         } else if (recruiterJobsData == null) {
         Get.to( () => const RequiredSkills() , arguments: {"job_id" : responseData["job_id"] }); }
-      } else {
+      }
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll( () => const Login()) ;
       }
       loading(false) ;
     } catch ( e, stackTrace) {

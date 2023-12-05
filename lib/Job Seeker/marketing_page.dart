@@ -247,13 +247,13 @@ class _MarketingInternState extends State<MarketingIntern> {
                               width: Get.width *.4,
                               onTap1: () {
                                   CommonFunctions.showLoadingDialog(context, "Updating...") ;
-                                 jobStatusController.updateStatus("${widget.jobData?.id}", "Accept") ;
+                                 jobStatusController.updateStatus("${widget.jobData?.id}", "Accept",context) ;
                               }),
                           MyButton(title: "REJECT",
                               width: Get.width *.4,
                               onTap1: () {
                                 CommonFunctions.showLoadingDialog(context, "Updating...") ;
-                                jobStatusController.updateStatus("${widget.jobData?.id}", "Reject") ;
+                                jobStatusController.updateStatus("${widget.jobData?.id}", "Reject",context) ;
                               }),
                         ],)
                  : Obx( () => MyButton(

@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
@@ -71,6 +72,9 @@ class EditSeekerProfileController extends GetxController {
         if (kDebugMode) {
           print(responseData['message']);
         }
+      } if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll( () => const Login()) ;
       }
       loading(false);
       loadingImage(false);

@@ -2,7 +2,9 @@
 import 'package:flikka/Job%20Recruiter/recruiter_profile/recruiter_profile_tabbar.dart';
 import 'package:flikka/controllers/SeekerAppliedJobsController/SeekerAppliedJobsController.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/utils.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../SeekerViewCompanyController/SeekerViewCompanyController.dart';
@@ -14,7 +16,7 @@ class SeekerUpdateRequestedJobStatusController extends GetxController {
   var errorMessage = "".obs ;
   SeekerAppliedJobsController jobsController = Get.put(SeekerAppliedJobsController()) ;
 
-  updateStatus( String? jobId , String? status) async{
+  updateStatus( String? jobId , String? status , BuildContext context) async{
     loading(true) ;
     var data =  {};
     data.addIf(jobId != null && jobId.length != 0 , 'job_id' , "$jobId" ) ;
@@ -24,6 +26,7 @@ class SeekerUpdateRequestedJobStatusController extends GetxController {
       loading(false) ;
       if(value.status!){
         jobsController.getJobsApi() ;
+        Get.back() ;
         Utils.toastMessage('Status updated') ;
       }
       Get.back() ;
@@ -31,6 +34,7 @@ class SeekerUpdateRequestedJobStatusController extends GetxController {
       print(error);
       loading(false) ;
       Get.back() ;
+      Utils.showMessageDialog(context, "oops! something went wrong") ;
     });
   }
 }

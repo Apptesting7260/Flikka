@@ -4,6 +4,7 @@ import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../../Job Seeker/Authentication/login.dart';
 import '../../res/app_url.dart';
 import 'package:http/http.dart' as http;
 
@@ -66,6 +67,9 @@ class CreateUpdateRecruiterProfileController extends GetxController {
         sp.setString("loggedIn", "recruiter") ;
         sp.setInt("step", 2) ;
         Get.offAll(TabScreenEmployer(index: 4,));
+      } if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll( () => const Login());
       }
       else {
           errorMessage.value = responseData["message"] ;

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flikka/Job%20Recruiter/RecruiterRequiredSkills/required_skills.dart';
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,10 @@ class SeekerUpdateVideoController extends GetxController {
         seekerProfileController.viewSeekerProfileApi() ;
         Utils.toastMessage('Profile updated') ;
       loading(false) ; }
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll( () => const Login());
+      }
       Get.back() ;
     } catch ( e, stackTrace) {
       Get.back() ;

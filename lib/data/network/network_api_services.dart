@@ -3,10 +3,12 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:flikka/GlobalVariable/GlobalVariable.dart';
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import 'package:flikka/controllers/VerifyOtpController/VerifyOtpController.dart';
 import 'package:flikka/data/network/base_api_Services.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import '../app_exceptions.dart';
@@ -23,8 +25,13 @@ class NetworkApiServices extends BaseApiServices {
 
     dynamic responseJson;
     try {
+      SharedPreferences sp = await SharedPreferences.getInstance() ;
       final response = await http.get(Uri.parse(url)).timeout(
           const Duration(seconds: 30));
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll(() => const Login()) ;
+      }
       responseJson = returnResponse(response);
     } on SocketException {
       throw InternetException('');
@@ -39,7 +46,7 @@ class NetworkApiServices extends BaseApiServices {
 
   @override
   Future<dynamic> getApi2(String url)async{
-SharedPreferences sp=await SharedPreferences.getInstance();
+SharedPreferences sp = await SharedPreferences.getInstance();
     if (kDebugMode) {
       print(url);
     }
@@ -55,6 +62,10 @@ SharedPreferences sp=await SharedPreferences.getInstance();
       responseJson  = returnResponse(response) ;
       
       print(response);
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll(() => const Login()) ;
+      }
 
     }on SocketException {
       throw InternetException('');
@@ -83,14 +94,19 @@ SharedPreferences sp=await SharedPreferences.getInstance();
 
     dynamic responseJson;
     try {
-
+      SharedPreferences sp = await SharedPreferences.getInstance() ;
       final response = await http.post(Uri.parse(url),
         body: data,
 
       ).timeout(const Duration(seconds: 30));
-
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll(() => const Login()) ;
+      }
       responseJson  = returnResponse(response) ;
-print(response.body);
+if (kDebugMode) {
+  print(response.body);
+}
     } on SocketException {
       throw InternetException('');
     } on RequestTimeOut {
@@ -106,7 +122,7 @@ print(response.body);
 
   @override
   Future<dynamic> postApi2(var data , String url)async{
-    SharedPreferences sp=await SharedPreferences.getInstance();
+    SharedPreferences sp = await SharedPreferences.getInstance();
     if (kDebugMode) {
       print(url);
       print(data);
@@ -114,16 +130,18 @@ print(response.body);
 
     dynamic responseJson ;
     try {
-      // print(BarrierToken.toString());
-      print("object");
       final response = await http.post(Uri.parse(url),
           headers: {"Authorization":"Bearer ${sp.getString("BarrierToken")}"},
           body: data
       ).timeout( const Duration(seconds: 30));
-
-      print("object");
-
-   print(response);
+      if(response.statusCode == 401) {
+        sp.clear() ;
+        Get.offAll(() => const Login()) ;
+      }
+      if (kDebugMode) {
+        print("object");
+        print(response);
+      }
 
       responseJson  = returnResponse(response) ;
     }on SocketException {

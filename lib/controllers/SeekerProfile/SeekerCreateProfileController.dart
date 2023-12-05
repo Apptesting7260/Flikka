@@ -1,5 +1,6 @@
 
 import 'dart:convert';
+import 'package:flikka/Job%20Seeker/Authentication/login.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -84,8 +85,9 @@ class SeekerCreateProfileController extends GetxController {
         sp.setInt("step", 4) ;
         Get.offAll(const TabScreen(index: 4));
       }
-     else {
-        // errorMessage.value = responseData["message"] ;
+     if(response.statusCode == 401) {
+       sp.clear() ;
+       Get.offAll( () => const Login()) ;
       }
       loading(false) ;
     } catch ( e, stackTrace) {
