@@ -1,3 +1,4 @@
+import 'package:flikka/Job%20Recruiter/AddJobPage/create_job_post.dart';
 import 'package:flikka/Job%20Recruiter/bottom_bar/tab_bar.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterRequest/request.dart';
@@ -214,12 +215,12 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     dense: true,
                                     leading: IconButton(
                                         onPressed: () {
-                                          // Get.to((ApplicantTrackingHiringManager()));
+
                                         },
                                         icon: Image.asset('assets/images/icon_job_post.png',scale: 2.8,fit: BoxFit.cover,)),
                                     title: InkWell(
                                         onTap: (){
-                                          //Get.to(() =>CompanySeekerPage());
+                                          Get.to(() => CreateJobPost()) ;
                                         } ,
                                         child: Text(
                                           "Job Post",

@@ -47,7 +47,6 @@ class OtpScreenState extends State<OtpScreen> {
     super.dispose();
   }
 
-
     @override
   Widget build(BuildContext context) {
     return SafeArea(
