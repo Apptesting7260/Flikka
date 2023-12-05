@@ -1,10 +1,9 @@
-import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:get/get.dart';
-
+import '../../controllers/DeleteUserController/DeleteUserController.dart';
 import '../../controllers/LogoutController/LogoutController.dart';
 
 class SettingPage extends StatefulWidget {
@@ -52,6 +51,8 @@ class _SettingPageState extends State<SettingPage> {
   }
 
   final _controller = ValueNotifier<bool>(false);
+
+  DeleteUserController deleteUserController = Get.put(DeleteUserController()) ;
 
   @override
   Widget build(BuildContext context) {
@@ -162,23 +163,33 @@ class _SettingPageState extends State<SettingPage> {
               ),
             ),
             SizedBox(height: Get.height*0.022,),
-            Container(
-                height: Get.height*0.08,
-                width: Get.width*0.9,
-                decoration: BoxDecoration(
-                    color: Colors.grey[800],
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [
-                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/logout.png',color: AppColors.blueThemeColor,)),
-                      Text("Delete account",style: Get.theme.textTheme.bodyMedium),
-                    ],),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
-                  ],
-                )
+            GestureDetector(
+              onTap: () {
+                CommonFunctions.confirmationDialog(context, message: "Do you want to delete your account", onTap: () {
+                  Get.back() ;
+                  CommonFunctions.showLoadingDialog(context, "Deleting...") ;
+                  deleteUserController.deleteUser(context) ;
+                }) ;
+
+              },
+              child: Container(
+                  height: Get.height*0.08,
+                  width: Get.width*0.9,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        IconButton(onPressed: (){} ,icon: Image.asset('assets/images/logout.png',color: AppColors.blueThemeColor,)),
+                        Text("Delete account",style: Get.theme.textTheme.bodyMedium),
+                      ],),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
+                    ],
+                  )
+              ),
             )
           ],
         ),

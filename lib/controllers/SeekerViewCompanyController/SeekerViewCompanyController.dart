@@ -1,10 +1,6 @@
-import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
-import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
-import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
+
 import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
-import 'package:flikka/utils/utils.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../data/response/status.dart';
@@ -34,7 +30,6 @@ class SeekerViewCompanyController extends GetxController {
       if(value.status!){
         companyData(value) ;
         print("this is value ==== $value") ;
-        print("this is job id ==== ${companyData.value.jobs?[0].id.toString()}") ;
       }
     }).onError((error, stackTrace){
       setRxRequestStatus(Status.ERROR) ;

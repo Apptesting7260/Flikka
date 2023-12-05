@@ -20,9 +20,9 @@ import '../../widgets/my_button.dart';
 class SignUpController extends GetxController {
 
   final _api = AuthRepository();
-  final emailController=TextEditingController().obs;
-  final passwordController=TextEditingController().obs;
-  final nameController=TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final passwordController = TextEditingController().obs;
+  final nameController = TextEditingController().obs;
   var errorMessage = "".obs ;
   RxString error = ''.obs;
   final rxRequestStatus = Status.COMPLETED.obs ;
@@ -41,10 +41,11 @@ class SignUpController extends GetxController {
     loading.value = true ;
     this.role = role ;
     var sp = await SharedPreferences.getInstance() ;
+
     Map data = {
-      'email' : emailController.value.text,
-      'password' : passwordController.value.text,
-      'name' : nameController.value.text,
+      'email' : sp.getString("email"),
+      'password' : sp.getString("password"),
+      'name' : sp.getString("name"),
       "role" : "$role"
     };
     _api.SignUpApi(data).then((value){
@@ -67,8 +68,6 @@ class SignUpController extends GetxController {
        }else{
          errorMessage.value = value.message.toString() ;
        }
-
-        // Utils.snackBar( "Message",value.message.toString());
 
     }).onError((error, stackTrace){
       print('********************************');

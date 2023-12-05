@@ -139,7 +139,9 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                             return Column(
                               children: [
                                 GestureDetector(
-                                  onTap: () {},
+                                  onTap: () {
+      Get.to(() =>  RecruiterProfileTabBar(recruiterID: data?.recruiterID.toString(),isSeeker: true,) ,);
+                                  },
                                   child: ListTile(
                                     leading: CachedNetworkImage(
                                         imageUrl: '${data?.profileImg}',

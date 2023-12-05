@@ -25,7 +25,6 @@ class OtpScreenState extends State<OtpScreen> {
   CheckEmailSignUpController emailSignUpController = Get.put(CheckEmailSignUpController()) ;
 
   final focusNode = FocusNode();
-
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
   var email = Get.arguments["email"] ;
@@ -41,11 +40,6 @@ class OtpScreenState extends State<OtpScreen> {
     VerifyOtpControllerInstanse.otpController.value.text = "" ;
     }
 
-  @override
-  void dispose() {
-    emailSignUpController.timer.cancel(); // Cancel the timer to avoid memory leaks
-    super.dispose();
-  }
 
     @override
   Widget build(BuildContext context) {

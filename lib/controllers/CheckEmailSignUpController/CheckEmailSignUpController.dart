@@ -65,9 +65,5 @@ class CheckEmailSignUpController extends GetxController {
       Utils.showApiErrorDialog(context, error.toString()) ;
     });
   }
-  @override
-  void dispose() {
-    timer.cancel() ;
-    super.dispose();
-  }
+
 }

@@ -24,7 +24,6 @@ class _SignUpState extends State<SignUp> {
   SignUpController SignUpControllerInstanse=Get.put(SignUpController());
 
   CheckEmailSignUpController checkEmailSignUpControllerInstanse=Get.put(CheckEmailSignUpController()) ;
-  SignUpController signUpController = Get.put(SignUpController()) ;
 
   final _formKey = GlobalKey<FormState>();
   var isLoading = false;
@@ -171,17 +170,14 @@ class _SignUpState extends State<SignUp> {
                       onTap1: () async {
                         if(checkEmailSignUpControllerInstanse.loading.value) {} else {
                         checkEmailSignUpControllerInstanse.errorMessage.value = "" ;
-                        signUpController.errorMessage.value = "" ;
                         if(_formKey.currentState!.validate()) {
                           checkEmailSignUpControllerInstanse
                               .checkEmailSignUpApiHit(
-                              SignUpControllerInstanse.emailController.value
-                                  .text, context);
-                          SharedPreferences sp = await SharedPreferences
-                              .getInstance();
-                          sp.setString("name",
-                              SignUpControllerInstanse.nameController.value
-                                  .text);
+                              SignUpControllerInstanse.emailController.value.text, context);
+                          SharedPreferences sp = await SharedPreferences.getInstance();
+                          sp.setString("name", SignUpControllerInstanse.nameController.value.text);
+                          sp.setString("email", SignUpControllerInstanse.emailController.value.text);
+                          sp.setString("password", SignUpControllerInstanse.passwordController.value.text);
                         }
                         }
                         // Get.to(ChooseRole());
