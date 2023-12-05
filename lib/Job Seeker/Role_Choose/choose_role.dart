@@ -211,7 +211,10 @@ class _ChooseRoleState extends State<ChooseRole> {
                                       loading: signUpController.loading.value,
                                       title: "SIGN UP",
                                       onTap1: () {
-                                        signUpController.signUpApiHit(role , context );
+                                        if(signUpController.loading.value) {}
+                                        else {
+                                          signUpController.signUpApiHit(role , context );
+                                        }
                                       }
                                   ),
                                 ),) ,

@@ -836,7 +836,8 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                             ) {
                                               seekerChooseSkillsController.errorMessage.value = "Please select at least 1 field from each section" ;
                                             } else {
-                                              seekerChooseSkillsController
+                                              if(seekerChooseSkillsController.loading.value){} else{
+                                                seekerChooseSkillsController
                                                   .seekerSkillsApi(
                                                   _selectedChooseSkillsIndices,
                                                   _selectedChoosestrengthsSkills,
@@ -846,6 +847,7 @@ class _ChooseSkillsState extends State<ChooseSkills> {
                                                   RangePicker.maxValue.toInt() ,
                                                   _selectedChooseworkingSkills,
                                                   _selectedChooseAvailabilitySkills);
+                                              }
                                             }
                                             if( seekerChooseSkillsController.errorMessage.value.isNotEmpty) {
                                                 scrollController.animateTo(

@@ -137,9 +137,9 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                                   onTap1: () {
                                     ForgotPasswordControllerInstanse.forgotPasswordErrorMessage.value = "" ;
                                     if(_formKey.currentState!.validate()) {
-
-                                      print(ForgotPasswordControllerInstanse.loading.value);
-                                      ForgotPasswordControllerInstanse.forgotPasswordApiHit(context);
+                                      if(ForgotPasswordControllerInstanse.loading.value){}else {
+                                        ForgotPasswordControllerInstanse.forgotPasswordApiHit(context);
+                                      }
                                     }
                                   }
                               ),

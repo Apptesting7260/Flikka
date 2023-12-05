@@ -177,32 +177,25 @@ class _CreatePasswordState extends State<CreatePassword> {
                                 {
                                   return "Password do not match";
                                 }
-                                // if (value!.isEmpty) {
-                                //   return "Please Enter Password";
-                                // } else if (value.length < 8) {
-                                //   return "Password must be at least 8 characters long";
-                                // } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                                //   return "Password must contain at least one uppercase letter";
-                                // } else if (!value.contains(RegExp(r'[a-z]'))) {
-                                //   return "Password must contain at least one lowercase letter";
-                                // } else if (!value.contains(RegExp(r'[0-9]'))) {
-                                //   return "Password must contain at least one digit";
-                                // } else if (!value.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'))) {
-                                //   return "Password must contain at least one special character";
-                                // }
 
                                 return null; // Return null if the password is valid
                               },
                             ),
                             SizedBox(height: Get.height*.05,),
                             Center(
-                              child: MyButton(title: "SAVE", onTap1: () {
-                                if(_formKey.currentState!.validate()) {
-                                  _formKey.currentState!.save();
-                                  resetPasswordController.resetPasswordApiHit(widget.email,context) ;
-                                  // Get.to(()=>const Successfully());
-                                }
-                              },),
+                              child: Obx( () => MyButton(
+                                title: "SAVE",
+                                loading: resetPasswordController.loading.value,
+                                onTap1: () {
+                                  if(_formKey.currentState!.validate()) {
+                                    _formKey.currentState!.save();
+                                    if(resetPasswordController.loading.value){} else {
+                                      resetPasswordController.resetPasswordApiHit(widget.email,context) ;
+                                    }
+                                    // Get.to(()=>const Successfully());
+                                  }
+                                },),
+                              ),
                             ),
                             const SizedBox(height: 17),
                             Center(
