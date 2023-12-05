@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ApplyJobController/ApplyJobController.dart';
+import 'package:flikka/controllers/SeekerUpdateRequestedJobStatus/SeekerUpdateRequestedJobStatus.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -14,7 +15,8 @@ import '../controllers/GetJobsListingController/GetJobsListingController.dart';
 class MarketingIntern extends StatefulWidget {
    final dynamic jobData ;
    final bool appliedJobScreen ;
-  const MarketingIntern({super.key, this.jobData, required this.appliedJobScreen});
+   final bool? requestedJob ;
+  const MarketingIntern({super.key, this.jobData, required this.appliedJobScreen, this.requestedJob});
 
   @override
   State<MarketingIntern> createState() => _MarketingInternState();
@@ -23,6 +25,7 @@ class MarketingIntern extends StatefulWidget {
 class _MarketingInternState extends State<MarketingIntern> {
 
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
+  SeekerUpdateRequestedJobStatusController jobStatusController = Get.put(SeekerUpdateRequestedJobStatusController()) ;
   GetJobsListingController getJobsListingController = GetJobsListingController() ;
   var years ;
   var months ;
@@ -237,7 +240,23 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.055,
                   ),
                   widget.appliedJobScreen ? const SizedBox() :
-                  Obx( () => MyButton(
+                      widget.requestedJob == true ?
+                      Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          MyButton(title:   "ACCEPT",
+                              width: Get.width *.4,
+                              onTap1: () {
+                                  CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                 jobStatusController.updateStatus("${widget.jobData?.id}", "Accept") ;
+                              }),
+                          MyButton(title: "REJECT",
+                              width: Get.width *.4,
+                              onTap1: () {
+                                CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                jobStatusController.updateStatus("${widget.jobData?.id}", "Reject") ;
+                              }),
+                        ],)
+                 : Obx( () => MyButton(
                       loading: applyJobController.loading.value,
                       title: "APPLY NOW",
                       onTap1: () {

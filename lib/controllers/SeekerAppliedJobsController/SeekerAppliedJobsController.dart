@@ -26,11 +26,13 @@ class SeekerAppliedJobsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       jobsList(value);
       if (value.job?.length != 0) {
+        requestedJobs.clear() ;
+        appliedJobs.clear() ;
         for(int i = 0 ; i < value.job!.length ; i++){
           if(value.job?[i].requestedStatus){
             requestedJobs.add(value.job?[i]) ;
           } else {
-            appliedJobs.add(value.job?[i]) ;
+                appliedJobs.add(value.job?[i]) ;
           }
         }
       }
