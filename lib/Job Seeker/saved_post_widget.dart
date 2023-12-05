@@ -15,8 +15,8 @@ import '../res/components/unauthorised_request_widget.dart';
 import '../widgets/app_colors.dart';
 
 class SavedPost extends StatefulWidget {
-
-  const SavedPost({super.key});
+final dynamic jobData;
+  const SavedPost({super.key, this.jobData});
 
   @override
   State<SavedPost> createState() => _SavedPostState();
@@ -198,39 +198,39 @@ class _SavedPostState extends State<SavedPost> {
                                         ),
                                         imageUrl:  "${data?.jobData?.featureImg}"
                                     ),
-                                    Positioned(
-                                      right: 20,
-                                      top: 10,
-                                      child: Stack(
-                                        children: [
-                                          Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadius.circular(40),
-                                                border: Border.all(color: AppColors.white, width: 2)),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(3.0),
-                                              child: Container(
-                                                  decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
-                                                  child: CircleAvatar(
-                                                      radius: 23,
-                                                      backgroundColor: AppColors.blueThemeColor,
-                                                      child: Center(
-                                                        child: Column( mainAxisAlignment: MainAxisAlignment.center,
-                                                          children: [
-                                                            Text('50%',
-                                                                style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                                    color: AppColors.white)),
-                                                            Text('match',
-                                                                style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                                    color: AppColors.white, fontSize: 7)),
-                                                          ],
-                                                        ),
-                                                      ))),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                    ),
+                                    // Positioned(
+                                    //   right: 20,
+                                    //   top: 10,
+                                    //   child: Stack(
+                                    //     children: [
+                                    //       Container(
+                                    //         decoration: BoxDecoration(
+                                    //             borderRadius: BorderRadius.circular(40),
+                                    //             border: Border.all(color: AppColors.white, width: 2)),
+                                    //         child: Padding(
+                                    //           padding: const EdgeInsets.all(3.0),
+                                    //           child: Container(
+                                    //               decoration: const BoxDecoration(shape: BoxShape.circle, color: AppColors.blueThemeColor),
+                                    //               child: CircleAvatar(
+                                    //                   radius: 23,
+                                    //                   backgroundColor: AppColors.blueThemeColor,
+                                    //                   child: Center(
+                                    //                     child: Column( mainAxisAlignment: MainAxisAlignment.center,
+                                    //                       children: [
+                                    //                         Text('50%',
+                                    //                             style: Get.theme.textTheme.bodySmall!.copyWith(
+                                    //                                 color: AppColors.white)),
+                                    //                         Text('match',
+                                    //                             style: Get.theme.textTheme.bodySmall!.copyWith(
+                                    //                                 color: AppColors.white, fontSize: 7)),
+                                    //                       ],
+                                    //                     ),
+                                    //                   ))),
+                                    //         ),
+                                    //       )
+                                    //     ],
+                                    //   ),
+                                    // ),
                                     //*************** for bookmarks **************
                                     Positioned(
                                       left: 12,

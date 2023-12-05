@@ -21,6 +21,7 @@ class AddJobController extends GetxController {
   var languageErrorMessage = '' .obs ;
 
   addJobApi (
+      String? videoPath ,
       String? profilePath ,
       var  position ,
       var  jobTitle ,
@@ -67,9 +68,13 @@ class AddJobController extends GetxController {
       formData.forEach((key, value) {
         request.fields[key] = value.toString();
       });
-      if(profilePath != null) {
+      if(profilePath != null && profilePath?.length != 0 ) {
         debugPrint("inside multipart") ;
       request.files.add(await http.MultipartFile.fromPath("feature_img" , profilePath)) ; }
+      if(videoPath != null && videoPath?.length != 0) {
+        debugPrint("inside multipart") ;
+      request.files.add(await http.MultipartFile.fromPath("short_video" , videoPath)) ;
+      }
       request.headers["Authorization"] = "Bearer ${sp.getString("BarrierToken")}" ;
       var response = await request.send() ;
       debugPrint(response.statusCode.toString()) ;

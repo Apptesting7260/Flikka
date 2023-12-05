@@ -1,17 +1,20 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/AddJobController/AddJobController.dart';
 import 'package:flikka/data/response/status.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_compress/video_compress.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
@@ -69,6 +72,36 @@ class _AddAJobPageState extends State<AddAJobPage> {
   SeekerChoosePositionGetController seekerChoosePositionGetController = Get.put(SeekerChoosePositionGetController());
 
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
+
+  Future<void> _startRecording() async {
+    final video = await ImagePicker().pickVideo(source: ImageSource.camera,maxDuration: const Duration(seconds: 15)) ;
+    if(video != null) {
+      await compressVideo(video.path);
+    }
+  }
+
+  Future<void> compressVideo(String inputPath) async {
+    CommonFunctions.showLoadingDialog(context, "Uploading") ;
+    final MediaInfo? info = await VideoCompress.compressVideo(
+      inputPath,
+      quality: VideoQuality.MediumQuality,
+      deleteOrigin: false,
+    );
+
+    if (kDebugMode) {
+      print('Compressed video path: ${info?.path}');
+    }
+    if(info?.path != null && info?.path?.length != 0 ) {
+      setState(() {
+        videoFilePath = info!.path! ;
+        if (kDebugMode) {
+          print("this is file size ================== ${info.filesize}") ;
+        }
+      });
+      Get.back() ;
+    }
+  }
+  String videoFilePath = '';
 
   TextEditingController jobTitleController = TextEditingController() ;
   TextEditingController jobPositionController = TextEditingController() ;
@@ -259,6 +292,83 @@ class _AddAJobPageState extends State<AddAJobPage> {
                             alignment: Alignment.topLeft,
                             child: Text(addJobController.featureImageError.value,style: TextStyle(color: Colors.red),))
                     ) ,
+                    SizedBox(height: Get.height*0.03,),
+                    Text(
+                      "Add your short video here",
+                      style: Theme.of(context).textTheme.labelLarge?.copyWith(
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    SizedBox(
+                      height: Get.height * .02,
+                    ),
+                    DottedBorder(
+                      borderType: BorderType.RRect,
+                      radius: const Radius.circular(20),
+                      dashPattern: const [5, 5],
+                      color: const Color(0xffCFCFCF),
+                      strokeWidth: 0.7,
+                      child: GestureDetector(
+                        onTap: () {
+                          _startRecording() ;
+                        },
+                        child: Container(
+                          height: Get.height * .15,
+                          width: Get.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(22),
+                          ),
+                          child: Center(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  "assets/images/icon_upload_cv.png",
+                                  width: Get.width * .07,
+                                  height: Get.height * .06,
+                                ),
+                                SizedBox(width: Get.width * .0),
+                                videoFilePath.isNotEmpty ?
+                                SizedBox(
+                                  width: Get.width * .6,
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      SizedBox(width: Get.width * .02),
+                                      Flexible(
+                                        child: Text(
+                                          "File uploaded: ${videoFilePath.split('/').last}",
+                                          overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge
+                                              ?.copyWith(
+                                              fontWeight:
+                                              FontWeight.w400),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ) :
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 8.0, top: 4),
+                                  child: Text(
+                                    "Upload Video",
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .labelLarge
+                                        ?.copyWith(
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                     SizedBox(height: Get.height*0.04,),
                     Text('Job Title',style: Get.theme.textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700)),
                     SizedBox(height: Get.height*0.01,),
@@ -952,8 +1062,9 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               // List<String> descriptionPara = formattedDescriptionText.split('\n');
                               // List<String> formattedDescription = descriptionPara.map((line) => line.isEmpty ? '<p>&nbsp;</p>'  : '<p>$line</p>').toList();
                               //  formattedDescriptionText = formattedDescription.join('');
-
-                              addJobController.addJobApi(
+                              if(addJobController.loading.value) {} else {
+                                addJobController.addJobApi(
+                                videoFilePath ,
                                   imgFile?.path,
                                   jobTypeTitle,
                                   jobTitleController.text,
@@ -971,6 +1082,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                                 recruiterJobsData: widget.recruiterJobsData ,
                                 jobId: widget.recruiterJobsData?.jobsDetail?.jobId
                               );
+                              }
                             }
                           }else{
                             scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
