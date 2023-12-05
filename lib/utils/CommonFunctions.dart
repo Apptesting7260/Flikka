@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:get/get.dart';
 import 'package:html/parser.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../widgets/my_button.dart';
 
 class CommonFunctions {
@@ -172,5 +173,23 @@ class CommonFunctions {
         );
       },
     );
+  }
+
+ // static _launchDialer(String phoneNumber) async {
+ //    final Uri phoneLaunchUri = Uri(scheme: 'tel', path: phoneNumber);
+ //    if (await canLaunch(phoneLaunchUri.toString())) {
+ //      await launch(phoneLaunchUri.toString());
+ //    } else {
+ //      print('Could not launch $phoneLaunchUri');
+ //    }
+ //  }
+
+ static launchDialer(String phoneNumber) async {
+    final Uri phoneLaunchUri = Uri(scheme: 'tel', path: phoneNumber);
+    if (await canLaunchUrl(phoneLaunchUri)) {
+      await launchUrl(phoneLaunchUri);
+    } else {
+      print('Could not launch $phoneLaunchUri');
+    }
   }
 }

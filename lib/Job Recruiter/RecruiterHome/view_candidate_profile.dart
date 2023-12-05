@@ -1,16 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
-import 'package:flikka/utils/CommonWidgets.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/VideoPlayerScreen.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
-import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
 
 class ViewCandidateProfile extends StatefulWidget {
   final RecruiterHomePageSeekerDetail? recruiterData;
@@ -121,16 +121,29 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         ? const SizedBox()
                         : Row(
                           children: [
-                            Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(50),
-                                    color: AppColors.white),
-                                child: IconButton(
-                                    onPressed: () {},
-                                    icon: Image.asset(
-                                      'assets/images/icon_call.png',
-                                      scale: 0.7,
-                                    ))),
+                            GestureDetector(
+                              onTap: () {
+                                // if (kDebugMode) {
+                                //   print("tapped") ;
+                                // }
+                                // CommonFunctions.launchDialer("${widget.recruiterData?.seeker?.mobile}") ;
+                              },
+                              child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(50),
+                                      color: AppColors.white),
+                                  child: IconButton(
+                                      onPressed: () {
+                                        if (kDebugMode) {
+                                          print("tapped") ;
+                                        }
+                                        CommonFunctions.launchDialer("${widget.recruiterData?.seeker?.mobile}") ;
+                                      },
+                                      icon: Image.asset(
+                                        'assets/images/icon_call.png',
+                                        scale: 0.7,
+                                      ))),
+                            ),
                             SizedBox(
                               width: Get.width * 0.045,
                             ),
