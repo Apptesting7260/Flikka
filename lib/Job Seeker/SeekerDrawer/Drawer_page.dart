@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/metting_list/metting_list_tabbar.dart';
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
@@ -83,7 +84,23 @@ class _DrawerClassState extends State<DrawerClass> {
                                       children: [
                                         CircleAvatar(
                                           radius:42,
-                                          backgroundImage: NetworkImage("${widget.profileImage}"),
+                                          backgroundColor: Colors.transparent,
+                                          child: CachedNetworkImage(
+                                              imageUrl: "${widget.profileImage}",
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            height: 80,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: imageProvider,
+                                              fit: BoxFit.cover ,
+                                              )
+                                            ),
+                                          ),
+                                            placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                          ),
+                                          // backgroundImage: NetworkImage("${widget.profileImage}"),
                                         ),
                                         const SizedBox(
                                           height: 9,
