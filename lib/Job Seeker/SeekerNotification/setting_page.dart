@@ -1,4 +1,5 @@
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
@@ -134,8 +135,12 @@ class _SettingPageState extends State<SettingPage> {
             SizedBox(height: Get.height*0.022,),
             GestureDetector(
               onTap: () {
-                logoutController.logout() ;
-                showLogoutDialog(context)  ;
+                CommonFunctions.confirmationDialog(context, message :"Do you want to log out", onTap: (){
+                  Get.back() ;
+                  logoutController.logout() ;
+                  showLogoutDialog(context)  ;
+                }) ;
+
               },
               child: Container(
                   height: Get.height*0.08,
