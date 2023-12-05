@@ -15,8 +15,8 @@ import '../res/components/unauthorised_request_widget.dart';
 import '../widgets/app_colors.dart';
 
 class SavedPost extends StatefulWidget {
-
-  const SavedPost({super.key});
+final dynamic jobData;
+  const SavedPost({super.key, this.jobData});
 
   @override
   State<SavedPost> createState() => _SavedPostState();
