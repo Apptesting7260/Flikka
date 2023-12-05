@@ -1872,7 +1872,7 @@ class _UserProfileState extends State<UserProfile> {
                                         shape: BoxShape.circle
                                     ),
                                     child: CircularPercentIndicator(
-                                      percent: seekerProfileController.viewSeekerData.value.completeProfile / 100,
+                                      percent: seekerProfileController.viewSeekerData.value.completeProfile != null ? seekerProfileController.viewSeekerData.value.completeProfile / 100 : 0,
                                       lineWidth: 3,
                                       center: Column(
                                         mainAxisAlignment: MainAxisAlignment.center,
