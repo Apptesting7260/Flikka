@@ -323,8 +323,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                                 padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
                                                 alignment: Alignment.center,
                                                 decoration: BoxDecoration(
-                                                  borderRadius: BorderRadius
-                                                      .circular(20),
+                                                  borderRadius: BorderRadius.circular(20),
                                                   color: Color(0xff484848),
                                                 ),
                                                 child: Text(widget.recruiterJobsData?.jobsDetail?.skillName?[index].skills ?? "",
