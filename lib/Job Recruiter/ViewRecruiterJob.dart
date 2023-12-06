@@ -1,12 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:video_compress/video_compress.dart';
 import '../controllers/ApplyJobController/ApplyJobController.dart';
 import '../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
+import '../utils/CommonFunctions.dart';
+import '../utils/VideoPlayerScreen.dart';
 import '../widgets/app_colors.dart';
 
 class ViewRecruiterJob extends StatefulWidget {
@@ -96,6 +100,36 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                 ),
                 //*************** for marketing intern **************
 
+                  Column(
+                    children: [
+                      SizedBox(height: Get.height * .30,),
+                      Row(
+                        children: [
+                          SizedBox(width: Get.width*.04,) ,
+                          GestureDetector(
+                            onTap: () {
+                              Get.back() ;
+                              Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData!.video!)) ;
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 42,
+                              width: 42,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.blueThemeColor
+                              ),
+                              child: Image.asset(
+                                "assets/images/icon_video.png",
+                                height: 18,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 DraggableScrollableSheet(
                   initialChildSize: 0.55, // half screen
                   minChildSize: 0.55, // half screen

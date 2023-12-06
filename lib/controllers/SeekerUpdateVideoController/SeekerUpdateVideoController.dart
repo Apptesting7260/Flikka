@@ -56,5 +56,4 @@ class SeekerUpdateVideoController extends GetxController {
       Utils.showMessageDialog(context, "oops! Something went wrong") ;
     }
   }
-
 }
