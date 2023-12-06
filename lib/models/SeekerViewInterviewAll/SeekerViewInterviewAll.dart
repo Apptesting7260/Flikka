@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flikka/models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
+
 SeekerViewInterviewModel scheduledInterviewListModelFromJson(String str) => SeekerViewInterviewModel.fromJson(json.decode(str));
 
 String scheduledInterviewListModelToJson(SeekerViewInterviewModel data) => json.encode(data.toJson());
@@ -12,12 +14,12 @@ class SeekerViewInterviewModel {
   });
    bool ?status;
    String ?message;
-   List<InterviewSchedule> ?interviewSchedule;
+   List<Seeker> ?interviewSchedule;
 
   SeekerViewInterviewModel.fromJson(Map<String, dynamic> json){
     status = json['status'];
     message = json['message'];
-    interviewSchedule = List.from(json['interview_schedule']).map((e)=>InterviewSchedule.fromJson(e)).toList();
+    interviewSchedule = json['interview_schedule'] == null ? json['interview_schedule'] : List.from(json['interview_schedule']).map((e)=>Seeker.fromJson(e)).toList();
   }
 
   Map<String, dynamic> toJson() {
@@ -42,16 +44,16 @@ class InterviewSchedule {
      this.createdAt,
      this.updatedAt,
   });
-   int ?id;
-   int ?seekerId;
-   int ?jobId;
+   dynamic id;
+   dynamic seekerId;
+   dynamic jobId;
    String ?status;
-   String ?interviewScheduleTime;
+   DateTime? interviewScheduleTime;
    String ?interviewStatus;
    String ?interviewLink;
    String ?requestType;
-   String ?createdAt;
-   String ?updatedAt;
+   dynamic createdAt;
+   dynamic updatedAt;
 
   InterviewSchedule.fromJson(Map<String, dynamic> json){
     id = json['id'];

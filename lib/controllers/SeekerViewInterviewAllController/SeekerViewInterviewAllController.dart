@@ -1,14 +1,11 @@
 import 'package:flikka/data/response/status.dart';
-import 'package:flikka/models/RecruiterHomeModel/RecruiterHomeModel.dart';
-import 'package:flikka/models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
-import 'package:flikka/repository/RecruiterRepository/RecruiterRepository.dart';
+import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:get/get.dart';
-
 import '../../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 
 class SeekerViewInterviewAllController extends GetxController {
 
-  final _api = RecruiterRepository();
+  final _api = SeekerRepository();
   final rxRequestStatus = Status.LOADING.obs ;
   final seekerInterViewData = SeekerViewInterviewModel().obs ;
   RxString error = ''.obs;
@@ -22,7 +19,7 @@ class SeekerViewInterviewAllController extends GetxController {
     data.addIf(filter != null && filter.length != 0 , "interview" , filter?.toLowerCase()) ;
 
     setRxRequestStatus(Status.LOADING);
-    _api.seekerInterViewList(data).then((value){
+    _api.getInterviewList(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       seekerInterViewData(value) ;
       print(value);
