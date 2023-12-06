@@ -9,6 +9,7 @@ import 'package:flikka/models/ViewRecruiterProfileModel/ViewRecruiterProfileMode
 import '../../data/network/network_api_services.dart';
 import '../../models/EditAboutModel/EditAboutModel.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
+import '../../models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
 import '../../models/SeekerMapJobsModel/SeekerMapJobsModel.dart';
 import '../../res/app_url.dart';
 
@@ -84,5 +85,10 @@ class SeekerRepository {
   Future<EditAboutModel> seekerUpdateRequestedJobStatus(var data) async {
     dynamic response = await apiServices.postApi2(data, AppUrl.seekerUpdateRequestedJobStatus);
     return EditAboutModel.fromJson(response);
+  }
+
+  Future<ScheduledInterviewListModel> getInterviewList(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.scheduledInterviewList);
+    return ScheduledInterviewListModel.fromJson(response);
   }
 }
