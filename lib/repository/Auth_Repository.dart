@@ -24,6 +24,7 @@ import '../models/EditMobileNumberModel.dart';
 import '../models/PaymentRequestModel/PaymentRequestModel.dart';
 import '../models/SeekerGetAllSkillsModel/SeekerGetAllSkillsModel.dart';
 import '../models/SeekerSoftSkillsModel/SeekerSoftSkillsModel.dart';
+import '../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 import '../models/ShowBankDetailsModel/ShowBankDetailsModel.dart';
 import '../models/SignUpModel/SignUpModel.dart';
 import '../models/ViewRecruiterProfileModel/ViewRecruiterProfileModel.dart';
@@ -205,6 +206,11 @@ class AuthRepository {
   Future<EditAboutModel> deleteUser(var data) async {
     dynamic response = await _apiService.postApi2(data, AppUrl.deleteUser);
     return EditAboutModel.fromJson(response);
+  }
+
+  Future<SeekerViewInterviewModel> seekerInterViewList(var data) async{
+    dynamic response = await _apiService.postApi2(data,AppUrl.seekerViewInterviewAllUrl);
+    return SeekerViewInterviewModel.fromJson(response);
   }
 
 }
