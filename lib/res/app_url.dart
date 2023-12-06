@@ -77,4 +77,6 @@ class AppUrl {
   static const String seekerUpdateRequestedJobStatus = '$baseUrl/requested-job-status-update-api' ;
   static const String seekerInterviewList = '$baseUrl/seeker-view-our-interviews-api' ;
   static const String seekerUnSavePost = '$baseUrl/unsave-job-api' ;
+  static const String seekerViewInterviewAllUrl = '$baseUrl/seeker-view-our-interviews-api' ;
+
 }

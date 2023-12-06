@@ -11,6 +11,7 @@ import '../../models/EditAboutModel/EditAboutModel.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
 import '../../models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
 import '../../models/SeekerMapJobsModel/SeekerMapJobsModel.dart';
+import '../../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 import '../../res/app_url.dart';
 
 class SeekerRepository {
@@ -87,8 +88,8 @@ class SeekerRepository {
     return EditAboutModel.fromJson(response);
   }
 
-  Future<ScheduledInterviewListModel> getInterviewList(var data) async{
-    dynamic response = await apiServices.postApi2(data,AppUrl.scheduledInterviewList);
-    return ScheduledInterviewListModel.fromJson(response);
+  Future<SeekerViewInterviewModel> getInterviewList(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.seekerInterviewList);
+    return SeekerViewInterviewModel.fromJson(response);
   }
 }
