@@ -106,10 +106,13 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                       Row(
                         children: [
                           SizedBox(width: Get.width*.04,) ,
+                          widget.recruiterJobsData!.video == null ||
+                              widget.recruiterJobsData!.video?.length == 0 ?
+                              const SizedBox() :
                           GestureDetector(
                             onTap: () {
                               Get.back() ;
-                              Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData!.video!)) ;
+                              Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData?.video ?? "")) ;
                             },
                             child: Container(
                               alignment: Alignment.center,
