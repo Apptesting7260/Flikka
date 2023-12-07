@@ -92,4 +92,9 @@ class SeekerRepository {
     dynamic response = await apiServices.postApi2(data,AppUrl.seekerInterviewList);
     return SeekerViewInterviewModel.fromJson(response);
   }
+
+  Future<EditAboutModel> unSavePost(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.seekerUnSavePost);
+    return EditAboutModel.fromJson(response);
+  }
 }
