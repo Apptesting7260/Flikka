@@ -203,8 +203,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
         ),
         //************* scrollable functionality ******************
         DraggableScrollableSheet(
-          initialChildSize:  widget.recruiterData?.startWorkName?[0].startWork == null ? 0.48 : 0.42, // half screen
-          minChildSize: widget.recruiterData?.startWorkName?[0].startWork == null ? 0.48 : 0.42,// half screen
+          initialChildSize:  widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.48 : 0.42, // half screen
+          minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.48 : 0.42,// half screen
           maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
@@ -358,7 +358,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                         //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         // ),
                                         Text(
-                                          "${data?.jobStartDate} - ${data?.jobEndDate}",
+                                          "${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -451,7 +451,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                                   fontWeight: FontWeight.w400),
                                         ),
                                         Text(
-                                          "${data?.educationStartDate} - ${data?.educationEndDate}",
+                                          "${data?.educationStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.educationEndDate.toString().replaceAll("00:00:00.000", "")}",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!

@@ -129,12 +129,12 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height * 0.025,),
                   Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text("${widget.jobData?.jobLocation}",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  Text(widget.jobData?.jobLocation ?? "",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.015,),
                   InkWell(
                       // onTap: ()=>Get.to(const GoogleMapIntegration()),
                       child: SizedBox( height: Get.height * 0.3,
-                          child: GoogleMapIntegration(jobPageView: true,lat: widget.jobData?.lat,long:  widget.jobData?.long,))),
+                          child: GoogleMapIntegration(jobPageView: true,lat: double.tryParse("${widget.jobData?.lat}"),long:  double.tryParse("${widget.jobData?.long}"),))),
                   SizedBox(height: Get.height * 0.035,),
                   Text("Information", style:Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
@@ -143,7 +143,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.jobPositions}",
+                    widget.jobData?.jobPositions ?? "",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(
@@ -159,7 +159,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.education}",
+                    widget.jobData?.education ?? "",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(
@@ -174,28 +174,27 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  years != null || months != null ?
                   Text("${years ?? ""} ${ months ?? ""}",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
-                  ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
+                  ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.2,
                   ),
                   const Text("Job Type", style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text("${widget.jobData?.employmentType}",
+                  Text(widget.jobData?.employmentType ?? "",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text("Specialization", style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text("${widget.jobData?.specialization}",
+                  Text(widget.jobData?.specialization ?? "",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text("Type of workplace",
                     style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text("${widget.jobData?.typeOfWorkplace}",
+                  Text(widget.jobData?.typeOfWorkplace ?? "",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text(
@@ -206,36 +205,36 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    "${widget.jobData?.preferredWorkExperience}",
+                    widget.jobData?.preferredWorkExperience ?? "",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.2,
                   ),
-                  // const Text(
-                  //   "Language",
-                  //   style: TextStyle(color: Colors.white, fontSize: 14),
-                  // ),
-                  // SizedBox(
-                  //   height: Get.height * 0.015,
-                  // ),
-                  // widget.jobData?.languages == null || widget.jobData?.languages?.length == 0 ?
-                  //     const SizedBox() :
-                  // ListView.builder(
-                  //   shrinkWrap: true,
-                  //   itemCount: widget.jobData?.languages?.length,
-                  //   itemBuilder: (context , index) {
-                  //     var data = widget.jobData?.languages?[index] ;
-                  //     return Text(data?.languages ?? "",
-                  //       style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
-                  //     );
-                  //   }
-                  // ),
-                  // const Divider(
-                  //   color: Colors.grey,
-                  //   thickness: 0.2,
-                  // ),
+                  const Text(
+                    "Language",
+                    style: TextStyle(color: Colors.white, fontSize: 14),
+                  ),
+                  SizedBox(
+                    height: Get.height * 0.015,
+                  ),
+                  widget.jobData?.languageName == null || widget.jobData?.languageName?.length == 0 ?
+                      const SizedBox() :
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: widget.jobData?.languageName?.length,
+                    itemBuilder: (context , index) {
+                      var data = widget.jobData?.languageName?[index] ;
+                      return Text(data?.languages ?? "",
+                        style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
+                      );
+                    }
+                  ),
+                  const Divider(
+                    color: Colors.grey,
+                    thickness: 0.2,
+                  ),
                   SizedBox(
                     height: Get.height * 0.055,
                   ),

@@ -54,7 +54,7 @@ class SeekerJobsData {
   dynamic lat ;
   dynamic long ;
   dynamic jobMatchPercentage ;
-  List<LanguageModel>? languages ;
+  List<LanguageModel>? languageName ;
   RecruiterDetails? recruiterDetails;
   JobsDetail? jobsDetail;
 
@@ -74,7 +74,7 @@ class SeekerJobsData {
     this.education,
     this.createdAt,
     this.updatedAt,
-    this.languages ,
+    this.languageName ,
     this.jobPositions,
     this.recruiterDetails,
     this.jobsDetail,
@@ -99,7 +99,7 @@ class SeekerJobsData {
     education: json["education"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
-    languages: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
+    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
     jobPositions: json["job_positions"],
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : JobsDetail.fromJson(json["jobs_detail"]),

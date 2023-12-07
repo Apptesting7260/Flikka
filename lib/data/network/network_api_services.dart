@@ -135,6 +135,9 @@ if (kDebugMode) {
           headers: {"Authorization":"Bearer ${sp.getString("BarrierToken")}"},
           body: data
       ).timeout( const Duration(seconds: 30));
+      if (kDebugMode) {
+        print("response code ====================${response.statusCode}") ;
+      }
       if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;

@@ -53,7 +53,7 @@ class CheckEmailSignUpController extends GetxController {
         Get.to(() => const OtpScreen(register: true) , arguments: {"email": email}) ;
       }
       else{
-        Get.back() ;
+        // Get.back() ;
      errorMessage.value =  value.message.toString();
       }
     }).onError((error, stackTrace){

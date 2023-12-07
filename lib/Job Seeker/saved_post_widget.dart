@@ -164,7 +164,10 @@ class _SavedPostState extends State<SavedPost> {
               controller: _refreshController,
               onRefresh: _onRefresh,
               onLoading: _onLoading,
-              child: ListView.builder(
+              child: jobsListController.savedPosts.value.data == null ||
+      jobsListController.savedPosts.value.data?.length == 0 ?
+                  const Center(child: Text("No Saved Post")) :
+              ListView.builder(
                   itemCount: jobsListController.savedPosts.value.data?.length,
                   shrinkWrap: true,
                   itemBuilder: (context, index){

@@ -111,6 +111,7 @@ class _ReviewState extends State<Review> {
                           onRatingUpdate: (rating) {},
                         ),
                       ) ,
+                       SizedBox(height: Get.height*.01,) ,
                        HtmlWidget(data?.description ?? "",textStyle:Theme.of(context).textTheme.labelLarge?.
                        copyWith(color: const Color(0xffCFCFCF),fontWeight: FontWeight.w400),),
                       SizedBox(height: Get.height * 0.02,)

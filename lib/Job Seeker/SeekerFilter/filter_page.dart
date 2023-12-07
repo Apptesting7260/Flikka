@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
@@ -5,18 +7,22 @@ import 'package:flikka/controllers/SeekerJobFilterController/SeekerJobFilterCont
 import 'package:flikka/utils/RangeSlider.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import '../../controllers/CompaniesListController/CompaniesListController.dart';
 import '../../controllers/SeekerChoosePositionGetController/SeekerChoosePositionGetController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../data/response/status.dart';
+import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../res/components/unauthorised_request_widget.dart';
+import '../../utils/Constants.dart';
 
 class FilterPage extends StatefulWidget {
   const FilterPage({super.key});
@@ -82,6 +88,11 @@ class _FilterPageState extends State<FilterPage> {
   //   _refreshController.loadComplete();
   // }
   /////refresh/////
+
+  List<Location> locations = [];
+  double? lat;
+  double? long;
+  List<Predictions> searchPlace = [];
 
   @override
   void initState() {
@@ -181,7 +192,7 @@ class _FilterPageState extends State<FilterPage> {
                       child: Center(
                         child:
                         DropdownButtonHideUnderline(
-                          child: DropdownButton2<String>(
+                          child: DropdownButton2(
                             style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
                             isExpanded: true,
                             hint: Text(
@@ -193,13 +204,10 @@ class _FilterPageState extends State<FilterPage> {
                             items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
                                 DropdownMenuItem(
                                   value: item.positions,
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(left: 20),
-                                    child: Text(item.positions ?? '',
-                                      style: Get.theme.textTheme.bodyLarge!
-                                          .copyWith(color: AppColors.white),
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
+                                  child: Text(item.positions ?? '',
+                                    style: Get.theme.textTheme.bodyLarge!
+                                        .copyWith(color: AppColors.white),
+                                    overflow: TextOverflow.ellipsis,
                                   ),
                                   onTap: () {
                                     setState(() {
@@ -227,7 +235,7 @@ class _FilterPageState extends State<FilterPage> {
                             ),
                             menuItemStyleData: const MenuItemStyleData(
                               height: 40,
-                              padding: EdgeInsets.only(right: 15),
+                              // padding: EdgeInsets.only(right: 15),
                             ),
                           ),
                         ),
@@ -237,27 +245,84 @@ class _FilterPageState extends State<FilterPage> {
                     Text('Location', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
                     TextFormField(
+                      autovalidateMode:
+                      AutovalidateMode.onUserInteraction,
+                      keyboardType: TextInputType.text,
                       controller: locationController,
-                      style: Theme
-                          .of(context)
-                          .textTheme
-                          .bodyLarge
-                          ?.copyWith(
-                          color: AppColors.white, fontSize: 15),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please Enter your address';
+                      //   }
+                      // },
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          if (locationController.text.isEmpty) {}
+                        });
+                        searchAutocomplete(value);
+                      },
                       decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(vertical: 18,horizontal: 18),
-                        hintText: 'Location',
-                        filled: true,
-                        fillColor: AppColors.textFieldFilledColor,
-                        hintStyle: Theme
-                            .of(context)
-                            .textTheme
-                            .bodyLarge
-                            ?.copyWith(color: const Color(0xffCFCFCF)),
-                        border:  OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.circular(33),
-                        ),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(35),
+                              borderSide: const BorderSide(
+                                  color: Color(0xff373737))),
+                          filled: true,
+                          fillColor: const Color(0xff373737),
+                          hintText: "Enter Location",
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            // borderSide: BorderSide(color: Colors.white),
+                          ),
+                          errorBorder: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(35.0)),
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                          disabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(35.0)),
+                            borderSide:
+                            BorderSide(color: Color(0xff373737)),
+                          ),
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(color: const Color(0xffCFCFCF)),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Get.width * .06,
+                              vertical: Get.height * .027)),
+                    ),
+                    Visibility(
+                      visible: locationController.text.isNotEmpty,
+                      child: SizedBox(
+                        width: double.infinity,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: searchPlace.length,
+                            itemBuilder: (context, index) => ListTile(
+                              onTap: () {
+                                setState(() {
+                                  locationController.text =
+                                      searchPlace[index]
+                                          .description ??
+                                          "";
+                                  _getLatLang();
+                                  setState(() {
+                                    searchPlace.clear();
+                                  });
+                                });
+                              },
+                              horizontalTitleGap: 0,
+                              title: Text(
+                                searchPlace[index].description ?? "",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodyMedium,
+                              ),
+                            )),
                       ),
                     ),
                     SizedBox(height: Get.height * 0.03,),
@@ -687,5 +752,44 @@ class _FilterPageState extends State<FilterPage> {
         ),
       ),
     ) ;
+  }
+
+  void searchAutocomplete(String query) async {
+    print("calling");
+    Uri uri = Uri.https(
+        "maps.googleapis.com",
+        "maps/api/place/autocomplete/json",
+        {"input": query, "key": Constants.googleAPiKey});
+    print(uri);
+    try {
+      final response = await http.get(uri);
+      if (kDebugMode) {
+        print(response.statusCode);
+      }
+      final parse = jsonDecode(response.body);
+      if (parse['status'] == "OK") {
+        setState(() {
+          SearchPlaceModel searchPlaceModel = SearchPlaceModel.fromJson(parse);
+          searchPlace = searchPlaceModel.predictions!;
+          if (kDebugMode) {
+            print(searchPlace.length);
+          }
+        });
+      }
+    } catch (err) {}
+  }
+
+  Future<void> _getLatLang() async {
+    final query = locationController.text;
+    locations = await locationFromAddress(query);
+
+    setState(() {
+      var first = locations.first;
+      lat = first.latitude;
+      long = first.longitude;
+      if (kDebugMode) {
+        print("*****lat ${lat} : ${long}**********long");
+      }
+    });
   }
 }

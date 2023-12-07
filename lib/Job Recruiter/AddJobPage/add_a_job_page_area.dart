@@ -538,6 +538,11 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         });
                         searchAutocomplete(value);
                       },
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Please Enter job location';
+                        }
+                      },
                     ),
                     Visibility(
                       visible: jobLocationController.text.isNotEmpty,
@@ -1085,7 +1090,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               }
                             }
                           }else{
-                            scrollController.animateTo(0, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
+                            scrollController.animateTo(Get.height *.5, duration: const Duration(milliseconds: 100), curve: Curves.easeOut);
                           }
                                 // Get.to(()=> const RequiredSkills());
                         }),

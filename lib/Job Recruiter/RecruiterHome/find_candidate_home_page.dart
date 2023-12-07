@@ -131,7 +131,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                   .displaySmall,
                             ),
                             Text(
-                                "California USA",
+                                viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.companyLocation ?? "No Data",
                                 style: Theme
                                     .of(context)
                                     .textTheme

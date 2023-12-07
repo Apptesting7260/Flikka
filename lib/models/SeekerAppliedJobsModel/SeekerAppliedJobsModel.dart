@@ -108,7 +108,7 @@ class AppliedJobsList {
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     jobPositions: json["job_positions"],
-    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x) )),
+    languageName: json["language_name"] == null ? json["language_name"] : List<LanguageModel>.from(json["language_name"].map((x) => LanguageModel.fromJson(x))),
     jobsDetail: json["jobs_detail"] == null ? json["jobs_detail"] : AppliedJobsDetail.fromJson(json["jobs_detail"]),
     recruiterDetails: json["recruiter_details"] == null ? json["recruiter_details"] : RecruiterDetails.fromJson(json["recruiter_details"]),
   );
