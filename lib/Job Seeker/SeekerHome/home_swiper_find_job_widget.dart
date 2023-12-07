@@ -409,7 +409,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        data?.jobTitle ?? "",
+                        data?.jobTitle ?? "", overflow: TextOverflow.ellipsis,
                         style: Theme.of(context).textTheme.displayLarge,
                       ),
                       SizedBox(
