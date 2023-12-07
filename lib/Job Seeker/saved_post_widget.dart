@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsListController.dart';
+import 'package:flikka/controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -50,6 +52,7 @@ class _SavedPostState extends State<SavedPost> {
   List<String> imagePaths = [];
 
   SeekerSavedJobsListController jobsListController = Get.put(SeekerSavedJobsListController()) ;
+  SeekerUnSavePostController unSavePostController = Get.put(SeekerUnSavePostController()) ;
 
   void showCommentDialog() {
     showDialog(
@@ -58,9 +61,7 @@ class _SavedPostState extends State<SavedPost> {
         return AlertDialog(
           title: Text("Add a Comment",style: Theme.of(context).textTheme.displayLarge,),
           content: TextField(
-            style: TextStyle(
-                color: AppColors.white,fontSize: 23
-            ),
+            style: const TextStyle(color: AppColors.white,fontSize: 23),
             onChanged: (String value) {
               setState(() => uri = value);
             },
@@ -235,11 +236,15 @@ class _SavedPostState extends State<SavedPost> {
                                     Positioned(
                                       left: 12,
                                       top: 15,
-                                      child: Stack(
-                                        children: [
-                                          Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,),
-                                        ],
-                                      ),
+                                      child: GestureDetector( 
+                                        onTap: () {
+                                          CommonFunctions.confirmationDialog(context, message: "Do you want to unsave this post",
+                                              onTap: () {
+                                            CommonFunctions.showLoadingDialog(context, "unsaving...") ;
+                                                unSavePostController.unSavePost("${data?.jobId}", "1", context) ;
+                                              }) ;
+                                        },
+                                          child: Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,)),
                                     ),
                                   ],
                                 ),
