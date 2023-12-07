@@ -72,7 +72,7 @@ class EditSeekerProfileController extends GetxController {
         if (kDebugMode) {
           print(responseData['message']);
         }
-      } if(response.statusCode == 401) {
+      } if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll( () => const Login()) ;
       }

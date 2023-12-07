@@ -43,7 +43,7 @@ class SeekerUpdateVideoController extends GetxController {
         seekerProfileController.viewSeekerProfileApi() ;
         Utils.toastMessage('Profile updated') ;
       loading(false) ; }
-      if(response.statusCode == 401) {
+      if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll( () => const Login());
       }

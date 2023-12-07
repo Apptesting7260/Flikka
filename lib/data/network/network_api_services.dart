@@ -28,7 +28,7 @@ class NetworkApiServices extends BaseApiServices {
       SharedPreferences sp = await SharedPreferences.getInstance() ;
       final response = await http.get(Uri.parse(url)).timeout(
           const Duration(seconds: 30));
-      if(response.statusCode == 401) {
+      if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
@@ -59,13 +59,14 @@ SharedPreferences sp = await SharedPreferences.getInstance();
         headers: {"Authorization":"Bearer ${sp.getString("BarrierToken")}"},
 
       ).timeout( const Duration(seconds: 30));
-      responseJson  = returnResponse(response) ;
-      
-      print(response);
-      if(response.statusCode == 401) {
+      if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
+      responseJson  = returnResponse(response) ;
+      
+      print(response);
+
 
     }on SocketException {
       throw InternetException('');
@@ -99,7 +100,7 @@ SharedPreferences sp = await SharedPreferences.getInstance();
         body: data,
 
       ).timeout(const Duration(seconds: 30));
-      if(response.statusCode == 401) {
+      if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
@@ -134,7 +135,7 @@ if (kDebugMode) {
           headers: {"Authorization":"Bearer ${sp.getString("BarrierToken")}"},
           body: data
       ).timeout( const Duration(seconds: 30));
-      if(response.statusCode == 401) {
+      if(response.statusCode == 425 || response.statusCode == 403) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
