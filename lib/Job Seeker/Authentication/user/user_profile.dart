@@ -823,7 +823,6 @@ class _UserProfileState extends State<UserProfile> {
             padding: const EdgeInsets.all(8.0),
             child: StatefulBuilder(
               builder: (context , setState) {
-
                 return SingleChildScrollView(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,

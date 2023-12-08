@@ -195,108 +195,113 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
             left: 0,
             right: 0,
             child: SingleChildScrollView(
-              child: Container(
-                padding: const EdgeInsets.all(20),
-                decoration: const BoxDecoration(
-                  color: Color(0xff353535),
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(22),
-                      topRight: Radius.circular(22)),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(widget.recruiterData?.seeker?.fullname ?? "" ,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.displayLarge,
-                            softWrap: true,
-                          ),
-                        ),
-                        // const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
-                      ],
-                    ),
-                    Text( widget.recruiterData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
-                    SizedBox(height: Get.height * 0.010,),
-                    Text(widget.recruiterData?.seeker?.location ?? "",overflow: TextOverflow.ellipsis,
-                      style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
-                    SizedBox(
-                      height: Get.height * 0.03,
-                    ),
-                 Row(
-                   children: [
-                     Image.asset("assets/images/icon work experience.png",height: 18,color: AppColors.blueThemeColor,),
-                     SizedBox(width: Get.width*.03,),
-                     Text("Work experience",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
-                   ],
-                 ),
-                    SizedBox(height: Get.height*.004,),
-                    widget.recruiterData?.workExpJob?.length == 0 ||
-                        widget.recruiterData?.workExpJob == null ?
-                        const SizedBox() :
-                    ListView.builder(
-                      itemCount: widget.recruiterData?.workExpJob?.length,
-                        physics: const NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context , index) {
-                        var data = widget.recruiterData?.workExpJob?[index] ;
-                          return Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text( data?.workExpJob ?? "",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                              ),
-                              Text( data?.companyName ?? "",
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                              ),
-                              Text(
-                                "${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")}- ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
-                                // "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                              ),
-                            ],
-                          ) ;
-
-                    }) ,
-                    SizedBox(height: Get.height * 0.03,),
-                    Row(
-                      children: [
-                        Image.asset("assets/images/icon_education.png",height: 30,color: AppColors.blueThemeColor,),
-                        SizedBox(width: Get.width*.03,),
-                        Text("Education",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
-                      ],
-                    ),
-                    SizedBox(height: Get.height*.004,),
-                    widget.recruiterData?.educationLevel?.length == 0 ||
-                        widget.recruiterData?.educationLevel == null ?
-                        const SizedBox() :
-                    ListView.builder(
-                      shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                      itemCount: widget.recruiterData?.educationLevel?.length,
-                        itemBuilder: (context , index) {
-                        var data = widget.recruiterData?.educationLevel?[index] ;
-                      return Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              child: GestureDetector(
+                onTap: () {
+                  Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, )) ;
+                },
+                child: Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: const BoxDecoration(
+                    color: Color(0xff353535),
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(22),
+                        topRight: Radius.circular(22)),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text( data?.educationLevel ?? "",
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                          Flexible(
+                            child: Text(widget.recruiterData?.seeker?.fullname ?? "" ,
+                              overflow: TextOverflow.ellipsis,
+                              style: Theme.of(context).textTheme.displayLarge,
+                              softWrap: true,
+                            ),
                           ),
-                          Text( data?.institutionName ?? "",
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                          ),
-                          Text( "${data?.educationStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.educationEndDate.toString().replaceAll("00:00:00.000", "")}",
-                            // "${data?.educationStartDate?.year}-${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')} - ${data?.educationEndDate}"  ,
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                          ),
+                          // const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
                         ],
-                      ) ;
-                    }) ,
-                    SizedBox(height: Get.height*.03,),
-                  ],
+                      ),
+                      Text( widget.recruiterData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),
+                      SizedBox(height: Get.height * 0.010,),
+                      Text(widget.recruiterData?.seeker?.location ?? "",overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),),
+                      SizedBox(
+                        height: Get.height * 0.03,
+                      ),
+                   Row(
+                     children: [
+                       Image.asset("assets/images/icon work experience.png",height: 18,color: AppColors.blueThemeColor,),
+                       SizedBox(width: Get.width*.03,),
+                       Text("Work experience",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
+                     ],
+                   ),
+                      SizedBox(height: Get.height*.004,),
+                      widget.recruiterData?.workExpJob?.length == 0 ||
+                          widget.recruiterData?.workExpJob == null ?
+                          const SizedBox() :
+                      ListView.builder(
+                        itemCount: widget.recruiterData?.workExpJob?.length,
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemBuilder: (context , index) {
+                          var data = widget.recruiterData?.workExpJob?[index] ;
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text( data?.workExpJob ?? "",
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                                ),
+                                Text( data?.companyName ?? "",
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                                ),
+                                Text(
+                                  "${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")}- ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
+                                  // "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                                ),
+                              ],
+                            ) ;
+
+                      }) ,
+                      SizedBox(height: Get.height * 0.03,),
+                      Row(
+                        children: [
+                          Image.asset("assets/images/icon_education.png",height: 30,color: AppColors.blueThemeColor,),
+                          SizedBox(width: Get.width*.03,),
+                          Text("Education",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),)
+                        ],
+                      ),
+                      SizedBox(height: Get.height*.004,),
+                      widget.recruiterData?.educationLevel?.length == 0 ||
+                          widget.recruiterData?.educationLevel == null ?
+                          const SizedBox() :
+                      ListView.builder(
+                        shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                        itemCount: widget.recruiterData?.educationLevel?.length,
+                          itemBuilder: (context , index) {
+                          var data = widget.recruiterData?.educationLevel?[index] ;
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text( data?.educationLevel ?? "",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                            Text( data?.institutionName ?? "",
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                            Text( "${data?.educationStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.educationEndDate.toString().replaceAll("00:00:00.000", "")}",
+                              // "${data?.educationStartDate?.year}-${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')} - ${data?.educationEndDate}"  ,
+                              style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                            ),
+                          ],
+                        ) ;
+                      }) ,
+                      SizedBox(height: Get.height*.03,),
+                    ],
+                  ),
                 ),
               ),
             ),
