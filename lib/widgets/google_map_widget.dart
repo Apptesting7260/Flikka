@@ -128,9 +128,11 @@ import '../res/components/internet_exception_widget.dart';
 import '../res/components/request_timeout_widget.dart';
 
 class GoogleMapIntegration extends StatefulWidget {
-  final double? lat ; final double? long ;
-  final bool? jobPageView ;
-  const GoogleMapIntegration({Key? key, this.lat, this.long, this.jobPageView}) : super(key: key);
+  final double? lat;
+  final double? long;
+  final bool? jobPageView;
+  const GoogleMapIntegration({Key? key, this.lat, this.long, this.jobPageView})
+      : super(key: key);
 
   @override
   GoogleMapIntegrationState createState() => GoogleMapIntegrationState();
@@ -139,19 +141,20 @@ class GoogleMapIntegration extends StatefulWidget {
 class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   Completer<GoogleMapController> mapController = Completer();
   static const CameraPosition kGoogle = CameraPosition(
-    target: LatLng(20.42796133580664, 80.885749655962),
-    zoom: 10.4746,
+    target: LatLng(54.7024, -3.2768),
+    zoom: 8,
   );
 
   Set<Marker> markers = Set();
 
-  var selectedRadius ; // Default radius
-   double lat = 20.427 ;
-   double long = 80.885 ;
+  var selectedRadius; // Default radius
+  double lat = 20.427;
+  double long = 80.885;
 
   Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission().then((value) {}).onError((error,
-        stackTrace) async {
+    await Geolocator.requestPermission()
+        .then((value) {})
+        .onError((error, stackTrace) async {
       await Geolocator.requestPermission();
       if (kDebugMode) {
         print("ERROR$error");
@@ -162,15 +165,15 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
   // Method to filter markers based on the selected radius
 
-  var radiusList = [1 , 2 , 5 ,10, 20, 30, 40, 50];
+  var radiusList = [1, 2, 5, 10, 20, 30, 40, 50];
 
-  SeekerMapJobsController jobsController = Get.put(SeekerMapJobsController()) ;
+  SeekerMapJobsController jobsController = Get.put(SeekerMapJobsController());
 
   @override
   void initState() {
-    if(widget.jobPageView != true) {
+    if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
-      updateUserLocation();
+      // updateUserLocation();
       updateMap(10);
     }
     super.initState();
@@ -178,114 +181,186 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
   @override
   Widget build(BuildContext context) {
-    return widget.jobPageView == true ? SafeArea(
-      child: GoogleMap(
-        initialCameraPosition: CameraPosition(
-          target: LatLng(widget.lat ?? lat ,widget.long ?? long ),
-          zoom: 5,),
-
-        markers: <Marker>{
-          Marker(
-            markerId: const MarkerId("1"),
-            position: LatLng(widget.lat ?? lat, widget.long ?? long),
-            infoWindow: const InfoWindow(
-              title: "Job Location",
-            ),
-          ),
-        },
-
-        mapType: MapType.normal,
-        myLocationEnabled: true,
-        compassEnabled: true,
-        onMapCreated: (GoogleMapController controller) {
-          mapController.complete(controller);
-        },
-      ),
-    ) :Obx(() {
-      switch (jobsController.rxRequestStatus.value) {
-        case Status.LOADING:
-          return const Scaffold(
-            body: Center(
-                child: CircularProgressIndicator()),
-          );
-
-        case Status.ERROR:
-          if (jobsController.error.value == 'No internet') {
-            return Scaffold(body: InterNetExceptionWidget(
-              onPress: () {
-                jobsController.mapJobsApi();
-              },
-            ),);
-          } else if (jobsController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {
-              jobsController.mapJobsApi();
-            }),);
-          } else {
-            return Scaffold(body: GeneralExceptionWidget(onPress: () {
-              jobsController.mapJobsApi();
-            }),);
-          }
-        case Status.COMPLETED:
-          return Scaffold(
-            appBar: AppBar(
-              toolbarHeight: 65,
-              leading: IconButton(
-                  onPressed: () { Get.offAll(const TabScreen(index: 0)) ;}, icon:
-              Image.asset("assets/images/icon_back_blue.png",
-                height: Get.height * .06,)) ,
-              backgroundColor: AppColors.black,
-              title: Text("Map",style: Theme.of(context).textTheme.displaySmall?.copyWith(color: AppColors.white),),
-              // centerTitle: true,
-              actions: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DropdownButton(
-                    dropdownColor: AppColors.black,
-                    hint: const Text("Select"),
-                    value: selectedRadius,
-                    items: radiusList.map<DropdownMenuItem>((value) {
-                      return DropdownMenuItem(
-                        value: value,
-                        child: Text('$value miles',style: Theme.of(context).textTheme.bodySmall?.copyWith(color: AppColors.white),),
-                      );
-                    }).toList(),
-                    onChanged: (newValue) {
-                      setState(() {
-                        selectedRadius = newValue;
-                        updateMap(newValue);
-                        // Call the method to filter markers based on the selected radius
-                      });
-                    },
+    return widget.jobPageView == true
+        ? SafeArea(
+            child: GoogleMap(
+              initialCameraPosition: CameraPosition(
+                target: LatLng(widget.lat ?? lat, widget.long ?? long),
+                zoom: 5,
+              ),
+              markers: <Marker>{
+                Marker(
+                  markerId: const MarkerId("1"),
+                  position: LatLng(widget.lat ?? lat, widget.long ?? long),
+                  infoWindow: const InfoWindow(
+                    title: "Job Location",
                   ),
                 ),
-              ],
-            ),
-            body: SafeArea(
-              child: GoogleMap(
-                initialCameraPosition: kGoogle,
-                markers: Set<Marker>.of(markers),
-                mapType: MapType.normal,
-                myLocationEnabled: true,
-                compassEnabled: true,
-                onMapCreated: (GoogleMapController controller) {
-                  mapController.complete(controller);
-                  controller.setMapStyle(getCustomMapStyle()) ;
-                },
-              ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: AppColors.black,
-              onPressed: () async {
-                updateUserLocation() ;
               },
-              child: const Icon(Icons.local_activity, color: AppColors.white),
+              mapType: MapType.normal,
+              myLocationEnabled: true,
+              compassEnabled: true,
+              onMapCreated: (GoogleMapController controller) {
+                mapController.complete(controller);
+              },
             ),
-          );
-      }
-    }
-    );
+          )
+        : Obx(() {
+            switch (jobsController.rxRequestStatus.value) {
+              case Status.LOADING:
+                return const Scaffold(
+                  body: Center(child: CircularProgressIndicator()),
+                );
+
+              case Status.ERROR:
+                if (jobsController.error.value == 'No internet') {
+                  return Scaffold(
+                    body: InterNetExceptionWidget(
+                      onPress: () {
+                        jobsController.mapJobsApi();
+                      },
+                    ),
+                  );
+                } else if (jobsController.error.value == 'Request Time out') {
+                  return Scaffold(
+                    body: RequestTimeoutWidget(onPress: () {
+                      jobsController.mapJobsApi();
+                    }),
+                  );
+                } else {
+                  return Scaffold(
+                    body: GeneralExceptionWidget(onPress: () {
+                      jobsController.mapJobsApi();
+                    }),
+                  );
+                }
+              case Status.COMPLETED:
+                return Scaffold(
+                  appBar: AppBar(
+                    toolbarHeight: 65,
+                    leading: IconButton(
+                        onPressed: () {
+                          Get.offAll(const TabScreen(index: 0));
+                        },
+                        icon: Image.asset(
+                          "assets/images/icon_back_blue.png",
+                          height: Get.height * .06,
+                        )),
+                    backgroundColor: AppColors.black,
+                    title: Text(
+                      "Map",
+                      style: Theme.of(context)
+                          .textTheme
+                          .displaySmall
+                          ?.copyWith(color: AppColors.white),
+                    ),
+                    // centerTitle: true,
+                    actions: [
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: DropdownButton(
+                          dropdownColor: AppColors.black,
+                          hint: const Text("Select"),
+                          value: selectedRadius,
+                          items: radiusList.map<DropdownMenuItem>((value) {
+                            return DropdownMenuItem(
+                              value: value,
+                              child: Text(
+                                '$value miles',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .bodySmall
+                                    ?.copyWith(color: AppColors.white),
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newValue) {
+                            setState(() {
+                              selectedRadius = newValue;
+                              updateMap(newValue);
+                              // Call the method to filter markers based on the selected radius
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  body: SafeArea(
+                    child:  GoogleMap(
+                      initialCameraPosition: CameraPosition(
+                        target: LatLng(54.7024, -3.2768), // Center of the UK
+                        zoom: 6.0,
+                      ),
+                      onMapCreated: (GoogleMapController controller) {
+                        _controller.complete(controller);
+                      },
+                      onCameraMove: (CameraPosition position) {
+                        if (!_allowedBounds.contains(position.target)) {
+                          // If the new camera position is outside the allowed bounds, update the camera position
+                          _updateCameraPosition(position);
+                        }
+                      },
+                    ),
+                    // GoogleMap(
+                    //   initialCameraPosition: kGoogle,
+                    //   markers: Set<Marker>.of(markers),
+                    //   mapType: MapType.normal,
+                    //   myLocationEnabled: true,
+                    //   compassEnabled: true,
+                    //   onMapCreated: (GoogleMapController controller) {
+                    //     mapController.complete(controller);
+                    //     LatLngBounds ukBounds = LatLngBounds(
+                    //       southwest: const LatLng(49.823809, -7.572167), // Southwest coordinates
+                    //       northeast: const LatLng(58.788884, 1.681530),  // Northeast coordinates
+                    //     );
+                    //     controller.moveCamera(
+                    //       CameraUpdate.newLatLngBounds(ukBounds, 0), // No padding
+                    //     );
+                    //   },
+                    // ),
+                  ),
+                  floatingActionButton: FloatingActionButton(
+                    backgroundColor: AppColors.black,
+                    onPressed: () async {
+                      updateUserLocation();
+                    },
+                    child: const Icon(Icons.local_activity,
+                        color: AppColors.white),
+                  ),
+                );
+            }
+          });
   }
 
+  Completer<GoogleMapController> _controller = Completer();
+  LatLngBounds _allowedBounds = LatLngBounds(
+    southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
+    northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
+  );
+
+  Future<void> _updateCameraPosition(CameraPosition position) async {
+    GoogleMapController controller = await _controller.future;
+
+    // Calculate the constrained target coordinates
+    double newLat = position.target.latitude.clamp(
+      _allowedBounds.southwest.latitude,
+      _allowedBounds.northeast.latitude,
+    );
+    double newLng = position.target.longitude.clamp(
+      _allowedBounds.southwest.longitude,
+      _allowedBounds.northeast.longitude,
+    );
+
+    // Update the camera position
+    CameraPosition newPosition = CameraPosition(
+      target: LatLng(newLat, newLng),
+      zoom: position.zoom,
+      tilt: position.tilt,
+      bearing: position.bearing,
+    );
+
+    controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
+  }
 
   void updateMap(int radius) async {
     // Clear existing markers
@@ -293,9 +368,10 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
     Position currentPosition = await Geolocator.getCurrentPosition();
 
-    if(jobsController.jobsData.value.jobs != null && jobsController.jobsData.value.jobs?.length != 0) {
+    if (jobsController.jobsData.value.jobs != null &&
+        jobsController.jobsData.value.jobs?.length != 0) {
       for (int i = 0; i < jobsController.jobsData.value.jobs!.length; i++) {
-        var data = jobsController.jobsData.value.jobs?[i] ;
+        var data = jobsController.jobsData.value.jobs?[i];
         // Calculate distance in meters using the Haversine formula
         double distanceInMeters = Geolocator.distanceBetween(
           currentPosition.latitude,
@@ -307,29 +383,31 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         // Convert distance to miles
         double distanceInMiles = distanceInMeters / 1609.344;
 
-        print("Distance from current location to center: $distanceInMiles miles");
+        print(
+            "Distance from current location to center: $distanceInMiles miles");
 
         // Filter markers within the specified radius
         double markerDistance = Geolocator.distanceBetween(
-          currentPosition.latitude,
-          currentPosition.longitude,
-          data?.lat,
-          data?.long,
-        ) / 1609.344; //
+              currentPosition.latitude,
+              currentPosition.longitude,
+              data?.lat,
+              data?.long,
+            ) /
+            1609.344; //
 
         if (markerDistance <= radius) {
-          markers.add(
-              Marker(
-                markerId: MarkerId("${data?.id}"),
-                position: LatLng(double.parse("${data?.lat}"), double.parse("${data?.long}")) ,
-                infoWindow: InfoWindow(title: "${data?.recruiterDetails?.companyName}") ,
-                icon: await getMarkerIcon("assets/images/icon_map.png",5),
-                onTap: () async {
-                  debugPrint("tapped") ;
-                 Get.to( () => MarketingIntern( jobData: data,appliedJobScreen: false)) ;
-                }
-              )
-          ) ;
+          markers.add(Marker(
+              markerId: MarkerId("${data?.id}"),
+              position: LatLng(
+                  double.parse("${data?.lat}"), double.parse("${data?.long}")),
+              infoWindow:
+                  InfoWindow(title: "${data?.recruiterDetails?.companyName}"),
+              icon: await getMarkerIcon("assets/images/icon_map.png", 5),
+              onTap: () async {
+                debugPrint("tapped");
+                Get.to(() =>
+                    MarketingIntern(jobData: data, appliedJobScreen: false));
+              }));
         }
         // Trigger a rebuild to update the markers on the map
       }
@@ -350,10 +428,10 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     final ByteData data = await rootBundle.load(assetName);
     final Uint8List bytes = data.buffer.asUint8List();
 
-    return BitmapDescriptor.fromBytes(bytes, size: const Size(20,20));
+    return BitmapDescriptor.fromBytes(bytes, size: const Size(20, 20));
   }
 
-  updateUserLocation () {
+  updateUserLocation() {
     getUserCurrentLocation().then((value) async {
       if (kDebugMode) {
         print("${value.latitude} ${value.longitude}");
@@ -378,10 +456,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         zoom: 14,
       );
 
-      final GoogleMapController controller = await mapController
-          .future;
-      controller.animateCamera(
-          CameraUpdate.newCameraPosition(cameraPosition));
+      final GoogleMapController controller = await mapController.future;
+      controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
       setState(() {});
     });
   }
@@ -470,5 +546,4 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     ]
   ''';
   }
-
 }

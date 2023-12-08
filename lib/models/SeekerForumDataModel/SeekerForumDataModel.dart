@@ -34,6 +34,12 @@ class ForumDatum {
   dynamic industryId;
   String? title;
   String? titleDescription;
+  dynamic forumViewCount ;
+  dynamic forumCommentCount ;
+  String? industryPreference ;
+  String? industryImg ;
+  String? seekerName ;
+  String? seekerImg ;
   DateTime? createdAt;
   DateTime? updatedAt;
 
@@ -45,6 +51,12 @@ class ForumDatum {
     this.titleDescription,
     this.createdAt,
     this.updatedAt,
+    this.industryPreference,
+    this.forumCommentCount,
+    this.forumViewCount,
+    this.industryImg,
+    this.seekerImg,
+    this.seekerName
   });
 
   factory ForumDatum.fromJson(Map<String, dynamic> json) => ForumDatum(
@@ -53,6 +65,12 @@ class ForumDatum {
     industryId: json["industry_id"],
     title: json["title"],
     titleDescription: json["title_description"],
+    seekerImg: json["seeker_profile_image"],
+    seekerName: json["seeker_name"],
+    industryImg: json["industry_img"],
+    industryPreference: json["industry_preference"],
+    forumViewCount: json["forum_view_count"],
+    forumCommentCount: json["forum_comment_count"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
   );

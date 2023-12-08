@@ -11,13 +11,13 @@ class SeekerForumDataController extends GetxController {
   final forumData = SeekerForumDataModel().obs ;
   RxString error = ''.obs;
 
-  void getHomeData(SeekerForumDataModel _value) => forumData.value = _value ;
+  void getForumData(SeekerForumDataModel _value) => forumData.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
   void seekerForumListApi({String? industryID}){
     var data = {} ;
-    data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID?.toLowerCase()) ;
+    data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID) ;
 
     setRxRequestStatus(Status.LOADING);
     _api.seekerForumData(data).then((value){
