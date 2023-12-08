@@ -540,7 +540,6 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           //           );
                           //         }),
 
-
                           SizedBox(
                             height: Get.height * 0.03,
                           ),
