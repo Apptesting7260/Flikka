@@ -127,6 +127,8 @@ class _TalentPoolState extends State<TalentPool> {
                                     SizedBox(height: Get.height * .02,),
                                     Center(
                                       child: MyButton(
+                                        height: Get.height * .066,
+                                        width: Get.width*.75,
                                         title: "VIEW PROFILE", onTap1: () {
                                           Get.to( () => ScheduleInterview(seekerID:"${data?.seekerId}" , requestID: "",talentPool: true,)) ;
                                       },),

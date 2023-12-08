@@ -216,7 +216,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                             softWrap: true,
                           ),
                         ),
-                        const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
+                        // const Icon(Icons.more_vert,color: Color(0xffCFCFCF),size: 26,),
                       ],
                     ),
                     Text( widget.recruiterData?.positions ?? "",style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w500,),),

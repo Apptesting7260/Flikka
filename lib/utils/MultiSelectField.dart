@@ -70,6 +70,9 @@ class LanguageSelectorState extends State<LanguageSelector> {
                 ),
                 elevation: 2,
               ),
+              dropdownStyleData: DropdownStyleData(
+                decoration: BoxDecoration(borderRadius: BorderRadius.circular(25))
+              ),
               iconStyleData:  IconStyleData(
                 icon: Image.asset('assets/images/arrowdown.png'),
                 iconSize: 14,

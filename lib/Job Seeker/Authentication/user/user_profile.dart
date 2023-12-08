@@ -815,7 +815,7 @@ class _UserProfileState extends State<UserProfile> {
         _endDateController.text = endDate ?? "" ;
         companyOrInstituteController.text = company ?? "" ;
         jobTitleOrEducationLevelController.text = job ?? "" ;
-        bool present  = false;
+        bool present  = _endDateController.text == "present" ? true : false;
         return Dialog(
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),

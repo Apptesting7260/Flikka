@@ -203,8 +203,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
         ),
         //************* scrollable functionality ******************
         DraggableScrollableSheet(
-          initialChildSize:  widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.52 : 0.42, // half screen
-          minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.52 : 0.42,// half screen
+          initialChildSize:  widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.6 : 0.52, // half screen
+          minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.6 : 0.52,// half screen
           maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
@@ -504,44 +504,319 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             thickness: 0.2,
                             color: AppColors.white,
                           ),
+                          // SizedBox(
+                          //   height: Get.height * 0.02,
+                          // ),
+                          // widget.recruiterData?.skillName == null ||
+                          //         widget.recruiterData?.skillName?.length == 0
+                          //     ? const Text("No Data")
+                          //     : GridView.builder(
+                          //         gridDelegate:
+                          //             SliverGridDelegateWithMaxCrossAxisExtent(
+                          //                 mainAxisExtent: 36,
+                          //                 maxCrossAxisExtent: Get.width * 0.4,
+                          //                 mainAxisSpacing: 8,
+                          //                 crossAxisSpacing: 8),
+                          //         itemCount: widget.recruiterData?.skillName?.length,
+                          //         shrinkWrap: true,
+                          //         physics: const NeverScrollableScrollPhysics(),
+                          //         itemBuilder: (context, index) {
+                          //           var data = widget.recruiterData?.skillName?[index];
+                          //           return Container(
+                          //             alignment: Alignment.center,
+                          //             decoration: BoxDecoration(
+                          //               borderRadius: BorderRadius.circular(12),
+                          //               color: AppColors.blackdown,
+                          //             ),
+                          //             padding: const EdgeInsets.all(8),
+                          //             child: Text(
+                          //               '${data?.skills}',
+                          //               overflow: TextOverflow.ellipsis,
+                          //               style: Get.theme.textTheme.bodySmall!
+                          //                   .copyWith(
+                          //                       color: AppColors.white,
+                          //                       fontWeight: FontWeight.w400),
+                          //             ),
+                          //           );
+                          //         }),
+
+
                           SizedBox(
-                            height: Get.height * 0.02,
+                            height: Get.height * 0.03,
                           ),
+                          Text(
+                            "Soft Skills",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          /////
                           widget.recruiterData?.skillName == null ||
-                                  widget.recruiterData?.skillName?.length == 0
-                              ? const Text("No Data")
-                              : GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithMaxCrossAxisExtent(
-                                          mainAxisExtent: 36,
-                                          maxCrossAxisExtent: Get.width * 0.4,
-                                          mainAxisSpacing: 8,
-                                          crossAxisSpacing: 8),
-                                  itemCount: widget.recruiterData?.skillName?.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.skillName?[index];
-                                    return Container(
-                                      alignment: Alignment.center,
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(12),
-                                        color: AppColors.blackdown,
-                                      ),
-                                      padding: const EdgeInsets.all(8),
-                                      child: Text(
-                                        '${data?.skills}',
-                                        overflow: TextOverflow.ellipsis,
-                                        style: Get.theme.textTheme.bodySmall!
-                                            .copyWith(
-                                                color: AppColors.white,
-                                                fontWeight: FontWeight.w400),
-                                      ),
-                                    );
-                                  }),
+                              widget.recruiterData?.skillName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount: widget.recruiterData?.skillName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Color(0xff484848),
+                                  ),
+                                  child: Text(widget.recruiterData?.skillName?[index].skills ?? "",
+                                    overflow: TextOverflow
+                                        .ellipsis,
+                                    style: Get.theme.textTheme
+                                        .bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight
+                                            .w400,fontSize: 9),),
+                                );
+                              }),
+                          ///
+                          SizedBox(height: Get.height*0.04,),
+                          Text(
+                            "Passion",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          widget.recruiterData?.passionName == null ||
+                              widget.recruiterData?.passionName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount: widget.recruiterData?.passionName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius
+                                        .circular(20),
+                                    color: const Color(0xff484848),
+                                  ),
+                                  // padding: const EdgeInsets.all(
+                                  //     8),
+                                  child: Text( widget.recruiterData?.passionName?[index].passion  ?? '',
+                                    overflow: TextOverflow
+                                        .ellipsis,
+                                    style: Get.theme.textTheme
+                                        .bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight
+                                            .w400,fontSize: 9),),
+                                );
+                              }),
                           SizedBox(
                             height: Get.height * 0.04,
                           ),
+                          Text(
+                            "industry preference",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          widget.recruiterData?.industryPreferenceName == null ||
+                              widget.recruiterData?.industryPreferenceName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount: widget.recruiterData?.industryPreferenceName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius
+                                        .circular(20),
+                                    color: Color(0xff484848),
+                                  ),
+                                  // padding: const EdgeInsets.all(
+                                  //     8),
+                                  child: Text(widget.recruiterData?.industryPreferenceName?[index].industryPreferences ?? "",
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Get.theme.textTheme.bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight.w400,fontSize: 9),),
+                                );
+                              }),
+                          SizedBox(height: Get.height * 0.04,),
+                          Text("Strengths",
+                            style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          widget.recruiterData?.strengthsName == null ||
+                              widget.recruiterData?.strengthsName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount: widget.recruiterData?.strengthsName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius
+                                        .circular(20),
+                                    color: const Color(0xff484848),
+                                  ),
+                                  // padding: const EdgeInsets.all(
+                                  //     8),
+                                  child: Text( widget.recruiterData?.strengthsName?[index].strengths ?? '',
+                                    overflow: TextOverflow
+                                        .ellipsis,
+                                    style: Get.theme.textTheme
+                                        .bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight
+                                            .w400,fontSize: 9),),
+                                );
+                              }),
+                          SizedBox(
+                            height: Get.height * 0.04,
+                          ),
+                          Text(
+                            "Salary expectation",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius
+                                  .circular(20),
+                              color: const Color(0xff484848),
+                            ),
+                            padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
+                            child: Text('${ widget.recruiterData?.minSalaryExpectation ?? ''} - ${ widget.recruiterData?.maxSalaryExpectation ?? ''}',
+                              overflow: TextOverflow.ellipsis,
+                              style: Get.theme.textTheme.bodySmall!.copyWith(
+                                  color: AppColors.white,
+                                  fontWeight: FontWeight.w400),),
+                          ),
+                          SizedBox(height: Get.height * 0.04,),
+                          Text(
+                            "When can i start working?",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          widget.recruiterData?.startWorkName == null ||
+                              widget.recruiterData?.startWorkName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount:  widget.recruiterData?.startWorkName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius
+                                        .circular(20),
+                                    color: Color(0xff484848),
+                                  ),
+                                  // padding: const EdgeInsets.all(
+                                  //     8),
+                                  child: Text(  widget.recruiterData?.startWorkName?[index].startWork ?? '',
+                                    overflow: TextOverflow
+                                        .ellipsis,
+                                    style: Get.theme.textTheme
+                                        .bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight
+                                            .w400,fontSize: 9),),
+                                );
+                              }),
+
+                          SizedBox(height: Get.height * 0.04,),
+                          Text(
+                            "Availability",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleSmall!
+                                .copyWith(color: AppColors.white),
+                          ),
+                          SizedBox(height: Get.height*0.01,),
+                          widget.recruiterData?.availabityName == null ||
+                              widget.recruiterData?.availabityName?.length == 0 ?
+                          const SizedBox() :
+                          GridView.builder(gridDelegate:
+                          SliverGridDelegateWithMaxCrossAxisExtent(
+                              mainAxisExtent: 39,
+                              maxCrossAxisExtent: Get.width * 0.35,
+                              mainAxisSpacing: 6,
+                              crossAxisSpacing: 6),
+                              itemCount:   widget.recruiterData?.availabityName?.length,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius
+                                        .circular(20),
+                                    color: const Color(0xff484848),
+                                  ),
+                                  // padding: const EdgeInsets.all(
+                                  //     8),
+                                  child: Text(  widget.recruiterData?.availabityName?[index].availabity ?? '',
+                                    overflow: TextOverflow
+                                        .ellipsis,
+                                    style: Get.theme.textTheme
+                                        .bodySmall!.copyWith(
+                                        color: AppColors.white,
+                                        fontWeight: FontWeight
+                                            .w400,fontSize: 9),),
+                                );
+                              }),
+                          SizedBox(height: Get.height*.04,) ,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -588,11 +863,11 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                           maxCrossAxisExtent: Get.width * 0.4,
                                           mainAxisSpacing: 8,
                                           crossAxisSpacing: 8),
-                                  itemCount: widget.recruiterData?.skillName?.length,
+                                  itemCount: widget.recruiterData?.language?.length,
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),
                                   itemBuilder: (context, index) {
-                                    var data = widget.recruiterData?.skillName?[index];
+                                    var data = widget.recruiterData?.language?[index];
                                     return Container(
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
@@ -601,7 +876,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                       ),
                                       padding: const EdgeInsets.all(8),
                                       child: Text(
-                                        '${data?.skills}',
+                                        '${data?.languages}',
                                         overflow: TextOverflow.ellipsis,
                                         style: Get.theme.textTheme.bodySmall!
                                             .copyWith(

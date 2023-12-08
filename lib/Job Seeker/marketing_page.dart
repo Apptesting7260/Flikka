@@ -193,10 +193,11 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  Text(
+                  widget.jobData?.education != null
+                      ? Text(
                     widget.jobData?.education ?? "",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ),
+                  ): const SizedBox(),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.2,
