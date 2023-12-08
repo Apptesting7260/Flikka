@@ -70,6 +70,7 @@ class _FilterPageState extends State<FilterPage> {
   SeekerJobFilterController jobFilterController = Get.put(SeekerJobFilterController()) ;
   TextEditingController companyController = TextEditingController() ;
   TextEditingController locationController = TextEditingController() ;
+  TextEditingController jobTitleController = TextEditingController() ;
 
   //////refresh//////
   // RefreshController _refreshController = RefreshController(initialRefresh: false);
@@ -179,68 +180,117 @@ class _FilterPageState extends State<FilterPage> {
                   children: [
                     SizedBox(height: Get.height * 0.03,),
                     //*************** category *************
-                    Text('Job Position', style: Get.theme.textTheme.titleSmall),
+                    Text('Job Title', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
-                    Container(
-                      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                      // height: Get.height * .07,
-                      width: Get.width,
-                      decoration: BoxDecoration(
-                          color: AppColors.textFieldFilledColor,
-                          borderRadius: BorderRadius.circular(30)
-                      ),
-                      child: Center(
-                        child:
-                        DropdownButtonHideUnderline(
-                          child: DropdownButton2(
-                            style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
-                            isExpanded: true,
-                            hint: Text(
-                              'Select position',
-                              style: Get.theme.textTheme.bodyMedium?.copyWith(
-                                  fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
-                                DropdownMenuItem(
-                                  value: item.positions,
-                                  child: Text(item.positions ?? '',
-                                    style: Get.theme.textTheme.bodyLarge!
-                                        .copyWith(color: AppColors.white),
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                  onTap: () {
-                                    setState(() {
-                                      positionName = item.positions ;
-                                      positionId = item.id ;
-                                    });
-                                  },
-                                )).toList(),
-                            value: positionName,
-                            onChanged: (String? value) {
-                                positionName = value;
-                            },
-                            dropdownStyleData: DropdownStyleData(
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(14),
-                                color: const Color(0xff353535),
-                              ),
-                              offset: const Offset(5, 0),
-                              scrollbarTheme: ScrollbarThemeData(
-                                radius: const Radius.circular(40),
-                                thickness: MaterialStateProperty.all<double>(6),
-                                thumbVisibility: MaterialStateProperty.all<bool>(
-                                    true),
-                              ),
-                            ),
-                            menuItemStyleData: const MenuItemStyleData(
-                              height: 40,
-                              // padding: EdgeInsets.only(right: 15),
-                            ),
+                    TextFormField(
+                      autovalidateMode:
+                      AutovalidateMode.onUserInteraction,
+                      keyboardType: TextInputType.text,
+                      controller: jobTitleController,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      // validator: (value) {
+                      //   if (value == null || value.isEmpty) {
+                      //     return 'Please Enter your address';
+                      //   }
+                      // },
+                      onChanged: (value) {
+                        print(value);
+                        setState(() {
+                          if (locationController.text.isEmpty) {}
+                        });
+                        searchAutocomplete(value);
+                      },
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(35),
+                              borderSide: const BorderSide(
+                                  color: Color(0xff373737))),
+                          filled: true,
+                          fillColor: const Color(0xff373737),
+                          hintText: "Enter Location",
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(35),
+                            // borderSide: BorderSide(color: Colors.white),
                           ),
-                        ),
-                      ),
+                          errorBorder: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(35.0)),
+                            borderSide: BorderSide(color: Colors.red),
+                          ),
+                          disabledBorder: const OutlineInputBorder(
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(35.0)),
+                            borderSide:
+                            BorderSide(color: Color(0xff373737)),
+                          ),
+                          hintStyle: Theme.of(context)
+                              .textTheme
+                              .labelLarge
+                              ?.copyWith(color: const Color(0xffCFCFCF)),
+                          contentPadding: EdgeInsets.symmetric(
+                              horizontal: Get.width * .06,
+                              vertical: Get.height * .027)),
                     ),
+                    // Container(
+                    //   padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+                    //   // height: Get.height * .07,
+                    //   width: Get.width,
+                    //   decoration: BoxDecoration(
+                    //       color: AppColors.textFieldFilledColor,
+                    //       borderRadius: BorderRadius.circular(30)
+                    //   ),
+                    //   child: Center(
+                    //     child:
+                    //     DropdownButtonHideUnderline(
+                    //       child: DropdownButton2(
+                    //         style: Theme.of(context).textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w300),
+                    //         isExpanded: true,
+                    //         hint: Text(
+                    //           'Select position',
+                    //           style: Get.theme.textTheme.bodyMedium?.copyWith(
+                    //               fontWeight: FontWeight.w400,color: Color(0xffCFCFCF)),
+                    //           overflow: TextOverflow.ellipsis,
+                    //         ),
+                    //         items: positionController.seekerChoosePositionGetList.value.data?.map((item) =>
+                    //             DropdownMenuItem(
+                    //               value: item.positions,
+                    //               child: Text(item.positions ?? '',
+                    //                 style: Get.theme.textTheme.bodyLarge!
+                    //                     .copyWith(color: AppColors.white),
+                    //                 overflow: TextOverflow.ellipsis,
+                    //               ),
+                    //               onTap: () {
+                    //                 setState(() {
+                    //                   positionName = item.positions ;
+                    //                   positionId = item.id ;
+                    //                 });
+                    //               },
+                    //             )).toList(),
+                    //         value: positionName,
+                    //         onChanged: (String? value) {
+                    //             positionName = value;
+                    //         },
+                    //         dropdownStyleData: DropdownStyleData(
+                    //           decoration: BoxDecoration(
+                    //             borderRadius: BorderRadius.circular(14),
+                    //             color: const Color(0xff353535),
+                    //           ),
+                    //           offset: const Offset(5, 0),
+                    //           scrollbarTheme: ScrollbarThemeData(
+                    //             radius: const Radius.circular(40),
+                    //             thickness: MaterialStateProperty.all<double>(6),
+                    //             thumbVisibility: MaterialStateProperty.all<bool>(
+                    //                 true),
+                    //           ),
+                    //         ),
+                    //         menuItemStyleData: const MenuItemStyleData(
+                    //           height: 40,
+                    //           // padding: EdgeInsets.only(right: 15),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(height: Get.height * 0.03,),
                     Text('Location', style: Get.theme.textTheme.titleSmall),
                     SizedBox(height: Get.height * 0.01,),
@@ -679,7 +729,7 @@ class _FilterPageState extends State<FilterPage> {
                             height: Get.height * .07,
                             width: Get.width * .35,
                             title: "APPLY", onTap1: () {
-                               jobFilterController.filterJob(context,positionId, locationController.text, companyController.text, dateValue,
+                               jobFilterController.filterJob(context,jobTitleController.text, locationController.text, companyController.text, dateValue,
                                    workplaceType, RangePicker.minValue, RangePicker.maxValue, employmentType, qualificationType,
                                    skillsId, languageId) ;
                           },),

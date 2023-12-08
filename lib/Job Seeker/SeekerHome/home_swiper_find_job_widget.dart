@@ -383,6 +383,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
               ],
             ),
           ),
+
           //************* for marketing intern text  ************
           Positioned(
             //height: Get.height / 2.5-Get.height*0.12 ,
@@ -391,9 +392,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                // Get.to(() => MarketingIntern(
-                //       jobData: widget.jobData,
-                //     ));
+                Get.to(() => MarketingIntern(jobData: widget.jobData, appliedJobScreen: false,));
               },
               child: Container(
                 height: Get.height * 0.35,
