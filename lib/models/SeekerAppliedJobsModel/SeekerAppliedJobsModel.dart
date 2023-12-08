@@ -34,6 +34,7 @@ class AppliedJobsList {
   dynamic id;
   dynamic recruiterId;
   String? featureImg;
+  String? video ;
   String? jobTitle;
   String? jobPosition;
   String? specialization;
@@ -61,6 +62,7 @@ class AppliedJobsList {
     this.id,
     this.recruiterId,
     this.featureImg,
+    this.video,
     this.jobTitle,
     this.jobPosition,
     this.specialization,
@@ -90,6 +92,7 @@ class AppliedJobsList {
     recruiterId: json["recruiter_id"],
     featureImg: json["feature_img"],
     jobTitle: json["job_title"],
+    video: json["short_video"],
     jobPosition: json["job_position"],
     specialization: json["specialization"],
     jobLocation: json["job_location"],

@@ -78,5 +78,8 @@ class AppUrl {
   static const String seekerInterviewList = '$baseUrl/seeker-view-our-interviews-api' ;
   static const String seekerUnSavePost = '$baseUrl/unsave-job-api' ;
   static const String seekerViewInterviewAllUrl = '$baseUrl/seeker-view-our-interviews-api' ;
+  static const String seekerForumList = '$baseUrl/seeker-forum-list-according-industry' ;
+  static const String seekerAddForum = '$baseUrl/add-new-forum-api' ;
+  static const String forumDataIndustryList = '$baseUrl/industry-list-api' ;
 
 }

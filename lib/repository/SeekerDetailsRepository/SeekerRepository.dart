@@ -10,6 +10,8 @@ import '../../data/network/network_api_services.dart';
 import '../../models/EditAboutModel/EditAboutModel.dart';
 import '../../models/GetJobsListingModel/GetJobsListingModel.dart';
 import '../../models/ScheduledInterviewListModel/ScheduledInterviewListModel.dart';
+import '../../models/SeekerForumDataModel/SeekerForumDataModel.dart';
+import '../../models/SeekerForumIndustryListModel/SeekerForumIndustryListModel.dart';
 import '../../models/SeekerMapJobsModel/SeekerMapJobsModel.dart';
 import '../../models/SeekerViewInterviewAll/SeekerViewInterviewAll.dart';
 import '../../res/app_url.dart';
@@ -96,5 +98,20 @@ class SeekerRepository {
   Future<EditAboutModel> unSavePost(var data) async{
     dynamic response = await apiServices.postApi2(data,AppUrl.seekerUnSavePost);
     return EditAboutModel.fromJson(response);
+  }
+
+  Future<SeekerForumDataModel> seekerForumData(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.seekerForumList);
+    return SeekerForumDataModel.fromJson(response);
+  }
+
+  Future<EditAboutModel> seekerAddForum(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.seekerAddForum);
+    return EditAboutModel.fromJson(response);
+  }
+
+  Future<ForumIndustryListModel> forumIndustryList() async{
+    dynamic response = await apiServices.getApi2(AppUrl.forumDataIndustryList);
+    return ForumIndustryListModel.fromJson(response);
   }
 }
