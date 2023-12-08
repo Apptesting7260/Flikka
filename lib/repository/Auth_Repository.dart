@@ -161,11 +161,11 @@ class AuthRepository {
   }
 
 
-  // Future<LogoutModel> logoutApi() async {
-  //   dynamic response = await _apiService.postApi2(
-  //       "data", AppUrl.logout);
-  //   return LogoutModel.fromJson(response);
-  // }
+  Future<EditAboutModel> logoutApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.logout);
+    return EditAboutModel.fromJson(response);
+  }
 
 
   Future<ViewSeekerProfileModel> viewSeekerProfile() async{

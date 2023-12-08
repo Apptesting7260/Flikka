@@ -350,7 +350,7 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                     horizontalTitleGap:0,
                                     dense: true,
                                     onTap: () {
-                                      logoutController.logout() ;
+                                      logoutController.logout(context) ;
                                       showLogoutDialog(context) ;
                                     },
                                     leading: IconButton(
