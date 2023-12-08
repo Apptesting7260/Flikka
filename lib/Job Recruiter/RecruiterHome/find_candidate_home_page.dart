@@ -80,24 +80,24 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
               body: InterNetExceptionWidget(
                 onPress: () {
                   homeController.recruiterHomeApi();
-                  jobsController.recruiterJobsApi() ;
-                  jobTitleController.recruiterJobTitleApi() ;
-                  viewRecruiterProfileController.viewRecruiterProfileApi() ;
+                  // jobsController.recruiterJobsApi() ;
+                  // jobTitleController.recruiterJobTitleApi() ;
+                  // viewRecruiterProfileController.viewRecruiterProfileApi() ;
                 },
               ),);
           } else if (homeController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {
               homeController.recruiterHomeApi();
-              jobsController.recruiterJobsApi() ;
-              jobTitleController.recruiterJobTitleApi() ;
-              viewRecruiterProfileController.viewRecruiterProfileApi() ;
+              // jobsController.recruiterJobsApi() ;
+              // jobTitleController.recruiterJobTitleApi() ;
+              // viewRecruiterProfileController.viewRecruiterProfileApi() ;
             }),);
           } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
               homeController.recruiterHomeApi();
-              jobsController.recruiterJobsApi() ;
-              jobTitleController.recruiterJobTitleApi() ;
-              viewRecruiterProfileController.viewRecruiterProfileApi() ;
+              // jobsController.recruiterJobsApi() ;
+              // jobTitleController.recruiterJobTitleApi() ;
+              // viewRecruiterProfileController.viewRecruiterProfileApi() ;
             }),);
           }
         case Status.COMPLETED:

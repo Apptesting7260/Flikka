@@ -1,5 +1,4 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterHome/view_candidate_profile.dart';
 import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -7,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:share_plus/share_plus.dart';
-import '../../models/RecruiterHomeModel/RecruiterHomeModel.dart';
+
 
 class FindCandidateHomePageRecruiter extends StatefulWidget {
   final RecruiterHomePageSeekerDetail? recruiterData ;
@@ -253,7 +252,8 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                               Text( data?.companyName ?? "",
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                               ),
-                              Text("${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")}- ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
+                              Text(
+                                "${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")}- ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
                                 // "${data?.jobStartDate?.year.toString().padLeft(4,'0')}-${data?.jobStartDate?.month.toString().padLeft(2,'0')}-${data?.jobStartDate?.day.toString().padLeft(2,'0')} - ${data?.jobEndDate}" ,
                                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                               ),

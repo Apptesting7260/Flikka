@@ -95,9 +95,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 ),
                 HtmlWidget(widget.recruiterData?.seeker?.location ?? "",
                     textStyle: Get.theme.textTheme.bodyLarge!
-                        .copyWith(color: AppColors.white)),
+                        .copyWith(color: AppColors.white,overflow: TextOverflow.ellipsis)),
                 SizedBox(
-                  height: Get.height * 0.025,
+                  height: Get.height * 0.02,
                 ),
                 Row(
                   children: [
@@ -179,7 +179,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 widget.recruiterData?.startWorkName == null ||
                     widget.recruiterData?.startWorkName?.length == 0 ? const SizedBox()
                     : SizedBox(
-                        height: Get.height * 0.072,
+                        height: Get.height * 0.062,
                         width: Get.width * 0.69,
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
@@ -203,8 +203,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
         ),
         //************* scrollable functionality ******************
         DraggableScrollableSheet(
-          initialChildSize:  widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.48 : 0.42, // half screen
-          minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.48 : 0.42,// half screen
+          initialChildSize:  widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.52 : 0.42, // half screen
+          minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.52 : 0.42,// half screen
           maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
             return Container(
