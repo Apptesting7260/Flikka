@@ -1,10 +1,7 @@
 import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:video_player/video_player.dart';
-
-import '../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 
 class VideoPlayerScreen extends StatefulWidget {
   final String videoPath;
@@ -41,6 +38,7 @@ class VideoPlayerScreenState extends State<VideoPlayerScreen> {
     _chewieController = ChewieController(
       videoPlayerController: _videoPlayerController,
       autoInitialize: true,
+      autoPlay: true,
       aspectRatio: _videoPlayerController.value.aspectRatio,
       showControlsOnInitialize: false,
       looping: true,

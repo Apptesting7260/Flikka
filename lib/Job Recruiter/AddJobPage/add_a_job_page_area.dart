@@ -962,7 +962,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                         child: DropdownButton2<String>(
                           isExpanded: true,
                           hint:  Text(
-                            'Select qualification',
+                            qualificatonType ?? 'Select qualification',
                             style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
                             overflow: TextOverflow.ellipsis,
                           ),
@@ -974,9 +974,7 @@ class _AddAJobPageState extends State<AddAJobPage> {
                               style: Get.theme.textTheme.bodyLarge!.copyWith(color: AppColors.white),
                               overflow: TextOverflow.ellipsis,
                             ),
-                          ))
-                              .toList(),
-                          value: qualificatonType,
+                          )).toList(),
                           onChanged: (String? value) {
                             setState(() {
                               qualificatonType = value;
