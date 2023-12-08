@@ -39,6 +39,7 @@ class SeekerJobsData {
   var recruiterId;
   String? featureImg;
   String? jobTitle;
+  String? video ;
   String? specialization;
   String? jobLocation;
   String? description;
@@ -63,6 +64,7 @@ class SeekerJobsData {
     this.recruiterId,
     this.featureImg,
     this.jobTitle,
+    this.video,
     this.specialization,
     this.jobLocation,
     this.description,
@@ -88,6 +90,7 @@ class SeekerJobsData {
     recruiterId: json["recruiter_id"],
     featureImg: json["feature_img"],
     jobTitle: json["job_title"],
+    video: json["short_video"],
     specialization: json["specialization"],
     jobLocation: json["job_location"],
     description: json["description"],

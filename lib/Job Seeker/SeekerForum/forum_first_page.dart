@@ -1,10 +1,10 @@
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_companies.dart';
+import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import 'forum_only_comment_page.dart';
 
 class ForumFirstPage extends StatefulWidget {
@@ -15,6 +15,9 @@ class ForumFirstPage extends StatefulWidget {
 }
 
 class _ForumFirstPageState extends State<ForumFirstPage> {
+
+  SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -106,7 +109,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                       height: Get.height*0.06,
                       child: GestureDetector(
                           onTap: () {
-                            Get.to(()=>AddNewForum());
+                            Get.to(()=> const AddNewForum());
                           },
                           child: Image.asset('assets/images/icon_add_form.png',fit: BoxFit.cover,))),
                 ],
