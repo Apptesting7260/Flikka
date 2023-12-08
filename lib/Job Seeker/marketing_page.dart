@@ -270,6 +270,275 @@ class _MarketingInternState extends State<MarketingIntern> {
                     color: Colors.grey,
                     thickness: 0.2,
                   ),
+                  Text(
+                    "Soft Skills",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  /////
+                  widget.jobData?.jobsDetail?.skillName == null ||
+                      widget.jobData?.jobsDetail?.skillName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount:widget.jobData?.jobsDetail?.skillName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Color(0xff484848),
+                          ),
+                          child: Text(widget.jobData?.jobsDetail?.skillName?[index].skills ?? "",
+                            overflow: TextOverflow
+                                .ellipsis,
+                            style: Get.theme.textTheme
+                                .bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight
+                                    .w400,fontSize: 9),),
+                        );
+                      }),
+                  ///
+                  SizedBox(height: Get.height*0.04,),
+                  Text(
+                    "Passion",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  widget.jobData?.jobsDetail?.passionName == null ||
+                      widget.jobData?.jobsDetail?.passionName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount: widget.jobData?.jobsDetail?.passionName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius
+                                .circular(20),
+                            color: const Color(0xff484848),
+                          ),
+                          // padding: const EdgeInsets.all(
+                          //     8),
+                          child: Text( widget.jobData?.jobsDetail?.passionName?[index].passion  ?? '',
+                            overflow: TextOverflow
+                                .ellipsis,
+                            style: Get.theme.textTheme
+                                .bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight
+                                    .w400,fontSize: 9),),
+                        );
+                      }),
+                  SizedBox(
+                    height: Get.height * 0.04,
+                  ),
+                  Text(
+                    "industry preference",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  widget.jobData?.jobsDetail?.industryPreferenceName == null ||
+                      widget.jobData?.jobsDetail?.industryPreferenceName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount: widget.jobData?.jobsDetail?.industryPreferenceName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        //var data = seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?[index];
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius
+                                .circular(20),
+                            color: Color(0xff484848),
+                          ),
+                          // padding: const EdgeInsets.all(
+                          //     8),
+                          child: Text(widget.jobData?.jobsDetail?.industryPreferenceName?[index].industryPreferences ?? "",
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.theme.textTheme.bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight.w400,fontSize: 9),),
+                        );
+                      }),
+                  SizedBox(height: Get.height * 0.04,),
+                  Text("Strengths",
+                    style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  widget.jobData?.jobsDetail?.strengthsName == null ||
+                      widget.jobData?.jobsDetail?.strengthsName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount: widget.jobData?.jobsDetail?.strengthsName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius
+                                .circular(20),
+                            color: const Color(0xff484848),
+                          ),
+                          // padding: const EdgeInsets.all(
+                          //     8),
+                          child: Text( widget.jobData?.jobsDetail?.strengthsName?[index].strengths ?? '',
+                            overflow: TextOverflow
+                                .ellipsis,
+                            style: Get.theme.textTheme
+                                .bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight
+                                    .w400,fontSize: 9),),
+                        );
+                      }),
+                  SizedBox(height: Get.height * 0.04,),
+                  Text(
+                    "Salary expectation",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius
+                          .circular(20),
+                      color: const Color(0xff484848),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
+                    child: Text('${widget.jobData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.jobData?.jobsDetail?.maxSalaryExpectation ?? ''}',
+                      style: Get.theme.textTheme.bodySmall!.copyWith(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w400),),
+                  ),
+                  SizedBox(height: Get.height * 0.04,),
+                  Text(
+                    "When can i start working?",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  widget.jobData?.jobsDetail?.startWorkName == null ||
+                      widget.jobData?.jobsDetail?.startWorkName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount: widget.jobData?.jobsDetail?.startWorkName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius
+                                .circular(20),
+                            color: Color(0xff484848),
+                          ),
+                          // padding: const EdgeInsets.all(
+                          //     8),
+                          child: Text( widget.jobData?.jobsDetail?.startWorkName?[index].startWork ?? '',
+                            overflow: TextOverflow
+                                .ellipsis,
+                            style: Get.theme.textTheme
+                                .bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight
+                                    .w400,fontSize: 9),),
+                        );
+                      }),
+
+                  SizedBox(height: Get.height * 0.04,),
+                  Text(
+                    "Availability",
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleSmall!
+                        .copyWith(color: AppColors.white),
+                  ),
+                  SizedBox(height: Get.height*0.01,),
+                  widget.jobData?.jobsDetail?.availabityName == null ||
+                      widget.jobData?.jobsDetail?.availabityName?.length == 0 ?
+                  const SizedBox() :
+                  GridView.builder(gridDelegate:
+                  SliverGridDelegateWithMaxCrossAxisExtent(
+                      mainAxisExtent: 39,
+                      maxCrossAxisExtent: Get.width * 0.35,
+                      mainAxisSpacing: 6,
+                      crossAxisSpacing: 6),
+                      itemCount:  widget.jobData?.jobsDetail?.availabityName?.length,
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.symmetric(horizontal: Get.width*.03),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius
+                                .circular(20),
+                            color: const Color(0xff484848),
+                          ),
+                          // padding: const EdgeInsets.all(
+                          //     8),
+                          child: Text(  widget.jobData?.jobsDetail?.availabityName?[index].availabity ?? '',
+                            overflow: TextOverflow
+                                .ellipsis,
+                            style: Get.theme.textTheme
+                                .bodySmall!.copyWith(
+                                color: AppColors.white,
+                                fontWeight: FontWeight
+                                    .w400,fontSize: 9),),
+                        );
+                      }),
                   SizedBox(
                     height: Get.height * 0.055,
                   ),

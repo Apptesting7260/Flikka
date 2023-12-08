@@ -67,7 +67,7 @@ class CreateUpdateRecruiterProfileController extends GetxController {
         sp.setString("loggedIn", "recruiter") ;
         sp.setInt("step", 2) ;
         Get.offAll(TabScreenEmployer(index: 4,));
-      } if(response.statusCode == 425 || response.statusCode == 403) {
+      } if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll( () => const Login());
       }

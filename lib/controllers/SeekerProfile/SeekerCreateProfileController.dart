@@ -85,7 +85,7 @@ class SeekerCreateProfileController extends GetxController {
         sp.setInt("step", 4) ;
         Get.offAll(const TabScreen(index: 4));
       }
-     if(response.statusCode == 425 || response.statusCode == 403) {
+     if(response.statusCode == 401) {
        sp.clear() ;
        Get.offAll( () => const Login()) ;
       }

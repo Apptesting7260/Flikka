@@ -53,7 +53,7 @@ class EditSeekerResumeController extends GetxController {
         if (kDebugMode) {
           print(responseData['message']);
         }
-      } if(response.statusCode == 425 || response.statusCode == 403) {
+      } if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll( () => const Login()) ;
       }

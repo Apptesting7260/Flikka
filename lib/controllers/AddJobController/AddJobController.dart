@@ -91,7 +91,7 @@ class AddJobController extends GetxController {
         } else if (recruiterJobsData == null) {
         Get.to( () => const RequiredSkills() , arguments: {"job_id" : responseData["job_id"] }); }
       }
-      if(response.statusCode == 425 || response.statusCode == 403) {
+      if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll( () => const Login()) ;
       }

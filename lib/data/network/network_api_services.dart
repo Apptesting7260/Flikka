@@ -28,7 +28,7 @@ class NetworkApiServices extends BaseApiServices {
       SharedPreferences sp = await SharedPreferences.getInstance() ;
       final response = await http.get(Uri.parse(url)).timeout(
           const Duration(seconds: 30));
-      if(response.statusCode == 425 || response.statusCode == 403) {
+      if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
@@ -59,7 +59,7 @@ SharedPreferences sp = await SharedPreferences.getInstance();
         headers: {"Authorization":"Bearer ${sp.getString("BarrierToken")}"},
 
       ).timeout( const Duration(seconds: 30));
-      if(response.statusCode == 425 || response.statusCode == 403) {
+      if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
@@ -100,7 +100,7 @@ SharedPreferences sp = await SharedPreferences.getInstance();
         body: data,
 
       ).timeout(const Duration(seconds: 30));
-      if(response.statusCode == 425 || response.statusCode == 403) {
+      if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
@@ -138,7 +138,7 @@ if (kDebugMode) {
       if (kDebugMode) {
         print("response code ====================${response.statusCode}") ;
       }
-      if(response.statusCode == 425 || response.statusCode == 403) {
+      if(response.statusCode == 401) {
         sp.clear() ;
         Get.offAll(() => const Login()) ;
       }
