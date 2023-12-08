@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../controllers/GetJobsListingController/GetJobsListingController.dart';
+import '../utils/VideoPlayerScreen.dart';
 
 class MarketingIntern extends StatefulWidget {
    final dynamic jobData ;
@@ -69,25 +70,59 @@ class _MarketingInternState extends State<MarketingIntern> {
               padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 12),
               child: ListView(
                 children: [
-                  Align(
-                    alignment: Alignment.topLeft,
-                    child: CircleAvatar(
-                      radius: 45,
-                      // backgroundImage: NetworkImage('${widget.jobData?.featureImg}'),
-                      child: CachedNetworkImage(
-                        imageUrl: '${widget.jobData?.featureImg}',
-                        imageBuilder: (context, imageProvider) => Container(
-                          decoration: BoxDecoration(
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            )
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Align(
+                        alignment: Alignment.topLeft,
+                        child: CircleAvatar(
+                          radius: 45,
+                          // backgroundImage: NetworkImage('${widget.jobData?.featureImg}'),
+                          child: CachedNetworkImage(
+                            imageUrl: '${widget.jobData?.featureImg}',
+                            imageBuilder: (context, imageProvider) => Container(
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.cover,
+                                )
+                              ),
+                            ),
+                            placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                           ),
                         ),
-                        placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                       ),
-                    ),
+
+                      Row(
+                        children: [
+                          SizedBox(width: Get.width*.04,) ,
+                          widget.jobData?.video == null ||
+                              widget.jobData?.video?.length == 0 ?
+                          const SizedBox() :
+                          GestureDetector(
+                            onTap: () {
+                              Get.back() ;
+                              Get.to(() => VideoPlayerScreen(videoPath: widget.jobData?.video ?? "")) ;
+                            },
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: 42,
+                              width: 42,
+                              decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.blueThemeColor
+                              ),
+                              child: Image.asset(
+                                "assets/images/icon_video.png",
+                                height: 18,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: Get.height * 0.025,
