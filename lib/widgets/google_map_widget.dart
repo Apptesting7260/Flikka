@@ -269,6 +269,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                 compassEnabled: true,
                 onMapCreated: (GoogleMapController controller) {
                   mapController.complete(controller);
+                  controller.setMapStyle(getCustomMapStyle()) ;
                 },
               ),
             ),
@@ -384,116 +385,90 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       setState(() {});
     });
   }
-  // Future<BitmapDescriptor> getMarkerIcon(String imageURL, double size, Color backgroundColor) async {
-  //   final Completer<BitmapDescriptor> completer = Completer<BitmapDescriptor>();
-  //
-  //   final ImageConfiguration configuration = ImageConfiguration();
-  //   final ImageProvider<Object> provider = CachedNetworkImageProvider(imageURL);
-  //
-  //   // Add a post-frame callback to capture the image when it's ready
-  //   WidgetsBinding.instance.addPostFrameCallback((_) async {
-  //     // Resolve the image
-  //     final ImageStreamListener listener = ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) async {
-  //       // Convert the image to bytes
-  //       final ByteData? data = await imageInfo.image.toByteData(format: ui.ImageByteFormat.png);
-  //       final Uint8List? bytes = data?.buffer.asUint8List();
-  //
-  //       // Create a circular marker with a background
-  //       final pictureRecorder = PictureRecorder();
-  //       final canvas = Canvas(pictureRecorder);
-  //       final markerPaint = Paint()..color = backgroundColor;
-  //
-  //       canvas.drawCircle(Offset(size / 2.0, size / 2.0), size / 2.0, markerPaint);
-  //       canvas.drawCircle(Offset(size / 2.0, size / 2.0), size / 2.0 - 2, markerPaint);
-  //
-  //       final codec = await ui.instantiateImageCodec(Uint8List.fromList(bytes!));
-  //       final frameInfo = await codec.getNextFrame();
-  //       canvas.drawImage(frameInfo.image, Offset(0.0, 0.0), Paint());
-  //
-  //       final picture = pictureRecorder.endRecording();
-  //       final img = await picture.toImage(size.toInt(), size.toInt());
-  //       final imgByteData = await img.toByteData(format: ui.ImageByteFormat.png);
-  //       final Uint8List markerBytes = imgByteData!.buffer.asUint8List();
-  //
-  //       // Create a BitmapDescriptor from the bytes with a specific size
-  //       final BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(markerBytes, size: Size.square(size));
-  //
-  //       // Complete the completer with the BitmapDescriptor
-  //       completer.complete(bitmapDescriptor);
-  //     });
-  //
-  //     // Listen for the image resolution
-  //     final ImageStream stream = provider.resolve(configuration);
-  //     stream.addListener(listener);
-  //   });
-  //
-  //   return completer.future;
-  // }
 
-
-  // Future<BitmapDescriptor> getMarkerIcon(String imageURL, double size, Color backgroundColor) async {
-  //   final Completer<BitmapDescriptor> completer = Completer<BitmapDescriptor>();
-  //
-  //   try {
-  //     final ImageConfiguration configuration = ImageConfiguration();
-  //     final ImageProvider<Object> provider = CachedNetworkImageProvider(imageURL);
-  //
-  //     WidgetsBinding.instance?.addPostFrameCallback((_) async {
-  //       try {
-  //         final ImageStreamListener listener = ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) async {
-  //           try {
-  //             final ByteData? data = await imageInfo.image.toByteData(format: ui.ImageByteFormat.png);
-  //             final Uint8List? bytes = data?.buffer.asUint8List();
-  //
-  //             final recorder = ui.PictureRecorder();
-  //             final canvas = Canvas(recorder);
-  //             final markerPaint = Paint()..color = backgroundColor;
-  //
-  //             // Draw a circle as the background
-  //             canvas.drawCircle(Offset(size / 2.0, size / 2.0), size / 2.0, markerPaint);
-  //
-  //             // Decode the image from bytes
-  //             final ui.Image image = await decodeImageFromList(bytes!)!;
-  //
-  //             // Draw the image as a circular mask
-  //             final RRect imageRect = RRect.fromRectAndRadius(Rect.fromLTWH(0.0, 0.0, size, size), Radius.circular(size / 2.0));
-  //             final paint = Paint()..shader = ui.ImageShader(
-  //               image,
-  //               TileMode.clamp, TileMode.clamp, Matrix4.identity().storage,
-  //             );
-  //             canvas.drawRRect(imageRect, paint);
-  //
-  //             // Convert the PictureRecorder to an Image
-  //             final picture = recorder.endRecording();
-  //             final img = await picture.toImage(size.toInt(), size.toInt());
-  //
-  //             // Convert the Image to bytes
-  //             final ByteData? imgByteData = await img.toByteData(format: ui.ImageByteFormat.png);
-  //             final Uint8List markerBytes = imgByteData!.buffer.asUint8List();
-  //
-  //             // Create a BitmapDescriptor from the bytes with a specific size
-  //             final BitmapDescriptor bitmapDescriptor = BitmapDescriptor.fromBytes(markerBytes, size: Size.square(size));
-  //
-  //             completer.complete(bitmapDescriptor);
-  //           } catch (e) {
-  //             print('Error processing image: $e');
-  //             completer.completeError(e);
-  //           }
-  //         });
-  //
-  //         final ImageStream stream = provider.resolve(configuration);
-  //         stream.addListener(listener);
-  //       } catch (e) {
-  //         print('Error loading image: $e');
-  //         completer.completeError(e);
-  //       }
-  //     });
-  //   } catch (e) {
-  //     print('Error initializing marker: $e');
-  //     completer.completeError(e);
-  //   }
-  //
-  //   return completer.future;
-  // }
+  String getCustomMapStyle() {
+    return '''
+    [
+      {
+        "featureType": "administrative.land_parcel",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi",
+        "elementType": "labels.text",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "poi.business",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road",
+        "elementType": "labels.icon",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.arterial",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.highway",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "road.local",
+        "elementType": "labels",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      },
+      {
+        "featureType": "transit",
+        "stylers": [
+          {
+            "visibility": "off"
+          }
+        ]
+      }
+    ]
+  ''';
+  }
 
 }
