@@ -151,6 +151,8 @@ class AppliedJobsDetail {
   List<IndustryPreferenceName>? industryPreferenceName;
   List<StrengthsName>? strengthsName;
   String? salaryExpectationName;
+  dynamic minSalaryExpectation;
+  dynamic maxSalaryExpectation;
   List<StartWorkName>? startWorkName;
   List<AvailabityName>? availabityName;
 
@@ -163,6 +165,8 @@ class AppliedJobsDetail {
     this.passionName,
     this.industryPreferenceName,
     this.strengthsName,
+    this.maxSalaryExpectation,
+    this.minSalaryExpectation,
     this.salaryExpectationName,
     this.startWorkName,
     this.availabityName,
@@ -171,6 +175,8 @@ class AppliedJobsDetail {
   factory AppliedJobsDetail.fromJson(Map<String, dynamic> json) => AppliedJobsDetail(
     id: json["id"],
     jobId: json["job_id"],
+    maxSalaryExpectation: json["max_salary_expectation"],
+    minSalaryExpectation: json["min_salary_expectation"],
     createdAt: json["created_at"] == null ? json["created_at"]  : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     skillName: json["skill_name"] == null ? json["skill_name"] : List<SkillName>.from(json["skill_name"].map((x) => SkillName.fromJson(x))),
