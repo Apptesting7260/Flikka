@@ -138,7 +138,7 @@ class _SettingPageState extends State<SettingPage> {
               onTap: () {
                 CommonFunctions.confirmationDialog(context, message :"Do you want to log out", onTap: (){
                   Get.back() ;
-                  logoutController.logout() ;
+                  logoutController.logout(context) ;
                   showLogoutDialog(context)  ;
                 }) ;
 

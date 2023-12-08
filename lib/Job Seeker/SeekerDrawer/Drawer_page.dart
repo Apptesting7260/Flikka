@@ -276,7 +276,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                     horizontalTitleGap:0,
                                     dense: true,
                                     onTap: () {
-                                      logoutController.logout() ;
+                                      logoutController.logout(context) ;
                                       showLogoutDialog(context)  ;
                                     },
                                     leading: drawerIcon(logoutIcon) ,
