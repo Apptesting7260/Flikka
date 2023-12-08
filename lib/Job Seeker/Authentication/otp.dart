@@ -137,13 +137,12 @@ class OtpScreenState extends State<OtpScreen> {
                                              debugPrint('onChanged: $value');
                                            },
                                            cursor: Column(
-                                             mainAxisAlignment: MainAxisAlignment.end,
+                                             mainAxisAlignment: MainAxisAlignment.center,
                                              children: [
                                                Container(
-                                                 margin: const EdgeInsets.only(bottom: 9),
-                                                 width: 20,
-                                                 height: 2,
-                                                 color: const Color.fromRGBO(23, 171, 144, 1),
+                                                 width: 2,
+                                                 height: 20,
+                                                 color: AppColors.white,
                                                ),
                                              ],
                                            ),

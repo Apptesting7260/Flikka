@@ -278,7 +278,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                     var data = candidateStatusData?.appliedJob?[index];
                                     return Container(
                                       padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
-                                        margin: EdgeInsets.only(bottom: Get.height *.02),
+                                        margin: EdgeInsets.only(bottom: Get.height *.04),
                                         decoration: BoxDecoration(
                                             color: const Color(0xff353535),
                                             borderRadius: BorderRadius.circular(24)
@@ -377,7 +377,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                             title: "VIEW PROFILE", onTap1: () {
                                               Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',accepted: "${data?.status}".toLowerCase() == "accepted" ? true : false,) ) ;
                                           },),
-                                          SizedBox(height: Get.height * .018,),
+                                          SizedBox(height: Get.height * .022,),
                                         ],
                                       ),
                                     );
