@@ -19,8 +19,6 @@ class SeekerForumIndustryController extends GetxController {
 
 
   void industryApi(){
-    setRxRequestStatus(Status.LOADING);
-
     _api.forumIndustryList().then((value){
       setRxRequestStatus(Status.COMPLETED);
       industryData(value);
