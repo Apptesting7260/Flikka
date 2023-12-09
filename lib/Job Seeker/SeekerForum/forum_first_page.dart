@@ -6,6 +6,7 @@ import 'package:flikka/controllers/SeekerForumController/ForumIndustryListContro
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
@@ -121,7 +122,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                             ],
                           ),
                           SizedBox(height: Get.height * .02,),
-
+                          industryController.industryData.value.industryList == null ||
+                          industryController.industryData.value.industryList?.length == 0 ?
+                              const SizedBox() :
                           SizedBox(
                             height: Get.height * .18,
                             child: ListView.builder(shrinkWrap: true,
@@ -210,10 +213,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   height: Get.height * 0.06,
                                   child: GestureDetector(
                                       onTap: () {
-                                        Get.to(() => const AddNewForum());
+                                        Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
                                       },
-                                      child: Image.asset(
-                                        'assets/images/icon_add_form.png',
+                                      child: Image.asset('assets/images/icon_add_form.png',
                                         fit: BoxFit.cover,))),
                             ],
                           ),
@@ -222,14 +224,15 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                           ),
                           //************* list *((((((((((((((((((((((((((((((((
 
+                          forumDataController.forumData.value.forumData == null ||
+                          forumDataController.forumData.value.forumData?.length == 0 ?
+                              Text("No Data") :
                           Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: forumDataController.forumData.value
-                                    .forumData?.length,
+                                itemCount: forumDataController.forumData.value.forumData?.length,
                                 itemBuilder: (context, index) {
-                                  var data = forumDataController.forumData.value
-                                      .forumData?[index];
+                                  var data = forumDataController.forumData.value.forumData?[index];
                                   return Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: Get.height * .02),
@@ -307,21 +310,31 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   height: Get.height * 0.03,),
                                                                 SizedBox(
                                                                   width: Get.width * 0.60,
-                                                                  child: Text(
-                                                                    data?.titleDescription ?? "",
-                                                                    textAlign: TextAlign
-                                                                        .justify,
-                                                                    style: Theme
-                                                                        .of(
-                                                                        context)
-                                                                        .textTheme
-                                                                        .bodySmall!
-                                                                        .copyWith(
-                                                                        color: AppColors
-                                                                            .ratingcommenttextcolor,
-                                                                        letterSpacing: 0.01
-                                                                    ),
-                                                                  ),
+                                                                  child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
+                                                                      .of(
+                                                                      context)
+                                                                      .textTheme
+                                                                      .bodySmall!
+                                                                      .copyWith(
+                                                                      color: AppColors
+                                                                          .ratingcommenttextcolor,
+                                                                      letterSpacing: 0.01
+                                                                  ),),
+                                                                  // Text(
+                                                                  //   data?.titleDescription ?? "",
+                                                                  //   textAlign: TextAlign
+                                                                  //       .justify,
+                                                                  //   style: Theme
+                                                                  //       .of(
+                                                                  //       context)
+                                                                  //       .textTheme
+                                                                  //       .bodySmall!
+                                                                  //       .copyWith(
+                                                                  //       color: AppColors
+                                                                  //           .ratingcommenttextcolor,
+                                                                  //       letterSpacing: 0.01
+                                                                  //   ),
+                                                                  // ),
                                                                 ),
 
                                                                 SizedBox(
