@@ -149,12 +149,12 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             ),
                           ],
                         ),
-                    widget.recruiterData?.seeker?.shortVideo == null ||
-                        widget.recruiterData?.seeker?.shortVideo.toString().length == 0
+                    widget.recruiterData?.seeker?.video == null ||
+                        widget.recruiterData?.seeker?.video.toString().length == 0
                         ? const SizedBox()
                    : GestureDetector(
                       onTap: () {
-                        Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.seeker?.shortVideo ?? "")) ;
+                        Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.seeker?.video ?? "")) ;
                       },
                      child: Container(
                         alignment: Alignment.center,

@@ -158,7 +158,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                 // value: jobTitleValue,
                                 onChanged: (value) {},
                                 buttonStyleData: ButtonStyleData(
-                                  height: Get.height * 0.06,
+                                  height: Get.height * 0.055,
                                   width: Get.width * .29,
                                   padding: const EdgeInsets.only(
                                       left: 10, right: 5),
@@ -220,7 +220,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                   });
                                 },
                                 buttonStyleData: ButtonStyleData(
-                                  height: Get.height * 0.06,
+                                  height: Get.height * 0.055,
                                   width: Get.width * .29,
                                   padding: const EdgeInsets.only(
                                       left: 14, right: 14),
@@ -372,7 +372,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                           ),
                                           SizedBox(height: Get.height * .010,),
                                           MyButton(
-                                            height: Get.height * .066,
+                                            height: Get.height * .059,
                                             width: Get.width*.75,
                                             title: "VIEW PROFILE", onTap1: () {
                                               Get.to( () =>  ScheduleInterview(seekerID: "${data?.seekerId}", requestID: '${data?.id}',accepted: "${data?.status}".toLowerCase() == "accepted" ? true : false,) ) ;

@@ -2043,6 +2043,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                   width: Get.width *.4,
                                                   onTap1: () {
                                                 CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                                //CommonFunctions.confirmationDialog(context, message: "Do you want to reject", onTap: onTap)
                                                 statusController.jobStatus("Rejected", widget.requestID) ;
                                               }),
                                             ],),
