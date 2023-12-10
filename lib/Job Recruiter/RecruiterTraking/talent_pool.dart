@@ -73,7 +73,7 @@ class _TalentPoolState extends State<TalentPool> {
                           return Padding(
                             padding: EdgeInsets.symmetric(vertical: Get.height * .027),
                             child: Container(
-                              height: Get.height * .29,
+                              height: Get.height * .27,
                               width: Get.width,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(22),
@@ -113,14 +113,15 @@ class _TalentPoolState extends State<TalentPool> {
                                               const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
                                           ),
                                           SizedBox(height: Get.height * .003,),
-                                          Text( data?.seekerData?.location ?? "", style: Theme.of(context).textTheme
+                                          Text( data?.seekerData?.location ?? "", overflow: TextOverflow.ellipsis,
+                                            style: Theme.of(context).textTheme
                                               .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                          SizedBox(height: Get.height * .003,),
-                                          Text(
-                                              "TALENT POOL",
-                                              style: Theme.of(context).textTheme.bodySmall?.copyWith
-                                                (color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700)
-                                          ),
+                                          // SizedBox(height: Get.height * .003,),
+                                          // Text(
+                                          //     "TALENT POOL",
+                                          //     style: Theme.of(context).textTheme.bodySmall?.copyWith
+                                          //       (color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700)
+                                          // ),
                                         ],
                                       ),
                                     ),

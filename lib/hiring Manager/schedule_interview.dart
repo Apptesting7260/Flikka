@@ -1092,6 +1092,8 @@ class ScheduleInterview extends StatefulWidget {
 
 class _ScheduleInterviewState extends State<ScheduleInterview> {
 
+  bool isButtonVisible = true;
+
   ViewParticularCandidateController candidateController = Get.put(ViewParticularCandidateController()) ;
   CandidateJobStatusController statusController = Get.put(CandidateJobStatusController()) ;
 
@@ -1908,7 +1910,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         //       );
                                         //     }),
                                         //********************* for Language ***************************
-                                        SizedBox(height: Get.height * 0.04,),
+                                        SizedBox(height: Get.height * 0.01,),
                                         Row(
                                           mainAxisAlignment: MainAxisAlignment
                                               .spaceBetween,
@@ -2036,22 +2038,35 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                   width: Get.width *.4,
                                                   onTap1: () {
                                                     if(widget.accepted == true) {} else {
-                                                CommonFunctions.showLoadingDialog(context, "Updating...") ;
-                                                statusController.jobStatus("Accepted", widget.requestID) ; }
+                                                      CommonFunctions.confirmationDialog(context, message: "Do you want to Accepted",
+                                                          onTap: () {
+                                                            Get.back() ;
+                                                            CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                                            statusController.jobStatus("Accepted", widget.requestID) ;
+                                                          },) ;
+
+                                                    }
                                               }),
                                               MyButton(title: "REJECT",
                                                   width: Get.width *.4,
                                                   onTap1: () {
-                                                CommonFunctions.showLoadingDialog(context, "Updating...") ;
-                                                //CommonFunctions.confirmationDialog(context, message: "Do you want to reject", onTap: onTap)
-                                                statusController.jobStatus("Rejected", widget.requestID) ;
+                                                CommonFunctions.confirmationDialog(context, message: "Do you want to Rejected",
+                                                  onTap: () {
+                                                  Get.back() ;
+                                                  CommonFunctions.showLoadingDialog(context, "Updating...") ;
+                                                  statusController.jobStatus("Rejected", widget.requestID) ;
+                                                },) ;
                                               }),
                                             ],),
                                             SizedBox(height: Get.height * 0.03,),
-                                          widget.accepted == true ?  Center(
+                                          widget.accepted ?? isButtonVisible ?
+                                          Center(
                                               child: MyButton(title: 'SCHEDULE MEETING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
+                                                  setState(() {
+                                                    isButtonVisible = false;
+                                                  });
                                                 },
                                               ),
                                             ) :  MyButton(
@@ -2085,16 +2100,20 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
       context: context,
       builder: (BuildContext context) {
         TextEditingController controller = TextEditingController();
-        return AlertDialog(
+        return AlertDialog(shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
           title: Text(
             "Add note",
             style: Theme.of(context).textTheme.displayLarge,
           ),
           content: Column( mainAxisSize: MainAxisSize.min,
             children: [
-              CommonWidgets.textFieldMaxLines(context, controller, "Add note", onFieldSubmitted: (value) {}),
+              CommonWidgets.textFieldMaxLines(
+                  context, controller, "Add note", onFieldSubmitted: (value) {}),
               SizedBox(height: Get.height * .02,),
-              Obx( () => MyButton(loading: poolController.loading.value,
+              Obx( () => MyButton(
+                  height: Get.height * .066,
+                  width: Get.width*.75,
+                  loading: poolController.loading.value,
                   title: "Save", onTap1: () {
                     poolController.poolSeeker(CommonFunctions.changeToHTML(controller.text), seekerID) ;
                   }),

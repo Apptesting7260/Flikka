@@ -108,20 +108,20 @@ class CommonWidgets {
             contentPadding: EdgeInsets.symmetric(
                 vertical: Get.height * .03, horizontal: Get.width * .07),
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(22),
-                borderSide: const BorderSide(color: Color(0xff373737))),
+                borderSide: BorderSide.none),
 
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(22),
-              // borderSide: BorderSide(color: Colors.white),
-            ),
-            errorBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(22.0)),
-              borderSide: BorderSide(color: Colors.red),
-            ),
-            disabledBorder: const OutlineInputBorder(
-              borderRadius: BorderRadius.all(Radius.circular(22.0)),
-              borderSide: BorderSide(color: Color(0xff373737)),
-            ),
+            // enabledBorder: OutlineInputBorder(
+            //   borderRadius: BorderRadius.circular(22),
+            //   // borderSide: BorderSide(color: Colors.white),
+            // ),
+            // errorBorder: const OutlineInputBorder(
+            //   borderRadius: BorderRadius.all(Radius.circular(22.0)),
+            //   borderSide: BorderSide(color: Colors.red),
+            // ),
+            // disabledBorder: const OutlineInputBorder(
+            //   borderRadius: BorderRadius.all(Radius.circular(22.0)),
+            //   borderSide: BorderSide(color: Color(0xff373737)),
+            // ),
 
           ),
         validator: (value) {
