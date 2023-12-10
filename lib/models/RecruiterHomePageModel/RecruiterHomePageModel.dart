@@ -38,6 +38,7 @@ class RecruiterHomePageSeekerDetail {
   dynamic minSalaryExpectation;
   dynamic maxSalaryExpectation;
   dynamic fresher;
+  dynamic video ;
   List<WorkExpJob>? workExpJob;
   List<EducationLevel>? educationLevel;
   List<LanguageModel>? language;
@@ -59,6 +60,7 @@ class RecruiterHomePageSeekerDetail {
     this.id,
     this.seekerId,
     this.position,
+    this.video,
     this.minSalaryExpectation,
     this.maxSalaryExpectation,
     this.fresher,
@@ -84,6 +86,7 @@ class RecruiterHomePageSeekerDetail {
     id: json["id"],
     seekerId: json["seeker_id"],
     position: json["position"],
+    video: json["short_video"],
     minSalaryExpectation: json["min_salary_expectation"],
     maxSalaryExpectation: json["max_salary_expectation"],
     fresher: json["fresher"],
@@ -134,7 +137,7 @@ class RecruiterHomePageSeekerDetail {
 class RecruiterHomePageSeeker {
   dynamic id;
   String? profileImg;
-  String? shortVideo;
+  String? video;
   String? fullname;
   String? email;
   String? password;
@@ -156,7 +159,7 @@ class RecruiterHomePageSeeker {
   RecruiterHomePageSeeker({
     this.id,
     this.profileImg,
-    this.shortVideo,
+    this.video,
     this.fullname,
     this.email,
     this.password,
@@ -179,7 +182,7 @@ class RecruiterHomePageSeeker {
   factory RecruiterHomePageSeeker.fromJson(Map<String, dynamic> json) => RecruiterHomePageSeeker(
     id: json["id"],
     profileImg: json["profile_img"],
-    shortVideo: json["short_video"],
+    video: json["short_video"],
     fullname: json["fullname"],
     email: json["email"],
     password: json["password"],
@@ -202,7 +205,7 @@ class RecruiterHomePageSeeker {
   Map<String, dynamic> toJson() => {
     "id": id,
     "profile_img": profileImg,
-    "short_video": shortVideo,
+    "short_video": video,
     "fullname": fullname,
     "email": email,
     "password": password,
