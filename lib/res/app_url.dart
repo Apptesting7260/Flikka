@@ -81,5 +81,6 @@ class AppUrl {
   static const String seekerForumList = '$baseUrl/seeker-forum-list-according-industry' ;
   static const String seekerAddForum = '$baseUrl/add-new-forum-api' ;
   static const String forumDataIndustryList = '$baseUrl/industry-list-api' ;
+  static const String forumCommentsList = '$baseUrl/seeker-comment-list-api' ;
 
 }

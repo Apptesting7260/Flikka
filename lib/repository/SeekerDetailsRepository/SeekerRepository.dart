@@ -1,5 +1,6 @@
 
 import 'package:flikka/models/CompanyListModel/CompanyListModel.dart';
+import 'package:flikka/models/ForumCommentsModel/ForumCommentsModel.dart';
 import 'package:flikka/models/SeekerAppliedJobsModel/SeekerAppliedJobsModel.dart';
 import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
@@ -113,5 +114,10 @@ class SeekerRepository {
   Future<ForumIndustryListModel> forumIndustryList() async{
     dynamic response = await apiServices.getApi2(AppUrl.forumDataIndustryList);
     return ForumIndustryListModel.fromJson(response);
+  }
+
+  Future<ForumCommentsModel> forumComments(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.forumCommentsList);
+    return ForumCommentsModel.fromJson(response);
   }
 }
