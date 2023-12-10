@@ -15,7 +15,7 @@ class ForumCommentsController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void seekerForumListApi({String? forumID}){
+  void forumCommentsListApi({String? forumID}){
     var data = {} ;
     data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID) ;
 

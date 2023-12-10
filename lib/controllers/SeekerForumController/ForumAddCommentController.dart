@@ -6,7 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'SeekerForumDataController.dart';
 
-class SeekerAddForumController extends GetxController {
+class ForumAddCommentController extends GetxController {
 
   final _api = SeekerRepository();
   final rxRequestStatus = Status.LOADING.obs ;
@@ -18,15 +18,14 @@ class SeekerAddForumController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void seekerAddForum( BuildContext context , String? industryID , String? title , String? description){
+  void seekerAddComment( BuildContext context , String? forumID , String? comment ,){
     loading(true) ;
     var data = {} ;
-    data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID?.toLowerCase()) ;
-    data.addIf(title != null && title.length != 0 , "title" , title?.toLowerCase()) ;
-    data.addIf(description != null && description.length != 0 , "description" , description?.toLowerCase()) ;
+    data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID?.toLowerCase()) ;
+    data.addIf(comment != null && comment.length != 0 , "comment" , comment?.toLowerCase()) ;
 
     setRxRequestStatus(Status.LOADING);
-    _api.seekerAddForum(data).then((value){
+    _api.forumAddComment(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       Get.back() ;
       forumDataController.seekerForumListApi() ;

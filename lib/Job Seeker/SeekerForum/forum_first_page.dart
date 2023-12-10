@@ -240,7 +240,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.to(() => const ForumOnlyCommentPage());
+                                              Get.to(() => ForumOnlyCommentPage(forumID: "${data?.id}",));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(

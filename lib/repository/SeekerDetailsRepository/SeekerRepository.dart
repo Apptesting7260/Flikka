@@ -120,4 +120,9 @@ class SeekerRepository {
     dynamic response = await apiServices.postApi2(data,AppUrl.forumCommentsList);
     return ForumCommentsModel.fromJson(response);
   }
+
+  Future<EditAboutModel> forumAddComment(var data) async{
+    dynamic response = await apiServices.postApi2(data,AppUrl.forumAddComment);
+    return EditAboutModel.fromJson(response);
+  }
 }
