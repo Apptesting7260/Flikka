@@ -14,6 +14,9 @@ class SeekerMapJobsController extends GetxController {
   RxString error = ''.obs;
   var refreshLoading = false.obs ;
 
+  RxString lat = ''.obs ;
+  RxString long = ''.obs ;
+
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void seekerEarnings(SeekerMapJobsModel _value) => jobsData.value = _value ;
   void setError(String _value) => error.value = _value ;
@@ -24,8 +27,9 @@ class SeekerMapJobsController extends GetxController {
 
     _api.getNearByJobs().then((value){
       setRxRequestStatus(Status.COMPLETED);
+      lat.value = "${value.lat}" ;
+      long.value = "${value.long}" ;
       jobsData(value);
-
       print(value);
 
     }).onError((error, stackTrace){

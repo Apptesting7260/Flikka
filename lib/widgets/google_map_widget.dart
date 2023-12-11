@@ -173,7 +173,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   void initState() {
     if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
-      updateUserLocation();
+      // updateUserLocation();
       updateMap(10);
     }
     super.initState();
@@ -334,35 +334,35 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           });
   }
 
-  Completer<GoogleMapController> _controller = Completer();
-  LatLngBounds _allowedBounds = LatLngBounds(
-    southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
-    northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
-  );
-
-  Future<void> _updateCameraPosition(CameraPosition position) async {
-    GoogleMapController controller = await _controller.future;
-
-    // Calculate the constrained target coordinates
-    double newLat = position.target.latitude.clamp(
-      _allowedBounds.southwest.latitude,
-      _allowedBounds.northeast.latitude,
-    );
-    double newLng = position.target.longitude.clamp(
-      _allowedBounds.southwest.longitude,
-      _allowedBounds.northeast.longitude,
-    );
-
-    // Update the camera position
-    CameraPosition newPosition = CameraPosition(
-      target: LatLng(newLat, newLng),
-      zoom: position.zoom,
-      tilt: position.tilt,
-      bearing: position.bearing,
-    );
-
-    controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
-  }
+  // Completer<GoogleMapController> _controller = Completer();
+  // LatLngBounds _allowedBounds = LatLngBounds(
+  //   southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
+  //   northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
+  // );
+  //
+  // Future<void> _updateCameraPosition(CameraPosition position) async {
+  //   GoogleMapController controller = await _controller.future;
+  //
+  //   // Calculate the constrained target coordinates
+  //   double newLat = position.target.latitude.clamp(
+  //     _allowedBounds.southwest.latitude,
+  //     _allowedBounds.northeast.latitude,
+  //   );
+  //   double newLng = position.target.longitude.clamp(
+  //     _allowedBounds.southwest.longitude,
+  //     _allowedBounds.northeast.longitude,
+  //   );
+  //
+  //   // Update the camera position
+  //   CameraPosition newPosition = CameraPosition(
+  //     target: LatLng(newLat, newLng),
+  //     zoom: position.zoom,
+  //     tilt: position.tilt,
+  //     bearing: position.bearing,
+  //   );
+  //
+  //   controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
+  // }
 
   void updateMap(int radius) async {
     // Clear existing markers
@@ -417,7 +417,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     markers.add(
       Marker(
         markerId: const MarkerId("My location"),
-        position: LatLng(lat, long),
+        position: LatLng( double.tryParse(jobsController.lat.value) ?? lat, double.tryParse(jobsController.long.value) ??  long),
         infoWindow: const InfoWindow(
           title: 'My Current Location',
         ),
@@ -440,12 +440,15 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       }
       lat = value.latitude;
       long = value.longitude;
-
+      if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long ) {
+        lat = jobsController.jobsData.value.lat ;
+        long = jobsController.jobsData.value.long ;
+      }
       // Marker added for the current user's location
       markers.add(
         Marker(
           markerId: const MarkerId("My location"),
-          position: LatLng(value.latitude, value.longitude),
+          position: LatLng(lat, long),
           infoWindow: const InfoWindow(
             title: 'My Current Location',
           ),
@@ -454,7 +457,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
       // Specified current user's location
       CameraPosition cameraPosition = CameraPosition(
-        target: LatLng(value.latitude, value.longitude),
+        target: LatLng(lat, long),
         zoom: 14,
       );
 
