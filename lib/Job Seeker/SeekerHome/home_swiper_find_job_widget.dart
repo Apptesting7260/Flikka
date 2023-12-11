@@ -812,22 +812,22 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                               ],
                             ),
                           ),
-                          IconButton(
-                            onPressed: text.isEmpty &&
-                                    imagePaths.isEmpty &&
-                                    uri.isEmpty
-                                ? null
-                                : () => _onShare(context),
-                            icon: SvgPicture.asset(
-                              'assets/images/sharesvg.svg',
-                            ),
-                          ),
-                          Text("2",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                      color: AppColors.white, fontSize: 14)),
+                          // IconButton(
+                          //   onPressed: text.isEmpty &&
+                          //           imagePaths.isEmpty &&
+                          //           uri.isEmpty
+                          //       ? null
+                          //       : () => _onShare(context),
+                          //   icon: SvgPicture.asset(
+                          //     'assets/images/sharesvg.svg',
+                          //   ),
+                          // ),
+                          // Text("2",
+                          //     style: Theme.of(context)
+                          //         .textTheme
+                          //         .bodySmall!
+                          //         .copyWith(
+                          //             color: AppColors.white, fontSize: 14)),
                         ],
                       ),
                     )
