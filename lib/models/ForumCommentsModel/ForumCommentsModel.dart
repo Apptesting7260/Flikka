@@ -36,6 +36,8 @@ class SeekerComment {
   dynamic id;
   dynamic forumId;
   dynamic seekerId;
+  String? name ;
+  String? img ;
   String? comment;
   DateTime? createdAt;
   DateTime? updatedAt;
@@ -45,6 +47,8 @@ class SeekerComment {
     this.forumId,
     this.seekerId,
     this.comment,
+    this.name,
+    this.img,
     this.createdAt,
     this.updatedAt,
   });
@@ -54,6 +58,8 @@ class SeekerComment {
     forumId: json["forum_id"],
     seekerId: json["seeker_id"],
     comment: json["comment"],
+    name: json["seeker_name"],
+    img: json["seeker_img"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
   );

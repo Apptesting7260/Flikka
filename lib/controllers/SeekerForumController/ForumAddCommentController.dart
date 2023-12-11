@@ -4,6 +4,7 @@ import 'package:flikka/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'ForumCommentsController.dart';
 import 'SeekerForumDataController.dart';
 
 class ForumAddCommentController extends GetxController {
@@ -14,6 +15,7 @@ class ForumAddCommentController extends GetxController {
   var loading = false.obs ;
 
   SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
+  ForumCommentsController commentsController = Get.put(ForumCommentsController()) ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
@@ -21,14 +23,14 @@ class ForumAddCommentController extends GetxController {
   void seekerAddComment( BuildContext context , String? forumID , String? comment ,){
     loading(true) ;
     var data = {} ;
-    data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID?.toLowerCase()) ;
-    data.addIf(comment != null && comment.length != 0 , "comment" , comment?.toLowerCase()) ;
+    data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID ) ;
+    data.addIf(comment != null && comment.length != 0 , "comment" , comment ) ;
 
     setRxRequestStatus(Status.LOADING);
     _api.forumAddComment(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       Get.back() ;
-      forumDataController.seekerForumListApi() ;
+      commentsController.forumCommentsListApi(forumID: forumID) ;
       loading(false) ;
       if (kDebugMode) {
         print(value);

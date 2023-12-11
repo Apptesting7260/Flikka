@@ -154,6 +154,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                         ? const SizedBox()
                    : GestureDetector(
                       onTap: () {
+                        if (kDebugMode) {
+                          print(widget.recruiterData?.seeker?.video) ;
+                        }
                         Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.seeker?.video ?? "")) ;
                       },
                      child: Container(

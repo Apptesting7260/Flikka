@@ -26,6 +26,8 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
   SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
   SeekerForumIndustryController industryController = Get.put(SeekerForumIndustryController()) ;
 
+  String? industryID ;
+
   @override
   void initState() {
     forumDataController.seekerForumListApi() ;
@@ -135,26 +137,31 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   return Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: SizedBox( width: Get.width * 0.25,
-                                      child: Column(
-                                        children: [
-                                         CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                                         placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                                           imageBuilder: (context, imageProvider) => Container(
-                                             height: 60,
-                                             width: 60,
-                                             decoration: BoxDecoration(
-                                               shape: BoxShape.circle ,
-                                               image: DecorationImage(image: imageProvider)
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          forumDataController.seekerForumListApi(industryID: data?.id.toString());
+                                        },
+                                        child: Column(
+                                          children: [
+                                           CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
+                                           placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                             imageBuilder: (context, imageProvider) => Container(
+                                               height: 60,
+                                               width: 60,
+                                               decoration: BoxDecoration(
+                                                 shape: BoxShape.circle ,
+                                                 image: DecorationImage(image: imageProvider)
+                                               ),
                                              ),
-                                           ),
-                                         ) ,
-                                          SizedBox(height: Get.height * .01,),
-                                          Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
-                                            style: Theme.of(context).textTheme
-                                              .bodyMedium
-                                              ?.copyWith(
-                                              fontWeight: FontWeight.w700),),
-                                        ],
+                                           ) ,
+                                            SizedBox(height: Get.height * .01,),
+                                            Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context).textTheme.bodyMedium
+                                                ?.copyWith(fontWeight: FontWeight.w700 ,
+                                              color: forumDataController.industryId.value == data?.id.toString() ?
+                                              AppColors.blueThemeColor : AppColors.white),),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   );
@@ -240,7 +247,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                         children: [
                                           GestureDetector(
                                             onTap: () {
-                                              Get.to(() => ForumOnlyCommentPage(forumID: "${data?.id}",));
+                                              Get.to(() => ForumOnlyCommentPage(forumData: data,));
                                             },
                                             child: Container(
                                               decoration: BoxDecoration(
@@ -280,17 +287,20 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                             child: Column(
                                                               crossAxisAlignment: CrossAxisAlignment.start,
                                                               children: [
-                                                                Text(
-                                                                  data?.title ?? "",
-                                                                  style: Theme
-                                                                      .of(
-                                                                      context)
-                                                                      .textTheme
-                                                                      .titleSmall!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .white),
-                                                                  softWrap: true,),
+                                                                SizedBox( width : Get.width * 0.5,
+                                                                  child: Text(
+                                                                    data?.title ?? "",
+                                                                    overflow: TextOverflow.ellipsis,
+                                                                    style: Theme
+                                                                        .of(
+                                                                        context)
+                                                                        .textTheme
+                                                                        .titleSmall!
+                                                                        .copyWith(
+                                                                        color: AppColors
+                                                                            .white),
+                                                                    softWrap: true,),
+                                                                ),
                                                                 SizedBox(
                                                                   height: Get
                                                                       .height *

@@ -10,12 +10,13 @@ class SeekerForumDataController extends GetxController {
   final rxRequestStatus = Status.LOADING.obs ;
   final forumData = SeekerForumDataModel().obs ;
   RxString error = ''.obs;
+  RxString industryId = ''.obs;
 
   void getForumData(SeekerForumDataModel _value) => forumData.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void seekerForumListApi({String? industryID}){
+  void seekerForumListApi({String? industryID} ){
     var data = {} ;
     data.addIf(industryID != null && industryID.length != 0 , "industry_id" , industryID) ;
 
@@ -23,6 +24,11 @@ class SeekerForumDataController extends GetxController {
     _api.seekerForumData(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       forumData(value) ;
+      if(industryID != null && industryID?.length != 0 ) {
+        if(value.forumData != null && value.forumData?.length != 0) {
+          industryId.value = "${value.forumData?[0].industryId}" ;
+        }
+      }
       if (kDebugMode) {
         print(value);
       }
