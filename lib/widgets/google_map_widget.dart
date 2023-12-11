@@ -390,14 +390,19 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
         // Filter markers within the specified radius
         double markerDistance = Geolocator.distanceBetween(
-              currentPosition.latitude,
-              currentPosition.longitude,
+              // currentPosition.latitude,
+          lat,
+              long,
+              // currentPosition.longitude,
               data?.lat,
               data?.long,
-            ) /
-            1609.344; //
-
-        if (markerDistance <= radius) {
+            ) ; //
+        markerDistance = markerDistance/1609.344 ;
+        if (kDebugMode) {
+          print("this is distance ${markerDistance}") ;
+        }
+        if (markerDistance/ 1609.344 <= radius) {
+          print("object") ;
           markers.add(Marker(
               markerId: MarkerId("${data?.id}"),
               position: LatLng(
