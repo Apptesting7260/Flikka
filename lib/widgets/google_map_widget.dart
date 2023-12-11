@@ -444,7 +444,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       // Marker added for the current user's location
       markers.add(
         Marker(
-          markerId: const MarkerId("1"),
+          markerId: const MarkerId("My location"),
           position: LatLng(value.latitude, value.longitude),
           infoWindow: const InfoWindow(
             title: 'My Current Location',
