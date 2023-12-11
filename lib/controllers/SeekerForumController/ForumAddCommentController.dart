@@ -31,6 +31,7 @@ class ForumAddCommentController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       Get.back() ;
       commentsController.forumCommentsListApi(forumID: forumID) ;
+      forumDataController.seekerForumListApi() ;
       loading(false) ;
       if (kDebugMode) {
         print(value);

@@ -173,7 +173,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   void initState() {
     if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
-      // updateUserLocation();
+      updateUserLocation();
       updateMap(10);
     }
     super.initState();
@@ -287,19 +287,21 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   ),
                   body: SafeArea(
                     child:  GoogleMap(
-                      initialCameraPosition: CameraPosition(
+                      initialCameraPosition: const CameraPosition(
                         target: LatLng(54.7024, -3.2768), // Center of the UK
                         zoom: 6.0,
                       ),
+                      markers: Set<Marker>.of(markers),
                       onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
+                        mapController.complete(controller);
+                        controller.setMapStyle(getCustomMapStyle()) ;
                       },
-                      onCameraMove: (CameraPosition position) {
-                        if (!_allowedBounds.contains(position.target)) {
-                          // If the new camera position is outside the allowed bounds, update the camera position
-                          _updateCameraPosition(position);
-                        }
-                      },
+                      // onCameraMove: (CameraPosition position) {
+                      //   if (!_allowedBounds.contains(position.target)) {
+                      //     // If the new camera position is outside the allowed bounds, update the camera position
+                      //     _updateCameraPosition(position);
+                      //   }
+                      // },
                     ),
                     // GoogleMap(
                     //   initialCameraPosition: kGoogle,
@@ -509,21 +511,10 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           }
         ]
       },
-      {
-        "featureType": "road.highway",
-        "elementType": "labels",
-        "stylers": [
-          {
-            "visibility": "off"
-          }
+    
         ]
       },
-      {
-        "featureType": "road.local",
-        "stylers": [
-          {
-            "visibility": "off"
-          }
+    
         ]
       },
       {
