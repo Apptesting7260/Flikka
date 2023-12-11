@@ -141,9 +141,11 @@ class _UserProfileState extends State<UserProfile> {
     if (pickedImage != null) {
       final croppedImage = await imageCropper.cropImage(
         sourcePath: pickedImage.path,
-        cropStyle: CropStyle.rectangle,
+
         aspectRatio: const CropAspectRatio(ratioX: 1.5, ratioY: 2), // Adjust aspect ratio as needed
         compressQuality: 60,
+        // maxHeight: 400, // Set your maximum height
+        // maxWidth: 800,  // Set your maximum width
           uiSettings: [
           AndroidUiSettings(
           toolbarTitle: 'Cropper',
@@ -151,11 +153,23 @@ class _UserProfileState extends State<UserProfile> {
           toolbarColor: AppColors.blueThemeColor,
           toolbarWidgetColor: Colors.white,
           initAspectRatio: CropAspectRatioPreset.original,
-          lockAspectRatio: true),
+          lockAspectRatio: false),
           IOSUiSettings(title: 'Cropper', aspectRatioLockEnabled: true),
+            WebUiSettings(
+              context: context,
+              presentStyle: CropperPresentStyle.dialog,
+              boundary: const CroppieBoundary(
+                width: 520,
+                height: 520,
+              ),
+              viewPort:
+              const CroppieViewPort(width: 400, height: 400, type: 'circle'),
+              enableExif: false,
+              enableZoom: false,
+              showZoomer: false,
+            )
     ],// Adjust compression quality as needed
       );
-
       setState(() {
         imageFile = File(croppedImage!.path);
         editSeekerProfileController.profileApi(
