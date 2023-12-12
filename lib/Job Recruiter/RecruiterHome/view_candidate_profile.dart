@@ -210,6 +210,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
           minChildSize: widget.recruiterData?.startWorkName == null || widget.recruiterData?.startWorkName?.length == 0 ? 0.6 : 0.52,// half screen
           maxChildSize: 1, // full screen
           builder: (BuildContext context, ScrollController scrollController) {
+
             return Container(
               decoration: const BoxDecoration(
                 borderRadius: BorderRadius.only(
@@ -331,6 +332,16 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemCount: widget.recruiterData?.workExpJob?.length,
                                   itemBuilder: (context, index) {
                                     var data = widget.recruiterData?.workExpJob?[index];
+                                    var endDate ;
+                                    var startDate ;
+                                    startDate = DateTime.parse("${data?.jobStartDate}") ;
+                                    startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                    if(data?.present == true) {
+                                      endDate = "Present" ;
+                                    }else {
+                                      endDate = DateTime.parse("${data?.jobEndDate}") ;
+                                      endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                    }
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -361,7 +372,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                         //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         // ),
                                         Text(
-                                          "${data?.jobStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.jobEndDate.toString().replaceAll("00:00:00.000", "")}",
+                                          "$startDate    $endDate",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -429,6 +440,12 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemCount: widget.recruiterData?.educationLevel?.length,
                                   itemBuilder: (context, index) {
                                     var data = widget.recruiterData?.educationLevel?[index];
+                                    var endDate ;
+                                    if(data?.present == true) {
+                                      endDate = "Present" ;
+                                    } else {
+                                      endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
+                                    }
                                     return Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -454,7 +471,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                                   fontWeight: FontWeight.w400),
                                         ),
                                         Text(
-                                          "${data?.educationStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.educationEndDate.toString().replaceAll("00:00:00.000", "")}",
+                                          "${data?.educationStartDate.month.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.day.toString().padLeft(2,"0").replaceAll("00:00:00.000", "")}-${data?.educationStartDate.year.toString().padLeft(4,"0").replaceAll("00:00:00.000", "")}    $endDate",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
