@@ -274,38 +274,14 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                         color: AppColors.blueThemeColor)),
                                   ) ,
                                     SizedBox(height: Get.height * .031,),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        MyButton(
-                                          height: Get.height * .066,
-                                          title: "JOIN", onTap1: () {
-                                          launchUrl(Uri.parse("${data?.interviewLink}"),
-                                              mode: LaunchMode.externalApplication) ;
-                                        },),
-                                        // SizedBox(
-                                        //   height: Get.height * .066,
-                                        //   width: Get.width * 0.38,
-                                        //   child: ElevatedButton(
-                                        //     style: ElevatedButton.styleFrom(
-                                        //       backgroundColor: AppColors.white,
-                                        //       shape: RoundedRectangleBorder(
-                                        //           borderRadius: BorderRadius
-                                        //               .circular(30)),
-                                        //       padding: EdgeInsets.all(
-                                        //           0), // Set padding to 0 to allow gradient to cover the entire button
-                                        //     ),
-                                        //     onPressed: () {},
-                                        //     child: Text(
-                                        //         "CANCEL",
-                                        //         style: Get.theme.textTheme
-                                        //             .bodyLarge!.copyWith(
-                                        //             color: AppColors.black,
-                                        //             fontWeight: FontWeight.bold)
-                                        //     ),
-                                        //   ),
-                                        // )
-                                      ],
+                                    Center(
+                                      child: MyButton(
+                                        width: Get.width*.75 ,
+                                        height: Get.height * .066,
+                                        title: "JOIN", onTap1: () {
+                                        launchUrl(Uri.parse("${data?.interviewLink}"),
+                                            mode: LaunchMode.externalApplication) ;
+                                      },),
                                     ),
                                     SizedBox(height: Get.height * .031,),
                                   ],

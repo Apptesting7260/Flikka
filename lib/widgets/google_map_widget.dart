@@ -236,90 +236,106 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                 }
               case Status.COMPLETED:
                 return Scaffold(
-                  appBar: AppBar(
-                    toolbarHeight: 65,
-                    leading: IconButton(
-                        onPressed: () {
-                          Get.offAll(const TabScreen(index: 0));
-                        },
-                        icon: Image.asset(
-                          "assets/images/icon_back_blue.png",
-                          height: Get.height * .06,
-                        )),
-                    backgroundColor: AppColors.black,
-                    title: Text(
-                      "Map",
-                      style: Theme.of(context)
-                          .textTheme
-                          .displaySmall
-                          ?.copyWith(color: AppColors.white),
-                    ),
-                    // centerTitle: true,
-                    actions: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: DropdownButton(
-                          dropdownColor: AppColors.black,
-                          hint: const Text("Select"),
-                          value: selectedRadius,
-                          items: radiusList.map<DropdownMenuItem>((value) {
-                            return DropdownMenuItem(
-                              value: value,
-                              child: Text(
-                                '$value miles',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodySmall
-                                    ?.copyWith(color: AppColors.white),
-                              ),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              selectedRadius = newValue;
-                              updateMap(newValue);
-                              // Call the method to filter markers based on the selected radius
-                            });
-                          },
+                  backgroundColor: Colors.transparent,
+                  // appBar: AppBar(
+                  //   // toolbarHeight: 65,
+                  //   // leading: IconButton(
+                  //   //     onPressed: () {
+                  //   //       Get.offAll(const TabScreen(index: 0));
+                  //   //     },
+                  //   //     icon: Image.asset(
+                  //   //       "assets/images/icon_back_blue.png",
+                  //   //       height: Get.height * .06,
+                  //   //     )),
+                  //   backgroundColor: Colors.transparent,
+                  //   // title: Text(
+                  //   //   "Map",
+                  //   //   style: Theme.of(context)
+                  //   //       .textTheme
+                  //   //       .displaySmall
+                  //   //       ?.copyWith(color: AppColors.white),
+                  //   // ),
+                  //   // centerTitle: true,
+                  //   actions: [
+                  //     Padding(
+                  //       padding: const EdgeInsets.all(8.0),
+                  //       child: DropdownButton(
+                  //         dropdownColor: AppColors.black,
+                  //         hint: const Text("Select"),
+                  //         value: selectedRadius,
+                  //         items: radiusList.map<DropdownMenuItem>((value) {
+                  //           return DropdownMenuItem(
+                  //             value: value,
+                  //             child: Text(
+                  //               '$value miles',
+                  //               style: Theme.of(context)
+                  //                   .textTheme
+                  //                   .bodySmall
+                  //                   ?.copyWith(color: AppColors.white),
+                  //             ),
+                  //           );
+                  //         }).toList(),
+                  //         onChanged: (newValue) {
+                  //           setState(() {
+                  //             selectedRadius = newValue;
+                  //             updateMap(newValue);
+                  //             // Call the method to filter markers based on the selected radius
+                  //           });
+                  //         },
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
+                  body: Stack(
+                    children: [
+                      GoogleMap(
+                        initialCameraPosition:  CameraPosition(
+                          target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
+                          zoom: 4.0,
                         ),
+                        markers: Set<Marker>.of(markers),
+                        onMapCreated: (GoogleMapController controller) {
+                          mapController.complete(controller);
+                          controller.setMapStyle(getCustomMapStyle()) ;
+                        },
+                        // onCameraMove: (CameraPosition position) {
+                        //   if (!_allowedBounds.contains(position.target)) {
+                        //     // If the new camera position is outside the allowed bounds, update the camera position
+                        //     _updateCameraPosition(position);
+                        //   }
+                        // },
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          DropdownButton(
+                            dropdownColor: AppColors.black,
+                            hint: const Text("Select"),
+                            value: selectedRadius,
+                            items: radiusList.map<DropdownMenuItem>((value) {
+                              return DropdownMenuItem(
+                                value: value,
+                                child: Text(
+                                  '$value miles',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodySmall
+                                      ?.copyWith(color: AppColors.white),
+                                ),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              setState(() {
+                                selectedRadius = newValue;
+                                updateMap(newValue);
+                                // Call the method to filter markers based on the selected radius
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ],
-                  ),
-                  body: SafeArea(
-                    child:  GoogleMap(
-                      initialCameraPosition:  CameraPosition(
-                        target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
-                        zoom: 4.0,
-                      ),
-                      markers: Set<Marker>.of(markers),
-                      onMapCreated: (GoogleMapController controller) {
-                        mapController.complete(controller);
-                        controller.setMapStyle(getCustomMapStyle()) ;
-                      },
-                      // onCameraMove: (CameraPosition position) {
-                      //   if (!_allowedBounds.contains(position.target)) {
-                      //     // If the new camera position is outside the allowed bounds, update the camera position
-                      //     _updateCameraPosition(position);
-                      //   }
-                      // },
-                    ),
-                    // GoogleMap(
-                    //   initialCameraPosition: kGoogle,
-                    //   markers: Set<Marker>.of(markers),
-                    //   mapType: MapType.normal,
-                    //   myLocationEnabled: true,
-                    //   compassEnabled: true,
-                    //   onMapCreated: (GoogleMapController controller) {
-                    //     mapController.complete(controller);
-                    //     LatLngBounds ukBounds = LatLngBounds(
-                    //       southwest: const LatLng(49.823809, -7.572167), // Southwest coordinates
-                    //       northeast: const LatLng(58.788884, 1.681530),  // Northeast coordinates
-                    //     );
-                    //     controller.moveCamera(
-                    //       CameraUpdate.newLatLngBounds(ukBounds, 0), // No padding
-                    //     );
-                    //   },
-                    // ),
+
                   ),
                   // floatingActionButton: FloatingActionButton(
                   //   backgroundColor: AppColors.black,

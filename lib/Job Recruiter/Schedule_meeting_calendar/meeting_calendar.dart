@@ -256,7 +256,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                    SizedBox(height: Get.height*.01,) ,
                    TextFormField(
                      controller: interviewController.interViewLinkController.value,
-                     autovalidateMode: AutovalidateMode.onUserInteraction,
+                     // autovalidateMode: AutovalidateMode.onUserInteraction,
                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),
                      decoration: InputDecoration(
                          border:OutlineInputBorder(
