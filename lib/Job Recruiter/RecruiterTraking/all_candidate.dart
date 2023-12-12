@@ -109,16 +109,13 @@ class _AllCandidateState extends State<AllCandidate> {
                         }
                       case Status.COMPLETED:
                         return Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Get.width * .04),
+                          padding: EdgeInsets.symmetric(horizontal: Get.width * .04),
                           child: SingleChildScrollView(
                             child: Column(
                               children: [
                                 SizedBox(height: Get.height * .04,),
                                 Container(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: Get.width * .05,
-                                      vertical: Get.height * .008),
+                                  padding: EdgeInsets.symmetric(horizontal: Get.width * .05, vertical: Get.height * .008),
                                   decoration: BoxDecoration(
                                     color: AppColors.textFieldFilledColor,
                                     borderRadius: BorderRadius.circular(33.0),
@@ -132,25 +129,15 @@ class _AllCandidateState extends State<AllCandidate> {
                                       SizedBox(width: Get.width * .03),
                                       Expanded(
                                         child: TextFormField(
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .bodyLarge
-                                              ?.copyWith(
-                                              color: Color(0xffCFCFCF),
-                                              fontSize: 19),
+                                          style: Theme.of(context).textTheme.bodyLarge
+                                              ?.copyWith(color: const Color(0xffCFCFCF), fontSize: 19),
                                           onChanged: (query) {
                                             // filterPositionNames(query);
                                           },
                                           decoration: InputDecoration(
                                             hintText: 'Search',
-                                            hintStyle: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .bodyLarge
-                                                ?.copyWith(
-                                                color: Color(0xffCFCFCF)),
-                                            border: InputBorder.none,
+                                            hintStyle: Theme.of(context).textTheme.bodyLarge
+                                                ?.copyWith(color: const Color(0xffCFCFCF)), border: InputBorder.none,
                                           ),
                                         ),
                                       ),

@@ -375,20 +375,22 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                         style: Get.theme.textTheme.bodySmall!
                                                             .copyWith(color: AppColors.white),),
                                                       SizedBox(width: Get.width * 0.075,),
-                                                      InkWell(
-                                                          onTap: () {
-                                                            Get.to(() => ForumOnlyCommentPage(forumData: data,));
-                                                          },
-                                                          child: Image.asset(
-                                                              'assets/images/commenticons.png')),
-                                                      SizedBox(
-                                                        width: Get.width *
-                                                            0.015,),
-                                                      TextButton(
-                                                        onPressed: () { Get.to(() => ForumOnlyCommentPage(forumData: data,)); },
-                                                        child: Text("${data?.forumCommentCount} Comments",
-                                                          style: Get.theme.textTheme.bodySmall!
-                                                              .copyWith(color: AppColors.white),),)
+                                                      GestureDetector(
+                                                        onTap : () {
+                                                          Get.to(() => ForumOnlyCommentPage(forumData: data,));} ,
+                                                        child: Row(
+                                                          children: [
+                                                            Image.asset(
+                                                                'assets/images/commenticons.png'),
+                                                            SizedBox(
+                                                              width: Get.width *
+                                                                  0.015,),
+                                                            Text("${data?.forumCommentCount} Comments",
+                                                              style: Get.theme.textTheme.bodySmall!
+                                                                  .copyWith(color: AppColors.white),),
+                                                          ],
+                                                        ),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
