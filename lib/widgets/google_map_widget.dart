@@ -173,8 +173,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   void initState() {
     if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
-      // updateUserLocation();
-      updateMap(10);
+      updateUserLocation();
+      // updateMap(10);
     }
     super.initState();
   }
@@ -321,14 +321,14 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                     //   },
                     // ),
                   ),
-                  floatingActionButton: FloatingActionButton(
-                    backgroundColor: AppColors.black,
-                    onPressed: () async {
-                      updateUserLocation();
-                    },
-                    child: const Icon(Icons.local_activity,
-                        color: AppColors.white),
-                  ),
+                  // floatingActionButton: FloatingActionButton(
+                  //   backgroundColor: AppColors.black,
+                  //   onPressed: () async {
+                  //     updateUserLocation();
+                  //   },
+                  //   child: const Icon(Icons.local_activity,
+                  //       color: AppColors.white),
+                  // ),
                 );
             }
           });
@@ -370,8 +370,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
     Position currentPosition = await Geolocator.getCurrentPosition();
 
-    if (jobsController.jobsData.value.jobs != null &&
-        jobsController.jobsData.value.jobs?.length != 0) {
+    if (jobsController.jobsData.value.jobs != null && jobsController.jobsData.value.jobs?.length != 0) {
       for (int i = 0; i < jobsController.jobsData.value.jobs!.length; i++) {
         var data = jobsController.jobsData.value.jobs?[i];
         // Calculate distance in meters using the Haversine formula
@@ -385,8 +384,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         // Convert distance to miles
         double distanceInMiles = distanceInMeters / 1609.344;
 
-        print(
-            "Distance from current location to center: $distanceInMiles miles");
+        print("Distance from current location to center: $distanceInMiles miles");
 
         // Filter markers within the specified radius
         double markerDistance = Geolocator.distanceBetween(
@@ -401,7 +399,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         if (kDebugMode) {
           print("this is distance ${markerDistance}") ;
         }
-        if (markerDistance/ 1609.344 <= radius) {
+        if (markerDistance <= radius) {
           print("object") ;
           markers.add(Marker(
               markerId: MarkerId("${data?.id}"),
@@ -445,7 +443,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       }
       lat = value.latitude;
       long = value.longitude;
-      if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long ) {
+      if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long != null ) {
+        print(jobsController.jobsData.value.lat) ;
+        print(jobsController.jobsData.value.long) ;
         lat = jobsController.jobsData.value.lat ;
         long = jobsController.jobsData.value.long ;
       }
@@ -463,7 +463,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       // Specified current user's location
       CameraPosition cameraPosition = CameraPosition(
         target: LatLng(lat, long),
-        zoom: 14,
+        zoom: 8,
       );
 
       final GoogleMapController controller = await mapController.future;
