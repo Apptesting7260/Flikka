@@ -195,7 +195,20 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                               color: Color(0xffCFCFCF),
                                               fontSize: 19),
                                           onChanged: (query) {
-                                            // filterPositionNames(query);
+                                            forumDataController.forumData.value.forumData = forumDataController.forumData.value.forumData?.where((element) {
+                                             if( element.title != null) {
+                                              if( element.title!.toLowerCase().contains(query.toLowerCase())) {
+                                                setState(() {
+                                                  print("object") ;
+                                                });
+                                                return true ;
+                                              }else {
+                                                return false ;
+                                              }
+                                             }else {
+                                               return false ;
+                                             }
+                                            }).toList() ;
                                           },
                                           decoration: InputDecoration(
                                             hintText: 'Search',

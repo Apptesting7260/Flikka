@@ -12,15 +12,21 @@ String seekerAppliedJobsModelToJson(SeekerAppliedJobsModel data) => json.encode(
 
 class SeekerAppliedJobsModel {
   bool? status;
+  dynamic lat ;
+  dynamic long ;
   List<AppliedJobsList>? job;
 
   SeekerAppliedJobsModel({
     this.status,
+    this.long ,
+    this.lat ,
     this.job,
   });
 
   factory SeekerAppliedJobsModel.fromJson(Map<String, dynamic> json) => SeekerAppliedJobsModel(
     status: json["status"],
+    lat: json["lat"],
+    long: json["long"],
     job: json["job"] == null ? json["job"] : List<AppliedJobsList>.from(json["job"].map((x) => AppliedJobsList.fromJson(x))),
   );
 

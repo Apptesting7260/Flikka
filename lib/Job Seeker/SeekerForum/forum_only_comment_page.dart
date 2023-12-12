@@ -3,6 +3,7 @@ import 'package:flikka/controllers/SeekerForumController/ForumAddCommentControll
 import 'package:flikka/controllers/SeekerForumController/ForumCommentsController.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
 import '../../data/response/status.dart';
@@ -192,14 +193,17 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                                       crossAxisAlignment: CrossAxisAlignment
                                           .start,
                                       children: [
-                                        Text(
-                                          widget.forumData?.title ?? "",
-                                          style: Theme
-                                              .of(context)
-                                              .textTheme
-                                              .titleSmall!
-                                              .copyWith(color: AppColors.white),
-                                          softWrap: true,
+                                        SizedBox( width: Get.width *.5,
+                                          child: Text(
+                                            widget.forumData?.title ?? "",
+                                            overflow: TextOverflow.ellipsis,
+                                            style: Theme
+                                                .of(context)
+                                                .textTheme
+                                                .titleSmall!
+                                                .copyWith(color: AppColors.white),
+                                            softWrap: true,
+                                          ),
                                         ),
                                         SizedBox(
                                           height: Get.height * 0.005,
@@ -223,9 +227,8 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                           SizedBox(
                             height: Get.height * 0.035,
                           ),
-                          Text( widget.forumData?.titleDescription ?? "",
-                            textAlign: TextAlign.justify,
-                            style: Theme
+                          HtmlWidget( widget.forumData?.titleDescription ?? "",
+                            textStyle: Theme
                                 .of(context)
                                 .textTheme
                                 .bodySmall!
@@ -305,22 +308,24 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                                       backgroundImage: NetworkImage(data?.img ?? ""),
                                     ),
                                     title: RichText(text: TextSpan(
-                                        text: "${data?.name ?? ""}\n", style: Theme
+                                        text: data?.name ?? "", style: Theme
                                         .of(context)
                                         .textTheme
                                         .titleSmall
                                         ?.copyWith(fontSize: 13),
-                                        children: [
-                                          TextSpan(text: data?.comment ?? "",
-                                              style: Theme
-                                                  .of(context)
-                                                  .textTheme
-                                                  .labelLarge
-                                                  ?.copyWith(
-                                                  fontWeight: FontWeight.w400,
-                                                  color: Color(0xffCFCFCF)))
-                                        ]
+                                        // children: [
+                                        //   TextSpan(text: (data?.comment) ?? "",
+                                        //       style: Theme
+                                        //           .of(context)
+                                        //           .textTheme
+                                        //           .labelLarge
+                                        //           ?.copyWith(
+                                        //           fontWeight: FontWeight.w400,
+                                        //           color: Color(0xffCFCFCF)))
+                                        // ]
                                     ),),
+                                    subtitle: HtmlWidget(data?.comment ?? "" , textStyle: Theme.of(context).textTheme
+                                        .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),),
                                     // subtitle: Row(
                                     //   children: [
                                     //     Text("3 hrs ago", style: Theme

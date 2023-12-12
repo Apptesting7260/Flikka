@@ -4,6 +4,8 @@ import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart'
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 
+import 'SeekerForumDataController.dart';
+
 class ForumCommentsController extends GetxController {
 
   final _api = SeekerRepository();
@@ -11,6 +13,7 @@ class ForumCommentsController extends GetxController {
   final commentsData = ForumCommentsModel().obs ;
   RxString error = ''.obs;
 
+  SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
   void getForumData(ForumCommentsModel _value) => commentsData.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
@@ -23,6 +26,7 @@ class ForumCommentsController extends GetxController {
     _api.forumComments(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       commentsData(value) ;
+      forumDataController.seekerForumListApi() ;
       if (kDebugMode) {
         print(value);
       }

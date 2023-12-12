@@ -174,7 +174,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
       updateUserLocation();
-      updateMap(10);
+      // updateMap(10);
     }
     super.initState();
   }
@@ -321,48 +321,48 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                     //   },
                     // ),
                   ),
-                  floatingActionButton: FloatingActionButton(
-                    backgroundColor: AppColors.black,
-                    onPressed: () async {
-                      updateUserLocation();
-                    },
-                    child: const Icon(Icons.local_activity,
-                        color: AppColors.white),
-                  ),
+                  // floatingActionButton: FloatingActionButton(
+                  //   backgroundColor: AppColors.black,
+                  //   onPressed: () async {
+                  //     updateUserLocation();
+                  //   },
+                  //   child: const Icon(Icons.local_activity,
+                  //       color: AppColors.white),
+                  // ),
                 );
             }
           });
   }
 
-  Completer<GoogleMapController> _controller = Completer();
-  LatLngBounds _allowedBounds = LatLngBounds(
-    southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
-    northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
-  );
-
-  Future<void> _updateCameraPosition(CameraPosition position) async {
-    GoogleMapController controller = await _controller.future;
-
-    // Calculate the constrained target coordinates
-    double newLat = position.target.latitude.clamp(
-      _allowedBounds.southwest.latitude,
-      _allowedBounds.northeast.latitude,
-    );
-    double newLng = position.target.longitude.clamp(
-      _allowedBounds.southwest.longitude,
-      _allowedBounds.northeast.longitude,
-    );
-
-    // Update the camera position
-    CameraPosition newPosition = CameraPosition(
-      target: LatLng(newLat, newLng),
-      zoom: position.zoom,
-      tilt: position.tilt,
-      bearing: position.bearing,
-    );
-
-    controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
-  }
+  // Completer<GoogleMapController> _controller = Completer();
+  // LatLngBounds _allowedBounds = LatLngBounds(
+  //   southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
+  //   northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
+  // );
+  //
+  // Future<void> _updateCameraPosition(CameraPosition position) async {
+  //   GoogleMapController controller = await _controller.future;
+  //
+  //   // Calculate the constrained target coordinates
+  //   double newLat = position.target.latitude.clamp(
+  //     _allowedBounds.southwest.latitude,
+  //     _allowedBounds.northeast.latitude,
+  //   );
+  //   double newLng = position.target.longitude.clamp(
+  //     _allowedBounds.southwest.longitude,
+  //     _allowedBounds.northeast.longitude,
+  //   );
+  //
+  //   // Update the camera position
+  //   CameraPosition newPosition = CameraPosition(
+  //     target: LatLng(newLat, newLng),
+  //     zoom: position.zoom,
+  //     tilt: position.tilt,
+  //     bearing: position.bearing,
+  //   );
+  //
+  //   controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
+  // }
 
   void updateMap(int radius) async {
     // Clear existing markers
@@ -370,8 +370,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
     Position currentPosition = await Geolocator.getCurrentPosition();
 
-    if (jobsController.jobsData.value.jobs != null &&
-        jobsController.jobsData.value.jobs?.length != 0) {
+    if (jobsController.jobsData.value.jobs != null && jobsController.jobsData.value.jobs?.length != 0) {
       for (int i = 0; i < jobsController.jobsData.value.jobs!.length; i++) {
         var data = jobsController.jobsData.value.jobs?[i];
         // Calculate distance in meters using the Haversine formula
@@ -385,19 +384,23 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
         // Convert distance to miles
         double distanceInMiles = distanceInMeters / 1609.344;
 
-        print(
-            "Distance from current location to center: $distanceInMiles miles");
+        print("Distance from current location to center: $distanceInMiles miles");
 
         // Filter markers within the specified radius
         double markerDistance = Geolocator.distanceBetween(
-              currentPosition.latitude,
-              currentPosition.longitude,
+              // currentPosition.latitude,
+          lat,
+              long,
+              // currentPosition.longitude,
               data?.lat,
               data?.long,
-            ) /
-            1609.344; //
-
+            ) ; //
+        markerDistance = markerDistance/1609.344 ;
+        if (kDebugMode) {
+          print("this is distance ${markerDistance}") ;
+        }
         if (markerDistance <= radius) {
+          print("object") ;
           markers.add(Marker(
               markerId: MarkerId("${data?.id}"),
               position: LatLng(
@@ -417,7 +420,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     markers.add(
       Marker(
         markerId: const MarkerId("My location"),
-        position: LatLng(lat, long),
+        position: LatLng( double.tryParse(jobsController.lat.value) ?? lat, double.tryParse(jobsController.long.value) ??  long),
         infoWindow: const InfoWindow(
           title: 'My Current Location',
         ),
@@ -440,12 +443,17 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       }
       lat = value.latitude;
       long = value.longitude;
-
+      if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long != null ) {
+        print(jobsController.jobsData.value.lat) ;
+        print(jobsController.jobsData.value.long) ;
+        lat = jobsController.jobsData.value.lat ;
+        long = jobsController.jobsData.value.long ;
+      }
       // Marker added for the current user's location
       markers.add(
         Marker(
           markerId: const MarkerId("My location"),
-          position: LatLng(value.latitude, value.longitude),
+          position: LatLng(lat, long),
           infoWindow: const InfoWindow(
             title: 'My Current Location',
           ),
@@ -454,8 +462,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
       // Specified current user's location
       CameraPosition cameraPosition = CameraPosition(
-        target: LatLng(value.latitude, value.longitude),
-        zoom: 14,
+        target: LatLng(lat, long),
+        zoom: 8,
       );
 
       final GoogleMapController controller = await mapController.future;
