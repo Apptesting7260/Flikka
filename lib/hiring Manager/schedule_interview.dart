@@ -1081,7 +1081,7 @@ import '../res/components/unauthorised_request_widget.dart';
 import '../utils/CommonWidgets.dart';
 import '../utils/VideoPlayerScreen.dart';
 
-
+bool isMeetingScheduled = false;
 class ScheduleInterview extends StatefulWidget {
  final String seekerID ; final String requestID ; final bool? talentPool ; final bool? accepted ;
   const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.accepted}) : super(key: key);
@@ -2059,14 +2059,10 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                               }),
                                             ],),
                                             SizedBox(height: Get.height * 0.03,),
-                                          widget.accepted ?? isButtonVisible ?
-                                          Center(
+                                          widget.accepted == true ? Center(
                                               child: MyButton(title: 'SCHEDULE MEETING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
-                                                  setState(() {
-                                                    isButtonVisible = false;
-                                                  });
                                                 },
                                               ),
                                             ) :  MyButton(

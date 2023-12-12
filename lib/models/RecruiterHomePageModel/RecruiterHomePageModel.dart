@@ -10,24 +10,24 @@ String recruiterHomePageModelToJson(RecruiterHomePageModel data) => json.encode(
 class RecruiterHomePageModel {
   bool? status;
   String? message;
-  List<RecruiterHomePageSeekerDetail>? seekerDetails;
+  List<RecruiterHomePageSeekerDetail>? Seeker_Details;
 
   RecruiterHomePageModel({
     this.status,
     this.message,
-    this.seekerDetails,
+    this.Seeker_Details,
   });
 
   factory RecruiterHomePageModel.fromJson(Map<String, dynamic> json) => RecruiterHomePageModel(
     status: json["status"],
     message: json["message"],
-    seekerDetails: json["Seeker Details"] == null ? json["Seeker Details"] : List<RecruiterHomePageSeekerDetail>.from(json["Seeker Details"].map((x) => RecruiterHomePageSeekerDetail.fromJson(x))),
+    Seeker_Details: json["Seeker_Details"] == null ? json["Seeker_Details"] : List<RecruiterHomePageSeekerDetail>.from(json["Seeker_Details"].map((x) => RecruiterHomePageSeekerDetail.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
     "message": message,
-    "Seeker Details": List<dynamic>.from(seekerDetails!.map((x) => x.toJson())),
+    "Seeker_Details": List<dynamic>.from(Seeker_Details!.map((x) => x.toJson())),
   };
 }
 
