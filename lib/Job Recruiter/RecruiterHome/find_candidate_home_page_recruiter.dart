@@ -2,12 +2,15 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Recruiter/RecruiterHome/view_candidate_profile.dart';
 import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
 import 'package:flikka/widgets/app_colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
+
+import '../../utils/VideoPlayerScreen.dart';
 
 String formatDate(String? dateString) {
   if (dateString != null) {
@@ -27,6 +30,89 @@ class FindCandidateHomePageRecruiter extends StatefulWidget {
 
 class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRecruiter> {
 
+  void showRecruiterHomePagePercentageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: AppColors.textFieldFilledColor,
+          contentPadding: EdgeInsets.zero,
+          insetPadding: const EdgeInsets.symmetric(horizontal: 20),
+          content: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () => Get.back(),
+                      child: Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.blueThemeColor,
+                              borderRadius: BorderRadius.circular(12),),
+                            child: const Icon(
+                              Icons.close,
+                              color: Colors.white,
+                            ),),
+
+                        ],
+                      ),
+                    )],),
+                SizedBox(height: Get.height*.03,) ,
+                Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      border: Border.all(color: AppColors.white, width: 2)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(3.0),
+                    child: Container(
+                        decoration: const BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: AppColors.blueThemeColor),
+                        child: CircleAvatar(
+                            radius: 34,
+                            backgroundColor: Colors.transparent,
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text("${widget.recruiterData?.jobMatchPercentage}%",
+                                      style: Get.theme.textTheme.bodySmall!
+                                          .copyWith(color: AppColors.white)),
+                                  Text('match',
+                                      style: Get.theme.textTheme.bodySmall!
+                                          .copyWith(
+                                          color: AppColors.white,
+                                          fontSize: 7)),
+                                ],
+                              ),
+                            ))),
+                  ),
+                ) ,
+                SizedBox(height: Get.height*.03,) ,
+                Text('Profile Match ${widget.recruiterData?.jobMatchPercentage}%',style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+                SizedBox(height: Get.height*.015,) ,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Text("According to your skills your profile is match for this job.",textAlign: TextAlign.center, style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w400,color: AppColors.graySilverColor,),),
+                ) ,
+                SizedBox(height: Get.height*.05,) ,
+              ],
+            ),
+          ),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15),
+          ),
+        );
+      },
+    );
+  }
 
   String text = '';
   String subject = '';
@@ -104,7 +190,6 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       decoration: BoxDecoration(color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
       height: Get.height,
@@ -142,47 +227,83 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
               ),
             ),
           ),
-          //************* for 50% match ************
-          // Positioned(
-          //   right: 20,
-          //   top: 10,
-          //   child: Stack(
-          //     children: [
-          //       Container(
-          //         decoration: BoxDecoration(
-          //             borderRadius: BorderRadius.circular(50),
-          //             border: Border.all(color: AppColors.white, width: 2)),
-          //         child: Padding(
-          //           padding: const EdgeInsets.all(3.0),
-          //           child: Container(
-          //               decoration: const BoxDecoration(
-          //                 shape: BoxShape.circle,
-          //                 color: AppColors.blueThemeColor
-          //               ),
-          //               child: CircleAvatar(
-          //                   radius: 30,
-          //                   backgroundColor: Colors.transparent,
-          //                   child: Center(
-          //                     child: Column(
-          //                       mainAxisAlignment: MainAxisAlignment.center,
-          //                       children: [
-          //                         Text('50%',
-          //                             style: Get.theme.textTheme.bodySmall!
-          //                                 .copyWith(color: AppColors.white)),
-          //                         Text('match',
-          //                             style: Get.theme.textTheme.bodySmall!
-          //                                 .copyWith(
-          //                                 color: AppColors.white,
-          //                                 fontSize: 7)),
-          //                       ],
-          //                     ),
-          //                   ))),
-          //         ),
-          //       )
-          //     ],
-          //   ),
-          // ),
-          //************* for bookmarks ************
+          // ************* for 50% match ************
+
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              widget.recruiterData?.seeker?.video == null ||
+                  widget.recruiterData?.seeker?.video.toString().length == 0
+                  ? const SizedBox()
+                  : GestureDetector(
+                onTap: () {
+                  if (kDebugMode) {
+                    print(widget.recruiterData?.seeker?.video) ;
+                  }
+                  Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterData?.seeker?.video ?? "")) ;
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 45,
+                  width: 45,
+                  decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: AppColors.blueThemeColor
+                  ),
+                  child: Image.asset(
+                    "assets/images/icon_video.png",
+                    height: 18,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Stack(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        border: Border.all(color: AppColors.white, width: 2)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(3.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          showRecruiterHomePagePercentageDialog(context) ;
+                        },
+                        child: Container(
+                            decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: AppColors.blueThemeColor
+                            ),
+                            child: CircleAvatar(
+                                radius: 30,
+                                backgroundColor: Colors.transparent,
+                                child: Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("${widget.recruiterData?.jobMatchPercentage}%",
+                                          style: Get.theme.textTheme.bodySmall!
+                                              .copyWith(color: AppColors.white)),
+                                      Text('match',
+                                          style: Get.theme.textTheme.bodySmall!
+                                              .copyWith(
+                                              color: AppColors.white,
+                                              fontSize: 7)),
+                                    ],
+                                  ),
+                                ))),
+                      ),
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+
+          // ************* for bookmarks ************
           // Positioned(
           //   left: 12,
           //   top: 15,
@@ -199,7 +320,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
           //     ],
           //   ),
           // ),
-          //************* for marketing intern text  ************
+          // ************* for marketing intern text  ************
           Positioned(
             height: Get.height / 2.5-Get.height*0.12 ,
             bottom: Get.height * 0.05,
