@@ -338,9 +338,9 @@ class WorkExpJob {
   factory WorkExpJob.fromJson(Map<String, dynamic> json) => WorkExpJob(
     workExpJob: json["work_exp_job"],
     companyName: json["company_name"],
-    jobStartDate: json["job_start_date"] == null ? json["job_start_date"] : DateTime.tryParse(json["job_start_date"]),
-    jobEndDate: json["job_end_date"] == null || json["job_end_date"].toString() == "present" ? json["job_end_date"] : DateTime.tryParse(json["job_end_date"]),
-    present: json["present"]
+    jobStartDate: json["job_start_date"] ,
+    jobEndDate: json["job_end_date"]
+    // present: json["present"]
   );
 
   Map<String, dynamic> toJson() => {

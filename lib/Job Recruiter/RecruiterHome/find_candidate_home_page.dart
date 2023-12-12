@@ -167,7 +167,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                          child: DropdownButton2(
                            isExpanded: true,
                            hint: Text(
-                             employmentType ?? homeController.homeData.value.seekerDetails?[0].positions  ?? "No positions",
+                             employmentType ?? homeController.homeData.value.Seeker_Details?[0].positions  ?? "No positions",
                              style: Get.theme.textTheme.bodyLarge!.copyWith(
                                  color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
                            items: jobsController.getJobsDetails.value.jobPositionList?.map((item) =>
@@ -222,20 +222,20 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                      ],
                    ) ,
                     Flexible(
-                      child: homeController.homeData.value.seekerDetails == null ||
-                          homeController.homeData.value.seekerDetails?.length == 0 ?
+                      child: homeController.homeData.value.Seeker_Details == null ||
+                          homeController.homeData.value.Seeker_Details?.length == 0 ?
                       const SeekerNoJobAvailable(message: "No Data Available",) :
                       CardSwiper(
                         controller: controller,
-                        cardsCount: homeController.homeData.value.seekerDetails?.length ?? 0,
-                        numberOfCardsDisplayed: homeController.homeData.value.seekerDetails?.length == 1 ? 1 : 2,
+                        cardsCount: homeController.homeData.value.Seeker_Details?.length ?? 0,
+                        numberOfCardsDisplayed: homeController.homeData.value.Seeker_Details?.length == 1 ? 1 : 2,
                         backCardOffset: const Offset(40, 40),
                         padding: const EdgeInsets.all(24.0),
                         onSwipe: _onSwipe,
                         cardBuilder: (context, index,
                             horizontalThresholdPercentage,
                             verticalThresholdPercentage,) {
-                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.seekerDetails?[index],);
+                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.Seeker_Details?[index],);
                         },
                       ),
                     ),
@@ -347,7 +347,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                                 title: "Select",
                                 onTap1: () {
                                   if(jobTitleID != null) {
-                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.seekerDetails?[previousIndex].seekerId.toString(),) ;
+                                    applyJobController.applyJob( jobTitleID,seekerID: homeController.homeData.value.Seeker_Details?[previousIndex].seekerId.toString(),) ;
                                   }else {
                                     errorMessage.value = "Select Job before selecting" ;
                                   }
