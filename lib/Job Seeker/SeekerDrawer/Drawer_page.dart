@@ -141,20 +141,20 @@ class _DrawerClassState extends State<DrawerClass> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: Get.height * 0.04,
+                                    height: Get.height * 0.03,
                                   ),
-                                  ListTile(
-                                    onTap: () {
-                                      Get.offAll(const TabScreen(index: 0));
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(homeIcon) ,
-                                    title: Text(
-                                      "Home",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                    ),
-                                  ),
+                                  // ListTile(
+                                  //   onTap: () {
+                                  //     Get.offAll(const TabScreen(index: 0));
+                                  //   },
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: drawerIcon(homeIcon) ,
+                                  //   title: Text(
+                                  //     "Home",
+                                  //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //   ),
+                                  // ),
                                   ListTile(
                                     horizontalTitleGap:0,
                                     onTap: () {
@@ -251,15 +251,15 @@ class _DrawerClassState extends State<DrawerClass> {
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                     ),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: drawerIcon(aboutIcon) ,
-                                    title: Text(
-                                      "About",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                    ),
-                                  ),
+                                  // ListTile(
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: drawerIcon(aboutIcon) ,
+                                  //   title: Text(
+                                  //     "About",
+                                  //     style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //   ),
+                                  // ),
                                   ListTile(
                                     onTap: () {
                                       Get.to(() =>const SettingPage());

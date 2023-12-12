@@ -236,8 +236,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                 }
               case Status.COMPLETED:
                 return Scaffold(
+                  backgroundColor: Colors.transparent,
                   appBar: AppBar(
-                    toolbarHeight: 65,
+                    // toolbarHeight: 65,
                     leading: IconButton(
                         onPressed: () {
                           Get.offAll(const TabScreen(index: 0));
@@ -246,7 +247,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                           "assets/images/icon_back_blue.png",
                           height: Get.height * .06,
                         )),
-                    backgroundColor: AppColors.black,
+                    backgroundColor: Colors.transparent,
                     title: Text(
                       "Map",
                       style: Theme.of(context)
@@ -285,41 +286,22 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                       ),
                     ],
                   ),
-                  body: SafeArea(
-                    child:  GoogleMap(
-                      initialCameraPosition:  CameraPosition(
-                        target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
-                        zoom: 4.0,
-                      ),
-                      markers: Set<Marker>.of(markers),
-                      onMapCreated: (GoogleMapController controller) {
-                        mapController.complete(controller);
-                        controller.setMapStyle(getCustomMapStyle()) ;
-                      },
-                      // onCameraMove: (CameraPosition position) {
-                      //   if (!_allowedBounds.contains(position.target)) {
-                      //     // If the new camera position is outside the allowed bounds, update the camera position
-                      //     _updateCameraPosition(position);
-                      //   }
-                      // },
+                  body: GoogleMap(
+                    initialCameraPosition:  CameraPosition(
+                      target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
+                      zoom: 4.0,
                     ),
-                    // GoogleMap(
-                    //   initialCameraPosition: kGoogle,
-                    //   markers: Set<Marker>.of(markers),
-                    //   mapType: MapType.normal,
-                    //   myLocationEnabled: true,
-                    //   compassEnabled: true,
-                    //   onMapCreated: (GoogleMapController controller) {
-                    //     mapController.complete(controller);
-                    //     LatLngBounds ukBounds = LatLngBounds(
-                    //       southwest: const LatLng(49.823809, -7.572167), // Southwest coordinates
-                    //       northeast: const LatLng(58.788884, 1.681530),  // Northeast coordinates
-                    //     );
-                    //     controller.moveCamera(
-                    //       CameraUpdate.newLatLngBounds(ukBounds, 0), // No padding
-                    //     );
-                    //   },
-                    // ),
+                    markers: Set<Marker>.of(markers),
+                    onMapCreated: (GoogleMapController controller) {
+                      mapController.complete(controller);
+                      controller.setMapStyle(getCustomMapStyle()) ;
+                    },
+                    // onCameraMove: (CameraPosition position) {
+                    //   if (!_allowedBounds.contains(position.target)) {
+                    //     // If the new camera position is outside the allowed bounds, update the camera position
+                    //     _updateCameraPosition(position);
+                    //   }
+                    // },
                   ),
                   // floatingActionButton: FloatingActionButton(
                   //   backgroundColor: AppColors.black,

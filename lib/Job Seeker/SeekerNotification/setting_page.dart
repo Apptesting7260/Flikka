@@ -5,6 +5,7 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:get/get.dart';
 import '../../controllers/DeleteUserController/DeleteUserController.dart';
 import '../../controllers/LogoutController/LogoutController.dart';
+import '../Authentication/forgot_password.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -115,23 +116,28 @@ class _SettingPageState extends State<SettingPage> {
               )
             ),
             SizedBox(height: Get.height*0.022,),
-            Container(
-                height: Get.height*0.08,
-                width: Get.width*0.9,
-                decoration: BoxDecoration(
-                    color: Colors.grey[800],
-                    borderRadius: BorderRadius.circular(10)
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(children: [
-                      IconButton(onPressed: (){} ,icon: Image.asset('assets/images/lockicon.png',color: AppColors.blueThemeColor,)),
-                      Text("Password",style: Get.theme.textTheme.bodyMedium),
-                    ],),
-                    IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
-                  ],
-                )
+            GestureDetector(
+              onTap: () {
+                Get.to(() => const ForgotPassword()) ;
+              },
+              child: Container(
+                  height: Get.height*0.08,
+                  width: Get.width*0.9,
+                  decoration: BoxDecoration(
+                      color: Colors.grey[800],
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(children: [
+                        IconButton(onPressed: (){} ,icon: Image.asset('assets/images/lockicon.png',color: AppColors.blueThemeColor,)),
+                        Text("Password",style: Get.theme.textTheme.bodyMedium),
+                      ],),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.arrow_forward_ios_outlined,size: 15,))
+                    ],
+                  )
+              ),
             ),
             SizedBox(height: Get.height*0.022,),
             GestureDetector(

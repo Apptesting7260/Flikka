@@ -84,10 +84,13 @@ class _RecruiterJobsState extends State<RecruiterJobs> {
                         borderRadius: BorderRadius.circular(18),
                       ),
                       child: ListTile(
+
                         contentPadding: const EdgeInsets.symmetric(horizontal: 10,vertical: 20),
                         onTap: () {
                           if(widget.isSeeker == true) {
                             Get.to( () => ViewRecruiterJob(recruiterJobsData: data , company: widget.company, isSeeker: true,)) ;
+                          }else{
+                            Get.to( () => ViewRecruiterJob(recruiterJobsData: data , company: widget.company,)) ;
                           }
                         },
                         minVerticalPadding: 13,
