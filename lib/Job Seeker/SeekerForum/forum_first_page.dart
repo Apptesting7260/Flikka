@@ -404,8 +404,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                         width: Get.width *
                                                             0.015,
                                                       ),
-                                                      Text("${data
-                                                          ?.forumViewCount} Views",
+                                                      Text("${data?.forumViewCount} Views",
                                                         style: Get.theme
                                                             .textTheme
                                                             .bodySmall!

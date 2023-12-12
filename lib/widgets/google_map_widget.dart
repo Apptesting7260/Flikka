@@ -142,7 +142,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   Completer<GoogleMapController> mapController = Completer();
   static const CameraPosition kGoogle = CameraPosition(
     target: LatLng(54.7024, -3.2768),
-    zoom: 8,
+    zoom: 4,
   );
 
   Set<Marker> markers = Set();
@@ -287,9 +287,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   ),
                   body: SafeArea(
                     child:  GoogleMap(
-                      initialCameraPosition: const CameraPosition(
-                        target: LatLng(54.7024, -3.2768), // Center of the UK
-                        zoom: 6.0,
+                      initialCameraPosition:  CameraPosition(
+                        target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
+                        zoom: 4.0,
                       ),
                       markers: Set<Marker>.of(markers),
                       onMapCreated: (GoogleMapController controller) {
@@ -463,7 +463,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       // Specified current user's location
       CameraPosition cameraPosition = CameraPosition(
         target: LatLng(lat, long),
-        zoom: 8,
+        zoom: 4,
       );
 
       final GoogleMapController controller = await mapController.future;
