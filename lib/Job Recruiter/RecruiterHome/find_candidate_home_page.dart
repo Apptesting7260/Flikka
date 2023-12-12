@@ -235,13 +235,12 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                         cardBuilder: (context, index,
                             horizontalThresholdPercentage,
                             verticalThresholdPercentage,) {
-                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.Seeker_Details?[index],);
+                          return FindCandidateHomePageRecruiter(recruiterData: homeController.homeData.value.Seeker_Details?[index],
+                          titleList: jobTitleController.getJobTitleDetails.value.jobTitleList,);
                         },
                       ),
                     ),
-
-                  ],
-                ),
+                  ]),
               ),
             ),
           );

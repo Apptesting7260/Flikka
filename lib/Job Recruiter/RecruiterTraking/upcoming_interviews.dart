@@ -231,13 +231,13 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                           height: Get.height * .026,
                                           color: Color(0xff56B8F6),),
                                         SizedBox(width: Get.width * .02,),
-                                        Text("${data?.interviewScheduleTime?.year}-${data?.interviewScheduleTime?.month}-${data?.interviewScheduleTime?.day}", style: Theme
+                                        Text("${data?.interviewScheduleTime?.month}-${data?.interviewScheduleTime?.day}-${data?.interviewScheduleTime?.year}", style: Theme
                                             .of(context)
                                             .textTheme
                                             .titleSmall
                                             ?.copyWith(
                                             fontWeight: FontWeight.w400,
-                                            color: Color(0xffFFFFFF)),),
+                                            color: const Color(0xffFFFFFF)),),
                                       ],
                                     ),
                                     SizedBox(height: Get.height * .02,),
@@ -275,37 +275,36 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                   ) ,
                                     SizedBox(height: Get.height * .031,),
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .spaceBetween,
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       children: [
                                         MyButton(
                                           height: Get.height * .066,
-                                          width: Get.width * .38,
                                           title: "JOIN", onTap1: () {
-
+                                          launchUrl(Uri.parse("${data?.interviewLink}"),
+                                              mode: LaunchMode.externalApplication) ;
                                         },),
-                                        SizedBox(
-                                          height: Get.height * .066,
-                                          width: Get.width * 0.38,
-                                          child: ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: AppColors.white,
-                                              shape: RoundedRectangleBorder(
-                                                  borderRadius: BorderRadius
-                                                      .circular(30)),
-                                              padding: EdgeInsets.all(
-                                                  0), // Set padding to 0 to allow gradient to cover the entire button
-                                            ),
-                                            onPressed: () {},
-                                            child: Text(
-                                                "CANCEL",
-                                                style: Get.theme.textTheme
-                                                    .bodyLarge!.copyWith(
-                                                    color: AppColors.black,
-                                                    fontWeight: FontWeight.bold)
-                                            ),
-                                          ),
-                                        )
+                                        // SizedBox(
+                                        //   height: Get.height * .066,
+                                        //   width: Get.width * 0.38,
+                                        //   child: ElevatedButton(
+                                        //     style: ElevatedButton.styleFrom(
+                                        //       backgroundColor: AppColors.white,
+                                        //       shape: RoundedRectangleBorder(
+                                        //           borderRadius: BorderRadius
+                                        //               .circular(30)),
+                                        //       padding: EdgeInsets.all(
+                                        //           0), // Set padding to 0 to allow gradient to cover the entire button
+                                        //     ),
+                                        //     onPressed: () {},
+                                        //     child: Text(
+                                        //         "CANCEL",
+                                        //         style: Get.theme.textTheme
+                                        //             .bodyLarge!.copyWith(
+                                        //             color: AppColors.black,
+                                        //             fontWeight: FontWeight.bold)
+                                        //     ),
+                                        //   ),
+                                        // )
                                       ],
                                     ),
                                     SizedBox(height: Get.height * .031,),

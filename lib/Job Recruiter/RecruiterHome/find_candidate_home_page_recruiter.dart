@@ -10,6 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../models/RecuiterJobTitleModel/RecruiterJobTitleModel.dart';
 import '../../utils/VideoPlayerScreen.dart';
 
 String formatDate(String? dateString) {
@@ -22,7 +23,8 @@ String formatDate(String? dateString) {
 
 class FindCandidateHomePageRecruiter extends StatefulWidget {
   final RecruiterHomePageSeekerDetail? recruiterData ;
-  const FindCandidateHomePageRecruiter({super.key, this.recruiterData});
+  final List<RecruiterJobTitleList>? titleList ;
+  const FindCandidateHomePageRecruiter({super.key, this.recruiterData , this.titleList});
 
   @override
   State<FindCandidateHomePageRecruiter> createState() => _FindCandidateHomePageRecruiterState();
@@ -199,7 +201,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
           //************* for swiper image ************
           GestureDetector(
             onTap: () {
-            Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, )) ;
+            Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, titleList: widget.titleList, )) ;
             },
             child: Container(
               decoration:
@@ -329,7 +331,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
             child: SingleChildScrollView(
               child: GestureDetector(
                 onTap: () {
-                  Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, )) ;
+                  Get.to(() => ViewCandidateProfile( recruiterData: widget.recruiterData, titleList: widget.titleList, )) ;
                 },
                 child: Container(
                   padding: const EdgeInsets.all(20),

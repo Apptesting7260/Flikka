@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/models/RecruiterHomePageModel/RecruiterHomePageModel.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
@@ -11,18 +12,26 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/ApplyJobController/ApplyJobController.dart';
+import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleController.dart';
+import '../../models/RecuiterJobTitleModel/RecruiterJobTitleModel.dart';
+
 
 class ViewCandidateProfile extends StatefulWidget {
   final RecruiterHomePageSeekerDetail? recruiterData;
-  const ViewCandidateProfile({Key? key, this.recruiterData}) : super(key: key);
+ final List<RecruiterJobTitleList>? titleList ;
+  const ViewCandidateProfile({Key? key, this.recruiterData, this.titleList}) : super(key: key);
 
   @override
   State<ViewCandidateProfile> createState() => _ViewCandidateProfileState();
 }
 
 class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
-  ViewSeekerProfileController seekerProfileController =
-      Get.put(ViewSeekerProfileController());
+
+  ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController());
+
+  RecruiterJobTitleController jobTitleController = Get.put(RecruiterJobTitleController());
+  ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
 
   String uri = '';
   bool isWork = false;
@@ -150,8 +159,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           ],
                         ),
                     widget.recruiterData?.seeker?.video == null ||
-                        widget.recruiterData?.seeker?.video.toString().length == 0
-                        ? const SizedBox()
+                        widget.recruiterData?.seeker?.video.toString().length == 0 ? const SizedBox()
                    : GestureDetector(
                       onTap: () {
                         if (kDebugMode) {
@@ -176,9 +184,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                    ),
                   ],
                 ),
-                SizedBox(
-                  height: Get.height * 0.02,
-                ),
+                SizedBox(height: Get.height * 0.02,),
                 widget.recruiterData?.startWorkName == null ||
                     widget.recruiterData?.startWorkName?.length == 0 ? const SizedBox()
                     : SizedBox(
@@ -191,12 +197,8 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   borderRadius: BorderRadius.circular(35))),
                           onPressed: () {},
                           child: Text(
-                            widget.recruiterData?.startWorkName?[0].startWork ??
-                                "",
-                            style:
-                                Theme.of(context).textTheme.bodyLarge?.copyWith(
-                                      fontWeight: FontWeight.w700,
-                                    ),
+                            widget.recruiterData?.startWorkName?[0].startWork ?? "",
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w700,),
                           ),
                         ),
                       )
@@ -371,15 +373,9 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                         // Text( CommonFunctions.parseHTML(data?.companyName ?? ""),style: Theme.of(context).textTheme.bodySmall!
                                         //     .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),
                                         // ),
-                                        Text(
-                                          "$startDate    $endDate",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall!
-                                              .copyWith(
-                                                  color: AppColors
-                                                      .ratingcommenttextcolor,
-                                                  fontWeight: FontWeight.w400),
+                                        Text("$startDate    $endDate",
+                                          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                  color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
                                         ),
                                         SizedBox(
                                           height: Get.height * .01,
@@ -876,8 +872,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   widget.recruiterData?.language?.length == 0
                               ? const Text("No Data")
                               : GridView.builder(
-                                  gridDelegate:
-                                      SliverGridDelegateWithMaxCrossAxisExtent(
+                                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                                           mainAxisExtent: 36,
                                           maxCrossAxisExtent: Get.width * 0.4,
                                           mainAxisSpacing: 8,
@@ -990,35 +985,37 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   child: SizedBox(
                                     height: Get.height * 0.07,
                                     child: MyButton(
-                                        onTap1: () {}, title: 'ACCEPT'),
+                                        onTap1: () {
+                                          jobTitleDialog() ;
+                                        }, title: 'ACCEPT'),
                                   ),
                                 ),
-                                const SizedBox(
-                                    width:
-                                        20), // Adding spacing between buttons
-                                Expanded(
-                                  child: SizedBox(
-                                    height: Get.height * 0.07,
-                                    child: ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: AppColors.white,
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(60.0),
-                                          )),
-                                      onPressed: () {},
-                                      child: Text(
-                                        'REJECT',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyMedium
-                                            ?.copyWith(
-                                                fontWeight: FontWeight.w700,
-                                                color: AppColors.black),
-                                      ),
-                                    ),
-                                  ),
-                                ),
+                                // const SizedBox(
+                                //     width:
+                                //         20), // Adding spacing between buttons
+                                // Expanded(
+                                //   child: SizedBox(
+                                //     height: Get.height * 0.07,
+                                //     child: ElevatedButton(
+                                //       style: ElevatedButton.styleFrom(
+                                //           backgroundColor: AppColors.white,
+                                //           shape: RoundedRectangleBorder(
+                                //             borderRadius:
+                                //                 BorderRadius.circular(60.0),
+                                //           )),
+                                //       onPressed: () {},
+                                //       child: Text(
+                                //         'REJECT',
+                                //         style: Theme.of(context)
+                                //             .textTheme
+                                //             .bodyMedium
+                                //             ?.copyWith(
+                                //                 fontWeight: FontWeight.w700,
+                                //                 color: AppColors.black),
+                                //       ),
+                                //     ),
+                                //   ),
+                                // ),
                               ],
                             ),
                           ),
@@ -1035,4 +1032,117 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
       ]),
     );
   }
-}
+
+  jobTitleDialog () {
+    showDialog(context: context, builder: (BuildContext context) {
+      String? jobTitleValue;
+      String? jobTitleID;
+      RxString errorMessage = "".obs ;
+      return Dialog(
+        shape: OutlineInputBorder(borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide.none),
+        child: StatefulBuilder(
+            builder: (context , setState) {
+              return Padding(
+                  padding: EdgeInsets.symmetric(vertical: Get.height *.02, horizontal: Get.width * .04),
+                  child:  Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Text("Select job for this profile") ,
+                      SizedBox(height: Get.height *.02,) ,
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          isExpanded: true,
+                          hint: Text(
+                            jobTitleValue ??  "Select job",
+                            style: Get.theme.textTheme.bodyLarge!.copyWith(
+                                color: AppColors.white, fontSize: 12), overflow: TextOverflow.ellipsis,),
+                          items: widget.titleList?.map((item) =>
+                              DropdownMenuItem(
+                                value: item.id,
+                                child: Text(item.jobTitle.toString() ,
+                                  style: Get.theme.textTheme.bodyLarge!
+                                      .copyWith(color: AppColors.white,
+                                      fontSize: 12),
+                                  overflow: TextOverflow.ellipsis,),
+                                onTap: () {
+                                  setState(() {
+                                    jobTitleID = item.id.toString() ;
+                                    jobTitleValue = item.jobTitle ;
+                                  });
+                                },
+                              )).toList(),
+                          // value: jobTitleValue,
+                          onChanged: (value) {},
+                          buttonStyleData: ButtonStyleData(
+                            height: Get.height * 0.06,
+                            width: Get.width * .55,
+                            padding: const EdgeInsets.only(
+                                left: 10, right: 5),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(35),
+                                border: Border.all(
+                                    color: const Color(0xff686868))
+                              // color: Color(0xff353535),
+                            ),
+                            elevation: 2,
+                          ),
+
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: Get.height * 0.35,
+                            width: Get.width * .5,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(14),
+                              color: const Color(0xff353535),
+                            ),
+                            offset: const Offset(5, 0),
+                            scrollbarTheme: ScrollbarThemeData(
+                              radius: const Radius.circular(40),
+                              thickness: MaterialStateProperty.all<
+                                  double>(6),
+                              thumbVisibility: MaterialStateProperty.all<
+                                  bool>(true),
+                            ),
+                          ),
+
+                        ),
+                      ),
+                      Obx(() => errorMessage.isEmpty ? const SizedBox() :
+                      Text(errorMessage.value , style: const TextStyle(color: AppColors.red),)),
+                      SizedBox(height: Get.height *.02,) ,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Obx( () =>
+                              MyButton(
+                                  width: Get.width*.25,
+                                  height: Get.height*.05,
+                                  loading: applyJobController.loading.value,
+                                  title: "Select",
+                                  onTap1: () {
+                                    if(jobTitleID != null) {
+                                      applyJobController.applyJob( jobTitleID,seekerID: widget.recruiterData?.seekerId.toString(),) ;
+                                    }else {
+                                      errorMessage.value = "Choose Job before selecting" ;
+                                    }
+                                  } ),
+                          ),
+                          MyButton(
+                            width: Get.width*.25,
+                            height: Get.height*.05,
+                            title: "Cancel",
+                            onTap1: () {
+                              Get.back();
+                            },),
+                        ],
+                      )
+                    ],
+                  )
+              );
+            }
+        ),
+      ) ;
+    }) ;
+  }
+ }

@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/add_new_forum.dart';
-import 'package:flikka/Job%20Seeker/SeekerForum/forum_companies.dart';
 import 'package:flikka/controllers/SeekerForumController/ForumIndustryListController.dart';
 import 'package:flikka/controllers/SeekerForumController/SeekerForumDataController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -9,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import '../../data/response/status.dart';
-import '../../models/SeekerForumDataModel/SeekerForumDataModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
