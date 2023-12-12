@@ -97,10 +97,10 @@ class _SettingPageState extends State<SettingPage> {
                       controller: _controller,
                       activeColor: Colors.green,
                       inactiveColor: Colors.grey,
-                      activeChild: Text('ON'),
-                      inactiveChild: Text('OFF',style: TextStyle(
-                        color: Colors.black
-                      ),),
+                      // activeChild: Text('ON'),
+                      // inactiveChild: Text('OFF',style: TextStyle(
+                      //   color: Colors.black
+                      // ),),
                       activeImage: AssetImage('assets/images/switchon.png'),
                       inactiveImage: AssetImage('assets/images/whites.jpg'),
                       borderRadius: BorderRadius.all(const Radius.circular(15)),

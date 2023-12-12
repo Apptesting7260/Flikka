@@ -1428,6 +1428,16 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                             itemCount: candidateController.candidateData.value.seekerDetails?.seekerData?.workExpJob?.length,
                                             itemBuilder: (context, index) {
                                               var data = candidateController.candidateData.value.seekerDetails?.seekerData?.workExpJob?[index];
+                                              var endDate ;
+                                              var startDate ;
+                                              startDate = DateTime.parse("${data?.jobStartDate}") ;
+                                              startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                              if(data?.present == true) {
+                                                endDate = "Present" ;
+                                              }else {
+                                                endDate = DateTime.parse("${data?.jobEndDate}") ;
+                                                endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                              }
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment
                                                     .start,
@@ -1451,12 +1461,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                         fontWeight: FontWeight
                                                             .w400),
                                                   ),
-                                                  Text("${data?.jobStartDate
-                                                      ?.month}-${data?.jobStartDate
-                                                      ?.day}-${data
-                                                      ?.jobStartDate
-                                                      ?.year} - ${data
-                                                      ?.jobEndDate}",
+                                                  Text("$startDate    $endDate",
                                                     style: Theme
                                                         .of(context)
                                                         .textTheme
@@ -1516,9 +1521,16 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                             itemCount: candidateController.candidateData.value.seekerDetails?.seekerData?.educationLevel?.length,
                                             itemBuilder: (context, index) {
                                               var data = candidateController.candidateData.value.seekerDetails?.seekerData?.educationLevel?[index];
-                                             if (data?.educationEndDate.toString().toLowerCase() == "present" ) {
-
-                                             }
+                                              var endDate ;
+                                              var startDate ;
+                                              startDate = DateTime.parse("${data?.educationStartDate}") ;
+                                              startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                              if(data?.present == true) {
+                                                endDate = "Present" ;
+                                              } else {
+                                                endDate = DateTime.parse("${data?.educationEndDate}") ;
+                                                endDate = "${endDate.month.toString().padLeft(2,'0')}-${endDate.day.toString().padLeft(2,'0')}-${endDate.year.toString().padLeft(4,'0')}" ;
+                                              }
                                               return Column(
                                                 crossAxisAlignment: CrossAxisAlignment
                                                     .start,
@@ -1543,13 +1555,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                                         fontWeight: FontWeight
                                                             .w400),
                                                   ),
-                                                  Text("${data?.educationStartDate
-                                                      ?.month}-${data
-                                                      ?.educationStartDate
-                                                      ?.day}-${data
-                                                      ?.educationStartDate
-                                                      ?.year} - ${data
-                                                      ?.educationEndDate}",
+                                                  Text("$startDate    $endDate",
                                                     style: Theme
                                                         .of(context)
                                                         .textTheme

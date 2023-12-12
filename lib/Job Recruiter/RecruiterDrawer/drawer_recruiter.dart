@@ -120,32 +120,32 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   SizedBox(
-                                    height: Get.height * 0.04,
+                                    height: Get.height * 0.03,
                                   ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      // Get.offAll(TabScreen(index: 0,));
-                                    },
-                                    child: ListTile(
-                                      horizontalTitleGap:0,
-                                      dense: true,
-                                      leading: IconButton(
-                                          onPressed: () {
-                                            // print("object") ;
-                                            // Get.to(TabScreenEmployer(index: 0,)) ;
-                                          },
-                                          icon: Image.asset('assets/images/homedrawericon.png')
-                                      ),
-                                      title: InkWell(
-                                          onTap: () {
-                                            Get.offAll(TabScreenEmployer(index: 0,));
-                                          },
-                                          child: Text(
-                                            "Home",
-                                            style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                          )),
-                                    ),
-                                  ),
+                                  // GestureDetector(
+                                  //   onTap: () {
+                                  //     // Get.offAll(TabScreen(index: 0,));
+                                  //   },
+                                  //   child: ListTile(
+                                  //     horizontalTitleGap:0,
+                                  //     dense: true,
+                                  //     leading: IconButton(
+                                  //         onPressed: () {
+                                  //           // print("object") ;
+                                  //           // Get.to(TabScreenEmployer(index: 0,)) ;
+                                  //         },
+                                  //         icon: Image.asset('assets/images/homedrawericon.png')
+                                  //     ),
+                                  //     title: InkWell(
+                                  //         onTap: () {
+                                  //           Get.offAll(TabScreenEmployer(index: 0,));
+                                  //         },
+                                  //         child: Text(
+                                  //           "Home",
+                                  //           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //         )),
+                                  //   ),
+                                  // ),
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,
@@ -309,22 +309,22 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                         )),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((MyOrder()));
-                                        },
-                                        icon: Image.asset('assets/images/aboutdrawericon.png',scale: 2.8,fit: BoxFit.cover,)
-                                    ),
-                                    title: InkWell(
-                                        onTap: () {},
-                                        child: Text(
-                                          "About",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                        )),
-                                  ),
+                                  // ListTile(
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: IconButton(
+                                  //       onPressed: () {
+                                  //         //Get.to((MyOrder()));
+                                  //       },
+                                  //       icon: Image.asset('assets/images/aboutdrawericon.png',scale: 2.8,fit: BoxFit.cover,)
+                                  //   ),
+                                  //   title: InkWell(
+                                  //       onTap: () {},
+                                  //       child: Text(
+                                  //         "About",
+                                  //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //       )),
+                                  // ),
                                   ListTile(
                                     onTap: () {
                                       // Get.to(() =>SettingPage());
