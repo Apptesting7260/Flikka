@@ -5,6 +5,7 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:intl/intl.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -257,6 +258,16 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                           shrinkWrap: true,
                           itemBuilder: (context , index) {
                           var data = widget.recruiterData?.workExpJob?[index] ;
+                          var endDate ;
+                          var startDate ;
+                          startDate = DateTime.parse("${data?.jobStartDate}") ;
+                          startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                          if(data?.present == true) {
+                            endDate = "Present" ;
+                          }else {
+                            endDate = DateTime.parse("${data?.jobEndDate}") ;
+                            endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                          }
                             return Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -272,7 +283,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                                 //   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                                 // ),
                                 Text(
-                               "${   data?.jobStartDate.month.toString().padLeft(2,'0')}-${   data?.jobStartDate.day.toString().padLeft(2,'0')}-${   data?.jobStartDate.year.toString().padLeft(4,'0')}-${data?.jobEndDate.toString()}",
+                               "$startDate    $endDate",
                                   // "${formatDate(data?.jobStartDate.toString())} - ${formatDate(data?.jobEndDate.toString())}",
                                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                                 ),
@@ -298,6 +309,12 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                         itemCount: widget.recruiterData?.educationLevel?.length,
                           itemBuilder: (context , index) {
                           var data = widget.recruiterData?.educationLevel?[index] ;
+                          var endDate ;
+                          if(data?.present == true) {
+                            endDate = "Present" ;
+                          } else {
+                            endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
+                          }
                         return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -308,10 +325,13 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
                             ),
                           //  Text( "${data?.educationStartDate.toString().replaceAll("00:00:00.000", "")} - ${data?.educationEndDate.toString().replaceAll("00:00:00.000", "")}",
-                           Text(  "${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')}-${data?.educationStartDate?.year.toString().padLeft(4,'0')} - ${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}"  ,
-
+                          //  Text(  "${data?.educationStartDate?.month.toString().padLeft(2,'0')}-${data?.educationStartDate?.day.toString().padLeft(2,'0')}-${data?.educationStartDate?.year.toString().padLeft(4,'0')} - ${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}"  ,
+                          //
+                          //     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
+                          //   ),
+                            Text(  "${data?.educationStartDate?.month.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.day.toString().padLeft(2,'0').replaceAll("00:00:00.000", "")}-${data?.educationStartDate?.year.toString().padLeft(4,'0').replaceAll("00:00:00.000", "")}    $endDate",
                               style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: const Color(0xffCFCFCF)),
-                            ),
+                            )
                           ],
                         ) ;
                       }) ,

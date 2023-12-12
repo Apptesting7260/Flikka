@@ -188,7 +188,7 @@ class EducationLevel {
     fieldOfStudy: json["field_of_study"],
     educationStartDate: json["education_start_date"] == null ? json["education_start_date"] : DateTime.tryParse(json["education_start_date"]),
     educationEndDate: json["education_end_date"] == null || json["education_end_date"].toString() == "present" ? json["education_end_date"] : DateTime.tryParse(json["education_end_date"]),
-    present : json["present"]
+    present : json["at_present"]
   );
 
   Map<String, dynamic> toJson() => {
@@ -339,8 +339,8 @@ class WorkExpJob {
     workExpJob: json["work_exp_job"],
     companyName: json["company_name"],
     jobStartDate: json["job_start_date"] ,
-    jobEndDate: json["job_end_date"]
-    // present: json["present"]
+    jobEndDate: json["job_end_date"],
+    present: json["at_present"]
   );
 
   Map<String, dynamic> toJson() => {
