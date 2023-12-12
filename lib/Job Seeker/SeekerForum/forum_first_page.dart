@@ -304,45 +304,19 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   child: Text(
                                                                     data?.title ?? "",
                                                                     overflow: TextOverflow.ellipsis,
-                                                                    style: Theme
-                                                                        .of(
-                                                                        context)
-                                                                        .textTheme
-                                                                        .titleSmall!
-                                                                        .copyWith(
-                                                                        color: AppColors
-                                                                            .white),
+                                                                    style: Theme.of(context).textTheme.titleSmall!
+                                                                        .copyWith(color: AppColors.white),
                                                                     softWrap: true,),
                                                                 ),
-                                                                SizedBox(
-                                                                  height: Get
-                                                                      .height *
-                                                                      0.005,
-                                                                ),
-                                                                Text(data?.seekerName ??
-                                                                    "",
-                                                                  style: Theme
-                                                                      .of(
-                                                                      context)
-                                                                      .textTheme
-                                                                      .bodySmall!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .ratingcommenttextcolor),),
-                                                                SizedBox(
-                                                                  height: Get.height * 0.03,),
-                                                                SizedBox(
-                                                                  width: Get.width * 0.60,
+                                                                SizedBox(height: Get.height * 0.005,),
+                                                                Text(data?.seekerName ?? "",
+                                                                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                                      color: AppColors.ratingcommenttextcolor),),
+                                                                SizedBox(height: Get.height * 0.03,),
+                                                                SizedBox(width: Get.width * 0.60,
                                                                   child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
-                                                                      .of(
-                                                                      context)
-                                                                      .textTheme
-                                                                      .bodySmall!
-                                                                      .copyWith(
-                                                                      color: AppColors
-                                                                          .ratingcommenttextcolor,
-                                                                      letterSpacing: 0.01
-                                                                  ),),
+                                                                      .of(context).textTheme.bodySmall!.copyWith(
+                                                                      color: AppColors.ratingcommenttextcolor, letterSpacing: 0.01),),
                                                                   // Text(
                                                                   //   data?.titleDescription ?? "",
                                                                   //   textAlign: TextAlign
@@ -359,11 +333,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   //   ),
                                                                   // ),
                                                                 ),
-
-                                                                SizedBox(
-                                                                  height: Get
-                                                                      .height *
-                                                                      0.15,),
+                                                                SizedBox(height: Get.height * 0.15,),
 
                                                               ],
                                                             ),
