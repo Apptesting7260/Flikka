@@ -2192,6 +2192,16 @@ class _UserProfileState extends State<UserProfile> {
                                                 itemCount: seekerProfileController.viewSeekerData.value.workExpJob?.length,
                                                 itemBuilder: (context, index) {
                                                   var data = seekerProfileController.viewSeekerData.value.workExpJob?[index];
+                                                  var endDate ;
+                                                  var startDate ;
+                                                  startDate = DateTime.parse("${data?.jobStartDate}") ;
+                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  if(data?.present == true) {
+                                                    endDate = "Present" ;
+                                                  }else {
+                                                    endDate = DateTime.parse("${data?.jobEndDate}") ;
+                                                    endDate = "${endDate.month.toString().padLeft(2,"0")}-${endDate.day.toString().padLeft(2,"0")}-${endDate.year.toString().padLeft(4,"0")}" ;
+                                                  }
                                                   // if(data?.present == false) {
                                                   //  DateTime.parse(data!.jobStartDate.toString()) ;
                                                   //  print(data?.jobStartDate) ;
@@ -2228,17 +2238,18 @@ class _UserProfileState extends State<UserProfile> {
                                                           Text("${data?.companyName}",
                                                            overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
-                                                          data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
-                                                              ? const SizedBox()
-                                                              : data?.jobEndDate.toString().toLowerCase() == "present" ?
-                                                          Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate}',
+                                                          // data?.jobEndDate == 'null' || data?.jobStartDate == 'null'
+                                                          //     ? const SizedBox()
+                                                          //     : data?.jobEndDate.toString().toLowerCase() == "present" ?
+                                                          Text('$startDate    $endDate',
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
-                                                          ):
-                                                          Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
-                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
-                                                          ),
+                                                          )
+                                                          //     :
+                                                          // Text('${data?.jobStartDate?.month}-${data?.jobStartDate?.day}-${data?.jobStartDate?.year} - ${data?.jobEndDate?.month}-${data?.jobEndDate?.month}-${data?.jobEndDate?.year}',
+                                                          //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                          //       color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),
+                                                          // ),
                                                         ],
                                                       )
                                                     ],
@@ -2286,6 +2297,15 @@ class _UserProfileState extends State<UserProfile> {
                                                 itemCount: seekerProfileController.viewSeekerData.value.educationLevel?.length,
                                                 itemBuilder: (context, index) {
                                                   var data = seekerProfileController.viewSeekerData.value.educationLevel?[index];
+                                                  var endDate ;
+                                                  var startDate ;
+                                                  startDate = DateTime.parse("${data?.educationStartDate}") ;
+                                                  startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
+                                                  if(data?.present == true) {
+                                                    endDate = "Present" ;
+                                                  } else {
+                                                    endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
+                                                  }
                                                   return Column(crossAxisAlignment: CrossAxisAlignment.start,
                                                     children: [
                                                       SizedBox(height: Get.height * 0.02,),
@@ -2310,7 +2330,6 @@ class _UserProfileState extends State<UserProfile> {
                                                                   child: Image.asset('assets/images/icon_delete.png',height: Get.height*.027)),
                                                             ],
                                                           )
-
                                                         ],
                                                       ),
                                                       SizedBox(
@@ -2320,17 +2339,18 @@ class _UserProfileState extends State<UserProfile> {
                                                           Text("${data?.institutionName}",
                                                            overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                 color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
-                                                          data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
-                                                              ? const SizedBox()
-                                                              : data?.educationEndDate.toString().toLowerCase() == "present" ?
-                                                          Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate}',
+                                                          // data?.educationStartDate == 'null' || data?.educationEndDate == 'null'
+                                                          //     ? const SizedBox()
+                                                          //     : data?.educationEndDate.toString().toLowerCase() == "present" ?
+                                                          Text('$startDate    $endDate',
                                                             // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
                                                             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),):
-                                                          Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}-${data?.educationEndDate?.day}-${data?.educationEndDate?.year}',
-                                                            // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
-                                                            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
+                                                                color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),)
+                                                          //     :
+                                                          // Text('${data?.educationStartDate?.month}-${data?.educationStartDate?.day}-${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}-${data?.educationEndDate?.day}-${data?.educationEndDate?.year}',
+                                                          //   // "${data?.educationStartDate?.month}/${data?.educationStartDate?.year} - ${data?.educationEndDate?.month}/${data?.educationEndDate?.year}",
+                                                          //   style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                                                          //       color: AppColors.ratingcommenttextcolor, fontWeight: FontWeight.w400),),
                                                         ],
                                                       )
                                                     ],
