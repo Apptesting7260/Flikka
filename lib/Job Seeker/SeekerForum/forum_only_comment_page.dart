@@ -273,11 +273,7 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                           SizedBox(
                             height: Get.height * 0.005,
                           ),
-                          Divider(
-                            thickness: 0.5,
-                            color: Color(0xffCFCFCF),
-
-                          ),
+                          const Divider(thickness: 0.5, color: Color(0xffCFCFCF),),
                           SizedBox(
                             height: Get.height * 0.025,
                           ),
@@ -286,22 +282,16 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                           SizedBox(
                             height: Get.height * .01,
                           ),
-                          commentsController.commentsData.value.seekerComment ==
-                              null ||
-                              commentsController.commentsData.value
-                                  .seekerComment?.length == 0 ?
-                          Text("No Comments") :
+                          commentsController.reversedList == null || commentsController.reversedList?.length == 0 ?
+                          const Text("No Comments") :
                           ListView.builder(
                             shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),
-                              itemCount: commentsController.commentsData.value
-                                  .seekerComment?.length,
+                              itemCount: commentsController.reversedList?.length,
                               itemBuilder: (context, index) {
-                                var data = commentsController.commentsData.value
-                                    .seekerComment?[index];
+                                var data = commentsController.reversedList?[index];
                                 return Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: Get.height * .01),
+                                  padding: EdgeInsets.symmetric(vertical: Get.height * .01),
                                   child: ListTile(
                                     leading: CircleAvatar(
                                       radius: 30,

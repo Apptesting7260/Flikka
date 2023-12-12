@@ -11,6 +11,7 @@ class ForumCommentsController extends GetxController {
   final _api = SeekerRepository();
   final rxRequestStatus = Status.LOADING.obs ;
   final commentsData = ForumCommentsModel().obs ;
+  List<SeekerComment>? reversedList = [] ;
   RxString error = ''.obs;
 
   SeekerForumDataController forumDataController = Get.put(SeekerForumDataController()) ;
@@ -26,6 +27,7 @@ class ForumCommentsController extends GetxController {
     _api.forumComments(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       commentsData(value) ;
+      reversedList = value.seekerComment?.reversed.toList() ?? [] ;
       forumDataController.seekerForumListApi() ;
       if (kDebugMode) {
         print(value);

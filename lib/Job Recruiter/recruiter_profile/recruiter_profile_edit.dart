@@ -9,18 +9,19 @@ import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/utils/CommonWidgets.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:get/get.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:new_pinput/new_pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../models/SearchPlaceModel/SearchPlaceModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import 'package:http/http.dart' as http;
-
 import '../../utils/Constants.dart';
 
 class RecruiterProfileEdit extends StatefulWidget {
@@ -231,6 +232,12 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   String? selectedDateString ;
   String foundedText = 'Select Date';
   Future<void> _selectDate(BuildContext context) async {
+    if(widget.profileModel?.recruiterProfileDetails?.founded != null && widget.profileModel?.recruiterProfileDetails?.founded?.length != 0) {
+      // selectedDate = DateTime.parse("${widget.profileModel?.recruiterProfileDetails?.founded}") ;
+    }
+    if (kDebugMode) {
+      print(selectedDate) ;
+    }
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
@@ -1042,11 +1049,8 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
                                               industry: industry,
                                               companySize: companySize?.replaceAll("Employees", ""),
                                               founded: selectedDateString,
-                                              specialties:
-                                                  formattedSpecilizationText,
-                                              contactPerson:
-                                                  contactPersonNameController
-                                                      .text);
+                                              specialties: formattedSpecilizationText,
+                                              contactPerson: contactPersonNameController.text);
                                     }
                                   } else {
                                     scrollController.animateTo(0,

@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import '../../data/response/status.dart';
+import '../../models/SeekerForumDataModel/SeekerForumDataModel.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
 import '../../res/components/request_timeout_widget.dart';
@@ -195,20 +196,21 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                               color: Color(0xffCFCFCF),
                                               fontSize: 19),
                                           onChanged: (query) {
-                                            forumDataController.forumData.value.forumData = forumDataController.forumData.value.forumData?.where((element) {
-                                             if( element.title != null) {
-                                              if( element.title!.toLowerCase().contains(query.toLowerCase())) {
-                                                setState(() {
-                                                  print("object") ;
-                                                });
-                                                return true ;
-                                              }else {
-                                                return false ;
-                                              }
-                                             }else {
-                                               return false ;
-                                             }
-                                            }).toList() ;
+                                            forumDataController.filterList(query) ;
+                                            // forumDataController.forumData.value.forumData = forumDataController.forumData.value.forumData?.where((element) {
+                                            //  if( element.title != null) {
+                                            //   if( element.title!.toLowerCase().contains(query.toLowerCase())) {
+                                            //     setState(() {
+                                            //       print("object") ;
+                                            //     });
+                                            //     return true ;
+                                            //   }else {
+                                            //     return false ;
+                                            //   }
+                                            //  }else {
+                                            //    return false ;
+                                            //  }
+                                            // }).toList() ;
                                           },
                                           decoration: InputDecoration(
                                             hintText: 'Search',
@@ -250,9 +252,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                           Expanded(
                             child: ListView.builder(
                                 shrinkWrap: true,
-                                itemCount: forumDataController.forumData.value.forumData?.length,
+                                itemCount: forumDataController.forumList?.reversed.length,
                                 itemBuilder: (context, index) {
-                                  var data = forumDataController.forumData.value.forumData?[index];
+                                  var data = forumDataController.forumList?[index];
                                   return Padding(
                                     padding: EdgeInsets.symmetric(
                                         vertical: Get.height * .02),
@@ -370,36 +372,25 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                       Image.asset(
                                                         'assets/images/viewicon.png',
                                                         scale: 0.7,),
-                                                      SizedBox(
-                                                        width: Get.width *
-                                                            0.015,
-                                                      ),
+                                                      SizedBox(width: Get.width * 0.015,),
                                                       Text("${data?.forumViewCount} Views",
-                                                        style: Get.theme
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .white),),
-                                                      SizedBox(
-                                                        width: Get.width *
-                                                            0.075,),
+                                                        style: Get.theme.textTheme.bodySmall!
+                                                            .copyWith(color: AppColors.white),),
+                                                      SizedBox(width: Get.width * 0.075,),
                                                       InkWell(
                                                           onTap: () {
-                                                            //showCommentDialog();
+                                                            Get.to(() => ForumOnlyCommentPage(forumData: data,));
                                                           },
                                                           child: Image.asset(
                                                               'assets/images/commenticons.png')),
                                                       SizedBox(
                                                         width: Get.width *
                                                             0.015,),
-                                                      Text("${data?.forumCommentCount} Comments",
-                                                        style: Get.theme
-                                                            .textTheme
-                                                            .bodySmall!
-                                                            .copyWith(
-                                                            color: AppColors
-                                                                .white),)
+                                                      TextButton(
+                                                        onPressed: () { Get.to(() => ForumOnlyCommentPage(forumData: data,)); },
+                                                        child: Text("${data?.forumCommentCount} Comments",
+                                                          style: Get.theme.textTheme.bodySmall!
+                                                              .copyWith(color: AppColors.white),),)
                                                     ],
                                                   ),
                                                 ),

@@ -15,6 +15,8 @@ class SeekerForumDataController extends GetxController {
   void getForumData(SeekerForumDataModel _value) => forumData.value = _value ;
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
+  RxList<ForumDatum>? forumList = <ForumDatum>[].obs;
+  List<ForumDatum>? reversedList = [] ;
 
   void seekerForumListApi({String? industryID} ){
     var data = {} ;
@@ -24,6 +26,10 @@ class SeekerForumDataController extends GetxController {
     _api.seekerForumData(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       forumData(value) ;
+      if(value.forumData != null) {
+        reversedList = value.forumData?.reversed.toList() ?? [] ;
+        forumList?.value = reversedList ?? [] ;
+      }
       if(industryID != null && industryID?.length != 0 ) {
         if(value.forumData != null && value.forumData?.length != 0) {
           industryId.value = "${value.forumData?[0].industryId}" ;
@@ -40,5 +46,20 @@ class SeekerForumDataController extends GetxController {
       }
       setRxRequestStatus(Status.ERROR);
     });
+  }
+
+  filterList(String? query) {
+    if(reversedList != null) {
+      forumList?.value = reversedList!.where((element) {
+        if( element.title != null) {
+          if( element.title!.toLowerCase().contains(query.toString().toLowerCase())) {
+            return true ;
+          }else {
+            return false ;
+          }
+        }else {
+          return false ;
+        }}).toList() ;
+    }
   }
 }
