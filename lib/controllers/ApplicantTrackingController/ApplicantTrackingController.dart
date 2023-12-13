@@ -19,19 +19,19 @@ class ApplicantTrackingDataController extends GetxController {
   var applicantTrackingDataModel = ApplicantTrackingDataModel().obs ;
   void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
   void setError(String value) => error.value = value ;
+  RxList<ApplicantDatum>? applicantList = <ApplicantDatum>[].obs ;
 
-  applicantTrackingApi(dynamic jobTitle , dynamic status )
-  async{
+  applicantTrackingApi(dynamic jobTitle , dynamic status ) async{
     setRxRequestStatus(Status.LOADING);
     var data =  {};
     data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title_id", jobTitle) ;
     data.addIf(status != null && status.toString().isNotEmpty, "candidate_status_type", status) ;
 
-
     debugPrint(data.toString());
     _api.applicantTrackingData(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       applicantTrackingDataModel(value) ;
+    applicantList?.value =  value.applicantData ?? [] ;
 
     }).onError((error, stackTrace){
       setError(error.toString());
@@ -40,6 +40,22 @@ class ApplicantTrackingDataController extends GetxController {
       setRxRequestStatus(Status.ERROR);
     }) ;
   }
+
+  // filterList(String? query) {
+  //   if(applicantTrackingDataModel.value.applicantData != null) {
+  //     applicantList?.value = applicantTrackingDataModel.value.applicantData!.where((element) {
+  //
+  //       if( element.title != null) {
+  //         if( element.title!.toLowerCase().contains(query.toString().toLowerCase())) {
+  //           return true ;
+  //         }else {
+  //           return false ;
+  //         }
+  //       }else {
+  //         return false ;
+  //       }}).toList() ;
+  //   }
+  // }
 
   refreshApi(dynamic jobTitle , dynamic status) async{
     loading(true) ;
