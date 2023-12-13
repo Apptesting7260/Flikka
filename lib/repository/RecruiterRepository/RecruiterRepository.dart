@@ -75,6 +75,11 @@ class RecruiterRepository {
     return EditAboutModel.fromJson(response);
   }
 
+  Future<EditAboutModel> removeFromPool(var data) async{
+    dynamic response = await apiServices.postApi2( data,AppUrl.removeFromTalentPool);
+    return EditAboutModel.fromJson(response);
+  }
+
   Future<RecruiterReportModel> reportApi() async{
     dynamic response = await apiServices.getApi2(AppUrl.recruiterReportApi);
     return RecruiterReportModel.fromJson(response);
