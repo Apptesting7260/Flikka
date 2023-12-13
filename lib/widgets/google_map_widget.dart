@@ -107,10 +107,7 @@
 //
 //
 import 'dart:async';
-import 'dart:math';
 import 'dart:ui';
-import 'dart:ui' as ui;
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
 import 'package:flikka/controllers/SeekerMapJobsController/SeekerMapJobsController.dart';
 import 'package:flikka/widgets/app_colors.dart';
@@ -120,8 +117,6 @@ import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-import '../Job Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import '../data/response/status.dart';
 import '../res/components/general_expection.dart';
 import '../res/components/internet_exception_widget.dart';
@@ -148,8 +143,8 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   Set<Marker> markers = Set();
 
   var selectedRadius; // Default radius
-  double lat = 20.427;
-  double long = 80.885;
+ static double lat = 20.427;
+ static double long = 80.885;
 
   Future<Position> getUserCurrentLocation() async {
     await Geolocator.requestPermission()
@@ -235,153 +230,124 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   );
                 }
               case Status.COMPLETED:
-                return Scaffold(
-                  backgroundColor: Colors.transparent,
-                  // appBar: AppBar(
-                  //   // toolbarHeight: 65,
-                  //   // leading: IconButton(
-                  //   //     onPressed: () {
-                  //   //       Get.offAll(const TabScreen(index: 0));
-                  //   //     },
-                  //   //     icon: Image.asset(
-                  //   //       "assets/images/icon_back_blue.png",
-                  //   //       height: Get.height * .06,
-                  //   //     )),
-                  //   backgroundColor: Colors.transparent,
-                  //   // title: Text(
-                  //   //   "Map",
-                  //   //   style: Theme.of(context)
-                  //   //       .textTheme
-                  //   //       .displaySmall
-                  //   //       ?.copyWith(color: AppColors.white),
-                  //   // ),
-                  //   // centerTitle: true,
-                  //   actions: [
-                  //     Padding(
-                  //       padding: const EdgeInsets.all(8.0),
-                  //       child: DropdownButton(
-                  //         dropdownColor: AppColors.black,
-                  //         hint: const Text("Select"),
-                  //         value: selectedRadius,
-                  //         items: radiusList.map<DropdownMenuItem>((value) {
-                  //           return DropdownMenuItem(
-                  //             value: value,
-                  //             child: Text(
-                  //               '$value miles',
-                  //               style: Theme.of(context)
-                  //                   .textTheme
-                  //                   .bodySmall
-                  //                   ?.copyWith(color: AppColors.white),
-                  //             ),
-                  //           );
-                  //         }).toList(),
-                  //         onChanged: (newValue) {
-                  //           setState(() {
-                  //             selectedRadius = newValue;
-                  //             updateMap(newValue);
-                  //             // Call the method to filter markers based on the selected radius
-                  //           });
-                  //         },
-                  //       ),
-                  //     ),
-                  //   ],
-                  // ),
-                  body: Stack(
-                    children: [
-                      GoogleMap(
-                        initialCameraPosition:  CameraPosition(
-                          target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
-                          zoom: 4.0,
-                        ),
-                        markers: Set<Marker>.of(markers),
-                        onMapCreated: (GoogleMapController controller) {
-                          mapController.complete(controller);
-                          controller.setMapStyle(getCustomMapStyle()) ;
-                        },
-                        // onCameraMove: (CameraPosition position) {
-                        //   if (!_allowedBounds.contains(position.target)) {
-                        //     // If the new camera position is outside the allowed bounds, update the camera position
-                        //     _updateCameraPosition(position);
-                        //   }
-                        // },
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
+                    return Scaffold(
+                      backgroundColor: Colors.transparent,
+                      // appBar: AppBar(
+                      //   // toolbarHeight: 65,
+                      //   // leading: IconButton(
+                      //   //     onPressed: () {
+                      //   //       Get.offAll(const TabScreen(index: 0));
+                      //   //     },
+                      //   //     icon: Image.asset(
+                      //   //       "assets/images/icon_back_blue.png",
+                      //   //       height: Get.height * .06,
+                      //   //     )),
+                      //   backgroundColor: Colors.transparent,
+                      //   // title: Text(
+                      //   //   "Map",
+                      //   //   style: Theme.of(context)
+                      //   //       .textTheme
+                      //   //       .displaySmall
+                      //   //       ?.copyWith(color: AppColors.white),
+                      //   // ),
+                      //   // centerTitle: true,
+                      //   actions: [
+                      //     Padding(
+                      //       padding: const EdgeInsets.all(8.0),
+                      //       child: DropdownButton(
+                      //         dropdownColor: AppColors.black,
+                      //         hint: const Text("Select"),
+                      //         value: selectedRadius,
+                      //         items: radiusList.map<DropdownMenuItem>((value) {
+                      //           return DropdownMenuItem(
+                      //             value: value,
+                      //             child: Text(
+                      //               '$value miles',
+                      //               style: Theme.of(context)
+                      //                   .textTheme
+                      //                   .bodySmall
+                      //                   ?.copyWith(color: AppColors.white),
+                      //             ),
+                      //           );
+                      //         }).toList(),
+                      //         onChanged: (newValue) {
+                      //           setState(() {
+                      //             selectedRadius = newValue;
+                      //             updateMap(newValue);
+                      //             // Call the method to filter markers based on the selected radius
+                      //           });
+                      //         },
+                      //       ),
+                      //     ),
+                      //   ],
+                      // ),
+                      body: Stack(
                         children: [
-                          DropdownButtonHideUnderline(
-                            child: DropdownButton(
-                              icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
-                              dropdownColor: AppColors.black,
-                              hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
-                              value: selectedRadius,
-                              items: radiusList.map<DropdownMenuItem>((value) {
-                                return DropdownMenuItem(
-                                  value: value,
-                                  child: Text(
-                                    '$value miles',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .bodySmall
-                                        ?.copyWith(color: AppColors.white),
-                                  ),
-                                );
-                              }).toList(),
-                              onChanged: (newValue) {
-                                setState(() {
-                                  selectedRadius = newValue;
-                                  updateMap(newValue);
-                                  // Call the method to filter markers based on the selected radius
-                                });
-                              },
+                          GoogleMap(
+                            initialCameraPosition:  CameraPosition(
+                              target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
+                              zoom: 4.0,
                             ),
+                            markers: Set<Marker>.of(markers),
+                            onMapCreated: (GoogleMapController controller) {
+                              mapController.complete(controller);
+                              controller.setMapStyle(getCustomMapStyle()) ;
+                            },
+                            // onCameraMove: (CameraPosition position) {
+                            //   if (!_allowedBounds.contains(position.target)) {
+                            //     // If the new camera position is outside the allowed bounds, update the camera position
+                            //     _updateCameraPosition(position);
+                            //   }
+                            // },
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              DropdownButtonHideUnderline(
+                                child: DropdownButton(
+                                  icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
+                                  dropdownColor: AppColors.black,
+                                  hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
+                                  value: selectedRadius,
+                                  items: radiusList.map<DropdownMenuItem>((value) {
+                                    return DropdownMenuItem(
+                                      value: value,
+                                      child: Text(
+                                        '$value miles',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall
+                                            ?.copyWith(color: AppColors.white),
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    setState(() {
+                                      selectedRadius = newValue;
+                                      updateMap(newValue);
+                                      // Call the method to filter markers based on the selected radius
+                                    });
+                                  },
+                                ),
+                              ),
+                            ],
                           ),
                         ],
-                      ),
-                    ],
 
-                  ),
-                  // floatingActionButton: FloatingActionButton(
-                  //   backgroundColor: AppColors.black,
-                  //   onPressed: () async {
-                  //     updateUserLocation();
-                  //   },
-                  //   child: const Icon(Icons.local_activity,
-                  //       color: AppColors.white),
-                  // ),
-                );
+                      ),
+                      // floatingActionButton: FloatingActionButton(
+                      //   backgroundColor: AppColors.black,
+                      //   onPressed: () async {
+                      //     updateUserLocation();
+                      //   },
+                      //   child: const Icon(Icons.local_activity,
+                      //       color: AppColors.white),
+                      // ),
+                    );
             }
           });
   }
 
-  // Completer<GoogleMapController> _controller = Completer();
-  // LatLngBounds _allowedBounds = LatLngBounds(
-  //   southwest: LatLng(49.823809, -7.572167), // Southwest coordinates
-  //   northeast: LatLng(58.788884, 1.681530),  // Northeast coordinates
-  // );
-  //
-  // Future<void> _updateCameraPosition(CameraPosition position) async {
-  //   GoogleMapController controller = await _controller.future;
-  //
-  //   // Calculate the constrained target coordinates
-  //   double newLat = position.target.latitude.clamp(
-  //     _allowedBounds.southwest.latitude,
-  //     _allowedBounds.northeast.latitude,
-  //   );
-  //   double newLng = position.target.longitude.clamp(
-  //     _allowedBounds.southwest.longitude,
-  //     _allowedBounds.northeast.longitude,
-  //   );
-  //
-  //   // Update the camera position
-  //   CameraPosition newPosition = CameraPosition(
-  //     target: LatLng(newLat, newLng),
-  //     zoom: position.zoom,
-  //     tilt: position.tilt,
-  //     bearing: position.bearing,
-  //   );
-  //
-  //   controller.moveCamera(CameraUpdate.newCameraPosition(newPosition));
-  // }
 
   void updateMap(int radius) async {
     // Clear existing markers

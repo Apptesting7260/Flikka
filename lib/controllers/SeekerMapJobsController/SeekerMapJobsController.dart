@@ -4,6 +4,7 @@ import 'package:flikka/models/SeekerEarningModel/SeekerEarningModel.dart';
 import 'package:flikka/models/SeekerMapJobsModel/SeekerMapJobsModel.dart';
 import 'package:get/get.dart';
 import '../../repository/SeekerDetailsRepository/SeekerRepository.dart';
+import '../../widgets/google_map_widget.dart';
 
 class SeekerMapJobsController extends GetxController {
 
@@ -29,6 +30,8 @@ class SeekerMapJobsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       lat.value = "${value.lat}" ;
       long.value = "${value.long}" ;
+      // GoogleMapIntegrationState.lat = value.lat ;
+      // GoogleMapIntegrationState.long = value.long ;
       jobsData(value);
       print(value);
 
