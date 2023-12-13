@@ -178,7 +178,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    widget.jobData?.jobPositions ?? "",
+                    widget.jobData?.jobPositions ?? "No position",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(
@@ -195,7 +195,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   ),
                   widget.jobData?.education != null
                       ? Text(
-                    widget.jobData?.education ?? "",
+                    widget.jobData?.education ?? "No qualification",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ): const SizedBox(),
                   const Divider(
@@ -210,7 +210,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  Text("${years ?? ""} ${ months ?? ""}",
+                  Text("${years ?? ""} ${ months ?? "No experience"}",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   const Divider(
@@ -219,18 +219,18 @@ class _MarketingInternState extends State<MarketingIntern> {
                   ),
                   const Text("Job Type", style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text(widget.jobData?.employmentType ?? "",
+                  Text(widget.jobData?.employmentType ?? "No job type",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text("Specialization", style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text(widget.jobData?.specialization ?? "",
+                  Text(widget.jobData?.specialization ?? "No specialization",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text("Type of workplace",
                     style: TextStyle(color: Colors.white, fontSize: 14),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text(widget.jobData?.typeOfWorkplace ?? "",
+                  Text(widget.jobData?.typeOfWorkplace ?? "No workplace",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   const Divider(color: Colors.grey, thickness: 0.2,),
                   const Text(
@@ -241,7 +241,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   Text(
-                    widget.jobData?.preferredWorkExperience ?? "",
+                    widget.jobData?.preferredWorkExperience ?? "No preferred work experience",
                     style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
                   ),
                   const Divider(

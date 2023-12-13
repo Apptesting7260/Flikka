@@ -308,29 +308,32 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
-                          DropdownButton(
-                            dropdownColor: AppColors.black,
-                            hint: const Text("Select"),
-                            value: selectedRadius,
-                            items: radiusList.map<DropdownMenuItem>((value) {
-                              return DropdownMenuItem(
-                                value: value,
-                                child: Text(
-                                  '$value miles',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodySmall
-                                      ?.copyWith(color: AppColors.white),
-                                ),
-                              );
-                            }).toList(),
-                            onChanged: (newValue) {
-                              setState(() {
-                                selectedRadius = newValue;
-                                updateMap(newValue);
-                                // Call the method to filter markers based on the selected radius
-                              });
-                            },
+                          DropdownButtonHideUnderline(
+                            child: DropdownButton(
+                              icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
+                              dropdownColor: AppColors.black,
+                              hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
+                              value: selectedRadius,
+                              items: radiusList.map<DropdownMenuItem>((value) {
+                                return DropdownMenuItem(
+                                  value: value,
+                                  child: Text(
+                                    '$value miles',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodySmall
+                                        ?.copyWith(color: AppColors.white),
+                                  ),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  selectedRadius = newValue;
+                                  updateMap(newValue);
+                                  // Call the method to filter markers based on the selected radius
+                                });
+                              },
+                            ),
                           ),
                         ],
                       ),

@@ -394,8 +394,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                   },
                   child: Container(
                     alignment: Alignment.center,
-                    height: 42,
-                    width: 42,
+                    height: 34,
+                    width: 34,
                     decoration: const BoxDecoration(
                         shape: BoxShape.circle,
                         color: AppColors.blueThemeColor

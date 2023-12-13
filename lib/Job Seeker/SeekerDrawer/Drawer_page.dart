@@ -169,6 +169,18 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ),
                                   ListTile(
                                     horizontalTitleGap:0,
+                                    onTap: (){
+                                      Get.to(() =>const MessagePage());
+                                    } ,
+                                    dense: true,
+                                    leading: drawerIcon(messageIcon) ,
+                                    title: Text(
+                                      "Message",
+                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                    ),
+                                  ),
+                                  ListTile(
+                                    horizontalTitleGap:0,
                                     dense: true,
                                     onTap: () {
                                       Get.to(const MettingListTabbar());
@@ -239,18 +251,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                       style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                     ),
                                   ),
-                                  ListTile(
-                                    horizontalTitleGap:0,
-                                    onTap: (){
-                                      Get.to(() =>const MessagePage());
-                                    } ,
-                                    dense: true,
-                                    leading: drawerIcon(messageIcon) ,
-                                    title: Text(
-                                      "Message",
-                                      style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                    ),
-                                  ),
+
                                   // ListTile(
                                   //   horizontalTitleGap:0,
                                   //   dense: true,
