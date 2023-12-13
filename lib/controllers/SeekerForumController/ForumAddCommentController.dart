@@ -20,7 +20,7 @@ class ForumAddCommentController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void seekerAddComment( BuildContext context , String? forumID , String? comment ,){
+  void seekerAddComment( BuildContext context , String? forumID , String? comment , String? industryID){
     loading(true) ;
     var data = {} ;
     data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID ) ;
@@ -30,8 +30,8 @@ class ForumAddCommentController extends GetxController {
     _api.forumAddComment(data).then((value){
       setRxRequestStatus(Status.COMPLETED);
       Get.back() ;
-      commentsController.forumCommentsListApi(forumID: forumID) ;
-      forumDataController.seekerForumListApi() ;
+      commentsController.forumCommentsListApi(industryID,forumID: forumID) ;
+      forumDataController.seekerForumListApi(industryID: industryID) ;
       loading(false) ;
       if (kDebugMode) {
         print(value);
