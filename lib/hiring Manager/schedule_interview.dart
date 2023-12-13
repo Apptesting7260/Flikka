@@ -1394,7 +1394,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         const Divider(thickness: 0.2,
                                           color: AppColors.white,),
                                         SizedBox(height: Get.height * 0.02,),
-                                        HtmlWidget(candidateController.candidateData.value.seekerDetails?.aboutMe ?? "No Data",textStyle: Theme
+                                        HtmlWidget(candidateController.candidateData.value.seekerDetails?.aboutMe ?? "No about",textStyle: Theme
                                             .of(context).textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                                         //********************* for work ex ***************************
                                         SizedBox(height: Get.height * 0.04,),
@@ -1421,7 +1421,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height * 0.02,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.workExpJob == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.workExpJob?.length == 0 ?
-                                        const Text("No Data") :
+                                        Text("No work experience", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         ListView.builder(
                                             physics: const NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
@@ -1514,7 +1514,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height * 0.02,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.educationLevel == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.educationLevel?.length == 0 ?
-                                        const Text("No Data") :
+                                        Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         ListView.builder(
                                             physics: const NeverScrollableScrollPhysics(),
                                             shrinkWrap: true,
@@ -1616,7 +1616,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         /////
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.skillName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.skillName?.length == 0 ?
-                                        const SizedBox() :
+                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1656,7 +1656,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                     candidateController.candidateData.value.seekerDetails?.seekerData?.passionName == null ||
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.passionName?.length == 0 ?
-                                        const SizedBox() :
+                                    Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1701,7 +1701,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.industryPreferenceName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.industryPreferenceName?.length == 0 ?
-                                        const SizedBox() :
+                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1737,7 +1737,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.strengthsName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.strengthsName?.length == 0 ?
-                                        const SizedBox() :
+                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1786,7 +1786,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                             color: const Color(0xff484848),
                                           ),
                                           padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
-                                          child: Text('${ candidateController.candidateData.value.seekerDetails?.seekerData?.minSalaryExpectation ?? ''} - ${ candidateController.candidateData.value.seekerDetails?.seekerData?.maxSalaryExpectation ?? ''}',
+                                          child: Text('${ candidateController.candidateData.value.seekerDetails?.seekerData?.minSalaryExpectation ?? ''} - ${ candidateController.candidateData.value.seekerDetails?.seekerData?.maxSalaryExpectation ?? 'No salary expectation'}',
                                             overflow: TextOverflow.ellipsis,
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
                                                 color: AppColors.white,
@@ -1803,7 +1803,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName?.length == 0 ?
-                                        const SizedBox() :
+                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1846,7 +1846,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.availabityName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.availabityName?.length == 0 ?
-                                        const SizedBox() :
+                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1950,7 +1950,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height * 0.02,),
                                        candidateController.candidateData.value.seekerDetails?.seekerData?.languageName == null ||
                                            candidateController.candidateData.value.seekerDetails?.seekerData?.languageName?.length == 0 ?
-                                        const Text("No Data") :
+                                       Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 36,
@@ -2000,7 +2000,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height * 0.02,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.appreciation == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.appreciation?.length == 0 ?
-                                        const Text("No Data") :
+                                        Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         ListView.builder(
                                             shrinkWrap: true,
                                             physics: const NeverScrollableScrollPhysics(),
