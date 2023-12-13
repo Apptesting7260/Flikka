@@ -91,18 +91,18 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                 SizedBox(
                   height: Get.height * 0.01,
                 ),
-                HtmlWidget(widget.recruiterData?.seeker?.fullname ?? "",
+                HtmlWidget(widget.recruiterData?.seeker?.fullname ?? "No data",
                     textStyle: Get.theme.textTheme.displayLarge),
                 SizedBox(
                   height: Get.height * 0.005,
                 ),
-                Text(widget.recruiterData?.positions ?? "",
+                Text(widget.recruiterData?.positions ?? "No positions",
                     style: Get.theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.white)),
                 SizedBox(
                   height: Get.height * 0.005,
                 ),
-                HtmlWidget(widget.recruiterData?.seeker?.location ?? "",
+                HtmlWidget(widget.recruiterData?.seeker?.location ?? "no location",
                     textStyle: Get.theme.textTheme.bodyLarge!
                         .copyWith(color: AppColors.white,overflow: TextOverflow.ellipsis)),
                 SizedBox(
@@ -248,7 +248,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             thickness: 0.2,
                             color: AppColors.white,
                           ),
-                          Text(widget.recruiterData?.seeker?.mobile ?? "No Data") ,
+                          Text(widget.recruiterData?.seeker?.mobile ?? "No phone number") ,
                           SizedBox(
                             height: Get.height * 0.04,
                           ),
@@ -281,7 +281,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                             height: Get.height * 0.02,
                           ),
                           HtmlWidget(
-                            widget.recruiterData?.seeker?.aboutMe ?? "No Data",
+                            widget.recruiterData?.seeker?.aboutMe ?? "No about",
                             textStyle: Theme.of(context)
                                 .textTheme
                                 .bodyLarge!
@@ -326,7 +326,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   widget.recruiterData?.workExpJob
                                           ?.length ==
                                       0
-                              ? const Text("No Data")
+                              ?  Text("No work experience",style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)))
                               : ListView.builder(
                                   physics: const NeverScrollableScrollPhysics(),
                                   shrinkWrap: true,
@@ -436,7 +436,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                   itemBuilder: (context, index) {
                                     var data = widget.recruiterData?.educationLevel?[index];
                                     var endDate ;
-                                    if(data?.present == true) {
+                                    if(data?.present == true || data?.educationEndDate.toString().toLowerCase() == "present") {
                                       endDate = "Present" ;
                                     } else {
                                       endDate = "${data?.educationEndDate.month.toString().padLeft(2,'0')}-${data?.educationEndDate.day.toString().padLeft(2,'0')}-${data?.educationEndDate.year.toString().padLeft(4,'0')}" ;
@@ -569,7 +569,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           /////
                           widget.recruiterData?.skillName == null ||
                               widget.recruiterData?.skillName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -609,7 +609,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.passionName == null ||
                               widget.recruiterData?.passionName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -654,7 +654,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.industryPreferenceName == null ||
                               widget.recruiterData?.industryPreferenceName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -690,7 +690,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.strengthsName == null ||
                               widget.recruiterData?.strengthsName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -739,7 +739,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                               color: const Color(0xff484848),
                             ),
                             padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
-                            child: Text('${ widget.recruiterData?.minSalaryExpectation ?? ''} - ${ widget.recruiterData?.maxSalaryExpectation ?? ''}',
+                            child: Text('${ widget.recruiterData?.minSalaryExpectation ?? ''} - ${ widget.recruiterData?.maxSalaryExpectation ?? 'No salary expectation'}',
                               overflow: TextOverflow.ellipsis,
                               style: Get.theme.textTheme.bodySmall!.copyWith(
                                   color: AppColors.white,
@@ -756,7 +756,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.startWorkName == null ||
                               widget.recruiterData?.startWorkName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -799,7 +799,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.availabityName == null ||
                               widget.recruiterData?.availabityName?.length == 0 ?
-                          const SizedBox() :
+                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -869,7 +869,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           ),
                           widget.recruiterData?.language == null ||
                                   widget.recruiterData?.language?.length == 0
-                              ? const Text("No Data")
+                              ?  Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
                               : GridView.builder(
                                   gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
                                           mainAxisExtent: 36,
@@ -936,7 +936,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           ),
                           widget.recruiterData?.appreciation == null ||
                                   widget.recruiterData?.appreciation?.length == 0
-                              ? const Text("No Data")
+                              ?  Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
                               : ListView.builder(
                                   shrinkWrap: true,
                                   physics: const NeverScrollableScrollPhysics(),

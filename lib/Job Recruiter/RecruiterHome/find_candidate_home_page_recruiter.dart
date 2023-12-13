@@ -374,7 +374,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       SizedBox(height: Get.height*.004,),
                       widget.recruiterData?.workExpJob?.length == 0 ||
                           widget.recruiterData?.workExpJob == null ?
-                          const SizedBox() :
+                           Text("No work experience", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                       ListView.builder(
                         itemCount: widget.recruiterData?.workExpJob?.length,
                           physics: const NeverScrollableScrollPhysics(),
@@ -425,7 +425,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       SizedBox(height: Get.height*.004,),
                       widget.recruiterData?.educationLevel?.length == 0 ||
                           widget.recruiterData?.educationLevel == null ?
-                          const SizedBox() :
+                      Text("No work experience", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                       ListView.builder(
                         shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
