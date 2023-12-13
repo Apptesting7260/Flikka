@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
+import '../../utils/VideoPlayerScreen.dart';
 import '../../widgets/my_button.dart';
 
 class HomeSwiperWidget extends StatefulWidget {
@@ -379,7 +380,33 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     child: Image.asset(
                       "assets/images/icon_filter_seeker_home.png",
                       height: Get.height * .043,
-                    ))
+                    )),
+                SizedBox(
+                  height: Get.height * .01,
+                ),
+                widget.jobData?.video == null ||
+                    widget.jobData?.video?.length == 0 ?
+                const SizedBox() :
+                GestureDetector(
+                  onTap: () {
+                    Get.back() ;
+                    Get.to(() => VideoPlayerScreen(videoPath: widget.jobData?.video ?? "")) ;
+                  },
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 42,
+                    width: 42,
+                    decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: AppColors.blueThemeColor
+                    ),
+                    child: Image.asset(
+                      "assets/images/icon_video.png",
+                      height: 18,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
               ],
             ),
           ),
