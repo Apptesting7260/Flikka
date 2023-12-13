@@ -106,165 +106,169 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
               case Status.COMPLETED:
                 return SafeArea(
                   child: Scaffold(
-                    body: SmartRefresher(
-                      controller: RefreshController(),
-                      onLoading: _onLoading,
-                      onRefresh: _onRefresh,
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 20.0, vertical: 10),
+                    body: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0, vertical: 10),
+                      child: SmartRefresher(
+                        controller: _refreshController,
+                        onLoading: _onLoading,
+                        onRefresh: _onRefresh,
                         child: Column(
                           children: [
                             SizedBox(height: Get.height * .01,),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            Column(
                               children: [
                                 Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   children: [
-                                    GestureDetector(
-                                        onTap: () {
-                                          Get.offAll(const TabScreen(index: 0));
-                                        },
-                                        child: Image.asset(
-                                          "assets/images/icon_back_blue.png",
-                                          height: Get.height * .055,)),
-                                    SizedBox(width: Get.width * .04,),
-                                    Text("Forum",
-                                        style: Get.theme.textTheme.displayLarge),
-                                  ],
-                                ),
-                                // GestureDetector(
-                                //     onTap: () {
-                                //       Get.to(() => ForunCompanies());
-                                //     },
-                                //     child: Text("See All", style: Theme
-                                //         .of(context)
-                                //         .textTheme
-                                //         .bodyMedium
-                                //         ?.copyWith(fontWeight: FontWeight.w600,
-                                //         color: Color(0xff56B8F6)),)),
-                              ],
-                            ),
-                            SizedBox(height: Get.height * .02,),
-                            industryController.industryData.value.industryList == null ||
-                            industryController.industryData.value.industryList?.length == 0 ?
-                                const SizedBox() :
-                            SizedBox(
-                              height: Get.height * .15,
-                              child: ListView.builder(shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount: industryController.industryData.value.industryList?.length,
-                                  itemBuilder: (BuildContext context, int index) {
-                                var data = industryController.industryData.value.industryList?[index] ;
-                                    return Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox( width: Get.width * 0.22,
-                                        child: GestureDetector(
-                                          onTap: () {
-                                            industryID = data?.id.toString() ;
-                                            forumDataController.seekerForumListApi(industryID: industryID);
-                                          },
-                                          child: Column(
-                                            children: [
-                                             CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
-                                             placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
-                                               imageBuilder: (context, imageProvider) => Container(
-                                                 height: 60,
-                                                 width: 60,
-                                                 decoration: BoxDecoration(
-                                                   shape: BoxShape.circle ,
-                                                   image: DecorationImage(image: imageProvider)
-                                                 ),
-                                               ),
-                                             ) ,
-                                              SizedBox(height: Get.height * .01,),
-                                              Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
-                                                style: Theme.of(context).textTheme.bodyMedium
-                                                  ?.copyWith(fontWeight: FontWeight.w700 ,
-                                                color: forumDataController.industryId.value == data?.id.toString() ?
-                                                AppColors.blueThemeColor : AppColors.white),),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                            SizedBox(height: Get.height * .01,),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: Get.width * .05,
-                                        vertical: Get.height * .002),
-                                    decoration: BoxDecoration(
-                                      color: Color(0xff373737),
-                                      borderRadius: BorderRadius.circular(33.0),
-                                    ),
-                                    child: Row(
+                                    Row(
                                       children: [
-                                        const Icon(
-                                          Icons.search, color: Color(0xff56B8F6),
-                                          size: 30,),
-                                        SizedBox(width: Get.width * .03),
-                                        Expanded(
-                                          child: TextFormField(
-                                            style: Theme
-                                                .of(context)
-                                                .textTheme
-                                                .bodyLarge
-                                                ?.copyWith(
-                                                color: Color(0xffCFCFCF),
-                                                fontSize: 19),
-                                            onChanged: (query) {
-                                              forumDataController.filterList(query) ;
-                                              // forumDataController.forumData.value.forumData = forumDataController.forumData.value.forumData?.where((element) {
-                                              //  if( element.title != null) {
-                                              //   if( element.title!.toLowerCase().contains(query.toLowerCase())) {
-                                              //     setState(() {
-                                              //       print("object") ;
-                                              //     });
-                                              //     return true ;
-                                              //   }else {
-                                              //     return false ;
-                                              //   }
-                                              //  }else {
-                                              //    return false ;
-                                              //  }
-                                              // }).toList() ;
+                                        GestureDetector(
+                                            onTap: () {
+                                              Get.offAll(const TabScreen(index: 0));
                                             },
-                                            decoration: InputDecoration(
-                                              hintText: 'Search',
-                                              hintStyle: Theme
-                                                  .of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                  color: Color(0xffCFCFCF)),
-                                              border: InputBorder.none,
-                                            ),
-                                          ),
-                                        ),
+                                            child: Image.asset(
+                                              "assets/images/icon_back_blue.png",
+                                              height: Get.height * .055,)),
+                                        SizedBox(width: Get.width * .04,),
+                                        Text("Forum",
+                                            style: Get.theme.textTheme.displayLarge),
                                       ],
                                     ),
-                                  ),
+                                    // GestureDetector(
+                                    //     onTap: () {
+                                    //       Get.to(() => ForunCompanies());
+                                    //     },
+                                    //     child: Text("See All", style: Theme
+                                    //         .of(context)
+                                    //         .textTheme
+                                    //         .bodyMedium
+                                    //         ?.copyWith(fontWeight: FontWeight.w600,
+                                    //         color: Color(0xff56B8F6)),)),
+                                  ],
+                                ),
+                                SizedBox(height: Get.height * .02,),
+                                industryController.industryData.value.industryList == null ||
+                                industryController.industryData.value.industryList?.length == 0 ?
+                                    const SizedBox() :
+                                SizedBox(
+                                  height: Get.height * .15,
+                                  child: ListView.builder(shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: industryController.industryData.value.industryList?.length,
+                                      itemBuilder: (BuildContext context, int index) {
+                                    var data = industryController.industryData.value.industryList?[index] ;
+                                        return Padding(
+                                          padding: const EdgeInsets.all(8.0),
+                                          child: SizedBox( width: Get.width * 0.22,
+                                            child: GestureDetector(
+                                              onTap: () {
+                                                industryID = data?.id.toString() ;
+                                                forumDataController.seekerForumListApi(industryID: industryID);
+                                              },
+                                              child: Column(
+                                                children: [
+                                                 CachedNetworkImage(imageUrl: data?.industryImg ?? "" ,
+                                                 placeholder: (context, url) => const Center(child: CircularProgressIndicator(),),
+                                                   imageBuilder: (context, imageProvider) => Container(
+                                                     height: 60,
+                                                     width: 60,
+                                                     decoration: BoxDecoration(
+                                                       shape: BoxShape.circle ,
+                                                       image: DecorationImage(image: imageProvider)
+                                                     ),
+                                                   ),
+                                                 ) ,
+                                                  SizedBox(height: Get.height * .01,),
+                                                  Text(data?.industryPreferences ?? "", overflow: TextOverflow.ellipsis,
+                                                    style: Theme.of(context).textTheme.bodyMedium
+                                                      ?.copyWith(fontWeight: FontWeight.w700 ,
+                                                    color: forumDataController.industryId.value == data?.id.toString() ?
+                                                    AppColors.blueThemeColor : AppColors.white),),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      }),
+                                ),
+                                SizedBox(height: Get.height * .01,),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Container(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: Get.width * .05,
+                                            vertical: Get.height * .002),
+                                        decoration: BoxDecoration(
+                                          color: Color(0xff373737),
+                                          borderRadius: BorderRadius.circular(33.0),
+                                        ),
+                                        child: Row(
+                                          children: [
+                                            const Icon(
+                                              Icons.search, color: Color(0xff56B8F6),
+                                              size: 30,),
+                                            SizedBox(width: Get.width * .03),
+                                            Expanded(
+                                              child: TextFormField(
+                                                style: Theme
+                                                    .of(context)
+                                                    .textTheme
+                                                    .bodyLarge
+                                                    ?.copyWith(
+                                                    color: Color(0xffCFCFCF),
+                                                    fontSize: 19),
+                                                onChanged: (query) {
+                                                  forumDataController.filterList(query) ;
+                                                  // forumDataController.forumData.value.forumData = forumDataController.forumData.value.forumData?.where((element) {
+                                                  //  if( element.title != null) {
+                                                  //   if( element.title!.toLowerCase().contains(query.toLowerCase())) {
+                                                  //     setState(() {
+                                                  //       print("object") ;
+                                                  //     });
+                                                  //     return true ;
+                                                  //   }else {
+                                                  //     return false ;
+                                                  //   }
+                                                  //  }else {
+                                                  //    return false ;
+                                                  //  }
+                                                  // }).toList() ;
+                                                },
+                                                decoration: InputDecoration(
+                                                  hintText: 'Search',
+                                                  hintStyle: Theme
+                                                      .of(context)
+                                                      .textTheme
+                                                      .bodyLarge
+                                                      ?.copyWith(
+                                                      color: Color(0xffCFCFCF)),
+                                                  border: InputBorder.none,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: Get.width * 0.015,
+                                    ),
+                                    Container(
+                                        height: Get.height * 0.06,
+                                        child: GestureDetector(
+                                            onTap: () {
+                                              Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
+                                            },
+                                            child: Image.asset('assets/images/icon_add_form.png',
+                                              fit: BoxFit.cover,))),
+                                  ],
                                 ),
                                 SizedBox(
-                                  width: Get.width * 0.015,
+                                  height: Get.height * .02,
                                 ),
-                                Container(
-                                    height: Get.height * 0.06,
-                                    child: GestureDetector(
-                                        onTap: () {
-                                          Get.to(() => AddNewForum(list: industryController.industryData.value.industryList ,));
-                                        },
-                                        child: Image.asset('assets/images/icon_add_form.png',
-                                          fit: BoxFit.cover,))),
                               ],
-                            ),
-                            SizedBox(
-                              height: Get.height * .02,
                             ),
                             //************* list *((((((((((((((((((((((((((((((((
 
