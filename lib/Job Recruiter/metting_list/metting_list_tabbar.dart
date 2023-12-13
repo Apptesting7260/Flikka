@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
@@ -78,7 +79,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      SizedBox(height: Get.height * .02,),
+                      // SizedBox(height: Get.height * .02,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -93,7 +94,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                               isExpanded: true,
                               hint: Row(
                                 children: [
-                                  const SizedBox(width: 4,),
+                                  const SizedBox(width: 2,),
                                   Expanded(
                                     child: Text(
                                       'Filter',
@@ -122,7 +123,7 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                 });
                               },
                               buttonStyleData: ButtonStyleData(
-                                height: Get.height * 0.060,
+                                height: Get.height * 0.05,
                                 width: Get.width * .26,
                                 padding: const EdgeInsets.only(
                                     left: 14, right: 14),
@@ -195,7 +196,19 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                       minVerticalPadding: 12,
                                       leading: CircleAvatar(
                                         radius: 28,
-                                        backgroundImage: NetworkImage( data?.seekerData?.profileImg ?? "",),
+                                        child: CachedNetworkImage(
+                                            imageUrl: data?.seekerData?.profileImg ?? "",
+                                          imageBuilder: (context, imageProvider) => Container(
+                                            height: 80,
+                                            width: 80,
+                                            decoration: BoxDecoration(
+                                              image: DecorationImage(image: imageProvider),
+                                              shape: BoxShape.circle,
+                                            ),
+                                          ),
+                                          placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                        ),
+                                        //backgroundImage: NetworkImage( data?.seekerData?.profileImg ?? "",),
                                       ),
                                       title: Text( data?.seekerData?.fullname ?? "", style: Theme
                                           .of(context)
@@ -288,7 +301,8 @@ class _MettingListTabbarState extends State<MettingListTabbar> {
                                           height: Get.height * .066,
                                           width: Get.width * .38,
                                           title: "JOIN", onTap1: () {
-
+                                        launchUrl(Uri.parse("${data?.interviewLink}"),
+                                        mode: LaunchMode.externalApplication) ;
                                         },),
                                         SizedBox(
                                           height: Get.height * .066,
