@@ -21,10 +21,10 @@ class ApplicantTrackingDataController extends GetxController {
   void setError(String value) => error.value = value ;
   RxList<ApplicantDatum>? applicantList = <ApplicantDatum>[].obs ;
 
-  applicantTrackingApi(dynamic jobTitle , dynamic status ) async{
+  applicantTrackingApi(dynamic positionID , dynamic status ) async{
     setRxRequestStatus(Status.LOADING);
     var data =  {};
-    data.addIf(jobTitle != null && jobTitle.toString().isNotEmpty, "job_title_id", jobTitle) ;
+    data.addIf(positionID != null && positionID.toString().isNotEmpty, "job_positions_id", positionID) ;
     data.addIf(status != null && status.toString().isNotEmpty, "candidate_status_type", status) ;
 
     debugPrint(data.toString());
@@ -41,21 +41,21 @@ class ApplicantTrackingDataController extends GetxController {
     }) ;
   }
 
-  // filterList(String? query) {
-  //   if(applicantTrackingDataModel.value.applicantData != null) {
-  //     applicantList?.value = applicantTrackingDataModel.value.applicantData!.where((element) {
-  //
-  //       if( element.title != null) {
-  //         if( element.title!.toLowerCase().contains(query.toString().toLowerCase())) {
-  //           return true ;
-  //         }else {
-  //           return false ;
-  //         }
-  //       }else {
-  //         return false ;
-  //       }}).toList() ;
-  //   }
-  // }
+  filterList(String? query) {
+    if(applicantTrackingDataModel.value.applicantData != null) {
+      applicantList?.value = applicantTrackingDataModel.value.applicantData!.where((element) {
+        if( element.jobTitle != null && element.jobPositions != null) {
+          if( element.jobTitle!.toLowerCase().contains(query.toString().toLowerCase()) ||
+              element.jobPositions!.toLowerCase().contains(query.toString().toLowerCase())) {
+            return true ;
+          }else {
+            return false ;
+          }
+        }else {
+          return false ;
+        }}).toList() ;
+    }
+  }
 
   refreshApi(dynamic jobTitle , dynamic status) async{
     loading(true) ;
