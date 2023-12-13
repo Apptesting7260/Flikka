@@ -1083,8 +1083,8 @@ import '../utils/VideoPlayerScreen.dart';
 
 bool isMeetingScheduled = false;
 class ScheduleInterview extends StatefulWidget {
- final String seekerID ; final String requestID ; final bool? talentPool ; final bool? accepted ;
-  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.accepted}) : super(key: key);
+ final String seekerID ; final String requestID ; final bool? talentPool ; final String? status ;
+  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.status}) : super(key: key);
 
   @override
   State<ScheduleInterview> createState() => _ScheduleInterviewState();
@@ -2040,11 +2040,11 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                           children: [
                                             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                               children: [
-                                              MyButton(title: widget.accepted == true ? "ACCEPTED" : "ACCEPT",
+                                              MyButton(title: widget.status == "accepted" ? "ACCEPTED" : "ACCEPT",
                                                   width: Get.width *.4,
                                                   onTap1: () {
-                                                    if(widget.accepted == true) {} else {
-                                                      CommonFunctions.confirmationDialog(context, message: "Do you want to Accepted",
+                                                    if(widget.status == "accepted") {} else {
+                                                      CommonFunctions.confirmationDialog(context, message: "Do you want to Accept",
                                                           onTap: () {
                                                             Get.back() ;
                                                             CommonFunctions.showLoadingDialog(context, "Updating...") ;
@@ -2053,19 +2053,21 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
 
                                                     }
                                               }),
-                                              MyButton(title: "REJECT",
+                                              MyButton(title: widget.status == "rejected" ? "REJECTED" : "REJECT",
                                                   width: Get.width *.4,
                                                   onTap1: () {
-                                                CommonFunctions.confirmationDialog(context, message: "Do you want to Rejected",
+                                                    if(widget.status == "rejected") {} else {
+                                                      CommonFunctions.confirmationDialog(context, message: "Do you want to Reject",
                                                   onTap: () {
                                                   Get.back() ;
                                                   CommonFunctions.showLoadingDialog(context, "Updating...") ;
                                                   statusController.jobStatus("Rejected", widget.requestID) ;
                                                 },) ;
+                                                    }
                                               }),
                                             ],),
                                             SizedBox(height: Get.height * 0.03,),
-                                          widget.accepted == true ? Center(
+                                          widget.status == true ? Center(
                                               child: MyButton(title: 'SCHEDULE MEETING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
