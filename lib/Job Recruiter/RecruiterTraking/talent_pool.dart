@@ -3,7 +3,9 @@ import 'package:flikka/controllers/TalentPoolController/RemoveFromPoolController
 import 'package:flikka/controllers/TalentPoolController/TalentPoolController.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
+import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../data/response/status.dart';
@@ -138,22 +140,23 @@ class _TalentPoolState extends State<TalentPool> {
                                   ),
                                   SizedBox(height: Get.height * .02,),
                                   Center(
-                                    child: Obx( () => MyButton(
-                                      loading: removeController.loading.value,
+                                    child: MyButton(
+                                      // loading: removeController.loading.value,
                                         height: Get.height * .066,
                                         width: Get.width*.75,
                                         title: "REMOVE PROFILE", onTap1: () {
                                         CommonFunctions.confirmationDialog(context, message: "Do you want remove this profile", onTap: () {
                                           Get.back() ;
+                                          CommonFunctions.showLoadingDialog(context, "Removing...") ;
                                           if (!removeController.loading.value) {
-                                            removeController.removeSeeker(
-                                                context,
-                                                data?.seekerId.toString());
+                                            if (kDebugMode) {
+                                              print(data?.seekerId.toString()) ;
+                                            }
+                                            removeController.removeSeeker(context, data?.seekerId.toString());
                                           }
                                         }
                                       ) ;
                                       },),
-                                    ),
                                   )
                                 ],
                               ),

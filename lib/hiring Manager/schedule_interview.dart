@@ -2067,7 +2067,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                               }),
                                             ],),
                                             SizedBox(height: Get.height * 0.03,),
-                                          widget.status == true ? Center(
+                                          widget.status == "accepted" ? Center(
                                               child: MyButton(title: 'SCHEDULE MEETING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
