@@ -16,7 +16,7 @@ import GoogleMaps
 //         GeneratedPluginRegistrant.register(with: registry)}
 
     GeneratedPluginRegistrant.register(with: self)
-    GMSServices.provideAPIKey("AIzaSyDmjJwrodiqHA1bvLjyx_UwOHZ3hzd4fOU")
+    GMSServices.provideAPIKey("AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8")
 
      if #available(iOS 10.0, *) {
                   UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate

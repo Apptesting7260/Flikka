@@ -362,14 +362,10 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                               height: 70,
                                               child: Center(
                                                 child: Padding(
-                                                  padding: const EdgeInsets
-                                                      .only(
-                                                      left: 18.0),
+                                                  padding: const EdgeInsets.only(left: 18.0),
                                                   child: Row(
                                                     children: [
-                                                      Image.asset(
-                                                        'assets/images/viewicon.png',
-                                                        scale: 0.7,),
+                                                      Image.asset('assets/images/viewicon.png', scale: 0.7,),
                                                       SizedBox(width: Get.width * 0.015,),
                                                       Text("${data?.forumViewCount} Views",
                                                         style: Get.theme.textTheme.bodySmall!
