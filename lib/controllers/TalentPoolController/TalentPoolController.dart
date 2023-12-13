@@ -27,4 +27,16 @@ class TalentPoolController extends GetxController {
       setRxRequestStatus(Status.ERROR);
     });
   }
+
+  void refreshPool(){
+    _api.talentPoolApi().then((value){
+      poolData(value) ;
+      print(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      print(stackTrace.toString());
+      setRxRequestStatus(Status.ERROR);
+    });
+  }
 }
