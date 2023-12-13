@@ -1989,8 +1989,9 @@ class _UserProfileState extends State<UserProfile> {
                                           shape: BoxShape.circle,
                                           color: AppColors.blueThemeColor
                                       ),
-                                      child: Image.asset(
-                                        "assets/images/icon_video.png",
+                                      child: Image.asset( seekerProfileController.viewSeekerData.value.seekerInfo?.video == null ||
+                                          seekerProfileController.viewSeekerData.value.seekerInfo?.video?.length == 0 ? "assets/images/icon_video_upload.png"
+                                       : "assets/images/icon_video.png",
                                         height: 18,
                                         fit: BoxFit.cover,
                                       ),

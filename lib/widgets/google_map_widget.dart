@@ -309,8 +309,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           DropdownButton(
+                            icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
                             dropdownColor: AppColors.black,
-                            hint: const Text("Select"),
+                            hint: const Text("Select",style: TextStyle(color: Colors.black),),
                             value: selectedRadius,
                             items: radiusList.map<DropdownMenuItem>((value) {
                               return DropdownMenuItem(
