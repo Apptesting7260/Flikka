@@ -337,7 +337,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                                     var startDate ;
                                     startDate = DateTime.parse("${data?.jobStartDate}") ;
                                     startDate = "${startDate.month.toString().padLeft(2,"0")}-${startDate.day.toString().padLeft(2,"0")}-${startDate.year.toString().padLeft(4,"0")}" ;
-                                    if(data?.present == true) {
+                                    if(data?.present == true || data?.jobEndDate.toString().toLowerCase() == "present") {
                                       endDate = "Present" ;
                                     }else {
                                       endDate = DateTime.parse("${data?.jobEndDate}") ;
