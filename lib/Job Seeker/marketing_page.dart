@@ -128,21 +128,21 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.025,
                   ),
                   Text(
-                    "${widget.jobData?.jobTitle}", overflow: TextOverflow.ellipsis,
+                    "${widget.jobData?.jobTitle ?? "No job title"}", overflow: TextOverflow.ellipsis,
                     style:  Get.theme.textTheme.displayLarge,
                   ),
                   SizedBox(
                     height: Get.height * 0.004,
                   ),
                   Text(
-                    "${widget.jobData?.jobPositions}",overflow: TextOverflow.ellipsis,
+                    "${widget.jobData?.jobPositions ?? "No job position"}",overflow: TextOverflow.ellipsis,
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
                   SizedBox(
                     height: Get.height * 0.004,
                   ),
                   Text(
-                    "${widget.jobData?.recruiterDetails?.companyName}", overflow: TextOverflow.ellipsis,
+                    "${widget.jobData?.recruiterDetails?.companyName ?? "No company name"}", overflow: TextOverflow.ellipsis,
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),
                   ),
 
@@ -156,15 +156,15 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  HtmlWidget(widget.jobData?.description ?? '',textStyle:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)) ,),
+                  HtmlWidget(widget.jobData?.description ?? 'No job description',textStyle:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)) ,),
                   SizedBox(height: Get.height * 0.03,),
                   Text("Requirements", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
-                  HtmlWidget(widget.jobData?.requirements ?? '',textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  HtmlWidget(widget.jobData?.requirements ?? 'No requirements',textStyle: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.025,),
                   Text("Locations", style: Get.theme.textTheme.titleSmall!.copyWith(color: AppColors.white),),
                   SizedBox(height: Get.height * 0.015,),
-                  Text(widget.jobData?.jobLocation ?? "",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
+                  Text(widget.jobData?.jobLocation ?? "No job location",overflow: TextOverflow.ellipsis, style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),),
                   SizedBox(height: Get.height * 0.015,),
                   InkWell(
                       // onTap: ()=>Get.to(const GoogleMapIntegration()),
@@ -369,7 +369,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height*0.01,),
                   widget.jobData?.jobsDetail?.industryPreferenceName == null ||
                       widget.jobData?.jobsDetail?.industryPreferenceName?.length == 0 ?
-                  const SizedBox() :
+                    Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
@@ -405,7 +405,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height*0.01,),
                   widget.jobData?.jobsDetail?.strengthsName == null ||
                       widget.jobData?.jobsDetail?.strengthsName?.length == 0 ?
-                  const SizedBox() :
+                  Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
@@ -452,7 +452,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                       color: const Color(0xff484848),
                     ),
                     padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
-                    child: Text('${widget.jobData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.jobData?.jobsDetail?.maxSalaryExpectation ?? ''}',
+                    child: Text('${widget.jobData?.jobsDetail?.minSalaryExpectation ?? ''}   ${widget.jobData?.jobsDetail?.maxSalaryExpectation ?? 'No salary expectation'}',
                       style: Get.theme.textTheme.bodySmall!.copyWith(
                           color: AppColors.white,
                           fontWeight: FontWeight.w400),),
@@ -468,7 +468,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height*0.01,),
                   widget.jobData?.jobsDetail?.startWorkName == null ||
                       widget.jobData?.jobsDetail?.startWorkName?.length == 0 ?
-                  const SizedBox() :
+                  Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
@@ -511,7 +511,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height*0.01,),
                   widget.jobData?.jobsDetail?.availabityName == null ||
                       widget.jobData?.jobsDetail?.availabityName?.length == 0 ?
-                  const SizedBox() :
+                  Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
