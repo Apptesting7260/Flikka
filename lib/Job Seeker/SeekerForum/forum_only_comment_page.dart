@@ -15,7 +15,8 @@ import '../../widgets/app_colors.dart';
 
 class ForumOnlyCommentPage extends StatefulWidget {
   final ForumDatum? forumData ;
-  const ForumOnlyCommentPage({super.key, this.forumData});
+  final String? industryID ;
+  const ForumOnlyCommentPage({super.key, this.forumData, this.industryID});
 
   @override
   State<ForumOnlyCommentPage> createState() => _ForumOnlyCommentPageState();
@@ -72,7 +73,7 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
   }
   @override
   void initState() {
-  commentsController.forumCommentsListApi(forumID: widget.forumData?.id.toString()) ;
+  commentsController.forumCommentsListApi(widget.industryID,forumID: widget.forumData?.id.toString()) ;
     super.initState();
   }
 
@@ -89,16 +90,16 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
             return Scaffold(
               body: InterNetExceptionWidget(
                 onPress: () {
-                  commentsController.forumCommentsListApi(forumID:widget.forumData?.id.toString()) ;
+                  commentsController.forumCommentsListApi(widget.industryID,forumID:widget.forumData?.id.toString()) ;
                 },
               ),);
           } else if (commentsController.error.value == 'Request Time out') {
             return Scaffold(body: RequestTimeoutWidget(onPress: () {
-              commentsController.forumCommentsListApi(forumID: widget.forumData?.id.toString()) ;
+              commentsController.forumCommentsListApi(widget.industryID,forumID: widget.forumData?.id.toString()) ;
             }),);
           } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
-              commentsController.forumCommentsListApi(forumID: widget.forumData?.id.toString()) ;
+              commentsController.forumCommentsListApi(widget.industryID,forumID: widget.forumData?.id.toString()) ;
             }),);
           }
         case Status.COMPLETED:
@@ -411,7 +412,7 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                                       CommonFunctions.showLoadingDialog(context, "Posting...") ;
                                       addCommentController.seekerAddComment(
                                           context, widget.forumData?.id.toString(),
-                                          commentController.text);
+                                          commentController.text , widget.industryID);
                                       commentController.clear() ;
                                     }
                                   },

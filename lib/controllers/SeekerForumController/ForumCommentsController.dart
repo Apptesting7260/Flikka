@@ -19,7 +19,7 @@ class ForumCommentsController extends GetxController {
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void setError(String _value) => error.value = _value ;
 
-  void forumCommentsListApi({String? forumID}){
+  void forumCommentsListApi( String? industryID,{String? forumID} ){
     var data = {} ;
     data.addIf(forumID != null && forumID.length != 0 , "forum_id" , forumID) ;
 
@@ -28,7 +28,7 @@ class ForumCommentsController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       commentsData(value) ;
       reversedList = value.seekerComment?.reversed.toList() ?? [] ;
-      forumDataController.seekerForumListApi() ;
+      forumDataController.seekerForumListApi(industryID: industryID) ;
       if (kDebugMode) {
         print(value);
       }

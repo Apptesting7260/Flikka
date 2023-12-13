@@ -150,7 +150,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                             industryController.industryData.value.industryList?.length == 0 ?
                                 const SizedBox() :
                             SizedBox(
-                              height: Get.height * .18,
+                              height: Get.height * .15,
                               child: ListView.builder(shrinkWrap: true,
                                   scrollDirection: Axis.horizontal,
                                   itemCount: industryController.industryData.value.industryList?.length,
@@ -158,10 +158,11 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                 var data = industryController.industryData.value.industryList?[index] ;
                                     return Padding(
                                       padding: const EdgeInsets.all(8.0),
-                                      child: SizedBox( width: Get.width * 0.25,
+                                      child: SizedBox( width: Get.width * 0.22,
                                         child: GestureDetector(
                                           onTap: () {
-                                            forumDataController.seekerForumListApi(industryID: data?.id.toString());
+                                            industryID = data?.id.toString() ;
+                                            forumDataController.seekerForumListApi(industryID: industryID);
                                           },
                                           child: Column(
                                             children: [
@@ -196,7 +197,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                   child: Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: Get.width * .05,
-                                        vertical: Get.height * .008),
+                                        vertical: Get.height * .002),
                                     decoration: BoxDecoration(
                                       color: Color(0xff373737),
                                       borderRadius: BorderRadius.circular(33.0),
@@ -283,7 +284,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                           children: [
                                             GestureDetector(
                                               onTap: () {
-                                                Get.to(() => ForumOnlyCommentPage(forumData: data,));
+                                                Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));
                                               },
                                               child: Container(
                                                 decoration: BoxDecoration(
@@ -294,14 +295,9 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                 ),
                                                 child: SingleChildScrollView(
                                                   child: Padding(
-                                                    padding: const EdgeInsets
-                                                        .only(
-                                                        left: 7.0, top: 15),
-                                                    child: Row(
-                                                      crossAxisAlignment: CrossAxisAlignment
-                                                          .start,
-                                                      mainAxisAlignment: MainAxisAlignment
-                                                          .start,
+                                                    padding: const EdgeInsets.only(left: 7.0, top: 15),
+                                                    child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                                                      mainAxisAlignment: MainAxisAlignment.start,
                                                       //crossAxisAlignment: CrossAxisAlignment.end,
                                                       children: [
                                                         CachedNetworkImage(imageUrl: data?.seekerImg ?? "" ,
@@ -325,9 +321,19 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                 children: [
                                                                   SizedBox( width : Get.width * 0.5,
                                                                     child: Text(
-                                                                      data?.title ?? "",
+                                                                      data?.industryPreference ?? "",
                                                                       overflow: TextOverflow.ellipsis,
                                                                       style: Theme.of(context).textTheme.titleSmall!
+                                                                          .copyWith(color: AppColors.blueThemeColor),
+                                                                      softWrap: true,),
+                                                                  ),
+                                                                  SizedBox(height: Get.height * 0.005,),
+                                                                  SizedBox( width : Get.width * 0.5,
+
+                                                                    child: Text(
+                                                                      data?.title ?? "",
+                                                                      overflow: TextOverflow.ellipsis,
+                                                                      style: Theme.of(context).textTheme.bodyMedium!
                                                                           .copyWith(color: AppColors.white),
                                                                       softWrap: true,),
                                                                   ),
@@ -335,7 +341,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                                   Text(data?.seekerName ?? "",
                                                                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                                         color: AppColors.ratingcommenttextcolor),),
-                                                                  SizedBox(height: Get.height * 0.03,),
+                                                                  SizedBox(height: Get.height * 0.01,),
                                                                   SizedBox(width: Get.width * 0.60,
                                                                     child:HtmlWidget( data?.titleDescription ?? "",textStyle:  Theme
                                                                         .of(context).textTheme.bodySmall!.copyWith(
@@ -396,7 +402,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                                         SizedBox(width: Get.width * 0.075,),
                                                         GestureDetector(
                                                           onTap : () {
-                                                            Get.to(() => ForumOnlyCommentPage(forumData: data,));} ,
+                                                            Get.to(() => ForumOnlyCommentPage(forumData: data,industryID: industryID,));} ,
                                                           child: Row(
                                                             children: [
                                                               Image.asset(
