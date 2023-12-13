@@ -193,11 +193,13 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(
                     height: Get.height * 0.015,
                   ),
-                  widget.jobData?.education != null
-                      ? Text(
-                    widget.jobData?.education ?? "No qualification",
+                  widget.jobData?.education.toString().toLowerCase() == "null" ||
+                      widget.jobData?.education.toString().length == 0
+                      ? Text("No qualification", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                  Text(
+                    widget.jobData?.education ?? "",
                     style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),
-                  ): const SizedBox(),
+                  ),
                   const Divider(
                     color: Colors.grey,
                     thickness: 0.2,
@@ -256,7 +258,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                     height: Get.height * 0.015,
                   ),
                   widget.jobData?.languageName == null || widget.jobData?.languageName?.length == 0 ?
-                      const SizedBox() :
+                       Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   ListView.builder(
                     shrinkWrap: true,
                     itemCount: widget.jobData?.languageName?.length,
@@ -282,7 +284,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   /////
                   widget.jobData?.jobsDetail?.skillName == null ||
                       widget.jobData?.jobsDetail?.skillName?.length == 0 ?
-                  const SizedBox() :
+                   Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
@@ -322,7 +324,7 @@ class _MarketingInternState extends State<MarketingIntern> {
                   SizedBox(height: Get.height*0.01,),
                   widget.jobData?.jobsDetail?.passionName == null ||
                       widget.jobData?.jobsDetail?.passionName?.length == 0 ?
-                  const SizedBox() :
+                    Text("No skills", style:Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                   GridView.builder(gridDelegate:
                   SliverGridDelegateWithMaxCrossAxisExtent(
                       mainAxisExtent: 39,
