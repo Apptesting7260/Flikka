@@ -67,6 +67,7 @@ class ApplicantTrackingDataController extends GetxController {
     _api.applicantTrackingData(data).then((value){
       loading(false) ;
       applicantTrackingDataModel(value) ;
+      applicantList?.value =  value.applicantData ?? [] ;
 
     }).onError((error, stackTrace){
       loading(false) ;

@@ -506,16 +506,10 @@ class _AllCandidateState extends State<AllCandidate> {
                                                         onTap1: () {
                                                           Get.to(() =>
                                                               ScheduleInterview(
-                                                                seekerID: "${data
-                                                                    ?.seekerId}",
-                                                                requestID: '${data
-                                                                    ?.id}',
-                                                                accepted: "${data
-                                                                    ?.status}"
-                                                                    .toLowerCase() ==
-                                                                    "accepted"
-                                                                    ? true
-                                                                    : false,));
+                                                                seekerID: "${data?.seekerId}",
+                                                                requestID: '${data?.id}',
+                                                                status: "${data?.status}".toLowerCase()
+                                                                   ));
                                                         },),
                                                       SizedBox(
                                                         height: Get.height *
