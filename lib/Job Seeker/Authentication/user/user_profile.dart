@@ -2043,13 +2043,13 @@ class _UserProfileState extends State<UserProfile> {
                                                         softWrap: true,
                                                       ),
                                                       Text(
-                                                          seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "" ,
+                                                          seekerProfileController.viewSeekerData.value.seekerDetails?.positions ?? "No positions" ,
                                                           style: Theme.of(context).textTheme.bodySmall
                                                               ?.copyWith(color: const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
                                                       ),
                                                       SizedBox(height: Get.height * .003,),
                                                       Text(
-                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.location}",overflow: TextOverflow.ellipsis,
+                                                        "${seekerProfileController.viewSeekerData.value.seekerInfo?.location ?? "No location"}",overflow: TextOverflow.ellipsis,
                                                         style: Theme
                                                             .of(context)
                                                             .textTheme
@@ -2108,7 +2108,7 @@ class _UserProfileState extends State<UserProfile> {
                                               children: [
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.phone == null ||
                                                     seekerProfileController.viewSeekerData.value.seekerInfo?.phone?.length == 0 ?
-                                                const Text("No Data") :
+                                                Text("No phone number", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                                 Text(seekerProfileController.viewSeekerData.value.seekerInfo?.phone ??"No Data",style: Theme.of(context).textTheme.bodyLarge!
                                                     .copyWith(color: AppColors.ratingcommenttextcolor),)
                                                 // Text("Verify",style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.w700,color: AppColors.blueThemeColor),)
@@ -2142,7 +2142,7 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.01,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe == null ||
                                                 CommonFunctions.parseHTML(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe)?.trim().length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No about", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             HtmlWidget(seekerProfileController.viewSeekerData.value.seekerInfo?.aboutMe ?? 'No Data', textStyle: Theme.of(context).textTheme.bodyLarge!
                                                 .copyWith(color: AppColors.ratingcommenttextcolor),),
                                             SizedBox(height: Get.height * 0.045,),
@@ -2291,7 +2291,7 @@ class _UserProfileState extends State<UserProfile> {
                                             const Divider(thickness: 0.2, color: AppColors.white,),
                                             seekerProfileController.viewSeekerData.value.educationLevel == null ||
                                                 seekerProfileController.viewSeekerData.value.educationLevel?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2405,7 +2405,7 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2462,7 +2462,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2512,7 +2512,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
 
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2563,7 +2563,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     .viewSeekerData.value
                                                     .seekerDetails?.strengthsName
                                                     ?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2620,7 +2620,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.maxSalary.toString().length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No salary expectation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             Container(
                                               decoration: BoxDecoration(
                                                 borderRadius: BorderRadius
@@ -2657,7 +2657,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2721,7 +2721,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
                                                     ?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2798,7 +2798,7 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.language == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.language?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No language", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2852,7 +2852,7 @@ class _UserProfileState extends State<UserProfile> {
                                             ),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.appreciation?.length == 0 ?
-                                            const Text("No Data")
+                                            Text("No appreciation", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
                                                 : ListView.builder(
                                                 shrinkWrap: true,
                                                 physics: const NeverScrollableScrollPhysics(),
@@ -2934,7 +2934,7 @@ class _UserProfileState extends State<UserProfile> {
                                             SizedBox(height: Get.height * 0.02,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.resume == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.resume.length == 0 ?
-                                            const Text("No Data")
+                                            Text("No resume", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),)
                                                 : ListTile(
                                               leading: seekerProfileController.viewSeekerData.value.seekerInfo!.resume.toString().contains(".pdf") ?
                                               SvgPicture.asset('assets/images/PDF.svg') : Image.asset("assets/images/doc_icon.png") ,
@@ -2981,7 +2981,7 @@ class _UserProfileState extends State<UserProfile> {
                                             const Divider(thickness: 0.2, color: AppColors.white,),
                                             seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg?.length == 0 ?
-                                            const Text("No Data") :
+                                            Text("No document", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             ListTile( title: seekerProfileController.viewSeekerData.value.seekerInfo!.documentImg.toString().contains(".pdf" )  ?
                                             SvgPicture.asset('assets/images/PDF.svg') :
                                             SizedBox( height: Get.height *.4 ,
