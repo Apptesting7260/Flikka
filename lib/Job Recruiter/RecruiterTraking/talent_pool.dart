@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flikka/controllers/TalentPoolController/RemoveFromPoolController.dart';
 import 'package:flikka/controllers/TalentPoolController/TalentPoolController.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
+import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class TalentPool extends StatefulWidget {
 class _TalentPoolState extends State<TalentPool> {
 
   TalentPoolController poolController = Get.put(TalentPoolController()) ;
+  RemoveFromTalentPoolController removeController = Get.put(RemoveFromTalentPoolController()) ;
 
   @override
   void initState() {
@@ -70,72 +73,89 @@ class _TalentPoolState extends State<TalentPool> {
                         itemCount: poolController.poolData.value.data?.length,
                         itemBuilder: (context, index) {
                           var data = poolController.poolData.value.data?[index] ;
-                          return Padding(
+                          return Container(
+                            width: Get.width,
+                            margin: EdgeInsets.only(bottom: 15),
                             padding: EdgeInsets.symmetric(vertical: Get.height * .027),
-                            child: Container(
-                              height: Get.height * .27,
-                              width: Get.width,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(22),
-                                  color: const Color(0xff353535)
-                              ),
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(horizontal: Get.width * .06),
-                                child: Column(
-                                  // crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    SizedBox(height: Get.height * .013,),
-                                    ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      minVerticalPadding: 12,
-                                      leading: CachedNetworkImage(
-                                        imageUrl: "${data?.seekerData?.profileImg}",
-                                        imageBuilder: (context, imageProvider) => Container(
-                                          width: 80,
-                                          height: 80,
-                                          decoration: BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            image:  DecorationImage(
-                                                image: imageProvider,fit: BoxFit.cover
-                                            ) ,
-                                          ),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(22),
+                                color: const Color(0xff353535)
+                            ),
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(horizontal: Get.width * .06),
+                              child: Column(
+                                // crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  SizedBox(height: Get.height * .013,),
+                                  ListTile(
+                                    contentPadding: EdgeInsets.zero,
+                                    minVerticalPadding: 12,
+                                    leading: CachedNetworkImage(
+                                      imageUrl: "${data?.seekerData?.profileImg}",
+                                      imageBuilder: (context, imageProvider) => Container(
+                                        width: 80,
+                                        height: 80,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          image:  DecorationImage(
+                                              image: imageProvider,fit: BoxFit.cover
+                                          ) ,
                                         ),
-                                        placeholder: (context, url) => const CircularProgressIndicator(),
                                       ),
-                                      title: Text(data?.seekerData?.fullname ?? "", style: Theme.of(context)
-                                          .textTheme.titleLarge?.copyWith(color: const Color(0xffFFFFFF)),),
-                                      subtitle: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(height: Get.height * .003,),
-                                          Text( data?.seekerDetailsInfo?.positions ?? "",
-                                              style: Theme.of(context).textTheme.bodySmall?.copyWith(color:
-                                              const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
-                                          ),
-                                          SizedBox(height: Get.height * .003,),
-                                          Text( data?.seekerData?.location ?? "", overflow: TextOverflow.ellipsis,
-                                            style: Theme.of(context).textTheme
-                                              .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                          // SizedBox(height: Get.height * .003,),
-                                          // Text(
-                                          //     "TALENT POOL",
-                                          //     style: Theme.of(context).textTheme.bodySmall?.copyWith
-                                          //       (color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700)
-                                          // ),
-                                        ],
-                                      ),
+                                      placeholder: (context, url) => const CircularProgressIndicator(),
                                     ),
-                                    SizedBox(height: Get.height * .02,),
-                                    Center(
-                                      child: MyButton(
+                                    title: Text(data?.seekerData?.fullname ?? "", style: Theme.of(context)
+                                        .textTheme.titleLarge?.copyWith(color: const Color(0xffFFFFFF)),),
+                                    subtitle: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        SizedBox(height: Get.height * .003,),
+                                        Text( data?.seekerDetailsInfo?.positions ?? "",
+                                            style: Theme.of(context).textTheme.bodySmall?.copyWith(color:
+                                            const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
+                                        ),
+                                        SizedBox(height: Get.height * .003,),
+                                        Text( data?.seekerData?.location ?? "", overflow: TextOverflow.ellipsis,
+                                          style: Theme.of(context).textTheme
+                                            .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
+                                        // SizedBox(height: Get.height * .003,),
+                                        // Text(
+                                        //     "TALENT POOL",
+                                        //     style: Theme.of(context).textTheme.bodySmall?.copyWith
+                                        //       (color: const Color(0xffFFFFFF), fontWeight: FontWeight.w700)
+                                        // ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: Get.height * .02,),
+                                  Center(
+                                    child: MyButton(
+                                      height: Get.height * .066,
+                                      width: Get.width*.75,
+                                      title: "VIEW PROFILE", onTap1: () {
+                                        Get.to( () => ScheduleInterview(seekerID:"${data?.seekerId}" , requestID: "",talentPool: true,)) ;
+                                    },),
+                                  ),
+                                  SizedBox(height: Get.height * .02,),
+                                  Center(
+                                    child: Obx( () => MyButton(
+                                      loading: removeController.loading.value,
                                         height: Get.height * .066,
                                         width: Get.width*.75,
-                                        title: "VIEW PROFILE", onTap1: () {
-                                          Get.to( () => ScheduleInterview(seekerID:"${data?.seekerId}" , requestID: "",talentPool: true,)) ;
+                                        title: "REMOVE PROFILE", onTap1: () {
+                                        CommonFunctions.confirmationDialog(context, message: "Do you want remove this profile", onTap: () {
+                                          Get.back() ;
+                                          if (!removeController.loading.value) {
+                                            removeController.removeSeeker(
+                                                context,
+                                                data?.seekerId.toString());
+                                          }
+                                        }
+                                      ) ;
                                       },),
-                                    )
-                                  ],
-                                ),
+                                    ),
+                                  )
+                                ],
                               ),
                             ),
                           );
