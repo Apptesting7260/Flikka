@@ -1084,7 +1084,8 @@ import '../utils/VideoPlayerScreen.dart';
 bool isMeetingScheduled = false;
 class ScheduleInterview extends StatefulWidget {
  final String seekerID ; final String requestID ; final bool? talentPool ; final String? status ;
-  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.status}) : super(key: key);
+ final bool scheduleInterview;
+  const ScheduleInterview({Key? key, required this.seekerID, required this.requestID, this.talentPool, this.status, required this.scheduleInterview}) : super(key: key);
 
   @override
   State<ScheduleInterview> createState() => _ScheduleInterviewState();
@@ -1238,14 +1239,14 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                               ],
                             ),
                             SizedBox(height: Get.height * 0.015,),
-                            Text(candidateController.candidateData.value.seekerDetails?.fullname ?? "",
+                            Text(candidateController.candidateData.value.seekerDetails?.fullname ?? "No data",
                                 style: Get.theme.textTheme.displayLarge),
                             SizedBox(height: Get.height * 0.005,),
-                            Text(candidateController.candidateData.value.seekerDetails?.seekerData?.positions ?? "",
+                            Text(candidateController.candidateData.value.seekerDetails?.seekerData?.positions ?? "No positions",
                                 style: Get.theme.textTheme.bodyLarge!.copyWith(
                                     color: AppColors.white)),
                             SizedBox(height: Get.height * 0.005,),
-                            Text(candidateController.candidateData.value.seekerDetails?.location ?? "", style: Get
+                            Text(candidateController.candidateData.value.seekerDetails?.location ?? "No location", style: Get
                                 .theme.textTheme.bodyLarge!.copyWith(
                                 color: AppColors.white)),
                             SizedBox(height: Get.height * 0.021,),
@@ -1616,7 +1617,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         /////
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.skillName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.skillName?.length == 0 ?
-                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                        Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1656,7 +1657,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                     candidateController.candidateData.value.seekerDetails?.seekerData?.passionName == null ||
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.passionName?.length == 0 ?
-                                    Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                    Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1701,7 +1702,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.industryPreferenceName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.industryPreferenceName?.length == 0 ?
-                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                        Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1737,7 +1738,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.strengthsName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.strengthsName?.length == 0 ?
-                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                        Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1803,7 +1804,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.startWorkName?.length == 0 ?
-                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                        Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -1846,7 +1847,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         SizedBox(height: Get.height*0.01,),
                                         candidateController.candidateData.value.seekerDetails?.seekerData?.availabityName == null ||
                                             candidateController.candidateData.value.seekerDetails?.seekerData?.availabityName?.length == 0 ?
-                                        Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                        Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -2068,7 +2069,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                             ],),
                                             SizedBox(height: Get.height * 0.03,),
                                           widget.status == "accepted" ? Center(
-                                              child: MyButton(title: 'SCHEDULE MEETING',
+                                              child: MyButton(title: widget.scheduleInterview == true ? "EDIT METTING" : 'SCHEDULE METTING',
                                                 onTap1: () {
                                                   Get.to(() => CalendarScreen(requestID: widget.requestID));
                                                 },

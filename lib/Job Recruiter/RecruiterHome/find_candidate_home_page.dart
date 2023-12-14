@@ -114,7 +114,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Padding(
-                          padding: EdgeInsets.only(top: Get.height * .032),
+                          padding: EdgeInsets.only(top: Get.height * .03),
                           child: Image.asset('assets/images/icon_flikka_logo.png',
                             height: Get.height * .032,),
                         ),
@@ -157,7 +157,7 @@ class _FindCandidateHomePageState extends State<FindCandidateHomePage> {
                         ),
                       ],
                     ),
-                    SizedBox(height: Get.height*.03,) ,
+                     SizedBox(height: Get.height*.03,) ,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                      children: [

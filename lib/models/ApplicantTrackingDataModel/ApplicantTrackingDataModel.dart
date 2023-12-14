@@ -66,6 +66,7 @@ class AppliedJob {
   String? status;
   DateTime? interviewScheduleTime;
   String? interviewStatus;
+  dynamic scheduleInterView;
   DateTime? createdAt;
   DateTime? updatedAt;
   SeekerData? seekerData;
@@ -77,6 +78,7 @@ class AppliedJob {
     this.status,
     this.interviewScheduleTime,
     this.interviewStatus,
+    this.scheduleInterView,
     this.createdAt,
     this.updatedAt,
     this.seekerData,
@@ -89,6 +91,7 @@ class AppliedJob {
     status: json["status"],
     interviewScheduleTime: json["interview_schedule_time"] == null ? json["interview_schedule_time"] : DateTime.tryParse(json["interview_schedule_time"]),
     interviewStatus: json["interview_status"],
+    scheduleInterView: json["scheduled_interview"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),
     updatedAt: json["updated_at"] == null ? json["updated_at"] : DateTime.parse(json["updated_at"]),
     seekerData: json["seeker_data"] == null ? json["seeker_data"] : SeekerData.fromJson(json["seeker_data"]),

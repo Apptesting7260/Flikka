@@ -115,7 +115,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                 });
                               },
                               buttonStyleData: ButtonStyleData(
-                                height: Get.height * 0.060,
+                                height: Get.height * 0.056,
                                 width: Get.width * .26,
                                 padding: const EdgeInsets.only(
                                     left: 14, right: 14),
@@ -191,7 +191,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                         radius: 28,
                                         backgroundImage: NetworkImage( data?.seekerData?.profileImg ?? "",),
                                       ),
-                                      title: Text( data?.seekerData?.fullname ?? "", style: Theme
+                                      title: Text( data?.seekerData?.fullname ?? "No data", style: Theme
                                           .of(context)
                                           .textTheme
                                           .titleLarge
@@ -200,7 +200,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                       subtitle: Column(
                                         crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
-                                          Text( data?.details?.jobTitle ?? "",
+                                          Text( data?.details?.jobTitle ?? "No job title",
                                               style: Theme
                                                   .of(context)
                                                   .textTheme
@@ -210,7 +210,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                                   fontWeight: FontWeight.w600)
                                           ),
                                           SizedBox(height: Get.height * .003,),
-                                          Text( data?.seekerData?.location ?? "", style: Theme
+                                          Text( data?.seekerData?.location ?? "No location", style: Theme
                                               .of(context)
                                               .textTheme
                                               .labelLarge
@@ -221,7 +221,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                       ),
                                     ),
                                     SizedBox(height: Get.height * .025,),
-                                    HtmlWidget(data?.seekerData?.aboutMe ?? "",textStyle: Theme.of(context).textTheme
+                                    HtmlWidget(data?.seekerData?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
                                         .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
                                     SizedBox(height: Get.height * .03,),
                                     Row(
@@ -265,7 +265,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                       launchUrl(Uri.parse("${data?.interviewLink}"),
                                       mode: LaunchMode.externalApplication) ;
                                     },
-                                    child: Text(data?.interviewLink ?? "No Data",style: Theme
+                                    child: Text(data?.interviewLink ?? "No interview link",style: Theme
                                         .of(context)
                                         .textTheme
                                         .bodyMedium

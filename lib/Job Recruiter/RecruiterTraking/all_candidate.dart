@@ -10,9 +10,6 @@ import '../../controllers/RecruiterJobTitleController/RecruiterJobTitleControlle
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
-import '../../res/components/request_timeout_widget.dart';
-import '../../res/components/server_error_widget.dart';
-import '../../res/components/unauthorised_request_widget.dart';
 import '../../widgets/app_colors.dart';
 import '../../widgets/my_button.dart';
 
@@ -415,7 +412,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                                           ),
                                                         ),
                                                         title: Text(
-                                                          data?.seekerData?.fullname ?? "",
+                                                          data?.seekerData?.fullname ?? "No data",
                                                           style: Theme.of(context).textTheme.titleLarge
                                                               ?.copyWith(color: const Color(0xffFFFFFF)),),
                                                         subtitle: Column(
@@ -426,7 +423,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                                                     ?.copyWith(color: const Color(0xffCFCFCF),
                                                                     fontWeight: FontWeight.w600)),
                                                             SizedBox(height: Get.height * .003,),
-                                                            Text(candidateStatusData?.jobTitle ?? "",
+                                                            Text(candidateStatusData?.jobTitle ?? "No job title",
                                                                 style: Theme.of(context).textTheme.bodySmall
                                                                     ?.copyWith(color: const Color(0xffCFCFCF),
                                                                     fontWeight: FontWeight.w600)),
@@ -449,7 +446,7 @@ class _AllCandidateState extends State<AllCandidate> {
                                                             Text(
                                                               data?.seekerData
                                                                   ?.location ??
-                                                                  "",
+                                                                  "No location",
                                                               overflow: TextOverflow
                                                                   .ellipsis,
                                                               style: Theme
@@ -508,7 +505,8 @@ class _AllCandidateState extends State<AllCandidate> {
                                                               ScheduleInterview(
                                                                 seekerID: "${data?.seekerId}",
                                                                 requestID: '${data?.id}',
-                                                                status: "${data?.status}".toLowerCase()
+                                                                status: "${data?.status}".toLowerCase(),
+                                                                scheduleInterview: data?.scheduleInterView,
                                                                    ));
                                                         },),
                                                       SizedBox(

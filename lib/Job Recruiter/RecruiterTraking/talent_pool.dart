@@ -105,18 +105,18 @@ class _TalentPoolState extends State<TalentPool> {
                                       ),
                                       placeholder: (context, url) => const CircularProgressIndicator(),
                                     ),
-                                    title: Text(data?.seekerData?.fullname ?? "", style: Theme.of(context)
+                                    title: Text(data?.seekerData?.fullname ?? "No data", style: Theme.of(context)
                                         .textTheme.titleLarge?.copyWith(color: const Color(0xffFFFFFF)),),
                                     subtitle: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         SizedBox(height: Get.height * .003,),
-                                        Text( data?.seekerDetailsInfo?.positions ?? "",
+                                        Text( data?.seekerDetailsInfo?.positions ?? "No positions",
                                             style: Theme.of(context).textTheme.bodySmall?.copyWith(color:
                                             const Color(0xffCFCFCF), fontWeight: FontWeight.w600)
                                         ),
                                         SizedBox(height: Get.height * .003,),
-                                        Text( data?.seekerData?.location ?? "", overflow: TextOverflow.ellipsis,
+                                        Text( data?.seekerData?.location ?? "No location", overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context).textTheme
                                             .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
                                         // SizedBox(height: Get.height * .003,),
@@ -134,7 +134,7 @@ class _TalentPoolState extends State<TalentPool> {
                                       height: Get.height * .066,
                                       width: Get.width*.75,
                                       title: "VIEW PROFILE", onTap1: () {
-                                        Get.to( () => ScheduleInterview(seekerID:"${data?.seekerId}" , requestID: "",talentPool: true,)) ;
+                                        Get.to( () => ScheduleInterview(seekerID:"${data?.seekerId}" , requestID: "",talentPool: true, scheduleInterview: false,)) ;
                                     },),
                                   ),
                                   SizedBox(height: Get.height * .02,),

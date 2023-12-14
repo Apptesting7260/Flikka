@@ -159,6 +159,7 @@ class RecruiterProfileDetails {
   DateTime? updatedAt;
   dynamic avgReview ;
   dynamic totalReview ;
+  dynamic reviewPosted ;
 
   RecruiterProfileDetails({
     this.id,
@@ -181,7 +182,8 @@ class RecruiterProfileDetails {
     this.updatedAt,
     this.industryID ,
     this.avgReview,
-    this.totalReview
+    this.totalReview,
+    this.reviewPosted,
   });
 
   factory RecruiterProfileDetails.fromJson(Map<String, dynamic> json) => RecruiterProfileDetails(
@@ -203,6 +205,7 @@ class RecruiterProfileDetails {
     founded: json["founded"],
     avgReview: json["avg_review"],
     totalReview: json["total_reviews"],
+    reviewPosted: json["your_review_posted"],
     // founded: json["founded"].toString() == 'null' ? json["founded"] : (DateTime.parse(json["founded"].substring(0,20).toString())),
     specialties: json["specialties"],
     createdAt: json["created_at"] == null ? json["created_at"] : DateTime.parse(json["created_at"]),

@@ -203,26 +203,26 @@ class _DrawerRecruiterState extends State<DrawerRecruiter> {
                                           style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
                                         )),
                                   ),
-                                  ListTile(
-                                    onTap: () {
-                                      // Get.to(() =>SavedPost());
-                                    },
-                                    horizontalTitleGap:0,
-                                    dense: true,
-                                    leading: IconButton(
-                                        onPressed: () {
-                                          //Get.to((ResetPassword()));
-                                        },
-                                        icon: Image.asset('assets/images/icon_hiring.png',scale: 2.8,fit: BoxFit.cover,)),
-                                    title: InkWell(
-                                        onTap: (){
-                                          Get.to((ApplicantTrackingHiringManager()));
-                                        } ,
-                                        child: Text(
-                                          "Hiring Manager Account",
-                                          style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
-                                        )),
-                                  ),
+                                  // ListTile(
+                                  //   onTap: () {
+                                  //     // Get.to(() =>SavedPost());
+                                  //   },
+                                  //   horizontalTitleGap:0,
+                                  //   dense: true,
+                                  //   leading: IconButton(
+                                  //       onPressed: () {
+                                  //         //Get.to((ResetPassword()));
+                                  //       },
+                                  //       icon: Image.asset('assets/images/icon_hiring.png',scale: 2.8,fit: BoxFit.cover,)),
+                                  //   title: InkWell(
+                                  //       onTap: (){
+                                  //         Get.to((ApplicantTrackingHiringManager()));
+                                  //       } ,
+                                  //       child: Text(
+                                  //         "Hiring Manager Account",
+                                  //         style: Get.theme.textTheme.labelLarge?.copyWith(fontWeight: FontWeight.w400,fontSize: 16),
+                                  //       )),
+                                  // ),
                                   ListTile(
                                     horizontalTitleGap:0,
                                     dense: true,

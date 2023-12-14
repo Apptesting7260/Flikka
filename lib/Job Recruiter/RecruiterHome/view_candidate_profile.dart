@@ -569,7 +569,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           /////
                           widget.recruiterData?.skillName == null ||
                               widget.recruiterData?.skillName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -609,7 +609,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.passionName == null ||
                               widget.recruiterData?.passionName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -654,7 +654,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.industryPreferenceName == null ||
                               widget.recruiterData?.industryPreferenceName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -690,7 +690,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.strengthsName == null ||
                               widget.recruiterData?.strengthsName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -756,7 +756,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.startWorkName == null ||
                               widget.recruiterData?.startWorkName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
@@ -799,7 +799,7 @@ class _ViewCandidateProfileState extends State<ViewCandidateProfile> {
                           SizedBox(height: Get.height*0.01,),
                           widget.recruiterData?.availabityName == null ||
                               widget.recruiterData?.availabityName?.length == 0 ?
-                          Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                          Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                           GridView.builder(gridDelegate:
                           SliverGridDelegateWithMaxCrossAxisExtent(
                               mainAxisExtent: 39,
