@@ -366,8 +366,10 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                         seekerSaveJobController.saveJobApi(widget.jobData?.id, 1);
                       });
                     },
-                    child: Image.asset(
-                      "assets/images/icon_Save_post.png",
+                    child: widget.jobData?.postSaved == false  ? Image.asset("assets/images/icon_unsave_post.png",
+                      height: Get.height * .043,
+                    ):
+                    Image.asset("assets/images/icon_Save_post.png",
                       height: Get.height * .043,
                     )),
                 SizedBox(

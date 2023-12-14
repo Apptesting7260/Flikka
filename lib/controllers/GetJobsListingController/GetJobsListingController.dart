@@ -29,4 +29,20 @@ class GetJobsListingController extends GetxController {
       setRxRequestStatus(Status.ERROR);
     });
   }
+
+
+  void refreshJobsApi(){
+    // setRxRequestStatus(Status.LOADING);
+    _api.getJobsListingApi().then((value){
+      // setRxRequestStatus(Status.COMPLETED);
+      getJobsListing(value);
+      print("this is length ===== ${getJobsListing.value.jobs?.length}") ;
+      print(value);
+    }).onError((error, stackTrace){
+      setError(error.toString());
+      print(error.toString());
+      print(stackTrace.toString());
+      // setRxRequestStatus(Status.ERROR);
+    });
+  }
 }

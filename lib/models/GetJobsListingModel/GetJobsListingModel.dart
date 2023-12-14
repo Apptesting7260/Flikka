@@ -40,6 +40,8 @@ class SeekerJobsData {
   String? featureImg;
   String? jobTitle;
   String? video ;
+  dynamic postSaved ;
+  dynamic postApplied ;
   String? specialization;
   String? jobLocation;
   String? description;
@@ -65,6 +67,8 @@ class SeekerJobsData {
     this.featureImg,
     this.jobTitle,
     this.video,
+    this.postSaved,
+    this.postApplied,
     this.specialization,
     this.jobLocation,
     this.description,
@@ -91,6 +95,8 @@ class SeekerJobsData {
     featureImg: json["feature_img"],
     jobTitle: json["job_title"],
     video: json["short_video"],
+    postSaved: json["post_saved"],
+    postApplied: json["post_applied"],
     specialization: json["specialization"],
     jobLocation: json["job_location"],
     description: json["description"],
