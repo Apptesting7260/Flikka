@@ -91,7 +91,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        SizedBox(height: Get.height * .03,),
+                        SizedBox(height: Get.height * .01,),
                         Container(
                           padding: EdgeInsets.symmetric(horizontal: Get.width *
                               .05, vertical: Get.height * .007),
@@ -140,7 +140,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                               children: [
                                 GestureDetector(
                                   onTap: () {
-      Get.to(() =>  RecruiterProfileTabBar(recruiterID: data?.recruiterID.toString(),isSeeker: true,) ,);
+                                 Get.to(() =>  RecruiterProfileTabBar(recruiterID: data?.recruiterID.toString(),isSeeker: true,) ,);
                                   },
                                   child: ListTile(
                                     leading: CachedNetworkImage(
@@ -173,7 +173,7 @@ class _CompanySeekerPageState extends State<CompanySeekerPage> {
                                   ),
                                 ),
                                 const Divider(
-                                  height: 40,
+                                  height: 30,
                                   color: Color(0xff414141),
                                   thickness: 1,
                                   indent: 15,

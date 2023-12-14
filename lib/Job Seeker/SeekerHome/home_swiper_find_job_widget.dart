@@ -474,7 +474,9 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       SizedBox(
                         height: Get.height * .008,
                       ),
-                      HtmlWidget(data?.description ?? "",textStyle: Theme.of(context).textTheme.labelLarge!
+                      data?.description == null || data?.description.toString().length == 0 ?
+                          Text("No job description",style: TextStyle(color: Colors.white),) :
+                      HtmlWidget(data?.description ?? "No job description",textStyle: Theme.of(context).textTheme.labelLarge!
                           .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
                       // Text(
                       //   CommonFunctions.parseHTML(data?.description ?? "") ?? "",
@@ -498,7 +500,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       SizedBox(
                         height: Get.height * .007,
                       ),
-                      HtmlWidget(data?.requirements ?? "",textStyle: Theme.of(context).textTheme.labelLarge!
+                      HtmlWidget(data?.requirements ?? "No requirements",textStyle: Theme.of(context).textTheme.labelLarge!
                           .copyWith(color: AppColors.ratingcommenttextcolor,fontWeight: FontWeight.w400),),
                       // Text(
                       //   CommonFunctions.parseHTML(data?.requirements ?? "") ?? "",
@@ -529,337 +531,337 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       bottomLeft: Radius.circular(20),
                       bottomRight: Radius.circular(22)),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => toggleFavorite(),
-                            icon: selectedFav == false
-                                ? SvgPicture.asset(
-                                    'assets/images/likesvg.svg',
-                                    width: Get.width * 0.027,
-                                    height: Get.height * 0.027,
-                                    color: buttonColor,
-                                  )
-                                : const Icon(
-                                    Icons.favorite_rounded,
-                                    color: AppColors.red,
-                                  )),
-                        Text("12",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: AppColors.white, fontSize: 14)),
-                        SizedBox(
-                          width: Get.width * 0.04,
-                        ),
-
-                        //*************************
-
-                        IconButton(
-                          onPressed: () {
-                            showCommentDialog();
-                          },
-                          icon:
-                              SvgPicture.asset('assets/images/commentsvg.svg'),
-                        ),
-                        Text("10",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                    color: AppColors.white, fontSize: 14)),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 14.0),
-                      child: Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              showDialog(
-                                barrierDismissible: false,
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Stack(children: [
-                                    AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(17)),
-                                      //contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
-                                      content: SingleChildScrollView(
-                                        child: Column(
-                                          children: [
-                                            Image.asset(
-                                                'assets/images/personpng.png'),
-                                            SizedBox(height: Get.height * 0.02),
-                                            Text(
-                                              "Refer a friend",
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .headlineSmall!
-                                                  .copyWith(
-                                                      color: AppColors.white),
-                                            ),
-                                            SizedBox(height: Get.height * 0.01),
-                                            Text.rich(
-                                              TextSpan(
-                                                children: [
-                                                  TextSpan(
-                                                    text: "Earn up to ",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headlineSmall!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                  ),
-                                                  TextSpan(
-                                                    text: "£100",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .headlineSmall!
-                                                        .copyWith(
-                                                            color: Colors
-                                                                .blue), // Change to the desired blue color
-                                                  ),
-                                                  TextSpan(
-                                                    text:
-                                                        " by referring friends.",
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .titleLarge!
-                                                        .copyWith(
-                                                            color: AppColors
-                                                                .ratingcommenttextcolor,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .w400),
-                                                  ),
-                                                ],
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                height: Get.height * 0.055),
-                                            TextFormField(
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                      color: Color(0xff000000),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Get.width * 0.06,
-                                                        vertical:
-                                                            Get.height * 0.027),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(35),
-                                                  borderSide: const BorderSide(
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(35),
-                                                  borderSide: const BorderSide(
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                ),
-                                                hintText: 'Name',
-                                                filled: true,
-                                                fillColor: AppColors.white
-                                                    .withOpacity(0.1),
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xffCFCFCF),
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                              ),
-                                              onFieldSubmitted: (value) {},
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Please enter your name';
-                                                }
-                                                return null;
-                                              },
-                                            ),
-                                            SizedBox(
-                                                height: Get.height * 0.018),
-                                            TextFormField(
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .bodyLarge
-                                                  ?.copyWith(
-                                                      color: Color(0xff000000),
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                        horizontal:
-                                                            Get.width * 0.06,
-                                                        vertical:
-                                                            Get.height * 0.027),
-                                                enabledBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(35),
-                                                  borderSide: const BorderSide(
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(35),
-                                                  borderSide: const BorderSide(
-                                                    color: AppColors.blackdown,
-                                                  ),
-                                                ),
-                                                hintText: 'Email address',
-                                                filled: true,
-                                                fillColor: AppColors.white
-                                                    .withOpacity(0.1),
-                                                hintStyle: Theme.of(context)
-                                                    .textTheme
-                                                    .bodyMedium
-                                                    ?.copyWith(
-                                                        color:
-                                                            Color(0xffCFCFCF),
-                                                        fontWeight:
-                                                            FontWeight.w500),
-                                              ),
-                                              onFieldSubmitted: (value) {},
-                                              validator: (value) {
-                                                if (value == null ||
-                                                    value.isEmpty) {
-                                                  return 'Please enter an email address';
-                                                } else if (!_isValidEmail(
-                                                    value)) {
-                                                  return 'Please enter a valid email address';
-                                                }
-                                                return null;
-                                              },
-                                            ),
-                                            SizedBox(
-                                                height: Get.height * 0.035),
-                                            Center(
-                                              child: MyButton(
-                                                title: "CONTINUE",
-                                                onTap1: () {
-                                                  // Get.to(() => LocationPopUp());
-                                                },
-                                              ),
-                                            ),
-                                            SizedBox(height: Get.height * 0.02),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    //**************** for close on alert dialog **************
-                                    Stack(children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          Navigator.of(context)
-                                              .pop(); // Close the dialog
-                                        },
-                                        child: Align(
-                                          alignment:
-                                              AlignmentDirectional.topEnd,
-                                          child: Container(
-                                            height: Get.height * 0.50,
-                                            width: Get.width * 0.50,
-                                            child: Center(
-                                              child: Stack(children: [
-                                                Positioned(
-                                                    top: Get.height * 0.135,
-                                                    right: Get.width * 0.10,
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(60.0),
-                                                        gradient:
-                                                            const LinearGradient(
-                                                          colors: [
-                                                            Color(0xFF56B8F6),
-                                                            Color(0xFF4D6FED),
-                                                          ],
-                                                          begin: Alignment
-                                                              .topCenter, // Start from the top center
-                                                          end: Alignment
-                                                              .bottomCenter, // End at the bottom center
-                                                        ),
-                                                      ),
-                                                      child: Icon(
-                                                        Icons.close,
-                                                        color: AppColors.white,
-                                                        size:
-                                                            Get.height * 0.028,
-                                                      ),
-                                                    )),
-                                              ]),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      // ******************* for close icon in in *************
-                                    ])
-                                  ]);
-                                },
-                              );
-                            },
-                            child: Stack(
-                              children: [
-                                Image.asset(
-                                  'assets/images/personicons.png',
-                                  height: Get.height * .05,
-                                ),
-                                // CircleAvatar(
-                                //   backgroundColor: AppColors.blueThemeColor,
-                                //   radius: 17,
-                                //   child: Image.asset(
-                                //       'assets/images/personicons.png'),
-                                // ),
-                              ],
-                            ),
-                          ),
-                          // IconButton(
-                          //   onPressed: text.isEmpty &&
-                          //           imagePaths.isEmpty &&
-                          //           uri.isEmpty
-                          //       ? null
-                          //       : () => _onShare(context),
-                          //   icon: SvgPicture.asset(
-                          //     'assets/images/sharesvg.svg',
-                          //   ),
-                          // ),
-                          // Text("2",
-                          //     style: Theme.of(context)
-                          //         .textTheme
-                          //         .bodySmall!
-                          //         .copyWith(
-                          //             color: AppColors.white, fontSize: 14)),
-                        ],
-                      ),
-                    )
+                    // Row(
+                    //   children: [
+                    //     IconButton(
+                    //         onPressed: () => toggleFavorite(),
+                    //         icon: selectedFav == false
+                    //             ? SvgPicture.asset(
+                    //                 'assets/images/likesvg.svg',
+                    //                 width: Get.width * 0.027,
+                    //                 height: Get.height * 0.027,
+                    //                 color: buttonColor,
+                    //               )
+                    //             : const Icon(
+                    //                 Icons.favorite_rounded,
+                    //                 color: AppColors.red,
+                    //               )),
+                    //     Text("12",
+                    //         style: Theme.of(context)
+                    //             .textTheme
+                    //             .bodySmall!
+                    //             .copyWith(
+                    //                 color: AppColors.white, fontSize: 14)),
+                    //     SizedBox(
+                    //       width: Get.width * 0.04,
+                    //     ),
+                    //
+                    //     //*************************
+                    //
+                    //     IconButton(
+                    //       onPressed: () {
+                    //         showCommentDialog();
+                    //       },
+                    //       icon:
+                    //           SvgPicture.asset('assets/images/commentsvg.svg'),
+                    //     ),
+                    //     Text("10",
+                    //         style: Theme.of(context)
+                    //             .textTheme
+                    //             .bodySmall!
+                    //             .copyWith(
+                    //                 color: AppColors.white, fontSize: 14)),
+                    //   ],
+                    // ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(right: 14.0),
+                    //   child: Row(
+                    //     children: [
+                    //       InkWell(
+                    //         onTap: () {
+                    //           showDialog(
+                    //             barrierDismissible: false,
+                    //             context: context,
+                    //             builder: (BuildContext context) {
+                    //               return Stack(children: [
+                    //                 AlertDialog(
+                    //                   shape: RoundedRectangleBorder(
+                    //                       borderRadius:
+                    //                           BorderRadius.circular(17)),
+                    //                   //contentPadding: EdgeInsets.symmetric(horizontal: 25.0),
+                    //                   content: SingleChildScrollView(
+                    //                     child: Column(
+                    //                       children: [
+                    //                         Image.asset(
+                    //                             'assets/images/personpng.png'),
+                    //                         SizedBox(height: Get.height * 0.02),
+                    //                         Text(
+                    //                           "Refer a friend",
+                    //                           style: Theme.of(context)
+                    //                               .textTheme
+                    //                               .headlineSmall!
+                    //                               .copyWith(
+                    //                                   color: AppColors.white),
+                    //                         ),
+                    //                         SizedBox(height: Get.height * 0.01),
+                    //                         Text.rich(
+                    //                           TextSpan(
+                    //                             children: [
+                    //                               TextSpan(
+                    //                                 text: "Earn up to ",
+                    //                                 style: Theme.of(context)
+                    //                                     .textTheme
+                    //                                     .headlineSmall!
+                    //                                     .copyWith(
+                    //                                         color: AppColors
+                    //                                             .ratingcommenttextcolor,
+                    //                                         fontWeight:
+                    //                                             FontWeight
+                    //                                                 .w400),
+                    //                               ),
+                    //                               TextSpan(
+                    //                                 text: "£100",
+                    //                                 style: Theme.of(context)
+                    //                                     .textTheme
+                    //                                     .headlineSmall!
+                    //                                     .copyWith(
+                    //                                         color: Colors
+                    //                                             .blue), // Change to the desired blue color
+                    //                               ),
+                    //                               TextSpan(
+                    //                                 text:
+                    //                                     " by referring friends.",
+                    //                                 style: Theme.of(context)
+                    //                                     .textTheme
+                    //                                     .titleLarge!
+                    //                                     .copyWith(
+                    //                                         color: AppColors
+                    //                                             .ratingcommenttextcolor,
+                    //                                         fontWeight:
+                    //                                             FontWeight
+                    //                                                 .w400),
+                    //                               ),
+                    //                             ],
+                    //                           ),
+                    //                         ),
+                    //                         SizedBox(
+                    //                             height: Get.height * 0.055),
+                    //                         TextFormField(
+                    //                           style: Theme.of(context)
+                    //                               .textTheme
+                    //                               .bodyLarge
+                    //                               ?.copyWith(
+                    //                                   color: Color(0xff000000),
+                    //                                   fontWeight:
+                    //                                       FontWeight.w600),
+                    //                           decoration: InputDecoration(
+                    //                             contentPadding:
+                    //                                 EdgeInsets.symmetric(
+                    //                                     horizontal:
+                    //                                         Get.width * 0.06,
+                    //                                     vertical:
+                    //                                         Get.height * 0.027),
+                    //                             enabledBorder:
+                    //                                 OutlineInputBorder(
+                    //                               borderRadius:
+                    //                                   BorderRadius.circular(35),
+                    //                               borderSide: const BorderSide(
+                    //                                 color: AppColors.blackdown,
+                    //                               ),
+                    //                             ),
+                    //                             focusedBorder:
+                    //                                 OutlineInputBorder(
+                    //                               borderRadius:
+                    //                                   BorderRadius.circular(35),
+                    //                               borderSide: const BorderSide(
+                    //                                 color: AppColors.blackdown,
+                    //                               ),
+                    //                             ),
+                    //                             hintText: 'Name',
+                    //                             filled: true,
+                    //                             fillColor: AppColors.white
+                    //                                 .withOpacity(0.1),
+                    //                             hintStyle: Theme.of(context)
+                    //                                 .textTheme
+                    //                                 .bodyMedium
+                    //                                 ?.copyWith(
+                    //                                     color:
+                    //                                         Color(0xffCFCFCF),
+                    //                                     fontWeight:
+                    //                                         FontWeight.w500),
+                    //                           ),
+                    //                           onFieldSubmitted: (value) {},
+                    //                           validator: (value) {
+                    //                             if (value == null ||
+                    //                                 value.isEmpty) {
+                    //                               return 'Please enter your name';
+                    //                             }
+                    //                             return null;
+                    //                           },
+                    //                         ),
+                    //                         SizedBox(
+                    //                             height: Get.height * 0.018),
+                    //                         TextFormField(
+                    //                           style: Theme.of(context)
+                    //                               .textTheme
+                    //                               .bodyLarge
+                    //                               ?.copyWith(
+                    //                                   color: Color(0xff000000),
+                    //                                   fontWeight:
+                    //                                       FontWeight.w600),
+                    //                           decoration: InputDecoration(
+                    //                             contentPadding:
+                    //                                 EdgeInsets.symmetric(
+                    //                                     horizontal:
+                    //                                         Get.width * 0.06,
+                    //                                     vertical:
+                    //                                         Get.height * 0.027),
+                    //                             enabledBorder:
+                    //                                 OutlineInputBorder(
+                    //                               borderRadius:
+                    //                                   BorderRadius.circular(35),
+                    //                               borderSide: const BorderSide(
+                    //                                 color: AppColors.blackdown,
+                    //                               ),
+                    //                             ),
+                    //                             focusedBorder:
+                    //                                 OutlineInputBorder(
+                    //                               borderRadius:
+                    //                                   BorderRadius.circular(35),
+                    //                               borderSide: const BorderSide(
+                    //                                 color: AppColors.blackdown,
+                    //                               ),
+                    //                             ),
+                    //                             hintText: 'Email address',
+                    //                             filled: true,
+                    //                             fillColor: AppColors.white
+                    //                                 .withOpacity(0.1),
+                    //                             hintStyle: Theme.of(context)
+                    //                                 .textTheme
+                    //                                 .bodyMedium
+                    //                                 ?.copyWith(
+                    //                                     color:
+                    //                                         Color(0xffCFCFCF),
+                    //                                     fontWeight:
+                    //                                         FontWeight.w500),
+                    //                           ),
+                    //                           onFieldSubmitted: (value) {},
+                    //                           validator: (value) {
+                    //                             if (value == null ||
+                    //                                 value.isEmpty) {
+                    //                               return 'Please enter an email address';
+                    //                             } else if (!_isValidEmail(
+                    //                                 value)) {
+                    //                               return 'Please enter a valid email address';
+                    //                             }
+                    //                             return null;
+                    //                           },
+                    //                         ),
+                    //                         SizedBox(
+                    //                             height: Get.height * 0.035),
+                    //                         Center(
+                    //                           child: MyButton(
+                    //                             title: "CONTINUE",
+                    //                             onTap1: () {
+                    //                               // Get.to(() => LocationPopUp());
+                    //                             },
+                    //                           ),
+                    //                         ),
+                    //                         SizedBox(height: Get.height * 0.02),
+                    //                       ],
+                    //                     ),
+                    //                   ),
+                    //                 ),
+                    //                 //**************** for close on alert dialog **************
+                    //                 Stack(children: [
+                    //                   GestureDetector(
+                    //                     onTap: () {
+                    //                       Navigator.of(context)
+                    //                           .pop(); // Close the dialog
+                    //                     },
+                    //                     child: Align(
+                    //                       alignment:
+                    //                           AlignmentDirectional.topEnd,
+                    //                       child: Container(
+                    //                         height: Get.height * 0.50,
+                    //                         width: Get.width * 0.50,
+                    //                         child: Center(
+                    //                           child: Stack(children: [
+                    //                             Positioned(
+                    //                                 top: Get.height * 0.135,
+                    //                                 right: Get.width * 0.10,
+                    //                                 child: Container(
+                    //                                   decoration: BoxDecoration(
+                    //                                     borderRadius:
+                    //                                         BorderRadius
+                    //                                             .circular(60.0),
+                    //                                     gradient:
+                    //                                         const LinearGradient(
+                    //                                       colors: [
+                    //                                         Color(0xFF56B8F6),
+                    //                                         Color(0xFF4D6FED),
+                    //                                       ],
+                    //                                       begin: Alignment
+                    //                                           .topCenter, // Start from the top center
+                    //                                       end: Alignment
+                    //                                           .bottomCenter, // End at the bottom center
+                    //                                     ),
+                    //                                   ),
+                    //                                   child: Icon(
+                    //                                     Icons.close,
+                    //                                     color: AppColors.white,
+                    //                                     size:
+                    //                                         Get.height * 0.028,
+                    //                                   ),
+                    //                                 )),
+                    //                           ]),
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                   ),
+                    //                   // ******************* for close icon in in *************
+                    //                 ])
+                    //               ]);
+                    //             },
+                    //           );
+                    //         },
+                    //         child: Stack(
+                    //           children: [
+                    //             Image.asset(
+                    //               'assets/images/personicons.png',
+                    //               height: Get.height * .05,
+                    //             ),
+                    //             // CircleAvatar(
+                    //             //   backgroundColor: AppColors.blueThemeColor,
+                    //             //   radius: 17,
+                    //             //   child: Image.asset(
+                    //             //       'assets/images/personicons.png'),
+                    //             // ),
+                    //           ],
+                    //         ),
+                    //       ),
+                    //       // IconButton(
+                    //       //   onPressed: text.isEmpty &&
+                    //       //           imagePaths.isEmpty &&
+                    //       //           uri.isEmpty
+                    //       //       ? null
+                    //       //       : () => _onShare(context),
+                    //       //   icon: SvgPicture.asset(
+                    //       //     'assets/images/sharesvg.svg',
+                    //       //   ),
+                    //       // ),
+                    //       // Text("2",
+                    //       //     style: Theme.of(context)
+                    //       //         .textTheme
+                    //       //         .bodySmall!
+                    //       //         .copyWith(
+                    //       //             color: AppColors.white, fontSize: 14)),
+                    //     ],
+                    //   ),
+                    // )
                   ],
                 ),
               ),

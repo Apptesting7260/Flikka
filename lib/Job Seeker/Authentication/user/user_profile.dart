@@ -2991,83 +2991,83 @@ class _UserProfileState extends State<UserProfile> {
                                             // title: Text("${seekerProfileController.viewSeekerData.value.seekerInfo?.documentImg}",
                                             //   style: Get.theme.textTheme.bodySmall!.copyWith(color: AppColors.white, fontWeight: FontWeight.w500),),),
                                             SizedBox(height: Get.height * 0.02,),
-                                            Center(
-                                              child: MyButton(
-                                                title: "Boost Your Profile",
-                                                onTap1: () {
-                                                  showDialog(
-                                                    barrierDismissible: false,
-                                                    context: context,
-                                                    builder: (
-                                                        BuildContext context) {
-                                                      return AlertDialog(
-                                                        content: SingleChildScrollView(
-                                                          child: Column(
-                                                            children: [
-                                                              Align(alignment: Alignment.topRight,
-                                                                  child: GestureDetector(
-                                                                      onTap: () { Get.back();},
-                                                                      child: Image.asset("assets/images/closeiconondrawer.png",
-                                                                        height: Get.height * .027,))),
-                                                              SizedBox( height: Get.height * 0.035 ),
-                                                              Container(padding: const EdgeInsets.all(17),
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius: BorderRadius.circular( 60.0),
-                                                                    color: AppColors.blueThemeColor
-                                                                ),
-                                                                child: Image.asset('assets/images/boost.png', scale: 3.4,),
-                                                              ),
-                                                              SizedBox(height: Get.height * 0.02),
-                                                              Text("Boost your profile", style: Get.theme.textTheme.labelMedium),
-                                                              SizedBox(height: Get.height * 0.01),
-                                                              Text("Lorem Ipsum is simply dummy text",
-                                                                  style: Get.theme.textTheme.bodySmall!.copyWith(
-                                                                      fontWeight: FontWeight.w400, color: AppColors.white)),
-                                                              SizedBox(height: Get.height * 0.05),
-                                                              Container( decoration: BoxDecoration(
-                                                                  borderRadius: BorderRadius.circular(10.0),
-                                                                  color: AppColors.blueThemeColor
-                                                              ),
-                                                                height: Get.height * 0.21,
-                                                                width: Get.width * 0.32,
-                                                                child: Center(
-                                                                  child: Column(
-                                                                    children: [
-                                                                      SizedBox(height: Get.height * 0.035),
-                                                                      Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
-                                                                          fontSize: 25, color: AppColors.white)),
-                                                                      SizedBox(height: Get.height * 0.014),
-                                                                      Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                          fontSize: 15, color: AppColors.white)),
-                                                                      SizedBox(height: Get.height * 0.01),
-                                                                      Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
-                                                                          fontSize: 13, color: AppColors.white)),
-                                                                      SizedBox(height: Get.height * 0.01),
-                                                                      Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
-                                                                          fontSize: 11, color: AppColors.white)),
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              SizedBox(height: Get.height * 0.035),
-                                                              Center(
-                                                                child: MyButton(width: Get.width * .7,
-                                                                  title: "BOOST ME",
-                                                                  onTap1: () {},),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius: BorderRadius
-                                                                .circular(15)
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },),
-                                            ),
-                                            SizedBox(height: Get.height * .02,),
+                                            // Center(
+                                            //   child: MyButton(
+                                            //     title: "Boost Your Profile",
+                                            //     onTap1: () {
+                                            //       showDialog(
+                                            //         barrierDismissible: false,
+                                            //         context: context,
+                                            //         builder: (
+                                            //             BuildContext context) {
+                                            //           return AlertDialog(
+                                            //             content: SingleChildScrollView(
+                                            //               child: Column(
+                                            //                 children: [
+                                            //                   Align(alignment: Alignment.topRight,
+                                            //                       child: GestureDetector(
+                                            //                           onTap: () { Get.back();},
+                                            //                           child: Image.asset("assets/images/closeiconondrawer.png",
+                                            //                             height: Get.height * .027,))),
+                                            //                   SizedBox( height: Get.height * 0.035 ),
+                                            //                   Container(padding: const EdgeInsets.all(17),
+                                            //                     decoration: BoxDecoration(
+                                            //                         borderRadius: BorderRadius.circular( 60.0),
+                                            //                         color: AppColors.blueThemeColor
+                                            //                     ),
+                                            //                     child: Image.asset('assets/images/boost.png', scale: 3.4,),
+                                            //                   ),
+                                            //                   SizedBox(height: Get.height * 0.02),
+                                            //                   Text("Boost your profile", style: Get.theme.textTheme.labelMedium),
+                                            //                   SizedBox(height: Get.height * 0.01),
+                                            //                   Text("Lorem Ipsum is simply dummy text",
+                                            //                       style: Get.theme.textTheme.bodySmall!.copyWith(
+                                            //                           fontWeight: FontWeight.w400, color: AppColors.white)),
+                                            //                   SizedBox(height: Get.height * 0.05),
+                                            //                   Container( decoration: BoxDecoration(
+                                            //                       borderRadius: BorderRadius.circular(10.0),
+                                            //                       color: AppColors.blueThemeColor
+                                            //                   ),
+                                            //                     height: Get.height * 0.21,
+                                            //                     width: Get.width * 0.32,
+                                            //                     child: Center(
+                                            //                       child: Column(
+                                            //                         children: [
+                                            //                           SizedBox(height: Get.height * 0.035),
+                                            //                           Text("1", style: Get.theme.textTheme.displaySmall!.copyWith(
+                                            //                               fontSize: 25, color: AppColors.white)),
+                                            //                           SizedBox(height: Get.height * 0.014),
+                                            //                           Text("month", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                            //                               fontSize: 15, color: AppColors.white)),
+                                            //                           SizedBox(height: Get.height * 0.01),
+                                            //                           Text("\$100", style: Get.theme.textTheme.bodyMedium!.copyWith(
+                                            //                               fontSize: 13, color: AppColors.white)),
+                                            //                           SizedBox(height: Get.height * 0.01),
+                                            //                           Text("Save 36%", style: Get.theme.textTheme.titleSmall!.copyWith(
+                                            //                               fontSize: 11, color: AppColors.white)),
+                                            //                         ],
+                                            //                       ),
+                                            //                     ),
+                                            //                   ),
+                                            //                   SizedBox(height: Get.height * 0.035),
+                                            //                   Center(
+                                            //                     child: MyButton(width: Get.width * .7,
+                                            //                       title: "BOOST ME",
+                                            //                       onTap1: () {},),
+                                            //                   )
+                                            //                 ],
+                                            //               ),
+                                            //             ),
+                                            //             shape: RoundedRectangleBorder(
+                                            //                 borderRadius: BorderRadius
+                                            //                     .circular(15)
+                                            //             ),
+                                            //           );
+                                            //         },
+                                            //       );
+                                            //     },),
+                                            // ),
+                                            // SizedBox(height: Get.height * .02,),
                                           ],
                                         )
                                     ),

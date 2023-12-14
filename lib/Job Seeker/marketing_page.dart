@@ -562,7 +562,8 @@ class _MarketingInternState extends State<MarketingIntern> {
                                 jobStatusController.updateStatus("${widget.jobData?.id}", "Reject",context) ;
                               }),
                         ],)
-                 : Obx( () => MyButton(
+                 : widget.jobData?.postApplied == true ? const SizedBox() :
+                      Obx( () => MyButton(
                       loading: applyJobController.loading.value,
                       title: "APPLY NOW",
                       onTap1: () {
