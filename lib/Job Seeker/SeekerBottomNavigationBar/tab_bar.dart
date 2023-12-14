@@ -17,8 +17,8 @@ import '../search_job.dart';
 
 class TabScreen extends StatefulWidget {
   final int index;
-
-  const TabScreen({Key? key, required this.index}) : super(key: key);
+  final bool? filtered ;
+  const TabScreen({Key? key, required this.index, this.filtered}) : super(key: key);
 
   @override
   _TabScreenState createState() => _TabScreenState();
@@ -35,7 +35,7 @@ class _TabScreenState extends State<TabScreen> {
   @override
   void initState() {
     // fetchApi();
-
+    print("this is filtered ${widget.filtered}") ;
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
 
@@ -45,6 +45,7 @@ class _TabScreenState extends State<TabScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print("this is filtered ${widget.filtered}") ;
     return Scaffold(
       key: drawerKey,
       body: SafeArea(
@@ -54,12 +55,12 @@ class _TabScreenState extends State<TabScreen> {
             controller: pageController,
             physics: const NeverScrollableScrollPhysics(),
             onPageChanged: (index) => pageChanged(index),
-            children: const [
-              FindJobHomeScreen(),
-              GoogleMapIntegration(),
-              CompanySeekerPage(),
-              ForumFirstPage(),
-              UserProfile(),
+            children:  [
+              const FindJobHomeScreen(),
+              GoogleMapIntegration(filtered: widget.filtered,),
+              const  CompanySeekerPage(),
+              const  ForumFirstPage(),
+              const UserProfile(),
             ],
           ),
         ),
@@ -87,32 +88,32 @@ class _TabScreenState extends State<TabScreen> {
     });
   }
 
-  Future<bool> _onWillPop() {
-    if (bottomSelectedIndex != 1) {
-      setState(
-            () {
-          pageController!.jumpTo(0);
-        },
-      );
-      return Future.value(false);
-    } else if (bottomSelectedIndex == 1) {
-      setState(
-            () {
-          pageController!.jumpTo(1);
-        },
-      );
-      return Future.value(false);
-    }
-    DateTime now = DateTime.now();
-    if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
-      currentBackPressTime = now;
-      SystemNavigator.pop();
-      return Future.value(false);
-    } else {
-      SystemNavigator.pop();
-    }
-    return Future.value(true);
-  }
+  // Future<bool> _onWillPop() {
+  //   if (bottomSelectedIndex != 1) {
+  //     setState(
+  //           () {
+  //         pageController!.jumpTo(0);
+  //       },
+  //     );
+  //     return Future.value(false);
+  //   } else if (bottomSelectedIndex == 1) {
+  //     setState(
+  //           () {
+  //         pageController!.jumpTo(1);
+  //       },
+  //     );
+  //     return Future.value(false);
+  //   }
+  //   DateTime now = DateTime.now();
+  //   if (now.difference(currentBackPressTime) > Duration(milliseconds: 500)) {
+  //     currentBackPressTime = now;
+  //     SystemNavigator.pop();
+  //     return Future.value(false);
+  //   } else {
+  //     SystemNavigator.pop();
+  //   }
+  //   return Future.value(true);
+  // }
 
   goAtLikeTab() {
     pageController!.animateToPage(1,

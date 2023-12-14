@@ -1,8 +1,11 @@
+import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
 import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
 import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
 import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
+import 'package:flikka/widgets/google_map_widget.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,10 +17,13 @@ class SeekerJobFilterController extends GetxController {
   RxBool reset = true.obs ;
   var errorMessage = "".obs ;
   var jobsData = SeekerJobFilterModel().obs ;
-  final getJobsListing = GetJobsListingModel().obs ;
-  var homeJobs = Get.put(GetJobsListingController()) ;
+  // final getJobsListing = GetJobsListingModel().obs ;
+  // var homeJobs = Get.put(GetJobsListingController()) ;
+  RxString lat = ''.obs ;
+  RxString long = ''.obs ;
+  RxBool fromMapScreen = false.obs ;
 
-  void filterJob(
+  void filterJob( bool? fromMap ,
       BuildContext context,
       dynamic jobTitle ,
       dynamic location ,
@@ -51,26 +57,26 @@ class SeekerJobFilterController extends GetxController {
       loading.value = false ;
       if(value.status!){
       jobsData(value) ;
-      // jobsListingController.getJobsListing(value) ;
-      print("this is value ==== $value") ;
-      print("this is joblength ==== ${jobsData.value.jobs?.length.toString()}") ;
-      // getJobsListing.value.jobs = jobsData.value.jobs ;
-      // print("this is getJobsListing  ============>>>>>>>>>${getJobsListing.value.jobs.toString()}") ;
-
-      // print("this is job   ---- length ==== ${ jobsListingController.getJobsListing.value.jobs.toString()}") ;
-      Get.back() ;
-
+      if (kDebugMode) {
+        print("this is value ==== $value") ;
+        print("this is joblength ==== ${jobsData.value.jobs?.length.toString()}") ;
+      } if (fromMap == true) {
+        fromMapScreen(true) ;
+        Get.back(result: true) ;
+      } else {
+        Get.back() ;
+      }
       reset(false) ;
-      print(reset.value) ;
+      if (kDebugMode) {
+        print(reset.value) ;
+      }
       }
       else{
-        // errorMessage.value =  value.message.toString();
         Utils.showMessageDialog(context, "No Matching Job Found") ;
       }
     }).onError((error, stackTrace){
       print(error);
       loading.value = false ;
-
     });
   }
 }
