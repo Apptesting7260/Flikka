@@ -286,17 +286,21 @@ class _RecruiterProfileEditState extends State<RecruiterProfileEdit> {
   void initState() {
     nameInitialize();
     selectIndustryController.selectIndustriesApi();
-    companyNameController.text = widget.profileModel?.recruiterProfileDetails?.companyName ?? "" ;
-    companyLocationController.text = widget.profileModel?.recruiterProfileDetails?.companyLocation ?? "" ;
-    addBioController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.addBio ?? "") ;
-    websiteLinkController.text = widget.profileModel?.recruiterProfileDetails?.websiteLink ?? "" ;
-    aboutDescriptionController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.aboutDescription ?? "") ;
-    specializationController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.specialties ?? "") ;
-    socialValue = widget.profileModel?.recruiterProfileDetails?.industry  ;
-    companySize = widget.profileModel?.recruiterProfileDetails?.companySize  ;
-    foundedText = widget.profileModel?.recruiterProfileDetails?.founded ?? 'Select Date'  ;
-    selectedDateString = widget.profileModel?.recruiterProfileDetails?.founded ;
-    industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
+    companyLocationController.text = Constants.address ;
+    if (widget.profileModel?.recruiterProfileDetails != null) {
+      companyNameController.text = widget.profileModel?.recruiterProfileDetails?.companyName ?? "" ;
+      companyLocationController.text = widget.profileModel?.recruiterProfileDetails?.companyLocation ?? "" ;
+      addBioController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.addBio ?? "") ;
+      websiteLinkController.text = widget.profileModel?.recruiterProfileDetails?.websiteLink ?? "" ;
+      aboutDescriptionController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.aboutDescription ?? "") ;
+      specializationController.text = CommonFunctions.parseHtmlAndAddNewline(widget.profileModel?.recruiterProfileDetails?.specialties ?? "") ;
+      socialValue = widget.profileModel?.recruiterProfileDetails?.industry  ;
+      companySize = widget.profileModel?.recruiterProfileDetails?.companySize  ;
+      foundedText = widget.profileModel?.recruiterProfileDetails?.founded ?? 'Select Date'  ;
+      selectedDateString = widget.profileModel?.recruiterProfileDetails?.founded ;
+      industry = widget.profileModel?.recruiterProfileDetails?.industryID ;
+    }
+
     super.initState();
   }
 

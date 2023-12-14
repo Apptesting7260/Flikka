@@ -24,7 +24,7 @@ class _MessagePageState extends State<MessagePage> {
             child: InkWell(
                 onTap: (){
                   Get.back() ;
-                  // Get.offAll(TabScreenEmployer(index: 0)) ;
+                  Get.offAll(TabScreenEmployer(index: 0));
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),

@@ -954,7 +954,7 @@ class _RequiredSkillsState extends State<RequiredSkills> {
                               ),)
                                   : const SizedBox()
                               ),
-                              SizedBox(height: Get.height * .020,),
+                              // SizedBox(height: Get.height * .01,),
                               Row( mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Padding(

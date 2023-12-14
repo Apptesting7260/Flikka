@@ -425,7 +425,7 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
                       SizedBox(height: Get.height*.004,),
                       widget.recruiterData?.educationLevel?.length == 0 ||
                           widget.recruiterData?.educationLevel == null ?
-                      Text("No work experience", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                      Text("No education", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                       ListView.builder(
                         shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
@@ -465,88 +465,88 @@ class _FindCandidateHomePageRecruiterState extends State<FindCandidateHomePageRe
               ),
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: AlignmentDirectional.bottomCenter,
-              child: Container(
-                decoration: const BoxDecoration(
-                  color: Color(0xff3F3F3F),
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(20),
-                      bottomRight: Radius.circular(22)),
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        IconButton(
-                            onPressed: () => toggleFavorite(),
-                            icon: selectedFav == false
-                                ? SvgPicture.asset(
-                              'assets/images/likesvg.svg',
-                              width: Get.width * 0.027,
-                              height: Get.height * 0.027,
-                            )
-                                : const Icon(
-                              Icons.favorite_rounded,
-                              color: AppColors.red,
-                            )),
-                        Text("12",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                color: AppColors.white, fontSize: 14)),
-                        SizedBox(
-                          width: Get.width * 0.04,
-                        ),
-
-                        //*************************
-
-                        IconButton(
-                          onPressed: () {
-                            showCommentDialog();
-                          },
-                          icon:
-                          SvgPicture.asset('assets/images/commentsvg.svg'),
-                        ),
-                        Text("10",
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodySmall!
-                                .copyWith(
-                                color: AppColors.white, fontSize: 14)),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 14.0),
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: text.isEmpty &&
-                                imagePaths.isEmpty &&
-                                uri.isEmpty
-                                ? null
-                                : () => _onShare(context),
-                            icon: SvgPicture.asset('assets/images/sharesvg.svg',),),
-                          Text("2",
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodySmall!
-                                  .copyWith(
-                                  color: AppColors.white, fontSize: 14)),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: Align(
+          //     alignment: AlignmentDirectional.bottomCenter,
+          //     child: Container(
+          //       decoration: const BoxDecoration(
+          //         color: Color(0xff3F3F3F),
+          //         borderRadius: BorderRadius.only(
+          //             bottomLeft: Radius.circular(20),
+          //             bottomRight: Radius.circular(22)),
+          //       ),
+          //       child: Row(
+          //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          //         children: [
+          //           Row(
+          //             children: [
+          //               IconButton(
+          //                   onPressed: () => toggleFavorite(),
+          //                   icon: selectedFav == false
+          //                       ? SvgPicture.asset(
+          //                     'assets/images/likesvg.svg',
+          //                     width: Get.width * 0.027,
+          //                     height: Get.height * 0.027,
+          //                   )
+          //                       : const Icon(
+          //                     Icons.favorite_rounded,
+          //                     color: AppColors.red,
+          //                   )),
+          //               Text("12",
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodySmall!
+          //                       .copyWith(
+          //                       color: AppColors.white, fontSize: 14)),
+          //               SizedBox(
+          //                 width: Get.width * 0.04,
+          //               ),
+          //
+          //               //*************************
+          //
+          //               IconButton(
+          //                 onPressed: () {
+          //                   showCommentDialog();
+          //                 },
+          //                 icon:
+          //                 SvgPicture.asset('assets/images/commentsvg.svg'),
+          //               ),
+          //               Text("10",
+          //                   style: Theme.of(context)
+          //                       .textTheme
+          //                       .bodySmall!
+          //                       .copyWith(
+          //                       color: AppColors.white, fontSize: 14)),
+          //             ],
+          //           ),
+          //           Padding(
+          //             padding: const EdgeInsets.only(right: 14.0),
+          //             child: Row(
+          //               children: [
+          //                 IconButton(
+          //                   onPressed: text.isEmpty &&
+          //                       imagePaths.isEmpty &&
+          //                       uri.isEmpty
+          //                       ? null
+          //                       : () => _onShare(context),
+          //                   icon: SvgPicture.asset('assets/images/sharesvg.svg',),),
+          //                 Text("2",
+          //                     style: Theme.of(context)
+          //                         .textTheme
+          //                         .bodySmall!
+          //                         .copyWith(
+          //                         color: AppColors.white, fontSize: 14)),
+          //               ],
+          //             ),
+          //           )
+          //         ],
+          //       ),
+          //     ),
+          //   ),
+          // ),
 
         ],
       ),

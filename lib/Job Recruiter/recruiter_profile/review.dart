@@ -16,7 +16,8 @@ class Review extends StatefulWidget {
  final String? recruiterID ;
  final String? avgReview ;
  final String? totalReviews ;
-  const Review({super.key, required this.isSeeker, this.reviews, this.recruiterID, this.avgReview, this.totalReviews});
+ final bool? reviewPosted;
+  const Review({super.key, required this.isSeeker, this.reviews, this.recruiterID, this.avgReview, this.totalReviews, this.reviewPosted});
 
   @override
   State<Review> createState() => _ReviewState();
@@ -48,7 +49,7 @@ class _ReviewState extends State<Review> {
               children: [
                 Text("Reviews",style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700,color: const Color(0xffFFFFFF)),),
                widget.isSeeker ? MyButton( width: Get.width *.5,
-                    title: "ADD A REVIEW",
+                    title:widget.reviewPosted == true ? "EDIT REVIEW" : "ADD A REVIEW",
                     onTap1: () {
                   Get.to( () => AddReview(recruiterID: widget.recruiterID,) ) ;
                     }) :

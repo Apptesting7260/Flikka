@@ -117,7 +117,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
             return Scaffold(
                 endDrawer: const DrawerRecruiter(),
                 appBar: AppBar(
-                  toolbarHeight: 70,
+                  toolbarHeight: 60,
                   leading: Padding(
                     padding: const EdgeInsets.only(left: 15.0),
                     child: InkWell(
@@ -293,7 +293,7 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                 Review(isSeeker: false,
                                   avgReview: viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.avgReview.toString(),
                                   totalReviews: viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.totalReview.toString(),
-                                  reviews: viewRecruiterProfileController.viewRecruiterProfile.value.reviews,),
+                                  reviews: viewRecruiterProfileController.viewRecruiterProfile.value.reviews, reviewPosted: viewRecruiterProfileController.viewRecruiterProfile.value.recruiterProfileDetails?.reviewPosted,),
                               ],
                             ),
                           ),
@@ -475,7 +475,8 @@ class _RecruiterProfileTabBarState extends State<RecruiterProfileTabBar> {
                                    avgReview: seekerViewCompanyController.companyData.value.recruiterProfileDetails?.avgReview.toString(),
                                    totalReviews: seekerViewCompanyController.companyData.value.recruiterProfileDetails?.totalReview.toString(),
                                    reviews: seekerViewCompanyController.companyData.value.reviews,
-                                   recruiterID: widget.recruiterID,),
+                                   recruiterID: widget.recruiterID,
+                                   reviewPosted: seekerViewCompanyController.companyData.value.recruiterProfileDetails?.reviewPosted,),
                               ],
                             ),
                           ),
