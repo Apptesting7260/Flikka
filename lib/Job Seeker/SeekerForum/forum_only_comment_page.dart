@@ -104,25 +104,31 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
           }
         case Status.COMPLETED:
           return Scaffold(
+            appBar: AppBar(
+              leading: IconButton(onPressed: () {
+                Get.back();
+              }, icon: Image.asset("assets/images/icon_back_blue.png",)),
+              title:  Text("Forum", style: Get.theme.textTheme.displayLarge),
+              toolbarHeight: 70,
+            ),
             body: SingleChildScrollView(
               padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 15),
               child: Column(
                 children: [
-                  SizedBox(height: Get.height *.02,),
-                  Row(
-                    children: [
-                      SizedBox(height: Get.height * .01,),
-                      GestureDetector(
-                          onTap: () {
-                            Get.back();
-                          },
-                          child: Image.asset("assets/images/icon_back_blue.png",
-                            height: Get.height * .055,)),
-                      SizedBox(width: Get.width * .04,),
-                      Text("Forum", style: Get.theme.textTheme.displayLarge),
-                    ],
-                  ),
-                  SizedBox(height: Get.height * .02,),
+
+                  // Row(
+                  //   children: [
+                  //     SizedBox(height: Get.height * .01,),
+                  //     GestureDetector(
+                  //         onTap: () {
+                  //           Get.back();
+                  //         },
+                  //         child: Image.asset("assets/images/icon_back_blue.png",
+                  //           height: Get.height * .055,)),
+                  //     SizedBox(width: Get.width * .04,),
+                  //     Text("Forum", style: Get.theme.textTheme.displayLarge),
+                  //   ],
+                  // ),
                   // Row(
                   //   children: [
                   //     Expanded(
@@ -165,9 +171,6 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                   //             child: Image.asset('assets/images/icon_add_form.png',fit: BoxFit.cover,))),
                   //   ],
                   // ),
-                  SizedBox(
-                    height: Get.height * 0.035,
-                  ),
                   Container(
                     decoration: BoxDecoration(
                       color: Color(0xff353535),
@@ -316,7 +319,7 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                                         // ]
                                     ),),
                                     subtitle: HtmlWidget(data?.comment ?? "" , textStyle: Theme.of(context).textTheme
-                                        .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: Color(0xffCFCFCF)),),
+                                        .labelLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
                                     // subtitle: Row(
                                     //   children: [
                                     //     Text("3 hrs ago", style: Theme
@@ -381,20 +384,20 @@ class _ForumOnlyCommentPageState extends State<ForumOnlyCommentPage> {
                               Expanded(
                                 child: TextFormField(
                                   controller: commentController,
-                                  style: TextStyle(color: AppColors.white),
+                                  style: const TextStyle(color: AppColors.white),
                                   decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                          horizontal: 25, vertical: 20),
+                                      contentPadding: const EdgeInsets.symmetric(
+                                          horizontal: 25, vertical: 18),
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                               35),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Color(0xff454545))
                                       ),
                                       focusedBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(
                                               35),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               color: Color(0xff454545))
                                       ),
                                       filled: true,

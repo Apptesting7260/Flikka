@@ -207,7 +207,7 @@ class _FilterPageState extends State<FilterPage> {
                                   color: Color(0xff373737))),
                           filled: true,
                           fillColor: const Color(0xff373737),
-                          hintText: "Enter Location",
+                          hintText: "Enter job title",
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(35),
                             // borderSide: BorderSide(color: Colors.white),

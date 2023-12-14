@@ -309,7 +309,7 @@ class _UserProfileState extends State<UserProfile> {
                                             child: Container(width: Get.width * .05,
                                               height: Get.width * .05,
                                               decoration: const BoxDecoration(
-                                                color: Color(0xff000000),
+                                                color: Colors.white,
                                                 shape: BoxShape.circle,),
                                             ),
                                           ),

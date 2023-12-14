@@ -33,6 +33,14 @@ class _ForgotPasswordState extends State<ForgotPassword> {
 
     return SafeArea(
       child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: AppColors.blueThemeColor,
+          leading: IconButton(onPressed: () {
+            Get.back();
+          }, icon: Image.asset("assets/images/icon_back.png",)),
+          // title:  Text("Forum", style: Get.theme.textTheme.displayLarge),
+          toolbarHeight: 70,
+        ),
         body: Form(
           key: _formKey,
           child: Stack(
@@ -46,7 +54,7 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: Get.height*.08,),
+                    SizedBox(height: Get.height*.06,),
                     Center(
                       child: SizedBox(
                           //width: Get.width*.76,

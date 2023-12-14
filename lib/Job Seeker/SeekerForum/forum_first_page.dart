@@ -195,7 +195,7 @@ class _ForumFirstPageState extends State<ForumFirstPage> {
                                       child: Row(
                                         children: [
                                           const Icon(
-                                            Icons.search, color: Color(0xff56B8F6),
+                                            Icons.search, color: AppColors.blueThemeColor,
                                             size: 30,),
                                           SizedBox(width: Get.width * .03),
                                           Expanded(
