@@ -168,7 +168,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
   void initState() {
     if (widget.jobPageView != true) {
       jobsController.mapJobsApi();
-      updateUserLocation();
+      // updateUserLocation();
       // updateMap(10);
     }
     super.initState();
@@ -285,13 +285,25 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         children: [
                           GoogleMap(
                             initialCameraPosition:  CameraPosition(
-                              target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.lat.value)), // Center of the UK
+                              target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.long.value)), // Center of the UK
                               zoom: 4.0,
                             ),
                             markers: Set<Marker>.of(markers),
                             onMapCreated: (GoogleMapController controller) {
                               mapController.complete(controller);
                               controller.setMapStyle(getCustomMapStyle()) ;
+                              markers.add( Marker(
+                                markerId: const MarkerId("My location"),
+                                position: LatLng(double.parse(jobsController.lat.value), double.parse(jobsController.long.value)),
+                                infoWindow: const InfoWindow(
+                                  title: 'My Current Location',
+                                ),
+                              ),) ;
+                              controller.animateCamera(CameraUpdate.newCameraPosition(CameraPosition(
+                                target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.long.value)), // Center of the UK
+                                zoom: 4.0,
+                              ),));
+                              setState(() {});
                             },
                             // onCameraMove: (CameraPosition position) {
                             //   if (!_allowedBounds.contains(position.target)) {
@@ -335,14 +347,14 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         ],
 
                       ),
-                      // floatingActionButton: FloatingActionButton(
-                      //   backgroundColor: AppColors.black,
-                      //   onPressed: () async {
-                      //     updateUserLocation();
-                      //   },
-                      //   child: const Icon(Icons.local_activity,
-                      //       color: AppColors.white),
-                      // ),
+                      floatingActionButton: FloatingActionButton(
+                        backgroundColor: AppColors.black,
+                        onPressed: () async {
+                          updateUserLocation();
+                        },
+                        child: const Icon(Icons.local_activity,
+                            color: AppColors.white),
+                      ),
                     );
             }
           });
@@ -421,19 +433,19 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
     return BitmapDescriptor.fromBytes(bytes, size: const Size(20, 20));
   }
 
-  updateUserLocation() {
+  updateUserLocation() async {
     getUserCurrentLocation().then((value) async {
       if (kDebugMode) {
         print("${value.latitude} ${value.longitude}");
       }
       lat = value.latitude;
       long = value.longitude;
-      if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long != null ) {
-        print(jobsController.jobsData.value.lat) ;
-        print(jobsController.jobsData.value.long) ;
-        lat = jobsController.jobsData.value.lat ;
-        long = jobsController.jobsData.value.long ;
-      }
+      // if(jobsController.jobsData.value.lat != null && jobsController.jobsData.value.long != null ) {
+      //   print(jobsController.jobsData.value.lat) ;
+      //   print(jobsController.jobsData.value.long) ;
+      //   lat = jobsController.jobsData.value.lat ;
+      //   long = jobsController.jobsData.value.long ;
+      // }
       // Marker added for the current user's location
       markers.add(
         Marker(

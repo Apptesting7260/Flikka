@@ -32,6 +32,7 @@ class SeekerFilteredJobsList {
   dynamic id;
   dynamic recruiterId;
   dynamic featureImg;
+  String? video ;
   dynamic jobTitle;
   dynamic jobPosition;
   dynamic specialization;
@@ -58,6 +59,7 @@ class SeekerFilteredJobsList {
     this.id,
     this.recruiterId,
     this.featureImg,
+    this.video,
     this.jobTitle,
     this.jobPosition,
     this.specialization,
@@ -86,6 +88,7 @@ class SeekerFilteredJobsList {
     recruiterId: json["recruiter_id"],
     featureImg: json["feature_img"],
     jobTitle: json["job_title"],
+    video: json["short_video"],
     jobPosition: json["job_position"],
     specialization: json["specialization"],
     jobLocation: json["job_location"],

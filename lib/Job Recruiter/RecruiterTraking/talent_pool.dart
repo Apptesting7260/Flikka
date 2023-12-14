@@ -3,7 +3,6 @@ import 'package:flikka/controllers/TalentPoolController/RemoveFromPoolController
 import 'package:flikka/controllers/TalentPoolController/TalentPoolController.dart';
 import 'package:flikka/hiring%20Manager/schedule_interview.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
-import 'package:flikka/utils/utils.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
