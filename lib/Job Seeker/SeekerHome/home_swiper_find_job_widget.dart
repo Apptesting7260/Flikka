@@ -386,7 +386,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       "assets/images/icon_filter_seeker_home.png",
                       height: Get.height * .043,
                     )),
-
                 SizedBox(
                   height: Get.height * .01,
                 ),
@@ -413,7 +412,18 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     ),
                   ),
                 ),
-
+                data?.jobMatchPercentage == 100 ?
+                         Container(
+                              alignment: Alignment.center,
+                              height: 34,
+                              width: 34,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                 color: AppColors.blueThemeColor
+                              ),
+                              child: Image.asset(
+                                'assets/images/icon_msg_blue.png',height: Get.height*.06,),
+                            ) : const SizedBox(),
               ],
             ),
           ),
