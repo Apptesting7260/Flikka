@@ -594,13 +594,17 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
       );
 
       // Specified current user's location
-      // CameraPosition cameraPosition = CameraPosition(
-      //   target: LatLng(lat, long),
-      //   zoom: 4,
-      // );
-
-      // final GoogleMapController controller = await mapController.future;
-      // controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      CameraPosition cameraPosition = CameraPosition(
+        target: LatLng(lat, long),
+        zoom: 4,
+      );
+      if(filtered) {
+        final GoogleMapController controller = await filterMapController.future;
+        controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      }else{
+        final GoogleMapController controller = await mapController.future;
+        controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+      }
       setState(() {});
     });
   }

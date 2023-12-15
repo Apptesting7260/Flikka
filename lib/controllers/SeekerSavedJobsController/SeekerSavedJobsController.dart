@@ -26,9 +26,7 @@ class SeekerSaveJobController extends GetxController {
       loading(false) ;
       if(value.status!){
         Get.back() ;
-        Get.off(() => const TabScreen(index: 0));
         Utils.toastMessage('Post saved') ;
-
         getJobsListingController.seekerGetAllJobsApi() ;
         if (kDebugMode) {
           print(getJobsListingController.rxRequestStatus.value) ;

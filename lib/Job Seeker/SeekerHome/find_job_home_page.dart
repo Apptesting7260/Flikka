@@ -184,7 +184,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       jobFilterController.reset.value ?
                       CardSwiper(
                           controller: controller,
-                          cardsCount: getJobsListingController.jobs?.length ?? 0 ,
+                          cardsCount: getJobsListingController.jobs?.value.length ?? 0 ,
                           numberOfCardsDisplayed: getJobsListingController.jobs!.length >= 2 ? 2 : 1,
                           // isLoop: false,
                           backCardOffset: const Offset(40, 40),
@@ -194,7 +194,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           cardBuilder: (context, index,
                               horizontalThresholdPercentage, verticalThresholdPercentage,) {
                             debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
-                            var data = getJobsListingController.getJobsListing.value.jobs?[index] ;
+                            var data = getJobsListingController.jobs?[index] ;
                             return Container(
                               decoration: BoxDecoration(
                                   color: AppColors.blackdown, borderRadius: BorderRadius.circular(34)),
@@ -284,7 +284,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                                                   CommonFunctions.showLoadingDialog(context, "removing...");
                                                   unSavePostController.unSavePost(data?.id.toString(), "1", context,true) ;
                                                 } else {
-                                                  CommonFunctions.showLoadingDialog(context, "Saving...");
+                                                  CommonFunctions.showLoadingDialog(context, "saving...");
                                                   seekerSaveJobController.saveJobApi(data?.id, 1);
                                                 }
                                               });
