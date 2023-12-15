@@ -7,6 +7,7 @@ import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import '../message/message_page.dart';
 import 'bottom_navigation_bar_.dart';
 
 class TabScreenEmployer extends StatefulWidget {
@@ -54,7 +55,7 @@ class _TabScreenEmployerState extends State<TabScreenEmployer> {
               const FindCandidateHomePage(),
               const ApplicantTracking(),
             const CreateJobPost(),
-              const MessagePage(),
+              const RecruiterMessagePage(),
               RecruiterProfileTabBar(index: widget.profileTabIndex ?? 0,)
             ],
           ),

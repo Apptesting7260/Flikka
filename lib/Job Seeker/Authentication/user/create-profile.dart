@@ -2325,7 +2325,7 @@ class _CreateProfileState extends State<CreateProfile> {
               toolbarColor: AppColors.blueThemeColor,
               toolbarWidgetColor: Colors.white,
               initAspectRatio: CropAspectRatioPreset.original,
-              lockAspectRatio: true),
+              lockAspectRatio: false),
           IOSUiSettings(
             title: 'Cropper',aspectRatioLockEnabled: true
           ),

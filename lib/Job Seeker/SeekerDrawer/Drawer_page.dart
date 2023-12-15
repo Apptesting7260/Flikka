@@ -170,7 +170,7 @@ class _DrawerClassState extends State<DrawerClass> {
                                   ListTile(
                                     horizontalTitleGap:0,
                                     onTap: (){
-                                      Get.to(() =>const MessagePage());
+                                      Get.to(() =>const SeekerMessagePage());
                                     } ,
                                     dense: true,
                                     leading: drawerIcon(messageIcon) ,

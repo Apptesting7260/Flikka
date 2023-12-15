@@ -281,6 +281,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
       child: Stack(
         children: [
           //************* for swiper image ************
+
           GestureDetector(
             onTap: () {
               Get.to(() => MarketingIntern(jobData: widget.jobData, appliedJobScreen: false,));
@@ -348,6 +349,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             ),
           ),
           //************* for bookmarks ************
+
           Positioned(
             left: 12,
             top: 15,
@@ -410,6 +412,18 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     ),
                   ),
                 ),
+                data?.jobMatchPercentage == 100 ?
+                         Container(
+                              alignment: Alignment.center,
+                              height: 34,
+                              width: 34,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                                 color: AppColors.blueThemeColor
+                              ),
+                              child: Image.asset(
+                                'assets/images/icon_msg_blue.png',height: Get.height*.06,),
+                            ) : const SizedBox(),
               ],
             ),
           ),
@@ -872,7 +886,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
       ),
     );
   }
-
   void _onShare(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     if (uri.isNotEmpty) {

@@ -75,7 +75,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                   child: Image.asset('assets/images/icon_back_blue.png')),
             ),
             elevation: 0,
-            title: Text(widget.company ?? "",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
+            title: Text(widget.company ?? "No company",overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w700),),
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: Get.width*.024,vertical: Get.height *.01),
@@ -161,13 +161,13 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
-                                        Text( widget.recruiterJobsData?.jobTitle ?? "",overflow: TextOverflow.ellipsis,
+                                        Text( widget.recruiterJobsData?.jobTitle ?? "No job title",overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayLarge,
                                           softWrap: true,
                                         ),
-                                        Text( widget.recruiterJobsData?.jobPositions ?? "",overflow: TextOverflow.ellipsis,
+                                        Text( widget.recruiterJobsData?.jobPositions ?? "No position",overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -176,7 +176,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                           softWrap: true,
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.company ?? "",
+                                        Text( widget.company ?? "No company",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -184,7 +184,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               color: const Color(0xffCFCFCF)),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.jobLocation ?? "",
+                                        Text( widget.recruiterJobsData?.jobLocation ?? "No job location",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodyLarge!
@@ -195,7 +195,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         Text("Job Description",
                                           style: Theme.of(context).textTheme.titleSmall!.copyWith(color: AppColors.white),),
                                         SizedBox(height: Get.height * 0.010,),
-                                        HtmlWidget(widget.recruiterJobsData?.description ?? "",
+                                        HtmlWidget(widget.recruiterJobsData?.description ?? "No job description",
                                         textStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                                                 color:  const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) ,
                                         SizedBox(height: Get.height * 0.03,),
@@ -207,7 +207,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.015,),
-                                        HtmlWidget(widget.recruiterJobsData?.requirements ?? "",textStyle: Theme.of(context).textTheme
+                                        HtmlWidget(widget.recruiterJobsData?.requirements ?? "No requirements",textStyle: Theme.of(context).textTheme
                                             .bodySmall!.copyWith(color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) ,
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
@@ -218,7 +218,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.employmentType ?? "No Data",
+                                        Text( widget.recruiterJobsData?.employmentType ?? "No job type",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -234,7 +234,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.specialization ??"",
+                                        Text( widget.recruiterJobsData?.specialization ?? "No specialization",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -250,7 +250,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.typeOfWorkplace ?? "No Data",
+                                        Text( widget.recruiterJobsData?.typeOfWorkplace ?? "No type of workplace",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -273,7 +273,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .bodySmall!
                                               .copyWith(
                                               color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),
-                                        ): Text("No Data", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
+                                        ): Text("No work experience", style: Get.theme.textTheme.bodyLarge!.copyWith(color: Color(0xffCFCFCF)),),
                                         SizedBox(height: Get.height * 0.03,),
                                         Text(
                                           "Preferred work experience",
@@ -283,7 +283,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.preferredWorkExperience ?? "",
+                                        Text( widget.recruiterJobsData?.preferredWorkExperience ?? "No preferred work experience",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -299,7 +299,9 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                               .copyWith(color: AppColors.white),
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
-                                        Text( widget.recruiterJobsData?.education ?? "",
+                                       widget.recruiterJobsData?.education.toString().toLowerCase() == "null" || widget.recruiterJobsData?.education.toString().length == 0 ?
+                               Text("No qualification", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                       Text(widget.recruiterJobsData?.education ?? "",
                                           style: Theme.of(context)
                                               .textTheme
                                               .bodySmall!
@@ -315,7 +317,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         ),
                                         SizedBox(height: Get.height * 0.010,),
                                         widget.recruiterJobsData?.language == null || widget.recruiterJobsData?.language?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No language", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         ListView.builder(
                                           physics: const NeverScrollableScrollPhysics(),
                                           shrinkWrap: true,
@@ -345,7 +351,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         /////
                                         widget.recruiterJobsData?.jobsDetail?.skillName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.skillName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -385,7 +395,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         SizedBox(height: Get.height*0.01,),
                                         widget.recruiterJobsData?.jobsDetail?.passionName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.passionName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -430,7 +444,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         SizedBox(height: Get.height*0.01,),
                                         widget.recruiterJobsData?.jobsDetail?.industryPreferenceName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.industryPreferenceName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -466,7 +484,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         SizedBox(height: Get.height*0.01,),
                                         widget.recruiterJobsData?.jobsDetail?.strengthsName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.strengthsName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -513,7 +535,7 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                             color: const Color(0xff484848),
                                           ),
                                           padding: const EdgeInsets.symmetric(horizontal : 20 ,vertical: 12),
-                                          child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.maxSalaryExpectation ?? ''}',
+                                          child: Text('${widget.recruiterJobsData?.jobsDetail?.minSalaryExpectation ?? ''} - ${widget.recruiterJobsData?.jobsDetail?.maxSalaryExpectation ?? 'No salary expectation'}',
                                             overflow: TextOverflow.ellipsis,
                                             style: Get.theme.textTheme.bodySmall!.copyWith(
                                                 color: AppColors.white,
@@ -530,7 +552,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         SizedBox(height: Get.height*0.01,),
                                         widget.recruiterJobsData?.jobsDetail?.startWorkName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.startWorkName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,
@@ -573,7 +599,11 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                         SizedBox(height: Get.height*0.01,),
                                         widget.recruiterJobsData?.jobsDetail?.availabityName == null ||
                                             widget.recruiterJobsData?.jobsDetail?.availabityName?.length == 0 ?
-                                            const SizedBox() :
+                                        Text("No skills", style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall!
+                                            .copyWith(
+                                            color:const Color(0xffCFCFCF),fontWeight: FontWeight.w400),) :
                                         GridView.builder(gridDelegate:
                                         SliverGridDelegateWithMaxCrossAxisExtent(
                                             mainAxisExtent: 39,

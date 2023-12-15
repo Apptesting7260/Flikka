@@ -1258,35 +1258,33 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                         color: AppColors.white),
                                     child: Row(
                                       children: [
-                                        IconButton(
-                                            onPressed: () {},
-                                            icon: Image.asset(
-                                                'assets/images/icon_msg.png')),
+                                             Image.asset(
+                                                'assets/images/icon_msg.png',height: Get.height*.06),
                                       ],
                                     )),
                                 SizedBox(
                                   width: Get.width * 0.045,
                                 ),
-                                candidateController.candidateData.value.seekerDetails?.mobile == null ||
-                                    candidateController.candidateData.value.seekerDetails?.mobile.toString().length == 0
-                                    ? const SizedBox()
-                                    : Row(
+                                if (candidateController.candidateData.value.seekerDetails?.mobile == null ||
+                                    candidateController.candidateData.value.seekerDetails?.mobile.toString().length == 0) const SizedBox() else Row(
                                   children: [
                                     Container(
                                         decoration: BoxDecoration(
                                             borderRadius: BorderRadius.circular(50),
                                             color: AppColors.white),
-                                        child: IconButton(
-                                            onPressed: () {
-                                              if (kDebugMode) {
-                                                print("tapped") ;
-                                              }
-                                              CommonFunctions.launchDialer("${candidateController.candidateData.value.seekerDetails?.mobile}") ;
-                                            },
-                                            icon: Image.asset(
-                                              'assets/images/icon_call.png',
-                                              scale: 0.7,
-                                            ))),
+                                        child:
+                                            GestureDetector(
+                                              onTap: () {
+                                                if (kDebugMode) {
+                                                  print("tapped") ;
+                                                }
+                                                CommonFunctions.launchDialer("${candidateController.candidateData.value.seekerDetails?.mobile}") ;
+                                              },
+                                              child: Image.asset(
+                                                'assets/images/icon_call.png',
+                                                height: Get.height*.06,
+                                              ),
+                                            )),
                                     SizedBox(
                                       width: Get.width * 0.045,
                                     ),
@@ -1309,7 +1307,7 @@ class _ScheduleInterviewState extends State<ScheduleInterview> {
                                     ),
                                     child: Image.asset(
                                       "assets/images/icon_video.png",color: AppColors.blueThemeColor,
-                                      height: 18,
+                                      height: Get.height*.03,
                                       fit: BoxFit.cover,
                                     ),
                                   ),
