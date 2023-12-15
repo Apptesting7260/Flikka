@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../controllers/RecruiterInterviewCancleController/RecruiterInterviewCancleController.dart';
 import '../../data/response/status.dart';
 import '../../res/components/general_expection.dart';
 import '../../res/components/internet_exception_widget.dart';
@@ -12,6 +13,7 @@ import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../widgets/app_colors.dart';
 
+String ?cancleId ;
 class UpcomingInterviews extends StatefulWidget {
   const UpcomingInterviews({super.key});
 
@@ -23,6 +25,7 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
   final List<String> jobTypeItems = ['Upcoming','Past','All',];
   String? jobTypeValues;
 
+  RecruiterInterviewCancleController RecruiterInterviewCancleControllerInstanse = Get.put(RecruiterInterviewCancleController()) ;
   ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
 
   @override
@@ -274,14 +277,26 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                         color: AppColors.blueThemeColor)),
                                   ) ,
                                     SizedBox(height: Get.height * .031,),
-                                    Center(
-                                      child: MyButton(
-                                        width: Get.width*.75 ,
-                                        height: Get.height * .066,
-                                        title: "JOIN", onTap1: () {
-                                        launchUrl(Uri.parse("${data?.interviewLink}"),
-                                            mode: LaunchMode.externalApplication) ;
-                                      },),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        MyButton(
+                                          width: Get.width*.38 ,
+                                          height: Get.height * .066,
+                                          title: "JOIN", onTap1: () {
+                                          launchUrl(Uri.parse("${data?.interviewLink}"),
+                                              mode: LaunchMode.externalApplication) ;
+                                        },),
+                                     Obx(() => MyButton(
+                                       loading: RecruiterInterviewCancleControllerInstanse.loading.value,
+                                          width: Get.width*.38,
+                                          height: Get.height * .066,
+                                          title: "CANCLE", onTap1: () {
+                                         // cancleId= interviewListController.interviewData.value.seeker;
+
+                                          RecruiterInterviewCancleControllerInstanse.interviewCancle(context) ;
+                                        },),)
+                                      ],
                                     ),
                                     SizedBox(height: Get.height * .031,),
                                   ],

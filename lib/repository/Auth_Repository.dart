@@ -219,4 +219,10 @@ class AuthRepository {
     return RecruiterInboxDataModel.fromJson(response);
   }
 
+  Future<void> interViewCancleApi(var data) async {
+    dynamic response = await _apiService.postApi2(
+        data, AppUrl.recruiterInterviewCancle);
+
+  }
+
 }
