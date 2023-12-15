@@ -84,5 +84,6 @@ class AppUrl {
   static const String forumCommentsList = '$baseUrl/seeker-comment-list-api' ;
   static const String forumAddComment = '$baseUrl/seeker-comment-api' ;
   static const String removeFromTalentPool = '$baseUrl/remove-talent-pool-api' ;
+  static const String recruiterInboxData = '$baseUrl/recruiter-inbox-api' ;
 
 }

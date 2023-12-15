@@ -214,10 +214,9 @@ class AuthRepository {
     return SeekerViewInterviewModel.fromJson(response);
   }
 
-  Future<RecruiterInboxDataModel> showBankDetails() async{
-    dynamic response = await _apiService.getApi2(AppUrl.showBankDetailsUrl);
+  Future<RecruiterInboxDataModel> viewInboxData() async{
+    dynamic response = await _apiService.getApi2(AppUrl.recruiterInboxData);
     return RecruiterInboxDataModel.fromJson(response);
-
   }
 
 }
