@@ -281,6 +281,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
       child: Stack(
         children: [
           //************* for swiper image ************
+
           GestureDetector(
             onTap: () {
               Get.to(() => MarketingIntern(jobData: widget.jobData, appliedJobScreen: false,));
@@ -348,6 +349,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
             ),
           ),
           //************* for bookmarks ************
+
           Positioned(
             left: 12,
             top: 15,
@@ -384,6 +386,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                       "assets/images/icon_filter_seeker_home.png",
                       height: Get.height * .043,
                     )),
+
                 SizedBox(
                   height: Get.height * .01,
                 ),
@@ -410,6 +413,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                     ),
                   ),
                 ),
+
               ],
             ),
           ),
@@ -872,7 +876,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
       ),
     );
   }
-
   void _onShare(BuildContext context) async {
     final box = context.findRenderObject() as RenderBox?;
     if (uri.isNotEmpty) {
