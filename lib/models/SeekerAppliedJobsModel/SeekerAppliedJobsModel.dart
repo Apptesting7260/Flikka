@@ -41,6 +41,8 @@ class AppliedJobsList {
   dynamic recruiterId;
   String? featureImg;
   String? video ;
+  dynamic postSaved ;
+  dynamic postApplied ;
   String? jobTitle;
   String? jobPosition;
   String? specialization;
@@ -69,6 +71,8 @@ class AppliedJobsList {
     this.recruiterId,
     this.featureImg,
     this.video,
+    this.postSaved,
+    this.postApplied,
     this.jobTitle,
     this.jobPosition,
     this.specialization,
@@ -99,6 +103,8 @@ class AppliedJobsList {
     featureImg: json["feature_img"],
     jobTitle: json["job_title"],
     video: json["short_video"],
+    postSaved: json["post_saved"],
+    postApplied: json["post_applied"],
     jobPosition: json["job_position"],
     specialization: json["specialization"],
     jobLocation: json["job_location"],

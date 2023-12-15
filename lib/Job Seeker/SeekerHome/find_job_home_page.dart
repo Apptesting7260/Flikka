@@ -184,7 +184,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       jobFilterController.reset.value ?
                       CardSwiper(
                           controller: controller,
-                          cardsCount: getJobsListingController.jobs?.length ?? 0 ,
+                          cardsCount: getJobsListingController.jobs?.value.length ?? 0 ,
                           numberOfCardsDisplayed: getJobsListingController.jobs!.length >= 2 ? 2 : 1,
                           // isLoop: false,
                           backCardOffset: const Offset(40, 40),
@@ -194,6 +194,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                           cardBuilder: (context, index,
                               horizontalThresholdPercentage, verticalThresholdPercentage,) {
                             debugPrint(getJobsListingController.getJobsListing.value.jobs?.length.toString()) ;
+
+                              // HomeSwiperWidget(jobData: getJobsListingController.jobs?[index],);
                             var data = getJobsListingController.getJobsListing.value.jobs?[index] ;
                             return
                             //   Container(
@@ -810,6 +812,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             //   ),
                             // ) ;
                                HomeSwiperWidget(jobData: getJobsListingController.jobs?[index],);
+// >>>>>>> 3dc832be9d985f33726d055ea3434d61624eeacf
                           },
                         )
                         : jobFilterController.jobs?.length == 0 ||

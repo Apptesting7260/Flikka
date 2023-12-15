@@ -24,7 +24,7 @@ class GetJobsListingController extends GetxController {
       setRxRequestStatus(Status.COMPLETED);
       getJobsListing(value);
       jobs?.value = value.jobs ?? [] ;
-      print("this is length ===== ${getJobsListing.value.jobs?.length}") ;
+      print("this is length ===== ${value.jobs?.length}") ;
       print(value);
     }).onError((error, stackTrace){
       setError(error.toString());
