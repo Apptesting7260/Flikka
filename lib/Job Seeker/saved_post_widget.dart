@@ -3,7 +3,6 @@ import 'package:flikka/controllers/SeekerSavedJobsController/SeekerSavedJobsList
 import 'package:flikka/controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:flutter_widget_from_html_core/flutter_widget_from_html_core.dart';
 import 'package:get/get.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -244,7 +243,7 @@ class _SavedPostState extends State<SavedPost> {
                                           CommonFunctions.confirmationDialog(context, message: "Do you want to unsave this post",
                                               onTap: () {
                                             CommonFunctions.showLoadingDialog(context, "unsaving...") ;
-                                                unSavePostController.unSavePost("${data?.jobId}", "1", context) ;
+                                                unSavePostController.unSavePost("${data?.jobId}", "1", context,false) ;
                                               }) ;
                                         },
                                           child: Image.asset("assets/images/icon_Save_post.png", height: Get.height * .045,)),

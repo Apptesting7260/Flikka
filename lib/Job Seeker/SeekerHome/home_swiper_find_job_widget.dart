@@ -10,6 +10,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
+import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
 import '../../utils/VideoPlayerScreen.dart';
 import '../../widgets/my_button.dart';
 
@@ -114,8 +115,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-           backgroundColor: AppColors.textFieldFilledColor,
-           contentPadding: EdgeInsets.zero,
+          backgroundColor: AppColors.textFieldFilledColor,
+          contentPadding: EdgeInsets.zero,
           insetPadding: const EdgeInsets.symmetric(horizontal: 20),
           content: Padding(
             padding: const EdgeInsets.all(8.0),
@@ -192,12 +193,6 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
     );
   }
 
-  bool _isValidEmail(String email) {
-    final RegExp emailRegex =
-        RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$');
-    return emailRegex.hasMatch(email);
-  }
-
   String text = '';
   String subject = '';
   String uri = '';
@@ -215,8 +210,8 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
     });
   }
 
-  SeekerSaveJobController seekerSaveJobController =
-      Get.put(SeekerSaveJobController());
+  SeekerSaveJobController seekerSaveJobController = Get.put(SeekerSaveJobController());
+  SeekerUnSavePostController unSavePostController = Get.put(SeekerUnSavePostController()) ;
 
   TextEditingController commentController = TextEditingController();
   void showCommentDialog() {
@@ -360,10 +355,16 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
               children: [
                 GestureDetector(
                     onTap: () {
-                      CommonFunctions.confirmationDialog(context, message: "Do you want to save the post", onTap: () {
+                      CommonFunctions.confirmationDialog(context, message: widget.jobData?.postSaved == true ?
+                      "Do you want to remove the\n post from saved posts" : "Do you want to save the post", onTap: () {
                         Get.back();
-                        CommonFunctions.showLoadingDialog(context, "Saving");
-                        seekerSaveJobController.saveJobApi(widget.jobData?.id, 1);
+                        if(widget.jobData?.postSaved == true) {
+                          CommonFunctions.showLoadingDialog(context, "removing...");
+                          unSavePostController.unSavePost(widget.jobData?.id.toString(), "1", context,true) ;
+                        } else {
+                          CommonFunctions.showLoadingDialog(context, "Saving");
+                          seekerSaveJobController.saveJobApi(widget.jobData?.id, 1);
+                        }
                       });
                     },
                     child: widget.jobData?.postSaved == false  ? Image.asset("assets/images/icon_unsave_post.png",

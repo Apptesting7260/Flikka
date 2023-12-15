@@ -140,7 +140,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
 
   Set<Marker> markers = Set();
 
-  var selectedRadius ; // Default radius
+  var selectedRadius = 10; // Default radius
  static double lat = 20.427;
  static double long = 80.885;
 
@@ -233,7 +233,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
               if (kDebugMode) {
                 print("inside GoogleMapController filter") ;
               }
-              updateMap(selectedRadius ?? 0) ;
+              lat = double.parse(jobsController.lat.value) ;
+              long = double.parse(jobsController.long.value) ;
+              updateMap(selectedRadius) ;
               setState(() {});
             },
           ),
@@ -250,7 +252,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                             filtered = true ;
                             if (kDebugMode) {
                               print("result filtered again") ;
-                              updateMap(0) ;
+                              updateMap(selectedRadius) ;
                             }
                           });
                         }
@@ -262,7 +264,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                     )),
                 DropdownButtonHideUnderline(
                   child: DropdownButton(
-                    icon: Icon(Icons.arrow_drop_down,color: Colors.black,),
+                    icon: const Icon(Icons.arrow_drop_down,color: Colors.black,),
                     dropdownColor: AppColors.black,
                     hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
                     value: selectedRadius,
@@ -350,6 +352,9 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                                 target: LatLng(double.parse(jobsController.lat.value),double.parse(jobsController.long.value)), // Center of the UK
                                 zoom: 4.0,
                               ),));
+                              updateMap(selectedRadius) ;
+                              lat = double.parse(jobsController.lat.value) ;
+                              long = double.parse(jobsController.long.value) ;
                               if (kDebugMode) {
                                 print("inside jobs") ;
                               }
@@ -474,7 +479,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
           if (kDebugMode) {
             print("this is distance $markerDistance");
           }
-          // if (markerDistance <= radius) {
+          if (markerDistance <= radius) {
             markers.add( Marker(
                 markerId: MarkerId("${data?.id}"),
                 position: LatLng(double.parse("${data?.lat}"),
@@ -487,28 +492,33 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                   Get.to(() =>
                       MarketingIntern(jobData: data, appliedJobScreen: false));
                 }));
-          // }
+          }
           // Trigger a rebuild to update the markers on the map
         }
       }
     } else {
+      if (kDebugMode) {
+        print("inside jobs controller update map") ;
+      }
       if (jobsController.jobsData.value.jobs != null &&
           jobsController.jobsData.value.jobs?.length != 0) {
         for (int i = 0; i < jobsController.jobsData.value.jobs!.length; i++) {
           var data = jobsController.jobsData.value.jobs?[i];
+          if (kDebugMode) {
+            print("inside loop controller update map") ;
+          }
           // Calculate distance in meters using the Haversine formula
-          double distanceInMeters = Geolocator.distanceBetween(
-            currentPosition.latitude,
-            currentPosition.longitude,
-            data?.lat,
-            data?.long,
-          );
+          // double distanceInMeters = Geolocator.distanceBetween(
+          //   currentPosition.latitude,
+          //   currentPosition.longitude,
+          //   data?.lat,
+          //   data?.long,
+          // );
 
           // Convert distance to miles
-          double distanceInMiles = distanceInMeters / 1609.344;
+          // double distanceInMiles = distanceInMeters / 1609.344;
 
-          print(
-              "Distance from current location to center: $distanceInMiles miles");
+          // print("Distance from current location to center: $distanceInMiles miles");
 
           // Filter markers within the specified radius
           double markerDistance = Geolocator.distanceBetween(
@@ -518,13 +528,19 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
             // currentPosition.longitude,
             data?.lat,
             data?.long,
-          ); //
-          markerDistance = markerDistance / 1609.344;
+          );
           if (kDebugMode) {
-            print("this is distance ${markerDistance}");
+            print("this is distance in metre $markerDistance");
+          }
+          markerDistance = markerDistance/1609.344;
+
+          if (kDebugMode) {
+            print("this is distance in miles $markerDistance");
           }
           if (markerDistance <= radius) {
-            print("object");
+            if (kDebugMode) {
+              print("object");
+            }
             markers.add(Marker(
                 markerId: MarkerId("${data?.id}"),
                 position: LatLng(
