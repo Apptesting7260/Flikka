@@ -9,7 +9,10 @@ class GetJobsListingController extends GetxController {
   final _api = SeekerRepository();
   final rxRequestStatus = Status.LOADING.obs ;
   final getJobsListing = GetJobsListingModel().obs ;
+  RxList<SeekerJobsData>? jobs = <SeekerJobsData>[].obs ;
   RxString error = ''.obs;
+  RxBool saved = false.obs ;
+  RxBool applied = false.obs ;
 
   void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
   void seekerGetJobs(GetJobsListingModel _value) => getJobsListing.value = _value ;
@@ -20,6 +23,7 @@ class GetJobsListingController extends GetxController {
     _api.getJobsListingApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
       getJobsListing(value);
+      jobs?.value = value.jobs ?? [] ;
       print("this is length ===== ${getJobsListing.value.jobs?.length}") ;
       print(value);
     }).onError((error, stackTrace){
@@ -35,7 +39,9 @@ class GetJobsListingController extends GetxController {
     // setRxRequestStatus(Status.LOADING);
     _api.getJobsListingApi().then((value){
       // setRxRequestStatus(Status.COMPLETED);
+      jobs?.value = value.jobs ?? [] ;
       getJobsListing(value);
+
       print("this is length ===== ${getJobsListing.value.jobs?.length}") ;
       print(value);
     }).onError((error, stackTrace){

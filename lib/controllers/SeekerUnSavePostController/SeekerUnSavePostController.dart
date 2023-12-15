@@ -8,6 +8,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../GetJobsListingController/GetJobsListingController.dart';
 import '../SeekerSavedJobsController/SeekerSavedJobsListController.dart';
 import '../SeekerViewCompanyController/SeekerViewCompanyController.dart';
 
@@ -17,8 +18,9 @@ class SeekerUnSavePostController extends GetxController {
   RxBool loading = false.obs;
   var errorMessage = "".obs ;
   SeekerSavedJobsListController jobsListController = Get.put(SeekerSavedJobsListController()) ;
+  GetJobsListingController getJobsListingController = GetJobsListingController() ;
 
-  unSavePost( String? jobId , String? type , BuildContext context) async{
+  unSavePost( String? jobId , String? type , BuildContext context , bool home) async{
     loading(true) ;
     var data =  {};
     data.addIf(jobId != null && jobId.length != 0 , 'job_id' , "$jobId" ) ;
@@ -28,6 +30,9 @@ class SeekerUnSavePostController extends GetxController {
       loading(false) ;
       if(value.status!){
         jobsListController.savePostApi("1") ;
+        if(home) {
+          getJobsListingController.seekerGetAllJobsApi() ;
+        }
         Get.back() ;
         Utils.toastMessage('Post removed') ;
       }

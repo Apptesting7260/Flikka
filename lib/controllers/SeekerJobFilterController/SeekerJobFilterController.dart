@@ -1,10 +1,6 @@
-import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/tab_bar.dart';
-import 'package:flikka/controllers/GetJobsListingController/GetJobsListingController.dart';
-import 'package:flikka/models/GetJobsListingModel/GetJobsListingModel.dart';
 import 'package:flikka/models/SeekerJobFilterModel/SeekerJobFilterModel.dart';
 import 'package:flikka/repository/SeekerDetailsRepository/SeekerRepository.dart';
 import 'package:flikka/utils/utils.dart';
-import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -17,6 +13,7 @@ class SeekerJobFilterController extends GetxController {
   RxBool reset = true.obs ;
   var errorMessage = "".obs ;
   var jobsData = SeekerJobFilterModel().obs ;
+  RxList<SeekerFilteredJobsList>? jobs = <SeekerFilteredJobsList>[].obs ;
   // final getJobsListing = GetJobsListingModel().obs ;
   // var homeJobs = Get.put(GetJobsListingController()) ;
   RxString lat = ''.obs ;
@@ -56,6 +53,7 @@ class SeekerJobFilterController extends GetxController {
     _api.seekerJobFilterApi(data).then((value){
       loading.value = false ;
       if(value.status!){
+        jobs?.value = value.jobs ?? [] ;
       jobsData(value) ;
       if (kDebugMode) {
         print("this is value ==== $value") ;
