@@ -29,24 +29,22 @@ class _MessagePageState extends State<MessagePage> {
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),
           elevation: 0,
-          actions: [
-            Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Row(
-                children: [
-                  IconButton(constraints:BoxConstraints(),padding:EdgeInsets.zero,onPressed: (){}, icon: Image.asset('assets/images/editicon.png'),),
-                  IconButton(constraints:BoxConstraints(),padding:EdgeInsets.zero,onPressed: (){}, icon: Image.asset('assets/images/Options.png'),)
-                ],
-              ),
-            )
-          ],
-
+          // actions: [
+          //   Padding(
+          //     padding: const EdgeInsets.only(right: 8.0),
+          //     child: Row(
+          //       children: [
+          //         IconButton(constraints:BoxConstraints(),padding:EdgeInsets.zero,onPressed: (){}, icon: Image.asset('assets/images/editicon.png'),),
+          //         IconButton(constraints:BoxConstraints(),padding:EdgeInsets.zero,onPressed: (){}, icon: Image.asset('assets/images/Options.png'),)
+          //       ],
+          //     ),
+          //   )
+          // ],
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 18.0),
           child: Column(
             children: [
-              SizedBox(height: Get.height*0.04,),
               // Container(
               //   decoration: BoxDecoration(
               //       borderRadius: BorderRadius.circular(28),
@@ -71,14 +69,14 @@ class _MessagePageState extends State<MessagePage> {
               //   ),
               // ),
               Container(
-                padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.008),
+                padding: EdgeInsets.symmetric(horizontal: Get.width*.05,vertical: Get.height*.006),
                 decoration: BoxDecoration(
                   color: Color(0xff373737),
                   borderRadius: BorderRadius.circular(33.0),
                 ),
                 child: Row(
                   children: [
-                    Icon(Icons.search, color: Color(0xff56B8F6),size: 30,),
+                    Icon(Icons.search, color: AppColors.blueThemeColor,size: 30,),
                     SizedBox(width: Get.width*.03),
                     Expanded(
                       child: TextFormField(
@@ -96,7 +94,7 @@ class _MessagePageState extends State<MessagePage> {
                   ],
                 ),
               ),
-              SizedBox(height: Get.height*0.04,),
+              SizedBox(height: Get.height*0.03,),
               //save prost first navi
               Expanded(
                 child: ListView.builder(
