@@ -4,16 +4,14 @@ import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../SeekerBottomNavigationBar/tab_bar.dart';
-import '../saved_post_widget.dart';
-class SeekerMessagePage extends StatefulWidget {
-  const SeekerMessagePage({super.key});
+class RecruiterMessagePage extends StatefulWidget {
+  const RecruiterMessagePage({super.key});
 
   @override
-  State<SeekerMessagePage> createState() => _SeekerMessagePageState();
+  State<RecruiterMessagePage> createState() => _RecruiterMessagePageState();
 }
 
-class _SeekerMessagePageState extends State<SeekerMessagePage> {
+class _RecruiterMessagePageState extends State<RecruiterMessagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +23,7 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
             child: InkWell(
                 onTap: (){
                   Get.back() ;
-                  Get.offAll(const TabScreen(index: 0));
+                  Get.offAll(TabScreenEmployer(index: 0));
                 },
                 child: Image.asset('assets/images/icon_back_blue.png')),
           ),
@@ -105,7 +103,7 @@ class _SeekerMessagePageState extends State<SeekerMessagePage> {
                         padding:  EdgeInsets.symmetric(vertical: Get.height*.01),
                         child: GestureDetector(
                           onTap: (){
-                            // Get.to(VideoAudioCallingPage(onSubmit: (String ) {  },));
+                            Get.to(VideoAudioCallingPage(onSubmit: (String ) {  },));
                           },
                           child: ListTile(
                             leading: CircleAvatar(
