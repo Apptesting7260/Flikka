@@ -14,72 +14,30 @@ import 'package:http/http.dart' as http;
 import '../../Job Recruiter/RecruiterTraking/upcoming_interviews.dart';
 import '../../res/app_url.dart';
 import '../../utils/utils.dart';
+import '../ScheduledInterviewListController/ScheduledInterviewListController.dart';
 
 class RecruiterInterviewCancleController extends GetxController {
 
-  // LogoutModel logoutModel = LogoutModel() ;
   final _api = AuthRepository();
   RxBool loading = false.obs;
+  ScheduledInterviewListController interviewListController = Get.put(ScheduledInterviewListController()) ;
 
-  // void logout(
-  //     ) async{
-  //   loading.value = true ;
-  //   SharedPreferences sp= await SharedPreferences.getInstance();
-  //   try{
-  //     var token = sp.getString("BarrierToken") ;
-  //     if (kDebugMode) {
-  //       print("$token") ;
-  //     }
-  //     Uri url = Uri.parse(AppUrl.logout) ;
-  //     debugPrint(url.toString()) ;
-  //     if(sp.getString("BarrierToken") != null && sp.getString("BarrierToken").toString().length != 0  ) {
-  //       if (kDebugMode) {
-  //         print("inside if") ;
-  //       }
-  //       var response = await http.post(url,
-  //         headers: {
-  //           "Authorization": "Bearer ${sp.getString("BarrierToken")}"
-  //         },);
-  //       logoutModel = LogoutModel.fromJson(jsonDecode(response.body));
-  //       if (logoutModel.status == true) {
-  //         sp.remove("BarrierToken");
-  //         sp.remove("loggedIn");
-  //         sp.remove("step");
-  //         sp.clear();
-  //         Get.offAll(() => const Login());
-  //       }
-  //     }else {
-  //       if (kDebugMode) {
-  //         print("inside else") ;
-  //       }
-  //       sp.clear();
-  //       Get.offAll(() => const Login());
-  //     }
-  //   }catch(e){
-  //     debugPrint(e.toString()) ;
-  //     Get.back() ;
-  //   }
-  //
-  // }
 
-  Future<void> interviewCancle(BuildContext context) async {
+  Future<void> interviewCancle(BuildContext context , id) async {
     loading.value = true ;
-    print(loading.value);
+    if (kDebugMode) {
+      print(loading.value);
+    }
     Map data = {
-      "job_apply_id" : cancleId.toString(),
+      "job_apply_id" : id.toString(),
     };
-    // SharedPreferences sp= await SharedPreferences.getInstance();
-    print(data);
+
+    if (kDebugMode) {
+      print(data);
+    }
     _api.interViewCancleApi(data).then((value){
       loading.value = false ;
-      // print(value);
-      // if(value.status == true ) {
-      //   sp.remove("BarrierToken");
-      //   sp.remove("loggedIn");
-      //   sp.remove("step");
-      //   sp.clear();
-      //   Get.offAll(() => const Login());
-      // }
+      interviewListController.refreshInterview() ;
     }).onError((error, stackTrace){
       if (kDebugMode) {
         print(error);

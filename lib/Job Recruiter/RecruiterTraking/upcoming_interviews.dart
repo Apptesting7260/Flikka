@@ -13,7 +13,7 @@ import '../../res/components/request_timeout_widget.dart';
 import '../../res/components/server_error_widget.dart';
 import '../../widgets/app_colors.dart';
 
-String ?cancleId ;
+
 class UpcomingInterviews extends StatefulWidget {
   const UpcomingInterviews({super.key});
 
@@ -22,6 +22,8 @@ class UpcomingInterviews extends StatefulWidget {
 }
 
 class _UpcomingInterviewsState extends State<UpcomingInterviews> {
+
+  String ?cancelId ;
   final List<String> jobTypeItems = ['Upcoming','Past','All',];
   String? jobTypeValues;
 
@@ -291,10 +293,11 @@ class _UpcomingInterviewsState extends State<UpcomingInterviews> {
                                        loading: RecruiterInterviewCancleControllerInstanse.loading.value,
                                           width: Get.width*.38,
                                           height: Get.height * .066,
-                                          title: "CANCLE", onTap1: () {
-                                         // cancleId= interviewListController.interviewData.value.seeker;
-
-                                          RecruiterInterviewCancleControllerInstanse.interviewCancle(context) ;
+                                          title: "CANCEL", onTap1: () {
+                                          // cancelId= interviewListController.interviewData.value.seeker;
+                                       if(RecruiterInterviewCancleControllerInstanse.loading.value) {
+                                         RecruiterInterviewCancleControllerInstanse.interviewCancle(context,data?.id) ;
+                                       }
                                         },),)
                                       ],
                                     ),
