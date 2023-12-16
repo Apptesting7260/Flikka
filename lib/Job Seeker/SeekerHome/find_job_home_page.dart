@@ -802,7 +802,13 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             //     ],
                             //   ),
                             // ) ;
+// <<<<<<< HEAD
                                HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
+// =======
+//                                HomeSwiperWidget(jobData: getJobsListingController.jobs?[index],recruiterImg: getJobsListingController.jobs?[index].recruiterDetails?.profileImg,
+//                                recruiterName: getJobsListingController.jobs?[index].recruiterDetails?.companyName,);
+// >>>>>>> 3dc832be9d985f33726d055ea3434d61624eeacf
+// >>>>>>> 70f0afc1da0d2640b9429d9b8feab6bc41241c83
                           },
                         )
                         : jobFilterController.jobs?.length == 0 ||

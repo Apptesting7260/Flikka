@@ -15,7 +15,7 @@ import GoogleMaps
 //       FlutterLocalNotificationsPlugin.setPluginRegistrantCallback { (registry) in
 //         GeneratedPluginRegistrant.register(with: registry)}
 
-    GeneratedPluginRegistrant.register(with: self)
+      GeneratedPluginRegistrant.register(with: self)
     GMSServices.provideAPIKey("AIzaSyBiHHfJBmHiAg5dZTz7sS7qgg45_gQTjh8")
 
      if #available(iOS 10.0, *) {

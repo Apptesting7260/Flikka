@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flikka/Job%20Seeker/SeekerFilter/filter_page.dart';
 import 'package:flikka/Job%20Seeker/marketing_page.dart';
+import 'package:flikka/chat/CreateChat.dart';
+import 'package:flikka/controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import 'package:flikka/utils/CommonFunctions.dart';
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -14,17 +16,20 @@ import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../utils/VideoPlayerScreen.dart';
 import '../../widgets/my_button.dart';
-
+String ?Recruitername;
+String ?Recruiterimg;
 class HomeSwiperWidget extends StatefulWidget {
   final dynamic jobData;
-  const HomeSwiperWidget({super.key, required this.jobData});
+  final String? recruiterName ;
+    final String? recruiterImg ;
+  const HomeSwiperWidget({super.key, required this.jobData , this.recruiterImg,this.recruiterName});
 
   @override
   State<HomeSwiperWidget> createState() => _HomeSwiperWidgetState();
 }
 
 class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
-
+// final ViewSeekerProfileController ViewSeekerProfileControllerinstance=ViewSeekerProfileController();
   // showSeekerHomePagePercentageProfile() {
   //   showDialog(
   //     context: context,
@@ -109,7 +114,11 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
   //     },
   //   );
   // }
+
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+
+final Ctreatechat Ctreatechatinstance=Ctreatechat();
+
   void showSeekerHomePagePercentageProfile(BuildContext context) {
     showDialog(
       context: context,
@@ -415,17 +424,37 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                   ),
                 ),
                 data?.jobMatchPercentage == 100 ?
-                         Container(
-                              alignment: Alignment.center,
-                              height: 34,
-                              width: 34,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                 color: AppColors.blueThemeColor
+                         InkWell(
+                           child: Container(
+                                alignment: Alignment.center,
+                                height: 34,
+                                width: 34,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
+                                   color: AppColors.blueThemeColor
+                                ),
+                                child: Image.asset(
+                                  'assets/images/icon_msg_blue.png',height: Get.height*.06,),
                               ),
-                              child: Image.asset(
-                                'assets/images/icon_msg_blue.png',height: Get.height*.06,),
-                            ) : const SizedBox(),
+                              onTap: (){
+                                print("abvcdd");
+                                RecruiterId=widget.jobData.recruiterId.toString();
+                                Recruitername=widget.recruiterName.toString();
+                                Recruiterimg=widget.recruiterImg.toString();
+
+                                setState(() {
+                                  RecruiterId;
+                                  Recruitername;
+                                  Recruiterimg;
+                                });
+                               print( RecruiterId);
+print( Recruitername);
+print( Recruiterimg);
+
+                              Ctreatechatinstance.  CreateChat();
+
+                              },
+                         ) : const SizedBox(),
               ],
             ),
           ),

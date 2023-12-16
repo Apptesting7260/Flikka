@@ -15,10 +15,11 @@ class ViewSeekerProfileController extends GetxController {
   RxString error = ''.obs;
   var loading = false.obs ;
   var refreshLoading = false.obs ;
+var seekerID ;
 
-  void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
-  void viewSeeker(ViewSeekerProfileModel _value) => viewSeekerData.value = _value ;
-  void setError(String _value) => error.value = _value ;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
+  void viewSeeker(ViewSeekerProfileModel value) => viewSeekerData.value = value ;
+  void setError(String value) => error.value = value ;
 
 
    viewSeekerProfileApi() async {
@@ -27,10 +28,13 @@ class ViewSeekerProfileController extends GetxController {
     loading(true) ;
     _api.viewSeekerProfile().then((value){
       setRxRequestStatus(Status.COMPLETED);
-      viewSeekerData(value);
+      viewSeeker(value);
+    print(  "${viewSeekerData.value.seekerInfo!.id.toString()}============USERID");
       loading(false) ;
       print(value);
+      seekerID = value.seekerInfo?.id ;
       sp.setString("seekerName", value.seekerInfo?.fullname ?? "") ;
+      sp.setString("seekerID", value.seekerInfo?.id.toString() ?? "") ;
       sp.setString("seekerLocation", value.seekerInfo?.location ?? "") ;
       sp.setString("seekerPosition", value.seekerDetails?.positions ?? "") ;
       sp.setString("seekerProfileImg", value.seekerInfo?.profileImg ?? "") ;
