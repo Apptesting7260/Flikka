@@ -66,7 +66,7 @@ class _InboxState extends State<Inbox> {
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 15),
                               child: Container(
-                                 height: Get.height * .36,
+                                 // height: Get.height * .30,
                                padding: EdgeInsets.symmetric(vertical: 20),
                                 width: Get.width,
                                 decoration: BoxDecoration(
@@ -191,7 +191,7 @@ class _InboxState extends State<Inbox> {
                                             SizedBox(
                                               height: Get.height * .02,
                                             ),
-                                            HtmlWidget(data?.seekerProfile?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
+                                            HtmlWidget(data?.description ?? "No about",textStyle: Theme.of(context).textTheme
                                                 .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
                                             // RichText(
                                             //     text: TextSpan(

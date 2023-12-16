@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../controllers/GetJobsListingController/GetJobsListingController.dart';
 import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
 import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
 import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
@@ -36,11 +37,14 @@ class _TabScreenState extends State<TabScreen> {
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
+  GetJobsListingController getJobsListingController = Get.put(GetJobsListingController()) ;
+
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
+    getJobsListingController.seekerGetAllJobsApi() ;
     seekerProfileController.viewSeekerProfileApi() ;
     viewLanguageController.viewLanguageApi() ;
     skillsController.seekerGetAllSkillsApi() ;

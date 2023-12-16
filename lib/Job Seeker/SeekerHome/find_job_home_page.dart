@@ -65,7 +65,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
     'assets/images/icon_view_recruiter_job_background.png', 'assets/images/icon_view_recruiter_job_background.png',
   ];
 
-  GetJobsListingController getJobsListingController = GetJobsListingController() ;
+  GetJobsListingController getJobsListingController = Get.put(GetJobsListingController()) ;
   ViewSeekerProfileController seekerProfileController = Get.put(ViewSeekerProfileController()) ;
   SeekerSaveJobController seekerSaveJobController = Get.put(SeekerSaveJobController()) ;
   ApplyJobController applyJobController = Get.put(ApplyJobController()) ;
@@ -74,7 +74,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
 
   @override
   void initState() {
-    getJobsListingController.seekerGetAllJobsApi() ;
+    // getJobsListingController.seekerGetAllJobsApi() ;
     // seekerProfileController.viewSeekerProfileApi() ;
     super.initState();
   }
@@ -175,8 +175,8 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                       jobFilterController.reset.value ?
                       CardSwiper(
                           controller: controller,
-                          cardsCount: getJobsListingController.jobs?.value.length ?? 0 ,
-                          numberOfCardsDisplayed: getJobsListingController.jobs!.length >= 2 ? 2 : 1,
+                          cardsCount: getJobsListingController.getJobsListing.value.jobs?.length ?? 0 ,
+                          numberOfCardsDisplayed: getJobsListingController.getJobsListing.value.jobs!.length >= 2 ? 2 : 1,
                           // isLoop: false,
                           backCardOffset: const Offset(40, 40),
                           padding: const EdgeInsets.all(24.0),
@@ -802,7 +802,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             //     ],
                             //   ),
                             // ) ;
-                               HomeSwiperWidget(jobData: getJobsListingController.jobs?[index],);
+                               HomeSwiperWidget(jobData: getJobsListingController.getJobsListing.value.jobs?[index],);
                           },
                         )
                         : jobFilterController.jobs?.length == 0 ||

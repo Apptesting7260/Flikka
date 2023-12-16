@@ -14,15 +14,15 @@ class GetJobsListingController extends GetxController {
   RxBool saved = false.obs ;
   RxBool applied = false.obs ;
 
-  void setRxRequestStatus(Status _value) => rxRequestStatus.value = _value ;
-  void seekerGetJobs(GetJobsListingModel _value) => getJobsListing.value = _value ;
-  void setError(String _value) => error.value = _value ;
+  void setRxRequestStatus(Status value) => rxRequestStatus.value = value ;
+  void seekerGetJobs(GetJobsListingModel value) => getJobsListing.value = value ;
+  void setError(String value) => error.value = value ;
 
   void seekerGetAllJobsApi(){
     setRxRequestStatus(Status.LOADING);
     _api.getJobsListingApi().then((value){
       setRxRequestStatus(Status.COMPLETED);
-      getJobsListing(value);
+      seekerGetJobs(value);
       jobs?.value = value.jobs ?? [] ;
       print("this is length ===== ${value.jobs?.length}") ;
       print(value);
