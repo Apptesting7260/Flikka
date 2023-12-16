@@ -66,7 +66,7 @@ class _InboxState extends State<Inbox> {
                             return Padding(
                               padding: EdgeInsets.symmetric(vertical: 15),
                               child: Container(
-                                // height: Get.height * .42,
+                                 height: Get.height * .36,
                                padding: EdgeInsets.symmetric(vertical: 20),
                                 width: Get.width,
                                 decoration: BoxDecoration(
@@ -76,148 +76,150 @@ class _InboxState extends State<Inbox> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.symmetric(horizontal: Get.width*.04),
-                                      child: Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          ListTile(
-                                            contentPadding: EdgeInsets.zero,
-                                            minVerticalPadding: 11,
-                                            leading: CachedNetworkImage(
-                                                imageUrl: "${data?.seekerProfile?.profileImg}",
-                                            imageBuilder: (context, imageProvider) => Container(
-                                              height: 80,
-                                              width: 80,
-                                              decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                )
-                                              ),
-                                            ),
-                                              placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
-                                            ),
-                                            title: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "${data?.seekerProfile?.fullname ?? "No data"}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .titleLarge
-                                                      ?.copyWith(
-                                                          color: const Color(
-                                                              0xffFFFFFF)),
+                                      child: SingleChildScrollView(
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              minVerticalPadding: 11,
+                                              leading: CachedNetworkImage(
+                                                  imageUrl: "${data?.seekerProfile?.profileImg}",
+                                              imageBuilder: (context, imageProvider) => Container(
+                                                height: 80,
+                                                width: 80,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.cover,
+                                                  )
                                                 ),
-                                                Text(
-                                                    "Software engineer ",
+                                              ),
+                                                placeholder: (context, url) => const CircularProgressIndicator(color: Colors.white,),
+                                              ),
+                                              title: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    "${data?.seekerProfile?.fullname ?? "No data"}",
                                                     style: Theme.of(context)
                                                         .textTheme
-                                                        .bodySmall
+                                                        .titleLarge
                                                         ?.copyWith(
                                                             color: const Color(
-                                                                0xffCFCFCF),
+                                                                0xffFFFFFF)),
+                                                  ),
+                                                  Text(
+                                                      "Software engineer ",
+                                                      style: Theme.of(context)
+                                                          .textTheme
+                                                          .bodySmall
+                                                          ?.copyWith(
+                                                              color: const Color(
+                                                                  0xffCFCFCF),
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600)),
+                                                  SizedBox(
+                                                    height: Get.height * .003,
+                                                  ),
+                                                ],
+                                              ),
+                                              subtitle: Row(
+                                                children: [
+                                                  Text(
+                                                    "${data?.seekerProfile?.location ?? "No location"}",
+                                                    style: Theme.of(context)
+                                                        .textTheme
+                                                        .labelLarge
+                                                        ?.copyWith(
                                                             fontWeight:
-                                                                FontWeight
-                                                                    .w600)),
-                                                SizedBox(
-                                                  height: Get.height * .003,
-                                                ),
-                                              ],
+                                                                FontWeight.w400,
+                                                            color:
+                                                                Color(0xffCFCFCF),
+                                                            fontSize: 10),
+                                                  ),
+                                                  // Container(
+                                                  //   margin: const EdgeInsets.only(
+                                                  //       right: 6, left: 6),
+                                                  //   height: 18,
+                                                  //   width: 1,
+                                                  //   color: const Color(0xffFFFFFF)
+                                                  //       .withOpacity(0.3),
+                                                  // ),
+                                                  // SizedBox(
+                                                  //   height: Get.height * .001,
+                                                  // ),
+                                                  // Image.asset(
+                                                  //   "assets/images/icon_watch.png",
+                                                  //   height: Get.height * .018,
+                                                  // ),
+                                                  // SizedBox(
+                                                  //   width: Get.width * .025,
+                                                  // ),
+                                                  // Text(
+                                                  //   "45 minuts ago",
+                                                  //   style: Theme.of(context)
+                                                  //       .textTheme
+                                                  //       .labelLarge
+                                                  //       ?.copyWith(
+                                                  //           fontWeight:
+                                                  //               FontWeight.w400,
+                                                  //           fontSize: 8,
+                                                  //           color: const Color(
+                                                  //               0xffCFCFCF)),
+                                                  // )
+                                                ],
+                                              ),
                                             ),
-                                            subtitle: Row(
-                                              children: [
-                                                Text(
-                                                  "${data?.seekerProfile?.location ?? "No location"}",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelLarge
-                                                      ?.copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          color:
-                                                              Color(0xffCFCFCF),
-                                                          fontSize: 10),
-                                                ),
-                                                Container(
-                                                  margin: const EdgeInsets.only(
-                                                      right: 6, left: 6),
-                                                  height: 18,
-                                                  width: 1,
-                                                  color: const Color(0xffFFFFFF)
-                                                      .withOpacity(0.3),
-                                                ),
-                                                SizedBox(
-                                                  height: Get.height * .001,
-                                                ),
-                                                Image.asset(
-                                                  "assets/images/icon_watch.png",
-                                                  height: Get.height * .018,
-                                                ),
-                                                SizedBox(
-                                                  width: Get.width * .025,
-                                                ),
-                                                Text(
-                                                  "45 minuts ago",
-                                                  style: Theme.of(context)
-                                                      .textTheme
-                                                      .labelLarge
-                                                      ?.copyWith(
-                                                          fontWeight:
-                                                              FontWeight.w400,
-                                                          fontSize: 8,
-                                                          color: const Color(
-                                                              0xffCFCFCF)),
-                                                )
-                                              ],
+                                            SizedBox(
+                                              height: Get.height * .02,
                                             ),
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * .02,
-                                          ),
-                                          Text(
-                                            "Experience when moving to a new job",
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .labelLarge
-                                                ?.copyWith(
-                                                    fontWeight:
-                                                        FontWeight.w700,
-                                                    color: Color(0xffFFFFFF)),
-                                          ),
-                                          SizedBox(
-                                            height: Get.height * .02,
-                                          ),
-                                          HtmlWidget(data?.seekerProfile?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
-                                              .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
-                                          // RichText(
-                                          //     text: TextSpan(
-                                          //         text:
-                                          //             "Culture shock when moving to a new job is normal. This is not something wrong and I personally experienced it, when I experienced this when I changed jobs in 2 days...",
-                                          //         style: Theme.of(context)
-                                          //             .textTheme
-                                          //             .labelLarge
-                                          //             ?.copyWith(
-                                          //                 fontWeight:
-                                          //                     FontWeight.w400,
-                                          //                 color: Color(
-                                          //                     0xffCFCFCF)),
-                                          //         children: [
-                                          //       // TextSpan(
-                                          //       //     text: "Read more",
-                                          //       //     style: Theme.of(context)
-                                          //       //         .textTheme
-                                          //       //         .labelLarge
-                                          //       //         ?.copyWith(
-                                          //       //             fontWeight:
-                                          //       //                 FontWeight
-                                          //       //                     .w400,
-                                          //       //             color: Color(
-                                          //       //                 0xff56B8F6)))
-                                          //     ]))
-                                        ],
+                                            Text(
+                                              "Experience when moving to a new job",
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge
+                                                  ?.copyWith(
+                                                      fontWeight:
+                                                          FontWeight.w700,
+                                                      color: Color(0xffFFFFFF)),
+                                            ),
+                                            SizedBox(
+                                              height: Get.height * .02,
+                                            ),
+                                            HtmlWidget(data?.seekerProfile?.aboutMe ?? "No about",textStyle: Theme.of(context).textTheme
+                                                .bodyLarge?.copyWith(fontWeight: FontWeight.w400, color: const Color(0xffCFCFCF)),),
+                                            // RichText(
+                                            //     text: TextSpan(
+                                            //         text:
+                                            //             "Culture shock when moving to a new job is normal. This is not something wrong and I personally experienced it, when I experienced this when I changed jobs in 2 days...",
+                                            //         style: Theme.of(context)
+                                            //             .textTheme
+                                            //             .labelLarge
+                                            //             ?.copyWith(
+                                            //                 fontWeight:
+                                            //                     FontWeight.w400,
+                                            //                 color: Color(
+                                            //                     0xffCFCFCF)),
+                                            //         children: [
+                                            //       // TextSpan(
+                                            //       //     text: "Read more",
+                                            //       //     style: Theme.of(context)
+                                            //       //         .textTheme
+                                            //       //         .labelLarge
+                                            //       //         ?.copyWith(
+                                            //       //             fontWeight:
+                                            //       //                 FontWeight
+                                            //       //                     .w400,
+                                            //       //             color: Color(
+                                            //       //                 0xff56B8F6)))
+                                            //     ]))
+                                          ],
+                                        ),
                                       ),
                                     ),
                                     // Positioned(

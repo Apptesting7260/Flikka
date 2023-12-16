@@ -106,29 +106,29 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                       Row(
                         children: [
                           SizedBox(width: Get.width*.04,) ,
-                          widget.recruiterJobsData!.video == null ||
-                              widget.recruiterJobsData!.video?.length == 0 ?
-                              const SizedBox() :
-                          GestureDetector(
-                            onTap: () {
-                              Get.back() ;
-                              Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData?.video ?? "")) ;
-                            },
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 42,
-                              width: 42,
-                              decoration: const BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.blueThemeColor
-                              ),
-                              child: Image.asset(
-                                "assets/images/icon_video.png",
-                                height: 18,
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          ),
+                          // widget.recruiterJobsData!.video == null ||
+                          //     widget.recruiterJobsData!.video?.length == 0 ?
+                          //     const SizedBox() :
+                          // GestureDetector(
+                          //   onTap: () {
+                          //     Get.back() ;
+                          //     Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData?.video ?? "")) ;
+                          //   },
+                          //   child: Container(
+                          //     alignment: Alignment.center,
+                          //     height: 42,
+                          //     width: 42,
+                          //     decoration: const BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: AppColors.blueThemeColor
+                          //     ),
+                          //     child: Image.asset(
+                          //       "assets/images/icon_video.png",
+                          //       height: 18,
+                          //       fit: BoxFit.cover,
+                          //     ),
+                          //   ),
+                          // ),
                         ],
                       ),
                     ],
@@ -161,12 +161,41 @@ class _ViewRecruiterJobState extends State<ViewRecruiterJob> {
                                       crossAxisAlignment:
                                       CrossAxisAlignment.start,
                                       children: [
-                                        Text( widget.recruiterJobsData?.jobTitle ?? "No job title",overflow: TextOverflow.ellipsis,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayLarge,
-                                          softWrap: true,
+                                         Row(
+                                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text( widget.recruiterJobsData?.jobTitle ?? "No job title",overflow: TextOverflow.ellipsis,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayLarge,
+                                              softWrap: true,
+                                            ),
+                                            widget.recruiterJobsData!.video == null ||
+                                                widget.recruiterJobsData!.video?.length == 0 ?
+                                            const SizedBox() :
+                                            GestureDetector(
+                                              onTap: () {
+                                                Get.back() ;
+                                                Get.to(() => VideoPlayerScreen(videoPath: widget.recruiterJobsData?.video ?? "")) ;
+                                              },
+                                              child: Container(
+                                                alignment: Alignment.center,
+                                                height: 42,
+                                                width: 42,
+                                                decoration: const BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: AppColors.blueThemeColor
+                                                ),
+                                                child: Image.asset(
+                                                  "assets/images/icon_video.png",
+                                                  height: 18,
+                                                  fit: BoxFit.cover,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
                                         ),
+
                                         Text( widget.recruiterJobsData?.jobPositions ?? "No position",overflow: TextOverflow.ellipsis,
                                           style: Theme.of(context)
                                               .textTheme

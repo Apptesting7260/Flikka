@@ -61,16 +61,22 @@ class _ReviewState extends State<Review> {
             Text("No reviews have been added",textAlign: TextAlign.center,style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white),) :
             Column( crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RatingBar.builder(
-                  ignoreGestures: true,
-                  initialRating: ratingValue,
-                  minRating: 1,
-                  direction: Axis.horizontal,
-                  itemCount: 5,
-                  itemSize: 40.0,
-                  allowHalfRating: true,
-                  itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber,),
-                  onRatingUpdate: (rating) {},
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RatingBar.builder(
+                      ignoreGestures: true,
+                      initialRating: ratingValue,
+                      minRating: 1,
+                      direction: Axis.horizontal,
+                      itemCount: 5,
+                      itemSize: 40.0,
+                      allowHalfRating: true,
+                      itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber,),
+                      onRatingUpdate: (rating) {},
+                    ),
+                    Text("$ratingValue",style: Theme.of(context).textTheme.displayLarge,),
+                  ],
                 ),
                 SizedBox(height: Get.height*.02,),
                 Text("($totalReviews total reviews)"),
