@@ -4,6 +4,7 @@ import 'package:flikka/controllers/ScheduleInterviewController/ScheduleInterview
 import 'package:flikka/widgets/app_colors.dart';
 import 'package:flikka/widgets/my_button.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:table_calendar_null_safe/table_calendar_null_safe.dart';
 
@@ -256,7 +257,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                    SizedBox(height: Get.height*.01,) ,
                    TextFormField(
                      controller: interviewController.interViewLinkController.value,
-                     // autovalidateMode: AutovalidateMode.onUserInteraction,
+                     autovalidateMode: AutovalidateMode.onUserInteraction,
                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: AppColors.white,fontWeight: FontWeight.w600),
                      decoration: InputDecoration(
                          border:OutlineInputBorder(
@@ -284,6 +285,7 @@ class CalendarScreenState extends State<CalendarScreen> {
                        return null;
                      },
                    ),
+
                  ],
                ) ,
                 const SizedBox(height: 25,) ,
@@ -400,4 +402,12 @@ class CalendarScreenState extends State<CalendarScreen> {
     _minuteController.dispose();
     super.dispose();
   }
+
+  // Function to paste from the clipboard
+//   Future<void> _pasteFromClipboard() async {
+//     final clipboardData = await Clipboard.getData(Clipboard.kTextPlain);
+//     if (clipboardData != null && clipboardData.text != null) {
+//       interviewController.interViewLinkController.value.text = clipboardData.text!;
+//     }
+// }
 }

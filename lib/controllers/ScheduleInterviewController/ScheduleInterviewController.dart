@@ -5,8 +5,11 @@ import 'package:flikka/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../ApplicantTrackingController/ApplicantTrackingController.dart';
+
 class ScheduleInterviewController extends GetxController {
 
+  ApplicantTrackingDataController trackingDataController = Get.put(ApplicantTrackingDataController());
   final _api = RecruiterRepository();
   final rxRequestStatus = Status.LOADING.obs ;
   final response = EditAboutModel().obs ;
@@ -33,6 +36,7 @@ class ScheduleInterviewController extends GetxController {
       response(value) ;
       Get.back() ;
       Get.back() ;
+      trackingDataController.applicantTrackingApi("", "") ;
       Utils.toastMessage("${value.message}") ;
       debugPrint(value.toString());
     }).onError((error, stackTrace){
