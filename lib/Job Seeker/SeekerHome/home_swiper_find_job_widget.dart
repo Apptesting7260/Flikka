@@ -11,6 +11,7 @@ import 'package:html/parser.dart';
 import 'package:share_plus/share_plus.dart';
 import '../../controllers/SeekerSavedJobsController/SeekerSavedJobsController.dart';
 import '../../controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../../utils/VideoPlayerScreen.dart';
 import '../../widgets/my_button.dart';
 
@@ -108,7 +109,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
   //     },
   //   );
   // }
-
+  ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
   void showSeekerHomePagePercentageProfile(BuildContext context) {
     showDialog(
       context: context,
@@ -395,6 +396,7 @@ class _HomeSwiperWidgetState extends State<HomeSwiperWidget> {
                 GestureDetector(
                   onTap: () {
                     Get.back() ;
+
                     Get.to(() => VideoPlayerScreen(videoPath: widget.jobData?.video ?? "")) ;
                   },
                   child: Container(

@@ -7,7 +7,11 @@ import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
+import '../../controllers/SeekerGetAllSkillsController/SeekerGetAllSkillsController.dart';
+import '../../controllers/ViewLanguageController/ViewLanguageController.dart';
+import '../../controllers/ViewSeekerProfileController/ViewSeekerProfileController.dart';
 import '../SeekerFilter/filter_page.dart';
 import '../SeekerHome/find_job_home_page.dart';
 import '../location.dart';
@@ -29,12 +33,17 @@ class _TabScreenState extends State<TabScreen> {
   PageController? pageController;
   DateTime currentBackPressTime = DateTime.now();
   bool loading = false;
+  ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+  ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
+  SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
-    // fetchApi();
+    seekerProfileController.viewSeekerProfileApi() ;
+    viewLanguageController.viewLanguageApi() ;
+    skillsController.seekerGetAllSkillsApi() ;
     print("this is filtered ${widget.filtered}") ;
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);

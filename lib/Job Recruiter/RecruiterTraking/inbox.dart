@@ -112,20 +112,20 @@ class _InboxState extends State<Inbox> {
                                                             color: const Color(
                                                                 0xffFFFFFF)),
                                                   ),
-                                                  Text(
-                                                      "Software engineer ",
-                                                      style: Theme.of(context)
-                                                          .textTheme
-                                                          .bodySmall
-                                                          ?.copyWith(
-                                                              color: const Color(
-                                                                  0xffCFCFCF),
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w600)),
-                                                  SizedBox(
-                                                    height: Get.height * .003,
-                                                  ),
+                                                  // Text(
+                                                  //     "Software engineer ",
+                                                  //     style: Theme.of(context)
+                                                  //         .textTheme
+                                                  //         .bodySmall
+                                                  //         ?.copyWith(
+                                                  //             color: const Color(
+                                                  //                 0xffCFCFCF),
+                                                  //             fontWeight:
+                                                  //                 FontWeight
+                                                  //                     .w600)),
+                                                  // SizedBox(
+                                                  //   height: Get.height * .003,
+                                                  // ),
                                                 ],
                                               ),
                                               subtitle: Row(

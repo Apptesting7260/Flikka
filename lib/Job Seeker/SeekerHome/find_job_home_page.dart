@@ -75,7 +75,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
   @override
   void initState() {
     getJobsListingController.seekerGetAllJobsApi() ;
-    seekerProfileController.viewSeekerProfileApi() ;
+    // seekerProfileController.viewSeekerProfileApi() ;
     super.initState();
   }
 
@@ -102,16 +102,7 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                 seekerProfileController.viewSeekerProfileApi() ;
               },
             ),);
-          } else if (getJobsListingController.error.value == 'Request Time out') {
-            return Scaffold(body: RequestTimeoutWidget(onPress: () {
-              getJobsListingController.seekerGetAllJobsApi() ;
-              seekerProfileController.viewSeekerProfileApi() ;
-            }),);
-          } else if (getJobsListingController.error.value == "Internal server error") {
-            return Scaffold(body: ServerErrorWidget(onPress: () {}),);
-          } else if (getJobsListingController.error.value == "Unauthorised Request") {
-            return Scaffold(body: UnauthorisedRequestWidget(onPress: () {}),);
-          }else {
+          } else {
             return Scaffold(body: GeneralExceptionWidget(onPress: () {
               getJobsListingController.seekerGetAllJobsApi() ;
               seekerProfileController.viewSeekerProfileApi() ;
@@ -812,7 +803,6 @@ class _FindJobHomeScreenState extends State<FindJobHomeScreen> {
                             //   ),
                             // ) ;
                                HomeSwiperWidget(jobData: getJobsListingController.jobs?[index],);
-// >>>>>>> 3dc832be9d985f33726d055ea3434d61624eeacf
                           },
                         )
                         : jobFilterController.jobs?.length == 0 ||

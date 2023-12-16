@@ -264,6 +264,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                     )),
                 DropdownButtonHideUnderline(
                   child: DropdownButton(
+                     // style: Theme.of(context).textTheme.displayLarge,
                     icon: const Icon(Icons.arrow_drop_down,color: Colors.black,),
                     dropdownColor: AppColors.black,
                     hint:  const Text("Select",style: TextStyle(color: Colors.black,fontWeight: FontWeight.w700,)),
@@ -273,7 +274,7 @@ class GoogleMapIntegrationState extends State<GoogleMapIntegration> {
                         value: value,
                         child: Text('$value miles',
                           style: Theme.of(context).textTheme.bodySmall
-                              ?.copyWith(color: AppColors.white),
+                              ?.copyWith(color: AppColors.black),
                         ),
                       );}).toList(),
                     onChanged: (newValue) {

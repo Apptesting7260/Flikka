@@ -1810,9 +1810,9 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   void initState() {
-    seekerProfileController.viewSeekerProfileApi();
-    viewLanguageController.viewLanguageApi() ;
-    skillsController.seekerGetAllSkillsApi() ;
+    // seekerProfileController.viewSeekerProfileApi();
+    // viewLanguageController.viewLanguageApi() ;
+    // skillsController.seekerGetAllSkillsApi() ;
     super.initState();
   }
 
@@ -2405,7 +2405,7 @@ class _UserProfileState extends State<UserProfile> {
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.skillName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.skillName?.length == 0 ?
 
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2462,7 +2462,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.passionName?.length == 0 ?
 
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2512,7 +2512,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.industryPreferenceName?.length == 0 ?
 
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2563,7 +2563,7 @@ class _UserProfileState extends State<UserProfile> {
                                                     .viewSeekerData.value
                                                     .seekerDetails?.strengthsName
                                                     ?.length == 0 ?
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2657,7 +2657,7 @@ class _UserProfileState extends State<UserProfile> {
                                               height: Get.height * 0.015,),
                                             seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName == null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.startWorkName?.length == 0 ?
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
@@ -2721,7 +2721,7 @@ class _UserProfileState extends State<UserProfile> {
                                                 null ||
                                                 seekerProfileController.viewSeekerData.value.seekerDetails?.availabityName
                                                     ?.length == 0 ?
-                                            Text("No skill", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
+                                            Text("No skills", style: Get.theme.textTheme.bodyLarge!.copyWith(color: const Color(0xffCFCFCF)),) :
                                             GridView.builder(gridDelegate:
                                             SliverGridDelegateWithMaxCrossAxisExtent(
                                                 mainAxisExtent: 36,
