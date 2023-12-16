@@ -16,16 +16,16 @@ dependencies:
   loading_animation_widget: ^1.2.0+4
   google_fonts: ^6.1.0
   get: ^4.6.5
-#<<<<<<< HEAD
+
   image_picker: ^1.0.2
   dotted_border: ^2.0.0+3
-  file_picker: ^5.5.0
+  file_picker: ^6.1.1
   open_file: ^3.0.1
   webview_flutter: ^4.4.1
   flutter_downloader: ^1.11.4
   date_time_picker: ^2.1.0
   intl: ^0.17.0
-#=======
+
 #  card_swiper: ^3.0.1
   flutter_card_swiper: ^6.0.0
   comment_box: ^0.0.18
@@ -35,7 +35,7 @@ dependencies:
   geolocator: ^10.1.0
   fluttertoast: ^8.0.9
   geocoding: ^2.1.0
-  google_maps_flutter: ^2.2.3
+  google_maps_flutter: ^2.5.0
   permission_handler: ^11.0.0
   flutter_screenutil: ^5.5.3+2
 #  device_preview: ^1.1.0
@@ -47,7 +47,7 @@ dependencies:
   geocode: ^1.0.2
   flutter_svg: ^2.0.7
   dropdown_button2: ^2.3.8
-  fl_chart: ^0.63.0
+  fl_chart: ^0.65.0
 #  geocoder2: any
   table_calendar_null_safe: any
   omni_datetime_picker: ^1.0.8
@@ -69,6 +69,11 @@ dependencies:
   chewie: ^1.7.1
   video_compress: ^3.1.2
   flutter_rating_bar: ^4.0.1
+  firebase_core: ^2.15.0
+  cloud_firestore: ^4.9.0
+  firebase_storage: ^11.2.6
+  firebase_database: ^10.2.5
+  firebase_messaging: ^14.7.6
 
 
 #  table_calendar: ^2.3.3
@@ -78,7 +83,7 @@ dev_dependencies:
     sdk: flutter
 
 
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.1
 
 flutter:
 
