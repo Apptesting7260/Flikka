@@ -270,7 +270,7 @@ class _NotificationsState extends State<Notifications> {
                               height: Get.height * 0.062,
                               width: Get.width * 0.35,
                               title: "LET'S CHAT", onTap1: () {
-                              Get.to(() =>VideoAudioCallingPage(onSubmit: (String ) {  },));
+                              // Get.to(() =>VideoAudioCallingPage(onSubmit: (String ) {  },));
                             },),
                             SizedBox(
                               height: Get.height * 0.062,

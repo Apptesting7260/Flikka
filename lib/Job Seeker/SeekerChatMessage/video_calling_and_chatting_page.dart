@@ -5,8 +5,8 @@ import '../SeekerNotification/setting_page.dart';
 import 'videocalling_live_page.dart';
 
 class VideoAudioCallingPage extends StatefulWidget {
-  final Function(String) onSubmit;
-  const VideoAudioCallingPage({super.key, required this.onSubmit});
+  // final Function(String) onSubmit;
+  const VideoAudioCallingPage({super.key});
 
   @override
   State<VideoAudioCallingPage> createState() => _VideoAudioCallingPageState();
@@ -19,7 +19,7 @@ class _VideoAudioCallingPageState extends State<VideoAudioCallingPage> {
 
   void _submitComment() {
     if (_commentController.text.isNotEmpty) {
-      widget.onSubmit(_commentController.text);
+      // widget.onSubmit(_commentController.text);
       _commentController.clear();
     }
   }

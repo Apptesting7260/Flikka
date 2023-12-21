@@ -628,6 +628,10 @@ PODS:
     - abseil/base/base_internal
     - abseil/base/config
     - abseil/meta/type_traits
+  - audio_waveforms (0.0.1):
+    - Flutter
+  - audioplayers_darwin (0.0.1):
+    - Flutter
   - BoringSSL-GRPC (0.0.24):
     - BoringSSL-GRPC/Implementation (= 0.0.24)
     - BoringSSL-GRPC/Interface (= 0.0.24)
@@ -934,6 +938,8 @@ PODS:
     - Flutter
 
 DEPENDENCIES:
+  - audio_waveforms (from `.symlinks/plugins/audio_waveforms/ios`)
+  - audioplayers_darwin (from `.symlinks/plugins/audioplayers_darwin/ios`)
   - cloud_firestore (from `.symlinks/plugins/cloud_firestore/ios`)
   - file_picker (from `.symlinks/plugins/file_picker/ios`)
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
@@ -1001,6 +1007,10 @@ SPEC REPOS:
     - TOCropViewController
 
 EXTERNAL SOURCES:
+  audio_waveforms:
+    :path: ".symlinks/plugins/audio_waveforms/ios"
+  audioplayers_darwin:
+    :path: ".symlinks/plugins/audioplayers_darwin/ios"
   cloud_firestore:
     :path: ".symlinks/plugins/cloud_firestore/ios"
   file_picker:
@@ -1060,6 +1070,8 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
+  audio_waveforms: cd736909ebc6b6a164eb74701d8c705ce3241e1c
+  audioplayers_darwin: 877d9a4d06331c5c374595e46e16453ac7eafa40
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   cloud_firestore: c29d4c2e96fe31374d9dab458a99d7a488d3a735
   DKImagePickerController: b512c28220a2b8ac7419f21c491fc8534b7601ac

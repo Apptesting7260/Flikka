@@ -4,6 +4,8 @@ import 'package:flikka/Job%20Seeker/SeekerBottomNavigationBar/bottom_navigation_
 import 'package:flikka/Job%20Seeker/SeekerChatMessage/message_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerCompanies/companies_seeker_page.dart';
 import 'package:flikka/Job%20Seeker/SeekerForum/forum_first_page.dart';
+import 'package:flikka/controllers/SeekerUnSavePostController/SeekerUnSavePostController.dart';
+import 'package:flikka/controllers/ViewSeekerProfileController/viewSeekerProfilecontrollerr.dart';
 import 'package:flikka/widgets/google_map_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,9 +37,13 @@ class _TabScreenState extends State<TabScreen> {
   DateTime currentBackPressTime = DateTime.now();
   bool loading = false;
   ViewSeekerProfileController seekerProfileController = Get.put( ViewSeekerProfileController());
+  ViewSeekerProfileControllerr seekerProfileControllerr = Get.put( ViewSeekerProfileControllerr());
   ViewLanguageController viewLanguageController = Get.put(ViewLanguageController()) ;
   SeekerGetAllSkillsController skillsController = Get.put(SeekerGetAllSkillsController()) ;
   GetJobsListingController getJobsListingController = Get.put(GetJobsListingController()) ;
+  ViewSeekerProfileControllerr seekerProfileControllerR =ViewSeekerProfileControllerr();
+
+
 
   var data;
   final drawerKey = GlobalKey<ScaffoldState>();
@@ -46,8 +52,10 @@ class _TabScreenState extends State<TabScreen> {
   void initState() {
     getJobsListingController.seekerGetAllJobsApi() ;
     seekerProfileController.viewSeekerProfileApi() ;
+    seekerProfileControllerr.viewSeekerProfileApi();
     viewLanguageController.viewLanguageApi() ;
     skillsController.seekerGetAllSkillsApi() ;
+    seekerProfileControllerR.viewSeekerProfileApi();
     print("this is filtered ${widget.filtered}") ;
     bottomSelectedIndex = widget.index;
     pageController = PageController(initialPage: widget.index, keepPage: true);
@@ -73,7 +81,7 @@ class _TabScreenState extends State<TabScreen> {
               GoogleMapIntegration(filtered: widget.filtered,),
               const  CompanySeekerPage(),
               const  ForumFirstPage(),
-              const UserProfile(),
+              // const UserProfile(),
             ],
           ),
         ),
